@@ -1,6 +1,6 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
+name: Bug report
+about: Create a report to help us improve
 title: ''
 labels: ''
 assignees: ''
@@ -9,8 +9,9 @@ assignees: ''
 
 > 우측의 Assignees, Labels, Project를 상황에 맞게 선택해주세요 😊
 
-## 상세 내용
-* 내용
+## 버그 사항
+* 설명
 
-## 진행 현황
-- [ ] 해야할 일
+## 원하는 상황
+* 설명
+## 스크린샷

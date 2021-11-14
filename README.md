@@ -1,6 +1,8 @@
 # 모모 (모두 모여)
 
-로고
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/55661631/141675676-e4232f14-9c7c-40c5-a5c8-45160b3548d6.png" width="70%" height="70%"></a>
+</p>
 
 ## 🚀 Intro
 

@@ -1,0 +1,61 @@
+name: momo
+description: marmo-marmo.
+
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^1.0.0
+  flutter_screenutil: ^5.0.0
+  flutter_svg: ^0.23.0+1
+  freezed_annotation:
+  json_annotation: ^4.3.0
+  flutter_rating_bar: ^4.0.0
+  retrofit: ^2.1.0
+  dio: ^4.0.0
+  intl: ^0.17.0
+  infinite_scroll_pagination: ^3.1.0
+  logger: ^1.1.0
+  flutter_kakao_login: ^3.4.0
+  hive: ^2.0.4
+  photo_manager: ^1.3.10
+  pie_chart: ^5.1.0
+  table_calendar: ^3.0.3
+
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  build_runner:
+  json_serializable:
+  freezed:
+  retrofit_generator:
+
+  flutter_lints: ^1.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/image/
+    - assets/icon/
+
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700

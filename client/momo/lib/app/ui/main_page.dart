@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/bottom_index_provider.dart';
 import 'package:momo/app/ui/calendar/calendar_page.dart';
 import 'package:momo/app/ui/home/home_page.dart';
 import 'package:momo/app/ui/my_meet/my_meet_page.dart';
 import 'package:momo/app/ui/mypage/mypage.dart';
 import 'package:momo/app/ui/search/search_page.dart';
+import 'package:momo/app/util/theme.dart';
 
 class MainPage extends ConsumerWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -27,9 +29,9 @@ class MainPage extends ConsumerWidget {
         body: _pages[index],
         bottomNavigationBar: Container(
           padding: const EdgeInsets.all(3),
-          height: 56,
+          height: 64,
           decoration: const BoxDecoration(
-            color: Color(0xffffffff),
+            color: MomoColor.white,
             border: Border(
               top: BorderSide(
                 color: Color(0xffe6e6e6),
@@ -71,17 +73,16 @@ class MainPage extends ConsumerWidget {
             children: [
               Icon(
                 icon,
-                color: bottomIndex == index
-                    ? const Color(0xff846eaa)
-                    : const Color(0xff000000),
+                color:
+                    bottomIndex == index ? MomoColor.main : MomoColor.unSelIcon,
               ),
               Text(
                 title,
                 style: TextStyle(
                   color: bottomIndex == index
-                      ? const Color(0xff846eaa)
-                      : const Color(0xff000000),
-                  fontSize: 14,
+                      ? MomoColor.main
+                      : MomoColor.unSelText,
+                  fontSize: 11.sp,
                 ),
               ),
             ],

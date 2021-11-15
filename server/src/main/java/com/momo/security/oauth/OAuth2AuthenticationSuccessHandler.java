@@ -6,6 +6,7 @@ import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
 import com.momo.config.AppProperties;
 import com.momo.security.TokenProvider;
+import com.momo.security.UserPrincipal;
 import com.momo.utils.CookieUtils;
 import java.io.IOException;
 import java.net.URI;
@@ -57,7 +58,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     }
 
     String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
-    String token = tokenProvider.createToken(authentication);
+    UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+    String token = tokenProvider.createToken(userPrincipal.getName());
 
     return UriComponentsBuilder.fromUriString(targetUrl)
         .queryParam("token", token)

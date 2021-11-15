@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,7 +24,10 @@ public class User extends BaseEntity {
   private Long id;
 
   @Column(nullable = false)
-  private String identity;
+  private String providerId;
+
+  @Enumerated(EnumType.STRING)
+  private SocialProvider provider;
 
   private String nickname;
 
@@ -38,6 +42,21 @@ public class User extends BaseEntity {
   @Enumerated(EnumType.STRING)
   private Role role;
 
-  @Enumerated(EnumType.STRING)
-  private SocialProvider provider;
+  @Builder
+  public User(Long id, String providerId, SocialProvider provider, String nickname,
+      String profileImg, String area, String university, String favoriteCategory, Role role) {
+    this.id = id;
+    this.providerId = providerId;
+    this.provider = provider;
+    this.nickname = nickname;
+    this.profileImg = profileImg;
+    this.area = area;
+    this.university = university;
+    this.favoriteCategory = favoriteCategory;
+    this.role = role;
+  }
+
+  public String getRoleName() {
+    return this.role.name();
+  }
 }

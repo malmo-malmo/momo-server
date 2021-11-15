@@ -11,7 +11,6 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -21,14 +20,12 @@ public class TokenProvider {
 
   private final AppProperties appProperties;
 
-  public String createToken(Authentication authentication) {
-    UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-
+  public String createToken(String userId) {
     Date now = new Date();
     Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMsec());
 
     return Jwts.builder()
-        .setSubject(userPrincipal.getName())
+        .setSubject(userId)
         .setIssuedAt(new Date())
         .setExpiration(expiryDate)
         .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())

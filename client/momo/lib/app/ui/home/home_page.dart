@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/home/widget/achievement_card.dart';
 import 'package:momo/app/ui/home/widget/event_card.dart';
 import 'package:momo/app/ui/home/widget/home_meeting_list.dart';
 import 'package:momo/app/ui/home/widget/reminder_card.dart';
+import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 class HomePage extends StatelessWidget {
@@ -94,13 +97,20 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-          InkWell(
-            onTap: () {},
-            child: const Icon(
-              Icons.add,
-              size: 30,
-            ),
-          ),
+          Consumer(builder: (context, ref, _) {
+            return InkWell(
+              onTap: () {
+                ref.read(navigatorProvider).navigateTo(
+                      routeName: AppRoutes.meetingList,
+                      arguments: title,
+                    );
+              },
+              child: const Icon(
+                Icons.add,
+                size: 30,
+              ),
+            );
+          }),
         ],
       ),
     );

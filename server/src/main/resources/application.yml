@@ -1,0 +1,29 @@
+spring:
+  profiles:
+    active: local
+    include: auth
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:momodb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        default_batch_fetch_size: 100
+        order_inserts: true
+        order_updates: true
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace

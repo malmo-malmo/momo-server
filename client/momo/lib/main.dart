@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 void main() {
-  runApp(
-    const ProviderScope(
-      child: MyApp(),
+  initializeDateFormatting().then(
+    (_) => runApp(
+      const ProviderScope(
+        child: MyApp(),
+      ),
     ),
   );
 }
@@ -32,7 +35,7 @@ class MyApp extends ConsumerWidget {
         debugShowCheckedModeBanner: false,
         navigatorKey: ref.watch(navigatorProvider).navigatorKey,
         scrollBehavior: MyBehavior(),
-        initialRoute: AppRoutes.login,
+        initialRoute: AppRoutes.main,
         onGenerateRoute: (settings) => AppRouter.onGenerateRoute(settings),
       ),
     );

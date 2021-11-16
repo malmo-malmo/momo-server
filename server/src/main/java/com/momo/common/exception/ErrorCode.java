@@ -16,6 +16,8 @@ public enum ErrorCode {
 
   INVALID_USER_ID(400, "잘못된 유저 ID 입니다."),
 
+  LOCATION_NOT_FOUND(400, "해당 지역 타입은 존재하지 않습니다."),
+
   GROUP_CATEGORY_NOT_FOUND(400, "해당 카테고리 타입은 존재하지 않습니다.");
 
   private final int status;

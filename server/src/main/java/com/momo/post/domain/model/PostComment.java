@@ -1,6 +1,6 @@
 package com.momo.post.domain.model;
 
-import com.momo.common.model.BaseEntity;
+import com.momo.common.domain.BaseEntity;
 import com.momo.user.domain.model.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;

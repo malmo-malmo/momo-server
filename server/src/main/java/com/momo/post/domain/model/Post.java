@@ -1,7 +1,7 @@
 package com.momo.post.domain.model;
 
-import com.momo.common.model.BaseEntity;
-import com.momo.meeting.domain.model.Meeting;
+import com.momo.common.domain.BaseEntity;
+import com.momo.group.domain.model.Groups;
 import com.momo.user.domain.model.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,8 +31,8 @@ public class Post extends BaseEntity {
   private User user;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "meeting_id")
-  private Meeting meeting;
+  @JoinColumn(name = "group_id")
+  private Groups group;
 
   private String title;
 

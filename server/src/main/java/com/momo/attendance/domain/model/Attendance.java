@@ -1,6 +1,6 @@
 package com.momo.attendance.domain.model;
 
-import com.momo.meeting.domain.model.Meeting;
+import com.momo.group.domain.model.Groups;
 import com.momo.schedule.domain.model.Schedule;
 import com.momo.user.domain.model.User;
 import javax.persistence.Column;
@@ -30,8 +30,8 @@ public class Attendance {
   private User user;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "meeting_id")
-  private Meeting meeting;
+  @JoinColumn(name = "group_id")
+  private Groups group;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "schedule_id")

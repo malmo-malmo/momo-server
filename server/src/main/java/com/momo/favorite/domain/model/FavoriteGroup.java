@@ -1,6 +1,6 @@
 package com.momo.favorite.domain.model;
 
-import com.momo.meeting.domain.model.Meeting;
+import com.momo.group.domain.model.Groups;
 import com.momo.user.domain.model.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class FavoriteMeeting {
+public class FavoriteGroup {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +30,6 @@ public class FavoriteMeeting {
   private User user;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "meeting_id")
-  private Meeting meeting;
+  @JoinColumn(name = "group_id")
+  private Groups group;
 }

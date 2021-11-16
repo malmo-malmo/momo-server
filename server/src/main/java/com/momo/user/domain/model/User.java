@@ -1,6 +1,6 @@
 package com.momo.user.domain.model;
 
-import com.momo.common.model.BaseEntity;
+import com.momo.common.domain.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

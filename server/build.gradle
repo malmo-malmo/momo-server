@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.momo'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = "11"
 
 configurations {
     compileOnly {
@@ -46,6 +46,9 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'com.google.guava:guava:31.0.1-jre'
 
+    // log
+    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+
     // etc
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
 }
@@ -53,3 +56,4 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+targetCompatibility = JavaVersion.VERSION_1_9

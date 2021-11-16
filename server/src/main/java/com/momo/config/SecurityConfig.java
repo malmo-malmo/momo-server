@@ -3,7 +3,6 @@ package com.momo.config;
 import com.momo.security.CustomAuthenticationEntryPoint;
 import com.momo.security.CustomUserDetailsService;
 import com.momo.security.TokenAuthenticationFilter;
-import com.momo.security.TokenProvider;
 import com.momo.security.oauth.CustomOAuth2UserService;
 import com.momo.security.oauth.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.momo.security.oauth.OAuth2AuthenticationFailureHandler;
@@ -18,8 +17,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -37,13 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
 
-  private final TokenProvider tokenProvider;
-
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
-
   @Bean
   public TokenAuthenticationFilter tokenAuthenticationFilter() {
     return new TokenAuthenticationFilter();
@@ -58,8 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   public void configure(AuthenticationManagerBuilder authenticationManagerBuilder)
       throws Exception {
     authenticationManagerBuilder
-        .userDetailsService(customUserDetailsService)
-        .passwordEncoder(passwordEncoder());
+        .userDetailsService(customUserDetailsService);
   }
 
   @Override

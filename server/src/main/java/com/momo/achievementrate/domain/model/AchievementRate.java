@@ -1,6 +1,6 @@
 package com.momo.achievementrate.domain.model;
 
-import com.momo.meeting.domain.model.Meeting;
+import com.momo.group.domain.model.Groups;
 import com.momo.user.domain.model.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,8 +30,8 @@ public class AchievementRate {
   private User user;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "meeting_id")
-  private Meeting meeting;
+  @JoinColumn(name = "group_id")
+  private Groups group;
 
   private Long attendanceCnt;
 }

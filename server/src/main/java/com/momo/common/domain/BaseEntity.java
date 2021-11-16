@@ -1,4 +1,4 @@
-package com.momo.common.model;
+package com.momo.common.domain;
 
 import java.time.LocalDateTime;
 import org.springframework.data.annotation.CreatedDate;

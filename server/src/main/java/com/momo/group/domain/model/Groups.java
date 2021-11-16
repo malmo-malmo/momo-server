@@ -1,7 +1,7 @@
-package com.momo.meeting.domain.model;
+package com.momo.group.domain.model;
 
-import com.momo.common.model.BaseEntity;
-import com.momo.common.model.MeetingType;
+import com.momo.common.domain.BaseEntity;
+import com.momo.common.domain.MeetingType;
 import com.momo.user.domain.model.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,11 +21,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Meeting extends BaseEntity {
+public class Groups extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "meeting_id")
+  @Column(name = "group_id")
   private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY)

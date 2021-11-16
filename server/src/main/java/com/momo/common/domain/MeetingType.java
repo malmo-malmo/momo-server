@@ -1,4 +1,4 @@
-package com.momo.common.model;
+package com.momo.common.domain;
 
 public enum MeetingType {
   ONLINE, OFFLINE

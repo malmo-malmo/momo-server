@@ -1,6 +1,6 @@
-package com.momo.meeting.domain.model;
+package com.momo.group.domain.model;
 
-import com.momo.common.model.BaseEntity;
+import com.momo.common.domain.BaseEntity;
 import com.momo.user.domain.model.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,6 +29,6 @@ public class Participants extends BaseEntity {
   private User user;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "meeting_id")
-  private Meeting meeting;
+  @JoinColumn(name = "group_id")
+  private Groups group;
 }

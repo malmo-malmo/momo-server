@@ -7,5 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-  Optional<User> findByProviderIdAndProvider(String providerId, SocialProvider provider);
+    Optional<User> findByProviderIdAndProvider(String providerId, SocialProvider provider);
+
+    boolean existsByNickname(String nickname);
 }

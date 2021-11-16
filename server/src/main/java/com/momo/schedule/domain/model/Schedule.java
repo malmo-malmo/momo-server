@@ -1,8 +1,8 @@
 package com.momo.schedule.domain.model;
 
-import com.momo.common.model.BaseEntity;
-import com.momo.common.model.MeetingType;
-import com.momo.meeting.domain.model.Meeting;
+import com.momo.common.domain.BaseEntity;
+import com.momo.common.domain.MeetingType;
+import com.momo.group.domain.model.Groups;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,8 +28,8 @@ public class Schedule extends BaseEntity {
   private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "meeting_id")
-  private Meeting meeting;
+  @JoinColumn(name = "group_id")
+  private Groups group;
 
   private MeetingType scheduleType;
 

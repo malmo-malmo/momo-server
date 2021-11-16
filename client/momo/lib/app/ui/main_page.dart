@@ -24,6 +24,8 @@ class MainPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final index = ref.watch(bottomIndexProvider);
+    final visible = ref.watch(checkScrollProvider);
+
     return SafeArea(
       child: Scaffold(
         body: _pages[index],
@@ -51,8 +53,33 @@ class MainPage extends ConsumerWidget {
             ],
           ),
         ),
+        floatingActionButton: _floatingButton(index, visible),
       ),
     );
+  }
+
+  Widget? _floatingButton(int index, bool isShow) {
+    switch (index) {
+      case 0:
+        return null;
+      case 1:
+        return null;
+
+      case 2:
+        return isShow
+            ? FloatingActionButton(
+                onPressed: () {},
+                backgroundColor: MomoColor.main,
+                child: const Icon(
+                  CupertinoIcons.calendar_today,
+                ),
+              )
+            : null;
+      case 3:
+        return null;
+      default:
+        return null;
+    }
   }
 
   Widget bottomIcon({

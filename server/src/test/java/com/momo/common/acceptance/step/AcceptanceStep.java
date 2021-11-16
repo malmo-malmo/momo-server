@@ -1,4 +1,4 @@
-package com.momo.common.acceptance;
+package com.momo.common.acceptance.step;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

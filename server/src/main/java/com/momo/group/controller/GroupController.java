@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GroupController {
 
   @GetMapping("/categories")
-  public ResponseEntity<List<EnumResponse>> getMyInfo() {
+  public ResponseEntity<List<EnumResponse>> findGroupCategories() {
     return ResponseEntity.ok(EnumResponse.listOfGroupCategory());
   }
 }

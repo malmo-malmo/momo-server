@@ -10,7 +10,6 @@ import com.momo.user.domain.model.User;
 import com.momo.user.domain.repository.UserRepository;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,8 +41,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
   public void findCategories_success() {
     String token = createAccessToken(manager.getId());
     ExtractableResponse<Response> response = GroupAcceptanceStep.requestToFindCategories(token);
-    List<EnumResponse> enumResponses = getObjects(response, EnumResponse.class);
     AcceptanceStep.assertThatStatusIsOk(response);
-    GroupAcceptanceStep.assertThatFindCategory(enumResponses);
+    GroupAcceptanceStep.assertThatFindCategory(getObjects(response, EnumResponse.class));
   }
 }

@@ -1,6 +1,8 @@
 package com.momo.user.domain.model;
 
 import com.momo.common.domain.BaseEntity;
+import com.momo.common.domain.GroupCategory;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,6 +14,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 @Entity
 @Getter
@@ -37,14 +40,14 @@ public class User extends BaseEntity {
 
   private String university;
 
-  private String favoriteCategory;
+  private String groupCategories;
 
   @Enumerated(EnumType.STRING)
   private Role role;
 
   @Builder
   public User(Long id, String providerId, SocialProvider provider, String nickname,
-      String profileImg, String area, String university, String favoriteCategory, Role role) {
+      String profileImg, String area, String university, String groupCategories, Role role) {
     this.id = id;
     this.providerId = providerId;
     this.provider = provider;
@@ -52,11 +55,15 @@ public class User extends BaseEntity {
     this.profileImg = profileImg;
     this.area = area;
     this.university = university;
-    this.favoriteCategory = favoriteCategory;
+    this.groupCategories = groupCategories;
     this.role = role;
   }
 
   public String getRoleName() {
     return this.role.name();
+  }
+
+  public void updateGroupCategories(List<GroupCategory> categories) {
+    this.groupCategories = StringUtils.join(categories, ",");
   }
 }

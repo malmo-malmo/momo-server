@@ -2,7 +2,6 @@ package com.momo.group.service;
 
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.common.uploader.AwsS3Uploader;
 import com.momo.group.controller.dto.GroupCreateRequest;
 import com.momo.group.domain.model.Groups;
 import com.momo.group.domain.model.Participant;

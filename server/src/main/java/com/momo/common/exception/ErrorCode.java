@@ -6,6 +6,7 @@ import lombok.Getter;
 public enum ErrorCode {
 
     INTERNAL_SERVER_ERROR(500, "서버에 문제가 생겼습니다."),
+    CAREER_NET_SERVER_ERROR(500, "커리어넷 서버에 문제가 생겼습니다"),
 
     USER_ACCESS_DENIED(401, "해당 콘텐츠에 접근 권한이 없는 유저입니다."),
     UNAUTHORIZED_REDIRECT_URI(400, "인증되지 않은 REDIRECT_URI 입니다."),

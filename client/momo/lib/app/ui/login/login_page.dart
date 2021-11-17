@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
+import 'package:momo/app/routes/routes.dart';
 import 'dart:io' show HttpServer;
 
 import 'dart:developer' as dp;
 
-import 'package:momo/app/ui/login/login_helper.dart';
+import 'package:momo/app/util/navigation_service.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   String resultToken = 'No token';
 
   Future<void> loginWithKakao() async {
@@ -75,7 +77,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
               InkWell(
                 onTap: () async {
-                  await loginWithKakao();
+                  // await loginWithKakao();
+                  ref
+                      .read(navigatorProvider)
+                      .navigateToRemove(routeName: AppRoutes.trems);
                 },
                 child: Image.asset(
                   'assets/image/kakao_login_large_wide.png',

@@ -35,7 +35,7 @@ class MyApp extends ConsumerWidget {
         debugShowCheckedModeBanner: false,
         navigatorKey: ref.watch(navigatorProvider).navigatorKey,
         scrollBehavior: MyBehavior(),
-        initialRoute: AppRoutes.main,
+        initialRoute: AppRoutes.splash,
         onGenerateRoute: (settings) => AppRouter.onGenerateRoute(settings),
       ),
     );

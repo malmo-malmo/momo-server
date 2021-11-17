@@ -4,7 +4,7 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.dto.EnumResponse;
-import com.momo.common.dto.GroupCategoryRequest;
+import com.momo.group.controller.dto.CategoryRequest;
 import com.momo.user.controller.dto.UserUpdateRequest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -30,8 +30,8 @@ public class UserAcceptanceStep {
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToUpdateGroupCategory(String token,
-        GroupCategoryRequest request) {
+    public static ExtractableResponse<Response> requestToUpdateCategory(String token,
+        CategoryRequest request) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)

@@ -13,17 +13,17 @@ import org.springframework.http.MediaType;
 
 public class GroupAcceptanceStep {
 
-  public static void assertThatFindCategory(List<EnumResponse> responses) {
-    assertThat(EnumResponse.listOfGroupCategory().size()).isEqualTo(responses.size());
-  }
+    public static void assertThatFindCategory(List<EnumResponse> responses) {
+        assertThat(EnumResponse.listOfCategory().size()).isEqualTo(responses.size());
+    }
 
-  public static ExtractableResponse<Response> requestToFindCategories(String token) {
-    return given().log().all()
-        .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-        .contentType(MediaType.APPLICATION_JSON_VALUE)
-        .when()
-        .get("/api/group/categories")
-        .then().log().all()
-        .extract();
-  }
+    public static ExtractableResponse<Response> requestToFindCategories(String token) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .when()
+            .get("/api/group/categories")
+            .then().log().all()
+            .extract();
+    }
 }

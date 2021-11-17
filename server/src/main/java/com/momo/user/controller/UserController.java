@@ -1,7 +1,7 @@
 package com.momo.user.controller;
 
 import com.momo.common.dto.EnumResponse;
-import com.momo.common.dto.GroupCategoryRequest;
+import com.momo.group.controller.dto.CategoryRequest;
 import com.momo.security.CurrentUser;
 import com.momo.user.controller.dto.UserUpdateRequest;
 import com.momo.user.domain.model.User;
@@ -38,9 +38,9 @@ public class UserController {
     }
 
     @PatchMapping("/categories")
-    public ResponseEntity<Void> updateGroupCategories(@CurrentUser User user,
-        @RequestBody GroupCategoryRequest groupCategoryRequest) {
-        userService.updateGroupCategories(user, groupCategoryRequest);
+    public ResponseEntity<Void> updateCategories(@CurrentUser User user,
+        @RequestBody CategoryRequest categoryRequest) {
+        userService.updateCategories(user, categoryRequest);
         return ResponseEntity.ok().build();
     }
 

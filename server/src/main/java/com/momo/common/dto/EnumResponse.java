@@ -1,6 +1,6 @@
 package com.momo.common.dto;
 
-import com.momo.common.domain.GroupCategory;
+import com.momo.group.domain.model.Category;
 import com.momo.user.domain.model.Location;
 import java.util.Arrays;
 import java.util.List;
@@ -25,8 +25,8 @@ public class EnumResponse {
     return new EnumResponse(code, name);
   }
 
-  public static List<EnumResponse> listOfGroupCategory() {
-    return Arrays.stream(GroupCategory.values())
+  public static List<EnumResponse> listOfCategory() {
+    return Arrays.stream(Category.values())
         .map(status -> EnumResponse.of(status.getCode(), status.getName()))
         .collect(Collectors.toList());
   }

@@ -3,7 +3,7 @@ package com.momo.user.acceptance;
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
 import com.momo.common.dto.EnumResponse;
-import com.momo.common.dto.GroupCategoryRequest;
+import com.momo.group.controller.dto.CategoryRequest;
 import com.momo.user.acceptance.step.UserAcceptanceStep;
 import com.momo.user.controller.dto.UserUpdateRequest;
 import com.momo.user.domain.model.Role;
@@ -79,10 +79,10 @@ public class UserAcceptanceTest extends AcceptanceTest {
     @Test
     @DisplayName("유저가 관심 카테고리를 수정한다.")
     public void updateGroupCategories_success() {
-        GroupCategoryRequest req = new GroupCategoryRequest(
+        CategoryRequest req = new CategoryRequest(
             List.of("HEALTH", "EMPLOYMENT", "HOBBY"));
         String token = createAccessToken(user.getId());
-        ExtractableResponse<Response> res = UserAcceptanceStep.requestToUpdateGroupCategory(token,
+        ExtractableResponse<Response> res = UserAcceptanceStep.requestToUpdateCategory(token,
             req);
         AcceptanceStep.assertThatStatusIsOk(res);
     }
@@ -90,10 +90,10 @@ public class UserAcceptanceTest extends AcceptanceTest {
     @Test
     @DisplayName("유저 관심 카테고리를 수정할 때 잘못된 ENUM 값을 보내면 실패한다.")
     public void updateGroupCategories_fail() {
-        GroupCategoryRequest req = new GroupCategoryRequest(
+        CategoryRequest req = new CategoryRequest(
             List.of("HEALTH", "EMPLOYMENT", "HOBB"));
         String token = createAccessToken(user.getId());
-        ExtractableResponse<Response> res = UserAcceptanceStep.requestToUpdateGroupCategory(token,
+        ExtractableResponse<Response> res = UserAcceptanceStep.requestToUpdateCategory(token,
             req);
         AcceptanceStep.assertThatStatusIsBadRequest(res);
     }

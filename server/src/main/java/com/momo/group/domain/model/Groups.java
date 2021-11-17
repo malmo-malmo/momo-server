@@ -1,12 +1,11 @@
 package com.momo.group.domain.model;
 
 import com.momo.common.domain.BaseEntity;
-import com.momo.common.domain.MeetingType;
+import com.momo.user.domain.model.Location;
 import com.momo.user.domain.model.User;
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,41 +23,86 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Groups extends BaseEntity {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "group_id")
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "group_id")
+    private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
-  private User manager;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User manager;
 
-  private String mainImg;
+    private String groupName;
 
-  private String category;
+    private String groupImgUrl;
 
-  @Enumerated(EnumType.STRING)
-  private MeetingType meetingType;
+    private String categories;
 
-  private String startDate;
+    private LocalDate startDate;
 
-  private String endDate;
+    private LocalDate endDate;
 
-  private String university;
+    private String university;
 
-  private String area;
+    private Location location;
 
-  @Lob
-  private String introduction;
+    @Lob
+    private String introduction;
 
-  private Long recruitmentCnt;
+    private Long recruitmentCnt;
 
-  private Long participantCnt;
+    private Long participantCnt;
 
-  private Long scheduleCnt;
+    private Long scheduleCnt;
 
-  private Long attendanceCnt;
+    private Long attendanceCnt;
 
-  @Column(name = "end_flag")
-  private Boolean isEnd;
+    @Column(name = "offline_flag")
+    private Boolean isOffline;
+
+    @Column(name = "end_flag")
+    private Boolean isEnd;
+
+    @Builder
+    public Groups(Long id, User manager, String groupName, String groupImgUrl,
+        String categories, LocalDate startDate, LocalDate endDate, String university,
+        Location location, String introduction, Long recruitmentCnt, Long participantCnt,
+        Long scheduleCnt, Long attendanceCnt, Boolean isOffline, Boolean isEnd) {
+        this.id = id;
+        this.manager = manager;
+        this.groupName = groupName;
+        this.groupImgUrl = groupImgUrl;
+        this.categories = categories;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.university = university;
+        this.location = location;
+        this.introduction = introduction;
+        this.recruitmentCnt = recruitmentCnt;
+        this.participantCnt = participantCnt;
+        this.scheduleCnt = scheduleCnt;
+        this.attendanceCnt = attendanceCnt;
+        this.isOffline = isOffline;
+        this.isEnd = isEnd;
+    }
+
+    public static Groups create(User user, Groups group) {
+        return Groups.builder()
+            .manager(user)
+            .groupName(group.getGroupName())
+            .groupImgUrl(group.getGroupImgUrl())
+            .categories(group.getCategories())
+            .startDate(group.getStartDate())
+            .endDate(group.getEndDate())
+            .university(group.getUniversity())
+            .location(group.getLocation())
+            .introduction(group.getIntroduction())
+            .recruitmentCnt(group.getRecruitmentCnt())
+            .participantCnt(1L)
+            .scheduleCnt(0L)
+            .attendanceCnt(0L)
+            .isOffline(group.getIsOffline())
+            .isEnd(false)
+            .build();
+    }
 }

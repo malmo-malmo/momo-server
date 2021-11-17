@@ -1,8 +1,6 @@
 package com.momo.user.domain.model;
 
 import com.momo.common.domain.BaseEntity;
-import com.momo.group.domain.model.Category;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,7 +12,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 
 @Entity
 @Getter
@@ -74,7 +71,7 @@ public class User extends BaseEntity {
         this.university = user.getUniversity();
     }
 
-    public void updateCategories(List<Category> categories) {
-        this.categories = StringUtils.join(categories, ",");
+    public void updateCategories(String categories) {
+        this.categories = categories;
     }
 }

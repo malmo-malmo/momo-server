@@ -38,7 +38,7 @@ public class UserService {
 
     public void updateCategories(User loginUser, CategoryRequest request) {
         User user = findByUser(loginUser);
-        user.updateCategories(Category.fromStrings(request.getCategories()));
+        user.updateCategories(Category.toEntitySaveFormat(request.getCategories()));
     }
 
     public User findByUser(User user) {

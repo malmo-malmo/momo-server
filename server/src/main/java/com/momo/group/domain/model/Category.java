@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
 
 public enum Category {
     HEALTH("건강"),
@@ -45,7 +46,7 @@ public enum Category {
         return groupCategories.stream().map(Category::of).collect(Collectors.toList());
     }
 
-    public static List<Category> fromStrings(List<String> categories) {
-        return Category.listOf(categories);
+    public static String toEntitySaveFormat(List<String> categories) {
+        return StringUtils.join(Category.listOf(categories), ",");
     }
 }

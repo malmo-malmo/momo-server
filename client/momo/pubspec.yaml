@@ -28,6 +28,7 @@ dependencies:
   hive: ^2.0.4
   hive_flutter: ^1.1.0
   flutter_web_auth: ^0.3.1
+  custom_pop_up_menu: ^1.2.2
 
   cupertino_icons: ^1.0.2
 

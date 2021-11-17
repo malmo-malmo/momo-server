@@ -1,8 +1,9 @@
 package com.momo.user.service;
 
-import com.momo.common.dto.GroupCategoryRequest;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
+import com.momo.group.controller.dto.CategoryRequest;
+import com.momo.group.domain.model.Category;
 import com.momo.user.controller.dto.UserUpdateRequest;
 import com.momo.user.domain.model.User;
 import com.momo.user.domain.repository.UserRepository;
@@ -35,9 +36,9 @@ public class UserService {
         }
     }
 
-    public void updateGroupCategories(User loginUser, GroupCategoryRequest request) {
+    public void updateCategories(User loginUser, CategoryRequest request) {
         User user = findByUser(loginUser);
-        user.updateGroupCategories(request.toGroupCategories());
+        user.updateCategories(Category.toEntitySaveFormat(request.getCategories()));
     }
 
     public User findByUser(User user) {

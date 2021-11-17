@@ -1,7 +1,6 @@
 package com.momo.schedule.domain.model;
 
 import com.momo.common.domain.BaseEntity;
-import com.momo.common.domain.MeetingType;
 import com.momo.group.domain.model.Groups;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -31,7 +30,7 @@ public class Schedule extends BaseEntity {
   @JoinColumn(name = "group_id")
   private Groups group;
 
-  private MeetingType scheduleType;
+  private Boolean isOffline;
 
   private LocalDateTime scheduleTime;
 

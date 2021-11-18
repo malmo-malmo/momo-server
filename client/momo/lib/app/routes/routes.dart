@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:momo/app/ui/gallery/gallery_page.dart';
 import 'package:momo/app/ui/login/category_page.dart';
 import 'package:momo/app/ui/login/info_page.dart';
 import 'package:momo/app/ui/login/login_page.dart';
@@ -7,6 +8,7 @@ import 'package:momo/app/ui/login/terms_page.dart';
 import 'package:momo/app/ui/main_page.dart';
 import 'package:momo/app/ui/meeting_detail/meeting_detail_page.dart';
 import 'package:momo/app/ui/meeting_list/meeting_list_page.dart';
+import 'package:momo/app/ui/new_meet/new_meeting_page.dart';
 import 'package:momo/app/ui/onboarding/onboarding_page.dart';
 
 class AppRoutes {
@@ -19,6 +21,8 @@ class AppRoutes {
   static const onboarding = '/onboarding';
   static const meetingList = '/meetingList';
   static const meetingDetail = '/meetingDetail';
+  static const newMeet = '/newMeet';
+  static const gallery = '/gallery';
 }
 
 class AppRouter {
@@ -56,6 +60,14 @@ class AppRouter {
       case AppRoutes.meetingDetail:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const MeetingDetailPage(),
+        );
+      case AppRoutes.newMeet:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const NewMeetingPage(),
+        );
+      case AppRoutes.gallery:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const GalleryPage(),
         );
     }
   }

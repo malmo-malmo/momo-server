@@ -73,7 +73,7 @@ class _MyMeetPageState extends ConsumerState<MyMeetPage> {
               const ManageMeetingList(),
               _subTitle(
                   title: '그 외 참여 모임', icon: CupertinoIcons.download_circle),
-              ParticipationMettingList(),
+              const ParticipationMettingList(),
             ],
           ),
         ),

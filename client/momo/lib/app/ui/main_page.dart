@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/bottom_index_provider.dart';
+import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/calendar/calendar_page.dart';
 import 'package:momo/app/ui/home/home_page.dart';
 import 'package:momo/app/ui/my_meet/my_meet_page.dart';
 import 'package:momo/app/ui/mypage/mypage.dart';
 import 'package:momo/app/ui/search/search_page.dart';
+import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 class MainPage extends ConsumerWidget {
@@ -77,13 +79,17 @@ class MainPage extends ConsumerWidget {
             : null;
       case 3:
         return isShow
-            ? FloatingActionButton(
-                onPressed: () {},
-                backgroundColor: MomoColor.main,
-                child: const Icon(
-                  CupertinoIcons.app_fill,
-                ),
-              )
+            ? Consumer(builder: (context, ref, _) {
+                return FloatingActionButton(
+                  onPressed: () => ref
+                      .read(navigatorProvider)
+                      .navigateTo(routeName: AppRoutes.newMeet),
+                  backgroundColor: MomoColor.main,
+                  child: const Icon(
+                    CupertinoIcons.app_fill,
+                  ),
+                );
+              })
             : null;
       default:
         return null;

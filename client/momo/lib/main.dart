@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/navigation_service.dart';
+import 'package:momo/app/util/provider_log.dart';
 import 'package:momo/app/util/theme.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
 
-  initializeDateFormatting().then(
-    (_) => runApp(
-      const ProviderScope(
-        child: MyApp(),
-      ),
+  runApp(
+    ProviderScope(
+      child: const MyApp(),
+      observers: [
+        Logger(),
+      ],
     ),
   );
 }
@@ -40,6 +42,13 @@ class MyApp extends ConsumerWidget {
         scrollBehavior: MyBehavior(),
         initialRoute: AppRoutes.splash,
         onGenerateRoute: (settings) => AppRouter.onGenerateRoute(settings),
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('ko', 'KR'),
+        ],
       ),
     );
   }

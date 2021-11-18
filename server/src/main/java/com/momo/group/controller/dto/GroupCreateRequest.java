@@ -19,6 +19,7 @@ public class GroupCreateRequest {
     @NotBlank(message = "모임 이름은 필수 입력값입니다.")
     private String groupName;
 
+    @NotNull(message = "모임 카테고리는 필수 입력값입니다.")
     private List<String> categories;
 
     private String university;

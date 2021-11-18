@@ -18,7 +18,7 @@ public class GroupAcceptanceStep {
         assertThat(EnumResponse.listOfCategory().size()).isEqualTo(responses.size());
     }
 
-    public static ExtractableResponse<Response> requestToCreateGroup(String token,
+    public static ExtractableResponse<Response> requestToCreate(String token,
         GroupCreateRequest request) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)

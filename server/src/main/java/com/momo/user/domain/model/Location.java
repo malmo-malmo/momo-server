@@ -3,6 +3,7 @@ package com.momo.user.domain.model;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
 import java.util.Arrays;
+import java.util.Objects;
 
 public enum Location {
     EUNPYEONG_GU("은평구"),
@@ -46,9 +47,12 @@ public enum Location {
     }
 
     public static Location of(String location) {
+        if (Objects.isNull(location)) {
+            return null;
+        }
         return Arrays.stream(Location.values())
             .filter(v -> v.getCode().equals(location))
             .findFirst()
-            .orElseThrow(() -> new CustomException(ErrorCode.GROUP_CATEGORY_NOT_FOUND));
+            .orElseThrow(() -> new CustomException(ErrorCode.LOCATION_NOT_FOUND));
     }
 }

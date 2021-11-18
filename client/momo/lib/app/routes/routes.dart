@@ -10,6 +10,8 @@ import 'package:momo/app/ui/meeting_detail/meeting_detail_page.dart';
 import 'package:momo/app/ui/meeting_list/meeting_list_page.dart';
 import 'package:momo/app/ui/new_meet/new_meeting_page.dart';
 import 'package:momo/app/ui/onboarding/onboarding_page.dart';
+import 'package:momo/app/ui/post/post_page.dart';
+import 'package:momo/app/ui/request_meeting/request_meeting_page.dart';
 
 class AppRoutes {
   static const main = '/main';
@@ -23,6 +25,8 @@ class AppRoutes {
   static const meetingDetail = '/meetingDetail';
   static const newMeet = '/newMeet';
   static const gallery = '/gallery';
+  static const requestMeeting = '/requestMeeting';
+  static const post = '/post';
 }
 
 class AppRouter {
@@ -68,6 +72,17 @@ class AppRouter {
       case AppRoutes.gallery:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const GalleryPage(),
+        );
+      case AppRoutes.post:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const PostPage(),
+        );
+      case AppRoutes.requestMeeting:
+        final arg = settings.arguments;
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => RequestMeetingPage(
+            img: arg,
+          ),
         );
     }
   }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/util/theme.dart';
 
 class FeedCard extends StatelessWidget {
   const FeedCard({
@@ -6,9 +8,13 @@ class FeedCard extends StatelessWidget {
     required this.img,
     required this.text,
     required this.comments,
+    required this.userName,
+    required this.title,
   }) : super(key: key);
 
   final String img;
+  final String userName;
+  final String title;
   final String text;
   final int comments;
 
@@ -22,11 +28,25 @@ class FeedCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.network(img),
-              const SizedBox(height: 8),
-              Text('댓글: $comments'),
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: 16.w,
+                    backgroundColor: MomoColor.black,
+                    child: CircleAvatar(
+                      radius: 15.w,
+                      backgroundColor: Colors.transparent,
+                      backgroundImage: NetworkImage(img),
+                    ),
+                  ),
+                  Text(userName)
+                ],
+              ),
+              Text(title),
               const SizedBox(height: 8),
               Text(text),
+              const SizedBox(height: 8),
+              Text('댓글 수 $comments'),
             ],
           ),
         ),

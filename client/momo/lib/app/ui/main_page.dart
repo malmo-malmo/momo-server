@@ -76,7 +76,15 @@ class MainPage extends ConsumerWidget {
               )
             : null;
       case 3:
-        return null;
+        return isShow
+            ? FloatingActionButton(
+                onPressed: () {},
+                backgroundColor: MomoColor.main,
+                child: const Icon(
+                  CupertinoIcons.app_fill,
+                ),
+              )
+            : null;
       default:
         return null;
     }
@@ -93,7 +101,7 @@ class MainPage extends ConsumerWidget {
         flex: 1,
         child: InkWell(
           onTap: () {
-            ref.read(bottomIndexProvider.state).state = index;
+            ref.read(bottomIndexStateProvider.state).state = index;
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

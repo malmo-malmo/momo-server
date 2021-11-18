@@ -1,6 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/model/login/user_info.dart';
 
+final userInfoCheckProvider = Provider<bool>((ref) {
+  final userInfo = ref.watch(userInfoProvider);
+  if (userInfo.nickname.isNotEmpty &&
+      userInfo.school.isNotEmpty &&
+      userInfo.city.isNotEmpty &&
+      userInfo.country.isNotEmpty) {
+    return true;
+  }
+  return false;
+});
+
 final userInfoProvider = Provider<UserInfo>((ref) {
   final userInfoState = ref.watch(userInfoStateProvider);
   return userInfoState;

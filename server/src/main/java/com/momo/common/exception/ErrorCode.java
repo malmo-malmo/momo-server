@@ -23,7 +23,8 @@ public enum ErrorCode {
     GROUP_CATEGORY_NOT_FOUND(400, "해당 모임 카테고리 타입은 존재하지 않습니다."),
     INVALID_GROUP_CATEGORY_LENGTH(400, "최소 한 개의 카테고리를 선택해야 합니다."),
 
-    GROUP_PARTICIPANT_NOT_FOUND(400, "해당 모임의 참여자가 아닙니다.");
+    GROUP_NOTICE_UNAUTHORIZED(400, "공지사항을 등록할 수 있는 권한이 없습니다."),
+    GROUP_PARTICIPANT_UNAUTHORIZED(400, "해당 모임의 참여자가 아닙니다.");
 
     private final int status;
     private final String message;

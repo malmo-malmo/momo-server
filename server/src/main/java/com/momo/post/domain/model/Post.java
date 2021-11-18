@@ -5,6 +5,8 @@ import com.momo.group.domain.model.Groups;
 import com.momo.user.domain.model.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,16 +43,20 @@ public class Post extends BaseEntity {
     @Lob
     private String contents;
 
+    @Enumerated(EnumType.STRING)
+    private PostType type;
+
     @Formula("(select count(*) post_comment c where c.post_id = post_id)")
     private int commentCnt;
 
     @Builder
-    public Post(Long id, User user, Groups group, String title, String contents) {
+    public Post(Long id, User user, Groups group, String title, String contents, PostType type) {
         this.id = id;
         this.user = user;
         this.group = group;
         this.title = title;
         this.contents = contents;
+        this.type = type;
     }
 
     public static Post create(User user, Groups group, Post post) {
@@ -59,6 +65,7 @@ public class Post extends BaseEntity {
             .group(group)
             .title(post.getTitle())
             .contents(post.getContents())
+            .type(post.getType())
             .build();
     }
 }

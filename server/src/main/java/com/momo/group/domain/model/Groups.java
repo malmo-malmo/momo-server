@@ -1,8 +1,6 @@
 package com.momo.group.domain.model;
 
 import com.momo.common.domain.BaseEntity;
-import com.momo.common.exception.CustomException;
-import com.momo.common.exception.ErrorCode;
 import com.momo.user.domain.model.Location;
 import com.momo.user.domain.model.User;
 import java.time.LocalDate;
@@ -21,6 +19,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Formula;
 
 @Entity
 @Getter
@@ -29,16 +28,15 @@ public class Groups extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "group_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "manager_id")
     private User manager;
 
-    private String groupName;
+    private String name;
 
-    private String groupImgUrl;
+    private String imageUrl;
 
     @Enumerated(EnumType.STRING)
     private Category category;
@@ -53,32 +51,31 @@ public class Groups extends BaseEntity {
     @Lob
     private String introduction;
 
-    private Long recruitmentCnt;
+    private int recruitmentCnt;
 
+    @Column(name = "offline_flag")
+    private boolean isOffline;
+
+    @Column(name = "end_flag")
+    private boolean isEnd;
+
+    @Formula("(select count(*) from participant p where p.group_id = id)")
+    private int participantCnt;
 
     /*
     TODO : 서브쿼리로 바꾸기
-    private Long participantCnt;
-
     private Long scheduleCnt;
-
     private Long attendanceCnt;
     */
 
-    @Column(name = "offline_flag")
-    private Boolean isOffline;
-
-    @Column(name = "end_flag")
-    private Boolean isEnd;
-
     @Builder
-    public Groups(Long id, User manager, String groupName, String groupImgUrl, Category category,
-        LocalDate startDate, String university, Location location, String introduction, Long recruitmentCnt,
-        Boolean isOffline, Boolean isEnd) {
+    public Groups(Long id, User manager, String name, String imageUrl, Category category,
+        LocalDate startDate, String university, Location location, String introduction, int recruitmentCnt,
+        boolean isOffline, boolean isEnd) {
         this.id = id;
         this.manager = manager;
-        this.groupName = groupName;
-        this.groupImgUrl = groupImgUrl;
+        this.name = name;
+        this.imageUrl = imageUrl;
         this.category = category;
         this.startDate = startDate;
         this.university = university;
@@ -92,22 +89,20 @@ public class Groups extends BaseEntity {
     public static Groups create(User user, Groups group) {
         return Groups.builder()
             .manager(user)
-            .groupName(group.getGroupName())
-            .groupImgUrl(group.getGroupImgUrl())
+            .name(group.getName())
+            .imageUrl(group.getImageUrl())
             .category(group.getCategory())
             .startDate(group.getStartDate())
             .university(group.getUniversity())
             .location(group.getLocation())
             .introduction(group.getIntroduction())
             .recruitmentCnt(group.getRecruitmentCnt())
-            .isOffline(group.getIsOffline())
+            .isOffline(group.isOffline())
             .isEnd(false)
             .build();
     }
 
-    public void validateIsManager(User user) {
-        if (!this.getManager().getId().equals(user.getId())) {
-            throw new CustomException(ErrorCode.GROUP_NOTICE_UNAUTHORIZED);
-        }
+    public boolean isManager(User user) {
+        return user.isSameUser(manager);
     }
 }

@@ -14,12 +14,11 @@ public enum ErrorCode {
     INVALID_INPUT_VALUE(400, "적절하지 않은 요청 값입니다."),
     INVALID_TYPE_VALUE(400, "요청 값의 타입이 잘못되었습니다."),
     METHOD_NOT_ALLOWED(405, "적절하지 않은 HTTP 메소드입니다."),
+    INVALID_INDEX_NUMBER(400, "잘못된 인덱스 번호입니다."),
 
-    INVALID_USER_ID(400, "잘못된 유저 ID 입니다."),
     DUPLICATED_NICKNAME(400, "이미 존재하는 닉네임입니다."),
     LOCATION_NOT_FOUND(400, "해당 지역 타입은 존재하지 않습니다."),
 
-    INVALID_GROUP_ID(400, "잘못된 유저 ID 입니다."),
     GROUP_CATEGORY_NOT_FOUND(400, "해당 모임 카테고리 타입은 존재하지 않습니다."),
     INVALID_GROUP_CATEGORY_LENGTH(400, "최소 한 개의 카테고리를 선택해야 합니다."),
 

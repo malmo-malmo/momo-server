@@ -65,6 +65,10 @@ public class User extends BaseEntity {
         return !this.nickname.equals(nickname);
     }
 
+    public boolean isSameUser(User user) {
+        return this.id.equals(user.getId());
+    }
+
     public void update(User user) {
         this.nickname = user.getNickname();
         this.location = user.getLocation();

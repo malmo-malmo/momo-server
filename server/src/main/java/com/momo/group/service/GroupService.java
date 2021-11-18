@@ -24,9 +24,9 @@ public class GroupService {
 
     private final ParticipantRepository participantRepository;
 
-    public Long create(User loginUser, GroupCreateRequest req) {
+    public Long create(User loginUser, GroupCreateRequest request) {
         User user = findByUser(loginUser);
-        Groups group = groupRepository.save(Groups.create(user, req.toEntity()));
+        Groups group = groupRepository.save(Groups.create(user, request.toEntity()));
         participantRepository.save(Participant.create(user, group));
         return group.getId();
     }

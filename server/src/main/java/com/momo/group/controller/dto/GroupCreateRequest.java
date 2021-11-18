@@ -4,7 +4,6 @@ import com.momo.group.domain.model.Category;
 import com.momo.group.domain.model.Groups;
 import com.momo.user.domain.model.Location;
 import java.time.LocalDate;
-import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
@@ -20,7 +19,7 @@ public class GroupCreateRequest {
     private String groupName;
 
     @NotNull(message = "모임 카테고리는 필수 입력값입니다.")
-    private List<String> categories;
+    private String category;
 
     private String university;
 
@@ -29,10 +28,6 @@ public class GroupCreateRequest {
     @NotNull(message = "모임 시작일은 필수 입력값입니다.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
-
-    @NotNull(message = "모임 예상 종료일은 필수 입력값입니다.")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate endDate;
 
     @NotNull(message = "인원수는 필수 입력값입니다.")
     private Long recruitmentCnt;
@@ -47,15 +42,13 @@ public class GroupCreateRequest {
     private Boolean isOffline;
 
     @Builder
-    public GroupCreateRequest(String groupName, List<String> categories, String university,
-        String location, LocalDate startDate, LocalDate endDate, Long recruitmentCnt,
-        String introduction, String groupImgUrl, Boolean isOffline) {
+    public GroupCreateRequest(String groupName, String category, String university, String location,
+        LocalDate startDate, Long recruitmentCnt, String introduction, String groupImgUrl, Boolean isOffline) {
         this.groupName = groupName;
-        this.categories = categories;
+        this.category = category;
         this.university = university;
         this.location = location;
         this.startDate = startDate;
-        this.endDate = endDate;
         this.recruitmentCnt = recruitmentCnt;
         this.introduction = introduction;
         this.groupImgUrl = groupImgUrl;
@@ -65,11 +58,10 @@ public class GroupCreateRequest {
     public Groups toEntity() {
         return Groups.builder()
             .groupName(groupName)
-            .categories(Category.toEntitySaveFormat(categories))
+            .category(Category.of(category))
             .university(university)
             .location(Location.of(location))
             .startDate(startDate)
-            .endDate(endDate)
             .recruitmentCnt(recruitmentCnt)
             .introduction(introduction)
             .isOffline(isOffline)

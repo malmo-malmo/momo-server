@@ -39,7 +39,9 @@ public class PostService {
         if (request.getPostType().equals(PostType.NORMAL.name())) {
             validateIsParticipant(user, group);
         } else {
-            group.validateIsManager(user);
+            if (!group.isManager(user)) {
+                throw new CustomException(ErrorCode.GROUP_NOTICE_UNAUTHORIZED);
+            }
         }
 
         Post post = postRepository.save(Post.create(user, group, request.toEntity()));
@@ -55,7 +57,7 @@ public class PostService {
 
     public Groups getGroupById(Long groupId) {
         return groupRepository.findById(groupId)
-            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_GROUP_ID));
+            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
     public void validateIsParticipant(User user, Groups group) {

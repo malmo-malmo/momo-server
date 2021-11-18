@@ -43,6 +43,6 @@ public class UserService {
 
     public User findByUser(User user) {
         return userRepository.findById(user.getId())
-            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_USER_ID));
+            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 }

@@ -16,13 +16,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class GroupCreateRequest {
 
     @NotBlank(message = "모임 이름은 필수 입력값입니다.")
-    private String groupName;
+    private String name;
 
     @NotNull(message = "모임 카테고리는 필수 입력값입니다.")
     private String category;
 
     private String university;
 
+    @NotBlank(message = "모임 지역은 필수 입력값입니다.")
     private String location;
 
     @NotNull(message = "모임 시작일은 필수 입력값입니다.")
@@ -30,40 +31,41 @@ public class GroupCreateRequest {
     private LocalDate startDate;
 
     @NotNull(message = "인원수는 필수 입력값입니다.")
-    private Long recruitmentCnt;
+    private int recruitmentCnt;
 
     @NotBlank(message = "모임 설명은 필수 입력값입니다.")
     private String introduction;
 
     @NotBlank(message = "모임 이미지는 필수 입력값입니다.")
-    private String groupImgUrl;
+    private String imageUrl;
 
-    @NotNull(message = "모임 형식은 필수 입력값입니다.")
+    @NotNull(message = "모임 온 오프라인 여부는 필수 입력값입니다.")
     private Boolean isOffline;
 
     @Builder
-    public GroupCreateRequest(String groupName, String category, String university, String location,
-        LocalDate startDate, Long recruitmentCnt, String introduction, String groupImgUrl, Boolean isOffline) {
-        this.groupName = groupName;
+    public GroupCreateRequest(String name, String category, String university, String location,
+        LocalDate startDate, int recruitmentCnt, String introduction, String imageUrl, Boolean isOffline) {
+        this.name = name;
         this.category = category;
         this.university = university;
         this.location = location;
         this.startDate = startDate;
         this.recruitmentCnt = recruitmentCnt;
         this.introduction = introduction;
-        this.groupImgUrl = groupImgUrl;
+        this.imageUrl = imageUrl;
         this.isOffline = isOffline;
     }
 
     public Groups toEntity() {
         return Groups.builder()
-            .groupName(groupName)
+            .name(name)
             .category(Category.of(category))
             .university(university)
             .location(Location.of(location))
             .startDate(startDate)
             .recruitmentCnt(recruitmentCnt)
             .introduction(introduction)
+            .imageUrl(imageUrl)
             .isOffline(isOffline)
             .build();
     }

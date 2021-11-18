@@ -2,7 +2,6 @@ package com.momo.group.domain.model;
 
 import com.momo.common.domain.BaseEntity;
 import com.momo.user.domain.model.User;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,7 +21,6 @@ public class Participant extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "participant_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

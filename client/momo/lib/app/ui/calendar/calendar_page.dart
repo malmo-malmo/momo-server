@@ -26,9 +26,9 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
     _scrollController.addListener(() {
       final direction = _scrollController.position.userScrollDirection;
       if (direction == ScrollDirection.forward) {
-        ref.read(checkScrollProvider.state).state = true;
+        ref.read(checkScrollStateProvider.state).state = true;
       } else {
-        ref.read(checkScrollProvider.state).state = false;
+        ref.read(checkScrollStateProvider.state).state = false;
       }
 
       if (_scrollController.position.pixels < 10) {

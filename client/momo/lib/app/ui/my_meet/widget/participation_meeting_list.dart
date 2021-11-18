@@ -1,10 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:momo/app/ui/my_meet/widget/participation_meeting_card.dart';
 
 class ParticipationMettingList extends StatelessWidget {
   const ParticipationMettingList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+      children: [
+        for (int i = 0; i < 3; i++)
+          const ParticipationMeetingCard(
+              icon: CupertinoIcons.app, title: '청계천 달리기 & 산책'),
+      ],
+    );
   }
 }

@@ -7,7 +7,7 @@ final selectdDayProvider = StateProvider<DateTime>((ref) => DateTime.now());
 final focusedDayProvider = StateProvider<DateTime>((ref) => DateTime.now());
 
 final calendarFormatProvder = Provider<CalendarFormat>((ref) {
-  final scrollState = ref.watch(scrollStateProvider);
+  final scrollState = ref.watch(scrollProvider);
   switch (scrollState) {
     case 1:
       return CalendarFormat.twoWeeks;

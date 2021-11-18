@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/meeting_detail/widget/withdraw_dialog.dart';
+import 'package:momo/app/util/navigation_service.dart';
 
 Widget meetingDetailBottomSheetAdmin() {
   return SizedBox(
@@ -69,10 +71,17 @@ Widget meetingDetailBottomSheetUser() {
               color: const Color(0xffd1d1d1),
             ),
           ),
-          Text(
-            '게시물 작성',
-            style: TextStyle(
-              fontSize: 18.sp,
+          InkWell(
+            onTap: () {
+              ref.read(navigatorProvider).navigateTo(
+                    routeName: AppRoutes.post,
+                  );
+            },
+            child: Text(
+              '게시물 작성',
+              style: TextStyle(
+                fontSize: 18.sp,
+              ),
             ),
           ),
           InkWell(

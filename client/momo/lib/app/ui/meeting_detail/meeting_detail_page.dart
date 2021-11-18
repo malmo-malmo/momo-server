@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:momo/app/ui/meeting_detail/widget/feed_card.dart';
 import 'package:momo/app/ui/meeting_detail/widget/feed_list.dart';
 import 'package:momo/app/ui/meeting_detail/widget/meeting_detail_bottom_sheet.dart';
 import 'package:momo/app/ui/meeting_detail/widget/meeting_title.dart';

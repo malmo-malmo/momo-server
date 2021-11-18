@@ -7,6 +7,7 @@ import 'package:momo/app/ui/login/terms_page.dart';
 import 'package:momo/app/ui/main_page.dart';
 import 'package:momo/app/ui/meeting_detail/meeting_detail_page.dart';
 import 'package:momo/app/ui/meeting_list/meeting_list_page.dart';
+import 'package:momo/app/ui/onboarding/onboarding_page.dart';
 
 class AppRoutes {
   static const main = '/main';
@@ -15,6 +16,7 @@ class AppRoutes {
   static const trems = '/trems';
   static const category = '/category';
   static const info = '/info';
+  static const onboarding = '/onboarding';
   static const meetingList = '/meetingList';
   static const meetingDetail = '/meetingDetail';
 }
@@ -42,6 +44,9 @@ class AppRouter {
       case AppRoutes.info:
         return MaterialPageRoute<dynamic>(
             builder: (_) => const InfoPage(), settings: settings);
+      case AppRoutes.onboarding:
+        return MaterialPageRoute<dynamic>(
+            builder: (_) => const OnboardingPage(), settings: settings);
       case AppRoutes.meetingList:
         final name = settings.arguments;
         return MaterialPageRoute<dynamic>(

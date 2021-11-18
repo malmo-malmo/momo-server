@@ -1,21 +1,24 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/login/user_info_provider.dart';
+import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/login/widget/agree_button.dart';
 import 'package:momo/app/ui/login/widget/input_box.dart';
+import 'package:momo/app/ui/login/widget/set_city_box.dart';
+import 'package:momo/app/ui/login/widget/set_country_box.dart';
 import 'package:momo/app/ui/login/widget/title_text.dart';
+import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
-import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 
 class InfoPage extends ConsumerWidget {
   const InfoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final check = ref.watch(userInfoCheckProvider);
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -42,7 +45,12 @@ class InfoPage extends ConsumerWidget {
                               style: TextStyle(
                                 color: MomoColor.white,
                               )))),
-                  onTabIcon: () {},
+                  onTabIcon: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => _duplicateDialog(),
+                    );
+                  },
                   onTextChanged:
                       ref.read(userInfoStateProvider.notifier).setUserNickname,
                 ),
@@ -58,71 +66,16 @@ class InfoPage extends ConsumerWidget {
                 ),
                 _subTitle('지역'),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomPopupMenu(
-                      child: Container(
-                        padding: const EdgeInsets.only(left: 24, right: 16),
-                        height: 44,
-                        width: 104,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(22),
-                          color: MomoColor.divider,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '지역',
-                              style: TextStyle(
-                                color: MomoColor.black,
-                                fontSize: 16.sp,
-                              ),
-                            ),
-                            Transform.rotate(
-                              angle: pi * 3 / 2,
-                              child: Icon(
-                                CupertinoIcons.back,
-                                size: 12.w,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      menuBuilder: () {
-                        return Container(
-                          height: 80,
-                          width: 100,
-                          color: Colors.red,
-                          child: ListView.separated(
-                            itemCount: 10,
-                            itemBuilder: (context, index) {
-                              return SizedBox(
-                                height: 30,
-                                child: Center(
-                                  child: Text(
-                                    '$index',
-                                  ),
-                                ),
-                              );
-                            },
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(height: 8),
-                          ),
-                        );
-                      },
-                      pressType: PressType.singleClick,
-                      barrierColor: Colors.transparent,
-                      showArrow: false,
-                      horizontalMargin: 20,
-                      verticalMargin: 0,
-                      position: PreferredPosition.bottom,
-                    )
+                    SetCityBox(),
+                    SetCountryBox(),
                   ],
                 ),
                 SizedBox(height: 180.h),
                 agreeButton(
-                  check: false,
-                  nextPage: 'adf',
+                  check: check,
+                  nextPage: AppRoutes.onboarding,
                   text: '다음',
                 ),
               ],
@@ -141,6 +94,52 @@ class InfoPage extends ConsumerWidget {
         style: TextStyle(
           color: MomoColor.black,
           fontSize: 20.sp,
+        ),
+      ),
+    );
+  }
+
+  Widget _duplicateDialog() {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Container(
+        padding:
+            const EdgeInsets.only(right: 24, left: 24, top: 48, bottom: 24),
+        height: 162,
+        width: 294,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '해당 이름으로 사용 가능해요',
+              style: TextStyle(color: MomoColor.black, fontSize: 16.sp),
+            ),
+            SizedBox(
+              height: 44,
+              width: 241,
+              child: Consumer(builder: (context, ref, _) {
+                return ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: MomoColor.main,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  onPressed: () {
+                    ref.read(navigatorProvider).pop();
+                  },
+                  child: Text(
+                    '확인',
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                );
+              }),
+            ),
+          ],
         ),
       ),
     );

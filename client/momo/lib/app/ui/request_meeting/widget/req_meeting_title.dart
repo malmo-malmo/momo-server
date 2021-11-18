@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/util/theme.dart';
 
-class MeetingTitle extends StatelessWidget {
-  const MeetingTitle({
+class ReqMeetingTitle extends StatelessWidget {
+  const ReqMeetingTitle({
     Key? key,
     required this.onOff,
     required this.meetingTitle,

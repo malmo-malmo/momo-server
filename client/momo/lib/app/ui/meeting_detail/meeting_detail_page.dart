@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/ui/meeting_detail/widget/feed_card.dart';
+import 'package:momo/app/ui/meeting_detail/widget/feed_list.dart';
 import 'package:momo/app/ui/meeting_detail/widget/meeting_detail_bottom_sheet.dart';
 import 'package:momo/app/ui/meeting_detail/widget/meeting_title.dart';
 import 'package:momo/app/ui/meeting_detail/widget/notice_list_card.dart';
@@ -47,7 +48,8 @@ class MeetingDetailPage extends StatelessWidget {
                       ),
                     ),
                     builder: (context) {
-                      return meetingDetailBottomSheet();
+                      // return meetingDetailBottomSheetAdmin();
+                      return meetingDetailBottomSheetUser();
                     },
                   );
                 },
@@ -60,28 +62,28 @@ class MeetingDetailPage extends StatelessWidget {
             ),
           ],
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                const MeetingTitle(
+        body: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: MeetingTitle(
                   onOff: '온라인',
                   meetingTitle: '테니스 왕자 모임',
                   count: 3,
                   startDate: '11/3~',
+                  location: '서울시 마포구',
+                  school: '모모대학교',
                 ),
-                const NoticeListCard(),
-                const ScheduleListCard(),
-                for (int i = 0; i < 10; i++)
-                  const FeedCard(
-                    img:
-                        'https://blog.kakaocdn.net/dn/l2HIx/btqAIQ3UbfL/AaP9zEOiO8zhbj2OAjcPS1/img.jpg',
-                    text: '모모 짱이에요',
-                    comments: 30,
-                  ),
-              ],
-            ),
+              ),
+              SliverToBoxAdapter(
+                child: ScheduleListCard(),
+              ),
+              SliverToBoxAdapter(
+                child: NoticeListCard(),
+              ),
+              FeedList()
+            ],
           ),
         ),
       ),

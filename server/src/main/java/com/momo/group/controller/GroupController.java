@@ -1,8 +1,8 @@
 package com.momo.group.controller;
 
 import com.momo.common.dto.EnumResponse;
+import com.momo.group.controller.dto.GroupCardResponse;
 import com.momo.group.controller.dto.GroupCreateRequest;
-import com.momo.group.controller.dto.GroupRequest;
 import com.momo.group.controller.dto.GroupResponse;
 import com.momo.group.service.GroupService;
 import com.momo.security.CurrentUser;
@@ -40,8 +40,30 @@ public class GroupController {
         return ResponseEntity.ok(groupResponse);
     }
 
+    @GetMapping("/groups/user-university/paging")
+    public ResponseEntity<List<GroupCardResponse>> findPageByUserUniversity(@CurrentUser User user,
+        @RequestParam int page, @RequestParam int size) {
+        List<GroupCardResponse> groupCardResponses = groupService.findPageByUserUniversity(user, page, size);
+        return ResponseEntity.ok(groupCardResponses);
+    }
+
+    @GetMapping("/groups/user-location/paging")
+    public ResponseEntity<List<GroupCardResponse>> findPageByUserLocation(@CurrentUser User user,
+        @RequestParam int page, @RequestParam int size) {
+        List<GroupCardResponse> groupCardResponses = groupService.findPageByUserLocation(user, page, size);
+        return ResponseEntity.ok(groupCardResponses);
+    }
+
+    @GetMapping("/groups/user-categories/paging")
+    public ResponseEntity<List<GroupCardResponse>> findPageByUserCategories(@CurrentUser User user,
+        @RequestParam int page, @RequestParam int size) {
+        List<GroupCardResponse> groupCardResponses = groupService.findPageByUserCategories(user, page, size);
+        return ResponseEntity.ok(groupCardResponses);
+    }
+
+
     @GetMapping("/group/categories")
-    public ResponseEntity<List<EnumResponse>> findCategories() {
+    public ResponseEntity<List<EnumResponse>> findGroupCategories() {
         return ResponseEntity.ok(EnumResponse.listOfCategory());
     }
 }

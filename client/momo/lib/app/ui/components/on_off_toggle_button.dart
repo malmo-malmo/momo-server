@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/provider/new_meet/new_meet_provider.dart';
-import 'package:momo/app/provider/new_meet/on_off_toggle_provider.dart';
+import 'package:momo/app/provider/on_off_toggle_provider.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget onOffToggleButton() {
+Widget onOffToggleButton({
+  required Function(String onOff) tabButton,
+}) {
   return Consumer(builder: (context, ref, _) {
     final checks = ref.watch(onOffToggleProvider);
 
@@ -13,8 +14,8 @@ Widget onOffToggleButton() {
       children: [
         InkWell(
           onTap: () {
+            tabButton('온라인');
             ref.read(onOffToggleStateProvider.notifier).toggle(0);
-            ref.read(newMeetStateProvider.notifier).setOnOff('온라인');
           },
           child: Container(
             height: 38,
@@ -37,8 +38,8 @@ Widget onOffToggleButton() {
         const SizedBox(width: 16),
         InkWell(
           onTap: () {
+            tabButton('오프라인');
             ref.read(onOffToggleStateProvider.notifier).toggle(1);
-            ref.read(newMeetStateProvider.notifier).setOnOff('오프라인');
           },
           child: Container(
             height: 38,

@@ -4,6 +4,8 @@ import 'package:momo/app/util/theme.dart';
 
 Widget contentInputBox({
   required Function(String text) onTextChanged,
+  required int maxLines,
+  required double height,
 }) {
   return Container(
     decoration: BoxDecoration(
@@ -11,11 +13,11 @@ Widget contentInputBox({
       color: MomoColor.unSelIcon,
     ),
     padding: const EdgeInsets.symmetric(horizontal: 16),
-    height: 98,
+    height: height,
     width: 306.w,
     child: Center(
       child: TextFormField(
-        maxLines: 3,
+        maxLines: maxLines,
         onChanged: (text) {
           onTextChanged(text);
         },

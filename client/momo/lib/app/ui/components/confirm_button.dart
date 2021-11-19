@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/provider/new_meet/new_meet_provider.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 class ConfirmButton extends ConsumerWidget {
-  const ConfirmButton({Key? key}) : super(key: key);
+  const ConfirmButton({
+    Key? key,
+    required this.check,
+    required this.buttonText,
+    this.dialogText,
+    required this.isShowDialog,
+  }) : super(key: key);
+
+  final bool check;
+  final String buttonText;
+  final String? dialogText;
+  final bool isShowDialog;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final check = ref.watch(newMeetCheckProvider);
-
     return SizedBox(
       height: 57,
       width: double.infinity,
@@ -33,17 +41,20 @@ class ConfirmButton extends ConsumerWidget {
         ),
         onPressed: check
             ? () async {
-                await showDialog(
-                  context: context,
-                  builder: (context) {
-                    return _confirmDialog(ref.read(newMeetProvider).meetName);
-                  },
-                );
+                if (isShowDialog) {
+                  await showDialog(
+                    context: context,
+                    builder: (context) {
+                      return _confirmDialog(dialogText!);
+                    },
+                  );
+                }
+
                 ref.read(navigatorProvider).pop();
               }
             : null,
         child: Text(
-          '완료',
+          buttonText,
           style: TextStyle(
             fontSize: 16.sp,
           ),
@@ -66,7 +77,7 @@ class ConfirmButton extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "'$title' 모임이 생성되었어요.",
+              title,
               style: TextStyle(color: MomoColor.black, fontSize: 16.sp),
             ),
             SizedBox(

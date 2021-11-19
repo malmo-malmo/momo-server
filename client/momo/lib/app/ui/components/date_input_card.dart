@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:momo/app/provider/new_meet/date_card_provider.dart';
-import 'package:momo/app/provider/new_meet/new_meet_provider.dart';
+import 'package:momo/app/provider/date_card_provider.dart';
 import 'package:momo/app/util/date_format.dart';
 import 'package:momo/app/util/theme.dart';
 
-class DateCard extends ConsumerWidget {
-  const DateCard({
+class DateInputCard extends ConsumerWidget {
+  const DateInputCard({
     Key? key,
+    required this.selcetDate,
   }) : super(key: key);
+
+  final Function(String date) selcetDate;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,7 +22,7 @@ class DateCard extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       height: 44,
-      width: 302.w,
+      width: 180.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: MomoColor.unSelIcon,
@@ -49,9 +51,7 @@ class DateCard extends ConsumerWidget {
                     );
                   });
               if (dateTime != null) {
-                ref
-                    .read(newMeetStateProvider.notifier)
-                    .setStartDay(DateFormat('yyyy-MM-dd').format(dateTime));
+                selcetDate(DateFormat('yyyy-MM-dd').format(dateTime));
                 ref.read(dateCardTextStateProvider.state).state =
                     DateFormat('yyyy-MM-dd').format(dateTime) +
                         ' ' +

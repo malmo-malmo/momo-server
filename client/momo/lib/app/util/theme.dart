@@ -10,8 +10,11 @@ class MyBehavior extends ScrollBehavior {
 }
 
 final MomoThemeData = ThemeData(
+  appBarTheme: const AppBarTheme(
+    backgroundColor: MomoColor.backgroundColor,
+  ),
   backgroundColor: MomoColor.backgroundColor,
-  inputDecorationTheme: InputDecorationTheme(
+  inputDecorationTheme: const InputDecorationTheme(
     border: InputBorder.none,
   ),
 );

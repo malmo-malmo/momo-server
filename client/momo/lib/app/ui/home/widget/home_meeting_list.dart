@@ -1,13 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/meet/home_meet.dart';
-import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/components/home_meet_card.dart';
-import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class HomeMeetingList extends StatefulWidget {
   const HomeMeetingList({Key? key}) : super(key: key);

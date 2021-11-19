@@ -3,14 +3,14 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/meet/meet_feed.dart';
 import 'package:momo/app/ui/components/feed_card.dart';
 
-class FeedList extends StatefulWidget {
-  const FeedList({Key? key}) : super(key: key);
+class NoticeListView extends StatefulWidget {
+  const NoticeListView({Key? key}) : super(key: key);
 
   @override
-  State<FeedList> createState() => _FeedListState();
+  State<NoticeListView> createState() => _NoticeListViewState();
 }
 
-class _FeedListState extends State<FeedList> {
+class _NoticeListViewState extends State<NoticeListView> {
   final PagingController<int, MeetFeed> _pagingController =
       PagingController(firstPageKey: 0);
 
@@ -55,18 +55,21 @@ class _FeedListState extends State<FeedList> {
 
   @override
   Widget build(BuildContext context) {
-    return PagedSliverList<int, MeetFeed>(
-      pagingController: _pagingController,
-      builderDelegate: PagedChildBuilderDelegate<MeetFeed>(
-        itemBuilder: (context, item, index) => FeedCard(
-          postId: index,
-          profile:
-              'https://blog.kakaocdn.net/dn/l2HIx/btqAIQ3UbfL/AaP9zEOiO8zhbj2OAjcPS1/img.jpg',
-          text: item.contents,
-          comments: item.comments,
-          userName: item.userName,
-          title: item.title,
+    return Expanded(
+      child: PagedListView.separated(
+        pagingController: _pagingController,
+        builderDelegate: PagedChildBuilderDelegate<MeetFeed>(
+          itemBuilder: (context, item, index) => FeedCard(
+            postId: index,
+            profile:
+                'https://blog.kakaocdn.net/dn/l2HIx/btqAIQ3UbfL/AaP9zEOiO8zhbj2OAjcPS1/img.jpg',
+            text: item.contents,
+            comments: item.comments,
+            userName: item.userName,
+            title: item.title,
+          ),
         ),
+        separatorBuilder: (context, index) => const SizedBox(height: 8),
       ),
     );
   }

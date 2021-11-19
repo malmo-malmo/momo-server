@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/ui/meeting_list/widget/category_list.dart';
+import 'package:momo/app/ui/meeting_list/widget/meeting_list_view.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
@@ -48,27 +48,7 @@ class MeetingListPage extends StatelessWidget {
                   ),
                 ),
               ),
-              name == '추천' ? const CategoryList() : const SizedBox(),
-              Expanded(
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisExtent: 150,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 5,
-                  ),
-                  itemBuilder: (context, index) {
-                    return Card(
-                      child: Center(
-                        child: Text(
-                          '$index',
-                        ),
-                      ),
-                      color: Colors.teal[100 * (index % 9)],
-                    );
-                  },
-                ),
-              ),
+              const MeetingListView(),
             ],
           ),
         ),

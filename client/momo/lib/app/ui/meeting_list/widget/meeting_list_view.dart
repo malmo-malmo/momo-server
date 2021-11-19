@@ -1,22 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/meet/home_meet.dart';
-import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/components/home_meet_card.dart';
-import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
-class HomeMeetingList extends StatefulWidget {
-  const HomeMeetingList({Key? key}) : super(key: key);
+class MeetingListView extends StatefulWidget {
+  const MeetingListView({Key? key}) : super(key: key);
 
   @override
-  State<HomeMeetingList> createState() => _HomeMeetingListState();
+  State<MeetingListView> createState() => _MeetingListViewState();
 }
 
-class _HomeMeetingListState extends State<HomeMeetingList> {
+class _MeetingListViewState extends State<MeetingListView> {
   final PagingController<int, HomeMeet> _pagingController =
       PagingController(firstPageKey: 0);
 
@@ -63,11 +58,9 @@ class _HomeMeetingListState extends State<HomeMeetingList> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200.h,
-      child: PagedListView<int, HomeMeet>.separated(
+    return Expanded(
+      child: PagedGridView(
         pagingController: _pagingController,
-        scrollDirection: Axis.horizontal,
         builderDelegate: PagedChildBuilderDelegate<HomeMeet>(
           itemBuilder: (context, item, index) => homeMeetCard(
             onOff: item.onOff,
@@ -76,10 +69,19 @@ class _HomeMeetingListState extends State<HomeMeetingList> {
             date: item.startDay,
             img: item.img,
             height: 200.h,
-            width: 144.w,
+            width: double.infinity,
           ),
         ),
-        separatorBuilder: (context, index) => const SizedBox(width: 16),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisExtent: 200.h,
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 16,
+          childAspectRatio: 100 / 150,
+        ),
+        showNewPageProgressIndicatorAsGridChild: false,
+        showNewPageErrorIndicatorAsGridChild: false,
+        showNoMoreItemsIndicatorAsGridChild: false,
       ),
     );
   }

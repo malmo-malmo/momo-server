@@ -22,6 +22,12 @@ class _FeedListState extends State<FeedList> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
+  }
+
   Future<void> _fetchPage(int pageKey) async {
     try {
       await Future.delayed(const Duration(seconds: 1));

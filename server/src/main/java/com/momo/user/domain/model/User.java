@@ -31,7 +31,7 @@ public class User extends BaseEntity {
 
     private String nickname;
 
-    private String profileImg;
+    private String image;
 
     @Enumerated(EnumType.STRING)
     private Location location;
@@ -45,12 +45,12 @@ public class User extends BaseEntity {
 
     @Builder
     public User(Long id, String providerId, SocialProvider provider, String nickname,
-        String profileImg, Location location, String university, String categories, Role role) {
+        String image, Location location, String university, String categories, Role role) {
         this.id = id;
         this.providerId = providerId;
         this.provider = provider;
         this.nickname = nickname;
-        this.profileImg = profileImg;
+        this.image = image;
         this.location = location;
         this.university = university;
         this.categories = categories;

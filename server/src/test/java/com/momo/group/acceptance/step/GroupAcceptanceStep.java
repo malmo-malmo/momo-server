@@ -37,7 +37,7 @@ public class GroupAcceptanceStep {
         assertThat(EnumResponse.listOfCategory().size()).isEqualTo(responses.size());
     }
 
-    public static ExtractableResponse<Response> requestToCreate(String token,
+    public static ExtractableResponse<Response> requestToCreateGroup(String token,
         GroupCreateRequest request) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
@@ -48,7 +48,7 @@ public class GroupAcceptanceStep {
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToFind(String token, Long groupId) {
+    public static ExtractableResponse<Response> requestToFindGroup(String token, Long groupId) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)

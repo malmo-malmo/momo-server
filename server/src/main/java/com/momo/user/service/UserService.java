@@ -26,8 +26,8 @@ public class UserService {
         user.update(userUpdateRequest.toEntity());
     }
 
-    public void findDuplicateNickname(String nickname) {
-        validateIsDuplicateNickname(nickname);
+    public boolean validateNickname(String nickname) {
+        return userRepository.existsByNickname(nickname);
     }
 
     public void validateIsDuplicateNickname(String nickname) {

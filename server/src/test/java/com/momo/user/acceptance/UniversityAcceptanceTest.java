@@ -16,8 +16,7 @@ import org.junit.jupiter.api.Test;
 public class UniversityAcceptanceTest extends AcceptanceTest {
 
     @Test
-    @DisplayName("커리어넷 오픈 API로 대학교 이름을 조회한다.")
-    public void update_success() {
+    public void 커리어넷_오픈_API로_대학교_이름을_조회한다() {
         String universityName = "한국";
         String token = getAccessToken(USER1);
         ExtractableResponse<Response> res = UniversityAcceptanceStep.requestToFind(token, universityName);

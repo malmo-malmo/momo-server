@@ -86,14 +86,14 @@ public class Groups extends BaseEntity {
         this.isEnd = isEnd;
     }
 
-    public static Groups create(User user, Groups group) {
+    public static Groups create(User user, Groups group, boolean isUniversity) {
         return Groups.builder()
             .manager(user)
             .name(group.getName())
             .imageUrl(group.getImageUrl())
             .category(group.getCategory())
             .startDate(group.getStartDate())
-            .university(group.getUniversity())
+            .university(isUniversity ? user.getUniversity() : null)
             .location(group.getLocation())
             .introduction(group.getIntroduction())
             .recruitmentCnt(group.getRecruitmentCnt())

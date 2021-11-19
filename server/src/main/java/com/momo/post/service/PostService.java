@@ -36,7 +36,7 @@ public class PostService {
 
     private final PostImageRepository postImageRepository;
 
-    public Long createPost(User user, PostCreateRequest request) {
+    public Long create(User user, PostCreateRequest request) {
         Groups group = getGroupById(request.getGroupId());
         //TODO : 리팩토링 하기!
         if (request.getPostType().equals(PostType.NORMAL.name())) {
@@ -58,7 +58,7 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public PostResponse findPost(User user, Long postId) {
+    public PostResponse find(User user, Long postId) {
         Post post = postRepository.findById(postId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
         validateIsGroupParticipant(user, post.getGroup());
@@ -66,7 +66,7 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostCardResponse> findPosts(User user, PostCardRequest request) {
+    public List<PostCardResponse> findPageByGroupAndType(User user, PostCardRequest request) {
         Groups group = getGroupById(request.getGroupId());
         validateIsGroupParticipant(user, group);
         PageRequest page = PageRequest.of(request.getPage(), request.getSize());

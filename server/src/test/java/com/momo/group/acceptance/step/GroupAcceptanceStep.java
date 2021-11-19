@@ -18,12 +18,12 @@ import org.springframework.http.MediaType;
 public class GroupAcceptanceStep {
 
     public static void assertThatFindGroup(GroupCreateRequest request, GroupResponse response, boolean isManager,
-        boolean isParticipant) {
+        boolean isParticipant, String university) {
         Assertions.assertAll(
             () -> assertThat(response.getName()).isEqualTo(request.getName()),
             () -> assertThat(response.getImageUrl()).isEqualTo(request.getImageUrl()),
             () -> assertThat(response.getStartDate()).isEqualTo(request.getStartDate()),
-            () -> assertThat(response.getUniversity()).isEqualTo(request.getUniversity()),
+            () -> assertThat(response.getUniversity()).isEqualTo(university),
             () -> assertThat(response.getLocation()).isEqualTo(Location.of(request.getLocation()).getName()),
             () -> assertThat(response.isOffline()).isEqualTo(request.getIsOffline()),
             () -> assertThat(response.getIntroduction()).isEqualTo(request.getIntroduction()),
@@ -54,6 +54,42 @@ public class GroupAcceptanceStep {
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .param("groupId", groupId)
             .get("/api/group")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> requestToFindGroupsByUserUniversity(String token) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .param("page", 0)
+            .param("size", 10)
+            .when()
+            .get("/api/groups/user-university/paging")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> requestToFindGroupsByLocation(String token) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .param("page", 0)
+            .param("size", 10)
+            .when()
+            .get("/api/groups/user-location/paging")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> requestToFindGroupsByCategories(String token) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .param("page", 0)
+            .param("size", 10)
+            .when()
+            .get("/api/groups/user-categories/paging")
             .then().log().all()
             .extract();
     }

@@ -30,7 +30,7 @@ public class Post extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private User author;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
@@ -48,9 +48,9 @@ public class Post extends BaseEntity {
     private int commentCnt;
 
     @Builder
-    public Post(Long id, User user, Groups group, String title, String contents, PostType type) {
+    public Post(Long id, User author, Groups group, String title, String contents, PostType type) {
         this.id = id;
-        this.user = user;
+        this.author = author;
         this.group = group;
         this.title = title;
         this.contents = contents;
@@ -59,7 +59,7 @@ public class Post extends BaseEntity {
 
     public static Post create(User user, Groups group, Post post) {
         return Post.builder()
-            .user(user)
+            .author(user)
             .group(group)
             .title(post.getTitle())
             .contents(post.getContents())

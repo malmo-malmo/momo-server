@@ -5,13 +5,21 @@ import static com.momo.fixture.PostFixture.NOTICE_CREATE_REQUEST1;
 import static com.momo.fixture.PostFixture.POST_CREATE_REQUEST1;
 import static com.momo.fixture.UserFixture.USER1;
 import static com.momo.fixture.UserFixture.USER2;
-import static com.momo.post.step.PostAcceptanceStep.requestToCreate;
+import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
+import static com.momo.post.step.PostAcceptanceStep.requestToCreatePost;
+import static com.momo.post.step.PostAcceptanceStep.requestToFindPost;
+import static com.momo.post.step.PostAcceptanceStep.requestToFindPosts;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
-import com.momo.group.acceptance.step.GroupAcceptanceStep;
+import com.momo.post.controller.dto.PostCardRequest;
+import com.momo.post.controller.dto.PostCardResponse;
+import com.momo.post.controller.dto.PostResponse;
+import com.momo.post.domain.model.PostType;
+import com.momo.post.step.PostAcceptanceStep;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -19,42 +27,81 @@ import org.junit.jupiter.api.Test;
 public class PostAcceptanceTest extends AcceptanceTest {
 
     @Test
-    @DisplayName("모임에 게시물을 등록한다.")
-    public void createPost_success() {
+    public void 모임에_게시물을_등록한다() {
         String token = getAccessToken(USER1);
-        Long groupId = extractId(GroupAcceptanceStep.requestToCreate(token, GROUP_CREATE_REQUEST1));
-        ExtractableResponse<Response> res = requestToCreate(token, POST_CREATE_REQUEST1, groupId);
+        Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
+        ExtractableResponse<Response> res = requestToCreatePost(token, POST_CREATE_REQUEST1, groupId);
         AcceptanceStep.assertThatStatusIsCreated(res);
     }
 
     @Test
-    @DisplayName("모임에 게시물을 등록할 때 모임의 참여자가 아니면 실패한다.")
-    public void createPost_fail() {
+    public void 모임에_게시물을_등록할_때_모임의_참여자가_아니면_실패한다() {
         String token = getAccessToken(USER1);
-        Long groupId = extractId(GroupAcceptanceStep.requestToCreate(token, GROUP_CREATE_REQUEST1));
-
+        Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         String invalidToken = getAccessToken(USER2);
-        ExtractableResponse<Response> res = requestToCreate(invalidToken, POST_CREATE_REQUEST1, groupId);
+        ExtractableResponse<Response> res = requestToCreatePost(invalidToken, POST_CREATE_REQUEST1, groupId);
         AcceptanceStep.assertThatErrorIsParticipantUnAuthorized(res);
     }
 
     @Test
-    @DisplayName("모임에 공지사항을 등록한다.")
-    public void createNotice_success() {
+    public void 모임에_공지사항을_등록한다() {
         String token = getAccessToken(USER1);
-        Long groupId = extractId(GroupAcceptanceStep.requestToCreate(token, GROUP_CREATE_REQUEST1));
-        ExtractableResponse<Response> res = requestToCreate(token, NOTICE_CREATE_REQUEST1, groupId);
-        AcceptanceStep.assertThatStatusIsCreated(res);
+        Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
+        ExtractableResponse<Response> response = requestToCreatePost(token, NOTICE_CREATE_REQUEST1, groupId);
+        AcceptanceStep.assertThatStatusIsCreated(response);
     }
 
     @Test
-    @DisplayName("모임에 공지사항을 등록할 때 모임의 관리자가 아니면 실패한다.")
-    public void createNotice_fail() {
+    public void 모임에_공지사항을_등록할_때_모임의_관리자가_아니면_실패한다() {
         String token = getAccessToken(USER1);
-        Long groupId = extractId(GroupAcceptanceStep.requestToCreate(token, GROUP_CREATE_REQUEST1));
-
+        Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         String invalidToken = getAccessToken(USER2);
-        ExtractableResponse<Response> res = requestToCreate(invalidToken, NOTICE_CREATE_REQUEST1, groupId);
-        AcceptanceStep.assertThatErrorIsNoticeUnAuthorized(res);
+        ExtractableResponse<Response> response = requestToCreatePost(invalidToken, NOTICE_CREATE_REQUEST1, groupId);
+        AcceptanceStep.assertThatErrorIsNoticeUnAuthorized(response);
+    }
+
+    @Test
+    public void 모임_게시물_또는_공지사항을_상세_조회한다() {
+        String token = getAccessToken(USER1);
+        Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
+        Long postId = extractId(requestToCreatePost(token, POST_CREATE_REQUEST1, groupId));
+        ExtractableResponse<Response> response = requestToFindPost(token, postId);
+        PostResponse postResponse = getObject(response, PostResponse.class);
+        AcceptanceStep.assertThatStatusIsOk(response);
+        PostAcceptanceStep.assertThatFindPost(POST_CREATE_REQUEST1, postResponse, postId, USER1, 0);
+    }
+
+    @Test
+    public void 모임_게시물_또는_공지사항을_상세_조회할_때_참여자가_아니면_실패한다() {
+        String token = getAccessToken(USER1);
+        Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
+        Long postId = extractId(requestToCreatePost(token, POST_CREATE_REQUEST1, groupId));
+        String invalidToken = getAccessToken(USER2);
+        ExtractableResponse<Response> response = requestToFindPost(invalidToken, postId);
+        AcceptanceStep.assertThatErrorIsParticipantUnAuthorized(response);
+    }
+
+    @Test
+    public void 모임_게시물들을_전체_조회한다() {
+        String token = getAccessToken(USER1);
+        Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
+        requestToCreatePost(token, POST_CREATE_REQUEST1, groupId);
+        requestToCreatePost(token, NOTICE_CREATE_REQUEST1, groupId);
+        PostCardRequest postCardRequest = new PostCardRequest(groupId, PostType.NORMAL.name(), 0, 10);
+        ExtractableResponse<Response> response = requestToFindPosts(token, postCardRequest);
+        List<PostCardResponse> postCardResponses = getObjects(response, PostCardResponse.class);
+        AcceptanceStep.assertThatStatusIsOk(response);
+        PostAcceptanceStep.assertThatFindPosts(POST_CREATE_REQUEST1, postCardResponses, USER1, 0);
+    }
+
+    @Test
+    public void 모임_참여자가_아니면_게시물_또는_공지사항_전체_조회를_실패한다() {
+        String token = getAccessToken(USER1);
+        String invalidToken = getAccessToken(USER2);
+        Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
+        requestToCreatePost(token, POST_CREATE_REQUEST1, groupId);
+        PostCardRequest postCardRequest = new PostCardRequest(groupId, PostType.NOTICE.name(), 0, 10);
+        ExtractableResponse<Response> response = requestToFindPosts(invalidToken, postCardRequest);
+        AcceptanceStep.assertThatErrorIsParticipantUnAuthorized(response);
     }
 }

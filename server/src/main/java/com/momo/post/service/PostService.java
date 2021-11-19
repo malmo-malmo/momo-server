@@ -5,7 +5,10 @@ import com.momo.common.exception.ErrorCode;
 import com.momo.group.domain.model.Groups;
 import com.momo.group.domain.repository.GroupRepository;
 import com.momo.group.domain.repository.ParticipantRepository;
+import com.momo.post.controller.dto.PostCardRequest;
+import com.momo.post.controller.dto.PostCardResponse;
 import com.momo.post.controller.dto.PostCreateRequest;
+import com.momo.post.controller.dto.PostResponse;
 import com.momo.post.domain.model.Post;
 import com.momo.post.domain.model.PostImage;
 import com.momo.post.domain.model.PostType;
@@ -15,6 +18,7 @@ import com.momo.user.domain.model.User;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -32,18 +36,16 @@ public class PostService {
 
     private final PostImageRepository postImageRepository;
 
-    public Long create(User user, PostCreateRequest request) {
+    public Long createPost(User user, PostCreateRequest request) {
         Groups group = getGroupById(request.getGroupId());
-
         //TODO : 리팩토링 하기!
         if (request.getPostType().equals(PostType.NORMAL.name())) {
-            validateIsParticipant(user, group);
+            validateIsGroupParticipant(user, group);
         } else {
             if (!group.isManager(user)) {
                 throw new CustomException(ErrorCode.GROUP_NOTICE_UNAUTHORIZED);
             }
         }
-
         Post post = postRepository.save(Post.create(user, group, request.toEntity()));
 
         if (!CollectionUtils.isEmpty(request.getImageUrls())) {
@@ -55,12 +57,30 @@ public class PostService {
         return post.getId();
     }
 
+    @Transactional(readOnly = true)
+    public PostResponse findPost(User user, Long postId) {
+        Post post = postRepository.findById(postId)
+            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
+        validateIsGroupParticipant(user, post.getGroup());
+        return PostResponse.of(post, postImageRepository.findAllByPost(post));
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostCardResponse> findPosts(User user, PostCardRequest request) {
+        Groups group = getGroupById(request.getGroupId());
+        validateIsGroupParticipant(user, group);
+        PageRequest page = PageRequest.of(request.getPage(), request.getSize());
+        List<Post> posts = postRepository.findAllByGroupAndTypeOrderByCreatedDateDesc(group,
+            PostType.of(request.getType()), page).getContent();
+        return PostCardResponse.listOf(posts);
+    }
+
     public Groups getGroupById(Long groupId) {
         return groupRepository.findById(groupId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
-    public void validateIsParticipant(User user, Groups group) {
+    public void validateIsGroupParticipant(User user, Groups group) {
         if (!participantRepository.existsByUserAndGroup(user, group)) {
             throw new CustomException(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED);
         }

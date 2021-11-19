@@ -13,6 +13,12 @@ public class PostFixture {
         .imageUrls(List.of("이미지1", "이미지2"))
         .build();
 
+    public static PostCreateRequest POST_CREATE_REQUEST2 = PostCreateRequest.builder()
+        .title("오늘 저녁 9시 농구")
+        .contents("오늘 저녁 9시부터 10시까지 농구하실 분 10분 구해요!")
+        .postType(PostType.NORMAL.name())
+        .build();
+
     public static PostCreateRequest NOTICE_CREATE_REQUEST1 = PostCreateRequest.builder()
         .title("운동 모임 필독 사항 공지")
         .contents("1. 친목 금지....")

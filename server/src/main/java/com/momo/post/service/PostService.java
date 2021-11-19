@@ -6,6 +6,7 @@ import com.momo.group.domain.model.Groups;
 import com.momo.group.domain.repository.GroupRepository;
 import com.momo.group.domain.repository.ParticipantRepository;
 import com.momo.post.controller.dto.PostCreateRequest;
+import com.momo.post.controller.dto.PostResponse;
 import com.momo.post.domain.model.Post;
 import com.momo.post.domain.model.PostImage;
 import com.momo.post.domain.model.PostType;
@@ -34,16 +35,14 @@ public class PostService {
 
     public Long create(User user, PostCreateRequest request) {
         Groups group = getGroupById(request.getGroupId());
-
         //TODO : 리팩토링 하기!
         if (request.getPostType().equals(PostType.NORMAL.name())) {
-            validateIsParticipant(user, group);
+            validateIsGroupParticipant(user, group);
         } else {
             if (!group.isManager(user)) {
                 throw new CustomException(ErrorCode.GROUP_NOTICE_UNAUTHORIZED);
             }
         }
-
         Post post = postRepository.save(Post.create(user, group, request.toEntity()));
 
         if (!CollectionUtils.isEmpty(request.getImageUrls())) {
@@ -60,7 +59,21 @@ public class PostService {
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
-    public void validateIsParticipant(User user, Groups group) {
+    @Transactional(readOnly = true)
+    public PostResponse find(User user, Long postId) {
+        Post post = getPostById(postId);
+        validateIsGroupParticipant(user, post.getGroup());
+        List<PostImage> postImages = postImageRepository.findAllByPost(post);
+        return PostResponse.of(post, postImages);
+    }
+
+    public Post getPostById(Long postId) {
+        return postRepository.findById(postId)
+            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
+    }
+
+
+    public void validateIsGroupParticipant(User user, Groups group) {
         if (!participantRepository.existsByUserAndGroup(user, group)) {
             throw new CustomException(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED);
         }

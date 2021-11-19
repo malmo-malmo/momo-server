@@ -3,7 +3,6 @@ package com.momo.post.domain.model;
 import com.momo.common.domain.BaseEntity;
 import com.momo.group.domain.model.Groups;
 import com.momo.user.domain.model.User;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -27,10 +26,9 @@ public class Post extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -46,7 +44,7 @@ public class Post extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private PostType type;
 
-    @Formula("(select count(*) post_comment c where c.post_id = post_id)")
+    @Formula("(select count(*) from post_comment p where p.post_id = id)")
     private int commentCnt;
 
     @Builder

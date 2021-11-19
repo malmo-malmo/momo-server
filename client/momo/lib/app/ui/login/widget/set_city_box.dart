@@ -25,7 +25,7 @@ class SetCityBox extends ConsumerWidget {
         width: 104,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(22),
-          color: MomoColor.divider,
+          color: const Color(0xffffffff),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,9 +51,9 @@ class SetCityBox extends ConsumerWidget {
         return Container(
           height: 80,
           width: 100,
-          color: MomoColor.white,
+          color: const Color(0xffffffff),
           child: ListView.separated(
-            itemCount: 10,
+            itemCount: 5,
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
@@ -61,8 +61,8 @@ class SetCityBox extends ConsumerWidget {
                   ref.read(userInfoStateProvider.notifier).setUserCity('서울');
                 },
                 child: Container(
-                  color: const Color(0xff555555),
-                  height: 30,
+                  color: const Color(0xffffffff),
+                  height: 20,
                   child: const Center(
                     child: Text(
                       '서울',

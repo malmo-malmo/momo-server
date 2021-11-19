@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/provider/login/name_check_provider.dart';
 import 'package:momo/app/provider/login/user_info_provider.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/login/widget/agree_button.dart';
@@ -18,6 +19,7 @@ class InfoPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final check = ref.watch(userInfoCheckProvider);
+    final userNameCheck = ref.watch(nameCheckProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -31,26 +33,35 @@ class InfoPage extends ConsumerWidget {
               children: [
                 titleText('내 정보 설정  3/3'),
                 SizedBox(height: 16.h),
-                subTitleText('내 정보를 입력해주세요'),
-                _subTitle('이름 (닉네임)'),
+                _subTitle('닉네임'),
                 inputBox(
                   searchIcon: Container(
-                      height: 29,
-                      width: 58.w,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          color: MomoColor.main),
-                      child: const Center(
-                          child: Text('중복확인',
-                              style: TextStyle(
-                                color: MomoColor.white,
-                              )))),
-                  onTabIcon: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => _duplicateDialog(),
-                    );
-                  },
+                    height: 29,
+                    width: 64.w,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: userNameCheck
+                            ? MomoColor.main
+                            : MomoColor.unSelButton),
+                    child: Center(
+                      child: Text(
+                        '중복확인',
+                        style: TextStyle(
+                          color: userNameCheck
+                              ? MomoColor.white
+                              : MomoColor.unSelText,
+                        ),
+                      ),
+                    ),
+                  ),
+                  onTabIcon: userNameCheck
+                      ? () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => _duplicateDialog(),
+                          );
+                        }
+                      : () {},
                   onTextChanged:
                       ref.read(userInfoStateProvider.notifier).setUserNickname,
                 ),
@@ -101,43 +112,54 @@ class InfoPage extends ConsumerWidget {
 
   Widget _duplicateDialog() {
     return Dialog(
+      insetPadding: const EdgeInsets.all(1),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
       child: Container(
-        padding:
-            const EdgeInsets.only(right: 24, left: 24, top: 48, bottom: 24),
-        height: 162,
-        width: 294,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: const Color(0xffffffff),
+        ),
+        height: 148,
+        width: 280,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              '해당 이름으로 사용 가능해요',
-              style: TextStyle(color: MomoColor.black, fontSize: 16.sp),
+            Padding(
+              padding: const EdgeInsets.only(top: 40),
+              child: Text(
+                '사용 가능한 닉네임이에요',
+                style: TextStyle(color: MomoColor.black, fontSize: 16.sp),
+              ),
             ),
-            SizedBox(
-              height: 44,
-              width: 241,
-              child: Consumer(builder: (context, ref, _) {
-                return ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: MomoColor.main,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  onPressed: () {
+            Consumer(
+              builder: (context, ref, _) {
+                return InkWell(
+                  onTap: () {
                     ref.read(navigatorProvider).pop();
                   },
-                  child: Text(
-                    '확인',
-                    style: TextStyle(
-                      fontSize: 16.sp,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      ),
+                      color: MomoColor.main,
+                    ),
+                    height: 44,
+                    width: double.infinity,
+                    child: Center(
+                      child: Text(
+                        '확인',
+                        style: MomoTextStyle.defaultStyle.copyWith(
+                          color: MomoColor.white,
+                        ),
+                      ),
                     ),
                   ),
                 );
-              }),
+              },
             ),
           ],
         ),

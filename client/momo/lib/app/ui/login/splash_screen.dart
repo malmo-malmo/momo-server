@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/navigation_service.dart';
+import 'package:momo/app/util/theme.dart';
 
 class SplashPage extends ConsumerStatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -21,9 +23,12 @@ class _SplahScreenState extends ConsumerState<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      backgroundColor: MomoColor.main,
       body: Center(
-        child: Text('스플래쉬 스크린'),
+        child: SvgPicture.asset(
+          'assets/icon/ic_momo.svg',
+        ),
       ),
     );
   }

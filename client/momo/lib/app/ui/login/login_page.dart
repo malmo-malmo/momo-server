@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'dart:io' show HttpServer;
@@ -7,6 +8,7 @@ import 'dart:io' show HttpServer;
 import 'dart:developer' as dp;
 
 import 'package:momo/app/util/navigation_service.dart';
+import 'package:momo/app/util/theme.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -56,24 +58,18 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final _height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: MomoColor.main,
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: EdgeInsets.only(
+              left: 24, right: 24, top: _height * 0.35, bottom: 56),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'KaKaoLogin',
-                style: TextStyle(
-                  fontSize: 32,
-                ),
-              ),
-              Text(
-                'resultToken: $resultToken',
-                style: const TextStyle(
-                  fontSize: 32,
-                ),
+              SvgPicture.asset(
+                'assets/icon/ic_momo.svg',
               ),
               InkWell(
                 onTap: () async {

@@ -25,7 +25,7 @@ class SetCountryBox extends ConsumerWidget {
         width: 192.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(22),
-          color: MomoColor.divider,
+          color: const Color(0xffffffff),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,8 +50,8 @@ class SetCountryBox extends ConsumerWidget {
       menuBuilder: () {
         return Container(
           height: 80,
-          width: 100,
-          color: MomoColor.white,
+          width: 200,
+          color: const Color(0xffffffff),
           child: ListView.separated(
             itemCount: 10,
             itemBuilder: (context, index) {
@@ -63,7 +63,7 @@ class SetCountryBox extends ConsumerWidget {
                       .setUserCountry('강남구');
                 },
                 child: Container(
-                  color: const Color(0xff555555),
+                  color: const Color(0xffffffff),
                   height: 30,
                   child: const Center(
                     child: Text(

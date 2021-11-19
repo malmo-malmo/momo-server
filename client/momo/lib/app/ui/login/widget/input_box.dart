@@ -7,38 +7,36 @@ Widget inputBox({
   required Function onTabIcon,
   required Function(String text) onTextChanged,
 }) {
-  return Material(
-    elevation: 5,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(20),
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 16),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(16),
+      color: const Color(0xffffffff),
     ),
-    child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      height: 44,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 18,
-            width: 240.w,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14),
-              child: TextField(
-                onChanged: (text) {
-                  onTextChanged(text);
-                },
-              ),
+    height: 44,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 18,
+          width: 240.w,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14),
+            child: TextField(
+              onChanged: (text) {
+                onTextChanged(text);
+              },
             ),
           ),
-          InkWell(
-            child: searchIcon,
-            onTap: () {
-              onTabIcon();
-            },
-          ),
-        ],
-      ),
+        ),
+        InkWell(
+          child: searchIcon,
+          onTap: () {
+            onTabIcon();
+          },
+        ),
+      ],
     ),
   );
 }

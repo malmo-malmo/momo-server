@@ -4,10 +4,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/post/post_request_provider.dart';
 import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/ui/components/confirm_button.dart';
+import 'package:momo/app/ui/post_request/widget/img_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
 
-class PostPage extends ConsumerWidget {
-  const PostPage({Key? key}) : super(key: key);
+class PostRequestPage extends ConsumerWidget {
+  const PostRequestPage({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
+
+  final String title;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,7 +32,9 @@ class PostPage extends ConsumerWidget {
               Row(
                 children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      ref.read(navigatorProvider).pop();
+                    },
                     child: const Icon(
                       CupertinoIcons.back,
                       size: 30,
@@ -33,7 +42,7 @@ class PostPage extends ConsumerWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    '게시물 작성',
+                    '$title 작성',
                     style: TextStyle(
                       fontSize: 16.sp,
                     ),
@@ -74,46 +83,33 @@ class PostPage extends ConsumerWidget {
                   },
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  ref
-                      .read(navigatorProvider)
-                      .navigateTo(routeName: AppRoutes.gallery);
-                },
-                child: const Icon(
-                  CupertinoIcons.camera,
-                  size: 40,
-                ),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  InkWell(
+                    onTap: () async {
+                      final imgPath = await ref
+                          .read(navigatorProvider)
+                          .navigateTo(routeName: AppRoutes.gallery);
+                      ref
+                          .read(postRequestStateProvider.notifier)
+                          .setImage(imgPath);
+                    },
+                    child: const Icon(
+                      CupertinoIcons.camera,
+                      size: 40,
+                    ),
+                  ),
+                  imgCard(img: postRequest.img),
+                ],
               ),
               const SizedBox(height: 150),
-              SizedBox(
-                height: 57,
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(32),
-                      ),
-                    ),
-                    backgroundColor: MaterialStateProperty.resolveWith(
-                      (states) {
-                        if (states.contains(MaterialState.disabled)) {
-                          return const Color(0xfff2f2f2);
-                        }
-                        return const Color(0xff000000);
-                      },
-                    ),
-                  ),
-                  onPressed: check ? () {} : null,
-                  child: Text(
-                    '등록하기',
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                    ),
-                  ),
-                ),
-              )
+              ConfirmButton(
+                check: check,
+                buttonText: '등록하기',
+                isShowDialog: false,
+              ),
             ],
           ),
         ),

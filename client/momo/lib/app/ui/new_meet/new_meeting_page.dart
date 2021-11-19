@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/new_meet/new_meet_provider.dart';
+import 'package:momo/app/ui/components/confirm_button.dart';
+import 'package:momo/app/ui/components/content_input_box.dart';
+import 'package:momo/app/ui/components/date_input_card.dart';
+import 'package:momo/app/ui/components/name_input_box.dart';
+import 'package:momo/app/ui/components/on_off_toggle_button.dart';
 import 'package:momo/app/ui/new_meet/widget/categort_card.dart';
-import 'package:momo/app/ui/new_meet/widget/confirm_button.dart';
-import 'package:momo/app/ui/new_meet/widget/content_input_box.dart';
-import 'package:momo/app/ui/new_meet/widget/date_card.dart';
 import 'package:momo/app/ui/new_meet/widget/head_num_input_box.dart';
-import 'package:momo/app/ui/new_meet/widget/name_input_box.dart';
-import 'package:momo/app/ui/new_meet/widget/on_off_toggle_button.dart';
 import 'package:momo/app/ui/new_meet/widget/school_input_box.dart';
 import 'package:momo/app/ui/new_meet/widget/set_meet_city_box.dart';
 import 'package:momo/app/ui/new_meet/widget/set_meet_country_box.dart';
@@ -21,6 +21,8 @@ class NewMeetingPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final newMeet = ref.watch(newMeetProvider);
+    final check = ref.watch(newMeetCheckProvider);
+    final dialogText = "'${newMeet.meetName}' 모임이 생성되었어요!";
 
     return SafeArea(
       child: Scaffold(
@@ -41,13 +43,18 @@ class NewMeetingPage extends ConsumerWidget {
                     _subTitle('카테고리'),
                     categoryCards(),
                     _subTitle('모임 유형'),
-                    onOffToggleButton(),
+                    onOffToggleButton(
+                        tabButton:
+                            ref.read(newMeetStateProvider.notifier).setOnOff),
                     _subTitle('인원 수'),
                     headNumInputBox(
                         onTextChanged:
                             ref.read(newMeetStateProvider.notifier).setHeadNum),
                     _subTitle('모임 시작 날짜'),
-                    const DateCard(),
+                    DateInputCard(
+                        selcetDate: ref
+                            .read(newMeetStateProvider.notifier)
+                            .setStartDay),
                     _subTitle('학교'),
                     schoolInputBox(
                         onTextChanged:
@@ -71,11 +78,18 @@ class NewMeetingPage extends ConsumerWidget {
                     ),
                     _subTitle('모임 설명'),
                     contentInputBox(
-                        onTextChanged: ref
-                            .read(newMeetStateProvider.notifier)
-                            .setContents),
+                      onTextChanged:
+                          ref.read(newMeetStateProvider.notifier).setContents,
+                      height: 98,
+                      maxLines: 6,
+                    ),
                     const SizedBox(height: 24),
-                    const ConfirmButton(),
+                    ConfirmButton(
+                      dialogText: dialogText,
+                      buttonText: '완료',
+                      check: check,
+                      isShowDialog: true,
+                    ),
                   ],
                 ),
               ),

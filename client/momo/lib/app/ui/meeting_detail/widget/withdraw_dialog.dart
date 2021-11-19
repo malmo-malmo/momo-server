@@ -17,29 +17,51 @@ Widget withdrawDialog() {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            '해당 이름으로 사용 가능해요',
+            '정말 모임에서 탈퇴하시겠어요?',
             style: TextStyle(color: MomoColor.black, fontSize: 16.sp),
           ),
           SizedBox(
             height: 44,
             width: 241,
             child: Consumer(builder: (context, ref, _) {
-              return ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: MomoColor.main,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: MomoColor.main,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    onPressed: () {
+                      ref.read(navigatorProvider).pop(result: true);
+                    },
+                    child: Text(
+                      '네, 나갈래요',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                      ),
+                    ),
                   ),
-                ),
-                onPressed: () {
-                  ref.read(navigatorProvider).pop();
-                },
-                child: Text(
-                  '확인',
-                  style: TextStyle(
-                    fontSize: 16.sp,
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: MomoColor.main,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    onPressed: () {
+                      ref.read(navigatorProvider).pop(result: false);
+                    },
+                    child: Text(
+                      '아니요',
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               );
             }),
           ),

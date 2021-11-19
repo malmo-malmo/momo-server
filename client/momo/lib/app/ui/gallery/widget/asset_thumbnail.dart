@@ -36,16 +36,6 @@ class AssetThumbnail extends ConsumerWidget {
               Positioned.fill(
                 child: Image.memory(bytes, fit: BoxFit.cover),
               ),
-              if (asset.type == AssetType.video)
-                Center(
-                  child: Container(
-                    color: Colors.blue,
-                    child: const Icon(
-                      Icons.play_arrow,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
             ],
           ),
         );

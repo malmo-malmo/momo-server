@@ -29,22 +29,22 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/post")
-    public ResponseEntity<Void> createPost(@CurrentUser User user,
+    public ResponseEntity<Void> create(@CurrentUser User user,
         @Valid @RequestBody PostCreateRequest postCreateRequest) throws URISyntaxException {
-        Long postId = postService.createPost(user, postCreateRequest);
+        Long postId = postService.create(user, postCreateRequest);
         return ResponseEntity.created(new URI("/api/post/" + postId)).build();
     }
 
     @GetMapping("/post")
-    public ResponseEntity<PostResponse> findPost(@CurrentUser User user, @RequestParam Long postId) {
-        PostResponse postResponse = postService.findPost(user, postId);
+    public ResponseEntity<PostResponse> find(@CurrentUser User user, @RequestParam Long postId) {
+        PostResponse postResponse = postService.find(user, postId);
         return ResponseEntity.ok(postResponse);
     }
 
     @GetMapping("/posts/paging")
-    public ResponseEntity<List<PostCardResponse>> findPosts(@CurrentUser User user,
+    public ResponseEntity<List<PostCardResponse>> findPageByGroupAndType(@CurrentUser User user,
         @ModelAttribute @Valid PostCardRequest postCardRequest) {
-        List<PostCardResponse> postCardResponses = postService.findPosts(user, postCardRequest);
+        List<PostCardResponse> postCardResponses = postService.findPageByGroupAndType(user, postCardRequest);
         return ResponseEntity.ok(postCardResponses);
     }
 }

@@ -23,7 +23,7 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("게시글 통합/인수 테스트")
+@DisplayName("게시물 통합/인수 테스트")
 public class PostAcceptanceTest extends AcceptanceTest {
 
     @Test

@@ -15,39 +15,40 @@ import org.springframework.format.annotation.DateTimeFormat;
 @NoArgsConstructor
 public class GroupCreateRequest {
 
-    @NotBlank(message = "모임 이름은 필수 입력값입니다.")
+    @NotBlank(message = "이름은 필수 입력값입니다.")
     private String name;
 
-    @NotNull(message = "모임 카테고리는 필수 입력값입니다.")
+    @NotNull(message = "카테고리는 필수 입력값입니다.")
     private String category;
 
-    private String university;
+    @NotNull(message = "학교 여부는 필수 입력값입니다.")
+    private Boolean isUniversity;
 
-    @NotBlank(message = "모임 지역은 필수 입력값입니다.")
+    @NotBlank(message = "지역은 필수 입력값입니다.")
     private String location;
 
-    @NotNull(message = "모임 시작일은 필수 입력값입니다.")
+    @NotNull(message = "시작일은 필수 입력값입니다.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
     @NotNull(message = "인원수는 필수 입력값입니다.")
     private int recruitmentCnt;
 
-    @NotBlank(message = "모임 설명은 필수 입력값입니다.")
+    @NotBlank(message = "설명은 필수 입력값입니다.")
     private String introduction;
 
-    @NotBlank(message = "모임 이미지는 필수 입력값입니다.")
+    @NotBlank(message = "이미지는 필수 입력값입니다.")
     private String imageUrl;
 
-    @NotNull(message = "모임 온 오프라인 여부는 필수 입력값입니다.")
+    @NotNull(message = "온 오프라인 여부는 필수 입력값입니다.")
     private Boolean isOffline;
 
     @Builder
-    public GroupCreateRequest(String name, String category, String university, String location,
-        LocalDate startDate, int recruitmentCnt, String introduction, String imageUrl, Boolean isOffline) {
+    public GroupCreateRequest(String name, String category, Boolean isUniversity, String location, LocalDate startDate,
+        int recruitmentCnt, String introduction, String imageUrl, Boolean isOffline) {
         this.name = name;
         this.category = category;
-        this.university = university;
+        this.isUniversity = isUniversity;
         this.location = location;
         this.startDate = startDate;
         this.recruitmentCnt = recruitmentCnt;
@@ -60,7 +61,6 @@ public class GroupCreateRequest {
         return Groups.builder()
             .name(name)
             .category(Category.of(category))
-            .university(university)
             .location(Location.of(location))
             .startDate(startDate)
             .recruitmentCnt(recruitmentCnt)

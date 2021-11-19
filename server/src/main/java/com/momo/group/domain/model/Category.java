@@ -39,7 +39,7 @@ public enum Category {
             .orElseThrow(() -> new CustomException(ErrorCode.GROUP_CATEGORY_NOT_FOUND));
     }
 
-    private static List<Category> listOf(List<String> categories) {
+    public static List<Category> listOf(List<String> categories) {
         if (Collections.isEmpty(categories)) {
             throw new CustomException(ErrorCode.INVALID_GROUP_CATEGORY_LENGTH);
         }

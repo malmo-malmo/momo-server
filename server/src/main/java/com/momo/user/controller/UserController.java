@@ -31,15 +31,14 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/duplicate-nickname")
-    public ResponseEntity<Void> update(@RequestParam String nickname) {
-        userService.findDuplicateNickname(nickname);
-        return ResponseEntity.ok().build();
+    @GetMapping("/validate/nickname")
+    public ResponseEntity<Boolean> validateNickname(@RequestParam String nickname) {
+        return ResponseEntity.ok(userService.validateNickname(nickname));
     }
 
     @PatchMapping("/categories")
     public ResponseEntity<Void> updateCategories(@CurrentUser User user,
-        @RequestBody CategoryRequest categoryRequest) {
+        @Valid @RequestBody CategoryRequest categoryRequest) {
         userService.updateCategories(user, categoryRequest);
         return ResponseEntity.ok().build();
     }

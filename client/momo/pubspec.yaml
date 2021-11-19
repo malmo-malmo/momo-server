@@ -34,9 +34,9 @@ dependencies:
   custom_pop_up_menu: ^1.2.2
   flutter_dotenv: ^5.0.2
   minio: ^3.0.0
-  path_provider: ^2.0.7
   crypto: ^3.0.1
   fluttertoast: ^8.0.8
+  flutter_native_splash: ^1.3.1
 
   cupertino_icons: ^1.0.2
 
@@ -71,3 +71,9 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+
+flutter_native_splash:
+  color: "#8a69f2"
+  image: assets/splash.png
+  android_gravity: center
+  fullscreen: true

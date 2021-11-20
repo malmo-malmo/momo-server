@@ -7,10 +7,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.momo.common.dto.EnumResponse;
 import com.momo.group.controller.dto.GroupCreateRequest;
 import com.momo.group.controller.dto.GroupResponse;
-import com.momo.user.domain.model.Location;
+import com.momo.group.controller.dto.GroupSearchConditionRequest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -24,7 +26,8 @@ public class GroupAcceptanceStep {
             () -> assertThat(response.getImageUrl()).isEqualTo(request.getImageUrl()),
             () -> assertThat(response.getStartDate()).isEqualTo(request.getStartDate()),
             () -> assertThat(response.getUniversity()).isEqualTo(university),
-            () -> assertThat(response.getLocation()).isEqualTo(Location.of(request.getLocation()).getName()),
+            () -> assertThat(response.getCity()).isEqualTo(request.getCity()),
+            () -> assertThat(response.getDistrict()).isEqualTo(request.getDistrict()),
             () -> assertThat(response.isOffline()).isEqualTo(request.getIsOffline()),
             () -> assertThat(response.getIntroduction()).isEqualTo(request.getIntroduction()),
             () -> assertThat(response.getParticipantCnt()).isEqualTo(1L),
@@ -58,6 +61,23 @@ public class GroupAcceptanceStep {
             .extract();
     }
 
+    public static ExtractableResponse<Response> requestToFindGroupsBySearchCondition(String token,
+        GroupSearchConditionRequest request) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("cities", request.getCities());
+        map.put("categories", request.getCategories());
+        map.put("page", request.getPage());
+        map.put("size", request.getSize());
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .params(map)
+            .when()
+            .get("/api/groups/search/paging")
+            .then().log().all()
+            .extract();
+    }
+
     public static ExtractableResponse<Response> requestToFindGroupsByUserUniversity(String token) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
@@ -70,14 +90,14 @@ public class GroupAcceptanceStep {
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToFindGroupsByLocation(String token) {
+    public static ExtractableResponse<Response> requestToFindGroupsByDistrict(String token) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .param("page", 0)
             .param("size", 10)
             .when()
-            .get("/api/groups/user-location/paging")
+            .get("/api/groups/user-district/paging")
             .then().log().all()
             .extract();
     }

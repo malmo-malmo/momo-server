@@ -5,6 +5,8 @@ import com.momo.common.exception.ErrorCode;
 import com.momo.group.controller.dto.GroupCardResponse;
 import com.momo.group.controller.dto.GroupCreateRequest;
 import com.momo.group.controller.dto.GroupResponse;
+import com.momo.group.controller.dto.GroupSearchConditionRequest;
+import com.momo.group.domain.model.Category;
 import com.momo.group.domain.model.Groups;
 import com.momo.group.domain.model.Participant;
 import com.momo.group.domain.repository.GroupRepository;
@@ -47,6 +49,15 @@ public class GroupService {
     }
 
     @Transactional(readOnly = true)
+    public List<GroupCardResponse> findPageBySearchCondition(GroupSearchConditionRequest request) {
+        List<Category> categories = Category.listOf(request.getCategories());
+        PageRequest page = PageRequest.of(request.getPage(), request.getSize());
+        List<Groups> groups = groupRepository
+            .findAllBySearchConditionOrderByCreatedDateDesc(request.getCities(), categories, page);
+        return GroupCardResponse.listOf(groups);
+    }
+
+    @Transactional(readOnly = true)
     public List<GroupCardResponse> findPageByUserUniversity(User user, int page, int size) {
         List<Groups> groups = groupRepository
             .findAllByUniversityOrderByCreatedDateDesc(user.getUniversity(), PageRequest.of(page, size)).getContent();
@@ -54,9 +65,9 @@ public class GroupService {
     }
 
     @Transactional(readOnly = true)
-    public List<GroupCardResponse> findPageByUserLocation(User user, int page, int size) {
+    public List<GroupCardResponse> findPageByUserDistrict(User user, int page, int size) {
         List<Groups> groups = groupRepository
-            .findAllByLocationOrderByCreatedDateDesc(user.getLocation(), PageRequest.of(page, size)).getContent();
+            .findAllByDistrictOrderByCreatedDateDesc(user.getDistrict(), PageRequest.of(page, size)).getContent();
         return GroupCardResponse.listOf(groups);
     }
 

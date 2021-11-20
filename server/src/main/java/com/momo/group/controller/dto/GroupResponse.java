@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GroupResponse {
 
+    private Long id;
+
     private String name;
 
     private String imageUrl;
@@ -20,7 +22,9 @@ public class GroupResponse {
 
     private String university;
 
-    private String location;
+    private String city;
+
+    private String district;
 
     private boolean isOffline;
 
@@ -31,14 +35,17 @@ public class GroupResponse {
     private boolean isManager;
 
     @Builder
-    public GroupResponse(String name, String imageUrl, LocalDate startDate, int participantCnt, String university,
-        String location, boolean isOffline, String introduction, boolean isParticipant, boolean isManager) {
+    public GroupResponse(Long id, String name, String imageUrl, LocalDate startDate, int participantCnt,
+        String university, String city, String district, boolean isOffline, String introduction, boolean isParticipant,
+        boolean isManager) {
+        this.id = id;
         this.name = name;
         this.imageUrl = imageUrl;
         this.startDate = startDate;
         this.participantCnt = participantCnt;
         this.university = university;
-        this.location = location;
+        this.city = city;
+        this.district = district;
         this.isOffline = isOffline;
         this.introduction = introduction;
         this.isParticipant = isParticipant;
@@ -47,12 +54,14 @@ public class GroupResponse {
 
     public static GroupResponse of(Groups group, boolean isManager, boolean isParticipant) {
         return GroupResponse.builder()
+            .id(group.getId())
             .name(group.getName())
             .imageUrl(group.getImageUrl())
             .startDate(group.getStartDate())
             .participantCnt(group.getParticipantCnt())
             .university(group.getUniversity())
-            .location(group.getLocation().getName())
+            .city(group.getCity())
+            .district(group.getDistrict())
             .isOffline(group.isOffline())
             .introduction(group.getIntroduction())
             .isManager(isManager)

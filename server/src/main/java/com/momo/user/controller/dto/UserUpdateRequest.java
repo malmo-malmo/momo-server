@@ -1,6 +1,5 @@
 package com.momo.user.controller.dto;
 
-import com.momo.user.domain.model.Location;
 import com.momo.user.domain.model.User;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -19,21 +18,26 @@ public class UserUpdateRequest {
     @NotBlank(message = "학교 이름은 필수 입력값입니다.")
     private String university;
 
-    @NotBlank(message = "지역은 필수 입력값입니다.")
-    private String location;
+    @NotBlank(message = "사는 지역은 필수 입력값입니다.")
+    private String city;
+
+    @NotBlank(message = "사는 지역은 필수 입력값입니다.")
+    private String district;
 
     @Builder
-    public UserUpdateRequest(String nickname, String university, String location) {
+    public UserUpdateRequest(String nickname, String university, String city, String district) {
         this.nickname = nickname;
         this.university = university;
-        this.location = location;
+        this.city = city;
+        this.district = district;
     }
 
     public User toEntity() {
         return User.builder()
             .nickname(nickname)
             .university(university)
-            .location(Location.of(location))
+            .city(city)
+            .district(district)
             .build();
     }
 }

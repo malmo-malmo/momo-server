@@ -1,7 +1,7 @@
 package com.momo.post.controller;
 
-import com.momo.post.controller.dto.PostCardRequest;
 import com.momo.post.controller.dto.PostCardResponse;
+import com.momo.post.controller.dto.PostCardsRequest;
 import com.momo.post.controller.dto.PostCreateRequest;
 import com.momo.post.controller.dto.PostResponse;
 import com.momo.post.service.PostService;
@@ -43,8 +43,8 @@ public class PostController {
 
     @GetMapping("/posts/paging")
     public ResponseEntity<List<PostCardResponse>> findPageByGroupAndType(@CurrentUser User user,
-        @ModelAttribute @Valid PostCardRequest postCardRequest) {
-        List<PostCardResponse> postCardResponses = postService.findPageByGroupAndType(user, postCardRequest);
+        @ModelAttribute @Valid PostCardsRequest postCardsRequest) {
+        List<PostCardResponse> postCardResponses = postService.findPageByGroupAndType(user, postCardsRequest);
         return ResponseEntity.ok(postCardResponses);
     }
 }

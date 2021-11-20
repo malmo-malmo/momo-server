@@ -23,23 +23,12 @@ public class UserAcceptanceTest extends AcceptanceTest {
         UserUpdateRequest request = UserUpdateRequest.builder()
             .nickname("모모")
             .university("한국대학교")
-            .location("GURO_GU")
+            .city("서울시")
+            .district("강동구")
             .build();
         String token = getAccessToken(USER1);
         ExtractableResponse<Response> res = UserAcceptanceStep.requestToUpdate(token, request);
         AcceptanceStep.assertThatStatusIsOk(res);
-    }
-
-    @Test
-    @DisplayName("유저 정보를 수정할 때 잘못된 ENUM 값을 보내면 실패한다.")
-    public void update_fail() {
-        UserUpdateRequest request = UserUpdateRequest.builder()
-            .university("한국대학교")
-            .location("ABC")
-            .build();
-        String token = getAccessToken(USER1);
-        ExtractableResponse<Response> res = UserAcceptanceStep.requestToUpdate(token, request);
-        AcceptanceStep.assertThatStatusIsBadRequest(res);
     }
 
     @Test

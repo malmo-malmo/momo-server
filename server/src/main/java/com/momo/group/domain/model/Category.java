@@ -2,7 +2,6 @@ package com.momo.group.domain.model;
 
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import io.jsonwebtoken.lang.Collections;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,9 +39,6 @@ public enum Category {
     }
 
     public static List<Category> listOf(List<String> categories) {
-        if (Collections.isEmpty(categories)) {
-            throw new CustomException(ErrorCode.INVALID_GROUP_CATEGORY_LENGTH);
-        }
         return categories.stream().map(Category::of).collect(Collectors.toList());
     }
 

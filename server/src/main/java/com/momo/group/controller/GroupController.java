@@ -4,6 +4,7 @@ import com.momo.common.dto.EnumResponse;
 import com.momo.group.controller.dto.GroupCardResponse;
 import com.momo.group.controller.dto.GroupCreateRequest;
 import com.momo.group.controller.dto.GroupResponse;
+import com.momo.group.controller.dto.GroupSearchConditionRequest;
 import com.momo.group.service.GroupService;
 import com.momo.security.CurrentUser;
 import com.momo.user.domain.model.User;
@@ -14,6 +15,7 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +42,13 @@ public class GroupController {
         return ResponseEntity.ok(groupResponse);
     }
 
+    @GetMapping("/groups/search/paging")
+    public ResponseEntity<List<GroupCardResponse>> findPageBySearchCondition(
+        @ModelAttribute GroupSearchConditionRequest request) {
+        List<GroupCardResponse> groupCardResponses = groupService.findPageBySearchCondition(request);
+        return ResponseEntity.ok(groupCardResponses);
+    }
+
     @GetMapping("/groups/user-university/paging")
     public ResponseEntity<List<GroupCardResponse>> findPageByUserUniversity(@CurrentUser User user,
         @RequestParam int page, @RequestParam int size) {
@@ -47,10 +56,10 @@ public class GroupController {
         return ResponseEntity.ok(groupCardResponses);
     }
 
-    @GetMapping("/groups/user-location/paging")
+    @GetMapping("/groups/user-district/paging")
     public ResponseEntity<List<GroupCardResponse>> findPageByUserLocation(@CurrentUser User user,
         @RequestParam int page, @RequestParam int size) {
-        List<GroupCardResponse> groupCardResponses = groupService.findPageByUserLocation(user, page, size);
+        List<GroupCardResponse> groupCardResponses = groupService.findPageByUserDistrict(user, page, size);
         return ResponseEntity.ok(groupCardResponses);
     }
 

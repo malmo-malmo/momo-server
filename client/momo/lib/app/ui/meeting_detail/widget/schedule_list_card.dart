@@ -12,10 +12,11 @@ class ScheduleListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      height: 90,
+      height: 148,
+      color: const Color(0xffffffff),
       width: double.infinity,
-      color: Colors.lightBlueAccent,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -23,45 +24,36 @@ class ScheduleListCard extends StatelessWidget {
             children: [
               Text(
                 '다가오는 일정',
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  color: MomoColor.black,
-                ),
+                style: MomoTextStyle.subTitle,
               ),
               Transform.rotate(
                 angle: pi,
                 child: Icon(
                   CupertinoIcons.back,
                   color: MomoColor.black,
-                  size: 18.w,
+                  size: 24.w,
                 ),
               ),
             ],
           ),
           const SizedBox(height: 16),
+          Container(height: 1, color: MomoColor.divider),
+          const SizedBox(height: 20),
           Text(
-            '신촌 카공',
-            style: TextStyle(
-              fontSize: 14.sp,
-              color: MomoColor.white,
-            ),
+            '우리 꼭 같이 달려요',
+            style: MomoTextStyle.defaultStyle,
           ),
+          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 '11/5(금)',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: MomoColor.white,
-                ),
+                style: MomoTextStyle.small,
               ),
               Text(
                 '오후 6:00 ~ 9:00',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: MomoColor.white,
-                ),
+                style: MomoTextStyle.small,
               ),
             ],
           ),

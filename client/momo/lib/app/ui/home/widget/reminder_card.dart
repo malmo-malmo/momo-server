@@ -8,7 +8,11 @@ import 'package:momo/app/util/date_format.dart';
 import 'package:momo/app/util/theme.dart';
 
 class ReminderCard extends StatelessWidget {
-  const ReminderCard({Key? key}) : super(key: key);
+  ReminderCard({Key? key}) : super(key: key);
+
+  final _controller = ScrollController(
+    initialScrollOffset: 53.w * (DateTime.now().day - 2),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +29,15 @@ class ReminderCard extends StatelessWidget {
           color: MomoColor.white,
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             SizedBox(
               height: 89.h,
               child: ListView.builder(
+                controller: _controller,
                 scrollDirection: Axis.horizontal,
-                itemCount: 30,
+                itemCount:
+                    calendarDay(DateTime.now().year, DateTime.now().month),
                 itemBuilder: (_, index) {
                   final title = dayTitle(
                     DateTime.now().year,
@@ -39,7 +46,7 @@ class ReminderCard extends StatelessWidget {
                   );
                   return _dateCard(
                     title: title,
-                    day: DateTime.now().day + index,
+                    day: index + 1,
                     index: index,
                   );
                 },

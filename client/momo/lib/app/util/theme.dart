@@ -10,12 +10,16 @@ class MyBehavior extends ScrollBehavior {
 }
 
 final MomoThemeData = ThemeData(
+  fontFamily: 'NanumSquareOTF',
   appBarTheme: const AppBarTheme(
     backgroundColor: MomoColor.backgroundColor,
   ),
   backgroundColor: MomoColor.backgroundColor,
   inputDecorationTheme: const InputDecorationTheme(
     border: InputBorder.none,
+  ),
+  textSelectionTheme: const TextSelectionThemeData(
+    cursorColor: Color(0xff000000),
   ),
 );
 
@@ -35,17 +39,26 @@ class MomoTextStyle {
   static final mainTitle = TextStyle(
     fontSize: 28.sp,
     color: MomoColor.black,
+    fontWeight: FontWeight.w700,
+  );
+  static final subTitle = TextStyle(
+    fontSize: 20.sp,
+    color: MomoColor.black,
+    fontWeight: FontWeight.w700,
   );
   static final defaultStyle = TextStyle(
     fontSize: 16.sp,
     color: MomoColor.black,
+    fontWeight: FontWeight.w700,
   );
   static final normal = TextStyle(
     fontSize: 14.sp,
     color: MomoColor.black,
+    fontWeight: FontWeight.w700,
   );
   static final small = TextStyle(
     fontSize: 12.sp,
     color: MomoColor.black,
+    fontWeight: FontWeight.w700,
   );
 }

@@ -58,19 +58,23 @@ flutter:
   assets:
     - assets/image/
     - assets/icon/
+    - assets/icon/calendar/
+    - assets/icon/category/
+    - assets/icon/home/
+    - assets/icon/meet/
+    - assets/icon/mypage/
+    - assets/icon/search/
+    - assets/icon/tab/
     - .env
 
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: NanumSquareOTF
+      fonts:
+        - asset: font/NanumSquareOTF/NanumSquareOTF_acB.otf
+          weight: 700
+
+        - asset: font/NanumSquareOTF/NanumSquareOTF_acR.otf
+          weight: 400
 
 flutter_native_splash:
   color: "#8a69f2"

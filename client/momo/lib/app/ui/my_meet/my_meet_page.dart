@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/provider/bottom_index_provider.dart';
 import 'package:momo/app/provider/calendar/scroll_state_provider.dart';
+import 'package:momo/app/ui/components/sub_title.dart';
 import 'package:momo/app/ui/my_meet/widget/manage_meeting_list.dart';
 import 'package:momo/app/ui/my_meet/widget/participation_meeting_list.dart';
-import 'package:momo/app/util/theme.dart';
 
 class MyMeetPage extends ConsumerStatefulWidget {
   const MyMeetPage({Key? key}) : super(key: key);
@@ -54,10 +55,8 @@ class _MyMeetPageState extends ConsumerState<MyMeetPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Icon(
-                    CupertinoIcons.chat_bubble_fill,
-                    size: 28.w,
-                    color: MomoColor.main,
+                  SvgPicture.asset(
+                    'assets/icon/icon_msg_28.svg',
                   ),
                 ],
               ),
@@ -69,41 +68,19 @@ class _MyMeetPageState extends ConsumerState<MyMeetPage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              _subTitle(title: '직접 관리 모임', icon: CupertinoIcons.pencil),
+              subTitle(
+                title: '직접 관리 모임',
+                icon: 'assets/icon/meet/icon_manage_28.svg',
+              ),
               const ManageMeetingList(),
-              _subTitle(
-                  title: '그 외 참여 모임', icon: CupertinoIcons.download_circle),
+              subTitle(
+                title: '그 외 참여 모임',
+                icon: 'assets/icon/meet/icon_othermoim.svg',
+              ),
               const ParticipationMettingList(),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _subTitle({required String title, required IconData icon}) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 43, bottom: 14),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Icon(
-                icon,
-                size: 28.sp,
-                color: MomoColor.main,
-              ),
-              SizedBox(width: 10.w),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 20.sp,
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }

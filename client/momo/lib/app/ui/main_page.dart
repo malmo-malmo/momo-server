@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/provider/bottom_index_provider.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/calendar/calendar_page.dart';
@@ -46,12 +47,36 @@ class MainPage extends ConsumerWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              bottomIcon(index: 0, icon: CupertinoIcons.home, title: '홈'),
-              bottomIcon(index: 1, icon: CupertinoIcons.search, title: '검색'),
-              bottomIcon(index: 2, icon: CupertinoIcons.calendar, title: '캘린더'),
               bottomIcon(
-                  index: 3, icon: CupertinoIcons.person_2, title: '내 모임'),
-              bottomIcon(index: 4, icon: CupertinoIcons.person, title: '마이페이지'),
+                index: 0,
+                title: '홈',
+                selImg: 'assets/icon/tab/tabicon_homepurple_32.svg',
+                unSelImg: 'assets/icon/tab/tabicon_homegray_32.svg',
+              ),
+              bottomIcon(
+                index: 1,
+                title: '검색',
+                selImg: 'assets/icon/tab/tabicon_searchpurple_32.svg',
+                unSelImg: 'assets/icon/tab/tabicon_searchgray_32.svg',
+              ),
+              bottomIcon(
+                index: 2,
+                title: '캘린더',
+                selImg: 'assets/icon/tab/tabicon_calenderpurple_32.svg',
+                unSelImg: 'assets/icon/tab/tabicon_calendargray_32.svg',
+              ),
+              bottomIcon(
+                index: 3,
+                title: '내 모임',
+                selImg: 'assets/icon/tab/tabicon_mymoimpurple_32.svg',
+                unSelImg: 'assets/icon/tab/tabicon_mymoimgray_32.svg',
+              ),
+              bottomIcon(
+                index: 4,
+                title: '마이페이지',
+                selImg: 'assets/icon/tab/tabicon_mypagepurple.svg',
+                unSelImg: 'assets/icon/tab/tabicon_mypagegray_32.svg',
+              ),
             ],
           ),
         ),
@@ -72,8 +97,8 @@ class MainPage extends ConsumerWidget {
             ? FloatingActionButton(
                 onPressed: () {},
                 backgroundColor: MomoColor.main,
-                child: const Icon(
-                  CupertinoIcons.calendar_today,
+                child: SvgPicture.asset(
+                  'assets/icon/calendar/floatingbtn_addschedule_84.svg',
                 ),
               )
             : null;
@@ -85,8 +110,8 @@ class MainPage extends ConsumerWidget {
                       .read(navigatorProvider)
                       .navigateTo(routeName: AppRoutes.newMeet),
                   backgroundColor: MomoColor.main,
-                  child: const Icon(
-                    CupertinoIcons.app_fill,
+                  child: SvgPicture.asset(
+                    'assets/icon/meet/floatingbtn_addmoim_64.svg',
                   ),
                 );
               })
@@ -98,7 +123,8 @@ class MainPage extends ConsumerWidget {
 
   Widget bottomIcon({
     required int index,
-    required IconData icon,
+    required String selImg,
+    required String unSelImg,
     required String title,
   }) {
     return Consumer(builder: (context, ref, _) {
@@ -112,10 +138,8 @@ class MainPage extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                icon,
-                color:
-                    bottomIndex == index ? MomoColor.main : MomoColor.unSelIcon,
+              SvgPicture.asset(
+                bottomIndex == index ? selImg : unSelImg,
               ),
               Text(
                 title,

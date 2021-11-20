@@ -81,7 +81,7 @@ class AppRouter {
         );
       case AppRoutes.gallery:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => const GalleryPage(),
+          builder: (_) => GalleryPage(),
         );
       case AppRoutes.postRequest:
         final arg = settings.arguments;

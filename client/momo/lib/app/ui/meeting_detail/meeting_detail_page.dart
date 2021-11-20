@@ -7,7 +7,6 @@ import 'package:momo/app/ui/meeting_detail/widget/feed_list.dart';
 import 'package:momo/app/ui/meeting_detail/widget/meeting_title.dart';
 import 'package:momo/app/ui/meeting_detail/widget/notice_list_card.dart';
 import 'package:momo/app/ui/meeting_detail/widget/schedule_list_card.dart';
-import 'package:momo/app/ui/meeting_detail/widget/user_bottom_sheet.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 

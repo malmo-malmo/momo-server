@@ -12,9 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -31,8 +31,8 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/validate/nickname")
-    public ResponseEntity<Boolean> validateNickname(@RequestParam String nickname) {
+    @GetMapping("/validate/nickname/{nickname}")
+    public ResponseEntity<Boolean> validateNickname(@PathVariable String nickname) {
         return ResponseEntity.ok(userService.validateNickname(nickname));
     }
 

@@ -15,10 +15,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -35,9 +35,9 @@ public class PostController {
         return ResponseEntity.created(new URI("/api/post/" + postId)).build();
     }
 
-    @GetMapping("/post")
-    public ResponseEntity<PostResponse> find(@CurrentUser User user, @RequestParam Long postId) {
-        PostResponse postResponse = postService.find(user, postId);
+    @GetMapping("/post/{id}")
+    public ResponseEntity<PostResponse> find(@CurrentUser User user, @PathVariable Long id) {
+        PostResponse postResponse = postService.find(user, id);
         return ResponseEntity.ok(postResponse);
     }
 

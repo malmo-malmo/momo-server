@@ -3,8 +3,8 @@ package com.momo.post.step;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.post.controller.dto.PostCardsRequest;
 import com.momo.post.controller.dto.PostCardResponse;
+import com.momo.post.controller.dto.PostCardsRequest;
 import com.momo.post.controller.dto.PostCreateRequest;
 import com.momo.post.controller.dto.PostResponse;
 import com.momo.user.domain.model.User;
@@ -63,9 +63,8 @@ public class PostAcceptanceStep {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .param("postId", postId)
             .when()
-            .get("/api/post")
+            .get("/api/post/{id}", postId)
             .then().log().all()
             .extract();
     }

@@ -46,9 +46,10 @@ public class ScheduleAcceptanceStep {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .param("groupId", groupId)
             .param("page", 0)
             .param("size", 10)
-            .get("/api/schedules/group/{groupId}", groupId)
+            .get("/api/schedules/group")
             .then().log().all()
             .extract();
     }

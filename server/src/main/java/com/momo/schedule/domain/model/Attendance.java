@@ -1,7 +1,6 @@
-package com.momo.attendance.domain.model;
+package com.momo.schedule.domain.model;
 
 import com.momo.group.domain.model.Groups;
-import com.momo.schedule.domain.model.Schedule;
 import com.momo.user.domain.model.User;
 import javax.persistence.Column;
 import javax.persistence.Entity;

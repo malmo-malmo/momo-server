@@ -26,7 +26,7 @@ class FeedCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.symmetric(vertical: 7),
       child: InkWell(
         onTap: () {
           ref.read(navigatorProvider).navigateTo(
@@ -34,10 +34,16 @@ class FeedCard extends ConsumerWidget {
                 arguments: postId,
               );
         },
-        child: Card(
+        child: Container(
+          height: 156,
+          decoration: BoxDecoration(
+            color: const Color(0xffffffff),
+            borderRadius: BorderRadius.circular(20),
+          ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
@@ -51,14 +57,25 @@ class FeedCard extends ConsumerWidget {
                         backgroundImage: NetworkImage(profile),
                       ),
                     ),
-                    Text(userName)
+                    const SizedBox(width: 10),
+                    Text(
+                      userName,
+                      style: MomoTextStyle.small,
+                    )
                   ],
                 ),
-                Text(title),
-                const SizedBox(height: 8),
-                Text(text),
-                const SizedBox(height: 8),
-                Text('댓글 수 $comments'),
+                const SizedBox(height: 20),
+                Text(
+                  title,
+                  style: MomoTextStyle.defaultStyle,
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  text,
+                  style: MomoTextStyle.small,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ],
             ),
           ),

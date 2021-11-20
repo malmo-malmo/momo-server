@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SearchBox extends StatelessWidget {
   const SearchBox({Key? key}) : super(key: key);
@@ -19,9 +20,8 @@ class SearchBox extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(
-              CupertinoIcons.color_filter,
-              size: 28.w,
+            SvgPicture.asset(
+              'assets/icon/search/icon_filter_28.svg',
             ),
             SizedBox(
               height: 18,
@@ -31,9 +31,8 @@ class SearchBox extends StatelessWidget {
                 child: TextField(),
               ),
             ),
-            Icon(
-              CupertinoIcons.search,
-              size: 28.w,
+            SvgPicture.asset(
+              'assets/icon/search/icon_search_28.svg',
             ),
           ],
         ),

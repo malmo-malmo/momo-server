@@ -8,7 +8,15 @@ import 'package:momo/app/util/theme.dart';
 
 Widget imgCard({required String img}) {
   return img.isEmpty
-      ? const SizedBox()
+      ? const SizedBox(
+          height: 100,
+          width: 100,
+          child: Center(
+            child: Text(
+              'No Image',
+            ),
+          ),
+        )
       : Consumer(
           builder: (context, ref, _) {
             return SizedBox(

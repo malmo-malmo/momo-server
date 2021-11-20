@@ -19,12 +19,12 @@ class CategoryPage extends ConsumerWidget {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding:
-              const EdgeInsets.only(top: 91, left: 20, right: 20, bottom: 24),
+          padding: const EdgeInsets.only(left: 20, right: 20),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 91),
                 titleText('관심 활동 모임  2/3'),
                 const SizedBox(height: 20),
                 subTitleText('참여하고 싶은 활동 모임을 선택해주세요'),
@@ -43,31 +43,37 @@ class CategoryPage extends ConsumerWidget {
                       runSpacing: 64.h,
                       children: [
                         _categoryCard(categoryState[0], '건강', 0,
-                            selImg: 'assets/icon/icon_health_64.svg',
+                            selImg: 'assets/icon/category/icon_health_64.svg',
                             unSelImg:
-                                'assets/icon/icon_healthlightgray_64.svg'),
+                                'assets/icon/category/icon_healthlightgray_64.svg'),
                         _categoryCard(categoryState[1], '밥약', 1,
-                            selImg: 'assets/icon/icon_food_64.svg',
-                            unSelImg: 'assets/icon/icon_foodlightgray_64.svg'),
-                        _categoryCard(categoryState[2], '자기관리', 2,
-                            selImg: 'assets/icon/icon_self_64.svg',
-                            unSelImg: 'assets/icon/icon_selflightgray_64.svg'),
-                        _categoryCard(categoryState[3], '생활', 3,
-                            selImg: 'assets/icon/icon_life_64.svg',
-                            unSelImg: 'assets/icon/icon_lifelightgray_64.svg'),
-                        _categoryCard(categoryState[4], '취미', 4,
-                            selImg: 'assets/icon/icon_hobby_64.svg',
-                            unSelImg: 'assets/icon/icon_hobbylightgray_64.svg'),
-                        _categoryCard(categoryState[5], '자산', 5,
-                            selImg: 'assets/icon/icon_stock_64.svg',
-                            unSelImg: 'assets/icon/icon_stockightgray_64.svg'),
-                        _categoryCard(categoryState[6], '힐링', 6,
-                            selImg: 'assets/icon/icon_healing_64.svg',
+                            selImg: 'assets/icon/category/icon_food_64.svg',
                             unSelImg:
-                                'assets/icon/icon_healinglightgray_64.svg'),
+                                'assets/icon/category/icon_foodlightgray_64.svg'),
+                        _categoryCard(categoryState[2], '자기관리', 2,
+                            selImg: 'assets/icon/category/icon_self_64.svg',
+                            unSelImg:
+                                'assets/icon/category/icon_selflightgray_64.svg'),
+                        _categoryCard(categoryState[3], '생활', 3,
+                            selImg: 'assets/icon/category/icon_life_64.svg',
+                            unSelImg:
+                                'assets/icon/category/icon_lifelightgray_64.svg'),
+                        _categoryCard(categoryState[4], '취미', 4,
+                            selImg: 'assets/icon/category/icon_hobby_64.svg',
+                            unSelImg:
+                                'assets/icon/category/icon_hobbylightgray_64.svg'),
+                        _categoryCard(categoryState[5], '자산', 5,
+                            selImg: 'assets/icon/category/icon_stock_64.svg',
+                            unSelImg:
+                                'assets/icon/category/icon_stockightgray_64.svg'),
+                        _categoryCard(categoryState[6], '힐링', 6,
+                            selImg: 'assets/icon/category/icon_healing_64.svg',
+                            unSelImg:
+                                'assets/icon/category/icon_healinglightgray_64.svg'),
                         _categoryCard(categoryState[7], '취업', 7,
-                            selImg: 'assets/icon/icon_job_64.svg',
-                            unSelImg: 'assets/icon/icon_joblightgray_64.svg'),
+                            selImg: 'assets/icon/category/icon_job_64.svg',
+                            unSelImg:
+                                'assets/icon/category/icon_joblightgray_64.svg'),
                       ],
                     ),
                   ),
@@ -78,6 +84,7 @@ class CategoryPage extends ConsumerWidget {
                   nextPage: AppRoutes.info,
                   text: '다음',
                 ),
+                const SizedBox(height: 36),
               ],
             ),
           ),

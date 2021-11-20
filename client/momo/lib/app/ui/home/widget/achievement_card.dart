@@ -23,6 +23,7 @@ class AchievementCard extends StatelessWidget {
           color: MomoColor.white,
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _achievementRow(
               title: '하루 3시간 공부 인증',
@@ -89,7 +90,7 @@ class AchievementCard extends StatelessWidget {
                     '2': (rate).toDouble()
                   },
                   chartType: ChartType.ring,
-                  chartRadius: 36,
+                  chartRadius: 32,
                   ringStrokeWidth: 10,
                   gradientList: const [
                     [

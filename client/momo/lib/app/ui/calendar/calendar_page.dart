@@ -7,6 +7,7 @@ import 'package:momo/app/provider/bottom_index_provider.dart';
 import 'package:momo/app/provider/calendar/day_provider.dart';
 import 'package:momo/app/provider/calendar/scroll_state_provider.dart';
 import 'package:momo/app/ui/calendar/widget/time_line_list.dart';
+import 'package:momo/app/ui/components/sub_title.dart';
 import 'package:momo/app/util/theme.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -170,7 +171,12 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
             child: CustomScrollView(
               controller: _scrollController,
               slivers: [
-                _subTitle(title: '타임라인', icon: CupertinoIcons.clock),
+                SliverToBoxAdapter(
+                  child: subTitle(
+                    title: '타임라인',
+                    icon: 'assets/icon/calendar/icon_timeline_28.svg',
+                  ),
+                ),
                 SliverList(
                   delegate: SliverChildListDelegate(
                     [
@@ -182,35 +188,6 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _subTitle({required String title, required IconData icon}) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 43, bottom: 14),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Icon(
-                  icon,
-                  size: 28.sp,
-                  color: MomoColor.main,
-                ),
-                SizedBox(width: 10.w),
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
       ),
     );
   }

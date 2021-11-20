@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/util/theme.dart';
 
 Widget nameInputBox({
   required Function(String text) onTextChanged,
+  String? hintText,
 }) {
-  return Material(
-    elevation: 5,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(20),
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 13),
+    height: 44,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(16),
+      color: MomoColor.backgroundColor,
     ),
-    child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      height: 44,
-      width: 304.w,
-      child: Center(
-        child: SizedBox(
-          height: 18,
-          width: 270.w,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14),
-            child: TextField(
-              onChanged: (text) {
-                onTextChanged(text);
-              },
-            ),
+    width: double.infinity,
+    child: Center(
+      child: TextField(
+        onChanged: (text) {
+          onTextChanged(text);
+        },
+        decoration: InputDecoration(
+          hintText: hintText ?? '',
+          hintStyle: MomoTextStyle.defaultStyle.copyWith(
+            color: MomoColor.unSelIcon,
+            fontSize: 16,
           ),
         ),
       ),

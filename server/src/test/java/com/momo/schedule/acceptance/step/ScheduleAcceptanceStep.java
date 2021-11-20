@@ -1,13 +1,15 @@
-package com.momo.schedule.step;
+package com.momo.schedule.acceptance.step;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.schedule.controller.dto.GroupSchedulesResponse;
 import com.momo.schedule.controller.dto.ScheduleCreateRequest;
+import com.momo.schedule.controller.dto.UserScheduleResponse;
 import com.momo.user.domain.model.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -30,6 +32,10 @@ public class ScheduleAcceptanceStep {
         );
     }
 
+    public static void assertThatFindUserSchedules(List<UserScheduleResponse> response) {
+        assertThat(response.size()).isEqualTo(2);
+    }
+
     public static ExtractableResponse<Response> requestToCreateSchedule(String token, ScheduleCreateRequest request,
         Long groupId) {
         request.setGroupId(groupId);
@@ -45,11 +51,21 @@ public class ScheduleAcceptanceStep {
     public static ExtractableResponse<Response> requestToFindGroupSchedules(String token, Long groupId) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
             .param("groupId", groupId)
             .param("page", 0)
             .param("size", 10)
-            .get("/api/schedules/group")
+            .get("/api/schedule/group-schedules")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> requestToFindUserSchedules(String token, String searchStartDate,
+        String searchEndDate) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .param("searchStartDate", searchStartDate)
+            .param("searchEndDate", searchEndDate)
+            .get("/api/schedule/user-schedules")
             .then().log().all()
             .extract();
     }

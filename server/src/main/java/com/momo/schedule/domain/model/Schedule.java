@@ -30,7 +30,7 @@ public class Schedule extends BaseEntity {
     @JoinColumn(name = "group_id")
     private Groups group;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User author;
 

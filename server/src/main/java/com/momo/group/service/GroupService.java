@@ -54,9 +54,9 @@ public class GroupService {
     }
 
     @Transactional(readOnly = true)
-    public List<GroupCardResponse> findPageByUserLocation(User user, int page, int size) {
+    public List<GroupCardResponse> findPageByUserDistrict(User user, int page, int size) {
         List<Groups> groups = groupRepository
-            .findAllByLocationOrderByCreatedDateDesc(user.getLocation(), PageRequest.of(page, size)).getContent();
+            .findAllByDistrictOrderByCreatedDateDesc(user.getDistrict(), PageRequest.of(page, size)).getContent();
         return GroupCardResponse.listOf(groups);
     }
 

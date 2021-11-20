@@ -40,6 +40,12 @@ public class GroupController {
         return ResponseEntity.ok(groupResponse);
     }
 
+    /*
+    @GetMapping("/groups/search/paging")
+    public ResponseEntity<List<GroupCardResponse>> findPageBySearchRequest() {
+
+    }*/
+
     @GetMapping("/groups/user-university/paging")
     public ResponseEntity<List<GroupCardResponse>> findPageByUserUniversity(@CurrentUser User user,
         @RequestParam int page, @RequestParam int size) {
@@ -47,10 +53,10 @@ public class GroupController {
         return ResponseEntity.ok(groupCardResponses);
     }
 
-    @GetMapping("/groups/user-location/paging")
+    @GetMapping("/groups/user-district/paging")
     public ResponseEntity<List<GroupCardResponse>> findPageByUserLocation(@CurrentUser User user,
         @RequestParam int page, @RequestParam int size) {
-        List<GroupCardResponse> groupCardResponses = groupService.findPageByUserLocation(user, page, size);
+        List<GroupCardResponse> groupCardResponses = groupService.findPageByUserDistrict(user, page, size);
         return ResponseEntity.ok(groupCardResponses);
     }
 

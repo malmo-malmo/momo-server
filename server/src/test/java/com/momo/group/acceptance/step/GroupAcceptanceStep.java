@@ -7,7 +7,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.momo.common.dto.EnumResponse;
 import com.momo.group.controller.dto.GroupCreateRequest;
 import com.momo.group.controller.dto.GroupResponse;
-import com.momo.user.domain.model.Location;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;
@@ -24,7 +23,8 @@ public class GroupAcceptanceStep {
             () -> assertThat(response.getImageUrl()).isEqualTo(request.getImageUrl()),
             () -> assertThat(response.getStartDate()).isEqualTo(request.getStartDate()),
             () -> assertThat(response.getUniversity()).isEqualTo(university),
-            () -> assertThat(response.getLocation()).isEqualTo(Location.of(request.getLocation()).getName()),
+            () -> assertThat(response.getCity()).isEqualTo(request.getCity()),
+            () -> assertThat(response.getDistrict()).isEqualTo(request.getDistrict()),
             () -> assertThat(response.isOffline()).isEqualTo(request.getIsOffline()),
             () -> assertThat(response.getIntroduction()).isEqualTo(request.getIntroduction()),
             () -> assertThat(response.getParticipantCnt()).isEqualTo(1L),
@@ -70,14 +70,14 @@ public class GroupAcceptanceStep {
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToFindGroupsByLocation(String token) {
+    public static ExtractableResponse<Response> requestToFindGroupsByDistrict(String token) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .param("page", 0)
             .param("size", 10)
             .when()
-            .get("/api/groups/user-location/paging")
+            .get("/api/groups/user-district/paging")
             .then().log().all()
             .extract();
     }

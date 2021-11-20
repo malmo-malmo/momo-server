@@ -11,7 +11,7 @@ import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreate
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindCategories;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroup;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsByCategories;
-import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsByLocation;
+import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsByDistrict;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsByUserUniversity;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -72,7 +72,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
         requestToCreateGroup(getAccessToken(USER1), GROUP_CREATE_REQUEST1); //같은 지역 모임
         requestToCreateGroup(getAccessToken(USER2), GROUP_CREATE_REQUEST2); //같은 지역 모임
         requestToCreateGroup(getAccessToken(USER3), GROUP_CREATE_REQUEST3); //다른 지역 모임
-        ExtractableResponse<Response> response = requestToFindGroupsByLocation(getAccessToken(USER1));
+        ExtractableResponse<Response> response = requestToFindGroupsByDistrict(getAccessToken(USER1));
         List<GroupCardResponse> groupCardResponses = getObjects(response, GroupCardResponse.class);
         AcceptanceStep.assertThatStatusIsOk(response);
         assertThat(groupCardResponses.size()).isEqualTo(2);

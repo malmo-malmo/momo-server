@@ -2,7 +2,6 @@ package com.momo.group.controller.dto;
 
 import com.momo.group.domain.model.Category;
 import com.momo.group.domain.model.Groups;
-import com.momo.user.domain.model.Location;
 import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -25,7 +24,10 @@ public class GroupCreateRequest {
     private Boolean isUniversity;
 
     @NotBlank(message = "지역은 필수 입력값입니다.")
-    private String location;
+    private String city;
+
+    @NotBlank(message = "지역은 필수 입력값입니다.")
+    private String district;
 
     @NotNull(message = "시작일은 필수 입력값입니다.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -44,12 +46,13 @@ public class GroupCreateRequest {
     private Boolean isOffline;
 
     @Builder
-    public GroupCreateRequest(String name, String category, Boolean isUniversity, String location, LocalDate startDate,
-        int recruitmentCnt, String introduction, String imageUrl, Boolean isOffline) {
+    public GroupCreateRequest(String name, String category, Boolean isUniversity, String city, String district,
+        LocalDate startDate, int recruitmentCnt, String introduction, String imageUrl, Boolean isOffline) {
         this.name = name;
         this.category = category;
         this.isUniversity = isUniversity;
-        this.location = location;
+        this.city = city;
+        this.district = district;
         this.startDate = startDate;
         this.recruitmentCnt = recruitmentCnt;
         this.introduction = introduction;
@@ -61,7 +64,8 @@ public class GroupCreateRequest {
         return Groups.builder()
             .name(name)
             .category(Category.of(category))
-            .location(Location.of(location))
+            .city(city)
+            .district(district)
             .startDate(startDate)
             .recruitmentCnt(recruitmentCnt)
             .introduction(introduction)

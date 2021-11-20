@@ -20,7 +20,9 @@ public class GroupResponse {
 
     private String university;
 
-    private String location;
+    private String city;
+
+    private String district;
 
     private boolean isOffline;
 
@@ -32,13 +34,15 @@ public class GroupResponse {
 
     @Builder
     public GroupResponse(String name, String imageUrl, LocalDate startDate, int participantCnt, String university,
-        String location, boolean isOffline, String introduction, boolean isParticipant, boolean isManager) {
+        String city, String district, boolean isOffline, String introduction, boolean isParticipant,
+        boolean isManager) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.startDate = startDate;
         this.participantCnt = participantCnt;
         this.university = university;
-        this.location = location;
+        this.city = city;
+        this.district = district;
         this.isOffline = isOffline;
         this.introduction = introduction;
         this.isParticipant = isParticipant;
@@ -52,7 +56,8 @@ public class GroupResponse {
             .startDate(group.getStartDate())
             .participantCnt(group.getParticipantCnt())
             .university(group.getUniversity())
-            .location(group.getLocation().getName())
+            .city(group.getCity())
+            .district(group.getDistrict())
             .isOffline(group.isOffline())
             .introduction(group.getIntroduction())
             .isManager(isManager)

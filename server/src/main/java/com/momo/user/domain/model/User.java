@@ -37,8 +37,9 @@ public class User extends BaseEntity {
 
     private String image;
 
-    @Enumerated(EnumType.STRING)
-    private Location location;
+    private String city;
+
+    private String district;
 
     private String university;
 
@@ -48,14 +49,15 @@ public class User extends BaseEntity {
     private Role role;
 
     @Builder
-    public User(Long id, String providerId, SocialProvider provider, String nickname,
-        String image, Location location, String university, String categories, Role role) {
+    public User(Long id, String providerId, SocialProvider provider, String nickname, String image, String city,
+        String district, String university, String categories, Role role) {
         this.id = id;
         this.providerId = providerId;
         this.provider = provider;
         this.nickname = nickname;
         this.image = image;
-        this.location = location;
+        this.city = city;
+        this.district = district;
         this.university = university;
         this.categories = categories;
         this.role = role;
@@ -75,7 +77,8 @@ public class User extends BaseEntity {
 
     public void update(User user) {
         this.nickname = user.getNickname();
-        this.location = user.getLocation();
+        this.city = user.getCity();
+        this.district = user.getDistrict();
         this.university = user.getUniversity();
     }
 

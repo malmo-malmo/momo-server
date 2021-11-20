@@ -1,7 +1,6 @@
 package com.momo.group.domain.model;
 
 import com.momo.common.domain.BaseEntity;
-import com.momo.user.domain.model.Location;
 import com.momo.user.domain.model.User;
 import java.time.LocalDate;
 import javax.persistence.Column;
@@ -45,8 +44,9 @@ public class Groups extends BaseEntity {
 
     private String university;
 
-    @Enumerated(EnumType.STRING)
-    private Location location;
+    private String city;
+
+    private String district;
 
     @Lob
     private String introduction;
@@ -69,9 +69,9 @@ public class Groups extends BaseEntity {
     */
 
     @Builder
-    public Groups(Long id, User manager, String name, String imageUrl, Category category,
-        LocalDate startDate, String university, Location location, String introduction, int recruitmentCnt,
-        boolean isOffline, boolean isEnd) {
+    public Groups(Long id, User manager, String name, String imageUrl, Category category, LocalDate startDate,
+        String university, String city, String district, String introduction, int recruitmentCnt, boolean isOffline,
+        boolean isEnd) {
         this.id = id;
         this.manager = manager;
         this.name = name;
@@ -79,7 +79,8 @@ public class Groups extends BaseEntity {
         this.category = category;
         this.startDate = startDate;
         this.university = university;
-        this.location = location;
+        this.city = city;
+        this.district = district;
         this.introduction = introduction;
         this.recruitmentCnt = recruitmentCnt;
         this.isOffline = isOffline;
@@ -94,7 +95,8 @@ public class Groups extends BaseEntity {
             .category(group.getCategory())
             .startDate(group.getStartDate())
             .university(isUniversity ? user.getUniversity() : null)
-            .location(group.getLocation())
+            .city(group.getCity())
+            .district(group.getDistrict())
             .introduction(group.getIntroduction())
             .recruitmentCnt(group.getRecruitmentCnt())
             .isOffline(group.isOffline())

@@ -12,7 +12,7 @@ import static com.momo.post.step.PostAcceptanceStep.requestToFindPosts;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
-import com.momo.post.controller.dto.PostCardRequest;
+import com.momo.post.controller.dto.PostCardsRequest;
 import com.momo.post.controller.dto.PostCardResponse;
 import com.momo.post.controller.dto.PostResponse;
 import com.momo.post.domain.model.PostType;
@@ -87,8 +87,8 @@ public class PostAcceptanceTest extends AcceptanceTest {
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         requestToCreatePost(token, POST_CREATE_REQUEST1, groupId);
         requestToCreatePost(token, NOTICE_CREATE_REQUEST1, groupId);
-        PostCardRequest postCardRequest = new PostCardRequest(groupId, PostType.NORMAL.name(), 0, 10);
-        ExtractableResponse<Response> response = requestToFindPosts(token, postCardRequest);
+        PostCardsRequest postCardsRequest = new PostCardsRequest(groupId, PostType.NORMAL.name(), 0, 10);
+        ExtractableResponse<Response> response = requestToFindPosts(token, postCardsRequest);
         List<PostCardResponse> postCardResponses = getObjects(response, PostCardResponse.class);
         AcceptanceStep.assertThatStatusIsOk(response);
         PostAcceptanceStep.assertThatFindPosts(POST_CREATE_REQUEST1, postCardResponses, USER1, 0);
@@ -100,8 +100,8 @@ public class PostAcceptanceTest extends AcceptanceTest {
         String invalidToken = getAccessToken(USER2);
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         requestToCreatePost(token, POST_CREATE_REQUEST1, groupId);
-        PostCardRequest postCardRequest = new PostCardRequest(groupId, PostType.NOTICE.name(), 0, 10);
-        ExtractableResponse<Response> response = requestToFindPosts(invalidToken, postCardRequest);
+        PostCardsRequest postCardsRequest = new PostCardsRequest(groupId, PostType.NOTICE.name(), 0, 10);
+        ExtractableResponse<Response> response = requestToFindPosts(invalidToken, postCardsRequest);
         AcceptanceStep.assertThatErrorIsParticipantUnAuthorized(response);
     }
 }

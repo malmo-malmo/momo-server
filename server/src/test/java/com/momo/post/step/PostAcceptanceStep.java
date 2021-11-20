@@ -3,7 +3,7 @@ package com.momo.post.step;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.post.controller.dto.PostCardRequest;
+import com.momo.post.controller.dto.PostCardsRequest;
 import com.momo.post.controller.dto.PostCardResponse;
 import com.momo.post.controller.dto.PostCreateRequest;
 import com.momo.post.controller.dto.PostResponse;
@@ -70,12 +70,12 @@ public class PostAcceptanceStep {
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToFindPosts(String token, PostCardRequest postCardRequest) {
+    public static ExtractableResponse<Response> requestToFindPosts(String token, PostCardsRequest postCardsRequest) {
         Map<String, Object> map = new HashMap<>();
-        map.put("groupId", postCardRequest.getGroupId());
-        map.put("type", postCardRequest.getType());
-        map.put("page", postCardRequest.getPage());
-        map.put("size", postCardRequest.getSize());
+        map.put("groupId", postCardsRequest.getGroupId());
+        map.put("type", postCardsRequest.getType());
+        map.put("page", postCardsRequest.getPage());
+        map.put("size", postCardsRequest.getSize());
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)

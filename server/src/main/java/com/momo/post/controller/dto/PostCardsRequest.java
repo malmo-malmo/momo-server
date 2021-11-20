@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostCardRequest {
+public class PostCardsRequest {
 
     @NotNull(message = "모임 ID는 필수값입니다.")
     private Long groupId;

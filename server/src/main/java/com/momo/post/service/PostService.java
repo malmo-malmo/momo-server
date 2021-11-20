@@ -5,7 +5,7 @@ import com.momo.common.exception.ErrorCode;
 import com.momo.group.domain.model.Groups;
 import com.momo.group.domain.repository.GroupRepository;
 import com.momo.group.domain.repository.ParticipantRepository;
-import com.momo.post.controller.dto.PostCardRequest;
+import com.momo.post.controller.dto.PostCardsRequest;
 import com.momo.post.controller.dto.PostCardResponse;
 import com.momo.post.controller.dto.PostCreateRequest;
 import com.momo.post.controller.dto.PostResponse;
@@ -66,7 +66,7 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostCardResponse> findPageByGroupAndType(User user, PostCardRequest request) {
+    public List<PostCardResponse> findPageByGroupAndType(User user, PostCardsRequest request) {
         Groups group = getGroupById(request.getGroupId());
         validateIsGroupParticipant(user, group);
         PageRequest page = PageRequest.of(request.getPage(), request.getSize());

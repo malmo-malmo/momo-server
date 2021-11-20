@@ -22,6 +22,7 @@ public enum ErrorCode {
     GROUP_CATEGORY_NOT_FOUND(400, "해당 모임 카테고리 타입은 존재하지 않습니다."),
 
     GROUP_NOTICE_UNAUTHORIZED(400, "공지사항은 모임 관리자만 등록할 수 있습니다."),
+    GROUP_SCHEDULE_UNAUTHORIZED(400, "일정은 모임 관리자만 등록할 수 있습니다."),
     GROUP_PARTICIPANT_UNAUTHORIZED(400, "해당 모임의 참여자가 아닙니다.");
 
     private final int status;

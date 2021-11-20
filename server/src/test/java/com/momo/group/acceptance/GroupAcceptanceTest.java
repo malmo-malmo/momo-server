@@ -3,6 +3,7 @@ package com.momo.group.acceptance;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST1;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST2;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST3;
+import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST4;
 import static com.momo.fixture.UserFixture.USER1;
 import static com.momo.fixture.UserFixture.USER2;
 import static com.momo.fixture.UserFixture.USER3;
@@ -12,6 +13,7 @@ import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindCa
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroup;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsByCategories;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsByDistrict;
+import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsBySearchCondition;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsByUserUniversity;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,6 +23,7 @@ import com.momo.common.dto.EnumResponse;
 import com.momo.group.acceptance.step.GroupAcceptanceStep;
 import com.momo.group.controller.dto.GroupCardResponse;
 import com.momo.group.controller.dto.GroupResponse;
+import com.momo.group.controller.dto.GroupSearchConditionRequest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;
@@ -54,6 +57,24 @@ public class GroupAcceptanceTest extends AcceptanceTest {
         GroupResponse groupResponse = getObject(response, GroupResponse.class);
         AcceptanceStep.assertThatStatusIsOk(response);
         assertThatFindGroup(GROUP_CREATE_REQUEST1, groupResponse, false, false, USER1.getUniversity());
+    }
+
+    @Test
+    public void 유저가_검색_조건으로_모임을_전체_조회한다() {
+        requestToCreateGroup(getAccessToken(USER1), GROUP_CREATE_REQUEST1); //서울 건강
+        requestToCreateGroup(getAccessToken(USER2), GROUP_CREATE_REQUEST2); //서울 자기계발
+        requestToCreateGroup(getAccessToken(USER3), GROUP_CREATE_REQUEST3); //서울 건강
+        requestToCreateGroup(getAccessToken(USER3), GROUP_CREATE_REQUEST4); //경기 밥약
+        GroupSearchConditionRequest request = GroupSearchConditionRequest.builder()
+            .cities(List.of("서울", "경기"))
+            .categories(List.of("HEALTH", "RICE"))
+            .page(0)
+            .size(10)
+            .build();
+        ExtractableResponse<Response> response = requestToFindGroupsBySearchCondition(getAccessToken(USER1), request);
+        List<GroupCardResponse> groupCardResponses = getObjects(response, GroupCardResponse.class);
+        AcceptanceStep.assertThatStatusIsOk(response);
+        assertThat(groupCardResponses.size()).isEqualTo(3);
     }
 
     @Test

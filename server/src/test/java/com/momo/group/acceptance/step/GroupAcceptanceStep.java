@@ -7,9 +7,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.momo.common.dto.EnumResponse;
 import com.momo.group.controller.dto.GroupCreateRequest;
 import com.momo.group.controller.dto.GroupResponse;
+import com.momo.group.controller.dto.GroupSearchConditionRequest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -54,6 +57,23 @@ public class GroupAcceptanceStep {
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .param("groupId", groupId)
             .get("/api/group")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> requestToFindGroupsBySearchCondition(String token,
+        GroupSearchConditionRequest request) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("cities", request.getCities());
+        map.put("categories", request.getCategories());
+        map.put("page", request.getPage());
+        map.put("size", request.getSize());
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .params(map)
+            .when()
+            .get("/api/groups/search/paging")
             .then().log().all()
             .extract();
     }

@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GroupResponse {
 
+    private Long id;
+
     private String name;
 
     private String imageUrl;
@@ -33,9 +35,10 @@ public class GroupResponse {
     private boolean isManager;
 
     @Builder
-    public GroupResponse(String name, String imageUrl, LocalDate startDate, int participantCnt, String university,
-        String city, String district, boolean isOffline, String introduction, boolean isParticipant,
+    public GroupResponse(Long id, String name, String imageUrl, LocalDate startDate, int participantCnt,
+        String university, String city, String district, boolean isOffline, String introduction, boolean isParticipant,
         boolean isManager) {
+        this.id = id;
         this.name = name;
         this.imageUrl = imageUrl;
         this.startDate = startDate;
@@ -51,6 +54,7 @@ public class GroupResponse {
 
     public static GroupResponse of(Groups group, boolean isManager, boolean isParticipant) {
         return GroupResponse.builder()
+            .id(group.getId())
             .name(group.getName())
             .imageUrl(group.getImageUrl())
             .startDate(group.getStartDate())

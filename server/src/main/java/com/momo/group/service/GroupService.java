@@ -5,6 +5,8 @@ import com.momo.common.exception.ErrorCode;
 import com.momo.group.controller.dto.GroupCardResponse;
 import com.momo.group.controller.dto.GroupCreateRequest;
 import com.momo.group.controller.dto.GroupResponse;
+import com.momo.group.controller.dto.GroupSearchConditionRequest;
+import com.momo.group.domain.model.Category;
 import com.momo.group.domain.model.Groups;
 import com.momo.group.domain.model.Participant;
 import com.momo.group.domain.repository.GroupRepository;
@@ -44,6 +46,15 @@ public class GroupService {
     public Groups getGroupById(Long groupId) {
         return groupRepository.findById(groupId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
+    }
+
+    @Transactional(readOnly = true)
+    public List<GroupCardResponse> findPageBySearchCondition(GroupSearchConditionRequest request) {
+        List<Category> categories = Category.listOf(request.getCategories());
+        PageRequest page = PageRequest.of(request.getPage(), request.getSize());
+        List<Groups> groups = groupRepository
+            .findAllBySearchConditionOrderByCreatedDateDesc(request.getCities(), categories, page);
+        return GroupCardResponse.listOf(groups);
     }
 
     @Transactional(readOnly = true)

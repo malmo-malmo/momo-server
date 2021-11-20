@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GroupCardResponse {
 
+    private Long id;
+
     private String name;
 
     private String imageUrl;
@@ -23,7 +25,9 @@ public class GroupCardResponse {
     private boolean isOffline;
 
     @Builder
-    public GroupCardResponse(String name, String imageUrl, LocalDate startDate, int participantCnt, boolean isOffline) {
+    public GroupCardResponse(Long id, String name, String imageUrl, LocalDate startDate, int participantCnt,
+        boolean isOffline) {
+        this.id = id;
         this.name = name;
         this.imageUrl = imageUrl;
         this.startDate = startDate;
@@ -33,6 +37,7 @@ public class GroupCardResponse {
 
     private static GroupCardResponse of(Groups group) {
         return GroupCardResponse.builder()
+            .id(group.getId())
             .name(group.getName())
             .imageUrl(group.getImageUrl())
             .startDate(group.getStartDate())

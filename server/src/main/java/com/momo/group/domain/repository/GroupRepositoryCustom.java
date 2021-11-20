@@ -8,4 +8,7 @@ import org.springframework.data.domain.Pageable;
 public interface GroupRepositoryCustom {
 
     List<Groups> findAllByCategoriesOrderByCreatedDateDesc(List<Category> categories, Pageable pageable);
+
+    List<Groups> findAllBySearchConditionOrderByCreatedDateDesc(List<String> cities, List<Category> categories,
+        Pageable pageable);
 }

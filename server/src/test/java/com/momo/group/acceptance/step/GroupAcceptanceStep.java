@@ -55,8 +55,7 @@ public class GroupAcceptanceStep {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .param("groupId", groupId)
-            .get("/api/group")
+            .get("/api/group/{id}", groupId)
             .then().log().all()
             .extract();
     }

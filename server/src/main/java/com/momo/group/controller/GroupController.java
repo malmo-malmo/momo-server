@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,9 +37,9 @@ public class GroupController {
         return ResponseEntity.created(new URI("/api/group/" + groupId)).build();
     }
 
-    @GetMapping("/group")
-    public ResponseEntity<GroupResponse> find(@CurrentUser User user, @RequestParam Long groupId) {
-        GroupResponse groupResponse = groupService.find(user, groupId);
+    @GetMapping("/group/{id}")
+    public ResponseEntity<GroupResponse> find(@CurrentUser User user, @PathVariable Long id) {
+        GroupResponse groupResponse = groupService.find(user, id);
         return ResponseEntity.ok(groupResponse);
     }
 

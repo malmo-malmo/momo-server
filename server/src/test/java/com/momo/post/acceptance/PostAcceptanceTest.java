@@ -1,4 +1,4 @@
-package com.momo.post;
+package com.momo.post.acceptance;
 
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST1;
 import static com.momo.fixture.PostFixture.NOTICE_CREATE_REQUEST1;
@@ -6,9 +6,9 @@ import static com.momo.fixture.PostFixture.POST_CREATE_REQUEST1;
 import static com.momo.fixture.UserFixture.USER1;
 import static com.momo.fixture.UserFixture.USER2;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
-import static com.momo.post.step.PostAcceptanceStep.requestToCreatePost;
-import static com.momo.post.step.PostAcceptanceStep.requestToFindPost;
-import static com.momo.post.step.PostAcceptanceStep.requestToFindPosts;
+import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToCreatePost;
+import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToFindPost;
+import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToFindPosts;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
@@ -16,7 +16,7 @@ import com.momo.post.controller.dto.PostCardsRequest;
 import com.momo.post.controller.dto.PostCardResponse;
 import com.momo.post.controller.dto.PostResponse;
 import com.momo.post.domain.model.PostType;
-import com.momo.post.step.PostAcceptanceStep;
+import com.momo.post.acceptance.step.PostAcceptanceStep;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;

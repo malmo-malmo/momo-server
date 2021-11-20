@@ -36,18 +36,9 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
     @Override
     public List<Groups> findAllBySearchConditionOrderByCreatedDateDesc(List<String> cities, List<Category> categories,
         Pageable pageable) {
-        //TODO : 뭔가 개선할 수 있을 듯.... where 절에 or-> in 으로 바꾸기
-        BooleanBuilder cityWhereClause = new BooleanBuilder();
-        BooleanBuilder categoryWhereClause = new BooleanBuilder();
-        for (String city : cities) {
-            cityWhereClause.or(groups.city.eq(city));
-        }
-        for (Category category : categories) {
-            categoryWhereClause.or(groups.category.eq(category));
-        }
         QueryResults<Groups> results = queryFactory
             .selectFrom(groups)
-            .where(cityWhereClause.and(categoryWhereClause))
+            .where(groups.city.in(cities).and(groups.category.in(categories)))
             .orderBy(groups.createdDate.desc())
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())

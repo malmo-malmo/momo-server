@@ -2,6 +2,7 @@ package com.momo.schedule.domain.model;
 
 import com.momo.common.domain.BaseEntity;
 import com.momo.group.domain.model.Groups;
+import com.momo.user.domain.model.User;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,6 +30,10 @@ public class Schedule extends BaseEntity {
     @JoinColumn(name = "group_id")
     private Groups group;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User author;
+
     private String title;
 
     private boolean isOffline;
@@ -36,26 +41,32 @@ public class Schedule extends BaseEntity {
     private LocalDateTime startDateTime;
 
     @Lob
-    private String Contents;
+    private String contents;
+
+    private boolean isAttendanceCheck;
 
     @Builder
-    public Schedule(Long id, Groups group, String title, boolean isOffline, LocalDateTime startDateTime,
-        String contents) {
+    public Schedule(Long id, Groups group, User author, String title, boolean isOffline,
+        LocalDateTime startDateTime, String contents, boolean isAttendanceCheck) {
         this.id = id;
         this.group = group;
+        this.author = author;
         this.title = title;
         this.isOffline = isOffline;
         this.startDateTime = startDateTime;
-        Contents = contents;
+        this.contents = contents;
+        this.isAttendanceCheck = isAttendanceCheck;
     }
 
-    public static Schedule create(Schedule schedule, Groups group) {
+    public static Schedule create(Schedule schedule, Groups group, User user) {
         return Schedule.builder()
             .group(group)
+            .author(user)
             .title(schedule.getTitle())
             .isOffline(schedule.isOffline())
             .startDateTime(schedule.getStartDateTime())
             .contents(schedule.getContents())
+            .isAttendanceCheck(false)
             .build();
     }
 }

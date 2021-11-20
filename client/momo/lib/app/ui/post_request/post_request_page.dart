@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/provider/post/post_request_provider.dart';
 import 'package:momo/app/routes/routes.dart';
-import 'package:momo/app/ui/components/confirm_button.dart';
 import 'package:momo/app/ui/components/content_input_box.dart';
 import 'package:momo/app/ui/components/name_input_box.dart';
 import 'package:momo/app/ui/post_request/widget/img_card.dart';

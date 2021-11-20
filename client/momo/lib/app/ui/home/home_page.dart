@@ -7,7 +7,6 @@ import 'package:momo/app/ui/home/widget/achievement_card.dart';
 import 'package:momo/app/ui/home/widget/event_card.dart';
 import 'package:momo/app/ui/home/widget/home_meeting_list.dart';
 import 'package:momo/app/ui/home/widget/reminder_card.dart';
-import 'package:momo/app/util/theme.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

@@ -35,7 +35,7 @@ class ConfirmButton extends ConsumerWidget {
               if (states.contains(MaterialState.disabled)) {
                 return const Color(0xfff2f2f2);
               }
-              return const Color(0xff000000);
+              return MomoColor.main;
             },
           ),
         ),

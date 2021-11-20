@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:momo/app/ui/search/widget/filter_bottom_sheet.dart';
 
 class SearchBox extends StatelessWidget {
   const SearchBox({Key? key}) : super(key: key);
@@ -20,8 +21,19 @@ class SearchBox extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              'assets/icon/search/icon_filter_28.svg',
+            InkWell(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (context) {
+                    return filterBottomSheet();
+                  },
+                );
+              },
+              child: SvgPicture.asset(
+                'assets/icon/search/icon_filter_28.svg',
+              ),
             ),
             SizedBox(
               height: 18,

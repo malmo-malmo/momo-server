@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/ui/meeting_detail/widget/meet_close_dialog.dart';
 import 'package:momo/app/ui/meeting_detail/widget/user_bottom_sheet.dart';
 import 'package:momo/app/util/navigation_service.dart';
+import 'package:momo/app/util/theme.dart';
 
 Widget meetingDetailBottomSheetAdmin() {
   return Consumer(builder: (context, ref, _) {
@@ -59,13 +62,54 @@ Widget meetingDetailBottomSheetAdmin() {
               icon: 'assets/icon/icon_todoadd_28.svg',
             ),
           ),
-          sheetTabButtob(
-            title: '관리자 권한 넘기기',
-            icon: 'assets/icon/icon_manager_28.svg',
+          InkWell(
+            onTap: () async {
+              final isTransfer = await ref.read(navigatorProvider).navigateTo(
+                    routeName: AppRoutes.memberList,
+                  );
+              ref.read(navigatorProvider).pop();
+              if (isTransfer) {
+                Fluttertoast.showToast(
+                  msg: '권한을 넘기셨습니다',
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: MomoColor.main,
+                  textColor: Colors.white,
+                  fontSize: 16.0,
+                );
+              }
+            },
+            child: sheetTabButtob(
+              title: '관리자 권한 넘기기',
+              icon: 'assets/icon/icon_manager_28.svg',
+            ),
           ),
-          sheetTabButtob(
-            title: '모임 종료',
-            icon: 'assets/icon/icon_moimclose.svg',
+          InkWell(
+            onTap: () async {
+              final isClose = await showDialog(
+                context: context,
+                builder: (context) {
+                  return meetCloseDialog();
+                },
+              );
+              ref.read(navigatorProvider).pop();
+              if (isClose) {
+                Fluttertoast.showToast(
+                  msg: '모임이 종료되었습니다',
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: MomoColor.main,
+                  textColor: Colors.white,
+                  fontSize: 16.0,
+                );
+              }
+            },
+            child: sheetTabButtob(
+              title: '모임 종료',
+              icon: 'assets/icon/icon_moimclose.svg',
+            ),
           ),
         ],
       ),

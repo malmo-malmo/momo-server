@@ -2,7 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'new_meet.dart';
+part of 'meet_request.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,13 +13,13 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-NewMeet _$NewMeetFromJson(Map<String, dynamic> json) {
+MeetRequest _$MeetRequestFromJson(Map<String, dynamic> json) {
   return _NewMeet.fromJson(json);
 }
 
 /// @nodoc
-class _$NewMeetTearOff {
-  const _$NewMeetTearOff();
+class _$MeetRequestTearOff {
+  const _$MeetRequestTearOff();
 
   _NewMeet call(
       {required String meetName,
@@ -46,16 +46,16 @@ class _$NewMeetTearOff {
     );
   }
 
-  NewMeet fromJson(Map<String, Object?> json) {
-    return NewMeet.fromJson(json);
+  MeetRequest fromJson(Map<String, Object?> json) {
+    return MeetRequest.fromJson(json);
   }
 }
 
 /// @nodoc
-const $NewMeet = _$NewMeetTearOff();
+const $MeetRequest = _$MeetRequestTearOff();
 
 /// @nodoc
-mixin _$NewMeet {
+mixin _$MeetRequest {
   String get meetName => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   String get onOff => throw _privateConstructorUsedError;
@@ -69,13 +69,15 @@ mixin _$NewMeet {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $NewMeetCopyWith<NewMeet> get copyWith => throw _privateConstructorUsedError;
+  $MeetRequestCopyWith<MeetRequest> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $NewMeetCopyWith<$Res> {
-  factory $NewMeetCopyWith(NewMeet value, $Res Function(NewMeet) then) =
-      _$NewMeetCopyWithImpl<$Res>;
+abstract class $MeetRequestCopyWith<$Res> {
+  factory $MeetRequestCopyWith(
+          MeetRequest value, $Res Function(MeetRequest) then) =
+      _$MeetRequestCopyWithImpl<$Res>;
   $Res call(
       {String meetName,
       String category,
@@ -90,12 +92,12 @@ abstract class $NewMeetCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$NewMeetCopyWithImpl<$Res> implements $NewMeetCopyWith<$Res> {
-  _$NewMeetCopyWithImpl(this._value, this._then);
+class _$MeetRequestCopyWithImpl<$Res> implements $MeetRequestCopyWith<$Res> {
+  _$MeetRequestCopyWithImpl(this._value, this._then);
 
-  final NewMeet _value;
+  final MeetRequest _value;
   // ignore: unused_field
-  final $Res Function(NewMeet) _then;
+  final $Res Function(MeetRequest) _then;
 
   @override
   $Res call({
@@ -156,7 +158,7 @@ class _$NewMeetCopyWithImpl<$Res> implements $NewMeetCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$NewMeetCopyWith<$Res> implements $NewMeetCopyWith<$Res> {
+abstract class _$NewMeetCopyWith<$Res> implements $MeetRequestCopyWith<$Res> {
   factory _$NewMeetCopyWith(_NewMeet value, $Res Function(_NewMeet) then) =
       __$NewMeetCopyWithImpl<$Res>;
   @override
@@ -174,7 +176,7 @@ abstract class _$NewMeetCopyWith<$Res> implements $NewMeetCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$NewMeetCopyWithImpl<$Res> extends _$NewMeetCopyWithImpl<$Res>
+class __$NewMeetCopyWithImpl<$Res> extends _$MeetRequestCopyWithImpl<$Res>
     implements _$NewMeetCopyWith<$Res> {
   __$NewMeetCopyWithImpl(_NewMeet _value, $Res Function(_NewMeet) _then)
       : super(_value, (v) => _then(v as _NewMeet));
@@ -281,7 +283,7 @@ class _$_NewMeet implements _NewMeet {
 
   @override
   String toString() {
-    return 'NewMeet(meetName: $meetName, category: $category, onOff: $onOff, headNum: $headNum, startDay: $startDay, school: $school, city: $city, country: $country, contents: $contents, img: $img)';
+    return 'MeetRequest(meetName: $meetName, category: $category, onOff: $onOff, headNum: $headNum, startDay: $startDay, school: $school, city: $city, country: $country, contents: $contents, img: $img)';
   }
 
   @override
@@ -320,7 +322,7 @@ class _$_NewMeet implements _NewMeet {
   }
 }
 
-abstract class _NewMeet implements NewMeet {
+abstract class _NewMeet implements MeetRequest {
   factory _NewMeet(
       {required String meetName,
       required String category,

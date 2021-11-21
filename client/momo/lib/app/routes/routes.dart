@@ -3,24 +3,22 @@ import 'package:momo/app/ui/gallery/gallery_page.dart';
 import 'package:momo/app/ui/login/category_page.dart';
 import 'package:momo/app/ui/login/info_page.dart';
 import 'package:momo/app/ui/login/login_page.dart';
-import 'package:momo/app/ui/login/splash_screen.dart';
 import 'package:momo/app/ui/login/terms_page.dart';
 import 'package:momo/app/ui/main_page.dart';
+import 'package:momo/app/ui/meet_request/meet_request_page.dart';
 import 'package:momo/app/ui/meeting_detail/meeting_detail_page.dart';
 import 'package:momo/app/ui/meeting_list/meeting_list_page.dart';
-import 'package:momo/app/ui/new_meet/new_meeting_page.dart';
+import 'package:momo/app/ui/member_list/member_list_page.dart';
 import 'package:momo/app/ui/notice_list/notice_list_page.dart';
 import 'package:momo/app/ui/onboarding/onboarding_page.dart';
 import 'package:momo/app/ui/post_detail/post_detail_page.dart';
 import 'package:momo/app/ui/post_request/post_request_page.dart';
 import 'package:momo/app/ui/request_meeting/request_meeting_page.dart';
 import 'package:momo/app/ui/schedule_detail/schedule_detail_page.dart';
-import 'package:momo/app/ui/schedule_list/schedule_list_page.dart';
 import 'package:momo/app/ui/schedule_request/schedule_request_page.dart';
 
 class AppRoutes {
   static const main = '/main';
-  static const splash = '/splash';
   static const login = '/login';
   static const trems = '/trems';
   static const category = '/category';
@@ -33,10 +31,10 @@ class AppRoutes {
   static const requestMeeting = '/requestMeeting';
   static const postRequest = '/postRequest';
   static const scheduleRequest = '/scheduleRequest';
-  static const scheduleList = '/scheduleList';
   static const scheduleDetail = '/scheduleDetail';
   static const noticeList = '/noticeList';
   static const postDetail = '/postDetail';
+  static const memberList = '/memberList';
 }
 
 class AppRouter {
@@ -47,9 +45,6 @@ class AppRouter {
       case AppRoutes.main:
         return MaterialPageRoute<dynamic>(
             builder: (_) => const MainPage(), settings: settings);
-      case AppRoutes.splash:
-        return MaterialPageRoute<dynamic>(
-            builder: (_) => const SplashPage(), settings: settings);
       case AppRoutes.login:
         return MaterialPageRoute<dynamic>(
             builder: (_) => const LoginPage(), settings: settings);
@@ -77,7 +72,7 @@ class AppRouter {
         );
       case AppRoutes.newMeet:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => const NewMeetingPage(),
+          builder: (_) => const MeetRequestPage(),
         );
       case AppRoutes.gallery:
         return MaterialPageRoute<dynamic>(
@@ -94,10 +89,6 @@ class AppRouter {
         return MaterialPageRoute<dynamic>(
           builder: (_) => const ScheduleRequestPage(),
         );
-      case AppRoutes.scheduleList:
-        return MaterialPageRoute<dynamic>(
-          builder: (_) => const ScheduleListPage(),
-        );
       case AppRoutes.scheduleDetail:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const ScheduleDetailPage(),
@@ -105,6 +96,10 @@ class AppRouter {
       case AppRoutes.noticeList:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const NoticeListPage(),
+        );
+      case AppRoutes.memberList:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const MemberListPage(),
         );
       case AppRoutes.postDetail:
         final arg = settings.arguments;

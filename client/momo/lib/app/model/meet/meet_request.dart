@@ -1,11 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'new_meet.freezed.dart';
-part 'new_meet.g.dart';
+part 'meet_request.freezed.dart';
+part 'meet_request.g.dart';
 
 @freezed
-class NewMeet with _$NewMeet {
-  factory NewMeet({
+class MeetRequest with _$MeetRequest {
+  factory MeetRequest({
     required String meetName,
     required String category,
     required String onOff,
@@ -18,6 +18,6 @@ class NewMeet with _$NewMeet {
     required String img,
   }) = _NewMeet;
 
-  factory NewMeet.fromJson(Map<String, dynamic> json) =>
-      _$NewMeetFromJson(json);
+  factory MeetRequest.fromJson(Map<String, dynamic> json) =>
+      _$MeetRequestFromJson(json);
 }

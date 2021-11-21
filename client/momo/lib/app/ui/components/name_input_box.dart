@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/util/theme.dart';
 
 Widget nameInputBox({
@@ -6,7 +7,7 @@ Widget nameInputBox({
   String? hintText,
 }) {
   return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 13),
+    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
     height: 44,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(16),
@@ -22,7 +23,7 @@ Widget nameInputBox({
           hintText: hintText ?? '',
           hintStyle: MomoTextStyle.defaultStyle.copyWith(
             color: MomoColor.unSelIcon,
-            fontSize: 16,
+            fontSize: 16.sp,
           ),
         ),
       ),

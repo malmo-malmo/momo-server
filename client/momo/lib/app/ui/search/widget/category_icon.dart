@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:momo/app/provider/search/search_filter_provider.dart';
 import 'package:momo/app/util/theme.dart';
 
 Widget categoryIcon(
@@ -15,7 +16,11 @@ Widget categoryIcon(
       Consumer(builder: (context, ref, _) {
         return InkWell(
           borderRadius: BorderRadius.circular(32),
-          onTap: () {},
+          onTap: () {
+            ref
+                .read(searchCategoryStateProvider.notifier)
+                .toggleCategory(index);
+          },
           child: SvgPicture.asset(
             check ? selImg : unSelImg,
           ),

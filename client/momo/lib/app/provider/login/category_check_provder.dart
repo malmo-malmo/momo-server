@@ -15,10 +15,10 @@ final categoryProvider = Provider<List<bool>>((ref) {
 });
 
 final categoryStateProvider =
-    StateNotifierProvider<CategoryState, List<bool>>((ref) => CategoryState());
+    StateNotifierProvider<CategoryState, List<bool>>((ref) => CategoryState(8));
 
 class CategoryState extends StateNotifier<List<bool>> {
-  CategoryState() : super(List.generate(8, (index) => false));
+  CategoryState(int num) : super(List.generate(num, (index) => false));
 
   void toggleCategory(int index) {
     state = [

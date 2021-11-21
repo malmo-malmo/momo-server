@@ -26,8 +26,8 @@ class UserInfoState extends StateNotifier<UserInfo> {
           UserInfo(
             nickname: '',
             school: '',
-            city: '',
-            country: '',
+            city: '서울',
+            country: '강남구',
           ),
         );
 

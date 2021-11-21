@@ -62,9 +62,7 @@ Widget homeMeetCard({
                   children: [
                     Text(
                       title,
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
+                      style: MomoTextStyle.defaultStyle.copyWith(
                         color: MomoColor.white,
                       ),
                     ),

@@ -67,6 +67,7 @@ class _FeedListState extends State<FeedList> {
           comments: item.comments,
           userName: item.userName,
           title: item.title,
+          date: '2021년 12월 31일 오후 1:00',
         ),
       ),
     );

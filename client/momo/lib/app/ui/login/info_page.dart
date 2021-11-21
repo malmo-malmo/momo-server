@@ -28,19 +28,31 @@ class InfoPage extends ConsumerWidget {
         backgroundColor: const Color(0xfff7f7f7),
         body: SingleChildScrollView(
           child: Padding(
-            padding:
-                const EdgeInsets.only(top: 91, left: 16, right: 16, bottom: 24),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 45),
+                InkWell(
+                  onTap: () {
+                    ref.read(navigatorProvider).pop();
+                  },
+                  child: Icon(
+                    CupertinoIcons.back,
+                    color: MomoColor.black,
+                    size: 24.w,
+                  ),
+                ),
+                const SizedBox(height: 25),
                 titleText('내 정보 설정  3/3'),
-                SizedBox(height: 16.h),
+                const SizedBox(height: 50),
                 _subTitle('닉네임'),
-                inputBox(
+                nameInputBox(
+                  onTextChange:
+                      ref.read(userInfoStateProvider.notifier).setUserNickname,
                   searchIcon: Container(
-                    height: 29,
-                    width: 64.w,
+                    height: 32,
+                    width: 62,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         color: userNameCheck
@@ -63,13 +75,13 @@ class InfoPage extends ConsumerWidget {
                             context: context,
                             builder: (context) => _duplicateDialog(),
                           );
+                          FocusScope.of(context).unfocus();
                         }
                       : () {},
-                  onTextChanged:
-                      ref.read(userInfoStateProvider.notifier).setUserNickname,
                 ),
                 _subTitle('학교'),
                 inputBox(
+                  value: userInfo.school,
                   searchIcon: Icon(
                     CupertinoIcons.search,
                     size: 28.w,
@@ -78,12 +90,15 @@ class InfoPage extends ConsumerWidget {
                     showDialog(
                       context: context,
                       builder: (context) {
-                        return schoolResultDialog();
+                        return schoolResultDialog(
+                          onSelect: ref
+                              .read(userInfoStateProvider.notifier)
+                              .setUserSchool,
+                        );
                       },
                     );
+                    FocusScope.of(context).unfocus();
                   },
-                  onTextChanged:
-                      ref.read(userInfoStateProvider.notifier).setUserSchool,
                 ),
                 _subTitle('지역'),
                 Row(
@@ -102,12 +117,13 @@ class InfoPage extends ConsumerWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 200.h),
+                const SizedBox(height: 200),
                 agreeButton(
                   check: check,
                   nextPage: AppRoutes.onboarding,
                   text: '다음',
                 ),
+                const SizedBox(height: 36),
               ],
             ),
           ),
@@ -118,7 +134,7 @@ class InfoPage extends ConsumerWidget {
 
   Widget _subTitle(String title) {
     return Padding(
-      padding: EdgeInsets.only(top: 48.h, bottom: 16.h),
+      padding: EdgeInsets.only(top: 30.h, bottom: 14.h),
       child: Text(
         title,
         style: TextStyle(
@@ -149,7 +165,9 @@ class InfoPage extends ConsumerWidget {
               padding: const EdgeInsets.only(top: 40),
               child: Text(
                 '사용 가능한 닉네임이에요',
-                style: TextStyle(color: MomoColor.black, fontSize: 16.sp),
+                style: MomoTextStyle.defaultStyle.copyWith(
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
             Consumer(

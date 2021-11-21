@@ -39,8 +39,7 @@ class MyApp extends ConsumerWidget {
         debugShowCheckedModeBanner: false,
         navigatorKey: ref.watch(navigatorProvider).navigatorKey,
         scrollBehavior: MyBehavior(),
-        // initialRoute: AppRoutes.login,
-        initialRoute: AppRoutes.info,
+        initialRoute: AppRoutes.login,
         theme: MomoThemeData,
         onGenerateRoute: (settings) => AppRouter.onGenerateRoute(settings),
         localizationsDelegates: const [

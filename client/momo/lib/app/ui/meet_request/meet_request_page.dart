@@ -2,21 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/provider/new_meet/new_meet_provider.dart';
+import 'package:momo/app/provider/meet_request/meet_request_provider.dart';
 import 'package:momo/app/ui/components/confirm_button.dart';
 import 'package:momo/app/ui/components/content_input_box.dart';
 import 'package:momo/app/ui/components/date_input_card.dart';
 import 'package:momo/app/ui/components/name_input_box.dart';
 import 'package:momo/app/ui/components/on_off_toggle_button.dart';
-import 'package:momo/app/ui/new_meet/widget/categort_card.dart';
-import 'package:momo/app/ui/new_meet/widget/head_num_input_box.dart';
-import 'package:momo/app/ui/new_meet/widget/school_input_box.dart';
-import 'package:momo/app/ui/new_meet/widget/set_meet_city_box.dart';
-import 'package:momo/app/ui/new_meet/widget/set_meet_country_box.dart';
-import 'package:momo/app/ui/new_meet/widget/top_box.dart';
+import 'package:momo/app/ui/meet_request/widget/categort_card.dart';
+import 'package:momo/app/ui/meet_request/widget/head_num_input_box.dart';
+import 'package:momo/app/ui/meet_request/widget/school_input_box.dart';
+import 'package:momo/app/ui/meet_request/widget/set_meet_city_box.dart';
+import 'package:momo/app/ui/meet_request/widget/set_meet_country_box.dart';
+import 'package:momo/app/ui/meet_request/widget/top_box.dart';
 
-class NewMeetingPage extends ConsumerWidget {
-  const NewMeetingPage({Key? key}) : super(key: key);
+class MeetRequestPage extends ConsumerWidget {
+  const MeetRequestPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

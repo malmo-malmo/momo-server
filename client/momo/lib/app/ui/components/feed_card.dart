@@ -14,6 +14,7 @@ class FeedCard extends ConsumerWidget {
     required this.comments,
     required this.userName,
     required this.title,
+    required this.date,
   }) : super(key: key);
 
   final int postId;
@@ -22,6 +23,7 @@ class FeedCard extends ConsumerWidget {
   final String title;
   final String text;
   final int comments;
+  final String date;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -58,10 +60,21 @@ class FeedCard extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(width: 10),
-                    Text(
-                      userName,
-                      style: MomoTextStyle.small,
-                    )
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          userName,
+                          style: MomoTextStyle.small,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          date,
+                          style: MomoTextStyle.small
+                              .copyWith(color: const Color(0xff9e9e9e)),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
                 const SizedBox(height: 20),

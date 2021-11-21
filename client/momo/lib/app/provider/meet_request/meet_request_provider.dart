@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:momo/app/model/meet/new_meet.dart';
+import 'package:momo/app/model/meet/meet_request.dart';
 
 final newMeetCheckProvider = Provider.autoDispose<bool>((ref) {
   final newMeet = ref.watch(newMeetStateProvider);
@@ -19,19 +19,19 @@ final newMeetCheckProvider = Provider.autoDispose<bool>((ref) {
   return false;
 });
 
-final newMeetProvider = Provider.autoDispose<NewMeet>((ref) {
+final newMeetProvider = Provider.autoDispose<MeetRequest>((ref) {
   final newMeetState = ref.watch(newMeetStateProvider);
   return newMeetState;
 });
 
 final newMeetStateProvider =
-    StateNotifierProvider.autoDispose<NewMeetState, NewMeet>(
-        (ref) => NewMeetState());
+    StateNotifierProvider.autoDispose<MeetRequestState, MeetRequest>(
+        (ref) => MeetRequestState());
 
-class NewMeetState extends StateNotifier<NewMeet> {
-  NewMeetState()
+class MeetRequestState extends StateNotifier<MeetRequest> {
+  MeetRequestState()
       : super(
-          NewMeet(
+          MeetRequest(
             meetName: '',
             category: '',
             onOff: '',

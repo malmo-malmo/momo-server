@@ -9,6 +9,7 @@ import 'package:momo/app/provider/calendar/scroll_state_provider.dart';
 import 'package:momo/app/ui/components/sub_title.dart';
 import 'package:momo/app/ui/my_meet/widget/manage_meeting_list.dart';
 import 'package:momo/app/ui/my_meet/widget/participation_meeting_list.dart';
+import 'package:momo/app/util/theme.dart';
 
 class MyMeetPage extends ConsumerStatefulWidget {
   const MyMeetPage({Key? key}) : super(key: key);
@@ -63,13 +64,10 @@ class _MyMeetPageState extends ConsumerState<MyMeetPage> {
               SizedBox(height: 12.h),
               Text(
                 '내 모임',
-                style: TextStyle(
-                  fontSize: 28.sp,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: MomoTextStyle.mainTitle,
               ),
               subTitle(
-                title: '직접 관리 모임',
+                title: '내가 만든 모임',
                 icon: 'assets/icon/meet/icon_manage_28.svg',
               ),
               const ManageMeetingList(),

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'new_meet.dart';
+part of 'meet_request.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

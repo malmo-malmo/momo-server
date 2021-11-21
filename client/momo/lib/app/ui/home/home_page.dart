@@ -7,6 +7,7 @@ import 'package:momo/app/ui/home/widget/achievement_card.dart';
 import 'package:momo/app/ui/home/widget/event_card.dart';
 import 'package:momo/app/ui/home/widget/home_meeting_list.dart';
 import 'package:momo/app/ui/home/widget/reminder_card.dart';
+import 'package:momo/app/util/theme.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -32,9 +33,8 @@ class HomePage extends StatelessWidget {
               SizedBox(height: 12.h),
               Text(
                 '어서와,\n이런 모임은 처음이지?',
-                style: TextStyle(
-                  fontSize: 28.sp,
-                  fontWeight: FontWeight.bold,
+                style: MomoTextStyle.mainTitle.copyWith(
+                  height: 1.3,
                 ),
               ),
               subTitle(

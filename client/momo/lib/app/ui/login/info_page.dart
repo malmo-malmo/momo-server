@@ -7,6 +7,7 @@ import 'package:momo/app/provider/login/user_info_provider.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/login/widget/agree_button.dart';
 import 'package:momo/app/ui/login/widget/input_box.dart';
+import 'package:momo/app/ui/login/widget/school_result_dialog.dart';
 import 'package:momo/app/ui/login/widget/set_city_box.dart';
 import 'package:momo/app/ui/login/widget/set_country_box.dart';
 import 'package:momo/app/ui/login/widget/title_text.dart';
@@ -20,9 +21,11 @@ class InfoPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final check = ref.watch(userInfoCheckProvider);
     final userNameCheck = ref.watch(nameCheckProvider);
+    final userInfo = ref.watch(userInfoProvider);
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color(0xfff7f7f7),
         body: SingleChildScrollView(
           child: Padding(
             padding:
@@ -71,7 +74,14 @@ class InfoPage extends ConsumerWidget {
                     CupertinoIcons.search,
                     size: 28.w,
                   ),
-                  onTabIcon: () {},
+                  onTabIcon: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return schoolResultDialog();
+                      },
+                    );
+                  },
                   onTextChanged:
                       ref.read(userInfoStateProvider.notifier).setUserSchool,
                 ),
@@ -79,11 +89,20 @@ class InfoPage extends ConsumerWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SetCityBox(),
-                    SetCountryBox(),
+                    cityInputBox(
+                      city: userInfo.city,
+                      setCity:
+                          ref.read(userInfoStateProvider.notifier).setUserCity,
+                    ),
+                    countryInputBox(
+                      country: userInfo.country,
+                      setCountry: ref
+                          .read(userInfoStateProvider.notifier)
+                          .setUserCountry,
+                    ),
                   ],
                 ),
-                SizedBox(height: 180.h),
+                SizedBox(height: 200.h),
                 agreeButton(
                   check: check,
                   nextPage: AppRoutes.onboarding,

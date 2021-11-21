@@ -5,7 +5,7 @@ import com.momo.group.domain.model.Participant;
 import com.momo.user.domain.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ParticipantRepository extends JpaRepository<Participant, Long> {
+public interface ParticipantRepository extends JpaRepository<Participant, Long>, ParticipantRepositoryCustom {
 
     Boolean existsByUserAndGroup(User user, Groups group);
 }

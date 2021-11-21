@@ -23,6 +23,7 @@ public enum ErrorCode {
 
     GROUP_NOTICE_UNAUTHORIZED(400, "공지사항은 모임 관리자만 등록할 수 있습니다."),
     GROUP_SCHEDULE_UNAUTHORIZED(400, "일정은 모임 관리자만 등록할 수 있습니다."),
+    GROUP_PARTICIPANTS_UNAUTHORIZED(400, "참여자 목록은 모임 관리자만 볼 수 있습니다."),
     GROUP_PARTICIPANT_UNAUTHORIZED(400, "해당 모임의 참여자가 아닙니다.");
 
     private final int status;

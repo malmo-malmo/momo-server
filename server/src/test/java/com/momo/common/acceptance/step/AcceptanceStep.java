@@ -36,4 +36,9 @@ public class AcceptanceStep {
         assertThat(response.body().as(ErrorResponse.class).getMessage()).isEqualTo(
             ErrorCode.GROUP_SCHEDULE_UNAUTHORIZED.getMessage());
     }
+
+    public static void assertThatErrorIsParticipantsUnAuthorized(ExtractableResponse<Response> response) {
+        assertThat(response.body().as(ErrorResponse.class).getMessage()).isEqualTo(
+            ErrorCode.GROUP_PARTICIPANTS_UNAUTHORIZED.getMessage());
+    }
 }

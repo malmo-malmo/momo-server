@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/provider/login/terms_check_provider.dart';
@@ -17,25 +18,34 @@ class TermsPage extends ConsumerWidget {
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color(0xfff7f7f7),
         body: Padding(
-          padding:
-              const EdgeInsets.only(top: 91, left: 24, right: 24, bottom: 24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              titleText('약관동의  1/3'),
-              subTitleText('간단한 약관동의 후 편리한 모임 서비스를\n이용하실 수 있어요 :)'),
-              _termsAllCheckBox(termsAllCheck),
-              _termsRow('개인정보 수집 제공 동의 (필수)', 0, termsCheck[0]),
-              _termsRow('제 3자 정보제공 동의 (필수)', 1, termsCheck[1]),
-              _termsRow('이벤트 수신 동의 (선택)', 2, termsCheck[2]),
-              agreeButton(
-                check: isAgree,
-                nextPage: AppRoutes.category,
-                text: '다음',
-              ),
-            ],
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 91),
+                titleText('약관동의  1/3'),
+                const SizedBox(height: 20),
+                subTitleText('간단한 약관동의 후 편리한 모임 서비스를\n이용하실 수 있어요 :)'),
+                const SizedBox(height: 44),
+                _termsAllCheckBox(termsAllCheck),
+                const SizedBox(height: 32),
+                _termsRow('개인정보 수집 제공 동의 (필수)', 0, termsCheck[0]),
+                const SizedBox(height: 14),
+                _termsRow('제 3자 정보제공 동의 (필수)', 1, termsCheck[1]),
+                const SizedBox(height: 14),
+                _termsRow('이벤트 수신 동의 (선택)', 2, termsCheck[2]),
+                const SizedBox(height: 300),
+                agreeButton(
+                  check: isAgree,
+                  nextPage: AppRoutes.category,
+                  text: '다음',
+                ),
+                const SizedBox(height: 36),
+              ],
+            ),
           ),
         ),
       ),
@@ -93,27 +103,42 @@ class TermsPage extends ConsumerWidget {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            InkWell(
-              onTap: () {
-                ref.read(termsCheckStateProvider.notifier).toggleTerms(index);
-              },
-              child: CircleAvatar(
-                radius: 15,
-                backgroundColor:
-                    check ? const Color(0xffbca9f7) : const Color(0xffdedede),
-                child: const Icon(
-                  Icons.check,
-                  size: 20,
-                  color: Color(0xfffdfdfd),
+            Row(
+              children: [
+                InkWell(
+                  borderRadius: BorderRadius.circular(24),
+                  onTap: () {
+                    ref
+                        .read(termsCheckStateProvider.notifier)
+                        .toggleTerms(index);
+                  },
+                  child: CircleAvatar(
+                    radius: 15,
+                    backgroundColor: check
+                        ? const Color(0xffbca9f7)
+                        : const Color(0xffdedede),
+                    child: const Icon(
+                      Icons.check,
+                      size: 20,
+                      color: Color(0xfffdfdfd),
+                    ),
+                  ),
                 ),
-              ),
+                const SizedBox(width: 10),
+                Text(
+                  title,
+                  style: MomoTextStyle.normal,
+                ),
+              ],
             ),
-            const SizedBox(width: 16),
             Text(
-              title,
-              style: MomoTextStyle.normal,
-            ),
+              '보기',
+              style: MomoTextStyle.small.copyWith(
+                decoration: TextDecoration.underline,
+              ),
+            )
           ],
         ),
       );

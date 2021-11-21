@@ -8,6 +8,7 @@ Widget memberCard({
   required int rate,
 }) {
   return Container(
+    color: Colors.amberAccent,
     height: 100,
     width: double.infinity,
     child: Row(
@@ -27,7 +28,7 @@ Widget memberCard({
             ),
           ],
         ),
-        CircleAvatar(
+        const CircleAvatar(
           radius: 16,
         ),
       ],

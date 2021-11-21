@@ -29,7 +29,7 @@ Widget commentCard({
             ),
           ],
         ),
-        Text('삭제'),
+        const Text('삭제'),
       ],
     ),
   );

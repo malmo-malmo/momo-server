@@ -67,6 +67,7 @@ class _NoticeListViewState extends State<NoticeListView> {
             comments: item.comments,
             userName: item.userName,
             title: item.title,
+            date: '2021년 12월 31일 오후 1:00',
           ),
         ),
         separatorBuilder: (context, index) => const SizedBox(height: 8),

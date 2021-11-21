@@ -22,18 +22,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   Future<void> loginWithKakao() async {
     dp.log('>>>>>>>> Flutter Server Open <<<<<<<<<');
-    final server = await HttpServer.bind('127.0.0.1', 43823);
 
-    server.listen((req) async {
-      if (req.method == 'GET') {
-        dp.log('>>>>>>>>> ${req.uri} <<<<<<<<');
-      }
-    });
-    final authUri = Uri.https(
+    final authUri = Uri.http(
       'http://localhost:8080',
       '/oauth2/authorize/kakao',
       {
-        // 'redirect_uri': 'http://localtest.me:43823/',
         'redirect_uri': 'webauthcallback://',
       },
     );
@@ -52,8 +45,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     });
     // 결과 확인
     dp.log('>>>>>>>> $token <<<<<<<<<<');
-    await server.close();
-    dp.log('>>>>>>>> Flutter Server Close <<<<<<<<<');
   }
 
   @override

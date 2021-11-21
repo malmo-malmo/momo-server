@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +7,7 @@ import 'package:momo/app/provider/login/category_check_provder.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/login/widget/agree_button.dart';
 import 'package:momo/app/ui/login/widget/title_text.dart';
+import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 class CategoryPage extends ConsumerWidget {
@@ -19,18 +21,29 @@ class CategoryPage extends ConsumerWidget {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 91),
+                const SizedBox(height: 45),
+                InkWell(
+                  onTap: () {
+                    ref.read(navigatorProvider).pop();
+                  },
+                  child: Icon(
+                    CupertinoIcons.back,
+                    color: MomoColor.black,
+                    size: 24.w,
+                  ),
+                ),
+                const SizedBox(height: 25),
                 titleText('관심 활동 모임  2/3'),
                 const SizedBox(height: 20),
-                subTitleText('참여하고 싶은 활동 모임을 선택해주세요'),
+                subTitleText('참여하고 싶은 활동 모임을 선택해주세요.'),
                 const SizedBox(height: 40),
                 Container(
-                  padding: const EdgeInsets.only(top: 48, right: 35, left: 35),
+                  padding: EdgeInsets.symmetric(horizontal: 48, vertical: 35.w),
                   height: 442.h,
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -78,7 +91,7 @@ class CategoryPage extends ConsumerWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 48),
+                const SizedBox(height: 64),
                 agreeButton(
                   check: isCheckCategory,
                   nextPage: AppRoutes.info,
@@ -113,10 +126,12 @@ class CategoryPage extends ConsumerWidget {
             ),
           );
         }),
-        const SizedBox(height: 8),
+        const SizedBox(height: 10),
         Text(
           title,
-          style: MomoTextStyle.normal,
+          style: MomoTextStyle.normal.copyWith(
+            fontWeight: FontWeight.w400,
+          ),
         ),
       ],
     );

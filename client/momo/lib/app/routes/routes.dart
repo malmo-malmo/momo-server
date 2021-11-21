@@ -14,7 +14,6 @@ import 'package:momo/app/ui/onboarding/onboarding_page.dart';
 import 'package:momo/app/ui/post_detail/post_detail_page.dart';
 import 'package:momo/app/ui/post_request/post_request_page.dart';
 import 'package:momo/app/ui/request_meeting/request_meeting_page.dart';
-import 'package:momo/app/ui/schedule_detail/schedule_detail_page.dart';
 import 'package:momo/app/ui/schedule_request/schedule_request_page.dart';
 
 class AppRoutes {
@@ -31,7 +30,6 @@ class AppRoutes {
   static const requestMeeting = '/requestMeeting';
   static const postRequest = '/postRequest';
   static const scheduleRequest = '/scheduleRequest';
-  static const scheduleDetail = '/scheduleDetail';
   static const noticeList = '/noticeList';
   static const postDetail = '/postDetail';
   static const memberList = '/memberList';
@@ -88,10 +86,6 @@ class AppRouter {
       case AppRoutes.scheduleRequest:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const ScheduleRequestPage(),
-        );
-      case AppRoutes.scheduleDetail:
-        return MaterialPageRoute<dynamic>(
-          builder: (_) => const ScheduleDetailPage(),
         );
       case AppRoutes.noticeList:
         return MaterialPageRoute<dynamic>(

@@ -71,7 +71,6 @@ public class GroupController {
         return ResponseEntity.ok(groupCardResponses);
     }
 
-
     @GetMapping("/group/categories")
     public ResponseEntity<List<EnumResponse>> findGroupCategories() {
         return ResponseEntity.ok(EnumResponse.listOfCategory());

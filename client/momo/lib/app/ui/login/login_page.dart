@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:momo/app/routes/routes.dart';
-import 'dart:io' show HttpServer;
 
 import 'dart:developer' as dp;
 
@@ -18,11 +17,7 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
-  String resultToken = 'No token';
-
   Future<void> loginWithKakao() async {
-    dp.log('>>>>>>>> Flutter Server Open <<<<<<<<<');
-
     final authUri = Uri.http(
       'http://localhost:8080',
       '/oauth2/authorize/kakao',
@@ -40,9 +35,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     //  넘어온 uri에서 토큰 추출
     final token = Uri.parse(authResponse).queryParameters['token'];
 
-    setState(() {
-      resultToken = token!;
-    });
     // 결과 확인
     dp.log('>>>>>>>> $token <<<<<<<<<<');
   }

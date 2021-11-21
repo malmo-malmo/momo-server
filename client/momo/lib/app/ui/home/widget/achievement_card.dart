@@ -70,11 +70,7 @@ class AchievementCard extends StatelessWidget {
               SizedBox(width: 14.w),
               Text(
                 title,
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
-                  color: MomoColor.black,
-                ),
+                style: MomoTextStyle.defaultStyle,
               ),
             ],
           ),
@@ -91,7 +87,7 @@ class AchievementCard extends StatelessWidget {
                   },
                   chartType: ChartType.ring,
                   chartRadius: 32,
-                  ringStrokeWidth: 10,
+                  ringStrokeWidth: 5,
                   gradientList: const [
                     [
                       MomoColor.unRated,
@@ -119,9 +115,8 @@ class AchievementCard extends StatelessWidget {
               ),
               Text(
                 '$rate',
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  color: MomoColor.black,
+                style: MomoTextStyle.small.copyWith(
+                  fontSize: 10.sp,
                 ),
               ),
             ],

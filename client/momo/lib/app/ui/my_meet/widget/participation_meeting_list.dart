@@ -9,9 +9,12 @@ class ParticipationMettingList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 5; i++)
           const ParticipationMeetingCard(
-              icon: CupertinoIcons.app, title: '청계천 달리기 & 산책'),
+            icon: CupertinoIcons.app,
+            title: '청계천 달리기 & 산책',
+            time: '오후 7:00 ~ 9:00',
+          ),
       ],
     );
   }

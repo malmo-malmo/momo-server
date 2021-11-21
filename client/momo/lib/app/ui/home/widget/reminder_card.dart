@@ -11,7 +11,7 @@ class ReminderCard extends StatelessWidget {
   ReminderCard({Key? key}) : super(key: key);
 
   final _controller = ScrollController(
-    initialScrollOffset: 53.w * (DateTime.now().day - 2),
+    initialScrollOffset: 53.w * (DateTime.now().day - 3),
   );
 
   @override
@@ -25,7 +25,7 @@ class ReminderCard extends StatelessWidget {
         padding: const EdgeInsets.only(top: 20),
         height: 342.h,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(26),
           color: MomoColor.white,
         ),
         child: Column(
@@ -80,28 +80,26 @@ class ReminderCard extends StatelessWidget {
   }) {
     return Consumer(builder: (context, ref, _) {
       final check = DateTime.now().day == day;
-      return InkWell(
-        onTap: () {},
-        child: Container(
-          height: 89.h,
-          width: 53.w,
-          decoration: BoxDecoration(
-            color: check ? MomoColor.main : MomoColor.white,
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(title,
-                  style: TextStyle(
-                      fontSize: 14.sp,
-                      color: check ? MomoColor.white : MomoColor.black)),
-              Text('$day',
-                  style: TextStyle(
-                      fontSize: 14.sp,
-                      color: check ? MomoColor.white : MomoColor.black)),
-            ],
-          ),
+      return Container(
+        height: 89.h,
+        width: 53.w,
+        decoration: BoxDecoration(
+          color: check ? MomoColor.main : MomoColor.white,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              title,
+              style: MomoTextStyle.normal.copyWith(
+                color: check ? MomoColor.white : MomoColor.black,
+              ),
+            ),
+            Text('$day',
+                style: MomoTextStyle.normal.copyWith(
+                    color: check ? MomoColor.white : MomoColor.black)),
+          ],
         ),
       );
     });
@@ -128,18 +126,12 @@ class ReminderCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      color: MomoColor.black,
-                    ),
+                    style: MomoTextStyle.defaultStyle,
                   ),
-                  SizedBox(height: 4.h),
+                  const SizedBox(height: 6),
                   Text(
                     date,
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      color: MomoColor.black,
-                    ),
+                    style: MomoTextStyle.small,
                   ),
                 ],
               ),

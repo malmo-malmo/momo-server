@@ -1,14 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/ui/search/widget/filter_bottom_sheet.dart';
 
-class SearchBox extends StatelessWidget {
-  const SearchBox({Key? key}) : super(key: key);
+class SearchBox extends ConsumerWidget {
+  const SearchBox({
+    Key? key,
+    required this.onSearch,
+  }) : super(key: key);
+
+  final Function() onSearch;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Material(
       elevation: 5,
       shape: RoundedRectangleBorder(
@@ -43,8 +49,13 @@ class SearchBox extends StatelessWidget {
                 child: TextField(),
               ),
             ),
-            SvgPicture.asset(
-              'assets/icon/search/icon_search_28.svg',
+            InkWell(
+              onTap: () {
+                onSearch();
+              },
+              child: SvgPicture.asset(
+                'assets/icon/search/icon_search_28.svg',
+              ),
             ),
           ],
         ),

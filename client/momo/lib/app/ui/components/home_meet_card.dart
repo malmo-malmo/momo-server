@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/ui/components/member_date_row.dart';
+import 'package:momo/app/ui/components/on_off_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
@@ -47,20 +49,7 @@ Widget homeMeetCard({
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      width: onOff.length * 11.0 + 21.w,
-                      height: 25.h,
-                      child: Center(
-                          child: Text(
-                        onOff,
-                        style:
-                            TextStyle(fontSize: 12.sp, color: MomoColor.white),
-                      )),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(13),
-                        color: MomoColor.main,
-                      ),
-                    ),
+                    onOffCard(onOff),
                     Icon(
                       CupertinoIcons.heart,
                       size: 24.w,
@@ -69,6 +58,7 @@ Widget homeMeetCard({
                   ],
                 ),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       title,
@@ -79,25 +69,7 @@ Widget homeMeetCard({
                       ),
                     ),
                     SizedBox(height: 8.h),
-                    Row(
-                      children: [
-                        Text(
-                          '$headNum',
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: MomoColor.white,
-                          ),
-                        ),
-                        SizedBox(width: 15.w),
-                        Text(
-                          date,
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: MomoColor.white,
-                          ),
-                        ),
-                      ],
-                    ),
+                    memberDateRow(headNum, date),
                   ],
                 ),
               ],

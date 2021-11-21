@@ -31,6 +31,7 @@ class MainPage extends ConsumerWidget {
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color(0xfff7f7fd),
         body: _pages[index],
         bottomNavigationBar: Container(
           padding: const EdgeInsets.all(3),

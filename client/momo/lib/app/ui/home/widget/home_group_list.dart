@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/group/group_info.dart';
-import 'package:momo/app/ui/components/home_meet_card.dart';
+import 'package:momo/app/ui/components/card/home_group_card.dart';
+import 'package:momo/app/util/date_format.dart';
 
 class HomeMeetingList extends StatefulWidget {
   const HomeMeetingList({Key? key}) : super(key: key);
@@ -37,11 +38,12 @@ class _HomeMeetingListState extends State<HomeMeetingList> {
         10,
         (index) => GroupInfo(
           id: index,
-          name: '',
+          name: '시사 이슈 스터디',
           offline: false,
           participantCnt: 5,
-          startDate: 'startDate',
-          imageUrl: 'imageUrl',
+          startDate: '2021-12-31',
+          imageUrl:
+              'https://p4.wallpaperbetter.com/wallpaper/817/916/889/falcon-9-rocket-4k-high-definition-wallpaper-preview.jpg',
         ),
       );
       const isLastPage = false;
@@ -59,22 +61,22 @@ class _HomeMeetingListState extends State<HomeMeetingList> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200.h,
+      height: 200,
       child: PagedListView<int, GroupInfo>.separated(
         pagingController: _pagingController,
         scrollDirection: Axis.horizontal,
         builderDelegate: PagedChildBuilderDelegate<GroupInfo>(
-          itemBuilder: (context, item, index) => homeMeetCard(
-            onOff: '',
-            title: '',
-            headNum: 5,
-            date: '',
-            img: '',
-            height: 200.h,
-            width: 144.w,
+          itemBuilder: (context, item, index) => homeGroupCard(
+            title: item.name,
+            onOff: item.offline,
+            headNum: item.participantCnt,
+            date: groupDateFormat(item.startDate),
+            img: item.imageUrl,
+            height: 200,
+            width: 144,
           ),
         ),
-        separatorBuilder: (context, index) => const SizedBox(width: 16),
+        separatorBuilder: (context, index) => const SizedBox(width: 14),
       ),
     );
   }

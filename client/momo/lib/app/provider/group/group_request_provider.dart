@@ -1,29 +1,29 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/model/group/group_request.dart';
 
-final newMeetCheckProvider = Provider.autoDispose<bool>((ref) {
-  final newMeet = ref.watch(newMeetStateProvider);
+final groupRequestCheckProvider = Provider.autoDispose<bool>((ref) {
+  final groupRequest = ref.watch(groupRequestStateProvider);
 
-  if (newMeet.name.isNotEmpty &&
-      newMeet.category.isNotEmpty &&
-      newMeet.city.isNotEmpty &&
-      newMeet.district.isNotEmpty &&
-      newMeet.imageUrl.isNotEmpty &&
-      newMeet.city.isNotEmpty &&
-      newMeet.introduction.isNotEmpty &&
-      newMeet.startDate.isNotEmpty &&
-      newMeet.recruitmentCnt != 0) {
+  if (groupRequest.name.isNotEmpty &&
+      groupRequest.category.isNotEmpty &&
+      groupRequest.city.isNotEmpty &&
+      groupRequest.district.isNotEmpty &&
+      groupRequest.imageUrl.isNotEmpty &&
+      groupRequest.city.isNotEmpty &&
+      groupRequest.introduction.isNotEmpty &&
+      groupRequest.startDate.isNotEmpty &&
+      groupRequest.recruitmentCnt != 0) {
     return true;
   }
   return false;
 });
 
-final newMeetProvider = Provider.autoDispose<GroupRequest>((ref) {
-  final newMeetState = ref.watch(newMeetStateProvider);
-  return newMeetState;
+final groupRequestProvider = Provider.autoDispose<GroupRequest>((ref) {
+  final groupRequestState = ref.watch(groupRequestStateProvider);
+  return groupRequestState;
 });
 
-final newMeetStateProvider =
+final groupRequestStateProvider =
     StateNotifierProvider.autoDispose<GroupRequestState, GroupRequest>(
         (ref) => GroupRequestState());
 

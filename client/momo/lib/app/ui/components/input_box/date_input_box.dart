@@ -7,8 +7,8 @@ import 'package:momo/app/provider/date_card_provider.dart';
 import 'package:momo/app/util/date_format.dart';
 import 'package:momo/app/util/theme.dart';
 
-class DateInputCard extends ConsumerWidget {
-  const DateInputCard({
+class DateInputBox extends ConsumerWidget {
+  const DateInputBox({
     Key? key,
     required this.selcetDate,
   }) : super(key: key);

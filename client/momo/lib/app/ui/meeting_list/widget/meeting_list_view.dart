@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/group/group_info.dart';
-import 'package:momo/app/ui/components/home_meet_card.dart';
+import 'package:momo/app/ui/components/card/home_group_card.dart';
 
 class MeetingListView extends StatefulWidget {
   const MeetingListView({Key? key}) : super(key: key);
@@ -60,8 +60,8 @@ class _MeetingListViewState extends State<MeetingListView> {
       child: PagedGridView(
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate<GroupInfo>(
-          itemBuilder: (context, item, index) => homeMeetCard(
-            onOff: 'item.onOff',
+          itemBuilder: (context, item, index) => homeGroupCard(
+            onOff: true,
             title: 'item.title',
             headNum: 5,
             date: 'item.startDay',

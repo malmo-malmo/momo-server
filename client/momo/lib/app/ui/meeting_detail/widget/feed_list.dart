@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/group/group_info.dart';
-import 'package:momo/app/ui/components/feed_card.dart';
+import 'package:momo/app/ui/components/card/feed_card.dart';
 
 class FeedList extends StatefulWidget {
   const FeedList({Key? key}) : super(key: key);

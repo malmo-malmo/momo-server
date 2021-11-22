@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/login/name_check_provider.dart';
 import 'package:momo/app/provider/login/user_info_provider.dart';
 import 'package:momo/app/routes/routes.dart';
-import 'package:momo/app/ui/components/confirm_dialog.dart';
+import 'package:momo/app/ui/components/dialog/confirm_dialog.dart';
 import 'package:momo/app/ui/login/widget/agree_button.dart';
 import 'package:momo/app/ui/login/widget/input_box.dart';
 import 'package:momo/app/ui/login/widget/school_result_dialog.dart';

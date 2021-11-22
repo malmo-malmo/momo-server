@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/ui/components/home_meet_card.dart';
+import 'package:momo/app/ui/components/card/home_group_card.dart';
 
 class RecentMeetingList extends StatelessWidget {
   const RecentMeetingList({Key? key}) : super(key: key);
@@ -14,8 +14,8 @@ class RecentMeetingList extends StatelessWidget {
       crossAxisSpacing: 14,
       children: [
         for (int i = 0; i < 10; i++)
-          homeMeetCard(
-            onOff: '오프라인',
+          homeGroupCard(
+            onOff: true,
             title: '기초를 위한 영어 회화 모임',
             headNum: 10,
             date: '9/1~',

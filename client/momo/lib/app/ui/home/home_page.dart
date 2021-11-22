@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:momo/app/ui/components/sub_title.dart';
+import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/home/widget/achievement_card.dart';
 import 'package:momo/app/ui/home/widget/event_card.dart';
-import 'package:momo/app/ui/home/widget/home_meeting_list.dart';
+import 'package:momo/app/ui/home/widget/home_group_list.dart';
 import 'package:momo/app/ui/home/widget/reminder_card.dart';
 import 'package:momo/app/util/theme.dart';
 

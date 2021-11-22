@@ -1,9 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:minio/models.dart';
 import 'package:momo/app/model/category.dart';
 
-part 'user_schedule.g.dart';
-part 'user_schedule.freezed.dart';
+part 'calendar_schedule.g.dart';
+part 'calendar_schedule.freezed.dart';
 
 @freezed
 class CalendarSchedule with _$CalendarSchedule {

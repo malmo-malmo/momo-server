@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/group/group_request_provider.dart';
-import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 import 'package:photo_manager/photo_manager.dart';
@@ -24,7 +23,7 @@ class TopBox extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final img = ref.watch(newMeetProvider).imageUrl;
+    final img = ref.watch(groupRequestProvider).imageUrl;
 
     return SliverToBoxAdapter(
       child: SizedBox(

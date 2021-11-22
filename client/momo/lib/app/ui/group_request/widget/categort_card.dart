@@ -36,7 +36,7 @@ Widget _categoryCard(bool check, String title, int index) {
                 .read(newMeetCategoryStateProvider.notifier)
                 .checkCategory(index);
             ref
-                .read(newMeetStateProvider.notifier)
+                .read(groupRequestStateProvider.notifier)
                 .setCategory(categories[index]);
           },
           child: CircleAvatar(

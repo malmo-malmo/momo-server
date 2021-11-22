@@ -62,7 +62,7 @@ class _SearchResultListState extends State<SearchResultList> {
         itemBuilder: (context, item, index) => searchResultCard(
           title: '',
           img: '',
-          onOff: '',
+          onOff: false,
           startDay: '',
           headNum: 3,
         ),

@@ -176,13 +176,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
-  custom_pop_up_menu:
-    dependency: "direct main"
-    description:
-      name: custom_pop_up_menu
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.2"
   dart_style:
     dependency: transitive
     description:
@@ -237,13 +230,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.2"
-  flutter_kakao_login:
-    dependency: "direct main"
-    description:
-      name: flutter_kakao_login
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.4.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -296,13 +282,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_web_auth:
-    dependency: "direct main"
-    description:
-      name: flutter_web_auth
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -455,13 +434,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
-  logger:
-    dependency: "direct main"
-    description:
-      name: logger
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0"
   logging:
     dependency: transitive
     description:

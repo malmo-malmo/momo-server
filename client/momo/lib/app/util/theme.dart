@@ -61,4 +61,9 @@ class MomoTextStyle {
     color: MomoColor.black,
     fontWeight: FontWeight.w700,
   );
+  static final card = TextStyle(
+    fontSize: 10.sp,
+    color: MomoColor.black,
+    fontWeight: FontWeight.w700,
+  );
 }

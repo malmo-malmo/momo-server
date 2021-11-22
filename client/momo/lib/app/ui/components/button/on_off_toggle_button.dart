@@ -4,7 +4,7 @@ import 'package:momo/app/provider/on_off_toggle_provider.dart';
 import 'package:momo/app/util/theme.dart';
 
 Widget onOffToggleButton({
-  required Function(String onOff) tabButton,
+  required Function(bool onOff) tabButton,
 }) {
   return Consumer(builder: (context, ref, _) {
     final checks = ref.watch(onOffToggleProvider);
@@ -13,7 +13,7 @@ Widget onOffToggleButton({
       children: [
         InkWell(
           onTap: () {
-            tabButton('온라인');
+            tabButton(true);
             ref.read(onOffToggleStateProvider.notifier).toggle(0);
           },
           child: Container(
@@ -36,7 +36,7 @@ Widget onOffToggleButton({
         const SizedBox(width: 16),
         InkWell(
           onTap: () {
-            tabButton('오프라인');
+            tabButton(false);
             ref.read(onOffToggleStateProvider.notifier).toggle(1);
           },
           child: Container(

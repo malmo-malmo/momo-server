@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/provider/login/school_result_provider.dart';
+import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
@@ -24,13 +25,12 @@ Widget schoolResultDialog({
                 style: MomoTextStyle.subTitle,
               ),
               const SizedBox(height: 24),
-              schoolResult.when(
-                loading: () => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-                error: (error, stack) => Center(child: Text(error.toString())),
-                data: (data) => Expanded(
-                  child: ListView.separated(
+              Expanded(
+                child: schoolResult.when(
+                  loading: () => loadingCard(),
+                  error: (error, stack) =>
+                      Center(child: Text(error.toString())),
+                  data: (data) => ListView.separated(
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {

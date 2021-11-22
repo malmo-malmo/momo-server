@@ -8,6 +8,12 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(500, "서버에 문제가 생겼습니다."),
     CAREER_NET_SERVER_ERROR(500, "커리어넷 서버에 문제가 생겼습니다"),
 
+    INVALID_OAUTH_AUTHORIZATION_CODE(4001, "유효하지 않은 OAuth 인가 코드 입니다."),
+    INVALID_OAUTH_ACCESS_TOKEN(401, "유효하지 않은 OAuth 엑세스 토큰입니다."),
+    INVALID_ACCESS_TOKEN(401, "유효하지 않은 사용자 토큰입니다."),
+    ACCESS_TOKEN_NOT_FOUND_USER(401, "사용자 토큰에서 유저 정보를 찾을 수 없습니다"),
+    SOCIAL_LOGIN_NOT_SUPPORT(400, "해당 소셜 로그인은 지원하지 않습니다"),
+
     USER_ACCESS_DENIED(401, "해당 콘텐츠에 접근 권한이 없는 유저입니다."),
     UNAUTHORIZED_REDIRECT_URI(400, "인증되지 않은 REDIRECT_URI 입니다."),
 

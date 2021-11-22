@@ -2,10 +2,7 @@ package com.momo.common.acceptance;
 
 import static org.springframework.http.HttpHeaders.LOCATION;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.momo.security.TokenProvider;
+import com.momo.auth.TokenProvider;
 import com.momo.user.domain.model.User;
 import com.momo.user.domain.repository.UserRepository;
 import io.restassured.RestAssured;
@@ -25,7 +22,7 @@ public class AcceptanceTest {
     int port;
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @Autowired
     private DatabaseCleanUp databaseCleanUp;
@@ -33,16 +30,11 @@ public class AcceptanceTest {
     @Autowired
     private TokenProvider tokenProvider;
 
-    private ObjectMapper objectMapper;
-
     @BeforeEach
     public void setUp() {
         if (RestAssured.port == RestAssured.UNDEFINED_PORT) {
             RestAssured.port = port;
         }
-        objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
     @AfterEach
@@ -52,8 +44,7 @@ public class AcceptanceTest {
     }
 
     protected String getAccessToken(User user) {
-        Long userId = userRepository.save(user).getId();
-        return tokenProvider.createToken(String.valueOf(userId));
+        return tokenProvider.createToken(userRepository.save(user));
     }
 
     protected Long extractId(ExtractableResponse<Response> response) {

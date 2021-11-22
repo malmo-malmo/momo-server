@@ -2,7 +2,7 @@ package com.momo.user.controller;
 
 import com.momo.common.dto.EnumResponse;
 import com.momo.group.controller.dto.CategoryRequest;
-import com.momo.security.CurrentUser;
+import com.momo.auth.domain.CurrentUser;
 import com.momo.user.controller.dto.UserUpdateRequest;
 import com.momo.user.domain.model.User;
 import com.momo.user.service.UserService;

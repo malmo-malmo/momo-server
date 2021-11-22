@@ -6,7 +6,7 @@ import com.momo.group.controller.dto.GroupCreateRequest;
 import com.momo.group.controller.dto.GroupResponse;
 import com.momo.group.controller.dto.GroupSearchConditionRequest;
 import com.momo.group.service.GroupService;
-import com.momo.security.CurrentUser;
+import com.momo.auth.domain.CurrentUser;
 import com.momo.user.domain.model.User;
 import io.swagger.annotations.ApiOperation;
 import java.net.URI;

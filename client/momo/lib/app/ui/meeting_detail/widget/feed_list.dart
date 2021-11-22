@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:momo/app/model/meet/meet_feed.dart';
-import 'package:momo/app/ui/components/feed_card.dart';
+import 'package:momo/app/model/group/group_info.dart';
+import 'package:momo/app/ui/components/card/feed_card.dart';
 
 class FeedList extends StatefulWidget {
   const FeedList({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class FeedList extends StatefulWidget {
 }
 
 class _FeedListState extends State<FeedList> {
-  final PagingController<int, MeetFeed> _pagingController =
+  final PagingController<int, GroupInfo> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
@@ -33,14 +33,13 @@ class _FeedListState extends State<FeedList> {
       await Future.delayed(const Duration(seconds: 1));
       final newItems = List.generate(
         10,
-        (index) => MeetFeed(
-          id: index,
-          title: '안녕하세요',
-          userName: '이모모',
-          contents:
-              '모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요모모 짱이에요',
-          comments: 30,
-        ),
+        (index) => GroupInfo(
+            id: index,
+            imageUrl: '',
+            name: '',
+            offline: false,
+            participantCnt: 5,
+            startDate: ''),
       );
       const isLastPage = false;
       if (isLastPage) {
@@ -56,17 +55,17 @@ class _FeedListState extends State<FeedList> {
 
   @override
   Widget build(BuildContext context) {
-    return PagedSliverList<int, MeetFeed>(
+    return PagedSliverList<int, GroupInfo>(
       pagingController: _pagingController,
-      builderDelegate: PagedChildBuilderDelegate<MeetFeed>(
+      builderDelegate: PagedChildBuilderDelegate<GroupInfo>(
         itemBuilder: (context, item, index) => FeedCard(
           postId: index,
           profile:
               'https://blog.kakaocdn.net/dn/l2HIx/btqAIQ3UbfL/AaP9zEOiO8zhbj2OAjcPS1/img.jpg',
-          text: item.contents,
-          comments: item.comments,
-          userName: item.userName,
-          title: item.title,
+          text: '',
+          comments: 3,
+          userName: '',
+          title: '',
           date: '2021년 12월 31일 오후 1:00',
         ),
       ),

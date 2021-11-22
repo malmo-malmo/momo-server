@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:momo/app/ui/attendance_list/attendance_list_page.dart';
 import 'package:momo/app/ui/full_img_page.dart';
 import 'package:momo/app/ui/gallery/gallery_page.dart';
+import 'package:momo/app/ui/group_request/group_request_page.dart';
 import 'package:momo/app/ui/login/category_page.dart';
 import 'package:momo/app/ui/login/info_page.dart';
 import 'package:momo/app/ui/login/login_page.dart';
 import 'package:momo/app/ui/login/terms_page.dart';
 import 'package:momo/app/ui/main_page.dart';
-import 'package:momo/app/ui/meet_request/meet_request_page.dart';
 import 'package:momo/app/ui/meeting_detail/meeting_detail_page.dart';
 import 'package:momo/app/ui/meeting_list/meeting_list_page.dart';
 import 'package:momo/app/ui/member_list/member_list_page.dart';
@@ -76,7 +76,7 @@ class AppRouter {
         );
       case AppRoutes.newMeet:
         return MaterialPageRoute<dynamic>(
-          builder: (_) => const MeetRequestPage(),
+          builder: (_) => const GroupRequestPage(),
         );
       case AppRoutes.gallery:
         return MaterialPageRoute<dynamic>(

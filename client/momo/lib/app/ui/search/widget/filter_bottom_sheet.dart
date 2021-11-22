@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/search/search_filter_provider.dart';
-import 'package:momo/app/ui/components/confirm_button.dart';
+import 'package:momo/app/ui/components/button/confirm_button.dart';
 import 'package:momo/app/ui/search/widget/category_icon.dart';
 import 'package:momo/app/ui/search/widget/location_card.dart';
 import 'package:momo/app/util/navigation_service.dart';

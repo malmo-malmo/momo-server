@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:momo/app/model/meet/home_meet.dart';
+import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/ui/search/widget/search_result_card.dart';
 
 class SearchResultList extends StatefulWidget {
@@ -11,7 +11,7 @@ class SearchResultList extends StatefulWidget {
 }
 
 class _SearchResultListState extends State<SearchResultList> {
-  final PagingController<int, HomeMeet> _pagingController =
+  final PagingController<int, GroupInfo> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
@@ -33,14 +33,13 @@ class _SearchResultListState extends State<SearchResultList> {
       await Future.delayed(const Duration(seconds: 1));
       final newItems = List.generate(
         10,
-        (index) => HomeMeet(
+        (index) => GroupInfo(
           id: index,
-          title: '말모말모 모임',
-          headNum: 3,
-          onOff: '온라인',
-          startDay: '12/25 ~',
-          img:
-              'https://dimg.donga.com/wps/NEWS/IMAGE/2021/07/11/107900145.1.jpg',
+          imageUrl: '',
+          name: '',
+          offline: false,
+          participantCnt: 5,
+          startDate: '',
         ),
       );
       const isLastPage = false;
@@ -59,13 +58,13 @@ class _SearchResultListState extends State<SearchResultList> {
   Widget build(BuildContext context) {
     return PagedSliverList.separated(
       pagingController: _pagingController,
-      builderDelegate: PagedChildBuilderDelegate<HomeMeet>(
+      builderDelegate: PagedChildBuilderDelegate<GroupInfo>(
         itemBuilder: (context, item, index) => searchResultCard(
-          title: item.title,
-          img: item.img,
-          onOff: item.onOff,
-          startDay: item.startDay,
-          headNum: item.headNum,
+          title: '',
+          img: '',
+          onOff: false,
+          startDay: '',
+          headNum: 3,
         ),
       ),
       separatorBuilder: (context, index) => const SizedBox(height: 14),

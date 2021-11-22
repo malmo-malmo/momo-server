@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:momo/app/provider/search/search_result_provider.dart';
-import 'package:momo/app/ui/components/sub_title.dart';
+import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/search/widget/recent_meeting_list.dart';
 import 'package:momo/app/ui/search/widget/search_box.dart';
 import 'package:momo/app/ui/search/widget/search_result_list.dart';

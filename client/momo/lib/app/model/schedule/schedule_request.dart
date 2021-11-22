@@ -6,12 +6,11 @@ part 'schedule_request.freezed.dart';
 @freezed
 class ScheduleRequest with _$ScheduleRequest {
   factory ScheduleRequest({
-    required String meetName,
-    required String name,
-    required String onOff,
-    required String date,
-    required String time,
-    required String texts,
+    required int groupId,
+    required String title,
+    required bool isOffline,
+    required String startDateTime,
+    required String contents,
   }) = _ScheduleRequest;
 
   factory ScheduleRequest.fromJson(Map<String, dynamic> json) =>

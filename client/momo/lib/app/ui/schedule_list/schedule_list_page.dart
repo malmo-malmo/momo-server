@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:momo/app/ui/components/list_app_bar.dart';
+import 'package:momo/app/ui/components/app_bar/list_app_bar.dart';
 import 'package:momo/app/ui/schedule_list/widget/schedule_list.dart';
 import 'package:momo/app/util/theme.dart';
 

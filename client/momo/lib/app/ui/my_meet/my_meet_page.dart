@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/provider/bottom_index_provider.dart';
 import 'package:momo/app/provider/calendar/scroll_state_provider.dart';
-import 'package:momo/app/ui/components/sub_title.dart';
+import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/my_meet/widget/manage_meeting_list.dart';
 import 'package:momo/app/ui/my_meet/widget/participation_meeting_list.dart';
 import 'package:momo/app/util/theme.dart';

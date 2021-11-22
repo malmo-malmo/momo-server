@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/schedule/schedule_request_provider.dart';
-import 'package:momo/app/ui/components/confirm_dialog.dart';
-import 'package:momo/app/ui/components/content_input_box.dart';
-import 'package:momo/app/ui/components/date_input_card.dart';
-import 'package:momo/app/ui/components/name_input_box.dart';
-import 'package:momo/app/ui/components/on_off_toggle_button.dart';
+import 'package:momo/app/ui/components/dialog/confirm_dialog.dart';
+import 'package:momo/app/ui/components/input_box/content_input_box.dart';
+import 'package:momo/app/ui/components/input_box/date_input_box.dart';
+import 'package:momo/app/ui/components/input_box/name_input_box.dart';
+import 'package:momo/app/ui/components/button/on_off_toggle_button.dart';
 import 'package:momo/app/ui/schedule_request/widget/meet_name_drop_down.dart';
 import 'package:momo/app/ui/schedule_request/widget/time_input_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
@@ -86,50 +86,50 @@ class ScheduleRequestPage extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _subTitle('모임선택'),
-                    meetNameDropBox(
-                      meetName: scheduleRequest.meetName,
-                      setMeetName: ref
-                          .read(scheduleRequestStateProvider.notifier)
-                          .setMeetName,
-                    ),
-                    _subTitle('일정명'),
-                    nameInputBox(
-                      onTextChanged: ref
-                          .read(scheduleRequestStateProvider.notifier)
-                          .setName,
-                    ),
-                    _subTitle('모임 유형'),
-                    onOffToggleButton(
-                      tabButton: ref
-                          .read(scheduleRequestStateProvider.notifier)
-                          .setOnOff,
-                    ),
-                    _subTitle('날짜 및 시간'),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        DateInputCard(
-                          selcetDate: ref
-                              .read(scheduleRequestStateProvider.notifier)
-                              .setDate,
-                        ),
-                        TimeInputCard(
-                          selcetTime: ref
-                              .read(scheduleRequestStateProvider.notifier)
-                              .setTime,
-                        ),
-                      ],
-                    ),
-                    _subTitle('메모'),
-                    contentInputBox(
-                      onTextChanged: ref
-                          .read(scheduleRequestStateProvider.notifier)
-                          .setTexts,
-                      maxLines: 2,
-                      height: 78,
-                    ),
-                    const SizedBox(height: 88),
+                    // _subTitle('모임선택'),
+                    // meetNameDropBox(
+                    //   meetName: scheduleRequest.meetName,
+                    //   setMeetName: ref
+                    //       .read(scheduleRequestStateProvider.notifier)
+                    //       .setMeetName,
+                    // ),
+                    // _subTitle('일정명'),
+                    // nameInputBox(
+                    //   onTextChanged: ref
+                    //       .read(scheduleRequestStateProvider.notifier)
+                    //       .setName,
+                    // ),
+                    // _subTitle('모임 유형'),
+                    // onOffToggleButton(
+                    //   tabButton: ref
+                    //       .read(scheduleRequestStateProvider.notifier)
+                    //       .setOnOff,
+                    // ),
+                    // _subTitle('날짜 및 시간'),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     DateInputCard(
+                    //       selcetDate: ref
+                    //           .read(scheduleRequestStateProvider.notifier)
+                    //           .setDate,
+                    //     ),
+                    //     TimeInputCard(
+                    //       selcetTime: ref
+                    //           .read(scheduleRequestStateProvider.notifier)
+                    //           .setTime,
+                    //     ),
+                    //   ],
+                    // ),
+                    // _subTitle('메모'),
+                    // contentInputBox(
+                    //   onTextChanged: ref
+                    //       .read(scheduleRequestStateProvider.notifier)
+                    //       .setTexts,
+                    //   maxLines: 2,
+                    //   height: 78,
+                    // ),
+                    // const SizedBox(height: 88),
                   ],
                 ),
               )

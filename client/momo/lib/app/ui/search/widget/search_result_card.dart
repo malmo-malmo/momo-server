@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/ui/components/member_date_row.dart';
-import 'package:momo/app/ui/components/on_off_card.dart';
+import 'package:momo/app/ui/components/text/member_date_row.dart';
+import 'package:momo/app/ui/components/card/on_off_card.dart';
 import 'package:momo/app/util/theme.dart';
 
 Widget searchResultCard({
   required String title,
   required String img,
-  required String onOff,
+  required bool onOff,
   required String startDay,
   required int headNum,
 }) {

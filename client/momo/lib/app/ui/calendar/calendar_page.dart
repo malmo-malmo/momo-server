@@ -12,7 +12,7 @@ import 'package:momo/app/ui/calendar/widget/momo_dow_builder.dart';
 import 'package:momo/app/ui/calendar/widget/momo_selected_builder.dart';
 import 'package:momo/app/ui/calendar/widget/momo_today_builder.dart';
 import 'package:momo/app/ui/calendar/widget/time_line_list.dart';
-import 'package:momo/app/ui/components/sub_title.dart';
+import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/util/theme.dart';
 import 'package:table_calendar/table_calendar.dart';
 

@@ -29,8 +29,6 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 
     // auth
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'io.jsonwebtoken:jjwt:0.5.1'
 
     // database
@@ -42,10 +40,10 @@ dependencies {
 
     // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.security:spring-security-test'
     testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.3.3'
 
     // util
+    implementation group: 'org.json', name: 'json', version: '20180813'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'com.google.guava:guava:31.0.1-jre'
 

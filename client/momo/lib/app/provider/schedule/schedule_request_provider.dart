@@ -27,6 +27,7 @@ class ScheduleRequestState extends StateNotifier<ScheduleRequest> {
   ScheduleRequestState()
       : super(
           ScheduleRequest(
+            meetName: '청계천 달리기&산책',
             name: '',
             onOff: '',
             date: '',
@@ -34,6 +35,9 @@ class ScheduleRequestState extends StateNotifier<ScheduleRequest> {
             texts: '',
           ),
         );
+
+  void setMeetName(String meetName) =>
+      state = state.copyWith(meetName: meetName);
 
   void setName(String name) => state = state.copyWith(name: name);
 

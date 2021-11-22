@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/login/name_check_provider.dart';
 import 'package:momo/app/provider/login/user_info_provider.dart';
 import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/ui/components/confirm_dialog.dart';
 import 'package:momo/app/ui/login/widget/agree_button.dart';
 import 'package:momo/app/ui/login/widget/input_box.dart';
 import 'package:momo/app/ui/login/widget/school_result_dialog.dart';
@@ -73,7 +74,8 @@ class InfoPage extends ConsumerWidget {
                       ? () {
                           showDialog(
                             context: context,
-                            builder: (context) => _duplicateDialog(),
+                            builder: (context) =>
+                                confirmDialog(dialogText: '사용 가능한 닉네임이에요'),
                           );
                           FocusScope.of(context).unfocus();
                         }
@@ -140,65 +142,6 @@ class InfoPage extends ConsumerWidget {
         style: TextStyle(
           color: MomoColor.black,
           fontSize: 20.sp,
-        ),
-      ),
-    );
-  }
-
-  Widget _duplicateDialog() {
-    return Dialog(
-      insetPadding: const EdgeInsets.all(1),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: const Color(0xffffffff),
-        ),
-        height: 148,
-        width: 280,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 40),
-              child: Text(
-                '사용 가능한 닉네임이에요',
-                style: MomoTextStyle.defaultStyle.copyWith(
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-            Consumer(
-              builder: (context, ref, _) {
-                return InkWell(
-                  onTap: () {
-                    ref.read(navigatorProvider).pop();
-                  },
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
-                      ),
-                      color: MomoColor.main,
-                    ),
-                    height: 44,
-                    width: double.infinity,
-                    child: Center(
-                      child: Text(
-                        '확인',
-                        style: MomoTextStyle.defaultStyle.copyWith(
-                          color: MomoColor.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ],
         ),
       ),
     );

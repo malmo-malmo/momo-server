@@ -30,7 +30,12 @@ class DateInputCard extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(dateCardText),
+          Text(
+            dateCardText,
+            style: MomoTextStyle.defaultStyle.copyWith(
+              color: MomoColor.white,
+            ),
+          ),
           InkWell(
             onTap: () async {
               final dateTime = await showDatePicker(

@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/date_format.dart';
+import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 class ReminderCard extends StatelessWidget {
@@ -137,13 +139,24 @@ class ReminderCard extends StatelessWidget {
               ),
             ],
           ),
-          Transform.rotate(
-            angle: pi,
-            child: Icon(
-              CupertinoIcons.back,
-              color: MomoColor.black,
-              size: 18.w,
-            ),
+          Consumer(
+            builder: (context, ref, _) {
+              return InkWell(
+                onTap: () {
+                  ref
+                      .read(navigatorProvider)
+                      .navigateTo(routeName: AppRoutes.scheduleList);
+                },
+                child: Transform.rotate(
+                  angle: pi,
+                  child: Icon(
+                    CupertinoIcons.back,
+                    color: MomoColor.black,
+                    size: 18.w,
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),

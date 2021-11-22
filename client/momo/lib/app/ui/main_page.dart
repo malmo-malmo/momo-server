@@ -95,13 +95,19 @@ class MainPage extends ConsumerWidget {
 
       case 2:
         return isShow
-            ? FloatingActionButton(
-                onPressed: () {},
-                backgroundColor: MomoColor.main,
-                child: SvgPicture.asset(
-                  'assets/icon/calendar/floatingbtn_addschedule_84.svg',
-                ),
-              )
+            ? Consumer(builder: (context, ref, _) {
+                return FloatingActionButton(
+                  onPressed: () {
+                    ref
+                        .read(navigatorProvider)
+                        .navigateTo(routeName: AppRoutes.scheduleRequest);
+                  },
+                  backgroundColor: MomoColor.main,
+                  child: SvgPicture.asset(
+                    'assets/icon/calendar/floatingbtn_addschedule_84.svg',
+                  ),
+                );
+              })
             : null;
       case 3:
         return isShow

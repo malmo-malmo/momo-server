@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:momo/app/ui/attendance_list/attendance_list_page.dart';
+import 'package:momo/app/ui/full_img_page.dart';
 import 'package:momo/app/ui/gallery/gallery_page.dart';
 import 'package:momo/app/ui/login/category_page.dart';
 import 'package:momo/app/ui/login/info_page.dart';
@@ -14,6 +16,7 @@ import 'package:momo/app/ui/onboarding/onboarding_page.dart';
 import 'package:momo/app/ui/post_detail/post_detail_page.dart';
 import 'package:momo/app/ui/post_request/post_request_page.dart';
 import 'package:momo/app/ui/request_meeting/request_meeting_page.dart';
+import 'package:momo/app/ui/schedule_list/schedule_list_page.dart';
 import 'package:momo/app/ui/schedule_request/schedule_request_page.dart';
 
 class AppRoutes {
@@ -30,9 +33,12 @@ class AppRoutes {
   static const requestMeeting = '/requestMeeting';
   static const postRequest = '/postRequest';
   static const scheduleRequest = '/scheduleRequest';
+  static const scheduleList = '/scheduleList';
   static const noticeList = '/noticeList';
   static const postDetail = '/postDetail';
   static const memberList = '/memberList';
+  static const fullImage = '/fullImage';
+  static const attendanceList = '/attendanceList';
 }
 
 class AppRouter {
@@ -95,6 +101,14 @@ class AppRouter {
         return MaterialPageRoute<dynamic>(
           builder: (_) => const MemberListPage(),
         );
+      case AppRoutes.scheduleList:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const ScheduleListPage(),
+        );
+      case AppRoutes.attendanceList:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const AttendanceListPage(),
+        );
       case AppRoutes.postDetail:
         final arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
@@ -106,6 +120,13 @@ class AppRouter {
         final arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
           builder: (_) => RequestMeetingPage(
+            img: arg,
+          ),
+        );
+      case AppRoutes.fullImage:
+        final arg = settings.arguments;
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => FullImagePage(
             img: arg,
           ),
         );

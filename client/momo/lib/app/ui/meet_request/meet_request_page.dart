@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/provider/meet_request/meet_request_provider.dart';
+import 'package:momo/app/provider/meet/meet_request_provider.dart';
 import 'package:momo/app/ui/components/confirm_button.dart';
 import 'package:momo/app/ui/components/content_input_box.dart';
 import 'package:momo/app/ui/components/date_input_card.dart';

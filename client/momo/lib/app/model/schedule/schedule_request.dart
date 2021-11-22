@@ -6,6 +6,7 @@ part 'schedule_request.freezed.dart';
 @freezed
 class ScheduleRequest with _$ScheduleRequest {
   factory ScheduleRequest({
+    required String meetName,
     required String name,
     required String onOff,
     required String date,

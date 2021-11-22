@@ -37,7 +37,7 @@ class FeedCard extends ConsumerWidget {
               );
         },
         child: Container(
-          height: 156,
+          height: 160,
           decoration: BoxDecoration(
             color: const Color(0xffffffff),
             borderRadius: BorderRadius.circular(20),
@@ -70,8 +70,9 @@ class FeedCard extends ConsumerWidget {
                         const SizedBox(height: 4),
                         Text(
                           date,
-                          style: MomoTextStyle.small
-                              .copyWith(color: const Color(0xff9e9e9e)),
+                          style: MomoTextStyle.small.copyWith(
+                            color: const Color(0xff9e9e9e),
+                          ),
                         ),
                       ],
                     ),

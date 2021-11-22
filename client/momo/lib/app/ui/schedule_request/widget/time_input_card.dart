@@ -21,7 +21,7 @@ class TimeInputCard extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       height: 44,
-      width: 114.w,
+      width: 123.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: MomoColor.unSelIcon,
@@ -29,16 +29,20 @@ class TimeInputCard extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(timeCardText),
+          Text(
+            timeCardText,
+            style: MomoTextStyle.defaultStyle.copyWith(
+              color: MomoColor.white,
+            ),
+          ),
           InkWell(
             onTap: () async {
               await showDialog(
                 context: context,
                 builder: (context) {
-                  return timePickerDialog();
+                  return timePickerDialog(selcetTime: selcetTime);
                 },
               );
-              selcetTime(timeCardText);
             },
             child: const Icon(
               CupertinoIcons.clock,

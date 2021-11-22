@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/on_off_toggle_provider.dart';
 import 'package:momo/app/util/theme.dart';
 
@@ -18,18 +17,17 @@ Widget onOffToggleButton({
             ref.read(onOffToggleStateProvider.notifier).toggle(0);
           },
           child: Container(
-            height: 38,
-            width: 87,
+            height: 44,
+            width: 91,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: checks[0] ? MomoColor.main : const Color(0xffffffff),
+              color: checks[0] ? MomoColor.main : MomoColor.unSelButton,
             ),
             child: Center(
               child: Text(
                 '온라인',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: checks[0] ? MomoColor.white : MomoColor.black,
+                style: MomoTextStyle.small.copyWith(
+                  color: checks[0] ? MomoColor.white : MomoColor.unSelText,
                 ),
               ),
             ),
@@ -42,18 +40,17 @@ Widget onOffToggleButton({
             ref.read(onOffToggleStateProvider.notifier).toggle(1);
           },
           child: Container(
-            height: 38,
-            width: 97,
+            height: 44,
+            width: 106,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: checks[1] ? MomoColor.main : const Color(0xffffffff),
+              color: checks[1] ? MomoColor.main : MomoColor.unSelButton,
             ),
             child: Center(
               child: Text(
                 '오프라인',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: checks[1] ? MomoColor.white : MomoColor.black,
+                style: MomoTextStyle.small.copyWith(
+                  color: checks[1] ? MomoColor.white : MomoColor.unSelText,
                 ),
               ),
             ),

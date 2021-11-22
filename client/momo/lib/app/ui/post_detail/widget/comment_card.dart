@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/ui/components/profile_avatar.dart';
+import 'package:momo/app/util/theme.dart';
 
 Widget commentCard({
   required String name,
@@ -8,8 +9,12 @@ Widget commentCard({
   required String text,
 }) {
   return Container(
-    padding: const EdgeInsets.symmetric(vertical: 16),
-    height: 70,
+    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
+    height: 80,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20),
+      color: MomoColor.backgroundColor,
+    ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -22,14 +27,26 @@ Widget commentCard({
             const SizedBox(width: 16),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name),
-                Text(text),
+                Text(name, style: MomoTextStyle.defaultStyle),
+                Text(
+                  text,
+                  style: MomoTextStyle.normal.copyWith(
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
               ],
             ),
           ],
         ),
-        const Text('삭제'),
+        Text(
+          '삭제',
+          style: MomoTextStyle.small.copyWith(
+            color: MomoColor.unSelText,
+            decoration: TextDecoration.underline,
+          ),
+        ),
       ],
     ),
   );

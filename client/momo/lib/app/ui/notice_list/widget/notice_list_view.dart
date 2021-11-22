@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:momo/app/model/meet/meet_feed.dart';
+import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/ui/components/feed_card.dart';
 
 class NoticeListView extends StatefulWidget {
@@ -11,7 +11,7 @@ class NoticeListView extends StatefulWidget {
 }
 
 class _NoticeListViewState extends State<NoticeListView> {
-  final PagingController<int, MeetFeed> _pagingController =
+  final PagingController<int, GroupInfo> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
@@ -33,13 +33,13 @@ class _NoticeListViewState extends State<NoticeListView> {
       await Future.delayed(const Duration(seconds: 1));
       final newItems = List.generate(
         10,
-        (index) => MeetFeed(
+        (index) => GroupInfo(
           id: index,
-          title: '안녕하세요',
-          userName: '이모모',
-          contents:
-              '모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 ',
-          comments: 30,
+          imageUrl: '',
+          offline: false,
+          name: '',
+          participantCnt: 5,
+          startDate: '',
         ),
       );
       const isLastPage = false;
@@ -59,15 +59,15 @@ class _NoticeListViewState extends State<NoticeListView> {
     return Expanded(
       child: PagedListView.separated(
         pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<MeetFeed>(
+        builderDelegate: PagedChildBuilderDelegate<GroupInfo>(
           itemBuilder: (context, item, index) => FeedCard(
             postId: index,
             profile:
                 'https://blog.kakaocdn.net/dn/l2HIx/btqAIQ3UbfL/AaP9zEOiO8zhbj2OAjcPS1/img.jpg',
-            text: item.contents,
-            comments: item.comments,
-            userName: item.userName,
-            title: item.title,
+            text: '',
+            comments: 3,
+            userName: '',
+            title: '',
             date: '2021년 12월 31일 오후 1:00',
           ),
         ),

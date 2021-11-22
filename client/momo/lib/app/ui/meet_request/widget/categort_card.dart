@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/provider/meet/category_check_provider.dart';
-import 'package:momo/app/provider/meet/meet_request_provider.dart';
+import 'package:momo/app/provider/group/category_check_provider.dart';
+import 'package:momo/app/provider/group/group_request_provider.dart';
 import 'package:momo/app/util/theme.dart';
 import 'package:momo/app/util/values.dart';
 

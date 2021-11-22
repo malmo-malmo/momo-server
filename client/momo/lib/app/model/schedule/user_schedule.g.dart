@@ -6,22 +6,19 @@ part of 'user_schedule.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_UserSchedule _$$_UserScheduleFromJson(Map<String, dynamic> json) =>
-    _$_UserSchedule(
-      id: json['id'] as int,
-      name: json['name'] as String,
-      profile: json['profile'] as String,
+_$_CalendarSchedule _$$_CalendarScheduleFromJson(Map<String, dynamic> json) =>
+    _$_CalendarSchedule(
+      groupId: json['groupId'] as int,
+      startDateTime: json['startDateTime'] as String,
       title: json['title'] as String,
-      contents: json['contents'] as String,
-      attendance: json['attendance'] as bool,
+      category:
+          Category.fromJson(json['groupCategory'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_UserScheduleToJson(_$_UserSchedule instance) =>
+Map<String, dynamic> _$$_CalendarScheduleToJson(_$_CalendarSchedule instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'profile': instance.profile,
+      'groupId': instance.groupId,
+      'startDateTime': instance.startDateTime,
       'title': instance.title,
-      'contents': instance.contents,
-      'attendance': instance.attendance,
+      'groupCategory': instance.category,
     };

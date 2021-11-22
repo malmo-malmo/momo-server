@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:momo/app/model/meet/home_meet.dart';
+import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/ui/components/home_meet_card.dart';
 
 class HomeMeetingList extends StatefulWidget {
@@ -13,7 +13,7 @@ class HomeMeetingList extends StatefulWidget {
 }
 
 class _HomeMeetingListState extends State<HomeMeetingList> {
-  final PagingController<int, HomeMeet> _pagingController =
+  final PagingController<int, GroupInfo> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
@@ -35,14 +35,13 @@ class _HomeMeetingListState extends State<HomeMeetingList> {
       await Future.delayed(const Duration(seconds: 1));
       final newItems = List.generate(
         10,
-        (index) => HomeMeet(
+        (index) => GroupInfo(
           id: index,
-          title: '말모말모 모임',
-          headNum: 3,
-          onOff: '오프라인',
-          startDay: '12/25 ~',
-          img:
-              'https://cdn.crowdpic.net/detail-thumb/thumb_d_43948D943506904098D88A53006BE673.jpg',
+          name: '',
+          offline: false,
+          participantCnt: 5,
+          startDate: 'startDate',
+          imageUrl: 'imageUrl',
         ),
       );
       const isLastPage = false;
@@ -61,16 +60,16 @@ class _HomeMeetingListState extends State<HomeMeetingList> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 200.h,
-      child: PagedListView<int, HomeMeet>.separated(
+      child: PagedListView<int, GroupInfo>.separated(
         pagingController: _pagingController,
         scrollDirection: Axis.horizontal,
-        builderDelegate: PagedChildBuilderDelegate<HomeMeet>(
+        builderDelegate: PagedChildBuilderDelegate<GroupInfo>(
           itemBuilder: (context, item, index) => homeMeetCard(
-            onOff: item.onOff,
-            title: item.title,
-            headNum: item.headNum,
-            date: item.startDay,
-            img: item.img,
+            onOff: '',
+            title: '',
+            headNum: 5,
+            date: '',
+            img: '',
             height: 200.h,
             width: 144.w,
           ),

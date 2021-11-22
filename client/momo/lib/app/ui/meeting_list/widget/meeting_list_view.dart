@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:momo/app/model/meet/home_meet.dart';
+import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/ui/components/home_meet_card.dart';
 
 class MeetingListView extends StatefulWidget {
@@ -12,7 +12,7 @@ class MeetingListView extends StatefulWidget {
 }
 
 class _MeetingListViewState extends State<MeetingListView> {
-  final PagingController<int, HomeMeet> _pagingController =
+  final PagingController<int, GroupInfo> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
@@ -34,15 +34,13 @@ class _MeetingListViewState extends State<MeetingListView> {
       await Future.delayed(const Duration(seconds: 1));
       final newItems = List.generate(
         10,
-        (index) => HomeMeet(
-          id: index,
-          title: '말모말모 모임',
-          headNum: 3,
-          onOff: '오프라인',
-          startDay: '12/25 ~',
-          img:
-              'https://cdn.crowdpic.net/detail-thumb/thumb_d_43948D943506904098D88A53006BE673.jpg',
-        ),
+        (index) => GroupInfo(
+            id: index,
+            imageUrl: '',
+            name: '',
+            offline: false,
+            participantCnt: 5,
+            startDate: ''),
       );
       const isLastPage = false;
       if (isLastPage) {
@@ -61,13 +59,13 @@ class _MeetingListViewState extends State<MeetingListView> {
     return Expanded(
       child: PagedGridView(
         pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<HomeMeet>(
+        builderDelegate: PagedChildBuilderDelegate<GroupInfo>(
           itemBuilder: (context, item, index) => homeMeetCard(
-            onOff: item.onOff,
-            title: item.title,
-            headNum: item.headNum,
-            date: item.startDay,
-            img: item.img,
+            onOff: 'item.onOff',
+            title: 'item.title',
+            headNum: 5,
+            date: 'item.startDay',
+            img: '',
             height: 200.h,
             width: double.infinity,
           ),

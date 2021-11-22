@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/provider/meet/meet_request_provider.dart';
+import 'package:momo/app/provider/group/group_request_provider.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
@@ -24,7 +24,7 @@ class TopBox extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final img = ref.watch(newMeetProvider).img;
+    final img = ref.watch(newMeetProvider).imageUrl;
 
     return SliverToBoxAdapter(
       child: SizedBox(
@@ -77,12 +77,12 @@ class TopBox extends ConsumerWidget {
                       onTap: () async {
                         final check = await photoManager();
                         if (check) {
-                          String? imagePath = await ref
-                              .read(navigatorProvider)
-                              .navigateTo(routeName: AppRoutes.gallery);
-                          ref
-                              .read(newMeetStateProvider.notifier)
-                              .setImage(imagePath!);
+                          // String? imagePath = await ref
+                          //     .read(navigatorProvider)
+                          //     .navigateTo(routeName: AppRoutes.gallery);
+                          // ref
+                          //     .read(newMeetStateProvider.notifier)
+                          //     .setImage(imagePath!);
                         }
                       },
                       child: const Icon(

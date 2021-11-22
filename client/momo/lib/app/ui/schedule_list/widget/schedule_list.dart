@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:momo/app/model/meet/meet_feed.dart';
+import 'package:momo/app/model/schedule/schedule_detail.dart';
 import 'package:momo/app/model/schedule/user_schedule.dart';
 import 'package:momo/app/ui/components/feed_card.dart';
 import 'package:momo/app/ui/schedule_list/widget/admin_schedule_card.dart';
@@ -14,7 +14,7 @@ class ScheduleList extends StatefulWidget {
 }
 
 class _ScheduleListState extends State<ScheduleList> {
-  final PagingController<int, UserSchedule> _pagingController =
+  final PagingController<int, ScheduleDetail> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
@@ -36,15 +36,16 @@ class _ScheduleListState extends State<ScheduleList> {
       await Future.delayed(const Duration(seconds: 1));
       final newItems = List.generate(
         10,
-        (index) => UserSchedule(
+        (index) => ScheduleDetail(
           id: index,
-          name: '김모모',
-          profile:
-              'https://cdn.gukjenews.com/news/photo/202107/2270344_2261028_2410.jpg',
-          title: '청계천 달리기 정기모임',
-          contents:
-              '일정 메모에 대한 내용이 들어갑니다. 일정 메모에 대한 내용이 들어갑니다. 일정 메모에 대한 내용이 들어갑니다. 일정 메모에 대한 내용이 들어갑니다. 일정 메모에 대한 내용이 들어갑니다. 일정 메모에 대한 내용이 들어갑니다. ',
+          title: 'title',
+          contents: 'contents',
+          authorNickname: 'authorNickname',
+          authorImage: 'authorImage',
+          startDateTime: 'startDateTime',
+          offline: false,
           attendance: false,
+          attendanceCheck: false,
         ),
       );
       const isLastPage = false;
@@ -64,35 +65,35 @@ class _ScheduleListState extends State<ScheduleList> {
     return Expanded(
       child: PagedListView.separated(
         pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<UserSchedule>(
+        builderDelegate: PagedChildBuilderDelegate<ScheduleDetail>(
             itemBuilder: (context, item, index) {
-          if (index == 0) {
-            return adminScheduleCard(
-              postId: item.id,
-              profile: item.profile,
-              userName: item.name,
-              title: item.title,
-              text: item.contents,
-              date: '2021년 12월 31일 오후 9:00',
-              attendance: item.attendance,
-              isCheck: true,
-            );
-          } else if (index == 1) {
-            return adminScheduleCard(
-              postId: item.id,
-              profile: item.profile,
-              userName: item.name,
-              title: item.title,
-              text: item.contents,
-              date: '2021년 12월 31일 오후 9:00',
-              attendance: item.attendance,
-              isCheck: false,
-            );
-          }
+          // if (index == 0) {
+          //   return adminScheduleCard(
+          //     postId: item.id,
+          //     profile: item.profile,
+          //     userName: item.name,
+          //     title: item.title,
+          //     text: item.contents,
+          //     date: '2021년 12월 31일 오후 9:00',
+          //     attendance: item.attendance,
+          //     isCheck: true,
+          //   );
+          // } else if (index == 1) {
+          //   return adminScheduleCard(
+          //     postId: item.id,
+          //     profile: item.profile,
+          //     userName: item.name,
+          //     title: item.title,
+          //     text: item.contents,
+          //     date: '2021년 12월 31일 오후 9:00',
+          //     attendance: item.attendance,
+          //     isCheck: false,
+          //   );
+          // }
           return scheduleCard(
             postId: item.id,
-            profile: item.profile,
-            userName: item.name,
+            profile: '',
+            userName: '',
             title: item.title,
             text: item.contents,
             date: '2021년 12월 31일 오후 9:00',

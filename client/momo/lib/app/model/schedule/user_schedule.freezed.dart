@@ -13,266 +13,240 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-UserSchedule _$UserScheduleFromJson(Map<String, dynamic> json) {
-  return _UserSchedule.fromJson(json);
+CalendarSchedule _$CalendarScheduleFromJson(Map<String, dynamic> json) {
+  return _CalendarSchedule.fromJson(json);
 }
 
 /// @nodoc
-class _$UserScheduleTearOff {
-  const _$UserScheduleTearOff();
+class _$CalendarScheduleTearOff {
+  const _$CalendarScheduleTearOff();
 
-  _UserSchedule call(
-      {required int id,
-      required String name,
-      required String profile,
+  _CalendarSchedule call(
+      {required int groupId,
+      required String startDateTime,
       required String title,
-      required String contents,
-      required bool attendance}) {
-    return _UserSchedule(
-      id: id,
-      name: name,
-      profile: profile,
+      @JsonKey(name: 'groupCategory') required Category category}) {
+    return _CalendarSchedule(
+      groupId: groupId,
+      startDateTime: startDateTime,
       title: title,
-      contents: contents,
-      attendance: attendance,
+      category: category,
     );
   }
 
-  UserSchedule fromJson(Map<String, Object?> json) {
-    return UserSchedule.fromJson(json);
+  CalendarSchedule fromJson(Map<String, Object?> json) {
+    return CalendarSchedule.fromJson(json);
   }
 }
 
 /// @nodoc
-const $UserSchedule = _$UserScheduleTearOff();
+const $CalendarSchedule = _$CalendarScheduleTearOff();
 
 /// @nodoc
-mixin _$UserSchedule {
-  int get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get profile => throw _privateConstructorUsedError;
+mixin _$CalendarSchedule {
+  int get groupId => throw _privateConstructorUsedError;
+  String get startDateTime => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  String get contents => throw _privateConstructorUsedError;
-  bool get attendance => throw _privateConstructorUsedError;
+  @JsonKey(name: 'groupCategory')
+  Category get category => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $UserScheduleCopyWith<UserSchedule> get copyWith =>
+  $CalendarScheduleCopyWith<CalendarSchedule> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserScheduleCopyWith<$Res> {
-  factory $UserScheduleCopyWith(
-          UserSchedule value, $Res Function(UserSchedule) then) =
-      _$UserScheduleCopyWithImpl<$Res>;
+abstract class $CalendarScheduleCopyWith<$Res> {
+  factory $CalendarScheduleCopyWith(
+          CalendarSchedule value, $Res Function(CalendarSchedule) then) =
+      _$CalendarScheduleCopyWithImpl<$Res>;
   $Res call(
-      {int id,
-      String name,
-      String profile,
+      {int groupId,
+      String startDateTime,
       String title,
-      String contents,
-      bool attendance});
+      @JsonKey(name: 'groupCategory') Category category});
+
+  $CategoryCopyWith<$Res> get category;
 }
 
 /// @nodoc
-class _$UserScheduleCopyWithImpl<$Res> implements $UserScheduleCopyWith<$Res> {
-  _$UserScheduleCopyWithImpl(this._value, this._then);
+class _$CalendarScheduleCopyWithImpl<$Res>
+    implements $CalendarScheduleCopyWith<$Res> {
+  _$CalendarScheduleCopyWithImpl(this._value, this._then);
 
-  final UserSchedule _value;
+  final CalendarSchedule _value;
   // ignore: unused_field
-  final $Res Function(UserSchedule) _then;
+  final $Res Function(CalendarSchedule) _then;
 
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? profile = freezed,
+    Object? groupId = freezed,
+    Object? startDateTime = freezed,
     Object? title = freezed,
-    Object? contents = freezed,
-    Object? attendance = freezed,
+    Object? category = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      groupId: groupId == freezed
+          ? _value.groupId
+          : groupId // ignore: cast_nullable_to_non_nullable
               as int,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      profile: profile == freezed
-          ? _value.profile
-          : profile // ignore: cast_nullable_to_non_nullable
+      startDateTime: startDateTime == freezed
+          ? _value.startDateTime
+          : startDateTime // ignore: cast_nullable_to_non_nullable
               as String,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      contents: contents == freezed
-          ? _value.contents
-          : contents // ignore: cast_nullable_to_non_nullable
-              as String,
-      attendance: attendance == freezed
-          ? _value.attendance
-          : attendance // ignore: cast_nullable_to_non_nullable
-              as bool,
+      category: category == freezed
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as Category,
     ));
+  }
+
+  @override
+  $CategoryCopyWith<$Res> get category {
+    return $CategoryCopyWith<$Res>(_value.category, (value) {
+      return _then(_value.copyWith(category: value));
+    });
   }
 }
 
 /// @nodoc
-abstract class _$UserScheduleCopyWith<$Res>
-    implements $UserScheduleCopyWith<$Res> {
-  factory _$UserScheduleCopyWith(
-          _UserSchedule value, $Res Function(_UserSchedule) then) =
-      __$UserScheduleCopyWithImpl<$Res>;
+abstract class _$CalendarScheduleCopyWith<$Res>
+    implements $CalendarScheduleCopyWith<$Res> {
+  factory _$CalendarScheduleCopyWith(
+          _CalendarSchedule value, $Res Function(_CalendarSchedule) then) =
+      __$CalendarScheduleCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int id,
-      String name,
-      String profile,
+      {int groupId,
+      String startDateTime,
       String title,
-      String contents,
-      bool attendance});
+      @JsonKey(name: 'groupCategory') Category category});
+
+  @override
+  $CategoryCopyWith<$Res> get category;
 }
 
 /// @nodoc
-class __$UserScheduleCopyWithImpl<$Res> extends _$UserScheduleCopyWithImpl<$Res>
-    implements _$UserScheduleCopyWith<$Res> {
-  __$UserScheduleCopyWithImpl(
-      _UserSchedule _value, $Res Function(_UserSchedule) _then)
-      : super(_value, (v) => _then(v as _UserSchedule));
+class __$CalendarScheduleCopyWithImpl<$Res>
+    extends _$CalendarScheduleCopyWithImpl<$Res>
+    implements _$CalendarScheduleCopyWith<$Res> {
+  __$CalendarScheduleCopyWithImpl(
+      _CalendarSchedule _value, $Res Function(_CalendarSchedule) _then)
+      : super(_value, (v) => _then(v as _CalendarSchedule));
 
   @override
-  _UserSchedule get _value => super._value as _UserSchedule;
+  _CalendarSchedule get _value => super._value as _CalendarSchedule;
 
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? profile = freezed,
+    Object? groupId = freezed,
+    Object? startDateTime = freezed,
     Object? title = freezed,
-    Object? contents = freezed,
-    Object? attendance = freezed,
+    Object? category = freezed,
   }) {
-    return _then(_UserSchedule(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+    return _then(_CalendarSchedule(
+      groupId: groupId == freezed
+          ? _value.groupId
+          : groupId // ignore: cast_nullable_to_non_nullable
               as int,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      profile: profile == freezed
-          ? _value.profile
-          : profile // ignore: cast_nullable_to_non_nullable
+      startDateTime: startDateTime == freezed
+          ? _value.startDateTime
+          : startDateTime // ignore: cast_nullable_to_non_nullable
               as String,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      contents: contents == freezed
-          ? _value.contents
-          : contents // ignore: cast_nullable_to_non_nullable
-              as String,
-      attendance: attendance == freezed
-          ? _value.attendance
-          : attendance // ignore: cast_nullable_to_non_nullable
-              as bool,
+      category: category == freezed
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as Category,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_UserSchedule implements _UserSchedule {
-  _$_UserSchedule(
-      {required this.id,
-      required this.name,
-      required this.profile,
+class _$_CalendarSchedule implements _CalendarSchedule {
+  _$_CalendarSchedule(
+      {required this.groupId,
+      required this.startDateTime,
       required this.title,
-      required this.contents,
-      required this.attendance});
+      @JsonKey(name: 'groupCategory') required this.category});
 
-  factory _$_UserSchedule.fromJson(Map<String, dynamic> json) =>
-      _$$_UserScheduleFromJson(json);
+  factory _$_CalendarSchedule.fromJson(Map<String, dynamic> json) =>
+      _$$_CalendarScheduleFromJson(json);
 
   @override
-  final int id;
+  final int groupId;
   @override
-  final String name;
-  @override
-  final String profile;
+  final String startDateTime;
   @override
   final String title;
   @override
-  final String contents;
-  @override
-  final bool attendance;
+  @JsonKey(name: 'groupCategory')
+  final Category category;
 
   @override
   String toString() {
-    return 'UserSchedule(id: $id, name: $name, profile: $profile, title: $title, contents: $contents, attendance: $attendance)';
+    return 'CalendarSchedule(groupId: $groupId, startDateTime: $startDateTime, title: $title, category: $category)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _UserSchedule &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.profile, profile) || other.profile == profile) &&
+            other is _CalendarSchedule &&
+            (identical(other.groupId, groupId) || other.groupId == groupId) &&
+            (identical(other.startDateTime, startDateTime) ||
+                other.startDateTime == startDateTime) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.contents, contents) ||
-                other.contents == contents) &&
-            (identical(other.attendance, attendance) ||
-                other.attendance == attendance));
+            (identical(other.category, category) ||
+                other.category == category));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, name, profile, title, contents, attendance);
+      Object.hash(runtimeType, groupId, startDateTime, title, category);
 
   @JsonKey(ignore: true)
   @override
-  _$UserScheduleCopyWith<_UserSchedule> get copyWith =>
-      __$UserScheduleCopyWithImpl<_UserSchedule>(this, _$identity);
+  _$CalendarScheduleCopyWith<_CalendarSchedule> get copyWith =>
+      __$CalendarScheduleCopyWithImpl<_CalendarSchedule>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_UserScheduleToJson(this);
+    return _$$_CalendarScheduleToJson(this);
   }
 }
 
-abstract class _UserSchedule implements UserSchedule {
-  factory _UserSchedule(
-      {required int id,
-      required String name,
-      required String profile,
-      required String title,
-      required String contents,
-      required bool attendance}) = _$_UserSchedule;
+abstract class _CalendarSchedule implements CalendarSchedule {
+  factory _CalendarSchedule(
+          {required int groupId,
+          required String startDateTime,
+          required String title,
+          @JsonKey(name: 'groupCategory') required Category category}) =
+      _$_CalendarSchedule;
 
-  factory _UserSchedule.fromJson(Map<String, dynamic> json) =
-      _$_UserSchedule.fromJson;
+  factory _CalendarSchedule.fromJson(Map<String, dynamic> json) =
+      _$_CalendarSchedule.fromJson;
 
   @override
-  int get id;
+  int get groupId;
   @override
-  String get name;
-  @override
-  String get profile;
+  String get startDateTime;
   @override
   String get title;
   @override
-  String get contents;
-  @override
-  bool get attendance;
+  @JsonKey(name: 'groupCategory')
+  Category get category;
   @override
   @JsonKey(ignore: true)
-  _$UserScheduleCopyWith<_UserSchedule> get copyWith =>
+  _$CalendarScheduleCopyWith<_CalendarSchedule> get copyWith =>
       throw _privateConstructorUsedError;
 }

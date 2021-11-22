@@ -22,19 +22,17 @@ class _$ScheduleRequestTearOff {
   const _$ScheduleRequestTearOff();
 
   _ScheduleRequest call(
-      {required String meetName,
-      required String name,
-      required String onOff,
-      required String date,
-      required String time,
-      required String texts}) {
+      {required int groupId,
+      required String title,
+      required bool isOffline,
+      required String startDateTime,
+      required String contents}) {
     return _ScheduleRequest(
-      meetName: meetName,
-      name: name,
-      onOff: onOff,
-      date: date,
-      time: time,
-      texts: texts,
+      groupId: groupId,
+      title: title,
+      isOffline: isOffline,
+      startDateTime: startDateTime,
+      contents: contents,
     );
   }
 
@@ -48,12 +46,11 @@ const $ScheduleRequest = _$ScheduleRequestTearOff();
 
 /// @nodoc
 mixin _$ScheduleRequest {
-  String get meetName => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get onOff => throw _privateConstructorUsedError;
-  String get date => throw _privateConstructorUsedError;
-  String get time => throw _privateConstructorUsedError;
-  String get texts => throw _privateConstructorUsedError;
+  int get groupId => throw _privateConstructorUsedError;
+  String get title => throw _privateConstructorUsedError;
+  bool get isOffline => throw _privateConstructorUsedError;
+  String get startDateTime => throw _privateConstructorUsedError;
+  String get contents => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -67,12 +64,11 @@ abstract class $ScheduleRequestCopyWith<$Res> {
           ScheduleRequest value, $Res Function(ScheduleRequest) then) =
       _$ScheduleRequestCopyWithImpl<$Res>;
   $Res call(
-      {String meetName,
-      String name,
-      String onOff,
-      String date,
-      String time,
-      String texts});
+      {int groupId,
+      String title,
+      bool isOffline,
+      String startDateTime,
+      String contents});
 }
 
 /// @nodoc
@@ -86,37 +82,32 @@ class _$ScheduleRequestCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? meetName = freezed,
-    Object? name = freezed,
-    Object? onOff = freezed,
-    Object? date = freezed,
-    Object? time = freezed,
-    Object? texts = freezed,
+    Object? groupId = freezed,
+    Object? title = freezed,
+    Object? isOffline = freezed,
+    Object? startDateTime = freezed,
+    Object? contents = freezed,
   }) {
     return _then(_value.copyWith(
-      meetName: meetName == freezed
-          ? _value.meetName
-          : meetName // ignore: cast_nullable_to_non_nullable
+      groupId: groupId == freezed
+          ? _value.groupId
+          : groupId // ignore: cast_nullable_to_non_nullable
+              as int,
+      title: title == freezed
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      isOffline: isOffline == freezed
+          ? _value.isOffline
+          : isOffline // ignore: cast_nullable_to_non_nullable
+              as bool,
+      startDateTime: startDateTime == freezed
+          ? _value.startDateTime
+          : startDateTime // ignore: cast_nullable_to_non_nullable
               as String,
-      onOff: onOff == freezed
-          ? _value.onOff
-          : onOff // ignore: cast_nullable_to_non_nullable
-              as String,
-      date: date == freezed
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as String,
-      time: time == freezed
-          ? _value.time
-          : time // ignore: cast_nullable_to_non_nullable
-              as String,
-      texts: texts == freezed
-          ? _value.texts
-          : texts // ignore: cast_nullable_to_non_nullable
+      contents: contents == freezed
+          ? _value.contents
+          : contents // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -130,12 +121,11 @@ abstract class _$ScheduleRequestCopyWith<$Res>
       __$ScheduleRequestCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String meetName,
-      String name,
-      String onOff,
-      String date,
-      String time,
-      String texts});
+      {int groupId,
+      String title,
+      bool isOffline,
+      String startDateTime,
+      String contents});
 }
 
 /// @nodoc
@@ -151,37 +141,32 @@ class __$ScheduleRequestCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? meetName = freezed,
-    Object? name = freezed,
-    Object? onOff = freezed,
-    Object? date = freezed,
-    Object? time = freezed,
-    Object? texts = freezed,
+    Object? groupId = freezed,
+    Object? title = freezed,
+    Object? isOffline = freezed,
+    Object? startDateTime = freezed,
+    Object? contents = freezed,
   }) {
     return _then(_ScheduleRequest(
-      meetName: meetName == freezed
-          ? _value.meetName
-          : meetName // ignore: cast_nullable_to_non_nullable
+      groupId: groupId == freezed
+          ? _value.groupId
+          : groupId // ignore: cast_nullable_to_non_nullable
+              as int,
+      title: title == freezed
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      isOffline: isOffline == freezed
+          ? _value.isOffline
+          : isOffline // ignore: cast_nullable_to_non_nullable
+              as bool,
+      startDateTime: startDateTime == freezed
+          ? _value.startDateTime
+          : startDateTime // ignore: cast_nullable_to_non_nullable
               as String,
-      onOff: onOff == freezed
-          ? _value.onOff
-          : onOff // ignore: cast_nullable_to_non_nullable
-              as String,
-      date: date == freezed
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as String,
-      time: time == freezed
-          ? _value.time
-          : time // ignore: cast_nullable_to_non_nullable
-              as String,
-      texts: texts == freezed
-          ? _value.texts
-          : texts // ignore: cast_nullable_to_non_nullable
+      contents: contents == freezed
+          ? _value.contents
+          : contents // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -191,32 +176,29 @@ class __$ScheduleRequestCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ScheduleRequest implements _ScheduleRequest {
   _$_ScheduleRequest(
-      {required this.meetName,
-      required this.name,
-      required this.onOff,
-      required this.date,
-      required this.time,
-      required this.texts});
+      {required this.groupId,
+      required this.title,
+      required this.isOffline,
+      required this.startDateTime,
+      required this.contents});
 
   factory _$_ScheduleRequest.fromJson(Map<String, dynamic> json) =>
       _$$_ScheduleRequestFromJson(json);
 
   @override
-  final String meetName;
+  final int groupId;
   @override
-  final String name;
+  final String title;
   @override
-  final String onOff;
+  final bool isOffline;
   @override
-  final String date;
+  final String startDateTime;
   @override
-  final String time;
-  @override
-  final String texts;
+  final String contents;
 
   @override
   String toString() {
-    return 'ScheduleRequest(meetName: $meetName, name: $name, onOff: $onOff, date: $date, time: $time, texts: $texts)';
+    return 'ScheduleRequest(groupId: $groupId, title: $title, isOffline: $isOffline, startDateTime: $startDateTime, contents: $contents)';
   }
 
   @override
@@ -224,18 +206,19 @@ class _$_ScheduleRequest implements _ScheduleRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ScheduleRequest &&
-            (identical(other.meetName, meetName) ||
-                other.meetName == meetName) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.onOff, onOff) || other.onOff == onOff) &&
-            (identical(other.date, date) || other.date == date) &&
-            (identical(other.time, time) || other.time == time) &&
-            (identical(other.texts, texts) || other.texts == texts));
+            (identical(other.groupId, groupId) || other.groupId == groupId) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.isOffline, isOffline) ||
+                other.isOffline == isOffline) &&
+            (identical(other.startDateTime, startDateTime) ||
+                other.startDateTime == startDateTime) &&
+            (identical(other.contents, contents) ||
+                other.contents == contents));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, meetName, name, onOff, date, time, texts);
+  int get hashCode => Object.hash(
+      runtimeType, groupId, title, isOffline, startDateTime, contents);
 
   @JsonKey(ignore: true)
   @override
@@ -250,28 +233,25 @@ class _$_ScheduleRequest implements _ScheduleRequest {
 
 abstract class _ScheduleRequest implements ScheduleRequest {
   factory _ScheduleRequest(
-      {required String meetName,
-      required String name,
-      required String onOff,
-      required String date,
-      required String time,
-      required String texts}) = _$_ScheduleRequest;
+      {required int groupId,
+      required String title,
+      required bool isOffline,
+      required String startDateTime,
+      required String contents}) = _$_ScheduleRequest;
 
   factory _ScheduleRequest.fromJson(Map<String, dynamic> json) =
       _$_ScheduleRequest.fromJson;
 
   @override
-  String get meetName;
+  int get groupId;
   @override
-  String get name;
+  String get title;
   @override
-  String get onOff;
+  bool get isOffline;
   @override
-  String get date;
+  String get startDateTime;
   @override
-  String get time;
-  @override
-  String get texts;
+  String get contents;
   @override
   @JsonKey(ignore: true)
   _$ScheduleRequestCopyWith<_ScheduleRequest> get copyWith =>

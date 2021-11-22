@@ -6,6 +6,7 @@ import com.momo.security.CurrentUser;
 import com.momo.user.controller.dto.UserUpdateRequest;
 import com.momo.user.domain.model.User;
 import com.momo.user.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,13 @@ public class UserController {
 
     private final UserService userService;
 
+    @ApiOperation(value = "닉네임 중복 확인")
+    @GetMapping("/validate/nickname/{nickname}")
+    public ResponseEntity<Boolean> validateNickname(@PathVariable String nickname) {
+        return ResponseEntity.ok(userService.validateNickname(nickname));
+    }
+
+    @ApiOperation(value = "내 정보 수정")
     @PatchMapping
     public ResponseEntity<Void> update(@CurrentUser User user,
         @Valid @RequestBody UserUpdateRequest userUpdateRequest) {
@@ -31,11 +39,7 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/validate/nickname/{nickname}")
-    public ResponseEntity<Boolean> validateNickname(@PathVariable String nickname) {
-        return ResponseEntity.ok(userService.validateNickname(nickname));
-    }
-
+    @ApiOperation(value = "관심 카테고리 수정")
     @PatchMapping("/categories")
     public ResponseEntity<Void> updateCategories(@CurrentUser User user,
         @Valid @RequestBody CategoryRequest categoryRequest) {
@@ -43,6 +47,7 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @ApiOperation(value = "검색 가능한 지역 목록 조회")
     @GetMapping("/locations")
     public ResponseEntity<List<EnumResponse>> findLocations() {
         return ResponseEntity.ok(EnumResponse.listOfLocation());

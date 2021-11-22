@@ -1,6 +1,6 @@
 package com.momo.schedule.controller.dto;
 
-import com.momo.group.domain.model.Category;
+import com.momo.common.dto.EnumResponse;
 import com.momo.schedule.domain.model.Schedule;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,14 +15,14 @@ public class UserScheduleResponse {
 
     private Long groupId;
 
-    private Category groupCategory;
+    private EnumResponse groupCategory;
 
     private String title;
 
     private LocalDateTime startDateTime;
 
     @Builder
-    public UserScheduleResponse(Long groupId, Category groupCategory, String title, LocalDateTime startDateTime) {
+    public UserScheduleResponse(Long groupId, EnumResponse groupCategory, String title, LocalDateTime startDateTime) {
         this.groupId = groupId;
         this.groupCategory = groupCategory;
         this.title = title;
@@ -32,7 +32,7 @@ public class UserScheduleResponse {
     private static UserScheduleResponse of(Schedule schedule) {
         return UserScheduleResponse.builder()
             .groupId(schedule.getGroup().getId())
-            .groupCategory(schedule.getGroup().getCategory())
+            .groupCategory(EnumResponse.ofCategory(schedule.getGroup().getCategory()))
             .title(schedule.getTitle())
             .startDateTime(schedule.getStartDateTime())
             .build();

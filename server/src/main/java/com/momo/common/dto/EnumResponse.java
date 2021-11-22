@@ -13,27 +13,31 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class EnumResponse {
 
-  private String code;
-  private String name;
+    private String code;
+    private String name;
 
-  public EnumResponse(String code, String name) {
-    this.code = code;
-    this.name = name;
-  }
+    public EnumResponse(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
 
-  public static EnumResponse of(String code, String name) {
-    return new EnumResponse(code, name);
-  }
+    public static EnumResponse of(String code, String name) {
+        return new EnumResponse(code, name);
+    }
 
-  public static List<EnumResponse> listOfCategory() {
-    return Arrays.stream(Category.values())
-        .map(status -> EnumResponse.of(status.getCode(), status.getName()))
-        .collect(Collectors.toList());
-  }
+    public static EnumResponse ofCategory(Category category) {
+        return new EnumResponse(category.getCode(), category.getName());
+    }
 
-  public static List<EnumResponse> listOfLocation() {
-    return Arrays.stream(Location.values())
-        .map(status -> EnumResponse.of(status.getCode(), status.getName()))
-        .collect(Collectors.toList());
-  }
+    public static List<EnumResponse> listOfCategory() {
+        return Arrays.stream(Category.values())
+            .map(status -> EnumResponse.of(status.getCode(), status.getName()))
+            .collect(Collectors.toList());
+    }
+
+    public static List<EnumResponse> listOfLocation() {
+        return Arrays.stream(Location.values())
+            .map(status -> EnumResponse.of(status.getCode(), status.getName()))
+            .collect(Collectors.toList());
+    }
 }

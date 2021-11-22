@@ -37,7 +37,8 @@ class _NoticeListViewState extends State<NoticeListView> {
           id: index,
           title: '안녕하세요',
           userName: '이모모',
-          contents: '모모 짱이에요',
+          contents:
+              '모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 모모 짱이에요 ',
           comments: 30,
         ),
       );
@@ -70,7 +71,7 @@ class _NoticeListViewState extends State<NoticeListView> {
             date: '2021년 12월 31일 오후 1:00',
           ),
         ),
-        separatorBuilder: (context, index) => const SizedBox(height: 8),
+        separatorBuilder: (context, index) => const SizedBox(height: 14),
       ),
     );
   }

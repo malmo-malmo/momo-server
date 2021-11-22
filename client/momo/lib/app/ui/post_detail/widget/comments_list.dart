@@ -66,8 +66,7 @@ class _CommentsListState extends State<CommentsList> {
           text: item.contents,
         ),
       ),
-      separatorBuilder: (context, index) =>
-          Container(height: 1, color: MomoColor.divider),
+      separatorBuilder: (context, index) => const SizedBox(height: 10),
     );
   }
 }

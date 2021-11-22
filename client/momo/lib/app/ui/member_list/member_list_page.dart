@@ -24,12 +24,31 @@ class MemberListPage extends StatelessWidget {
                   ref.read(navigatorProvider).pop(result: false);
                 },
                 child: const Icon(
-                  CupertinoIcons.back,
+                  CupertinoIcons.xmark,
                   color: MomoColor.black,
                 ),
               );
             },
           ),
+          actions: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              height: 36,
+              width: 64,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                // color: check ? MomoColor.main : const Color(0xfff0f0f0),
+              ),
+              child: Center(
+                child: Text(
+                  '완료',
+                  style: MomoTextStyle.small.copyWith(
+                      // color: check ? MomoColor.white : MomoColor.unSelIcon,
+                      ),
+                ),
+              ),
+            )
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),

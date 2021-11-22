@@ -1,31 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:momo/app/provider/time_card_provider.dart';
 import 'package:momo/app/util/date_format.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget timePickerDialog() {
+Widget timePickerDialog({
+  required Function(String date) selcetTime,
+}) {
   return Consumer(builder: (context, ref, _) {
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
       child: Container(
-        height: 258,
+        height: 221,
+        width: 280,
         padding: const EdgeInsets.only(top: 24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              '시간 선택',
-              style: TextStyle(
-                fontSize: 20.sp,
-              ),
-            ),
             const SizedBox(height: 16),
             SizedBox(
               height: 100,
@@ -39,6 +35,7 @@ Widget timePickerDialog() {
                 onDateTimeChanged: (value) {
                   ref.read(timeCardTextStateProvider.state).state =
                       changeTimeFormat(value.hour, value.minute);
+                  selcetTime(changeTimeFormat(value.hour, value.minute));
                 },
               ),
             ),
@@ -48,7 +45,7 @@ Widget timePickerDialog() {
                 ref.read(navigatorProvider).pop();
               },
               child: Container(
-                height: 59,
+                height: 56,
                 decoration: const BoxDecoration(
                   color: MomoColor.main,
                   borderRadius: BorderRadius.only(
@@ -59,8 +56,8 @@ Widget timePickerDialog() {
                 child: Center(
                   child: Text(
                     '확인',
-                    style: TextStyle(
-                      fontSize: 18.sp,
+                    style: MomoTextStyle.defaultStyle.copyWith(
+                      color: MomoColor.white,
                     ),
                   ),
                 ),

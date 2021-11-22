@@ -4,6 +4,7 @@ import com.momo.group.controller.dto.ParticipantResponse;
 import com.momo.group.service.ParticipantService;
 import com.momo.security.CurrentUser;
 import com.momo.user.domain.model.User;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ public class ParticipantController {
 
     private final ParticipantService participantService;
 
+    @ApiOperation(value = "모임 참여자 목록 조회")
     @GetMapping("/group/participants")
     public ResponseEntity<List<ParticipantResponse>> findParticipantsByGroup(@CurrentUser User user,
         @RequestParam Long groupId) {
@@ -28,6 +30,10 @@ public class ParticipantController {
         return ResponseEntity.ok(responses);
     }
 
+    /*
+    테스트를 위해 임시로 만든 API
+    */
+    @ApiOperation(value = "참여 신청")
     @PostMapping("/group/apply-participant")
     public ResponseEntity<Void> applyParticipantByGroup(@CurrentUser User user,
         @RequestBody Long groupId) {

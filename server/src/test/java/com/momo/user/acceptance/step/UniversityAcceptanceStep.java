@@ -15,7 +15,7 @@ public class UniversityAcceptanceStep {
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .param("universityName", universityName)
             .when()
-            .get("/api/university")
+            .get("/api/universities")
             .then().log().all()
             .extract();
     }

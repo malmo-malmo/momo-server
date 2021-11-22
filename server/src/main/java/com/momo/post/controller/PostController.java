@@ -7,6 +7,7 @@ import com.momo.post.controller.dto.PostResponse;
 import com.momo.post.service.PostService;
 import com.momo.security.CurrentUser;
 import com.momo.user.domain.model.User;
+import io.swagger.annotations.ApiOperation;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -28,6 +29,7 @@ public class PostController {
 
     private final PostService postService;
 
+    @ApiOperation(value = "게시물 생성", notes = "게시물 타입 = [NORMAL, NOTICE]")
     @PostMapping("/post")
     public ResponseEntity<Void> create(@CurrentUser User user,
         @Valid @RequestBody PostCreateRequest postCreateRequest) throws URISyntaxException {
@@ -35,12 +37,14 @@ public class PostController {
         return ResponseEntity.created(new URI("/api/post/" + postId)).build();
     }
 
+    @ApiOperation(value = "게시물 상세 페이지 조회")
     @GetMapping("/post/{id}")
     public ResponseEntity<PostResponse> find(@CurrentUser User user, @PathVariable Long id) {
         PostResponse postResponse = postService.find(user, id);
         return ResponseEntity.ok(postResponse);
     }
 
+    @ApiOperation(value = "게시물 목록 조회")
     @GetMapping("/posts/paging")
     public ResponseEntity<List<PostCardResponse>> findPageByGroupAndType(@CurrentUser User user,
         @ModelAttribute @Valid PostCardsRequest postCardsRequest) {

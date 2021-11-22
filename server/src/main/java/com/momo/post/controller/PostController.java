@@ -5,7 +5,7 @@ import com.momo.post.controller.dto.PostCardsRequest;
 import com.momo.post.controller.dto.PostCreateRequest;
 import com.momo.post.controller.dto.PostResponse;
 import com.momo.post.service.PostService;
-import com.momo.security.CurrentUser;
+import com.momo.auth.domain.CurrentUser;
 import com.momo.user.domain.model.User;
 import io.swagger.annotations.ApiOperation;
 import java.net.URI;

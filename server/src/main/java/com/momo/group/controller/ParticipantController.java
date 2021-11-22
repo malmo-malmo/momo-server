@@ -2,7 +2,7 @@ package com.momo.group.controller;
 
 import com.momo.group.controller.dto.ParticipantResponse;
 import com.momo.group.service.ParticipantService;
-import com.momo.security.CurrentUser;
+import com.momo.auth.domain.CurrentUser;
 import com.momo.user.domain.model.User;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;

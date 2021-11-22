@@ -21,11 +21,32 @@ void main() async {
   );
 }
 
-class MyApp extends ConsumerWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   Future.delayed(const Duration(seconds: 0), () async {
+  //     initKakao();
+  //   });
+  // }
+
+  // void initKakao() async {
+  //   final kakaoLogin = ref.watch(flutterKakaoLoginProvider);
+  //   await kakaoLogin.init('51af7920a3ab81a3de0020af102e70cd');
+  //   // For Android
+  //   final hashKey = await kakaoLogin.hashKey;
+  //   print('hashKey: $hashKey');
+  // }
+
+  @override
+  Widget build(BuildContext context) {
     // SystemChrome.setEnabledSystemUIMode(
     //   SystemUiMode.manual,
     //   overlays: [

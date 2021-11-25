@@ -37,6 +37,7 @@ public class PostController {
         return ResponseEntity.created(new URI("/api/post/" + postId)).build();
     }
 
+    //TODO : DTO에서 댓글 수 제거
     @ApiOperation(value = "게시물 상세 페이지 조회")
     @GetMapping("/post/{id}")
     public ResponseEntity<PostResponse> find(@CurrentUser User user, @PathVariable Long id) {

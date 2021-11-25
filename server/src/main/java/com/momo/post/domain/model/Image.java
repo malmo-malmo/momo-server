@@ -1,6 +1,5 @@
 package com.momo.post.domain.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,11 +15,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PostImage {
+public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_image_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -30,14 +28,14 @@ public class PostImage {
     private String imageUrl;
 
     @Builder
-    public PostImage(Long id, Post post, String imageUrl) {
+    public Image(Long id, Post post, String imageUrl) {
         this.id = id;
         this.post = post;
         this.imageUrl = imageUrl;
     }
 
-    public static PostImage create(Post post, String imageUrl) {
-        return PostImage.builder()
+    public static Image create(Post post, String imageUrl) {
+        return Image.builder()
             .post(post)
             .imageUrl(imageUrl)
             .build();

@@ -5,12 +5,17 @@ import com.momo.common.exception.ErrorCode;
 import com.momo.group.domain.model.Groups;
 import com.momo.group.domain.repository.ParticipantRepository;
 import com.momo.post.controller.dto.CommentCreateRequest;
+import com.momo.post.controller.dto.CommentResponse;
+import com.momo.post.controller.dto.CommentsRequest;
+import com.momo.post.controller.dto.CommentsResponse;
 import com.momo.post.domain.model.Comment;
 import com.momo.post.domain.model.Post;
 import com.momo.post.domain.repository.CommentRepository;
 import com.momo.post.domain.repository.PostRepository;
 import com.momo.user.domain.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,11 +30,20 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
 
-    public void create(User user, CommentCreateRequest commentCreateRequest) {
+    public CommentResponse create(User user, CommentCreateRequest commentCreateRequest) {
         Post post = getPostById(commentCreateRequest.getPostId());
         validateIsGroupParticipant(user, post.getGroup());
         Comment comment = Comment.create(post, user, commentCreateRequest.getContents());
-        commentRepository.save(comment);
+        return CommentResponse.of(commentRepository.save(comment));
+    }
+
+    @Transactional(readOnly = true)
+    public CommentsResponse findPageByPost(User user, CommentsRequest request) {
+        Post post = getPostById(request.getPostId());
+        validateIsGroupParticipant(user, post.getGroup());
+        Page<Comment> pageComments = commentRepository
+            .findAllByPostOrderByCreatedDateAsc(post, PageRequest.of(request.getPage(), request.getSize()));
+        return CommentsResponse.of(pageComments.getContent(), pageComments.getTotalElements());
     }
 
     public Post getPostById(Long postId) {

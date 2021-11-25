@@ -1,7 +1,7 @@
 package com.momo.post.controller.dto;
 
 import com.momo.post.domain.model.Post;
-import com.momo.post.domain.model.PostImage;
+import com.momo.post.domain.model.Image;
 import com.querydsl.core.annotations.QueryProjection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,7 +40,7 @@ public class PostResponse {
         this.postImages = postImages;
     }
 
-    public static PostResponse of(Post post, List<PostImage> postImages) {
+    public static PostResponse of(Post post, List<Image> postImages) {
         return PostResponse.builder()
             .id(post.getId())
             .authorImage(post.getAuthor().getImage())
@@ -48,7 +48,7 @@ public class PostResponse {
             .title(post.getTitle())
             .contents(post.getContents())
             .commentCnt(post.getCommentCnt())
-            .postImages(postImages.stream().map(PostImage::getImageUrl).collect(Collectors.toList()))
+            .postImages(postImages.stream().map(Image::getImageUrl).collect(Collectors.toList()))
             .build();
     }
 

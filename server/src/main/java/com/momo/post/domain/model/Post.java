@@ -44,7 +44,7 @@ public class Post extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private PostType type;
 
-    @Formula("(select count(*) from post_comment p where p.post_id = id)")
+    @Formula("(select count(*) from comment c where c.post_id = id)")
     private int commentCnt;
 
     @Builder

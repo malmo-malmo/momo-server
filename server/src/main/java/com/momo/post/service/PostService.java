@@ -10,9 +10,9 @@ import com.momo.post.controller.dto.PostCardResponse;
 import com.momo.post.controller.dto.PostCreateRequest;
 import com.momo.post.controller.dto.PostResponse;
 import com.momo.post.domain.model.Post;
-import com.momo.post.domain.model.PostImage;
+import com.momo.post.domain.model.Image;
 import com.momo.post.domain.model.PostType;
-import com.momo.post.domain.repository.PostImageRepository;
+import com.momo.post.domain.repository.ImageRepository;
 import com.momo.post.domain.repository.PostRepository;
 import com.momo.user.domain.model.User;
 import java.util.List;
@@ -34,7 +34,7 @@ public class PostService {
 
     private final ParticipantRepository participantRepository;
 
-    private final PostImageRepository postImageRepository;
+    private final ImageRepository imageRepository;
 
     public Long create(User user, PostCreateRequest request) {
         Groups group = getGroupById(request.getGroupId());
@@ -49,9 +49,9 @@ public class PostService {
         Post post = postRepository.save(Post.create(user, group, request.toEntity()));
 
         if (!CollectionUtils.isEmpty(request.getImageUrls())) {
-            List<PostImage> postImages = request.getImageUrls().stream()
-                .map(imageUrl -> PostImage.create(post, imageUrl)).collect(Collectors.toList());
-            postImageRepository.saveAll(postImages);
+            List<Image> postImages = request.getImageUrls().stream()
+                .map(imageUrl -> Image.create(post, imageUrl)).collect(Collectors.toList());
+            imageRepository.saveAll(postImages);
         }
 
         return post.getId();
@@ -62,7 +62,7 @@ public class PostService {
         Post post = postRepository.findById(postId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
         validateIsGroupParticipant(user, post.getGroup());
-        return PostResponse.of(post, postImageRepository.findAllByPost(post));
+        return PostResponse.of(post, imageRepository.findAllByPost(post));
     }
 
     @Transactional(readOnly = true)

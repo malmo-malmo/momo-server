@@ -28,11 +28,15 @@ public class ParticipantService {
     @Transactional(readOnly = true)
     public List<ParticipantResponse> findParticipantsByGroup(User user, Long groupId) {
         Groups group = getGroupById(groupId);
+        validateIsGroupManager(group, user);
+        Long scheduleCnt = scheduleRepository.countByGroupAndIsAttendanceCheck(group, true);
+        return participantRepository.findParticipantAndAttendanceRateByGroup(group, scheduleCnt);
+    }
+
+    public void validateIsGroupManager(Groups group, User user) {
         if (!group.isManager(user)) {
             throw new CustomException(ErrorCode.GROUP_PARTICIPANTS_UNAUTHORIZED);
         }
-        Long scheduleCnt = scheduleRepository.countByGroupAndIsAttendanceCheck(group, true);
-        return participantRepository.findParticipantAndAttendanceRateByGroup(group, scheduleCnt);
     }
 
     public void applyParticipantByGroup(User user, Long groupId) {

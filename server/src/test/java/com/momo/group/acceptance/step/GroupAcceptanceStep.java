@@ -16,6 +16,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.util.CollectionUtils;
 
 public class GroupAcceptanceStep {
 
@@ -31,8 +32,8 @@ public class GroupAcceptanceStep {
             () -> assertThat(response.isOffline()).isEqualTo(request.getIsOffline()),
             () -> assertThat(response.getIntroduction()).isEqualTo(request.getIntroduction()),
             () -> assertThat(response.getParticipantCnt()).isEqualTo(1L),
-            () -> assertThat(response.isParticipant()).isEqualTo(isParticipant),
-            () -> assertThat(response.isManager()).isEqualTo(isManager)
+            () -> assertThat(response.getIsParticipant()).isEqualTo(isParticipant),
+            () -> assertThat(response.getIsManager()).isEqualTo(isManager)
         );
     }
 
@@ -63,8 +64,12 @@ public class GroupAcceptanceStep {
     public static ExtractableResponse<Response> requestToFindGroupsBySearchCondition(String token,
         GroupSearchConditionRequest request) {
         Map<String, Object> map = new HashMap<>();
-        map.put("cities", request.getCities());
-        map.put("categories", request.getCategories());
+        if (!CollectionUtils.isEmpty(request.getCities())) {
+            map.put("cities", request.getCities());
+        }
+        if (!CollectionUtils.isEmpty(request.getCategories())) {
+            map.put("categories", request.getCategories());
+        }
         map.put("page", request.getPage());
         map.put("size", request.getSize());
         return given().log().all()

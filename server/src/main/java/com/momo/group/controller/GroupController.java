@@ -1,12 +1,12 @@
 package com.momo.group.controller;
 
+import com.momo.auth.domain.CurrentUser;
 import com.momo.common.dto.EnumResponse;
 import com.momo.group.controller.dto.GroupCardResponse;
 import com.momo.group.controller.dto.GroupCreateRequest;
 import com.momo.group.controller.dto.GroupResponse;
 import com.momo.group.controller.dto.GroupSearchConditionRequest;
 import com.momo.group.service.GroupService;
-import com.momo.auth.domain.CurrentUser;
 import com.momo.user.domain.model.User;
 import io.swagger.annotations.ApiOperation;
 import java.net.URI;
@@ -49,7 +49,7 @@ public class GroupController {
     @ApiOperation(value = "모임 목록 조회(검색)")
     @GetMapping("/groups/search/paging")
     public ResponseEntity<List<GroupCardResponse>> findPageBySearchCondition(
-        @ModelAttribute GroupSearchConditionRequest request) {
+        @Valid @ModelAttribute GroupSearchConditionRequest request) {
         List<GroupCardResponse> groupCardResponses = groupService.findPageBySearchCondition(request);
         return ResponseEntity.ok(groupCardResponses);
     }

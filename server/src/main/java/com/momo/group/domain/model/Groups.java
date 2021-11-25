@@ -18,7 +18,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Formula;
 
 @Entity
 @Getter
@@ -58,15 +57,6 @@ public class Groups extends BaseEntity {
 
     @Column(name = "end_flag")
     private boolean isEnd;
-
-    @Formula("(select count(*) from participant p where p.group_id = id)")
-    private int participantCnt;
-
-    /*
-    TODO : 서브쿼리로 바꾸기
-    private Long scheduleCnt;
-    private Long attendanceCnt;
-    */
 
     @Builder
     public Groups(Long id, User manager, String name, String imageUrl, Category category, LocalDate startDate,

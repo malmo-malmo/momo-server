@@ -1,8 +1,7 @@
 package com.momo.post.controller.dto;
 
-import com.momo.post.domain.model.Post;
 import com.momo.post.domain.model.Image;
-import com.querydsl.core.annotations.QueryProjection;
+import com.momo.post.domain.model.Post;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Builder;
@@ -23,33 +22,27 @@ public class PostResponse {
 
     private String contents;
 
-    private int commentCnt;
+    private List<String> imageUrls;
 
-    private List<String> postImages;
-
-    @QueryProjection
     @Builder
     public PostResponse(Long id, String authorImage, String authorNickname, String title, String contents,
-        int commentCnt, List<String> postImages) {
+        List<String> imageUrls) {
         this.id = id;
         this.authorImage = authorImage;
         this.authorNickname = authorNickname;
         this.title = title;
         this.contents = contents;
-        this.commentCnt = commentCnt;
-        this.postImages = postImages;
+        this.imageUrls = imageUrls;
     }
 
-    public static PostResponse of(Post post, List<Image> postImages) {
+    public static PostResponse of(Post post, List<Image> images) {
         return PostResponse.builder()
             .id(post.getId())
             .authorImage(post.getAuthor().getImage())
             .authorNickname(post.getAuthor().getNickname())
             .title(post.getTitle())
             .contents(post.getContents())
-            .commentCnt(post.getCommentCnt())
-            .postImages(postImages.stream().map(Image::getImageUrl).collect(Collectors.toList()))
+            .imageUrls(images.stream().map(Image::getImageUrl).collect(Collectors.toList()))
             .build();
     }
-
 }

@@ -1,6 +1,7 @@
 package com.momo.group.controller.dto;
 
 import java.util.List;
+import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,9 +14,11 @@ public class GroupSearchConditionRequest {
 
     private List<String> categories;
 
-    private int page;
+    @NotNull(message = "페이지 번호는 필수값입니다.")
+    private Integer page;
 
-    private int size;
+    @NotNull(message = "페이지 사이즈는 필수값입니다.")
+    private Integer size;
 
     @Builder
     public GroupSearchConditionRequest(List<String> cities, List<String> categories, int page, int size) {

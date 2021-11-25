@@ -12,11 +12,11 @@ import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToFindPost
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
-import com.momo.post.controller.dto.PostCardsRequest;
+import com.momo.post.acceptance.step.PostAcceptanceStep;
 import com.momo.post.controller.dto.PostCardResponse;
+import com.momo.post.controller.dto.PostCardsRequest;
 import com.momo.post.controller.dto.PostResponse;
 import com.momo.post.domain.model.PostType;
-import com.momo.post.acceptance.step.PostAcceptanceStep;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;
@@ -68,7 +68,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
         ExtractableResponse<Response> response = requestToFindPost(token, postId);
         PostResponse postResponse = getObject(response, PostResponse.class);
         AcceptanceStep.assertThatStatusIsOk(response);
-        PostAcceptanceStep.assertThatFindPost(POST_CREATE_REQUEST1, postResponse, postId, USER1, 0);
+        PostAcceptanceStep.assertThatFindPost(POST_CREATE_REQUEST1, postResponse, postId, USER1);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 모임_게시물들을_전체_조회한다() {
+    public void 게시물_목록을_조회한다() {
         String token = getAccessToken(USER1);
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         requestToCreatePost(token, POST_CREATE_REQUEST1, groupId);
@@ -95,7 +95,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 모임_참여자가_아니면_게시물_또는_공지사항_전체_조회를_실패한다() {
+    public void 모임_참여자가_아니면_게시물_또는_공지사항_목록_조회를_실패한다() {
         String token = getAccessToken(USER1);
         String invalidToken = getAccessToken(USER2);
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));

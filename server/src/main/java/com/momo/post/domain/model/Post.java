@@ -17,7 +17,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Formula;
 
 @Entity
 @Getter
@@ -28,7 +27,7 @@ public class Post extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User author;
 
@@ -43,9 +42,6 @@ public class Post extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private PostType type;
-
-    @Formula("(select count(*) from comment c where c.post_id = id)")
-    private int commentCnt;
 
     @Builder
     public Post(Long id, User author, Groups group, String title, String contents, PostType type) {

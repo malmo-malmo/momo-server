@@ -5,12 +5,12 @@ import com.momo.common.exception.ErrorCode;
 import com.momo.group.domain.model.Groups;
 import com.momo.group.domain.repository.GroupRepository;
 import com.momo.group.domain.repository.ParticipantRepository;
-import com.momo.post.controller.dto.PostCardsRequest;
 import com.momo.post.controller.dto.PostCardResponse;
+import com.momo.post.controller.dto.PostCardsRequest;
 import com.momo.post.controller.dto.PostCreateRequest;
 import com.momo.post.controller.dto.PostResponse;
-import com.momo.post.domain.model.Post;
 import com.momo.post.domain.model.Image;
+import com.momo.post.domain.model.Post;
 import com.momo.post.domain.model.PostType;
 import com.momo.post.domain.repository.ImageRepository;
 import com.momo.post.domain.repository.PostRepository;
@@ -59,8 +59,7 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public PostResponse find(User user, Long postId) {
-        Post post = postRepository.findById(postId)
-            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
+        Post post = postRepository.findPostAndAuthorById(postId);
         validateIsGroupParticipant(user, post.getGroup());
         return PostResponse.of(post, imageRepository.findAllByPost(post));
     }
@@ -69,10 +68,9 @@ public class PostService {
     public List<PostCardResponse> findPageByGroupAndType(User user, PostCardsRequest request) {
         Groups group = getGroupById(request.getGroupId());
         validateIsGroupParticipant(user, group);
+        PostType postType = PostType.of(request.getType());
         PageRequest page = PageRequest.of(request.getPage(), request.getSize());
-        List<Post> posts = postRepository.findAllByGroupAndTypeOrderByCreatedDateDesc(group,
-            PostType.of(request.getType()), page).getContent();
-        return PostCardResponse.listOf(posts);
+        return postRepository.findAllByGroupAndTypeOrderByCreatedDateDesc(group, postType, page);
     }
 
     public Groups getGroupById(Long groupId) {

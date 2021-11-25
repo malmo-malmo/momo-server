@@ -60,7 +60,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 유저가_검색_조건으로_모임을_전체_조회한다() {
+    public void 유저가_검색_조건으로_모임_목록을_조회한다() {
         requestToCreateGroup(getAccessToken(USER1), GROUP_CREATE_REQUEST1); //서울 건강
         requestToCreateGroup(getAccessToken(USER2), GROUP_CREATE_REQUEST2); //서울 자기계발
         requestToCreateGroup(getAccessToken(USER3), GROUP_CREATE_REQUEST3); //서울 건강
@@ -78,7 +78,21 @@ public class GroupAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 로그인한_유저의_학교로_모임을_전체_조회한다() {
+    public void 유저가_검색_조건없이_모임_목록을_조회한다() {
+        requestToCreateGroup(getAccessToken(USER1), GROUP_CREATE_REQUEST1); //서울 건강
+        requestToCreateGroup(getAccessToken(USER2), GROUP_CREATE_REQUEST2); //서울 자기계발
+        GroupSearchConditionRequest request = GroupSearchConditionRequest.builder()
+            .page(0)
+            .size(10)
+            .build();
+        ExtractableResponse<Response> response = requestToFindGroupsBySearchCondition(getAccessToken(USER1), request);
+        List<GroupCardResponse> groupCardResponses = getObjects(response, GroupCardResponse.class);
+        AcceptanceStep.assertThatStatusIsOk(response);
+        assertThat(groupCardResponses.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void 로그인한_유저의_학교로_모임_목록을_조회한다() {
         requestToCreateGroup(getAccessToken(USER1), GROUP_CREATE_REQUEST1); //같은 학교 모임
         requestToCreateGroup(getAccessToken(USER2), GROUP_CREATE_REQUEST2); //다른 학교 모임
         requestToCreateGroup(getAccessToken(USER3), GROUP_CREATE_REQUEST3); //다른 학교 모임
@@ -89,7 +103,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 로그인한_유저의_지역로_모임을_전체_조회한다() {
+    public void 로그인한_유저의_지역으로_모임_목록을_조회한다() {
         requestToCreateGroup(getAccessToken(USER1), GROUP_CREATE_REQUEST1); //같은 지역 모임
         requestToCreateGroup(getAccessToken(USER2), GROUP_CREATE_REQUEST2); //같은 지역 모임
         requestToCreateGroup(getAccessToken(USER3), GROUP_CREATE_REQUEST3); //다른 지역 모임
@@ -100,7 +114,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 로그인한_유저의_관심_카테고리로_모임을_전체_조회한다() {
+    public void 로그인한_유저의_관심_카테고리로_모임_목록을_조회한다() {
         requestToCreateGroup(getAccessToken(USER1), GROUP_CREATE_REQUEST1); //관심 카테고리 모임 O
         requestToCreateGroup(getAccessToken(USER2), GROUP_CREATE_REQUEST2); //관심 카테고리 모임 O
         requestToCreateGroup(getAccessToken(USER3), GROUP_CREATE_REQUEST3); //관심 카테고리 모임 O
@@ -111,7 +125,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 모임_카테고리를_조회한다() {
+    public void 모임_카테고리_목록을_조회한다() {
         String token = getAccessToken(USER1);
         ExtractableResponse<Response> response = requestToFindCategories(token);
         AcceptanceStep.assertThatStatusIsOk(response);

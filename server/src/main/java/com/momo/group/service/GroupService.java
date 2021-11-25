@@ -1,7 +1,5 @@
 package com.momo.group.service;
 
-import com.momo.common.exception.CustomException;
-import com.momo.common.exception.ErrorCode;
 import com.momo.group.controller.dto.GroupCardResponse;
 import com.momo.group.controller.dto.GroupCreateRequest;
 import com.momo.group.controller.dto.GroupResponse;
@@ -36,45 +34,32 @@ public class GroupService {
 
     @Transactional(readOnly = true)
     public GroupResponse find(User user, Long groupId) {
-        Groups group = getGroupById(groupId);
-        if (group.isManager(user)) {
-            return GroupResponse.of(group, true, true);
-        }
-        return GroupResponse.of(group, false, participantRepository.existsByUserAndGroup(user, group));
-    }
-
-    public Groups getGroupById(Long groupId) {
-        return groupRepository.findById(groupId)
-            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
+        return groupRepository.findGroupAndParticipantCntAndAuthorityById(user, groupId);
     }
 
     @Transactional(readOnly = true)
     public List<GroupCardResponse> findPageBySearchCondition(GroupSearchConditionRequest request) {
         List<Category> categories = Category.listOf(request.getCategories());
         PageRequest page = PageRequest.of(request.getPage(), request.getSize());
-        List<Groups> groups = groupRepository
+        return groupRepository
             .findAllBySearchConditionOrderByCreatedDateDesc(request.getCities(), categories, page);
-        return GroupCardResponse.listOf(groups);
     }
 
     @Transactional(readOnly = true)
     public List<GroupCardResponse> findPageByUserUniversity(User user, int page, int size) {
-        List<Groups> groups = groupRepository
-            .findAllByUniversityOrderByCreatedDateDesc(user.getUniversity(), PageRequest.of(page, size)).getContent();
-        return GroupCardResponse.listOf(groups);
+        return groupRepository
+            .findAllByUniversityOrderByCreatedDateDesc(user.getUniversity(), PageRequest.of(page, size));
     }
 
     @Transactional(readOnly = true)
     public List<GroupCardResponse> findPageByUserDistrict(User user, int page, int size) {
-        List<Groups> groups = groupRepository
-            .findAllByDistrictOrderByCreatedDateDesc(user.getDistrict(), PageRequest.of(page, size)).getContent();
-        return GroupCardResponse.listOf(groups);
+        return groupRepository
+            .findAllByDistrictOrderByCreatedDateDesc(user.getDistrict(), PageRequest.of(page, size));
     }
 
     @Transactional(readOnly = true)
     public List<GroupCardResponse> findPageByUserCategories(User user, int page, int size) {
-        List<Groups> groups = groupRepository
+        return groupRepository
             .findAllByCategoriesOrderByCreatedDateDesc(user.getCategories(), PageRequest.of(page, size));
-        return GroupCardResponse.listOf(groups);
     }
 }

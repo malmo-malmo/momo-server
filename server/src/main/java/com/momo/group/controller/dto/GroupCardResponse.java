@@ -1,10 +1,7 @@
 package com.momo.group.controller.dto;
 
-import com.momo.group.domain.model.Groups;
+import com.querydsl.core.annotations.QueryProjection;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,33 +17,18 @@ public class GroupCardResponse {
 
     private LocalDate startDate;
 
-    private int participantCnt;
-
     private boolean isOffline;
 
-    @Builder
-    public GroupCardResponse(Long id, String name, String imageUrl, LocalDate startDate, int participantCnt,
-        boolean isOffline) {
+    private Long participantCnt;
+
+    @QueryProjection
+    public GroupCardResponse(Long id, String name, String imageUrl, LocalDate startDate, boolean isOffline,
+        Long participantCnt) {
         this.id = id;
         this.name = name;
         this.imageUrl = imageUrl;
         this.startDate = startDate;
-        this.participantCnt = participantCnt;
         this.isOffline = isOffline;
-    }
-
-    private static GroupCardResponse of(Groups group) {
-        return GroupCardResponse.builder()
-            .id(group.getId())
-            .name(group.getName())
-            .imageUrl(group.getImageUrl())
-            .startDate(group.getStartDate())
-            .participantCnt(group.getParticipantCnt())
-            .isOffline(group.isOffline())
-            .build();
-    }
-
-    public static List<GroupCardResponse> listOf(List<Groups> groups) {
-        return groups.stream().map(GroupCardResponse::of).collect(Collectors.toList());
+        this.participantCnt = participantCnt;
     }
 }

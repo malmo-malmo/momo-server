@@ -20,16 +20,15 @@ import org.springframework.http.MediaType;
 public class PostAcceptanceStep {
 
     public static void assertThatFindPost(PostCreateRequest request, PostResponse response, Long postId,
-        User createUser, int commentCnt) {
+        User createUser) {
         Assertions.assertAll(
             () -> assertThat(response.getTitle()).isEqualTo(request.getTitle()),
             () -> assertThat(response.getContents()).isEqualTo(request.getContents()),
             () -> assertThat(response.getTitle()).isEqualTo(request.getTitle()),
-            () -> assertThat(response.getPostImages().size()).isEqualTo(response.getPostImages().size()),
+            () -> assertThat(response.getImageUrls().size()).isEqualTo(request.getImageUrls().size()),
             () -> assertThat(response.getId()).isEqualTo(postId),
             () -> assertThat(response.getAuthorImage()).isEqualTo(createUser.getImage()),
-            () -> assertThat(response.getAuthorNickname()).isEqualTo(createUser.getNickname()),
-            () -> assertThat(response.getCommentCnt()).isEqualTo(commentCnt)
+            () -> assertThat(response.getAuthorNickname()).isEqualTo(createUser.getNickname())
         );
     }
 

@@ -1,9 +1,6 @@
 package com.momo.post.controller.dto;
 
-import com.momo.post.domain.model.Post;
-import java.util.List;
-import java.util.stream.Collectors;
-import lombok.Builder;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,32 +18,16 @@ public class PostCardResponse {
 
     private String contents;
 
-    private int commentCnt;
+    private Long commentCnt;
 
-    @Builder
+    @QueryProjection
     public PostCardResponse(Long id, String authorImage, String authorNickname, String title, String contents,
-        int commentCnt) {
+        Long commentCnt) {
         this.id = id;
         this.authorImage = authorImage;
         this.authorNickname = authorNickname;
         this.title = title;
         this.contents = contents;
         this.commentCnt = commentCnt;
-    }
-
-    public static PostCardResponse of(Post post) {
-        return PostCardResponse.builder()
-            .id(post.getId())
-            .authorImage(post.getAuthor().getImage())
-            .authorNickname(post.getAuthor().getNickname())
-            .title(post.getTitle())
-            .contents(post.getContents())
-            .commentCnt(post.getCommentCnt())
-            .build();
-
-    }
-
-    public static List<PostCardResponse> listOf(List<Post> posts) {
-        return posts.stream().map(PostCardResponse::of).collect(Collectors.toList());
     }
 }

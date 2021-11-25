@@ -1,13 +1,11 @@
 package com.momo.post.domain.repository;
 
-import com.momo.group.domain.model.Groups;
 import com.momo.post.domain.model.Post;
-import com.momo.post.domain.model.PostType;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
-public interface PostRepository extends JpaRepository<Post, Long> {
+public interface PostRepository extends JpaRepository<Post, Long>, PostRepositoryCustom {
 
-    Page<Post> findAllByGroupAndTypeOrderByCreatedDateDesc(Groups group, PostType type, Pageable pageable);
+    @Query("select p from Post p join fetch p.author where p.id = ?1")
+    Post findPostAndAuthorById(Long id);
 }

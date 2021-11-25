@@ -1,11 +1,11 @@
 package com.momo.post.controller;
 
+import com.momo.auth.domain.CurrentUser;
 import com.momo.post.controller.dto.PostCardResponse;
 import com.momo.post.controller.dto.PostCardsRequest;
 import com.momo.post.controller.dto.PostCreateRequest;
 import com.momo.post.controller.dto.PostResponse;
 import com.momo.post.service.PostService;
-import com.momo.auth.domain.CurrentUser;
 import com.momo.user.domain.model.User;
 import io.swagger.annotations.ApiOperation;
 import java.net.URI;
@@ -37,7 +37,6 @@ public class PostController {
         return ResponseEntity.created(new URI("/api/post/" + postId)).build();
     }
 
-    //TODO : DTO에서 댓글 수 제거
     @ApiOperation(value = "게시물 상세 페이지 조회")
     @GetMapping("/post/{id}")
     public ResponseEntity<PostResponse> find(@CurrentUser User user, @PathVariable Long id) {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/comment/comment.dart';
 import 'package:momo/app/ui/post_detail/widget/comment_card.dart';
-import 'package:momo/app/util/theme.dart';
 
 class CommentsList extends StatefulWidget {
   const CommentsList({Key? key}) : super(key: key);

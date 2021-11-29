@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/util/theme.dart';
 
 class SetMeetCityBox extends ConsumerWidget {
-  SetMeetCityBox({
+  const SetMeetCityBox({
     Key? key,
     required this.curCity,
     required this.onSelect,

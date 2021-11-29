@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/schedule/schedule_detail.dart';
-import 'package:momo/app/model/schedule/calendar_schedule.dart';
-import 'package:momo/app/ui/components/card/feed_card.dart';
-import 'package:momo/app/ui/schedule_list/widget/admin_schedule_card.dart';
 import 'package:momo/app/ui/schedule_list/widget/schedule_card.dart';
 
 class ScheduleList extends StatefulWidget {

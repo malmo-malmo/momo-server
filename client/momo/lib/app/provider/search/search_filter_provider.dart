@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:momo/app/provider/login/category_check_provder.dart';
+import 'package:momo/app/provider/user/category_check_provder.dart';
 
 final checkSearchFilterProvider = Provider.autoDispose<bool>((ref) {
   final categoryState = ref.watch(searchCategoryProvider);

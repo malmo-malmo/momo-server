@@ -1,17 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'category.dart';
+part of 'code_name_pair.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Category _$$_CategoryFromJson(Map<String, dynamic> json) => _$_Category(
+_$_CodeNamePair _$$_CodeNamePairFromJson(Map<String, dynamic> json) =>
+    _$_CodeNamePair(
       code: json['code'] as String,
       name: json['name'] as String,
     );
 
-Map<String, dynamic> _$$_CategoryToJson(_$_Category instance) =>
+Map<String, dynamic> _$$_CodeNamePairToJson(_$_CodeNamePair instance) =>
     <String, dynamic>{
       'code': instance.code,
       'name': instance.name,

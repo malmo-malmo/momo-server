@@ -8,14 +8,19 @@ part of 'post_request.dart';
 
 _$_PostRequest _$$_PostRequestFromJson(Map<String, dynamic> json) =>
     _$_PostRequest(
+      groupId: json['groupId'] as int,
       title: json['title'] as String,
       contents: json['contents'] as String,
-      img: json['img'] as String,
+      imageUrls:
+          (json['imageUrls'] as List<dynamic>).map((e) => e as String).toList(),
+      postType: json['postType'] as String,
     );
 
 Map<String, dynamic> _$$_PostRequestToJson(_$_PostRequest instance) =>
     <String, dynamic>{
+      'groupId': instance.groupId,
       'title': instance.title,
       'contents': instance.contents,
-      'img': instance.img,
+      'imageUrls': instance.imageUrls,
+      'postType': instance.postType,
     };

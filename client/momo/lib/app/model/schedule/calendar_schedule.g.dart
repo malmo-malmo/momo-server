@@ -12,7 +12,7 @@ _$_CalendarSchedule _$$_CalendarScheduleFromJson(Map<String, dynamic> json) =>
       startDateTime: json['startDateTime'] as String,
       title: json['title'] as String,
       category:
-          Category.fromJson(json['groupCategory'] as Map<String, dynamic>),
+          CodeNamePair.fromJson(json['groupCategory'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_CalendarScheduleToJson(_$_CalendarSchedule instance) =>

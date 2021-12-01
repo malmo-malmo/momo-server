@@ -35,11 +35,11 @@ class _CommentsListState extends State<CommentsList> {
         10,
         (index) => Comment(
           id: index,
-          name: '김모모',
           contents: '모모 너무 좋아요',
-          date: '2021-12-31',
-          profile:
+          authorImage:
               'https://biz.chosun.com/resizer/kh_pcdsIH0PJWIXenLBD4Oi94Wg=/464x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/HAXYB5XB4CCHXUB6VQVALOZFVY.jpg',
+          authorNickname: '김모모',
+          createdDate: '2021-12-31',
         ),
       );
       const isLastPage = false;
@@ -60,8 +60,8 @@ class _CommentsListState extends State<CommentsList> {
       pagingController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<Comment>(
         itemBuilder: (context, item, index) => commentCard(
-          name: item.name,
-          profile: item.profile,
+          name: item.authorNickname,
+          profile: item.authorImage,
           text: item.contents,
         ),
       ),

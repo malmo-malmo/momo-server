@@ -6,9 +6,11 @@ part 'post_request.freezed.dart';
 @freezed
 class PostRequest with _$PostRequest {
   factory PostRequest({
+    required int groupId,
     required String title,
     required String contents,
-    required String img,
+    required List<String> imageUrls,
+    required String postType,
   }) = _PostRequest;
 
   factory PostRequest.fromJson(Map<String, dynamic> json) =>

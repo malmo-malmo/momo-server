@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:momo/app/provider/login/user_info_provider.dart';
+import 'package:momo/app/provider/user/user_info_provider.dart';
 
 final nameCheckProvider = Provider<bool>((ref) {
   final userName = ref.watch(userInfoProvider).nickname;

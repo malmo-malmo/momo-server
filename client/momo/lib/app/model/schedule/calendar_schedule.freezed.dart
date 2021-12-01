@@ -25,7 +25,7 @@ class _$CalendarScheduleTearOff {
       {required int groupId,
       required String startDateTime,
       required String title,
-      @JsonKey(name: 'groupCategory') required Category category}) {
+      @JsonKey(name: 'groupCategory') required CodeNamePair category}) {
     return _CalendarSchedule(
       groupId: groupId,
       startDateTime: startDateTime,
@@ -48,7 +48,7 @@ mixin _$CalendarSchedule {
   String get startDateTime => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   @JsonKey(name: 'groupCategory')
-  Category get category => throw _privateConstructorUsedError;
+  CodeNamePair get category => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -65,9 +65,9 @@ abstract class $CalendarScheduleCopyWith<$Res> {
       {int groupId,
       String startDateTime,
       String title,
-      @JsonKey(name: 'groupCategory') Category category});
+      @JsonKey(name: 'groupCategory') CodeNamePair category});
 
-  $CategoryCopyWith<$Res> get category;
+  $CodeNamePairCopyWith<$Res> get category;
 }
 
 /// @nodoc
@@ -102,13 +102,13 @@ class _$CalendarScheduleCopyWithImpl<$Res>
       category: category == freezed
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as Category,
+              as CodeNamePair,
     ));
   }
 
   @override
-  $CategoryCopyWith<$Res> get category {
-    return $CategoryCopyWith<$Res>(_value.category, (value) {
+  $CodeNamePairCopyWith<$Res> get category {
+    return $CodeNamePairCopyWith<$Res>(_value.category, (value) {
       return _then(_value.copyWith(category: value));
     });
   }
@@ -125,10 +125,10 @@ abstract class _$CalendarScheduleCopyWith<$Res>
       {int groupId,
       String startDateTime,
       String title,
-      @JsonKey(name: 'groupCategory') Category category});
+      @JsonKey(name: 'groupCategory') CodeNamePair category});
 
   @override
-  $CategoryCopyWith<$Res> get category;
+  $CodeNamePairCopyWith<$Res> get category;
 }
 
 /// @nodoc
@@ -165,7 +165,7 @@ class __$CalendarScheduleCopyWithImpl<$Res>
       category: category == freezed
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as Category,
+              as CodeNamePair,
     ));
   }
 }
@@ -190,7 +190,7 @@ class _$_CalendarSchedule implements _CalendarSchedule {
   final String title;
   @override
   @JsonKey(name: 'groupCategory')
-  final Category category;
+  final CodeNamePair category;
 
   @override
   String toString() {
@@ -230,7 +230,7 @@ abstract class _CalendarSchedule implements CalendarSchedule {
           {required int groupId,
           required String startDateTime,
           required String title,
-          @JsonKey(name: 'groupCategory') required Category category}) =
+          @JsonKey(name: 'groupCategory') required CodeNamePair category}) =
       _$_CalendarSchedule;
 
   factory _CalendarSchedule.fromJson(Map<String, dynamic> json) =
@@ -244,7 +244,7 @@ abstract class _CalendarSchedule implements CalendarSchedule {
   String get title;
   @override
   @JsonKey(name: 'groupCategory')
-  Category get category;
+  CodeNamePair get category;
   @override
   @JsonKey(ignore: true)
   _$CalendarScheduleCopyWith<_CalendarSchedule> get copyWith =>

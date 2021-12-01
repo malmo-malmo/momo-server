@@ -110,7 +110,7 @@ class PostRequestPage extends ConsumerWidget {
                         spacing: 8,
                         runSpacing: 8,
                         children: [
-                          imgCard(img: postRequest.img),
+                          imgCard(img: postRequest.imageUrls.first),
                         ],
                       ),
                     ),
@@ -118,7 +118,8 @@ class PostRequestPage extends ConsumerWidget {
                 ),
               ),
               FloatingCameraBotton(
-                selectImg: ref.read(postRequestStateProvider.notifier).setImage,
+                // selectImg: ref.read(postRequestStateProvider.notifier).setImage,
+                selectImg: (text) {},
               ),
             ],
           ),

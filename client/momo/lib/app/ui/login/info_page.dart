@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/provider/login/name_check_provider.dart';
-import 'package:momo/app/provider/login/user_info_provider.dart';
+import 'package:momo/app/provider/user/name_check_provider.dart';
+import 'package:momo/app/provider/user/user_info_provider.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/components/dialog/confirm_dialog.dart';
 import 'package:momo/app/ui/login/widget/agree_button.dart';
@@ -83,7 +83,7 @@ class InfoPage extends ConsumerWidget {
                 ),
                 _subTitle('학교'),
                 inputBox(
-                  value: userInfo.school,
+                  value: userInfo.university,
                   searchIcon: Icon(
                     CupertinoIcons.search,
                     size: 28.w,
@@ -95,7 +95,7 @@ class InfoPage extends ConsumerWidget {
                         return schoolResultDialog(
                           onSelect: ref
                               .read(userInfoStateProvider.notifier)
-                              .setUserSchool,
+                              .setUserUniversity,
                         );
                       },
                     );
@@ -112,10 +112,10 @@ class InfoPage extends ConsumerWidget {
                           ref.read(userInfoStateProvider.notifier).setUserCity,
                     ),
                     countryInputBox(
-                      country: userInfo.country,
+                      country: userInfo.district,
                       setCountry: ref
                           .read(userInfoStateProvider.notifier)
-                          .setUserCountry,
+                          .setUserDistrict,
                     ),
                   ],
                 ),

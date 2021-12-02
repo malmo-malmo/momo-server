@@ -11,6 +11,8 @@ public class GroupResponse {
 
     private Long id;
 
+    private Long managerId;
+
     private String name;
 
     private String imageUrl;
@@ -27,17 +29,16 @@ public class GroupResponse {
 
     private String introduction;
 
-    private Boolean isManager;
-
     private Long participantCnt;
 
     private Boolean isParticipant;
 
     @QueryProjection
-    public GroupResponse(Long id, String name, String imageUrl, LocalDate startDate, String university,
-        String city, String district, boolean isOffline, String introduction, Boolean isManager,
+    public GroupResponse(Long id, Long managerId, String name, String imageUrl, LocalDate startDate,
+        String university, String city, String district, boolean isOffline, String introduction,
         Long participantCnt, Boolean isParticipant) {
         this.id = id;
+        this.managerId = managerId;
         this.name = name;
         this.imageUrl = imageUrl;
         this.startDate = startDate;
@@ -46,7 +47,6 @@ public class GroupResponse {
         this.district = district;
         this.isOffline = isOffline;
         this.introduction = introduction;
-        this.isManager = isManager;
         this.participantCnt = participantCnt;
         this.isParticipant = isParticipant;
     }

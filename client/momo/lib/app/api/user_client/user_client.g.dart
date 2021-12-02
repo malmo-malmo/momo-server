@@ -8,7 +8,7 @@ part of 'user_client.dart';
 
 class _UserClient implements UserClient {
   _UserClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://localhost:8080/api';
+    baseUrl ??= 'http://10.0.2.2:8080/api';
   }
 
   final Dio _dio;
@@ -77,6 +77,26 @@ class _UserClient implements UserClient {
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;
+    return value;
+  }
+
+  @override
+  Future<List<University>> getUniversities(universityName) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'universityName': universityName
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<University>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/universities',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => University.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 

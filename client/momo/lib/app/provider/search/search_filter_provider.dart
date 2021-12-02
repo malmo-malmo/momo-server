@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/provider/user/category_check_provder.dart';
+import 'package:momo/app/repository/user_repository.dart';
 
 final checkSearchFilterProvider = Provider.autoDispose<bool>((ref) {
   final categoryState = ref.watch(searchCategoryProvider);
@@ -25,8 +26,13 @@ final searchLocationProvider = Provider.autoDispose<List<bool>>((ref) {
 });
 
 final searchCategoryStateProvider =
-    StateNotifierProvider<CategoryState, List<bool>>((ref) => CategoryState(8));
+    StateNotifierProvider<CategoryState, List<bool>>((ref) {
+  final repository = ref.watch(userRepositoryProvider);
+  return CategoryState(8, repository: repository);
+});
 
 final searchLocationStateProvider =
-    StateNotifierProvider<CategoryState, List<bool>>(
-        (ref) => CategoryState(11));
+    StateNotifierProvider<CategoryState, List<bool>>((ref) {
+  final repository = ref.watch(userRepositoryProvider);
+  return CategoryState(11, repository: repository);
+});

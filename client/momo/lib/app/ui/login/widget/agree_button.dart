@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 Widget agreeButton({
   required bool check,
-  required String nextPage,
+  required Function onPressButton,
   required String text,
 }) {
   return Consumer(builder: (context, ref, _) {
@@ -30,7 +29,7 @@ Widget agreeButton({
         ),
         onPressed: check
             ? () {
-                ref.read(navigatorProvider).navigateTo(routeName: nextPage);
+                onPressButton();
               }
             : null,
         child: Text(

@@ -7,10 +7,11 @@ import 'package:momo/app/util/theme.dart';
 
 Widget schoolResultDialog({
   required Function(String school) onSelect,
+  required String universityName,
 }) {
   return Consumer(
     builder: (context, ref, _) {
-      final schoolResult = ref.watch(schoolResultProvider);
+      final schoolResult = ref.watch(universityResultProvider(universityName));
 
       return Dialog(
         insetPadding: const EdgeInsets.all(1),

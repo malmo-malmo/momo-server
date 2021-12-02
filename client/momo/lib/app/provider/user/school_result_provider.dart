@@ -1,16 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:momo/app/repository/user_repository.dart';
 
-final schoolResultProvider =
-    FutureProvider.autoDispose<List<String>>((ref) async {
-  await Future.delayed(const Duration(seconds: 1));
-  return [
-    '서울대학교',
-    '홍익대학교',
-    '서울여자대학교',
-    '한양대학교',
-    '중앙대학교',
-    '서강대학교',
-    '연세대학교',
-    '고려대학교'
-  ];
+final universityResultProvider = FutureProvider.family
+    .autoDispose<List<String>, String>((ref, universityName) async {
+  final repository = ref.watch(userRepositoryProvider);
+  final universities = await repository.getUniversities(universityName);
+  return universities.map((e) => e.name).toList();
 });

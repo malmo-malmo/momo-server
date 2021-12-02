@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/provider/user/category_check_provder.dart';
+import 'package:momo/app/provider/user/category_result_provider.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/login/widget/agree_button.dart';
 import 'package:momo/app/ui/login/widget/title_text.dart';
@@ -17,6 +18,7 @@ class CategoryPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final categoryState = ref.watch(categoryProvider);
     final isCheckCategory = ref.watch(isCheckCategoryProvider);
+    // final categoryResult = ref.watch(categoryResultProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -94,8 +96,15 @@ class CategoryPage extends ConsumerWidget {
                 const SizedBox(height: 64),
                 agreeButton(
                   check: isCheckCategory,
-                  nextPage: AppRoutes.info,
                   text: '다음',
+                  onPressButton: () async {
+                    await ref
+                        .read(categoryStateProvider.notifier)
+                        .updateUserCategories();
+                    ref
+                        .read(navigatorProvider)
+                        .navigateTo(routeName: AppRoutes.info);
+                  },
                 ),
                 const SizedBox(height: 36),
               ],

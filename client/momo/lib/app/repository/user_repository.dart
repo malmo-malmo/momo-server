@@ -1,6 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/api/api_provider.dart';
 import 'package:momo/app/api/user_client/user_client.dart';
+import 'package:momo/app/model/code_name_pair.dart';
+import 'package:momo/app/model/user/category_request.dart';
+import 'package:momo/app/model/user/university.dart';
 import 'package:momo/app/model/user/user_info_request.dart';
 
 final userRepositoryProvider = Provider<UserRepository>((ref) {
@@ -23,5 +26,20 @@ class UserRepository {
   Future<bool> validateNickname(String nickname) async {
     final isValidate = await userClient.validateNickname(nickname);
     return isValidate;
+  }
+
+  Future<List<University>> getUniversities(String universityName) async {
+    final response = await userClient.getUniversities(universityName);
+    return response;
+  }
+
+  Future<dynamic> updateUserCategory(CategoryRequest categoryRequest) async {
+    final response = await userClient.updateCategory(categoryRequest);
+    return response;
+  }
+
+  Future<List<CodeNamePair>> getLocations() async {
+    final response = await userClient.getLocations();
+    return response;
   }
 }

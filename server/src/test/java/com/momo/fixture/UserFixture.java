@@ -1,6 +1,5 @@
 package com.momo.fixture;
 
-import com.momo.user.domain.model.Role;
 import com.momo.user.domain.model.SocialProvider;
 import com.momo.user.domain.model.User;
 
@@ -14,7 +13,6 @@ public class UserFixture {
         .district("강동구")
         .providerId("1")
         .provider(SocialProvider.KAKAO)
-        .role(Role.ROLE_USER)
         .build();
 
     public static final User USER2 = User.builder()
@@ -24,7 +22,6 @@ public class UserFixture {
         .district("강동구")
         .providerId("2")
         .provider(SocialProvider.KAKAO)
-        .role(Role.ROLE_USER)
         .build();
 
     public static final User USER3 = User.builder()
@@ -34,6 +31,5 @@ public class UserFixture {
         .district("강남구")
         .providerId("3")
         .provider(SocialProvider.KAKAO)
-        .role(Role.ROLE_USER)
         .build();
 }

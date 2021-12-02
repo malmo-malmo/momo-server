@@ -45,12 +45,9 @@ public class User extends BaseEntity {
 
     private String categories;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
     @Builder
     public User(Long id, String providerId, SocialProvider provider, String nickname, String image, String city,
-        String district, String university, String categories, Role role) {
+        String district, String university, String categories) {
         this.id = id;
         this.providerId = providerId;
         this.provider = provider;
@@ -60,11 +57,6 @@ public class User extends BaseEntity {
         this.district = district;
         this.university = university;
         this.categories = categories;
-        this.role = role;
-    }
-
-    public String getRoleName() {
-        return this.role.name();
     }
 
     public boolean isNotSameNickname(String nickname) {
@@ -72,7 +64,7 @@ public class User extends BaseEntity {
     }
 
     public boolean isSameUser(User user) {
-        return this.id.equals(user.getId());
+        return id.equals(user.getId());
     }
 
     public void update(User user) {

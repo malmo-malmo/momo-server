@@ -49,7 +49,6 @@ public class KakaoOAuthProvider extends OAuthProvider {
         JSONObject jsonObject = new JSONObject(response.getBody());
         return User.builder()
             .providerId(String.valueOf(jsonObject.get("id")))
-            .role(Role.ROLE_USER)
             .provider(SocialProvider.KAKAO)
             .build();
     }

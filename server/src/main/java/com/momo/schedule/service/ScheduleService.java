@@ -39,7 +39,7 @@ public class ScheduleService {
     }
 
     public void validateGroupManager(Groups group, User user) {
-        if (!group.isManager(user)) {
+        if (group.isNotManager(user)) {
             throw new CustomException(ErrorCode.GROUP_SCHEDULE_UNAUTHORIZED);
         }
     }
@@ -51,7 +51,7 @@ public class ScheduleService {
         PageRequest pageRequest = PageRequest.of(request.getPage(), request.getSize());
         List<GroupScheduleResponse> responses = scheduleRepository
             .findAllByGroupAndUserOrderByCreatedDateDesc(group, user, pageRequest);
-        return GroupSchedulesResponse.of(responses, group.isManager(user));
+        return GroupSchedulesResponse.of(responses, group.getManager().getId());
     }
 
     public void validateGroupParticipant(User user, Groups group) {

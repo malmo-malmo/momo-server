@@ -52,7 +52,7 @@ public class ScheduleAcceptanceTest extends AcceptanceTest {
         ExtractableResponse<Response> response = requestToFindGroupSchedules(token, groupId);
         GroupSchedulesResponse groupSchedulesResponse = getObject(response, GroupSchedulesResponse.class);
         AcceptanceStep.assertThatStatusIsOk(response);
-        assertThatFindGroupSchedule(SCHEDULE_CREATE_REQUEST1, groupSchedulesResponse, USER1, true, false, false);
+        assertThatFindGroupSchedule(SCHEDULE_CREATE_REQUEST1, groupSchedulesResponse, USER1, false, false);
     }
 
     @Test

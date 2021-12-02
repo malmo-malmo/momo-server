@@ -3,13 +3,13 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/provider/user/category_result_provider.dart';
+import 'package:momo/app/provider/user/location_result_provider.dart';
 
 Widget districtInputBox({
   required Function(String value) setCountry,
 }) {
   final List<String> _valueList =
-      categoryCodeNamePair.map((e) => e.name).toList();
+      locationCodeNamePair.map((e) => e.name).toList();
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 16),
     height: 44,

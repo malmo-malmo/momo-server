@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/model/user/category_request.dart';
 import 'package:momo/app/model/user/user_info_request.dart';
 import 'package:momo/app/provider/user/category_result_provider.dart';
+import 'package:momo/app/provider/user/location_result_provider.dart';
 import 'package:momo/app/repository/user_repository.dart';
 
 final userInfoCheckProvider = Provider<bool>((ref) {
@@ -48,7 +49,7 @@ class UserInfoState extends StateNotifier<UserInfoRequest> {
   void setUserCity(String city) => state = state.copyWith(city: city);
 
   void setUserDistrict(String district) => state = state.copyWith(
-        district: categoryCodeNamePair
+        district: locationCodeNamePair
             .where((element) => element.name == district)
             .first
             .code,

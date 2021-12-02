@@ -34,7 +34,7 @@ public class ParticipantService {
     }
 
     public void validateGroupManager(Groups group, User user) {
-        if (!group.isManager(user)) {
+        if (group.isNotManager(user)) {
             throw new CustomException(ErrorCode.GROUP_PARTICIPANTS_UNAUTHORIZED);
         }
     }

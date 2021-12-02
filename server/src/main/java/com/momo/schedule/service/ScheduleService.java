@@ -45,7 +45,7 @@ public class ScheduleService {
     }
 
     @Transactional(readOnly = true)
-    public GroupSchedulesResponse findPageByGroupAndUser(User user, GroupSchedulesRequest request) {
+    public GroupSchedulesResponse findPageByUserAndGroupId(User user, GroupSchedulesRequest request) {
         Groups group = getGroupById(request.getGroupId());
         validateGroupParticipant(user, group);
         PageRequest pageRequest = PageRequest.of(request.getPage(), request.getSize());
@@ -61,7 +61,7 @@ public class ScheduleService {
     }
 
     @Transactional(readOnly = true)
-    public List<UserScheduleResponse> findPageByUser(User user, UserSchedulesRequest request) {
+    public List<UserScheduleResponse> findPageByUserAndSearchDate(User user, UserSchedulesRequest request) {
         LocalDateTime searchStartDateTime = request.getSearchStartDate().atStartOfDay();
         LocalDateTime searchEndDateTime = request.getSearchEndDate().plusDays(1).atStartOfDay();
         List<Schedule> schedules = scheduleRepository

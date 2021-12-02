@@ -40,16 +40,16 @@ public class ScheduleController {
     @ApiOperation(value = "모임 일정 조회")
     @GetMapping("/schedule/group-schedules")
     public ResponseEntity<GroupSchedulesResponse> findPageByGroup(@CurrentUser User user,
-        @ModelAttribute @Valid GroupSchedulesRequest request) {
-        GroupSchedulesResponse response = scheduleService.findPageByGroupAndUser(user, request);
+        @ModelAttribute @Valid GroupSchedulesRequest groupSchedulesRequest) {
+        GroupSchedulesResponse response = scheduleService.findPageByUserAndGroupId(user, groupSchedulesRequest);
         return ResponseEntity.ok(response);
     }
 
     @ApiOperation(value = "캘린더 일정 조회")
     @GetMapping("/schedule/user-schedules")
     public ResponseEntity<List<UserScheduleResponse>> findPageByUser(@CurrentUser User user,
-        @ModelAttribute @Valid UserSchedulesRequest request) {
-        List<UserScheduleResponse> response = scheduleService.findPageByUser(user, request);
+        @ModelAttribute @Valid UserSchedulesRequest userSchedulesRequest) {
+        List<UserScheduleResponse> response = scheduleService.findPageByUserAndSearchDate(user, userSchedulesRequest);
         return ResponseEntity.ok(response);
     }
 }

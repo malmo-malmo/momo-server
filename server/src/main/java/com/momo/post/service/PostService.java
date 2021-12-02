@@ -58,14 +58,14 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public PostResponse find(User user, Long postId) {
+    public PostResponse findById(User user, Long postId) {
         Post post = postRepository.findPostAndAuthorById(postId);
         validateGroupParticipant(user, post.getGroup());
         return PostResponse.of(post, imageRepository.findAllByPost(post));
     }
 
     @Transactional(readOnly = true)
-    public List<PostCardResponse> findPageByGroupAndType(User user, PostCardsRequest request) {
+    public List<PostCardResponse> findPageByGroupIdAndType(User user, PostCardsRequest request) {
         Groups group = getGroupById(request.getGroupId());
         validateGroupParticipant(user, group);
         PostType postType = PostType.of(request.getType());

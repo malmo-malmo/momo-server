@@ -1,8 +1,8 @@
 package com.momo.user.controller;
 
+import com.momo.auth.domain.CurrentUser;
 import com.momo.common.dto.EnumResponse;
 import com.momo.group.controller.dto.CategoryRequest;
-import com.momo.auth.domain.CurrentUser;
 import com.momo.user.controller.dto.UserUpdateRequest;
 import com.momo.user.domain.model.User;
 import com.momo.user.service.UserService;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -26,9 +27,9 @@ public class UserController {
     private final UserService userService;
 
     @ApiOperation(value = "닉네임 중복 확인")
-    @GetMapping("/validate/nickname/{nickname}")
-    public ResponseEntity<Boolean> validateNickname(@PathVariable String nickname) {
-        return ResponseEntity.ok(userService.validateNickname(nickname));
+    @GetMapping("/duplicate-nickname")
+    public ResponseEntity<Boolean> validateDuplicateNickname(@RequestParam String nickname) {
+        return ResponseEntity.ok(userService.validateDuplicateNickname(nickname));
     }
 
     @ApiOperation(value = "내 정보 수정")

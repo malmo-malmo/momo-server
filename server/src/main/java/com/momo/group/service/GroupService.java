@@ -33,7 +33,7 @@ public class GroupService {
     }
 
     @Transactional(readOnly = true)
-    public GroupResponse find(User user, Long groupId) {
+    public GroupResponse findById(User user, Long groupId) {
         return groupRepository.findGroupAndParticipantCntAndAuthorityById(user, groupId);
     }
 

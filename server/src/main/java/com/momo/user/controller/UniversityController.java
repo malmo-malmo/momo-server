@@ -20,7 +20,7 @@ public class UniversityController {
 
     @ApiOperation(value = "대학교 목록 조회")
     @GetMapping("/universities")
-    public ResponseEntity<List<UniversityResponse>> find(@RequestParam String universityName) {
-        return ResponseEntity.ok(universityService.find(universityName));
+    public ResponseEntity<List<UniversityResponse>> findByUniversityName(@RequestParam String universityName) {
+        return ResponseEntity.ok(universityService.findByUniversityName(universityName));
     }
 }

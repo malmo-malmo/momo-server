@@ -20,6 +20,7 @@ public class UserService {
 
     public void update(User loginUser, UserUpdateRequest userUpdateRequest) {
         User user = findByUser(loginUser);
+        //TODO : 리팩토링 필요
         if (user.isNotSameNickname(userUpdateRequest.getNickname())) {
             validateIsDuplicateNickname(userUpdateRequest.getNickname());
         }

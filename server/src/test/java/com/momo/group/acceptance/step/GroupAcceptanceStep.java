@@ -20,9 +20,11 @@ import org.springframework.util.CollectionUtils;
 
 public class GroupAcceptanceStep {
 
-    public static void assertThatFindGroup(GroupCreateRequest request, GroupResponse response, boolean isManager,
-        boolean isParticipant, String university) {
+    public static void assertThatFindGroup(GroupCreateRequest request, GroupResponse response, boolean isParticipant,
+        String university) {
         Assertions.assertAll(
+            () -> assertThat(response.getId()).isNotNull(),
+            () -> assertThat(response.getManagerId()).isNotNull(),
             () -> assertThat(response.getName()).isEqualTo(request.getName()),
             () -> assertThat(response.getImageUrl()).isEqualTo(request.getImageUrl()),
             () -> assertThat(response.getStartDate()).isEqualTo(request.getStartDate()),
@@ -32,8 +34,7 @@ public class GroupAcceptanceStep {
             () -> assertThat(response.isOffline()).isEqualTo(request.getIsOffline()),
             () -> assertThat(response.getIntroduction()).isEqualTo(request.getIntroduction()),
             () -> assertThat(response.getParticipantCnt()).isEqualTo(1L),
-            () -> assertThat(response.getIsParticipant()).isEqualTo(isParticipant),
-            () -> assertThat(response.getIsManager()).isEqualTo(isManager)
+            () -> assertThat(response.getIsParticipant()).isEqualTo(isParticipant)
         );
     }
 

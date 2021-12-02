@@ -28,13 +28,13 @@ public class ParticipantService {
     @Transactional(readOnly = true)
     public List<ParticipantResponse> findParticipantsByGroup(User user, Long groupId) {
         Groups group = getGroupById(groupId);
-        validateIsGroupManager(group, user);
+        validateGroupManager(group, user);
         Long scheduleCnt = scheduleRepository.countByGroupAndIsAttendanceCheck(group, true);
         return participantRepository.findParticipantAndAttendanceRateByGroup(group, scheduleCnt);
     }
 
-    public void validateIsGroupManager(Groups group, User user) {
-        if (!group.isManager(user)) {
+    public void validateGroupManager(Groups group, User user) {
+        if (group.isNotManager(user)) {
             throw new CustomException(ErrorCode.GROUP_PARTICIPANTS_UNAUTHORIZED);
         }
     }

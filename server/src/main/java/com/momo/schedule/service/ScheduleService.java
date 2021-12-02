@@ -34,20 +34,30 @@ public class ScheduleService {
 
     public Long create(User user, ScheduleCreateRequest request) {
         Groups group = getGroupById(request.getGroupId());
-        if (!group.isManager(user)) {
+        validateGroupManager(group, user);
+        return scheduleRepository.save(Schedule.create(request.toEntity(), group, user)).getId();
+    }
+
+    public void validateGroupManager(Groups group, User user) {
+        if (group.isNotManager(user)) {
             throw new CustomException(ErrorCode.GROUP_SCHEDULE_UNAUTHORIZED);
         }
-        return scheduleRepository.save(Schedule.create(request.toEntity(), group, user)).getId();
     }
 
     @Transactional(readOnly = true)
     public GroupSchedulesResponse findPageByGroupAndUser(User user, GroupSchedulesRequest request) {
         Groups group = getGroupById(request.getGroupId());
-        validateIsGroupParticipant(user, group);
+        validateGroupParticipant(user, group);
         PageRequest pageRequest = PageRequest.of(request.getPage(), request.getSize());
         List<GroupScheduleResponse> responses = scheduleRepository
             .findAllByGroupAndUserOrderByCreatedDateDesc(group, user, pageRequest);
-        return GroupSchedulesResponse.of(responses, group.isManager(user));
+        return GroupSchedulesResponse.of(responses, group.getManager().getId());
+    }
+
+    public void validateGroupParticipant(User user, Groups group) {
+        if (!participantRepository.existsByUserAndGroup(user, group)) {
+            throw new CustomException(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED);
+        }
     }
 
     @Transactional(readOnly = true)
@@ -62,11 +72,5 @@ public class ScheduleService {
     public Groups getGroupById(Long groupId) {
         return groupRepository.findById(groupId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
-    }
-
-    public void validateIsGroupParticipant(User user, Groups group) {
-        if (!participantRepository.existsByUserAndGroup(user, group)) {
-            throw new CustomException(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED);
-        }
     }
 }

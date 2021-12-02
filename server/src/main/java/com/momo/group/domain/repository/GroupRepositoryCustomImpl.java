@@ -30,6 +30,7 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
         return queryFactory
             .select(new QGroupResponse(
                 groups.id,
+                groups.manager.id,
                 groups.name,
                 groups.imageUrl,
                 groups.startDate,
@@ -38,7 +39,6 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
                 groups.district,
                 groups.isOffline,
                 groups.introduction,
-                groups.manager.eq(loginUser),
                 JPAExpressions
                     .select(participant.count())
                     .from(participant)

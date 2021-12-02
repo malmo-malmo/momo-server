@@ -42,7 +42,7 @@ public class PostService {
         if (request.getPostType().equals(PostType.NORMAL.name())) {
             validateGroupParticipant(user, group);
         } else {
-            if (!group.isManager(user)) {
+            if (group.isNotManager(user)) {
                 throw new CustomException(ErrorCode.GROUP_NOTICE_UNAUTHORIZED);
             }
         }

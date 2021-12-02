@@ -29,6 +29,7 @@ public class PostAcceptanceStep {
             () -> assertThat(response.getId()).isEqualTo(postId),
             () -> assertThat(response.getAuthorImage()).isEqualTo(createUser.getImage()),
             () -> assertThat(response.getAuthorNickname()).isEqualTo(createUser.getNickname()),
+            () -> assertThat(response.getAuthorId()).isNotNull(),
             () -> assertThat(response.getCreatedDate()).isNotNull()
         );
     }

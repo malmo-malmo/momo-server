@@ -17,17 +17,17 @@ import org.springframework.http.MediaType;
 public class ScheduleAcceptanceStep {
 
     public static void assertThatFindGroupSchedule(ScheduleCreateRequest request, GroupSchedulesResponse response,
-        User author, boolean isManager, boolean isAttendance, boolean isAttendanceCheck) {
+        User author, boolean isAttend, boolean isAttendanceCheck) {
         Assertions.assertAll(
             () -> assertThat(response.getSchedules().size()).isEqualTo(1),
-            () -> assertThat(response.isManager()).isEqualTo(isManager),
+            () -> assertThat(response.getManagerId()).isNotNull(),
             () -> assertThat(response.getSchedules().get(0).getAuthorImage()).isEqualTo(author.getImage()),
             () -> assertThat(response.getSchedules().get(0).getAuthorNickname()).isEqualTo(author.getNickname()),
             () -> assertThat(response.getSchedules().get(0).getTitle()).isEqualTo(request.getTitle()),
             () -> assertThat(response.getSchedules().get(0).getStartDateTime()).isEqualTo(request.getStartDateTime()),
             () -> assertThat(response.getSchedules().get(0).getContents()).isEqualTo(request.getContents()),
             () -> assertThat(response.getSchedules().get(0).isOffline()).isEqualTo(request.getIsOffline()),
-            () -> assertThat(response.getSchedules().get(0).isAttend()).isEqualTo(isAttendance),
+            () -> assertThat(response.getSchedules().get(0).isAttend()).isEqualTo(isAttend),
             () -> assertThat(response.getSchedules().get(0).isAttendanceCheck()).isEqualTo(isAttendanceCheck)
         );
     }

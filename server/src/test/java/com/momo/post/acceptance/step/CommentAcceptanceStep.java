@@ -28,10 +28,16 @@ public class CommentAcceptanceStep {
     public static void assertThatFindComments(List<CommentCreateRequest> requests, CommentsResponse response) {
         Assertions.assertAll(
             () -> assertThat(response.getCommentResponses().size()).isEqualTo(2),
+            () -> assertThat(response.getCommentCnt()).isEqualTo(2),
+            () -> assertThat(response.getCommentResponses())
+                .extracting("authorId")
+                .isNotNull(),
             () -> assertThat(response.getCommentResponses())
                 .extracting("contents")
                 .containsExactly(requests.get(0).getContents(), requests.get(1).getContents()),
-            () -> assertThat(response.getCommentCnt()).isEqualTo(2)
+            () -> assertThat(response.getCommentResponses())
+                .extracting("createdDate")
+                .isNotNull()
         );
     }
 

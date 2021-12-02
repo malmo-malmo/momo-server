@@ -15,6 +15,8 @@ public class PostResponse {
 
     private Long id;
 
+    private Long authorId;
+
     private String authorImage;
 
     private String authorNickname;
@@ -28,9 +30,10 @@ public class PostResponse {
     private LocalDateTime createdDate;
 
     @Builder
-    public PostResponse(Long id, String authorImage, String authorNickname, String title, String contents,
-        List<String> imageUrls, LocalDateTime createdDate) {
+    public PostResponse(Long id, Long authorId, String authorImage, String authorNickname, String title,
+        String contents, List<String> imageUrls, LocalDateTime createdDate) {
         this.id = id;
+        this.authorId = authorId;
         this.authorImage = authorImage;
         this.authorNickname = authorNickname;
         this.title = title;
@@ -42,6 +45,7 @@ public class PostResponse {
     public static PostResponse of(Post post, List<Image> images) {
         return PostResponse.builder()
             .id(post.getId())
+            .authorId(post.getAuthor().getId())
             .authorImage(post.getAuthor().getImage())
             .authorNickname(post.getAuthor().getNickname())
             .title(post.getTitle())

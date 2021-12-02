@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 public class GroupSchedulesResponse {
 
     private List<GroupScheduleResponse> schedules;
-    private boolean isManager;
+    private Long managerId;
 
-    public static GroupSchedulesResponse of(List<GroupScheduleResponse> responses, boolean isManager) {
-        return new GroupSchedulesResponse(responses, isManager);
+    public static GroupSchedulesResponse of(List<GroupScheduleResponse> responses, Long managerId) {
+        return new GroupSchedulesResponse(responses, managerId);
     }
 }

@@ -40,7 +40,7 @@ public class PostService {
         Groups group = getGroupById(request.getGroupId());
         //TODO : 리팩토링 하기!
         if (request.getPostType().equals(PostType.NORMAL.name())) {
-            validateIsGroupParticipant(user, group);
+            validateGroupParticipant(user, group);
         } else {
             if (!group.isManager(user)) {
                 throw new CustomException(ErrorCode.GROUP_NOTICE_UNAUTHORIZED);
@@ -60,14 +60,14 @@ public class PostService {
     @Transactional(readOnly = true)
     public PostResponse find(User user, Long postId) {
         Post post = postRepository.findPostAndAuthorById(postId);
-        validateIsGroupParticipant(user, post.getGroup());
+        validateGroupParticipant(user, post.getGroup());
         return PostResponse.of(post, imageRepository.findAllByPost(post));
     }
 
     @Transactional(readOnly = true)
     public List<PostCardResponse> findPageByGroupAndType(User user, PostCardsRequest request) {
         Groups group = getGroupById(request.getGroupId());
-        validateIsGroupParticipant(user, group);
+        validateGroupParticipant(user, group);
         PostType postType = PostType.of(request.getType());
         PageRequest page = PageRequest.of(request.getPage(), request.getSize());
         return postRepository.findAllByGroupAndTypeOrderByCreatedDateDesc(group, postType, page);
@@ -78,7 +78,7 @@ public class PostService {
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
-    public void validateIsGroupParticipant(User user, Groups group) {
+    public void validateGroupParticipant(User user, Groups group) {
         if (!participantRepository.existsByUserAndGroup(user, group)) {
             throw new CustomException(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED);
         }

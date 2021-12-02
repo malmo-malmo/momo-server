@@ -14,6 +14,8 @@ public class CommentResponse {
 
     private Long id;
 
+    private Long authorId;
+
     private String authorImage;
 
     private String authorNickname;
@@ -23,9 +25,10 @@ public class CommentResponse {
     private LocalDateTime createdDate;
 
     @Builder
-    public CommentResponse(Long id, String authorImage, String authorNickname, String contents,
+    public CommentResponse(Long id, Long authorId, String authorImage, String authorNickname, String contents,
         LocalDateTime createdDate) {
         this.id = id;
+        this.authorId = authorId;
         this.authorImage = authorImage;
         this.authorNickname = authorNickname;
         this.contents = contents;
@@ -35,6 +38,7 @@ public class CommentResponse {
     public static CommentResponse of(Comment comment) {
         return CommentResponse.builder()
             .id(comment.getId())
+            .authorId(comment.getUser().getId())
             .authorImage(comment.getUser().getImage())
             .authorNickname(comment.getUser().getNickname())
             .contents(comment.getContents())

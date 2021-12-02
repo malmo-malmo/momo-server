@@ -25,11 +25,11 @@ public class GroupScheduleResponse {
 
     private boolean isAttendanceCheck;
 
-    private boolean isAttendance;
+    private boolean isAttend;
 
     @QueryProjection
     public GroupScheduleResponse(Long id, String authorImage, String authorNickname, String title, boolean isOffline,
-        LocalDateTime startDateTime, String contents, boolean isAttendanceCheck, boolean isAttendance) {
+        LocalDateTime startDateTime, String contents, boolean isAttendanceCheck, boolean isAttend) {
         this.id = id;
         this.authorImage = authorImage;
         this.authorNickname = authorNickname;
@@ -38,6 +38,6 @@ public class GroupScheduleResponse {
         this.startDateTime = startDateTime;
         this.contents = contents;
         this.isAttendanceCheck = isAttendanceCheck;
-        this.isAttendance = isAttendance;
+        this.isAttend = isAttend;
     }
 }

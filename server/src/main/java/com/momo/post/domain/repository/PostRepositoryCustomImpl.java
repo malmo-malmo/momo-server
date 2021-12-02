@@ -32,6 +32,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                 post.author.nickname,
                 post.title,
                 post.contents,
+                post.createdDate,
                 JPAExpressions
                     .select(comment.count())
                     .from(comment)

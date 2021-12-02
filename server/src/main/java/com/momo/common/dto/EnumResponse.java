@@ -16,12 +16,12 @@ public class EnumResponse {
     private String code;
     private String name;
 
-    public EnumResponse(String code, String name) {
+    private EnumResponse(String code, String name) {
         this.code = code;
         this.name = name;
     }
 
-    public static EnumResponse of(String code, String name) {
+    private static EnumResponse of(String code, String name) {
         return new EnumResponse(code, name);
     }
 

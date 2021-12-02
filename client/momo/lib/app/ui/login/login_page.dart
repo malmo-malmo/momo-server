@@ -1,14 +1,18 @@
+import 'dart:developer' as dp;
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kakao_flutter_sdk/all.dart';
+import 'package:momo/app/provider/auth/token_provider.dart';
+import 'package:momo/app/provider/user/category_result_provider.dart';
+import 'package:momo/app/provider/user/location_result_provider.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/navigation_service.dart';
-
-import 'dart:developer' as dp;
-
 import 'package:momo/app/util/theme.dart';
+import 'package:momo/main.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -21,27 +25,21 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   final dio = Dio();
 
   Future<void> loginWithKakao() async {
-    String? authCode;
-    try {
-      authCode = await AuthCodeClient.instance.requestWithTalk();
+    final isGPhone = await getDeviceInfo();
+    baseUrl =
+        isGPhone ? 'http://10.0.2.2:8080/api' : 'http://192.168.0.2:8080/api';
 
-      dp.log('authCode: $authCode');
-    } on KakaoAuthException catch (e) {
-      dp.log('KakaoAuthException: ${e.toString()}');
-    } on KakaoClientException catch (e) {
-      dp.log('KakaoClientException: ${e.toString()}');
-    } catch (e) {
-      dp.log('OnotherException: ${e.toString()}');
-    }
+    final authCode = await getAuthCode();
 
     final response = await dio.post(
-      'http://localhost:8080/api/oauth/login',
+      '$baseUrl/oauth/login',
       data: {
         'authorizationCode': '$authCode',
         'provider': 'kakao',
       },
     );
-    dp.log('${response.data}');
+    ref.watch(tokenStateProvider.state).state = response.data['accessToken'];
+    await getLocatinosAndCategories();
   }
 
   @override
@@ -61,7 +59,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               ),
               InkWell(
                 onTap: () async {
-                  // await loginWithKakao();
+                  await loginWithKakao();
                   ref
                       .read(navigatorProvider)
                       .navigateToRemove(routeName: AppRoutes.trems);
@@ -75,5 +73,33 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ),
       ),
     );
+  }
+
+  Future<bool> getDeviceInfo() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    return androidInfo.model == 'sdk_gphone_x86' ? true : false;
+  }
+
+  Future<void> getLocatinosAndCategories() async {
+    await ref.watch(categoryResultProvider.future);
+    await ref.watch(locationResultProvider.future);
+  }
+
+  Future<String?> getAuthCode() async {
+    String? authCode;
+    try {
+      final check = await isKakaoTalkInstalled();
+      authCode = check
+          ? await AuthCodeClient.instance.requestWithTalk()
+          : await AuthCodeClient.instance.request();
+    } on KakaoAuthException catch (e) {
+      dp.log('KakaoAuthException: ${e.toString()}');
+    } on KakaoClientException catch (e) {
+      dp.log('KakaoClientException: ${e.toString()}');
+    } catch (e) {
+      dp.log('OnotherException: ${e.toString()}');
+    }
+    return authCode;
   }
 }

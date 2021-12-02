@@ -9,23 +9,20 @@ part of 'post_detail.dart';
 _$_PostDetail _$$_PostDetailFromJson(Map<String, dynamic> json) =>
     _$_PostDetail(
       id: json['id'] as int,
-      name: json['name'] as String,
+      authorNickname: json['authorNickname'] as String,
       title: json['title'] as String,
       contents: json['contents'] as String,
-      profile: json['profile'] as String,
-      img: json['img'] as String,
-      date: json['date'] as String,
-      comments: json['comments'] as int,
+      authorImage: json['authorImage'] as String,
+      imageUrls:
+          (json['imageUrls'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$$_PostDetailToJson(_$_PostDetail instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'name': instance.name,
+      'authorNickname': instance.authorNickname,
       'title': instance.title,
       'contents': instance.contents,
-      'profile': instance.profile,
-      'img': instance.img,
-      'date': instance.date,
-      'comments': instance.comments,
+      'authorImage': instance.authorImage,
+      'imageUrls': instance.imageUrls,
     };

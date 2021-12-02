@@ -23,16 +23,16 @@ class _$CommentTearOff {
 
   _Comment call(
       {required int id,
-      required String name,
+      required String authorNickname,
       required String contents,
-      required String profile,
-      required String date}) {
+      required String authorImage,
+      required String createdDate}) {
     return _Comment(
       id: id,
-      name: name,
+      authorNickname: authorNickname,
       contents: contents,
-      profile: profile,
-      date: date,
+      authorImage: authorImage,
+      createdDate: createdDate,
     );
   }
 
@@ -47,10 +47,10 @@ const $Comment = _$CommentTearOff();
 /// @nodoc
 mixin _$Comment {
   int get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  String get authorNickname => throw _privateConstructorUsedError;
   String get contents => throw _privateConstructorUsedError;
-  String get profile => throw _privateConstructorUsedError;
-  String get date => throw _privateConstructorUsedError;
+  String get authorImage => throw _privateConstructorUsedError;
+  String get createdDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -62,7 +62,11 @@ abstract class $CommentCopyWith<$Res> {
   factory $CommentCopyWith(Comment value, $Res Function(Comment) then) =
       _$CommentCopyWithImpl<$Res>;
   $Res call(
-      {int id, String name, String contents, String profile, String date});
+      {int id,
+      String authorNickname,
+      String contents,
+      String authorImage,
+      String createdDate});
 }
 
 /// @nodoc
@@ -76,31 +80,31 @@ class _$CommentCopyWithImpl<$Res> implements $CommentCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
+    Object? authorNickname = freezed,
     Object? contents = freezed,
-    Object? profile = freezed,
-    Object? date = freezed,
+    Object? authorImage = freezed,
+    Object? createdDate = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      authorNickname: authorNickname == freezed
+          ? _value.authorNickname
+          : authorNickname // ignore: cast_nullable_to_non_nullable
               as String,
       contents: contents == freezed
           ? _value.contents
           : contents // ignore: cast_nullable_to_non_nullable
               as String,
-      profile: profile == freezed
-          ? _value.profile
-          : profile // ignore: cast_nullable_to_non_nullable
+      authorImage: authorImage == freezed
+          ? _value.authorImage
+          : authorImage // ignore: cast_nullable_to_non_nullable
               as String,
-      date: date == freezed
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
+      createdDate: createdDate == freezed
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -112,7 +116,11 @@ abstract class _$CommentCopyWith<$Res> implements $CommentCopyWith<$Res> {
       __$CommentCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int id, String name, String contents, String profile, String date});
+      {int id,
+      String authorNickname,
+      String contents,
+      String authorImage,
+      String createdDate});
 }
 
 /// @nodoc
@@ -127,31 +135,31 @@ class __$CommentCopyWithImpl<$Res> extends _$CommentCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
+    Object? authorNickname = freezed,
     Object? contents = freezed,
-    Object? profile = freezed,
-    Object? date = freezed,
+    Object? authorImage = freezed,
+    Object? createdDate = freezed,
   }) {
     return _then(_Comment(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      authorNickname: authorNickname == freezed
+          ? _value.authorNickname
+          : authorNickname // ignore: cast_nullable_to_non_nullable
               as String,
       contents: contents == freezed
           ? _value.contents
           : contents // ignore: cast_nullable_to_non_nullable
               as String,
-      profile: profile == freezed
-          ? _value.profile
-          : profile // ignore: cast_nullable_to_non_nullable
+      authorImage: authorImage == freezed
+          ? _value.authorImage
+          : authorImage // ignore: cast_nullable_to_non_nullable
               as String,
-      date: date == freezed
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
+      createdDate: createdDate == freezed
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -162,10 +170,10 @@ class __$CommentCopyWithImpl<$Res> extends _$CommentCopyWithImpl<$Res>
 class _$_Comment implements _Comment {
   _$_Comment(
       {required this.id,
-      required this.name,
+      required this.authorNickname,
       required this.contents,
-      required this.profile,
-      required this.date});
+      required this.authorImage,
+      required this.createdDate});
 
   factory _$_Comment.fromJson(Map<String, dynamic> json) =>
       _$$_CommentFromJson(json);
@@ -173,17 +181,17 @@ class _$_Comment implements _Comment {
   @override
   final int id;
   @override
-  final String name;
+  final String authorNickname;
   @override
   final String contents;
   @override
-  final String profile;
+  final String authorImage;
   @override
-  final String date;
+  final String createdDate;
 
   @override
   String toString() {
-    return 'Comment(id: $id, name: $name, contents: $contents, profile: $profile, date: $date)';
+    return 'Comment(id: $id, authorNickname: $authorNickname, contents: $contents, authorImage: $authorImage, createdDate: $createdDate)';
   }
 
   @override
@@ -192,16 +200,19 @@ class _$_Comment implements _Comment {
         (other.runtimeType == runtimeType &&
             other is _Comment &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
+            (identical(other.authorNickname, authorNickname) ||
+                other.authorNickname == authorNickname) &&
             (identical(other.contents, contents) ||
                 other.contents == contents) &&
-            (identical(other.profile, profile) || other.profile == profile) &&
-            (identical(other.date, date) || other.date == date));
+            (identical(other.authorImage, authorImage) ||
+                other.authorImage == authorImage) &&
+            (identical(other.createdDate, createdDate) ||
+                other.createdDate == createdDate));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, contents, profile, date);
+  int get hashCode => Object.hash(
+      runtimeType, id, authorNickname, contents, authorImage, createdDate);
 
   @JsonKey(ignore: true)
   @override
@@ -217,23 +228,23 @@ class _$_Comment implements _Comment {
 abstract class _Comment implements Comment {
   factory _Comment(
       {required int id,
-      required String name,
+      required String authorNickname,
       required String contents,
-      required String profile,
-      required String date}) = _$_Comment;
+      required String authorImage,
+      required String createdDate}) = _$_Comment;
 
   factory _Comment.fromJson(Map<String, dynamic> json) = _$_Comment.fromJson;
 
   @override
   int get id;
   @override
-  String get name;
+  String get authorNickname;
   @override
   String get contents;
   @override
-  String get profile;
+  String get authorImage;
   @override
-  String get date;
+  String get createdDate;
   @override
   @JsonKey(ignore: true)
   _$CommentCopyWith<_Comment> get copyWith =>

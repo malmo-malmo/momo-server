@@ -7,13 +7,11 @@ part 'post_detail.freezed.dart';
 class PostDetail with _$PostDetail {
   factory PostDetail({
     required int id,
-    required String name,
+    required String authorNickname,
     required String title,
     required String contents,
-    required String profile,
-    required String img,
-    required String date,
-    required int comments,
+    required String authorImage,
+    required List<String> imageUrls,
   }) = _PostDetail;
 
   factory PostDetail.fromJson(Map<String, dynamic> json) =>

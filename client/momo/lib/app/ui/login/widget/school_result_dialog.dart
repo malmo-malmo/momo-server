@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:momo/app/provider/login/school_result_provider.dart';
+import 'package:momo/app/provider/user/school_result_provider.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 Widget schoolResultDialog({
   required Function(String school) onSelect,
+  required String universityName,
 }) {
   return Consumer(
     builder: (context, ref, _) {
-      final schoolResult = ref.watch(schoolResultProvider);
+      final schoolResult = ref.watch(universityResultProvider(universityName));
 
       return Dialog(
         insetPadding: const EdgeInsets.all(1),

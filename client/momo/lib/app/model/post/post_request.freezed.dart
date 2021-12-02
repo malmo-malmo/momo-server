@@ -22,11 +22,17 @@ class _$PostRequestTearOff {
   const _$PostRequestTearOff();
 
   _PostRequest call(
-      {required String title, required String contents, required String img}) {
+      {required int groupId,
+      required String title,
+      required String contents,
+      required List<String> imageUrls,
+      required String postType}) {
     return _PostRequest(
+      groupId: groupId,
       title: title,
       contents: contents,
-      img: img,
+      imageUrls: imageUrls,
+      postType: postType,
     );
   }
 
@@ -40,9 +46,11 @@ const $PostRequest = _$PostRequestTearOff();
 
 /// @nodoc
 mixin _$PostRequest {
+  int get groupId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get contents => throw _privateConstructorUsedError;
-  String get img => throw _privateConstructorUsedError;
+  List<String> get imageUrls => throw _privateConstructorUsedError;
+  String get postType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -55,7 +63,12 @@ abstract class $PostRequestCopyWith<$Res> {
   factory $PostRequestCopyWith(
           PostRequest value, $Res Function(PostRequest) then) =
       _$PostRequestCopyWithImpl<$Res>;
-  $Res call({String title, String contents, String img});
+  $Res call(
+      {int groupId,
+      String title,
+      String contents,
+      List<String> imageUrls,
+      String postType});
 }
 
 /// @nodoc
@@ -68,11 +81,17 @@ class _$PostRequestCopyWithImpl<$Res> implements $PostRequestCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? groupId = freezed,
     Object? title = freezed,
     Object? contents = freezed,
-    Object? img = freezed,
+    Object? imageUrls = freezed,
+    Object? postType = freezed,
   }) {
     return _then(_value.copyWith(
+      groupId: groupId == freezed
+          ? _value.groupId
+          : groupId // ignore: cast_nullable_to_non_nullable
+              as int,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -81,9 +100,13 @@ class _$PostRequestCopyWithImpl<$Res> implements $PostRequestCopyWith<$Res> {
           ? _value.contents
           : contents // ignore: cast_nullable_to_non_nullable
               as String,
-      img: img == freezed
-          ? _value.img
-          : img // ignore: cast_nullable_to_non_nullable
+      imageUrls: imageUrls == freezed
+          ? _value.imageUrls
+          : imageUrls // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      postType: postType == freezed
+          ? _value.postType
+          : postType // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -96,7 +119,12 @@ abstract class _$PostRequestCopyWith<$Res>
           _PostRequest value, $Res Function(_PostRequest) then) =
       __$PostRequestCopyWithImpl<$Res>;
   @override
-  $Res call({String title, String contents, String img});
+  $Res call(
+      {int groupId,
+      String title,
+      String contents,
+      List<String> imageUrls,
+      String postType});
 }
 
 /// @nodoc
@@ -111,11 +139,17 @@ class __$PostRequestCopyWithImpl<$Res> extends _$PostRequestCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? groupId = freezed,
     Object? title = freezed,
     Object? contents = freezed,
-    Object? img = freezed,
+    Object? imageUrls = freezed,
+    Object? postType = freezed,
   }) {
     return _then(_PostRequest(
+      groupId: groupId == freezed
+          ? _value.groupId
+          : groupId // ignore: cast_nullable_to_non_nullable
+              as int,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -124,9 +158,13 @@ class __$PostRequestCopyWithImpl<$Res> extends _$PostRequestCopyWithImpl<$Res>
           ? _value.contents
           : contents // ignore: cast_nullable_to_non_nullable
               as String,
-      img: img == freezed
-          ? _value.img
-          : img // ignore: cast_nullable_to_non_nullable
+      imageUrls: imageUrls == freezed
+          ? _value.imageUrls
+          : imageUrls // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      postType: postType == freezed
+          ? _value.postType
+          : postType // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -136,21 +174,29 @@ class __$PostRequestCopyWithImpl<$Res> extends _$PostRequestCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_PostRequest implements _PostRequest {
   _$_PostRequest(
-      {required this.title, required this.contents, required this.img});
+      {required this.groupId,
+      required this.title,
+      required this.contents,
+      required this.imageUrls,
+      required this.postType});
 
   factory _$_PostRequest.fromJson(Map<String, dynamic> json) =>
       _$$_PostRequestFromJson(json);
 
   @override
+  final int groupId;
+  @override
   final String title;
   @override
   final String contents;
   @override
-  final String img;
+  final List<String> imageUrls;
+  @override
+  final String postType;
 
   @override
   String toString() {
-    return 'PostRequest(title: $title, contents: $contents, img: $img)';
+    return 'PostRequest(groupId: $groupId, title: $title, contents: $contents, imageUrls: $imageUrls, postType: $postType)';
   }
 
   @override
@@ -158,14 +204,18 @@ class _$_PostRequest implements _PostRequest {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _PostRequest &&
+            (identical(other.groupId, groupId) || other.groupId == groupId) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.contents, contents) ||
                 other.contents == contents) &&
-            (identical(other.img, img) || other.img == img));
+            const DeepCollectionEquality().equals(other.imageUrls, imageUrls) &&
+            (identical(other.postType, postType) ||
+                other.postType == postType));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, title, contents, img);
+  int get hashCode => Object.hash(runtimeType, groupId, title, contents,
+      const DeepCollectionEquality().hash(imageUrls), postType);
 
   @JsonKey(ignore: true)
   @override
@@ -180,19 +230,25 @@ class _$_PostRequest implements _PostRequest {
 
 abstract class _PostRequest implements PostRequest {
   factory _PostRequest(
-      {required String title,
+      {required int groupId,
+      required String title,
       required String contents,
-      required String img}) = _$_PostRequest;
+      required List<String> imageUrls,
+      required String postType}) = _$_PostRequest;
 
   factory _PostRequest.fromJson(Map<String, dynamic> json) =
       _$_PostRequest.fromJson;
 
   @override
+  int get groupId;
+  @override
   String get title;
   @override
   String get contents;
   @override
-  String get img;
+  List<String> get imageUrls;
+  @override
+  String get postType;
   @override
   @JsonKey(ignore: true)
   _$PostRequestCopyWith<_PostRequest> get copyWith =>

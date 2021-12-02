@@ -23,22 +23,18 @@ class _$PostDetailTearOff {
 
   _PostDetail call(
       {required int id,
-      required String name,
+      required String authorNickname,
       required String title,
       required String contents,
-      required String profile,
-      required String img,
-      required String date,
-      required int comments}) {
+      required String authorImage,
+      required List<String> imageUrls}) {
     return _PostDetail(
       id: id,
-      name: name,
+      authorNickname: authorNickname,
       title: title,
       contents: contents,
-      profile: profile,
-      img: img,
-      date: date,
-      comments: comments,
+      authorImage: authorImage,
+      imageUrls: imageUrls,
     );
   }
 
@@ -53,13 +49,11 @@ const $PostDetail = _$PostDetailTearOff();
 /// @nodoc
 mixin _$PostDetail {
   int get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  String get authorNickname => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get contents => throw _privateConstructorUsedError;
-  String get profile => throw _privateConstructorUsedError;
-  String get img => throw _privateConstructorUsedError;
-  String get date => throw _privateConstructorUsedError;
-  int get comments => throw _privateConstructorUsedError;
+  String get authorImage => throw _privateConstructorUsedError;
+  List<String> get imageUrls => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -74,13 +68,11 @@ abstract class $PostDetailCopyWith<$Res> {
       _$PostDetailCopyWithImpl<$Res>;
   $Res call(
       {int id,
-      String name,
+      String authorNickname,
       String title,
       String contents,
-      String profile,
-      String img,
-      String date,
-      int comments});
+      String authorImage,
+      List<String> imageUrls});
 }
 
 /// @nodoc
@@ -94,22 +86,20 @@ class _$PostDetailCopyWithImpl<$Res> implements $PostDetailCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
+    Object? authorNickname = freezed,
     Object? title = freezed,
     Object? contents = freezed,
-    Object? profile = freezed,
-    Object? img = freezed,
-    Object? date = freezed,
-    Object? comments = freezed,
+    Object? authorImage = freezed,
+    Object? imageUrls = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      authorNickname: authorNickname == freezed
+          ? _value.authorNickname
+          : authorNickname // ignore: cast_nullable_to_non_nullable
               as String,
       title: title == freezed
           ? _value.title
@@ -119,22 +109,14 @@ class _$PostDetailCopyWithImpl<$Res> implements $PostDetailCopyWith<$Res> {
           ? _value.contents
           : contents // ignore: cast_nullable_to_non_nullable
               as String,
-      profile: profile == freezed
-          ? _value.profile
-          : profile // ignore: cast_nullable_to_non_nullable
+      authorImage: authorImage == freezed
+          ? _value.authorImage
+          : authorImage // ignore: cast_nullable_to_non_nullable
               as String,
-      img: img == freezed
-          ? _value.img
-          : img // ignore: cast_nullable_to_non_nullable
-              as String,
-      date: date == freezed
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as String,
-      comments: comments == freezed
-          ? _value.comments
-          : comments // ignore: cast_nullable_to_non_nullable
-              as int,
+      imageUrls: imageUrls == freezed
+          ? _value.imageUrls
+          : imageUrls // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -147,13 +129,11 @@ abstract class _$PostDetailCopyWith<$Res> implements $PostDetailCopyWith<$Res> {
   @override
   $Res call(
       {int id,
-      String name,
+      String authorNickname,
       String title,
       String contents,
-      String profile,
-      String img,
-      String date,
-      int comments});
+      String authorImage,
+      List<String> imageUrls});
 }
 
 /// @nodoc
@@ -169,22 +149,20 @@ class __$PostDetailCopyWithImpl<$Res> extends _$PostDetailCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
+    Object? authorNickname = freezed,
     Object? title = freezed,
     Object? contents = freezed,
-    Object? profile = freezed,
-    Object? img = freezed,
-    Object? date = freezed,
-    Object? comments = freezed,
+    Object? authorImage = freezed,
+    Object? imageUrls = freezed,
   }) {
     return _then(_PostDetail(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      authorNickname: authorNickname == freezed
+          ? _value.authorNickname
+          : authorNickname // ignore: cast_nullable_to_non_nullable
               as String,
       title: title == freezed
           ? _value.title
@@ -194,22 +172,14 @@ class __$PostDetailCopyWithImpl<$Res> extends _$PostDetailCopyWithImpl<$Res>
           ? _value.contents
           : contents // ignore: cast_nullable_to_non_nullable
               as String,
-      profile: profile == freezed
-          ? _value.profile
-          : profile // ignore: cast_nullable_to_non_nullable
+      authorImage: authorImage == freezed
+          ? _value.authorImage
+          : authorImage // ignore: cast_nullable_to_non_nullable
               as String,
-      img: img == freezed
-          ? _value.img
-          : img // ignore: cast_nullable_to_non_nullable
-              as String,
-      date: date == freezed
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as String,
-      comments: comments == freezed
-          ? _value.comments
-          : comments // ignore: cast_nullable_to_non_nullable
-              as int,
+      imageUrls: imageUrls == freezed
+          ? _value.imageUrls
+          : imageUrls // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -219,13 +189,11 @@ class __$PostDetailCopyWithImpl<$Res> extends _$PostDetailCopyWithImpl<$Res>
 class _$_PostDetail implements _PostDetail {
   _$_PostDetail(
       {required this.id,
-      required this.name,
+      required this.authorNickname,
       required this.title,
       required this.contents,
-      required this.profile,
-      required this.img,
-      required this.date,
-      required this.comments});
+      required this.authorImage,
+      required this.imageUrls});
 
   factory _$_PostDetail.fromJson(Map<String, dynamic> json) =>
       _$$_PostDetailFromJson(json);
@@ -233,23 +201,19 @@ class _$_PostDetail implements _PostDetail {
   @override
   final int id;
   @override
-  final String name;
+  final String authorNickname;
   @override
   final String title;
   @override
   final String contents;
   @override
-  final String profile;
+  final String authorImage;
   @override
-  final String img;
-  @override
-  final String date;
-  @override
-  final int comments;
+  final List<String> imageUrls;
 
   @override
   String toString() {
-    return 'PostDetail(id: $id, name: $name, title: $title, contents: $contents, profile: $profile, img: $img, date: $date, comments: $comments)';
+    return 'PostDetail(id: $id, authorNickname: $authorNickname, title: $title, contents: $contents, authorImage: $authorImage, imageUrls: $imageUrls)';
   }
 
   @override
@@ -258,20 +222,19 @@ class _$_PostDetail implements _PostDetail {
         (other.runtimeType == runtimeType &&
             other is _PostDetail &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
+            (identical(other.authorNickname, authorNickname) ||
+                other.authorNickname == authorNickname) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.contents, contents) ||
                 other.contents == contents) &&
-            (identical(other.profile, profile) || other.profile == profile) &&
-            (identical(other.img, img) || other.img == img) &&
-            (identical(other.date, date) || other.date == date) &&
-            (identical(other.comments, comments) ||
-                other.comments == comments));
+            (identical(other.authorImage, authorImage) ||
+                other.authorImage == authorImage) &&
+            const DeepCollectionEquality().equals(other.imageUrls, imageUrls));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, name, title, contents, profile, img, date, comments);
+  int get hashCode => Object.hash(runtimeType, id, authorNickname, title,
+      contents, authorImage, const DeepCollectionEquality().hash(imageUrls));
 
   @JsonKey(ignore: true)
   @override
@@ -287,13 +250,11 @@ class _$_PostDetail implements _PostDetail {
 abstract class _PostDetail implements PostDetail {
   factory _PostDetail(
       {required int id,
-      required String name,
+      required String authorNickname,
       required String title,
       required String contents,
-      required String profile,
-      required String img,
-      required String date,
-      required int comments}) = _$_PostDetail;
+      required String authorImage,
+      required List<String> imageUrls}) = _$_PostDetail;
 
   factory _PostDetail.fromJson(Map<String, dynamic> json) =
       _$_PostDetail.fromJson;
@@ -301,19 +262,15 @@ abstract class _PostDetail implements PostDetail {
   @override
   int get id;
   @override
-  String get name;
+  String get authorNickname;
   @override
   String get title;
   @override
   String get contents;
   @override
-  String get profile;
+  String get authorImage;
   @override
-  String get img;
-  @override
-  String get date;
-  @override
-  int get comments;
+  List<String> get imageUrls;
   @override
   @JsonKey(ignore: true)
   _$PostDetailCopyWith<_PostDetail> get copyWith =>

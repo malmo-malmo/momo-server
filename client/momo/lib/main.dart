@@ -9,13 +9,12 @@ import 'package:momo/app/util/provider_log.dart';
 import 'package:momo/app/util/theme.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+String? baseUrl;
+
 void main() async {
   await dotenv.load(fileName: ".env");
-
   final kakaoKey = dotenv.get('KAKAOKEY');
-  //  카카오 로그인
   KakaoContext.clientId = kakaoKey;
-
   runApp(
     ProviderScope(
       child: const MyApp(),
@@ -45,7 +44,7 @@ class MyApp extends ConsumerWidget {
         navigatorKey: ref.watch(navigatorProvider).navigatorKey,
         scrollBehavior: MyBehavior(),
         initialRoute: AppRoutes.login,
-        theme: MomoThemeData,
+        theme: momoThemeData,
         onGenerateRoute: (settings) => AppRouter.onGenerateRoute(settings),
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,

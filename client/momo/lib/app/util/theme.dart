@@ -9,7 +9,7 @@ class MyBehavior extends ScrollBehavior {
   }
 }
 
-final MomoThemeData = ThemeData(
+final momoThemeData = ThemeData(
   fontFamily: 'NanumSquareOTF',
   appBarTheme: const AppBarTheme(
     backgroundColor: MomoColor.backgroundColor,

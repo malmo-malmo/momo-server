@@ -7,10 +7,10 @@ part 'comment.freezed.dart';
 class Comment with _$Comment {
   factory Comment({
     required int id,
-    required String name,
+    required String authorNickname,
     required String contents,
-    required String profile,
-    required String date,
+    required String authorImage,
+    required String createdDate,
   }) = _Comment;
 
   factory Comment.fromJson(Map<String, dynamic> json) =>

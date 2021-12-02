@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:momo/app/provider/login/terms_check_provider.dart';
+import 'package:momo/app/provider/user/terms_check_provider.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/login/widget/agree_button.dart';
 import 'package:momo/app/ui/login/widget/title_text.dart';
+import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 class TermsPage extends ConsumerWidget {
@@ -40,7 +41,11 @@ class TermsPage extends ConsumerWidget {
                 const SizedBox(height: 300),
                 agreeButton(
                   check: isAgree,
-                  nextPage: AppRoutes.category,
+                  onPressButton: () {
+                    ref
+                        .read(navigatorProvider)
+                        .navigateTo(routeName: AppRoutes.category);
+                  },
                   text: '다음',
                 ),
                 const SizedBox(height: 36),

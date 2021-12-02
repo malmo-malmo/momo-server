@@ -27,7 +27,7 @@ public class ScheduleAcceptanceStep {
             () -> assertThat(response.getSchedules().get(0).getStartDateTime()).isEqualTo(request.getStartDateTime()),
             () -> assertThat(response.getSchedules().get(0).getContents()).isEqualTo(request.getContents()),
             () -> assertThat(response.getSchedules().get(0).isOffline()).isEqualTo(request.getIsOffline()),
-            () -> assertThat(response.getSchedules().get(0).isAttendance()).isEqualTo(isAttendance),
+            () -> assertThat(response.getSchedules().get(0).isAttend()).isEqualTo(isAttendance),
             () -> assertThat(response.getSchedules().get(0).isAttendanceCheck()).isEqualTo(isAttendanceCheck)
         );
     }

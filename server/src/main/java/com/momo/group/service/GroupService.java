@@ -1,5 +1,7 @@
 package com.momo.group.service;
 
+import com.momo.common.exception.CustomException;
+import com.momo.common.exception.ErrorCode;
 import com.momo.group.controller.dto.GroupCardResponse;
 import com.momo.group.controller.dto.GroupCreateRequest;
 import com.momo.group.controller.dto.GroupResponse;
@@ -10,6 +12,7 @@ import com.momo.group.domain.model.Participant;
 import com.momo.group.domain.repository.GroupRepository;
 import com.momo.group.domain.repository.ParticipantRepository;
 import com.momo.user.domain.model.User;
+import com.momo.user.domain.repository.UserRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -25,11 +28,14 @@ public class GroupService {
 
     private final ParticipantRepository participantRepository;
 
+    private final UserRepository userRepository;
+
     public Long create(User user, GroupCreateRequest groupCreateRequest) {
-        Groups group = groupRepository
-            .save(Groups.create(user, groupCreateRequest.toEntity(), groupCreateRequest.getIsUniversity()));
-        participantRepository.save(Participant.create(user, group));
-        return group.getId();
+        Groups group = Groups.create(user, groupCreateRequest.toEntity(), groupCreateRequest.getIsUniversity());
+        Groups savedGroup = groupRepository.save(group);
+        Participant participant = Participant.create(user, savedGroup);
+        participantRepository.save(participant);
+        return savedGroup.getId();
     }
 
     @Transactional(readOnly = true)
@@ -61,5 +67,35 @@ public class GroupService {
     public List<GroupCardResponse> findPageByUserCategories(User user, int page, int size) {
         return groupRepository
             .findAllByCategoriesOrderByCreatedDateDesc(user.getCategories(), PageRequest.of(page, size));
+    }
+
+    public void handOverAuthorityByUserId(User user, Long groupId, Long userId) {
+        Groups group = getGroupById(groupId);
+        validateNotGroupManager(group, user);
+        User participant = getUserById(userId);
+        validateGroupParticipant(participant, group);
+        group.handOverAuthorityToUser(participant);
+    }
+
+    public Groups getGroupById(Long groupId) {
+        return groupRepository.findById(groupId)
+            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
+    }
+
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId)
+            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
+    }
+
+    public void validateNotGroupManager(Groups group, User user) {
+        if (group.isNotManager(user)) {
+            throw new CustomException(ErrorCode.GROUP_AUTHORITY_HAND_OVER_UNAUTHORIZED);
+        }
+    }
+
+    public void validateGroupParticipant(User user, Groups group) {
+        if (!participantRepository.existsByUserAndGroup(user, group)) {
+            throw new CustomException(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED);
+        }
     }
 }

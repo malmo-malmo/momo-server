@@ -128,4 +128,15 @@ public class GroupAcceptanceStep {
             .then().log().all()
             .extract();
     }
+
+    public static ExtractableResponse<Response> requestToHandOverAuthority(String token, Long groupId, Long userId) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .pathParam("id", groupId)
+            .pathParam("userId", userId)
+            .when()
+            .patch("api/group/{id}/authority/{userId}")
+            .then().log().all()
+            .extract();
+    }
 }

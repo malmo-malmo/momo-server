@@ -28,9 +28,10 @@ public enum ErrorCode {
     GROUP_CATEGORY_NOT_FOUND(400, "해당 모임 카테고리 타입은 존재하지 않습니다."),
     GROUP_MANAGER_WITHDRAW_NOT_ALLOW(400, "해당 모임의 관리자는 탈퇴할 수 없습니다."),
 
-    GROUP_NOTICE_UNAUTHORIZED(401, "공지사항은 모임 관리자만 등록할 수 있습니다."),
-    GROUP_SCHEDULE_UNAUTHORIZED(401, "일정은 모임 관리자만 등록할 수 있습니다."),
-    GROUP_PARTICIPANTS_UNAUTHORIZED(401, "참여자 목록은 모임 관리자만 볼 수 있습니다."),
+    GROUP_NOTICE_UNAUTHORIZED(401, "공지사항은 관리자만 등록할 수 있습니다."),
+    GROUP_SCHEDULE_UNAUTHORIZED(401, "일정은 관리자만 등록할 수 있습니다."),
+    GROUP_AUTHORITY_HAND_OVER_UNAUTHORIZED(401, "모임 권한은 관리자만 양도할 수 있습니다."),
+    GROUP_PARTICIPANTS_UNAUTHORIZED(401, "참여자 목록은 관리자만 볼 수 있습니다."),
     GROUP_PARTICIPANT_UNAUTHORIZED(401, "해당 모임의 참여자가 아닙니다.");
 
     private final int status;

@@ -101,4 +101,8 @@ public class Groups extends BaseEntity {
     public boolean isNotManager(User user) {
         return !user.isSameUser(manager);
     }
+
+    public void handOverAuthorityToUser(User user) {
+        this.manager = user;
+    }
 }

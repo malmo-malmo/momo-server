@@ -15,6 +15,9 @@ import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGr
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsByDistrict;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsBySearchCondition;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsByUserUniversity;
+import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToHandOverAuthority;
+import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToApplyParticipant;
+import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindMyInformation;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.acceptance.AcceptanceTest;
@@ -24,6 +27,7 @@ import com.momo.group.acceptance.step.GroupAcceptanceStep;
 import com.momo.group.controller.dto.GroupCardResponse;
 import com.momo.group.controller.dto.GroupResponse;
 import com.momo.group.controller.dto.GroupSearchConditionRequest;
+import com.momo.user.controller.dto.UserResponse;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;
@@ -130,5 +134,26 @@ public class GroupAcceptanceTest extends AcceptanceTest {
         ExtractableResponse<Response> response = requestToFindCategories(token);
         AcceptanceStep.assertThatStatusIsOk(response);
         GroupAcceptanceStep.assertThatFindCategory(getObjects(response, EnumResponse.class));
+    }
+
+    @Test
+    public void 모임장이_권한을_양도한다() {
+        String managerToken = getAccessToken(USER1);
+        String participantToken = getAccessToken(USER2);
+        Long participantId = getObject(requestToFindMyInformation(participantToken), UserResponse.class).getId();
+        Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));
+        requestToApplyParticipant(participantToken, groupId);
+        ExtractableResponse<Response> response = requestToHandOverAuthority(managerToken, groupId, participantId);
+        AcceptanceStep.assertThatStatusIsOk(response);
+    }
+
+    @Test
+    public void 모임장이_아닌_유저가_권한을_양도하면_실패한다() {
+        String managerToken = getAccessToken(USER1);
+        String participantToken = getAccessToken(USER2);
+        Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));
+        requestToApplyParticipant(participantToken, groupId);
+        ExtractableResponse<Response> response = requestToHandOverAuthority(participantToken, groupId, 1L);
+        AcceptanceStep.assertThatErrorIsHandOverUnAuthorized(response);
     }
 }

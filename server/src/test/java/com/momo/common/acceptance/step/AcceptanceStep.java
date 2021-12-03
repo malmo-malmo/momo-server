@@ -46,6 +46,11 @@ public class AcceptanceStep {
             ErrorCode.GROUP_PARTICIPANTS_UNAUTHORIZED.getMessage());
     }
 
+    public static void assertThatErrorIsHandOverUnAuthorized(ExtractableResponse<Response> response) {
+        assertThat(response.body().as(ErrorResponse.class).getMessage()).isEqualTo(
+            ErrorCode.GROUP_AUTHORITY_HAND_OVER_UNAUTHORIZED.getMessage());
+    }
+
     public static void assertThatErrorIsDeleteManager(ExtractableResponse<Response> response) {
         assertThat(response.body().as(ErrorResponse.class).getMessage()).isEqualTo(
             ErrorCode.GROUP_MANAGER_WITHDRAW_NOT_ALLOW.getMessage());

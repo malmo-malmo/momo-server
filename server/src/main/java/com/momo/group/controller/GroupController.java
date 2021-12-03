@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -82,5 +83,13 @@ public class GroupController {
     @GetMapping("/group/categories")
     public ResponseEntity<List<EnumResponse>> findGroupCategories() {
         return ResponseEntity.ok(EnumResponse.listOfCategory());
+    }
+
+    @ApiOperation(value = "모임장 권한 양도")
+    @PatchMapping("/group/{id}/authority/{userId}")
+    public ResponseEntity<Void> handOverAuthorityByUser(@CurrentUser User user, @PathVariable Long id,
+        @PathVariable Long userId) {
+        groupService.handOverAuthorityByUserId(user, id, userId);
+        return ResponseEntity.ok().build();
     }
 }

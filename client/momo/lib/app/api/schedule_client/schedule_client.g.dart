@@ -56,8 +56,8 @@ class _ScheduleClient implements ScheduleClient {
       searchStartDate, searchEndDate) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'searchStartDate ': searchStartDate,
-      r'searchEndDate ': searchEndDate
+      r'searchStartDate': searchStartDate,
+      r'searchEndDate': searchEndDate
     };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};

@@ -22,11 +22,11 @@ class _$CommentResponseTearOff {
   const _$CommentResponseTearOff();
 
   _CommentResponse call(
-      {@JsonKey(name: 'commentResponses') required List<Comment> comments,
-      required int commentCnt}) {
+      {required int commentCnt,
+      @JsonKey(name: 'commentResponses') required List<Comment> comments}) {
     return _CommentResponse(
-      comments: comments,
       commentCnt: commentCnt,
+      comments: comments,
     );
   }
 
@@ -40,9 +40,9 @@ const $CommentResponse = _$CommentResponseTearOff();
 
 /// @nodoc
 mixin _$CommentResponse {
+  int get commentCnt => throw _privateConstructorUsedError;
   @JsonKey(name: 'commentResponses')
   List<Comment> get comments => throw _privateConstructorUsedError;
-  int get commentCnt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -56,8 +56,8 @@ abstract class $CommentResponseCopyWith<$Res> {
           CommentResponse value, $Res Function(CommentResponse) then) =
       _$CommentResponseCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'commentResponses') List<Comment> comments,
-      int commentCnt});
+      {int commentCnt,
+      @JsonKey(name: 'commentResponses') List<Comment> comments});
 }
 
 /// @nodoc
@@ -71,18 +71,18 @@ class _$CommentResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? comments = freezed,
     Object? commentCnt = freezed,
+    Object? comments = freezed,
   }) {
     return _then(_value.copyWith(
-      comments: comments == freezed
-          ? _value.comments
-          : comments // ignore: cast_nullable_to_non_nullable
-              as List<Comment>,
       commentCnt: commentCnt == freezed
           ? _value.commentCnt
           : commentCnt // ignore: cast_nullable_to_non_nullable
               as int,
+      comments: comments == freezed
+          ? _value.comments
+          : comments // ignore: cast_nullable_to_non_nullable
+              as List<Comment>,
     ));
   }
 }
@@ -95,8 +95,8 @@ abstract class _$CommentResponseCopyWith<$Res>
       __$CommentResponseCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'commentResponses') List<Comment> comments,
-      int commentCnt});
+      {int commentCnt,
+      @JsonKey(name: 'commentResponses') List<Comment> comments});
 }
 
 /// @nodoc
@@ -112,18 +112,18 @@ class __$CommentResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? comments = freezed,
     Object? commentCnt = freezed,
+    Object? comments = freezed,
   }) {
     return _then(_CommentResponse(
-      comments: comments == freezed
-          ? _value.comments
-          : comments // ignore: cast_nullable_to_non_nullable
-              as List<Comment>,
       commentCnt: commentCnt == freezed
           ? _value.commentCnt
           : commentCnt // ignore: cast_nullable_to_non_nullable
               as int,
+      comments: comments == freezed
+          ? _value.comments
+          : comments // ignore: cast_nullable_to_non_nullable
+              as List<Comment>,
     ));
   }
 }
@@ -132,21 +132,21 @@ class __$CommentResponseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CommentResponse implements _CommentResponse {
   _$_CommentResponse(
-      {@JsonKey(name: 'commentResponses') required this.comments,
-      required this.commentCnt});
+      {required this.commentCnt,
+      @JsonKey(name: 'commentResponses') required this.comments});
 
   factory _$_CommentResponse.fromJson(Map<String, dynamic> json) =>
       _$$_CommentResponseFromJson(json);
 
   @override
+  final int commentCnt;
+  @override
   @JsonKey(name: 'commentResponses')
   final List<Comment> comments;
-  @override
-  final int commentCnt;
 
   @override
   String toString() {
-    return 'CommentResponse(comments: $comments, commentCnt: $commentCnt)';
+    return 'CommentResponse(commentCnt: $commentCnt, comments: $comments)';
   }
 
   @override
@@ -154,14 +154,14 @@ class _$_CommentResponse implements _CommentResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _CommentResponse &&
-            const DeepCollectionEquality().equals(other.comments, comments) &&
             (identical(other.commentCnt, commentCnt) ||
-                other.commentCnt == commentCnt));
+                other.commentCnt == commentCnt) &&
+            const DeepCollectionEquality().equals(other.comments, comments));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(comments), commentCnt);
+      runtimeType, commentCnt, const DeepCollectionEquality().hash(comments));
 
   @JsonKey(ignore: true)
   @override
@@ -176,17 +176,18 @@ class _$_CommentResponse implements _CommentResponse {
 
 abstract class _CommentResponse implements CommentResponse {
   factory _CommentResponse(
-      {@JsonKey(name: 'commentResponses') required List<Comment> comments,
-      required int commentCnt}) = _$_CommentResponse;
+          {required int commentCnt,
+          @JsonKey(name: 'commentResponses') required List<Comment> comments}) =
+      _$_CommentResponse;
 
   factory _CommentResponse.fromJson(Map<String, dynamic> json) =
       _$_CommentResponse.fromJson;
 
   @override
+  int get commentCnt;
+  @override
   @JsonKey(name: 'commentResponses')
   List<Comment> get comments;
-  @override
-  int get commentCnt;
   @override
   @JsonKey(ignore: true)
   _$CommentResponseCopyWith<_CommentResponse> get copyWith =>

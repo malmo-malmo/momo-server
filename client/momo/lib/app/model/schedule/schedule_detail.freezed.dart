@@ -29,7 +29,7 @@ class _$ScheduleDetailTearOff {
       required String authorImage,
       required String startDateTime,
       required bool offline,
-      required bool attendance,
+      required bool attend,
       required bool attendanceCheck}) {
     return _ScheduleDetail(
       id: id,
@@ -39,7 +39,7 @@ class _$ScheduleDetailTearOff {
       authorImage: authorImage,
       startDateTime: startDateTime,
       offline: offline,
-      attendance: attendance,
+      attend: attend,
       attendanceCheck: attendanceCheck,
     );
   }
@@ -61,7 +61,7 @@ mixin _$ScheduleDetail {
   String get authorImage => throw _privateConstructorUsedError;
   String get startDateTime => throw _privateConstructorUsedError;
   bool get offline => throw _privateConstructorUsedError;
-  bool get attendance => throw _privateConstructorUsedError;
+  bool get attend => throw _privateConstructorUsedError;
   bool get attendanceCheck => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -83,7 +83,7 @@ abstract class $ScheduleDetailCopyWith<$Res> {
       String authorImage,
       String startDateTime,
       bool offline,
-      bool attendance,
+      bool attend,
       bool attendanceCheck});
 }
 
@@ -105,7 +105,7 @@ class _$ScheduleDetailCopyWithImpl<$Res>
     Object? authorImage = freezed,
     Object? startDateTime = freezed,
     Object? offline = freezed,
-    Object? attendance = freezed,
+    Object? attend = freezed,
     Object? attendanceCheck = freezed,
   }) {
     return _then(_value.copyWith(
@@ -137,9 +137,9 @@ class _$ScheduleDetailCopyWithImpl<$Res>
           ? _value.offline
           : offline // ignore: cast_nullable_to_non_nullable
               as bool,
-      attendance: attendance == freezed
-          ? _value.attendance
-          : attendance // ignore: cast_nullable_to_non_nullable
+      attend: attend == freezed
+          ? _value.attend
+          : attend // ignore: cast_nullable_to_non_nullable
               as bool,
       attendanceCheck: attendanceCheck == freezed
           ? _value.attendanceCheck
@@ -164,7 +164,7 @@ abstract class _$ScheduleDetailCopyWith<$Res>
       String authorImage,
       String startDateTime,
       bool offline,
-      bool attendance,
+      bool attend,
       bool attendanceCheck});
 }
 
@@ -188,7 +188,7 @@ class __$ScheduleDetailCopyWithImpl<$Res>
     Object? authorImage = freezed,
     Object? startDateTime = freezed,
     Object? offline = freezed,
-    Object? attendance = freezed,
+    Object? attend = freezed,
     Object? attendanceCheck = freezed,
   }) {
     return _then(_ScheduleDetail(
@@ -220,9 +220,9 @@ class __$ScheduleDetailCopyWithImpl<$Res>
           ? _value.offline
           : offline // ignore: cast_nullable_to_non_nullable
               as bool,
-      attendance: attendance == freezed
-          ? _value.attendance
-          : attendance // ignore: cast_nullable_to_non_nullable
+      attend: attend == freezed
+          ? _value.attend
+          : attend // ignore: cast_nullable_to_non_nullable
               as bool,
       attendanceCheck: attendanceCheck == freezed
           ? _value.attendanceCheck
@@ -243,7 +243,7 @@ class _$_ScheduleDetail implements _ScheduleDetail {
       required this.authorImage,
       required this.startDateTime,
       required this.offline,
-      required this.attendance,
+      required this.attend,
       required this.attendanceCheck});
 
   factory _$_ScheduleDetail.fromJson(Map<String, dynamic> json) =>
@@ -264,13 +264,13 @@ class _$_ScheduleDetail implements _ScheduleDetail {
   @override
   final bool offline;
   @override
-  final bool attendance;
+  final bool attend;
   @override
   final bool attendanceCheck;
 
   @override
   String toString() {
-    return 'ScheduleDetail(id: $id, title: $title, contents: $contents, authorNickname: $authorNickname, authorImage: $authorImage, startDateTime: $startDateTime, offline: $offline, attendance: $attendance, attendanceCheck: $attendanceCheck)';
+    return 'ScheduleDetail(id: $id, title: $title, contents: $contents, authorNickname: $authorNickname, authorImage: $authorImage, startDateTime: $startDateTime, offline: $offline, attend: $attend, attendanceCheck: $attendanceCheck)';
   }
 
   @override
@@ -289,8 +289,7 @@ class _$_ScheduleDetail implements _ScheduleDetail {
             (identical(other.startDateTime, startDateTime) ||
                 other.startDateTime == startDateTime) &&
             (identical(other.offline, offline) || other.offline == offline) &&
-            (identical(other.attendance, attendance) ||
-                other.attendance == attendance) &&
+            (identical(other.attend, attend) || other.attend == attend) &&
             (identical(other.attendanceCheck, attendanceCheck) ||
                 other.attendanceCheck == attendanceCheck));
   }
@@ -305,7 +304,7 @@ class _$_ScheduleDetail implements _ScheduleDetail {
       authorImage,
       startDateTime,
       offline,
-      attendance,
+      attend,
       attendanceCheck);
 
   @JsonKey(ignore: true)
@@ -328,7 +327,7 @@ abstract class _ScheduleDetail implements ScheduleDetail {
       required String authorImage,
       required String startDateTime,
       required bool offline,
-      required bool attendance,
+      required bool attend,
       required bool attendanceCheck}) = _$_ScheduleDetail;
 
   factory _ScheduleDetail.fromJson(Map<String, dynamic> json) =
@@ -349,7 +348,7 @@ abstract class _ScheduleDetail implements ScheduleDetail {
   @override
   bool get offline;
   @override
-  bool get attendance;
+  bool get attend;
   @override
   bool get attendanceCheck;
   @override

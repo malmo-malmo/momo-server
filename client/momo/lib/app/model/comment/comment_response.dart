@@ -7,8 +7,8 @@ part 'comment_response.freezed.dart';
 @freezed
 class CommentResponse with _$CommentResponse {
   factory CommentResponse({
-    @JsonKey(name: 'commentResponses') required List<Comment> comments,
     required int commentCnt,
+    @JsonKey(name: 'commentResponses') required List<Comment> comments,
   }) = _CommentResponse;
 
   factory CommentResponse.fromJson(Map<String, dynamic> json) =>

@@ -9,3 +9,8 @@ final nameCheckProvider = Provider<bool>((ref) {
   }
   return true;
 });
+
+final validateNameProvider =
+    Provider<bool>((ref) => ref.watch(validateNameStateProvider));
+
+final validateNameStateProvider = StateProvider<bool>((ref) => true);

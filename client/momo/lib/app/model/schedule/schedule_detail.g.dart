@@ -15,7 +15,7 @@ _$_ScheduleDetail _$$_ScheduleDetailFromJson(Map<String, dynamic> json) =>
       authorImage: json['authorImage'] as String,
       startDateTime: json['startDateTime'] as String,
       offline: json['offline'] as bool,
-      attendance: json['attendance'] as bool,
+      attend: json['attend'] as bool,
       attendanceCheck: json['attendanceCheck'] as bool,
     );
 
@@ -28,6 +28,6 @@ Map<String, dynamic> _$$_ScheduleDetailToJson(_$_ScheduleDetail instance) =>
       'authorImage': instance.authorImage,
       'startDateTime': instance.startDateTime,
       'offline': instance.offline,
-      'attendance': instance.attendance,
+      'attend': instance.attend,
       'attendanceCheck': instance.attendanceCheck,
     };

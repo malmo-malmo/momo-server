@@ -22,9 +22,9 @@ class _$ScheduleResponseTearOff {
   const _$ScheduleResponseTearOff();
 
   _ScheduleResponse call(
-      {required bool manager, required List<ScheduleDetail> schedules}) {
+      {required int managerId, required List<ScheduleDetail> schedules}) {
     return _ScheduleResponse(
-      manager: manager,
+      managerId: managerId,
       schedules: schedules,
     );
   }
@@ -39,7 +39,7 @@ const $ScheduleResponse = _$ScheduleResponseTearOff();
 
 /// @nodoc
 mixin _$ScheduleResponse {
-  bool get manager => throw _privateConstructorUsedError;
+  int get managerId => throw _privateConstructorUsedError;
   List<ScheduleDetail> get schedules => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -53,7 +53,7 @@ abstract class $ScheduleResponseCopyWith<$Res> {
   factory $ScheduleResponseCopyWith(
           ScheduleResponse value, $Res Function(ScheduleResponse) then) =
       _$ScheduleResponseCopyWithImpl<$Res>;
-  $Res call({bool manager, List<ScheduleDetail> schedules});
+  $Res call({int managerId, List<ScheduleDetail> schedules});
 }
 
 /// @nodoc
@@ -67,14 +67,14 @@ class _$ScheduleResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? manager = freezed,
+    Object? managerId = freezed,
     Object? schedules = freezed,
   }) {
     return _then(_value.copyWith(
-      manager: manager == freezed
-          ? _value.manager
-          : manager // ignore: cast_nullable_to_non_nullable
-              as bool,
+      managerId: managerId == freezed
+          ? _value.managerId
+          : managerId // ignore: cast_nullable_to_non_nullable
+              as int,
       schedules: schedules == freezed
           ? _value.schedules
           : schedules // ignore: cast_nullable_to_non_nullable
@@ -90,7 +90,7 @@ abstract class _$ScheduleResponseCopyWith<$Res>
           _ScheduleResponse value, $Res Function(_ScheduleResponse) then) =
       __$ScheduleResponseCopyWithImpl<$Res>;
   @override
-  $Res call({bool manager, List<ScheduleDetail> schedules});
+  $Res call({int managerId, List<ScheduleDetail> schedules});
 }
 
 /// @nodoc
@@ -106,14 +106,14 @@ class __$ScheduleResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? manager = freezed,
+    Object? managerId = freezed,
     Object? schedules = freezed,
   }) {
     return _then(_ScheduleResponse(
-      manager: manager == freezed
-          ? _value.manager
-          : manager // ignore: cast_nullable_to_non_nullable
-              as bool,
+      managerId: managerId == freezed
+          ? _value.managerId
+          : managerId // ignore: cast_nullable_to_non_nullable
+              as int,
       schedules: schedules == freezed
           ? _value.schedules
           : schedules // ignore: cast_nullable_to_non_nullable
@@ -125,19 +125,19 @@ class __$ScheduleResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ScheduleResponse implements _ScheduleResponse {
-  _$_ScheduleResponse({required this.manager, required this.schedules});
+  _$_ScheduleResponse({required this.managerId, required this.schedules});
 
   factory _$_ScheduleResponse.fromJson(Map<String, dynamic> json) =>
       _$$_ScheduleResponseFromJson(json);
 
   @override
-  final bool manager;
+  final int managerId;
   @override
   final List<ScheduleDetail> schedules;
 
   @override
   String toString() {
-    return 'ScheduleResponse(manager: $manager, schedules: $schedules)';
+    return 'ScheduleResponse(managerId: $managerId, schedules: $schedules)';
   }
 
   @override
@@ -145,13 +145,14 @@ class _$_ScheduleResponse implements _ScheduleResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ScheduleResponse &&
-            (identical(other.manager, manager) || other.manager == manager) &&
+            (identical(other.managerId, managerId) ||
+                other.managerId == managerId) &&
             const DeepCollectionEquality().equals(other.schedules, schedules));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, manager, const DeepCollectionEquality().hash(schedules));
+      runtimeType, managerId, const DeepCollectionEquality().hash(schedules));
 
   @JsonKey(ignore: true)
   @override
@@ -166,14 +167,14 @@ class _$_ScheduleResponse implements _ScheduleResponse {
 
 abstract class _ScheduleResponse implements ScheduleResponse {
   factory _ScheduleResponse(
-      {required bool manager,
+      {required int managerId,
       required List<ScheduleDetail> schedules}) = _$_ScheduleResponse;
 
   factory _ScheduleResponse.fromJson(Map<String, dynamic> json) =
       _$_ScheduleResponse.fromJson;
 
   @override
-  bool get manager;
+  int get managerId;
   @override
   List<ScheduleDetail> get schedules;
   @override

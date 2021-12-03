@@ -7,6 +7,7 @@ part 'comment.freezed.dart';
 class Comment with _$Comment {
   factory Comment({
     required int id,
+    required int authorId,
     required String authorNickname,
     required String contents,
     required String authorImage,

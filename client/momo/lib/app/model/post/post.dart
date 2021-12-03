@@ -12,6 +12,7 @@ class Post with _$Post {
     required String title,
     required String contents,
     required int commentCnt,
+    required String createdDate,
   }) = _Post;
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);

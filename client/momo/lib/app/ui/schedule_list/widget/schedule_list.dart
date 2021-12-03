@@ -38,7 +38,8 @@ class _ScheduleListState extends State<ScheduleList> {
           title: 'title',
           contents: 'contents',
           authorNickname: 'authorNickname',
-          authorImage: 'authorImage',
+          authorImage:
+              'https://pds.joins.com/news/component/htmlphoto_mmdata/202107/08/84e9e4ec-c128-4c88-a727-344e0eb996e3.jpg',
           startDateTime: 'startDateTime',
           offline: false,
           attendanceCheck: false,

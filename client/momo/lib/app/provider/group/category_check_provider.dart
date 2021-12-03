@@ -1,16 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final newMeetCategoryProvider = Provider.autoDispose<List<bool>>((ref) {
-  final newMeetCategoryState = ref.watch(newMeetCategoryStateProvider);
-  return newMeetCategoryState;
+final groupRequestCategoryProvider = Provider.autoDispose<List<bool>>((ref) {
+  final groupRequestCategoryState =
+      ref.watch(groupRequestCategoryStateProvider);
+  return groupRequestCategoryState;
 });
 
-final newMeetCategoryStateProvider =
-    StateNotifierProvider.autoDispose<NewMeetCategoryState, List<bool>>(
-        (ref) => NewMeetCategoryState());
+final groupRequestCategoryStateProvider =
+    StateNotifierProvider.autoDispose<GroupRequestCategoryState, List<bool>>(
+        (ref) => GroupRequestCategoryState());
 
-class NewMeetCategoryState extends StateNotifier<List<bool>> {
-  NewMeetCategoryState() : super(List.generate(8, (index) => false));
+class GroupRequestCategoryState extends StateNotifier<List<bool>> {
+  GroupRequestCategoryState() : super(List.generate(8, (index) => false));
 
   void checkCategory(int index) {
     state = [

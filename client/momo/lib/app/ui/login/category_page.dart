@@ -2,13 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/provider/user/category_check_provder.dart';
-import 'package:momo/app/provider/user/category_result_provider.dart';
 import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/ui/components/category/category_column.dart';
 import 'package:momo/app/ui/login/widget/agree_button.dart';
 import 'package:momo/app/ui/login/widget/title_text.dart';
-import 'package:momo/app/util/constant.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
@@ -57,22 +55,14 @@ class CategoryPage extends ConsumerWidget {
                       spacing: 29.w,
                       runSpacing: 64.h,
                       children: [
-                        _categoryCard(categoryState[0], 0,
-                            selImg: iconHealth, unSelImg: iconHealthGray),
-                        _categoryCard(categoryState[1], 1,
-                            selImg: iconFood, unSelImg: iconFoodGray),
-                        _categoryCard(categoryState[2], 2,
-                            selImg: iconSelf, unSelImg: iconSelfGray),
-                        _categoryCard(categoryState[3], 3,
-                            selImg: iconLife, unSelImg: iconLifeGray),
-                        _categoryCard(categoryState[4], 4,
-                            selImg: iconHobby, unSelImg: iconHobbyGray),
-                        _categoryCard(categoryState[5], 5,
-                            selImg: iconStock, unSelImg: iconStockGray),
-                        _categoryCard(categoryState[6], 6,
-                            selImg: iconHealing, unSelImg: iconHealingGray),
-                        _categoryCard(categoryState[7], 7,
-                            selImg: iconJob, unSelImg: iconJobGray),
+                        for (int i = 0; i < categoryState.length; i++)
+                          categoryColumn(
+                            check: categoryState[i],
+                            index: i,
+                            onTabIcon: ref
+                                .read(categoryStateProvider.notifier)
+                                .toggleCategory,
+                          ),
                       ],
                     ),
                   ),
@@ -96,36 +86,6 @@ class CategoryPage extends ConsumerWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _categoryCard(
-    bool check,
-    int index, {
-    required String selImg,
-    required String unSelImg,
-  }) {
-    return Column(
-      children: [
-        Consumer(builder: (context, ref, _) {
-          return InkWell(
-            borderRadius: BorderRadius.circular(32),
-            onTap: () {
-              ref.read(categoryStateProvider.notifier).toggleCategory(index);
-            },
-            child: SvgPicture.asset(
-              check ? selImg : unSelImg,
-            ),
-          );
-        }),
-        const SizedBox(height: 10),
-        Text(
-          categoryCodeNamePair[index].name,
-          style: MomoTextStyle.normal.copyWith(
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-      ],
     );
   }
 }

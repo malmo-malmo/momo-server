@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/search/search_filter_provider.dart';
 import 'package:momo/app/ui/components/button/confirm_button.dart';
-import 'package:momo/app/ui/search/widget/category_icon.dart';
+import 'package:momo/app/ui/components/category/category_column.dart';
 import 'package:momo/app/ui/search/widget/location_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
@@ -91,70 +91,15 @@ Widget filterBottomSheet() {
                         spacing: 20,
                         runSpacing: 20,
                         children: [
-                          categoryIcon(
-                            categoryState[0],
-                            '건강',
-                            0,
-                            selImg: 'assets/icon/category/icon_health_64.svg',
-                            unSelImg:
-                                'assets/icon/category/icon_healthlightgray_64.svg',
-                          ),
-                          categoryIcon(
-                            categoryState[1],
-                            '밥약',
-                            1,
-                            selImg: 'assets/icon/category/icon_food_64.svg',
-                            unSelImg:
-                                'assets/icon/category/icon_foodlightgray_64.svg',
-                          ),
-                          categoryIcon(
-                            categoryState[2],
-                            '자기관리',
-                            2,
-                            selImg: 'assets/icon/category/icon_self_64.svg',
-                            unSelImg:
-                                'assets/icon/category/icon_selflightgray_64.svg',
-                          ),
-                          categoryIcon(
-                            categoryState[3],
-                            '생활',
-                            3,
-                            selImg: 'assets/icon/category/icon_life_64.svg',
-                            unSelImg:
-                                'assets/icon/category/icon_lifelightgray_64.svg',
-                          ),
-                          categoryIcon(
-                            categoryState[4],
-                            '취미',
-                            4,
-                            selImg: 'assets/icon/category/icon_hobby_64.svg',
-                            unSelImg:
-                                'assets/icon/category/icon_hobbylightgray_64.svg',
-                          ),
-                          categoryIcon(
-                            categoryState[5],
-                            '자산',
-                            5,
-                            selImg: 'assets/icon/category/icon_stock_64.svg',
-                            unSelImg:
-                                'assets/icon/category/icon_stockightgray_64.svg',
-                          ),
-                          categoryIcon(
-                            categoryState[6],
-                            '힐링',
-                            6,
-                            selImg: 'assets/icon/category/icon_healing_64.svg',
-                            unSelImg:
-                                'assets/icon/category/icon_healinglightgray_64.svg',
-                          ),
-                          categoryIcon(
-                            categoryState[7],
-                            '취업',
-                            7,
-                            selImg: 'assets/icon/category/icon_job_64.svg',
-                            unSelImg:
-                                'assets/icon/category/icon_joblightgray_64.svg',
-                          ),
+                          for (int i = 0; i < categoryState.length; i++)
+                            categoryColumn(
+                              check: categoryState[i],
+                              index: i,
+                              onTabIcon: ref
+                                  .read(searchCategoryStateProvider.notifier)
+                                  .toggleCategory,
+                              spaceHeight: 14,
+                            ),
                         ],
                       ),
                     ),

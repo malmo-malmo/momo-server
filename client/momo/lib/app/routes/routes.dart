@@ -49,66 +49,81 @@ class AppRouter {
       case AppRoutes.main:
         return MaterialPageRoute<dynamic>(
             builder: (_) => const MainPage(), settings: settings);
+
       case AppRoutes.login:
         return MaterialPageRoute<dynamic>(
             builder: (_) => const LoginPage(), settings: settings);
+
       case AppRoutes.trems:
         return MaterialPageRoute<dynamic>(
             builder: (_) => const TermsPage(), settings: settings);
+
       case AppRoutes.category:
         return MaterialPageRoute<dynamic>(
             builder: (_) => const CategoryPage(), settings: settings);
+
       case AppRoutes.info:
         return MaterialPageRoute<dynamic>(
             builder: (_) => const InfoPage(), settings: settings);
+
       case AppRoutes.onboarding:
         return MaterialPageRoute<dynamic>(
             builder: (_) => const OnboardingPage(), settings: settings);
+
       case AppRoutes.meetingList:
         final name = settings.arguments;
         return MaterialPageRoute<dynamic>(
           builder: (_) => MeetingListPage(name: name),
           settings: settings,
         );
+
       case AppRoutes.meetingDetail:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const MeetingDetailPage(),
         );
+
       case AppRoutes.newMeet:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const GroupRequestPage(),
         );
+
       case AppRoutes.gallery:
         return MaterialPageRoute<dynamic>(
           builder: (_) => GalleryPage(),
         );
+
       case AppRoutes.postRequest:
         final arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => PostRequestPage(
-            title: arg,
-          ),
+          builder: (_) => PostRequestPage(title: arg),
         );
+
       case AppRoutes.scheduleRequest:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const ScheduleRequestPage(),
         );
+
       case AppRoutes.noticeList:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const NoticeListPage(),
         );
+
       case AppRoutes.memberList:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const MemberListPage(),
         );
+
       case AppRoutes.scheduleList:
+        final arg = settings.argument;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => const ScheduleListPage(),
+          builder: (_) => ScheduleListPage(groupId: arg),
         );
+
       case AppRoutes.attendanceList:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const AttendanceListPage(),
         );
+
       case AppRoutes.postDetail:
         final arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
@@ -116,19 +131,17 @@ class AppRouter {
             postId: arg,
           ),
         );
+
       case AppRoutes.requestMeeting:
         final arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => RequestMeetingPage(
-            img: arg,
-          ),
+          builder: (_) => RequestMeetingPage(img: arg),
         );
+
       case AppRoutes.fullImage:
         final arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => FullImagePage(
-            img: arg,
-          ),
+          builder: (_) => FullImagePage(img: arg),
         );
     }
   }

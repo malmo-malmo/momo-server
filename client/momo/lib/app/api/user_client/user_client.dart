@@ -27,9 +27,9 @@ abstract class UserClient {
   @GET('/user/locations')
   Future<List<CodeNamePair>> getLocations();
 
-  @GET('/user/validate/nickname/{nickname}')
+  @GET('/user/duplicate-nickname')
   Future<bool> validateNickname(
-    @Path() String nickname,
+    @Query('nickname') String nickname,
   );
 
   @GET('/universities')

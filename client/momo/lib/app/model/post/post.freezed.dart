@@ -27,7 +27,8 @@ class _$PostTearOff {
       required String authorImage,
       required String title,
       required String contents,
-      required int commentCnt}) {
+      required int commentCnt,
+      required String createdDate}) {
     return _Post(
       id: id,
       authorNickname: authorNickname,
@@ -35,6 +36,7 @@ class _$PostTearOff {
       title: title,
       contents: contents,
       commentCnt: commentCnt,
+      createdDate: createdDate,
     );
   }
 
@@ -54,6 +56,7 @@ mixin _$Post {
   String get title => throw _privateConstructorUsedError;
   String get contents => throw _privateConstructorUsedError;
   int get commentCnt => throw _privateConstructorUsedError;
+  String get createdDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -70,7 +73,8 @@ abstract class $PostCopyWith<$Res> {
       String authorImage,
       String title,
       String contents,
-      int commentCnt});
+      int commentCnt,
+      String createdDate});
 }
 
 /// @nodoc
@@ -89,6 +93,7 @@ class _$PostCopyWithImpl<$Res> implements $PostCopyWith<$Res> {
     Object? title = freezed,
     Object? contents = freezed,
     Object? commentCnt = freezed,
+    Object? createdDate = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -115,6 +120,10 @@ class _$PostCopyWithImpl<$Res> implements $PostCopyWith<$Res> {
           ? _value.commentCnt
           : commentCnt // ignore: cast_nullable_to_non_nullable
               as int,
+      createdDate: createdDate == freezed
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -130,7 +139,8 @@ abstract class _$PostCopyWith<$Res> implements $PostCopyWith<$Res> {
       String authorImage,
       String title,
       String contents,
-      int commentCnt});
+      int commentCnt,
+      String createdDate});
 }
 
 /// @nodoc
@@ -150,6 +160,7 @@ class __$PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res>
     Object? title = freezed,
     Object? contents = freezed,
     Object? commentCnt = freezed,
+    Object? createdDate = freezed,
   }) {
     return _then(_Post(
       id: id == freezed
@@ -176,6 +187,10 @@ class __$PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res>
           ? _value.commentCnt
           : commentCnt // ignore: cast_nullable_to_non_nullable
               as int,
+      createdDate: createdDate == freezed
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -189,7 +204,8 @@ class _$_Post implements _Post {
       required this.authorImage,
       required this.title,
       required this.contents,
-      required this.commentCnt});
+      required this.commentCnt,
+      required this.createdDate});
 
   factory _$_Post.fromJson(Map<String, dynamic> json) => _$$_PostFromJson(json);
 
@@ -205,10 +221,12 @@ class _$_Post implements _Post {
   final String contents;
   @override
   final int commentCnt;
+  @override
+  final String createdDate;
 
   @override
   String toString() {
-    return 'Post(id: $id, authorNickname: $authorNickname, authorImage: $authorImage, title: $title, contents: $contents, commentCnt: $commentCnt)';
+    return 'Post(id: $id, authorNickname: $authorNickname, authorImage: $authorImage, title: $title, contents: $contents, commentCnt: $commentCnt, createdDate: $createdDate)';
   }
 
   @override
@@ -225,12 +243,14 @@ class _$_Post implements _Post {
             (identical(other.contents, contents) ||
                 other.contents == contents) &&
             (identical(other.commentCnt, commentCnt) ||
-                other.commentCnt == commentCnt));
+                other.commentCnt == commentCnt) &&
+            (identical(other.createdDate, createdDate) ||
+                other.createdDate == createdDate));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, id, authorNickname, authorImage,
-      title, contents, commentCnt);
+      title, contents, commentCnt, createdDate);
 
   @JsonKey(ignore: true)
   @override
@@ -250,7 +270,8 @@ abstract class _Post implements Post {
       required String authorImage,
       required String title,
       required String contents,
-      required int commentCnt}) = _$_Post;
+      required int commentCnt,
+      required String createdDate}) = _$_Post;
 
   factory _Post.fromJson(Map<String, dynamic> json) = _$_Post.fromJson;
 
@@ -266,6 +287,8 @@ abstract class _Post implements Post {
   String get contents;
   @override
   int get commentCnt;
+  @override
+  String get createdDate;
   @override
   @JsonKey(ignore: true)
   _$PostCopyWith<_Post> get copyWith => throw _privateConstructorUsedError;

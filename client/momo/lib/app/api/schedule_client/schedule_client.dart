@@ -27,7 +27,7 @@ abstract class ScheduleClient {
 
   @GET('/schedule/user-schedules')
   Future<List<CalendarSchedule>> getUserSchedules(
-    @Query('searchStartDate ') String searchStartDate,
-    @Query('searchEndDate ') String searchEndDate,
+    @Query('searchStartDate') String searchStartDate,
+    @Query('searchEndDate') String searchEndDate,
   );
 }

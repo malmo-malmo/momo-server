@@ -23,12 +23,14 @@ class _$CommentTearOff {
 
   _Comment call(
       {required int id,
+      required int authorId,
       required String authorNickname,
       required String contents,
       required String authorImage,
       required String createdDate}) {
     return _Comment(
       id: id,
+      authorId: authorId,
       authorNickname: authorNickname,
       contents: contents,
       authorImage: authorImage,
@@ -47,6 +49,7 @@ const $Comment = _$CommentTearOff();
 /// @nodoc
 mixin _$Comment {
   int get id => throw _privateConstructorUsedError;
+  int get authorId => throw _privateConstructorUsedError;
   String get authorNickname => throw _privateConstructorUsedError;
   String get contents => throw _privateConstructorUsedError;
   String get authorImage => throw _privateConstructorUsedError;
@@ -63,6 +66,7 @@ abstract class $CommentCopyWith<$Res> {
       _$CommentCopyWithImpl<$Res>;
   $Res call(
       {int id,
+      int authorId,
       String authorNickname,
       String contents,
       String authorImage,
@@ -80,6 +84,7 @@ class _$CommentCopyWithImpl<$Res> implements $CommentCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
+    Object? authorId = freezed,
     Object? authorNickname = freezed,
     Object? contents = freezed,
     Object? authorImage = freezed,
@@ -89,6 +94,10 @@ class _$CommentCopyWithImpl<$Res> implements $CommentCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      authorId: authorId == freezed
+          ? _value.authorId
+          : authorId // ignore: cast_nullable_to_non_nullable
               as int,
       authorNickname: authorNickname == freezed
           ? _value.authorNickname
@@ -117,6 +126,7 @@ abstract class _$CommentCopyWith<$Res> implements $CommentCopyWith<$Res> {
   @override
   $Res call(
       {int id,
+      int authorId,
       String authorNickname,
       String contents,
       String authorImage,
@@ -135,6 +145,7 @@ class __$CommentCopyWithImpl<$Res> extends _$CommentCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? authorId = freezed,
     Object? authorNickname = freezed,
     Object? contents = freezed,
     Object? authorImage = freezed,
@@ -144,6 +155,10 @@ class __$CommentCopyWithImpl<$Res> extends _$CommentCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      authorId: authorId == freezed
+          ? _value.authorId
+          : authorId // ignore: cast_nullable_to_non_nullable
               as int,
       authorNickname: authorNickname == freezed
           ? _value.authorNickname
@@ -170,6 +185,7 @@ class __$CommentCopyWithImpl<$Res> extends _$CommentCopyWithImpl<$Res>
 class _$_Comment implements _Comment {
   _$_Comment(
       {required this.id,
+      required this.authorId,
       required this.authorNickname,
       required this.contents,
       required this.authorImage,
@@ -181,6 +197,8 @@ class _$_Comment implements _Comment {
   @override
   final int id;
   @override
+  final int authorId;
+  @override
   final String authorNickname;
   @override
   final String contents;
@@ -191,7 +209,7 @@ class _$_Comment implements _Comment {
 
   @override
   String toString() {
-    return 'Comment(id: $id, authorNickname: $authorNickname, contents: $contents, authorImage: $authorImage, createdDate: $createdDate)';
+    return 'Comment(id: $id, authorId: $authorId, authorNickname: $authorNickname, contents: $contents, authorImage: $authorImage, createdDate: $createdDate)';
   }
 
   @override
@@ -200,6 +218,8 @@ class _$_Comment implements _Comment {
         (other.runtimeType == runtimeType &&
             other is _Comment &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.authorId, authorId) ||
+                other.authorId == authorId) &&
             (identical(other.authorNickname, authorNickname) ||
                 other.authorNickname == authorNickname) &&
             (identical(other.contents, contents) ||
@@ -211,8 +231,8 @@ class _$_Comment implements _Comment {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, authorNickname, contents, authorImage, createdDate);
+  int get hashCode => Object.hash(runtimeType, id, authorId, authorNickname,
+      contents, authorImage, createdDate);
 
   @JsonKey(ignore: true)
   @override
@@ -228,6 +248,7 @@ class _$_Comment implements _Comment {
 abstract class _Comment implements Comment {
   factory _Comment(
       {required int id,
+      required int authorId,
       required String authorNickname,
       required String contents,
       required String authorImage,
@@ -237,6 +258,8 @@ abstract class _Comment implements Comment {
 
   @override
   int get id;
+  @override
+  int get authorId;
   @override
   String get authorNickname;
   @override

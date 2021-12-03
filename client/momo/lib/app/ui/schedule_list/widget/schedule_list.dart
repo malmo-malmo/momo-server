@@ -41,8 +41,8 @@ class _ScheduleListState extends State<ScheduleList> {
           authorImage: 'authorImage',
           startDateTime: 'startDateTime',
           offline: false,
-          attendance: false,
           attendanceCheck: false,
+          attend: false,
         ),
       );
       const isLastPage = false;
@@ -94,7 +94,7 @@ class _ScheduleListState extends State<ScheduleList> {
             title: item.title,
             text: item.contents,
             date: '2021년 12월 31일 오후 9:00',
-            attendance: item.attendance,
+            attendance: item.attend,
           );
         }),
         separatorBuilder: (context, index) => const SizedBox(height: 14),

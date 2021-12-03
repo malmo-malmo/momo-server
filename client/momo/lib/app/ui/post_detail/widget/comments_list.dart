@@ -40,6 +40,7 @@ class _CommentsListState extends State<CommentsList> {
               'https://biz.chosun.com/resizer/kh_pcdsIH0PJWIXenLBD4Oi94Wg=/464x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/HAXYB5XB4CCHXUB6VQVALOZFVY.jpg',
           authorNickname: '김모모',
           createdDate: '2021-12-31',
+          authorId: index,
         ),
       );
       const isLastPage = false;

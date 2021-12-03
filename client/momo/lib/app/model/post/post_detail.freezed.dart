@@ -23,18 +23,22 @@ class _$PostDetailTearOff {
 
   _PostDetail call(
       {required int id,
+      required int authorId,
       required String authorNickname,
       required String title,
       required String contents,
       required String authorImage,
-      required List<String> imageUrls}) {
+      required List<String> imageUrls,
+      required String createdDate}) {
     return _PostDetail(
       id: id,
+      authorId: authorId,
       authorNickname: authorNickname,
       title: title,
       contents: contents,
       authorImage: authorImage,
       imageUrls: imageUrls,
+      createdDate: createdDate,
     );
   }
 
@@ -49,11 +53,13 @@ const $PostDetail = _$PostDetailTearOff();
 /// @nodoc
 mixin _$PostDetail {
   int get id => throw _privateConstructorUsedError;
+  int get authorId => throw _privateConstructorUsedError;
   String get authorNickname => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get contents => throw _privateConstructorUsedError;
   String get authorImage => throw _privateConstructorUsedError;
   List<String> get imageUrls => throw _privateConstructorUsedError;
+  String get createdDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -68,11 +74,13 @@ abstract class $PostDetailCopyWith<$Res> {
       _$PostDetailCopyWithImpl<$Res>;
   $Res call(
       {int id,
+      int authorId,
       String authorNickname,
       String title,
       String contents,
       String authorImage,
-      List<String> imageUrls});
+      List<String> imageUrls,
+      String createdDate});
 }
 
 /// @nodoc
@@ -86,16 +94,22 @@ class _$PostDetailCopyWithImpl<$Res> implements $PostDetailCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
+    Object? authorId = freezed,
     Object? authorNickname = freezed,
     Object? title = freezed,
     Object? contents = freezed,
     Object? authorImage = freezed,
     Object? imageUrls = freezed,
+    Object? createdDate = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      authorId: authorId == freezed
+          ? _value.authorId
+          : authorId // ignore: cast_nullable_to_non_nullable
               as int,
       authorNickname: authorNickname == freezed
           ? _value.authorNickname
@@ -117,6 +131,10 @@ class _$PostDetailCopyWithImpl<$Res> implements $PostDetailCopyWith<$Res> {
           ? _value.imageUrls
           : imageUrls // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      createdDate: createdDate == freezed
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -129,11 +147,13 @@ abstract class _$PostDetailCopyWith<$Res> implements $PostDetailCopyWith<$Res> {
   @override
   $Res call(
       {int id,
+      int authorId,
       String authorNickname,
       String title,
       String contents,
       String authorImage,
-      List<String> imageUrls});
+      List<String> imageUrls,
+      String createdDate});
 }
 
 /// @nodoc
@@ -149,16 +169,22 @@ class __$PostDetailCopyWithImpl<$Res> extends _$PostDetailCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? authorId = freezed,
     Object? authorNickname = freezed,
     Object? title = freezed,
     Object? contents = freezed,
     Object? authorImage = freezed,
     Object? imageUrls = freezed,
+    Object? createdDate = freezed,
   }) {
     return _then(_PostDetail(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      authorId: authorId == freezed
+          ? _value.authorId
+          : authorId // ignore: cast_nullable_to_non_nullable
               as int,
       authorNickname: authorNickname == freezed
           ? _value.authorNickname
@@ -180,6 +206,10 @@ class __$PostDetailCopyWithImpl<$Res> extends _$PostDetailCopyWithImpl<$Res>
           ? _value.imageUrls
           : imageUrls // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      createdDate: createdDate == freezed
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -189,17 +219,21 @@ class __$PostDetailCopyWithImpl<$Res> extends _$PostDetailCopyWithImpl<$Res>
 class _$_PostDetail implements _PostDetail {
   _$_PostDetail(
       {required this.id,
+      required this.authorId,
       required this.authorNickname,
       required this.title,
       required this.contents,
       required this.authorImage,
-      required this.imageUrls});
+      required this.imageUrls,
+      required this.createdDate});
 
   factory _$_PostDetail.fromJson(Map<String, dynamic> json) =>
       _$$_PostDetailFromJson(json);
 
   @override
   final int id;
+  @override
+  final int authorId;
   @override
   final String authorNickname;
   @override
@@ -210,10 +244,12 @@ class _$_PostDetail implements _PostDetail {
   final String authorImage;
   @override
   final List<String> imageUrls;
+  @override
+  final String createdDate;
 
   @override
   String toString() {
-    return 'PostDetail(id: $id, authorNickname: $authorNickname, title: $title, contents: $contents, authorImage: $authorImage, imageUrls: $imageUrls)';
+    return 'PostDetail(id: $id, authorId: $authorId, authorNickname: $authorNickname, title: $title, contents: $contents, authorImage: $authorImage, imageUrls: $imageUrls, createdDate: $createdDate)';
   }
 
   @override
@@ -222,6 +258,8 @@ class _$_PostDetail implements _PostDetail {
         (other.runtimeType == runtimeType &&
             other is _PostDetail &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.authorId, authorId) ||
+                other.authorId == authorId) &&
             (identical(other.authorNickname, authorNickname) ||
                 other.authorNickname == authorNickname) &&
             (identical(other.title, title) || other.title == title) &&
@@ -229,12 +267,22 @@ class _$_PostDetail implements _PostDetail {
                 other.contents == contents) &&
             (identical(other.authorImage, authorImage) ||
                 other.authorImage == authorImage) &&
-            const DeepCollectionEquality().equals(other.imageUrls, imageUrls));
+            const DeepCollectionEquality().equals(other.imageUrls, imageUrls) &&
+            (identical(other.createdDate, createdDate) ||
+                other.createdDate == createdDate));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, authorNickname, title,
-      contents, authorImage, const DeepCollectionEquality().hash(imageUrls));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      authorId,
+      authorNickname,
+      title,
+      contents,
+      authorImage,
+      const DeepCollectionEquality().hash(imageUrls),
+      createdDate);
 
   @JsonKey(ignore: true)
   @override
@@ -250,17 +298,21 @@ class _$_PostDetail implements _PostDetail {
 abstract class _PostDetail implements PostDetail {
   factory _PostDetail(
       {required int id,
+      required int authorId,
       required String authorNickname,
       required String title,
       required String contents,
       required String authorImage,
-      required List<String> imageUrls}) = _$_PostDetail;
+      required List<String> imageUrls,
+      required String createdDate}) = _$_PostDetail;
 
   factory _PostDetail.fromJson(Map<String, dynamic> json) =
       _$_PostDetail.fromJson;
 
   @override
   int get id;
+  @override
+  int get authorId;
   @override
   String get authorNickname;
   @override
@@ -271,6 +323,8 @@ abstract class _PostDetail implements PostDetail {
   String get authorImage;
   @override
   List<String> get imageUrls;
+  @override
+  String get createdDate;
   @override
   @JsonKey(ignore: true)
   _$PostDetailCopyWith<_PostDetail> get copyWith =>

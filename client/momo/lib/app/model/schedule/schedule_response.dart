@@ -7,7 +7,7 @@ part 'schedule_response.freezed.dart';
 @freezed
 class ScheduleResponse with _$ScheduleResponse {
   factory ScheduleResponse({
-    required bool manager,
+    required int managerId,
     required List<ScheduleDetail> schedules,
   }) = _ScheduleResponse;
 

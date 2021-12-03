@@ -13,7 +13,7 @@ class ScheduleDetail with _$ScheduleDetail {
     required String authorImage,
     required String startDateTime,
     required bool offline,
-    required bool attendance,
+    required bool attend,
     required bool attendanceCheck,
   }) = _ScheduleDetail;
 

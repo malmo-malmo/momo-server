@@ -1,13 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/model/user/category_request.dart';
 import 'package:momo/app/model/user/user_info_request.dart';
-import 'package:momo/app/provider/user/category_result_provider.dart';
 import 'package:momo/app/provider/user/location_result_provider.dart';
+import 'package:momo/app/provider/user/name_check_provider.dart';
 import 'package:momo/app/repository/user_repository.dart';
 
 final userInfoCheckProvider = Provider<bool>((ref) {
   final userInfo = ref.watch(userInfoProvider);
-  if (userInfo.nickname.isNotEmpty &&
+  final validateNameCheck = ref.watch(validateNameProvider);
+  if (!validateNameCheck &&
+      userInfo.nickname.isNotEmpty &&
       userInfo.university.isNotEmpty &&
       userInfo.city.isNotEmpty &&
       userInfo.district.isNotEmpty) {
@@ -34,7 +36,7 @@ class UserInfoState extends StateNotifier<UserInfoRequest> {
             nickname: '',
             university: '',
             city: '서울',
-            district: '강남구',
+            district: 'GANGNAM_GU',
           ),
         );
 
@@ -54,6 +56,10 @@ class UserInfoState extends StateNotifier<UserInfoRequest> {
             .first
             .code,
       );
+  String get userDistrict => locationCodeNamePair
+      .where((element) => element.code == state.district)
+      .first
+      .name;
 
   Future<bool> validateName(String nickname) async {
     final response = await repository.validateNickname(nickname);

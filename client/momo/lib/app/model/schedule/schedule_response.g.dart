@@ -8,7 +8,7 @@ part of 'schedule_response.dart';
 
 _$_ScheduleResponse _$$_ScheduleResponseFromJson(Map<String, dynamic> json) =>
     _$_ScheduleResponse(
-      manager: json['manager'] as bool,
+      managerId: json['managerId'] as int,
       schedules: (json['schedules'] as List<dynamic>)
           .map((e) => ScheduleDetail.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -16,6 +16,6 @@ _$_ScheduleResponse _$$_ScheduleResponseFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_ScheduleResponseToJson(_$_ScheduleResponse instance) =>
     <String, dynamic>{
-      'manager': instance.manager,
+      'managerId': instance.managerId,
       'schedules': instance.schedules,
     };

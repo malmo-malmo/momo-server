@@ -33,27 +33,34 @@ Widget universityResultDialog({
                   loading: () => loadingCard(),
                   error: (error, stack) =>
                       Center(child: Text(error.toString())),
-                  data: (data) => ListView.separated(
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          onSelect(data[index]);
-                          ref.read(universityTextController).text = data[index];
-                          ref.read(navigatorProvider).pop();
-                        },
-                        child: SizedBox(
-                          height: 30,
+                  data: (data) => data.isEmpty
+                      ? const Center(
                           child: Text(
-                            data[index],
-                            style: MomoTextStyle.defaultStyle,
+                            '검색한 대학교가 존재하지 않습니다!',
                           ),
+                        )
+                      : ListView.separated(
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () {
+                                onSelect(data[index]);
+                                ref.read(universityTextController).text =
+                                    data[index];
+                                ref.read(navigatorProvider).pop();
+                              },
+                              child: SizedBox(
+                                height: 30,
+                                child: Text(
+                                  data[index],
+                                  style: MomoTextStyle.defaultStyle,
+                                ),
+                              ),
+                            );
+                          },
+                          itemCount: data.length,
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(height: 16),
                         ),
-                      );
-                    },
-                    itemCount: data.length,
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: 16),
-                  ),
                 ),
               ),
             ],

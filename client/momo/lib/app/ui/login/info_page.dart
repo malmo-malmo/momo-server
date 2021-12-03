@@ -76,6 +76,8 @@ class InfoPage extends ConsumerWidget {
                           final check = await ref
                               .read(userInfoStateProvider.notifier)
                               .validateName(userInfo.nickname);
+                          ref.read(validateNameStateProvider.state).state =
+                              check;
 
                           showDialog(
                             context: context,
@@ -114,6 +116,9 @@ class InfoPage extends ConsumerWidget {
                   children: [
                     cityInputBox(),
                     districtInputBox(
+                      district: ref
+                          .watch(userInfoStateProvider.notifier)
+                          .userDistrict,
                       setCountry: ref
                           .read(userInfoStateProvider.notifier)
                           .setUserDistrict,

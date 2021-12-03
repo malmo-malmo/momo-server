@@ -7,14 +7,14 @@ part 'group_detail.freezed.dart';
 class GroupDetail with _$GroupDetail {
   factory GroupDetail({
     required int id,
+    required int managerId,
     required String city,
     required String district,
     required String imageUrl,
     required String introduction,
-    required bool manager,
     required String name,
     required bool offline,
-    required bool participant,
+    required bool isParticipant,
     required int participantCnt,
     required String startDate,
     required String university,

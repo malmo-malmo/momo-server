@@ -7,6 +7,7 @@ import 'package:momo/app/provider/user/location_result_provider.dart';
 
 Widget districtInputBox({
   required Function(String value) setCountry,
+  required String district,
 }) {
   final List<String> _valueList =
       locationCodeNamePair.map((e) => e.name).toList();
@@ -23,7 +24,7 @@ Widget districtInputBox({
       children: [
         Expanded(
           child: DropdownButton(
-            value: _valueList.first,
+            value: district,
             underline: const SizedBox(),
             elevation: 0,
             isExpanded: true,

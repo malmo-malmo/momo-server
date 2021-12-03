@@ -23,27 +23,27 @@ class _$GroupDetailTearOff {
 
   _GroupDetail call(
       {required int id,
+      required int managerId,
       required String city,
       required String district,
       required String imageUrl,
       required String introduction,
-      required bool manager,
       required String name,
       required bool offline,
-      required bool participant,
+      required bool isParticipant,
       required int participantCnt,
       required String startDate,
       required String university}) {
     return _GroupDetail(
       id: id,
+      managerId: managerId,
       city: city,
       district: district,
       imageUrl: imageUrl,
       introduction: introduction,
-      manager: manager,
       name: name,
       offline: offline,
-      participant: participant,
+      isParticipant: isParticipant,
       participantCnt: participantCnt,
       startDate: startDate,
       university: university,
@@ -61,14 +61,14 @@ const $GroupDetail = _$GroupDetailTearOff();
 /// @nodoc
 mixin _$GroupDetail {
   int get id => throw _privateConstructorUsedError;
+  int get managerId => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
   String get district => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
   String get introduction => throw _privateConstructorUsedError;
-  bool get manager => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   bool get offline => throw _privateConstructorUsedError;
-  bool get participant => throw _privateConstructorUsedError;
+  bool get isParticipant => throw _privateConstructorUsedError;
   int get participantCnt => throw _privateConstructorUsedError;
   String get startDate => throw _privateConstructorUsedError;
   String get university => throw _privateConstructorUsedError;
@@ -86,14 +86,14 @@ abstract class $GroupDetailCopyWith<$Res> {
       _$GroupDetailCopyWithImpl<$Res>;
   $Res call(
       {int id,
+      int managerId,
       String city,
       String district,
       String imageUrl,
       String introduction,
-      bool manager,
       String name,
       bool offline,
-      bool participant,
+      bool isParticipant,
       int participantCnt,
       String startDate,
       String university});
@@ -110,14 +110,14 @@ class _$GroupDetailCopyWithImpl<$Res> implements $GroupDetailCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
+    Object? managerId = freezed,
     Object? city = freezed,
     Object? district = freezed,
     Object? imageUrl = freezed,
     Object? introduction = freezed,
-    Object? manager = freezed,
     Object? name = freezed,
     Object? offline = freezed,
-    Object? participant = freezed,
+    Object? isParticipant = freezed,
     Object? participantCnt = freezed,
     Object? startDate = freezed,
     Object? university = freezed,
@@ -126,6 +126,10 @@ class _$GroupDetailCopyWithImpl<$Res> implements $GroupDetailCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      managerId: managerId == freezed
+          ? _value.managerId
+          : managerId // ignore: cast_nullable_to_non_nullable
               as int,
       city: city == freezed
           ? _value.city
@@ -143,10 +147,6 @@ class _$GroupDetailCopyWithImpl<$Res> implements $GroupDetailCopyWith<$Res> {
           ? _value.introduction
           : introduction // ignore: cast_nullable_to_non_nullable
               as String,
-      manager: manager == freezed
-          ? _value.manager
-          : manager // ignore: cast_nullable_to_non_nullable
-              as bool,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -155,9 +155,9 @@ class _$GroupDetailCopyWithImpl<$Res> implements $GroupDetailCopyWith<$Res> {
           ? _value.offline
           : offline // ignore: cast_nullable_to_non_nullable
               as bool,
-      participant: participant == freezed
-          ? _value.participant
-          : participant // ignore: cast_nullable_to_non_nullable
+      isParticipant: isParticipant == freezed
+          ? _value.isParticipant
+          : isParticipant // ignore: cast_nullable_to_non_nullable
               as bool,
       participantCnt: participantCnt == freezed
           ? _value.participantCnt
@@ -184,14 +184,14 @@ abstract class _$GroupDetailCopyWith<$Res>
   @override
   $Res call(
       {int id,
+      int managerId,
       String city,
       String district,
       String imageUrl,
       String introduction,
-      bool manager,
       String name,
       bool offline,
-      bool participant,
+      bool isParticipant,
       int participantCnt,
       String startDate,
       String university});
@@ -210,14 +210,14 @@ class __$GroupDetailCopyWithImpl<$Res> extends _$GroupDetailCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? managerId = freezed,
     Object? city = freezed,
     Object? district = freezed,
     Object? imageUrl = freezed,
     Object? introduction = freezed,
-    Object? manager = freezed,
     Object? name = freezed,
     Object? offline = freezed,
-    Object? participant = freezed,
+    Object? isParticipant = freezed,
     Object? participantCnt = freezed,
     Object? startDate = freezed,
     Object? university = freezed,
@@ -226,6 +226,10 @@ class __$GroupDetailCopyWithImpl<$Res> extends _$GroupDetailCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      managerId: managerId == freezed
+          ? _value.managerId
+          : managerId // ignore: cast_nullable_to_non_nullable
               as int,
       city: city == freezed
           ? _value.city
@@ -243,10 +247,6 @@ class __$GroupDetailCopyWithImpl<$Res> extends _$GroupDetailCopyWithImpl<$Res>
           ? _value.introduction
           : introduction // ignore: cast_nullable_to_non_nullable
               as String,
-      manager: manager == freezed
-          ? _value.manager
-          : manager // ignore: cast_nullable_to_non_nullable
-              as bool,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -255,9 +255,9 @@ class __$GroupDetailCopyWithImpl<$Res> extends _$GroupDetailCopyWithImpl<$Res>
           ? _value.offline
           : offline // ignore: cast_nullable_to_non_nullable
               as bool,
-      participant: participant == freezed
-          ? _value.participant
-          : participant // ignore: cast_nullable_to_non_nullable
+      isParticipant: isParticipant == freezed
+          ? _value.isParticipant
+          : isParticipant // ignore: cast_nullable_to_non_nullable
               as bool,
       participantCnt: participantCnt == freezed
           ? _value.participantCnt
@@ -280,14 +280,14 @@ class __$GroupDetailCopyWithImpl<$Res> extends _$GroupDetailCopyWithImpl<$Res>
 class _$_GroupDetail implements _GroupDetail {
   _$_GroupDetail(
       {required this.id,
+      required this.managerId,
       required this.city,
       required this.district,
       required this.imageUrl,
       required this.introduction,
-      required this.manager,
       required this.name,
       required this.offline,
-      required this.participant,
+      required this.isParticipant,
       required this.participantCnt,
       required this.startDate,
       required this.university});
@@ -298,6 +298,8 @@ class _$_GroupDetail implements _GroupDetail {
   @override
   final int id;
   @override
+  final int managerId;
+  @override
   final String city;
   @override
   final String district;
@@ -306,13 +308,11 @@ class _$_GroupDetail implements _GroupDetail {
   @override
   final String introduction;
   @override
-  final bool manager;
-  @override
   final String name;
   @override
   final bool offline;
   @override
-  final bool participant;
+  final bool isParticipant;
   @override
   final int participantCnt;
   @override
@@ -322,7 +322,7 @@ class _$_GroupDetail implements _GroupDetail {
 
   @override
   String toString() {
-    return 'GroupDetail(id: $id, city: $city, district: $district, imageUrl: $imageUrl, introduction: $introduction, manager: $manager, name: $name, offline: $offline, participant: $participant, participantCnt: $participantCnt, startDate: $startDate, university: $university)';
+    return 'GroupDetail(id: $id, managerId: $managerId, city: $city, district: $district, imageUrl: $imageUrl, introduction: $introduction, name: $name, offline: $offline, isParticipant: $isParticipant, participantCnt: $participantCnt, startDate: $startDate, university: $university)';
   }
 
   @override
@@ -331,6 +331,8 @@ class _$_GroupDetail implements _GroupDetail {
         (other.runtimeType == runtimeType &&
             other is _GroupDetail &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.managerId, managerId) ||
+                other.managerId == managerId) &&
             (identical(other.city, city) || other.city == city) &&
             (identical(other.district, district) ||
                 other.district == district) &&
@@ -338,11 +340,10 @@ class _$_GroupDetail implements _GroupDetail {
                 other.imageUrl == imageUrl) &&
             (identical(other.introduction, introduction) ||
                 other.introduction == introduction) &&
-            (identical(other.manager, manager) || other.manager == manager) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.offline, offline) || other.offline == offline) &&
-            (identical(other.participant, participant) ||
-                other.participant == participant) &&
+            (identical(other.isParticipant, isParticipant) ||
+                other.isParticipant == isParticipant) &&
             (identical(other.participantCnt, participantCnt) ||
                 other.participantCnt == participantCnt) &&
             (identical(other.startDate, startDate) ||
@@ -355,14 +356,14 @@ class _$_GroupDetail implements _GroupDetail {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      managerId,
       city,
       district,
       imageUrl,
       introduction,
-      manager,
       name,
       offline,
-      participant,
+      isParticipant,
       participantCnt,
       startDate,
       university);
@@ -381,14 +382,14 @@ class _$_GroupDetail implements _GroupDetail {
 abstract class _GroupDetail implements GroupDetail {
   factory _GroupDetail(
       {required int id,
+      required int managerId,
       required String city,
       required String district,
       required String imageUrl,
       required String introduction,
-      required bool manager,
       required String name,
       required bool offline,
-      required bool participant,
+      required bool isParticipant,
       required int participantCnt,
       required String startDate,
       required String university}) = _$_GroupDetail;
@@ -399,6 +400,8 @@ abstract class _GroupDetail implements GroupDetail {
   @override
   int get id;
   @override
+  int get managerId;
+  @override
   String get city;
   @override
   String get district;
@@ -407,13 +410,11 @@ abstract class _GroupDetail implements GroupDetail {
   @override
   String get introduction;
   @override
-  bool get manager;
-  @override
   String get name;
   @override
   bool get offline;
   @override
-  bool get participant;
+  bool get isParticipant;
   @override
   int get participantCnt;
   @override

@@ -16,7 +16,7 @@ dependencies:
 
   flutter_riverpod: ^1.0.0
   flutter_screenutil: ^5.0.0
-  flutter_svg: ^0.23.0+1
+  flutter_svg: ^1.0.0
   freezed_annotation:
   json_annotation: ^4.3.0
   flutter_rating_bar: ^4.0.0
@@ -64,6 +64,7 @@ flutter:
     - assets/icon/mypage/
     - assets/icon/search/
     - assets/icon/tab/
+    - assets/icon/onboarding/
     - .env
 
   fonts:

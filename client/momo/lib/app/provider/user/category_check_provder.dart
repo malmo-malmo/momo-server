@@ -25,9 +25,9 @@ final categoryStateProvider =
 
 class CategoryState extends StateNotifier<List<bool>> {
   CategoryState(
-    int num, {
+    int cnt, {
     required this.repository,
-  }) : super(List.generate(num, (index) => false));
+  }) : super(List.generate(cnt, (index) => false));
 
   final UserRepository repository;
 

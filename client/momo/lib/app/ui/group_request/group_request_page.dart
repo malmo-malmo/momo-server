@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/provider/group/category_check_provider.dart';
 import 'package:momo/app/provider/group/group_request_provider.dart';
 import 'package:momo/app/ui/components/button/confirm_button.dart';
+import 'package:momo/app/ui/components/category/category_column.dart';
 import 'package:momo/app/ui/components/input_box/content_input_box.dart';
 import 'package:momo/app/ui/components/input_box/date_input_box.dart';
 import 'package:momo/app/ui/components/input_box/name_input_box.dart';
 import 'package:momo/app/ui/components/button/on_off_toggle_button.dart';
-import 'package:momo/app/ui/group_request/widget/categort_card.dart';
 import 'package:momo/app/ui/group_request/widget/head_num_input_box.dart';
 import 'package:momo/app/ui/group_request/widget/set_meet_city_box.dart';
 import 'package:momo/app/ui/group_request/widget/set_meet_country_box.dart';
@@ -22,6 +23,7 @@ class GroupRequestPage extends ConsumerWidget {
     final groupRequest = ref.watch(groupRequestProvider);
     final check = ref.watch(groupRequestCheckProvider);
     final dialogText = "'${groupRequest.name}' 모임이 생성되었어요!";
+    final checks = ref.watch(groupRequestCategoryProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -40,7 +42,22 @@ class GroupRequestPage extends ConsumerWidget {
                             .read(groupRequestStateProvider.notifier)
                             .setMeetName),
                     _subTitle('카테고리'),
-                    categoryCards(),
+                    Wrap(
+                      spacing: 20,
+                      runSpacing: 20,
+                      children: [
+                        for (int i = 0; i < checks.length; i++)
+                          categoryColumn(
+                            check: checks[i],
+                            index: i,
+                            onTabIcon: ref
+                                .read(
+                                    groupRequestCategoryStateProvider.notifier)
+                                .checkCategory,
+                            spaceHeight: 14,
+                          ),
+                      ],
+                    ),
                     _subTitle('모임 유형'),
                     onOffToggleButton(
                         tabButton: ref

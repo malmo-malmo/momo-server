@@ -10,7 +10,7 @@ final categoryController =
   final repository = ref.watch(groupRepositoryProvider);
 
   _pagingController.addPageRequestListener((pageKey) {
-    fetchPage(
+    _fetchPage(
       pageKey: pageKey,
       getGroups: repository.getGroupsByCategories,
       pagingController: _pagingController,
@@ -27,7 +27,7 @@ final districtController =
   final repository = ref.watch(groupRepositoryProvider);
 
   _pagingController.addPageRequestListener((pageKey) {
-    fetchPage(
+    _fetchPage(
       pageKey: pageKey,
       getGroups: repository.getGroupsByDistrict,
       pagingController: _pagingController,
@@ -44,7 +44,7 @@ final universityController =
   final repository = ref.watch(groupRepositoryProvider);
 
   _pagingController.addPageRequestListener((pageKey) {
-    fetchPage(
+    _fetchPage(
       pageKey: pageKey,
       getGroups: repository.getGroupsByUniversity,
       pagingController: _pagingController,
@@ -55,7 +55,7 @@ final universityController =
   return _pagingController;
 });
 
-Future<void> fetchPage({
+Future<void> _fetchPage({
   required int pageKey,
   required Future<List<GroupInfo>> Function(int page) getGroups,
   required PagingController pagingController,

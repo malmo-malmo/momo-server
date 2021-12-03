@@ -13,17 +13,15 @@ spring:
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
+        jdbc:
+          batch_size: 1000
+          batch_versioned_data: true
         format_sql: true
         use_sql_comments: true
         default_batch_fetch_size: 100
         order_inserts: true
         order_updates: true
-
-#logging:
-#  level:
-#    org.hibernate.SQL: debug
-#    org.hibernate.type: trace

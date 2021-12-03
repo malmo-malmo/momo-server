@@ -1,13 +1,12 @@
 package com.momo.auth;
 
+import com.momo.common.exception.CustomException;
+import com.momo.common.exception.ErrorCode;
 import com.momo.user.domain.model.User;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
-import io.jsonwebtoken.UnsupportedJwtException;
 import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,49 +18,67 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TokenProvider {
 
-    @Value("${app.auth.tokenSecret}")
-    private String tokenSecret;
+    @Value("${app.auth.accessTokenSecretKey}")
+    private String accessTokenSecretKey;
 
-    @Value("${app.auth.tokenExpirationMsec}")
-    private long tokenExpirationMsec;
+    @Value("${app.auth.accessTokenExpirationMsec}")
+    private long accessTokenExpirationMsec;
 
-    public String createToken(User user) {
+    @Value("${app.auth.refreshTokenSecretKey}")
+    private String refreshTokenSecretKey;
+
+    @Value("${app.auth.refreshTokenExpirationMsec}")
+    private long refreshTokenExpirationMsec;
+
+    public String createAccessToken(User user) {
         Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + tokenExpirationMsec);
+        Date expiryDate = new Date(now.getTime() + accessTokenExpirationMsec);
 
         return Jwts.builder()
             .setSubject(user.getId().toString())
             .setIssuedAt(new Date())
             .setExpiration(expiryDate)
-            .signWith(SignatureAlgorithm.HS512, tokenSecret)
+            .signWith(SignatureAlgorithm.HS512, accessTokenSecretKey)
             .compact();
     }
 
-    public String getIdFromToken(String token) {
+    public String createRefreshToken(User user) {
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + refreshTokenExpirationMsec);
+
+        String refreshToken = Jwts.builder()
+            .setSubject(user.getId().toString())
+            .setIssuedAt(new Date())
+            .setExpiration(expiryDate)
+            .signWith(SignatureAlgorithm.HS512, refreshTokenSecretKey)
+            .compact();
+
+        user.updateRefreshToken(refreshToken);
+        return refreshToken;
+    }
+
+    public String getIdFromAccessToken(String accessToken) {
         Claims claims = Jwts.parser()
-            .setSigningKey(tokenSecret)
-            .parseClaimsJws(token)
+            .setSigningKey(accessTokenSecretKey)
+            .parseClaimsJws(accessToken)
             .getBody();
 
         return claims.getSubject();
     }
 
-    public boolean isInvalidToken(String authToken) {
+    public void validateAccessToken(String accessToken) {
+        validateToken(accessToken, accessTokenSecretKey, ErrorCode.INVALID_ACCESS_TOKEN);
+    }
+
+    public void validateRefreshToken(String refreshToken) {
+        validateToken(refreshToken, refreshTokenSecretKey, ErrorCode.INVALID_REFRESH_TOKEN);
+    }
+
+    private void validateToken(String token, String secretKey, ErrorCode errorCode) {
         try {
-            Jwts.parser().setSigningKey(tokenSecret)
-                .parseClaimsJws(authToken);
-            return false;
-        } catch (SignatureException ex) {
-            log.error("Invalid JWT signature");
-        } catch (MalformedJwtException ex) {
-            log.error("Invalid JWT token");
-        } catch (ExpiredJwtException ex) {
-            log.error("Expired JWT token");
-        } catch (UnsupportedJwtException ex) {
-            log.error("Unsupported JWT token");
-        } catch (IllegalArgumentException ex) {
-            log.error("JWT claims string is empty.");
+            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+        } catch (JwtException | IllegalArgumentException e) {
+            throw new CustomException(errorCode);
         }
-        return true;
     }
 }

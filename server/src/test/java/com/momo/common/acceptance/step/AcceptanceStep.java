@@ -26,6 +26,11 @@ public class AcceptanceStep {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
 
+    public static void assertThatErrorIsInvalidRefreshToken(ExtractableResponse<Response> response) {
+        assertThat(response.body().as(ErrorResponse.class).getMessage()).isEqualTo(
+            ErrorCode.INVALID_REFRESH_TOKEN.getMessage());
+    }
+
     public static void assertThatErrorIsParticipantUnAuthorized(ExtractableResponse<Response> response) {
         assertThat(response.body().as(ErrorResponse.class).getMessage()).isEqualTo(
             ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED.getMessage());

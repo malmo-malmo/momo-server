@@ -46,9 +46,11 @@ public class User extends BaseEntity {
 
     private String categories;
 
+    private String refreshToken;
+
     @Builder
     public User(Long id, String providerId, SocialProvider provider, String nickname, String image, String city,
-        String district, String university, String categories) {
+        String district, String university, String categories, String refreshToken) {
         this.id = id;
         this.providerId = providerId;
         this.provider = provider;
@@ -58,6 +60,11 @@ public class User extends BaseEntity {
         this.district = district;
         this.university = university;
         this.categories = categories;
+        this.refreshToken = refreshToken;
+    }
+
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
     public boolean isNotSameNickname(String nickname) {

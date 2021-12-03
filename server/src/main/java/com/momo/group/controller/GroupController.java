@@ -42,7 +42,7 @@ public class GroupController {
     @ApiOperation(value = "모임 상세 페이지 조회")
     @GetMapping("/group/{id}")
     public ResponseEntity<GroupResponse> find(@CurrentUser User user, @PathVariable Long id) {
-        GroupResponse groupResponse = groupService.find(user, id);
+        GroupResponse groupResponse = groupService.findById(user, id);
         return ResponseEntity.ok(groupResponse);
     }
 

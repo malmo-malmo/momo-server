@@ -1,14 +1,16 @@
 package com.momo.group.controller;
 
+import com.momo.auth.domain.CurrentUser;
 import com.momo.group.controller.dto.ParticipantResponse;
 import com.momo.group.service.ParticipantService;
-import com.momo.auth.domain.CurrentUser;
 import com.momo.user.domain.model.User;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,14 +24,6 @@ public class ParticipantController {
 
     private final ParticipantService participantService;
 
-    @ApiOperation(value = "모임 참여자 목록 조회")
-    @GetMapping("/group/participants")
-    public ResponseEntity<List<ParticipantResponse>> findParticipantsByGroup(@CurrentUser User user,
-        @RequestParam Long groupId) {
-        List<ParticipantResponse> responses = participantService.findParticipantsByGroup(user, groupId);
-        return ResponseEntity.ok(responses);
-    }
-
     /*
     테스트를 위해 임시로 만든 API
     */
@@ -39,5 +33,20 @@ public class ParticipantController {
         @RequestBody Long groupId) {
         participantService.applyParticipantByGroup(user, groupId);
         return ResponseEntity.ok().build();
+    }
+
+    @ApiOperation(value = "모임 참여자 목록 조회")
+    @GetMapping("/group/participants")
+    public ResponseEntity<List<ParticipantResponse>> findByGroup(@CurrentUser User user,
+        @RequestParam Long groupId) {
+        List<ParticipantResponse> responses = participantService.findByGroupId(user, groupId);
+        return ResponseEntity.ok(responses);
+    }
+
+    @ApiOperation(value = "모임 탈퇴")
+    @DeleteMapping("/group/participant/{groupId}")
+    public ResponseEntity<Void> delete(@CurrentUser User user, @PathVariable Long groupId) {
+        participantService.deleteByGroupId(user, groupId);
+        return ResponseEntity.noContent().build();
     }
 }

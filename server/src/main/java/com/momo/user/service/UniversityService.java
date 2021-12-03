@@ -24,7 +24,7 @@ public class UniversityService {
     @Value("${app.openApi.careerNet.url}")
     private String secretUrl;
 
-    public List<UniversityResponse> find(String universityName) {
+    public List<UniversityResponse> findByUniversityName(String universityName) {
         List<UniversityResponse> responses = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
         try {

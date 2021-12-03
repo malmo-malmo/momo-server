@@ -38,7 +38,7 @@ public class CommentService {
     }
 
     @Transactional(readOnly = true)
-    public CommentsResponse findPageByPost(User user, CommentsRequest request) {
+    public CommentsResponse findPageByPostId(User user, CommentsRequest request) {
         Post post = getPostById(request.getPostId());
         validateGroupParticipant(user, post.getGroup());
         Page<Comment> pageComments = commentRepository

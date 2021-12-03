@@ -94,6 +94,10 @@ public class Groups extends BaseEntity {
             .build();
     }
 
+    public boolean isManager(User user) {
+        return user.isSameUser(manager);
+    }
+
     public boolean isNotManager(User user) {
         return !user.isSameUser(manager);
     }

@@ -34,18 +34,18 @@ public class ScheduleService {
 
     public Long create(User user, ScheduleCreateRequest request) {
         Groups group = getGroupById(request.getGroupId());
-        validateGroupManager(group, user);
+        validateNotGroupManager(group, user);
         return scheduleRepository.save(Schedule.create(request.toEntity(), group, user)).getId();
     }
 
-    public void validateGroupManager(Groups group, User user) {
+    public void validateNotGroupManager(Groups group, User user) {
         if (group.isNotManager(user)) {
             throw new CustomException(ErrorCode.GROUP_SCHEDULE_UNAUTHORIZED);
         }
     }
 
     @Transactional(readOnly = true)
-    public GroupSchedulesResponse findPageByGroupAndUser(User user, GroupSchedulesRequest request) {
+    public GroupSchedulesResponse findPageByUserAndGroupId(User user, GroupSchedulesRequest request) {
         Groups group = getGroupById(request.getGroupId());
         validateGroupParticipant(user, group);
         PageRequest pageRequest = PageRequest.of(request.getPage(), request.getSize());
@@ -61,7 +61,7 @@ public class ScheduleService {
     }
 
     @Transactional(readOnly = true)
-    public List<UserScheduleResponse> findPageByUser(User user, UserSchedulesRequest request) {
+    public List<UserScheduleResponse> findPageByUserAndSearchDate(User user, UserSchedulesRequest request) {
         LocalDateTime searchStartDateTime = request.getSearchStartDate().atStartOfDay();
         LocalDateTime searchEndDateTime = request.getSearchEndDate().plusDays(1).atStartOfDay();
         List<Schedule> schedules = scheduleRepository

@@ -26,26 +26,42 @@ public class ParticipantService {
     private final ScheduleRepository scheduleRepository;
 
     @Transactional(readOnly = true)
-    public List<ParticipantResponse> findParticipantsByGroup(User user, Long groupId) {
+    public List<ParticipantResponse> findByGroupId(User user, Long groupId) {
         Groups group = getGroupById(groupId);
-        validateGroupManager(group, user);
+        validateNotGroupManager(group, user);
         Long scheduleCnt = scheduleRepository.countByGroupAndIsAttendanceCheck(group, true);
         return participantRepository.findParticipantAndAttendanceRateByGroup(group, scheduleCnt);
     }
 
-    public void validateGroupManager(Groups group, User user) {
+    public void validateNotGroupManager(Groups group, User user) {
         if (group.isNotManager(user)) {
             throw new CustomException(ErrorCode.GROUP_PARTICIPANTS_UNAUTHORIZED);
         }
     }
 
-    public void applyParticipantByGroup(User user, Long groupId) {
+    public void deleteByGroupId(User user, Long groupId) {
         Groups group = getGroupById(groupId);
-        participantRepository.save(Participant.create(user, group));
+        validateGroupManager(group, user);
+        participantRepository.deleteByUserAndGroup(user, group);
     }
 
     public Groups getGroupById(Long groupId) {
         return groupRepository.findById(groupId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
+
+    public void validateGroupManager(Groups group, User user) {
+        if (group.isManager(user)) {
+            throw new CustomException(ErrorCode.GROUP_MANAGER_WITHDRAW_NOT_ALLOW);
+        }
+    }
+
+    /*
+    테스트를 위해 임시로 만든 API
+    */
+    public void applyParticipantByGroup(User user, Long groupId) {
+        Groups group = getGroupById(groupId);
+        participantRepository.save(Participant.create(user, group));
+    }
+
 }

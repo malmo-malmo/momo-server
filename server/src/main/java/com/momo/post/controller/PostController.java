@@ -40,7 +40,7 @@ public class PostController {
     @ApiOperation(value = "게시물 상세 페이지 조회")
     @GetMapping("/post/{id}")
     public ResponseEntity<PostResponse> find(@CurrentUser User user, @PathVariable Long id) {
-        PostResponse postResponse = postService.find(user, id);
+        PostResponse postResponse = postService.findById(user, id);
         return ResponseEntity.ok(postResponse);
     }
 
@@ -48,7 +48,7 @@ public class PostController {
     @GetMapping("/posts/paging")
     public ResponseEntity<List<PostCardResponse>> findPageByGroupAndType(@CurrentUser User user,
         @ModelAttribute @Valid PostCardsRequest postCardsRequest) {
-        List<PostCardResponse> postCardResponses = postService.findPageByGroupAndType(user, postCardsRequest);
+        List<PostCardResponse> postCardResponses = postService.findPageByGroupIdAndType(user, postCardsRequest);
         return ResponseEntity.ok(postCardResponses);
     }
 }

@@ -68,12 +68,12 @@ class _UserClient implements UserClient {
   @override
   Future<bool> validateNickname(nickname) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'nickname': nickname};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<bool>(_setStreamType<bool>(
         Options(method: 'GET', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/user/validate/nickname/$nickname',
+            .compose(_dio.options, '/user/duplicate-nickname',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;

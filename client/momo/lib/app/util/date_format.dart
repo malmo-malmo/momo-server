@@ -1,8 +1,16 @@
 import 'package:intl/intl.dart';
 
-String dayTitle(int year, int month, int day) {
-  return DateFormat('EEEE').format(DateTime(year, month, day)).substring(0, 3);
-}
+String dayTitle(int year, int month, int day) =>
+    DateFormat('EEEE').format(DateTime(year, month, day)).substring(0, 3);
+
+String calSearchStartDay(int year, int month) =>
+    DateFormat('yyyy-MM-dd').format(DateTime(year, month, 1));
+
+String calSearchEndDay(int year, int month) => DateFormat('yyyy-MM-dd')
+    .format(DateTime(year, month, calendarDay(year, month)));
+
+String calStartTime(String startDateTime) =>
+    DateFormat.jm().format(DateTime.parse(startDateTime));
 
 String calDay(DateTime date) {
   final day = DateFormat('EEEE').format(date);

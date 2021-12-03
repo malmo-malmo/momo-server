@@ -8,6 +8,7 @@ import 'package:momo/app/provider/user/category_result_provider.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/login/widget/agree_button.dart';
 import 'package:momo/app/ui/login/widget/title_text.dart';
+import 'package:momo/app/util/constant.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
@@ -57,37 +58,21 @@ class CategoryPage extends ConsumerWidget {
                       runSpacing: 64.h,
                       children: [
                         _categoryCard(categoryState[0], 0,
-                            selImg: 'assets/icon/category/icon_health_64.svg',
-                            unSelImg:
-                                'assets/icon/category/icon_healthlightgray_64.svg'),
+                            selImg: iconHealth, unSelImg: iconHealthGray),
                         _categoryCard(categoryState[1], 1,
-                            selImg: 'assets/icon/category/icon_food_64.svg',
-                            unSelImg:
-                                'assets/icon/category/icon_foodlightgray_64.svg'),
+                            selImg: iconFood, unSelImg: iconFoodGray),
                         _categoryCard(categoryState[2], 2,
-                            selImg: 'assets/icon/category/icon_self_64.svg',
-                            unSelImg:
-                                'assets/icon/category/icon_selflightgray_64.svg'),
+                            selImg: iconSelf, unSelImg: iconSelfGray),
                         _categoryCard(categoryState[3], 3,
-                            selImg: 'assets/icon/category/icon_life_64.svg',
-                            unSelImg:
-                                'assets/icon/category/icon_lifelightgray_64.svg'),
+                            selImg: iconLife, unSelImg: iconLifeGray),
                         _categoryCard(categoryState[4], 4,
-                            selImg: 'assets/icon/category/icon_hobby_64.svg',
-                            unSelImg:
-                                'assets/icon/category/icon_hobbylightgray_64.svg'),
+                            selImg: iconHobby, unSelImg: iconHobbyGray),
                         _categoryCard(categoryState[5], 5,
-                            selImg: 'assets/icon/category/icon_stock_64.svg',
-                            unSelImg:
-                                'assets/icon/category/icon_stockightgray_64.svg'),
+                            selImg: iconStock, unSelImg: iconStockGray),
                         _categoryCard(categoryState[6], 6,
-                            selImg: 'assets/icon/category/icon_healing_64.svg',
-                            unSelImg:
-                                'assets/icon/category/icon_healinglightgray_64.svg'),
+                            selImg: iconHealing, unSelImg: iconHealingGray),
                         _categoryCard(categoryState[7], 7,
-                            selImg: 'assets/icon/category/icon_job_64.svg',
-                            unSelImg:
-                                'assets/icon/category/icon_joblightgray_64.svg'),
+                            selImg: iconJob, unSelImg: iconJobGray),
                       ],
                     ),
                   ),

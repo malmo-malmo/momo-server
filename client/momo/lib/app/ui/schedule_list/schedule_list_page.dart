@@ -4,7 +4,12 @@ import 'package:momo/app/ui/schedule_list/widget/schedule_list.dart';
 import 'package:momo/app/util/theme.dart';
 
 class ScheduleListPage extends StatelessWidget {
-  const ScheduleListPage({Key? key}) : super(key: key);
+  const ScheduleListPage({
+    Key? key,
+    required this.groupId,
+  }) : super(key: key);
+
+  final int groupId;
 
   @override
   Widget build(BuildContext context) {

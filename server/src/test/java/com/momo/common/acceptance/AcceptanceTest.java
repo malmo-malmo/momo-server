@@ -22,7 +22,7 @@ public class AcceptanceTest {
     int port;
 
     @Autowired
-    UserRepository userRepository;
+    protected UserRepository userRepository;
 
     @Autowired
     private DatabaseCleanUp databaseCleanUp;
@@ -44,7 +44,7 @@ public class AcceptanceTest {
     }
 
     protected String getAccessToken(User user) {
-        return tokenProvider.createToken(userRepository.save(user));
+        return tokenProvider.createAccessToken(userRepository.save(user));
     }
 
     protected Long extractId(ExtractableResponse<Response> response) {

@@ -3,13 +3,13 @@ package com.momo.auth.service;
 import com.momo.auth.TokenProvider;
 import com.momo.auth.controller.dto.OAuthLoginRequest;
 import com.momo.auth.controller.dto.OAuthLoginResponse;
+import com.momo.auth.controller.dto.RefreshLoginRequest;
 import com.momo.auth.domain.OAuthProvider;
 import com.momo.auth.domain.OAuthProviderFactory;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
 import com.momo.user.domain.model.User;
 import com.momo.user.domain.repository.UserRepository;
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,18 +27,29 @@ public class OAuthService {
 
     public OAuthLoginResponse oauthLogin(OAuthLoginRequest oAuthLoginRequest) {
         OAuthProvider oAuthProvider = oAuthProviderFactory.getOAuthProvider(oAuthLoginRequest.getProvider());
-        User user = oAuthProvider.requestOAuthLogin(oAuthLoginRequest.getAuthorizationCode());
-        User loginUser = userRepository.findByProviderIdAndProvider(user.getProviderId(), user.getProvider())
-            .orElseGet(() -> userRepository.save(user));
-        return new OAuthLoginResponse(tokenProvider.createToken(loginUser));
+        User OAuthUser = oAuthProvider.requestOAuthLogin(oAuthLoginRequest.getAuthorizationCode());
+        User loginUser = getUserByOAuthUser(OAuthUser);
+        return new OAuthLoginResponse(
+            tokenProvider.createAccessToken(loginUser), tokenProvider.createRefreshToken(loginUser)
+        );
+    }
+
+    public User getUserByOAuthUser(User OAuthUser) {
+        return userRepository.findByProviderIdAndProvider(OAuthUser.getProviderId(), OAuthUser.getProvider())
+            .orElseGet(() -> userRepository.save(OAuthUser));
     }
 
     public User findLoginUserByAccessToken(String accessToken) {
-        if (Objects.isNull(accessToken) || tokenProvider.isInvalidToken(accessToken)) {
-            throw new CustomException(ErrorCode.INVALID_ACCESS_TOKEN);
-        }
-        String userId = tokenProvider.getIdFromToken(accessToken);
+        tokenProvider.validateAccessToken(accessToken);
+        String userId = tokenProvider.getIdFromAccessToken(accessToken);
         return userRepository.findById(Long.parseLong(userId))
-            .orElseThrow(() -> new CustomException(ErrorCode.ACCESS_TOKEN_NOT_FOUND_USER));
+            .orElseThrow(() -> new CustomException(ErrorCode.TOKEN_NOT_FOUND_USER));
+    }
+
+    public OAuthLoginResponse refreshLogin(RefreshLoginRequest refreshLoginRequest) {
+        tokenProvider.validateRefreshToken(refreshLoginRequest.getRefreshToken());
+        User user = userRepository.findByRefreshToken(refreshLoginRequest.getRefreshToken())
+            .orElseThrow(() -> new CustomException(ErrorCode.TOKEN_NOT_FOUND_USER));
+        return new OAuthLoginResponse(tokenProvider.createAccessToken(user), tokenProvider.createRefreshToken(user));
     }
 }

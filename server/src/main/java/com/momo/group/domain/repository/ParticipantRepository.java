@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ParticipantRepository extends JpaRepository<Participant, Long>, ParticipantRepositoryCustom {
 
     Boolean existsByUserAndGroup(User user, Groups group);
+
+    void deleteByUserAndGroup(User user, Groups group);
 }

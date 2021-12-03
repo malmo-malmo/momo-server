@@ -18,6 +18,10 @@ public class AcceptanceStep {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
     }
 
+    public static void assertThatStatusIsNoContent(ExtractableResponse<Response> response) {
+        assertThat(response.statusCode()).isEqualTo(HttpStatus.NO_CONTENT.value());
+    }
+
     public static void assertThatStatusIsBadRequest(ExtractableResponse<Response> response) {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
@@ -40,5 +44,10 @@ public class AcceptanceStep {
     public static void assertThatErrorIsParticipantsUnAuthorized(ExtractableResponse<Response> response) {
         assertThat(response.body().as(ErrorResponse.class).getMessage()).isEqualTo(
             ErrorCode.GROUP_PARTICIPANTS_UNAUTHORIZED.getMessage());
+    }
+
+    public static void assertThatErrorIsDeleteManager(ExtractableResponse<Response> response) {
+        assertThat(response.body().as(ErrorResponse.class).getMessage()).isEqualTo(
+            ErrorCode.GROUP_MANAGER_WITHDRAW_NOT_ALLOW.getMessage());
     }
 }

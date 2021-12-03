@@ -34,11 +34,11 @@ public class ScheduleService {
 
     public Long create(User user, ScheduleCreateRequest request) {
         Groups group = getGroupById(request.getGroupId());
-        validateGroupManager(group, user);
+        validateNotGroupManager(group, user);
         return scheduleRepository.save(Schedule.create(request.toEntity(), group, user)).getId();
     }
 
-    public void validateGroupManager(Groups group, User user) {
+    public void validateNotGroupManager(Groups group, User user) {
         if (group.isNotManager(user)) {
             throw new CustomException(ErrorCode.GROUP_SCHEDULE_UNAUTHORIZED);
         }

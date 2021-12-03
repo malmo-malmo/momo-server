@@ -4,13 +4,17 @@ import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST1;
 import static com.momo.fixture.UserFixture.USER1;
 import static com.momo.fixture.UserFixture.USER2;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
+import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.assertThatFindParticipantsAfterDelete;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToApplyParticipant;
+import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToDeleteParticipant;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToFindParticipants;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
+import com.momo.group.controller.dto.ParticipantResponse;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -36,5 +40,26 @@ public class ParticipantAcceptanceTest extends AcceptanceTest {
         requestToApplyParticipant(participantToken, groupId);
         ExtractableResponse<Response> response = requestToFindParticipants(participantToken, groupId);
         AcceptanceStep.assertThatErrorIsParticipantsUnAuthorized(response);
+    }
+
+    @Test
+    public void 모임_참여자가_모임에서_탈퇴한다() {
+        String managerToken = getAccessToken(USER1);
+        String participantToken = getAccessToken(USER2);
+        Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));
+        requestToApplyParticipant(participantToken, groupId);
+        ExtractableResponse<Response> response = requestToDeleteParticipant(participantToken, groupId);
+        AcceptanceStep.assertThatStatusIsNoContent(response);
+        List<ParticipantResponse> participantResponses =
+            getObjects(requestToFindParticipants(managerToken, groupId), ParticipantResponse.class);
+        assertThatFindParticipantsAfterDelete(participantResponses);
+    }
+
+    @Test
+    public void 모임_관리자가_모임에서_탈퇴하면_실패한다() {
+        String managerToken = getAccessToken(USER1);
+        Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));
+        ExtractableResponse<Response> response = requestToDeleteParticipant(managerToken, groupId);
+        AcceptanceStep.assertThatErrorIsDeleteManager(response);
     }
 }

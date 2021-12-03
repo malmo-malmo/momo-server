@@ -41,6 +41,11 @@ class MomoTextStyle {
     color: MomoColor.black,
     fontWeight: FontWeight.w700,
   );
+  static final onboarding = TextStyle(
+    fontSize: 24.sp,
+    color: MomoColor.white,
+    fontWeight: FontWeight.w700,
+  );
   static final subTitle = TextStyle(
     fontSize: 20.sp,
     color: MomoColor.black,

@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/model/user/category_request.dart';
-import 'package:momo/app/provider/user/category_result_provider.dart';
+import 'package:momo/app/provider/category_result_provider.dart';
 import 'package:momo/app/repository/user_repository.dart';
 
 final isCheckCategoryProvider = Provider.autoDispose<bool>((ref) {

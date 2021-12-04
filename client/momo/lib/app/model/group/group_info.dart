@@ -11,7 +11,7 @@ class GroupInfo with _$GroupInfo {
     required bool offline,
     required int participantCnt,
     required String startDate,
-    required String imageUrl,
+    String? imageUrl,
   }) = _GroupInfo;
 
   factory GroupInfo.fromJson(Map<String, dynamic> json) =>

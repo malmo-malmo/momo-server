@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/model/user/category_request.dart';
 import 'package:momo/app/model/user/user_info_request.dart';
-import 'package:momo/app/provider/user/location_result_provider.dart';
+import 'package:momo/app/provider/city_result_provider.dart';
 import 'package:momo/app/provider/user/name_check_provider.dart';
 import 'package:momo/app/repository/user_repository.dart';
 
@@ -35,8 +35,8 @@ class UserInfoState extends StateNotifier<UserInfoRequest> {
           UserInfoRequest(
             nickname: '',
             university: '',
-            city: '서울',
-            district: 'GANGNAM_GU',
+            city: 'SEOUL',
+            district: '강남구',
           ),
         );
 
@@ -48,16 +48,18 @@ class UserInfoState extends StateNotifier<UserInfoRequest> {
   void setUserUniversity(String university) =>
       state = state.copyWith(university: university);
 
-  void setUserCity(String city) => state = state.copyWith(city: city);
-
-  void setUserDistrict(String district) => state = state.copyWith(
-        district: locationCodeNamePair
-            .where((element) => element.name == district)
+  void setUserCity(String city) => state = state.copyWith(
+        city: cityCodeNamePair
+            .where((element) => element.name == city)
             .first
             .code,
       );
-  String get userDistrict => locationCodeNamePair
-      .where((element) => element.code == state.district)
+
+  void setUserDistrict(String district) =>
+      state = state.copyWith(district: district);
+
+  String get userCity => cityCodeNamePair
+      .where((element) => element.code == state.city)
       .first
       .name;
 

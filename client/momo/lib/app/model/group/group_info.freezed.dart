@@ -27,7 +27,7 @@ class _$GroupInfoTearOff {
       required bool offline,
       required int participantCnt,
       required String startDate,
-      required String imageUrl}) {
+      String? imageUrl}) {
     return _GroupInfo(
       id: id,
       name: name,
@@ -53,7 +53,7 @@ mixin _$GroupInfo {
   bool get offline => throw _privateConstructorUsedError;
   int get participantCnt => throw _privateConstructorUsedError;
   String get startDate => throw _privateConstructorUsedError;
-  String get imageUrl => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -71,7 +71,7 @@ abstract class $GroupInfoCopyWith<$Res> {
       bool offline,
       int participantCnt,
       String startDate,
-      String imageUrl});
+      String? imageUrl});
 }
 
 /// @nodoc
@@ -115,7 +115,7 @@ class _$GroupInfoCopyWithImpl<$Res> implements $GroupInfoCopyWith<$Res> {
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -132,7 +132,7 @@ abstract class _$GroupInfoCopyWith<$Res> implements $GroupInfoCopyWith<$Res> {
       bool offline,
       int participantCnt,
       String startDate,
-      String imageUrl});
+      String? imageUrl});
 }
 
 /// @nodoc
@@ -177,7 +177,7 @@ class __$GroupInfoCopyWithImpl<$Res> extends _$GroupInfoCopyWithImpl<$Res>
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -191,7 +191,7 @@ class _$_GroupInfo implements _GroupInfo {
       required this.offline,
       required this.participantCnt,
       required this.startDate,
-      required this.imageUrl});
+      this.imageUrl});
 
   factory _$_GroupInfo.fromJson(Map<String, dynamic> json) =>
       _$$_GroupInfoFromJson(json);
@@ -207,7 +207,7 @@ class _$_GroupInfo implements _GroupInfo {
   @override
   final String startDate;
   @override
-  final String imageUrl;
+  final String? imageUrl;
 
   @override
   String toString() {
@@ -252,7 +252,7 @@ abstract class _GroupInfo implements GroupInfo {
       required bool offline,
       required int participantCnt,
       required String startDate,
-      required String imageUrl}) = _$_GroupInfo;
+      String? imageUrl}) = _$_GroupInfo;
 
   factory _GroupInfo.fromJson(Map<String, dynamic> json) =
       _$_GroupInfo.fromJson;
@@ -268,7 +268,7 @@ abstract class _GroupInfo implements GroupInfo {
   @override
   String get startDate;
   @override
-  String get imageUrl;
+  String? get imageUrl;
   @override
   @JsonKey(ignore: true)
   _$GroupInfoCopyWith<_GroupInfo> get copyWith =>

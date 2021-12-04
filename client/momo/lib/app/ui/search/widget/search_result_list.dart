@@ -60,10 +60,11 @@ class _SearchResultListState extends State<SearchResultList> {
       pagingController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<GroupInfo>(
         itemBuilder: (context, item, index) => searchResultCard(
-          title: '',
-          img: '',
+          title: '모모짱',
+          img:
+              'https://cdnweb01.wikitree.co.kr/webdata/editor/202105/14/img_20210514103008_152f5427.webp',
           onOff: false,
-          startDay: '',
+          startDay: '12/31~',
           headNum: 3,
         ),
       ),

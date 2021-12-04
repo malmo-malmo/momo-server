@@ -52,18 +52,21 @@ class HomePage extends ConsumerWidget {
                 title: '추천',
                 icon: 'assets/icon/home/icon_recommend_28.svg',
                 actionIcon: Icons.add,
+                pagingController: categoryPagingController,
               ),
               HomeMeetingList(pagingController: categoryPagingController),
               subTitle(
                 title: '내 학교',
                 icon: 'assets/icon/home/icon_myschool_28.svg',
                 actionIcon: Icons.add,
+                pagingController: universityPagingController,
               ),
               HomeMeetingList(pagingController: universityPagingController),
               subTitle(
                 title: '주변',
                 icon: 'assets/icon/home/icon_location_28.svg',
                 actionIcon: Icons.add,
+                pagingController: districtPagingController,
               ),
               HomeMeetingList(pagingController: districtPagingController),
               subTitle(

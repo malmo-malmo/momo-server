@@ -12,7 +12,7 @@ _$_GroupInfo _$$_GroupInfoFromJson(Map<String, dynamic> json) => _$_GroupInfo(
       offline: json['offline'] as bool,
       participantCnt: json['participantCnt'] as int,
       startDate: json['startDate'] as String,
-      imageUrl: json['imageUrl'] as String,
+      imageUrl: json['imageUrl'] as String?,
     );
 
 Map<String, dynamic> _$$_GroupInfoToJson(_$_GroupInfo instance) =>

@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:momo/app/model/code_name_pair.dart';
 import 'package:momo/app/model/user/category_request.dart';
 import 'package:momo/app/model/user/university.dart';
 import 'package:momo/app/model/user/user_info_request.dart';

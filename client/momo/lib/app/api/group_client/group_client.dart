@@ -41,13 +41,13 @@ abstract class GroupClient {
     @Query('size') int size,
   );
 
-  @GET('/groups/search/paging')
+  @GET('/groups/user-district/paging')
   Future<List<GroupInfo>> getGroupsByDistrict(
     @Query('page') int page,
     @Query('size') int size,
   );
 
-  @GET('/groups/search/paging')
+  @GET('/groups/user-university/paging')
   Future<List<GroupInfo>> getGroupsByUniversity(
     @Query('page') int page,
     @Query('size') int size,

@@ -28,6 +28,7 @@ final dioProvider = Provider<Dio>((ref) {
       if (error.response?.statusCode == 401) {
         RequestOptions options = error.response!.requestOptions;
 
+        dp.log('>>>>>>>>>> 토큰재발급 <<<<<<<<<<');
         dio
             .post('$baseUrl/oauth/login/refresh',
                 data: {'refreshToken': tokenData.refreshToken})

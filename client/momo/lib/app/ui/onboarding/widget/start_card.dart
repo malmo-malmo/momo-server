@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:momo/app/provider/user/user_data_provider.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
@@ -68,7 +69,8 @@ Widget startCard() {
             width: 320.w,
             child: Consumer(builder: (context, ref, _) {
               return ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
+                  await ref.watch(userDataProvider.future);
                   ref
                       .read(navigatorProvider)
                       .navigateToRemove(routeName: AppRoutes.main);

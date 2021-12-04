@@ -62,15 +62,40 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               SvgPicture.asset(
                 'assets/icon/ic_momo.svg',
               ),
-              InkWell(
-                onTap: () async {
-                  await _loginWithKakao();
-                  ref
-                      .read(navigatorProvider)
-                      .navigateToRemove(routeName: AppRoutes.trems);
-                },
-                child: Image.asset(
-                  'assets/image/kakao_login_large_wide.png',
+              // InkWell(
+              //   onTap: () async {
+              //     await _loginWithKakao();
+              //     ref
+              //         .read(navigatorProvider)
+              //         .navigateToRemove(routeName: AppRoutes.trems);
+              //   },
+              //   child: Image.asset(
+              //     'assets/image/kakao_login_large_wide.png',
+              //   ),
+              // )
+
+              //  제플린 디자인
+              SizedBox(
+                width: double.infinity,
+                height: 56,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await _loginWithKakao();
+                    ref
+                        .read(navigatorProvider)
+                        .navigateToRemove(routeName: AppRoutes.trems);
+                  },
+                  style: ElevatedButton.styleFrom(
+                      primary: const Color(0xffffffff),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      )),
+                  child: Text(
+                    '카카오 계정으로 로그인',
+                    style: MomoTextStyle.defaultStyle
+                        .copyWith(color: MomoColor.main),
+                  ),
                 ),
               )
             ],

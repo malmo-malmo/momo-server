@@ -31,14 +31,14 @@ public class AcceptanceTest {
     private TokenProvider tokenProvider;
 
     @BeforeEach
-    public void setUp() {
+    protected void setUp() {
         if (RestAssured.port == RestAssured.UNDEFINED_PORT) {
             RestAssured.port = port;
         }
     }
 
     @AfterEach
-    public void tearDown() {
+    protected void tearDown() {
         databaseCleanUp.afterPropertiesSet();
         databaseCleanUp.cleanUp();
     }

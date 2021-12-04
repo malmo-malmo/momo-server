@@ -5,11 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/schedule/user_schedule_provider.dart';
-import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/components/status/error_card.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
+import 'package:momo/app/ui/home/widget/schedule_page_view.dart';
 import 'package:momo/app/util/date_format.dart';
-import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 class ReminderCard extends ConsumerWidget {
@@ -30,7 +29,7 @@ class ReminderCard extends ConsumerWidget {
       elevation: 5,
       child: Container(
         padding: const EdgeInsets.only(top: 20),
-        height: 342.h,
+        height: 360,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(26),
           color: MomoColor.white,
@@ -63,32 +62,14 @@ class ReminderCard extends ConsumerWidget {
               error: (error, stackTrace) => errorCard(),
               loading: () => loadingCard(),
               data: (schedules) {
+                final curSchedule = schedules
+                    .where((e) =>
+                        DateTime.parse(e.first.startDateTime).day ==
+                        DateTime.now().day)
+                    .toList();
+
                 return Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _reminderScheduleCard(
-                        title: '청계천 달리기 & 산책',
-                        date: '오전 11:00',
-                      ),
-                      Container(
-                          height: 1,
-                          width: 280.w,
-                          color: const Color(0xffdedede)),
-                      _reminderScheduleCard(
-                        title: '신촌 카공',
-                        date: '오후 1:00',
-                      ),
-                      Container(
-                          height: 1,
-                          width: 280.w,
-                          color: const Color(0xffdedede)),
-                      _reminderScheduleCard(
-                        title: '서울 맛집탐방',
-                        date: '오후 7:00',
-                      ),
-                    ],
-                  ),
+                  child: schedulePageView(schedules: curSchedule.first),
                 );
               },
             ),
@@ -128,61 +109,5 @@ class ReminderCard extends ConsumerWidget {
         ),
       );
     });
-  }
-
-  Widget _reminderScheduleCard({
-    required String title,
-    required String date,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Icon(
-                CupertinoIcons.heart_circle,
-                size: 36.w,
-              ),
-              SizedBox(width: 14.w),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: MomoTextStyle.defaultStyle,
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    date,
-                    style: MomoTextStyle.small,
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Consumer(
-            builder: (context, ref, _) {
-              return InkWell(
-                onTap: () {
-                  ref
-                      .read(navigatorProvider)
-                      .navigateTo(routeName: AppRoutes.scheduleList);
-                },
-                child: Transform.rotate(
-                  angle: pi,
-                  child: Icon(
-                    CupertinoIcons.back,
-                    color: MomoColor.black,
-                    size: 18.w,
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-    );
   }
 }

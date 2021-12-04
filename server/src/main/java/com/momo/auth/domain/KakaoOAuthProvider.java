@@ -1,6 +1,5 @@
 package com.momo.auth.domain;
 
-import com.momo.user.domain.model.Role;
 import com.momo.user.domain.model.SocialProvider;
 import com.momo.user.domain.model.User;
 import lombok.Getter;

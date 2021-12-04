@@ -22,7 +22,8 @@ public class UserAcceptanceStep {
             () -> assertThat(response.getImage()).isEqualTo(user.getImage()),
             () -> assertThat(response.getCity()).isEqualTo(user.getCity()),
             () -> assertThat(response.getDistrict()).isEqualTo(user.getDistrict()),
-            () -> assertThat(response.getUniversity()).isEqualTo(user.getUniversity())
+            () -> assertThat(response.getUniversity()).isEqualTo(user.getUniversity()),
+            () -> assertThat(response.getCategories().size()).isEqualTo(2)
         );
     }
 

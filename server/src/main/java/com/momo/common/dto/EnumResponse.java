@@ -40,4 +40,8 @@ public class EnumResponse {
             .map(status -> EnumResponse.of(status.getCode(), status.getName()))
             .collect(Collectors.toList());
     }
+
+    public static List<EnumResponse> listFromCategories(List<Category> categories) {
+        return categories.stream().map(EnumResponse::ofCategory).collect(Collectors.toList());
+    }
 }

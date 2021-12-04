@@ -10,13 +10,13 @@ import org.springframework.util.CollectionUtils;
 
 public enum Category {
     HEALTH("건강"),
-    EMPLOYMENT("취업"),
-    SELF_DEVELOPMENT("자기계발"),
-    HEALING("힐링"),
-    ASSET("자산"),
+    RICE("밥약"),
+    SELF_DEVELOPMENT("자기관리"),
     LIFE("생활"),
     HOBBY("취미"),
-    RICE("밥약");
+    STOCK("주식"),
+    HEALING("힐링"),
+    EMPLOYMENT("취업");
 
     private final String name;
 

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kakao_flutter_sdk/all.dart';
+import 'package:momo/app/model/token_data.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/provider_log.dart';
@@ -12,9 +14,15 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 String? baseUrl;
 
 void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(TokenDataAdapter());
+  await Hive.openBox('auth');
+
   await dotenv.load(fileName: ".env");
   final kakaoKey = dotenv.get('KAKAOKEY');
+
   KakaoContext.clientId = kakaoKey;
+
   runApp(
     ProviderScope(
       child: const MyApp(),
@@ -30,20 +38,13 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // SystemChrome.setEnabledSystemUIMode(
-    //   SystemUiMode.manual,
-    //   overlays: [
-    //     SystemUiOverlay.top,
-    //   ],
-    // );
-
     return ScreenUtilInit(
       designSize: const Size(360, 640),
       builder: () => MaterialApp(
         debugShowCheckedModeBanner: false,
         navigatorKey: ref.watch(navigatorProvider).navigatorKey,
         scrollBehavior: MyBehavior(),
-        initialRoute: AppRoutes.main,
+        initialRoute: AppRoutes.splash,
         theme: momoThemeData,
         onGenerateRoute: (settings) => AppRouter.onGenerateRoute(settings),
         localizationsDelegates: const [

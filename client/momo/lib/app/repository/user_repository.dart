@@ -39,7 +39,15 @@ class UserRepository {
   }
 
   Future<List<CodeNamePair>> getLocations() async {
-    final response = await userClient.getLocations();
-    return response;
+    await Future.delayed(const Duration(milliseconds: 500));
+    // final response = await userClient.getLocations();
+    // return response;
+
+    return [
+      CodeNamePair(code: 'EUNPYEONG_GU', name: '은평구'),
+      CodeNamePair(code: 'MAPO_GU', name: '마포구'),
+      CodeNamePair(code: 'SEODAEMUN_GU', name: '서대문구'),
+      CodeNamePair(code: 'JONGNO_GU', name: '종로구'),
+    ];
   }
 }

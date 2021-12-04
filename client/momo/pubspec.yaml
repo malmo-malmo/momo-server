@@ -76,6 +76,11 @@ flutter:
         - asset: font/NanumSquareOTF/NanumSquareOTF_acR.otf
           weight: 400
 
+    - family: BMJua
+      fonts:
+        - asset: font/BMJua/BMJUA_ttf.ttf
+          weight: 400
+
 flutter_native_splash:
   color: "#8a69f2"
   image: assets/splash.png

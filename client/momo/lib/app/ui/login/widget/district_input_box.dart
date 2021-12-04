@@ -19,6 +19,7 @@ Widget districtBox({
         color: const Color(0xffffffff),
       ),
       height: 44,
+      width: 120,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,

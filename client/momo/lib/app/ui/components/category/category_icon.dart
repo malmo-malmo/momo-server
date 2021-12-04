@@ -28,13 +28,13 @@ Widget categoryIcon(String categoryName, {double? size = 36}) {
         width: size,
         height: size,
       );
-    case '자산':
+    case '주식':
       return SvgPicture.asset(
         iconStock,
         width: size,
         height: size,
       );
-    case '자기계발':
+    case '자기관리':
       return SvgPicture.asset(
         iconSelf,
         width: size,

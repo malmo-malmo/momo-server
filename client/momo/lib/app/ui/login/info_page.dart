@@ -128,8 +128,7 @@ class InfoPage extends ConsumerWidget {
                     // ),
                     districtBox(
                       district: userInfo.district,
-                      cityCode:
-                          ref.watch(userInfoStateProvider.notifier).userCity,
+                      cityCode: userInfo.city,
                     ),
                   ],
                 ),

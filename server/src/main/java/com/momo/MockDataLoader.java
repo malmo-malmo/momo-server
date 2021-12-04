@@ -37,9 +37,11 @@ public class MockDataLoader implements CommandLineRunner {
     private static final int MAX_USER_COUNT = 500;
     private static final int MAX_POST_COUNT = 30;
     private static final int MAX_SCHEDULE_COUNT = 30;
-    private static final List<String> UNIVERSITIES = Arrays.asList("대학교1", "대학교2", "대학교3", "대학교4", "대학교5");
-    private static final List<String> CITIES = Arrays.asList("서울", "경기", "인천", "부산");
-    private static final List<String> DISTRICTS = Arrays.asList("강남구", "강동구", "은평구", "서초구");
+    private static final List<String> UNIVERSITIES =
+        Arrays.asList("서울대학교", "연세대학교", "고려대학교", "서강대학교", "성균관대학교", "한양대학교");
+    private static final List<String> DISTRICTS =
+        Arrays.asList("강남구", "강동구", "은평구", "서초구", "송파구", "종로구", "마포구");
+    private static final List<String> CITIES = List.of("서울특별시");
 
     private final UserRepository userRepository;
     private final GroupRepository groupRepository;
@@ -66,7 +68,6 @@ public class MockDataLoader implements CommandLineRunner {
         List<User> managers = new ArrayList<>();
         for (int count = 1; count <= MAX_GROUP_COUNT; count++) {
             Collections.shuffle(UNIVERSITIES);
-            Collections.shuffle(CITIES);
             Collections.shuffle(DISTRICTS);
             User manager = User.builder()
                 .providerId(String.valueOf(count))
@@ -88,7 +89,6 @@ public class MockDataLoader implements CommandLineRunner {
         for (int count = 1; count <= MAX_GROUP_COUNT; count++) {
             Collections.shuffle(categories);
             Collections.shuffle(UNIVERSITIES);
-            Collections.shuffle(CITIES);
             Collections.shuffle(DISTRICTS);
             Groups group = Groups.builder()
                 .manager(managers.get(count - 1))
@@ -112,7 +112,6 @@ public class MockDataLoader implements CommandLineRunner {
         List<User> users = new ArrayList<>();
         for (int count = 1; count <= MAX_USER_COUNT; count++) {
             Collections.shuffle(UNIVERSITIES);
-            Collections.shuffle(CITIES);
             Collections.shuffle(DISTRICTS);
             User user = User.builder()
                 .providerId(String.valueOf(MAX_GROUP_COUNT + count))

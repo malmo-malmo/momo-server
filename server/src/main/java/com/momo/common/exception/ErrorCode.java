@@ -8,6 +8,7 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(500, "서버에 문제가 생겼습니다."),
     CAREER_NET_SERVER_ERROR(500, "커리어넷 서버에 문제가 생겼습니다"),
     PARSING_DISTRICT_FILE_ERROR(500, "행정구역 파일을 읽는 과정에서 문제가 생겼습니다"),
+    CITY_CATEGORY_NAME_NOT_FOUND(500, "지역(시/도) 카테고리 타입이 존재하지 않습니다."),
 
     INVALID_OAUTH_AUTHORIZATION_CODE(4001, "유효하지 않은 OAuth 인가 코드 입니다."),
     INVALID_OAUTH_ACCESS_TOKEN(401, "유효하지 않은 OAuth 엑세스 토큰입니다."),
@@ -25,7 +26,7 @@ public enum ErrorCode {
 
     DUPLICATED_NICKNAME(400, "이미 존재하는 닉네임입니다."),
 
-    CITY_CATEGORY_NOT_FOUND(400, "지역(시/도) 카테고리 타입은 존재하지 않습니다."),
+    CITY_CATEGORY_CODE_NOT_FOUND(400, "지역(시/도) 카테고리 타입이 존재하지 않습니다."),
 
     GROUP_CATEGORY_NOT_FOUND(400, "해당 모임 카테고리 타입은 존재하지 않습니다."),
     GROUP_MANAGER_WITHDRAW_NOT_ALLOW(400, "해당 모임의 관리자는 탈퇴할 수 없습니다."),

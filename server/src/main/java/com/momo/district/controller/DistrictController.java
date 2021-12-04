@@ -30,7 +30,7 @@ public class DistrictController {
     @ApiOperation(value = "구/군 목록 조회")
     @GetMapping("/district/districts")
     public ResponseEntity<List<DistrictResponse>> findDistrictsByCity(@RequestParam String cityCode) {
-        List<District> districts = districtRepository.findAllByCity(City.of(cityCode));
+        List<District> districts = districtRepository.findAllByCity(City.fromCode(cityCode));
         return ResponseEntity.ok(DistrictResponse.listOf(districts));
     }
 }

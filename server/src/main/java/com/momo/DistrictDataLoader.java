@@ -49,7 +49,7 @@ public class DistrictDataLoader implements CommandLineRunner {
             for (int i = 0; i < workSheet.getPhysicalNumberOfRows(); i++) {
                 Row row = workSheet.getRow(i);
                 District district = District.builder()
-                    .city(City.of(row.getCell(0).getStringCellValue()))
+                    .city(City.fromName(row.getCell(0).getStringCellValue()))
                     .districtName(row.getCell(1).getStringCellValue())
                     .build();
                 districts.add(district);

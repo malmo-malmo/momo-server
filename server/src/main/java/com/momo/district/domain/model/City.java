@@ -38,10 +38,17 @@ public enum City {
         return name;
     }
 
-    public static City of(String code) {
+    public static City fromName(String name){
         return Arrays.stream(City.values())
-            .filter(v -> v.name.equals(code))
+            .filter(v -> v.name.equals(name))
             .findFirst()
-            .orElseThrow(() -> new CustomException(ErrorCode.CITY_CATEGORY_NOT_FOUND));
+            .orElseThrow(() -> new CustomException(ErrorCode.CITY_CATEGORY_NAME_NOT_FOUND));
+    }
+
+    public static City fromCode(String code) {
+        return Arrays.stream(City.values())
+            .filter(v -> v.name().equals(code))
+            .findFirst()
+            .orElseThrow(() -> new CustomException(ErrorCode.CITY_CATEGORY_CODE_NOT_FOUND));
     }
 }

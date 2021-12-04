@@ -9,12 +9,10 @@ import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
 import com.momo.common.dto.EnumResponse;
 import com.momo.district.controller.dto.DistrictResponse;
+import com.momo.district.domain.model.City;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +29,7 @@ public class DistrictAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void 구군_목록을_조회한다() {
-        ExtractableResponse<Response> response = requestToFindDistricts("서울특별시");
+        ExtractableResponse<Response> response = requestToFindDistricts(City.SEOUL.getCode());
         List<DistrictResponse> districtResponses = getObjects(response, DistrictResponse.class);
         AcceptanceStep.assertThatStatusIsOk(response);
         assertThatFindDistricts(districtResponses);

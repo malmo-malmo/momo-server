@@ -64,10 +64,11 @@ class _NoticeListViewState extends State<NoticeListView> {
             postId: index,
             profile:
                 'https://blog.kakaocdn.net/dn/l2HIx/btqAIQ3UbfL/AaP9zEOiO8zhbj2OAjcPS1/img.jpg',
-            text: '',
+            text:
+                '공지사항 입니다 공지사항 입니다 공지사항 입니다 공지사항 입니다 공지사항 입니다 공지사항 입니다 공지사항 입니다 공지사항 입니다 공지사항 입니다 공지사항 입니다 공지사항 입니다 공지사항 입니다 ',
             comments: 3,
-            userName: '',
-            title: '',
+            userName: '김모모',
+            title: '공지사항 입니다',
             date: '2021년 12월 31일 오후 1:00',
           ),
         ),

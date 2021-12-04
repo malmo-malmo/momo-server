@@ -19,11 +19,11 @@ Widget scheduleCard({required CalendarSchedule schedule}) {
       children: [
         Row(
           children: [
+            categoryIcon(schedule.category.name),
             SizedBox(width: 14.w),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                categoryIcon(schedule.category.name),
                 Text(
                   schedule.title,
                   style: MomoTextStyle.defaultStyle,

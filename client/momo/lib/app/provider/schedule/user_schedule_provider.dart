@@ -1,3 +1,5 @@
+import 'dart:developer' as dp;
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:momo/app/model/schedule/calendar_schedule.dart';
@@ -19,7 +21,7 @@ final homeUserScheduleProvider =
       ),
     );
     //  시간 순 정렬
-    // schedules.sort((a, b) => a.startDateTime.compareTo(b.startDateTime));
+    schedules.sort((a, b) => a.startDateTime.compareTo(b.startDateTime));
 
     // 날짜 확인
     Set<String> dates = schedules
@@ -40,6 +42,10 @@ final homeUserScheduleProvider =
           .toList();
       scheduleLists.add(tmp);
     }
+    for (int i = 0; i < scheduleLists.length; i++) {
+      dp.log('${scheduleLists[i]}');
+    }
+
     return scheduleLists;
   },
 );

@@ -116,7 +116,7 @@ class _GroupClient implements GroupClient {
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<GroupInfo>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/groups/search/paging',
+                .compose(_dio.options, '/groups/user-district/paging',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
@@ -134,7 +134,7 @@ class _GroupClient implements GroupClient {
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<GroupInfo>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/groups/search/paging',
+                .compose(_dio.options, '/groups/user-university/paging',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!

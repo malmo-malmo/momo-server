@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/api/api_provider.dart';
 import 'package:momo/app/api/user_client/user_client.dart';
-import 'package:momo/app/model/code_name_pair.dart';
 import 'package:momo/app/model/user/category_request.dart';
 import 'package:momo/app/model/user/university.dart';
 import 'package:momo/app/model/user/user_info_request.dart';
@@ -36,18 +35,5 @@ class UserRepository {
   Future<dynamic> updateUserCategory(CategoryRequest categoryRequest) async {
     final response = await userClient.updateCategory(categoryRequest);
     return response;
-  }
-
-  Future<List<CodeNamePair>> getLocations() async {
-    await Future.delayed(const Duration(milliseconds: 500));
-    // final response = await userClient.getLocations();
-    // return response;
-
-    return [
-      CodeNamePair(code: 'EUNPYEONG_GU', name: '은평구'),
-      CodeNamePair(code: 'MAPO_GU', name: '마포구'),
-      CodeNamePair(code: 'SEODAEMUN_GU', name: '서대문구'),
-      CodeNamePair(code: 'JONGNO_GU', name: '종로구'),
-    ];
   }
 }

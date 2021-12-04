@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/api/dio_provider.dart';
+import 'package:momo/app/api/district_client/district_client.dart';
 import 'package:momo/app/api/group_client/group_client.dart';
 import 'package:momo/app/api/post_client/post_client.dart';
 import 'package:momo/app/api/schedule_client/schedule_client.dart';
@@ -24,4 +25,9 @@ final postClientProvider = Provider<PostClient>((ref) {
 final scheduleClientProvider = Provider<ScheduleClient>((ref) {
   final dio = ref.watch(dioProvider);
   return ScheduleClient(dio, baseUrl: baseUrl!);
+});
+
+final districtClientProvider = Provider<DistrictClient>((ref) {
+  final dio = ref.watch(dioProvider);
+  return DistrictClient(dio, baseUrl: baseUrl!);
 });

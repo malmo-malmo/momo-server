@@ -23,67 +23,78 @@ class ReminderCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final scheduleResponses = ref.watch(homeUserScheduleProvider);
 
-    return scheduleResponses.when(
-      error: (error, stackTrace) => errorCard(),
-      loading: () => loadingCard(),
-      data: (schedules) {
-        return Material(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(26),
-          ),
-          elevation: 5,
-          child: Container(
-            padding: const EdgeInsets.only(top: 20),
-            height: 342.h,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(26),
-              color: MomoColor.white,
+    return Material(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(26),
+      ),
+      elevation: 5,
+      child: Container(
+        padding: const EdgeInsets.only(top: 20),
+        height: 342.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(26),
+          color: MomoColor.white,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            SizedBox(
+              height: 89.h,
+              child: ListView.builder(
+                controller: _controller,
+                scrollDirection: Axis.horizontal,
+                itemCount:
+                    calendarDay(DateTime.now().year, DateTime.now().month),
+                itemBuilder: (_, index) {
+                  final title = dayTitle(
+                    DateTime.now().year,
+                    DateTime.now().month,
+                    DateTime.now().day + index,
+                  );
+                  return _dateCard(
+                    title: title,
+                    day: index + 1,
+                    index: index,
+                  );
+                },
+              ),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(
-                  height: 89.h,
-                  child: ListView.builder(
-                    controller: _controller,
-                    scrollDirection: Axis.horizontal,
-                    itemCount:
-                        calendarDay(DateTime.now().year, DateTime.now().month),
-                    itemBuilder: (_, index) {
-                      final title = dayTitle(
-                        DateTime.now().year,
-                        DateTime.now().month,
-                        DateTime.now().day + index,
-                      );
-                      return _dateCard(
-                        title: title,
-                        day: index + 1,
-                        index: index,
-                      );
-                    },
+            scheduleResponses.when(
+              error: (error, stackTrace) => errorCard(),
+              loading: () => loadingCard(),
+              data: (schedules) {
+                return Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _reminderScheduleCard(
+                        title: '청계천 달리기 & 산책',
+                        date: '오전 11:00',
+                      ),
+                      Container(
+                          height: 1,
+                          width: 280.w,
+                          color: const Color(0xffdedede)),
+                      _reminderScheduleCard(
+                        title: '신촌 카공',
+                        date: '오후 1:00',
+                      ),
+                      Container(
+                          height: 1,
+                          width: 280.w,
+                          color: const Color(0xffdedede)),
+                      _reminderScheduleCard(
+                        title: '서울 맛집탐방',
+                        date: '오후 7:00',
+                      ),
+                    ],
                   ),
-                ),
-                _reminderScheduleCard(
-                  title: '청계천 달리기 & 산책',
-                  date: '오전 11:00-12:00',
-                ),
-                Container(
-                    height: 1, width: 280.w, color: const Color(0xffdedede)),
-                _reminderScheduleCard(
-                  title: '신촌 카공',
-                  date: '오후 1:00-3:00',
-                ),
-                Container(
-                    height: 1, width: 280.w, color: const Color(0xffdedede)),
-                _reminderScheduleCard(
-                  title: '서울 맛집탐방',
-                  date: '오후 7:00-9:00',
-                ),
-              ],
+                );
+              },
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 

@@ -7,11 +7,11 @@ import 'package:momo/app/provider/user/user_info_provider.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/components/dialog/confirm_dialog.dart';
 import 'package:momo/app/ui/login/widget/agree_button.dart';
+import 'package:momo/app/ui/login/widget/district_input_box.dart';
 import 'package:momo/app/ui/login/widget/input_box.dart';
 import 'package:momo/app/ui/login/widget/university_input_box.dart';
 import 'package:momo/app/ui/login/widget/university_result_dialog.dart';
 import 'package:momo/app/ui/login/widget/set_city_box.dart';
-import 'package:momo/app/ui/login/widget/set_district_box.dart';
 import 'package:momo/app/ui/login/widget/title_text.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
@@ -114,14 +114,22 @@ class InfoPage extends ConsumerWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    cityInputBox(),
-                    districtInputBox(
-                      district: ref
-                          .watch(userInfoStateProvider.notifier)
-                          .userDistrict,
-                      setCountry: ref
-                          .read(userInfoStateProvider.notifier)
-                          .setUserDistrict,
+                    cityInputBox(
+                      city: ref.watch(userInfoStateProvider.notifier).userCity,
+                      setCity:
+                          ref.watch(userInfoStateProvider.notifier).setUserCity,
+                    ),
+                    // districtInputBox(
+                    //   district: userInfo.district,
+                    //   cityCode: userInfo.city,
+                    //   setDistrict: ref
+                    //       .read(userInfoStateProvider.notifier)
+                    //       .setUserDistrict,
+                    // ),
+                    districtBox(
+                      district: userInfo.district,
+                      cityCode:
+                          ref.watch(userInfoStateProvider.notifier).userCity,
                     ),
                   ],
                 ),

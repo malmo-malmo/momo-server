@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:momo/app/routes/custom_arg/group_list_arg.dart';
 import 'package:momo/app/ui/attendance_list/attendance_list_page.dart';
 import 'package:momo/app/ui/full_img_page.dart';
 import 'package:momo/app/ui/gallery/gallery_page.dart';
+import 'package:momo/app/ui/group_list/group_list_page.dart';
 import 'package:momo/app/ui/group_request/group_request_page.dart';
 import 'package:momo/app/ui/login/category_page.dart';
 import 'package:momo/app/ui/login/info_page.dart';
@@ -9,7 +11,6 @@ import 'package:momo/app/ui/login/login_page.dart';
 import 'package:momo/app/ui/login/terms_page.dart';
 import 'package:momo/app/ui/main_page.dart';
 import 'package:momo/app/ui/meeting_detail/meeting_detail_page.dart';
-import 'package:momo/app/ui/meeting_list/meeting_list_page.dart';
 import 'package:momo/app/ui/member_list/member_list_page.dart';
 import 'package:momo/app/ui/notice_list/notice_list_page.dart';
 import 'package:momo/app/ui/onboarding/onboarding_page.dart';
@@ -28,7 +29,7 @@ class AppRoutes {
   static const category = '/category';
   static const info = '/info';
   static const onboarding = '/onboarding';
-  static const meetingList = '/meetingList';
+  static const groupList = '/groupList';
   static const meetingDetail = '/meetingDetail';
   static const newMeet = '/newMeet';
   static const gallery = '/gallery';
@@ -76,10 +77,13 @@ class AppRouter {
         return MaterialPageRoute<dynamic>(
             builder: (_) => const OnboardingPage(), settings: settings);
 
-      case AppRoutes.meetingList:
-        final name = settings.arguments;
+      case AppRoutes.groupList:
+        GroupListArg arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => MeetingListPage(name: name),
+          builder: (_) => GroupListPage(
+            name: arg.name,
+            pagingController: arg.pagingController,
+          ),
           settings: settings,
         );
 

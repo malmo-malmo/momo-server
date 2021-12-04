@@ -31,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @Profile("local")
 @RequiredArgsConstructor
-public class DataLoader implements CommandLineRunner {
+public class MockDataLoader implements CommandLineRunner {
 
     private static final int MAX_GROUP_COUNT = 50;
     private static final int MAX_USER_COUNT = 500;

@@ -18,9 +18,11 @@ import 'package:momo/app/ui/post_request/post_request_page.dart';
 import 'package:momo/app/ui/request_meeting/request_meeting_page.dart';
 import 'package:momo/app/ui/schedule_list/schedule_list_page.dart';
 import 'package:momo/app/ui/schedule_request/schedule_request_page.dart';
+import 'package:momo/splash_page.dart';
 
 class AppRoutes {
   static const main = '/main';
+  static const splash = '/splash';
   static const login = '/login';
   static const trems = '/trems';
   static const category = '/category';
@@ -49,6 +51,10 @@ class AppRouter {
       case AppRoutes.main:
         return MaterialPageRoute<dynamic>(
             builder: (_) => const MainPage(), settings: settings);
+
+      case AppRoutes.splash:
+        return MaterialPageRoute<dynamic>(
+            builder: (_) => const SplashPage(), settings: settings);
 
       case AppRoutes.login:
         return MaterialPageRoute<dynamic>(

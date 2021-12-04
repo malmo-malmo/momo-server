@@ -2,12 +2,59 @@ import 'dart:developer' as dp;
 
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:momo/app/provider/auth/token_provider.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:momo/app/model/token_data.dart';
+import 'package:momo/main.dart';
 
 final dioProvider = Provider<Dio>((ref) {
-  final token = ref.watch(tokenProvider);
-  final dio = Dio(BaseOptions(headers: {'Authorization': 'Bearer $token'}));
+  TokenData tokenData = Hive.box('auth').get('tokenData');
+
+  final dio = Dio(
+    BaseOptions(
+      headers: {
+        'Authorization': '${tokenData.accessTokenType} ${tokenData.accessToken}'
+      },
+    ),
+  );
+
   dio.interceptors.add(CustomLogInterceptor());
+
+  //  QueuedInterceptorsWrapper: 요청이 순차적으로 들어간다
+  dio.interceptors.add(QueuedInterceptorsWrapper(
+    onError: (error, handler) async {
+      dp.log('>>>>>>>>>> onError <<<<<<<<<<');
+
+      // accessToken 만료
+      if (error.response?.statusCode == 401) {
+        RequestOptions options = error.response!.requestOptions;
+
+        dio
+            .post('$baseUrl/oauth/login/refresh',
+                data: {'refreshToken': tokenData.refreshToken})
+            .then((response) {
+              //  Hive에 tokenData 갱신
+              Hive.box('auth').put(
+                'tokenData',
+                TokenData(
+                  accessToken: response.data['accessToken'],
+                  accessTokenType: response.data['accessTokenType'],
+                  refreshToken: response.data['refreshToken'],
+                ),
+              );
+            })
+            .whenComplete(() {})
+            .then((e) {
+              dio.fetch(options).then(
+                    (r) => handler.resolve(r),
+                    onError: (e) => handler.reject(e),
+                  );
+            });
+        return;
+      }
+
+      return handler.next(error);
+    },
+  ));
   return dio;
 });
 

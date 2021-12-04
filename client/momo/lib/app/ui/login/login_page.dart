@@ -1,12 +1,12 @@
 import 'dart:developer' as dp;
 
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kakao_flutter_sdk/all.dart';
-import 'package:momo/app/provider/auth/token_provider.dart';
+import 'package:momo/app/model/token_data.dart';
 import 'package:momo/app/provider/user/category_result_provider.dart';
 import 'package:momo/app/provider/user/location_result_provider.dart';
 import 'package:momo/app/routes/routes.dart';
@@ -24,11 +24,7 @@ class LoginPage extends ConsumerStatefulWidget {
 class _LoginPageState extends ConsumerState<LoginPage> {
   final dio = Dio();
 
-  Future<void> loginWithKakao() async {
-    final isGPhone = await getDeviceInfo();
-    baseUrl =
-        isGPhone ? 'http://10.0.2.2:8080/api' : 'http://192.168.0.2:8080/api';
-
+  Future<void> _loginWithKakao() async {
     final authCode = await getAuthCode();
 
     final response = await dio.post(
@@ -38,7 +34,16 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         'provider': 'kakao',
       },
     );
-    ref.watch(tokenStateProvider.state).state = response.data['accessToken'];
+
+    final tokenData = TokenData(
+      accessToken: response.data['accessToken'],
+      accessTokenType: response.data['accessTokenType'],
+      refreshToken: response.data['refreshToken'],
+    );
+
+    dp.log('$tokenData');
+    Hive.box('auth').put('tokenData', tokenData);
+
     await getLocatinosAndCategories();
   }
 
@@ -59,7 +64,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               ),
               InkWell(
                 onTap: () async {
-                  await loginWithKakao();
+                  await _loginWithKakao();
                   ref
                       .read(navigatorProvider)
                       .navigateToRemove(routeName: AppRoutes.trems);
@@ -73,12 +78,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ),
       ),
     );
-  }
-
-  Future<bool> getDeviceInfo() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    return androidInfo.model == 'sdk_gphone_x86' ? true : false;
   }
 
   Future<void> getLocatinosAndCategories() async {

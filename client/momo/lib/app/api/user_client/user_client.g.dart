@@ -16,6 +16,22 @@ class _UserClient implements UserClient {
   String? baseUrl;
 
   @override
+  Future<UserResponse> getUserInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UserResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/user',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UserResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<dynamic> updateUserInfo(userInfoRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -44,24 +60,6 @@ class _UserClient implements UserClient {
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;
-    return value;
-  }
-
-  @override
-  Future<List<CodeNamePair>> getLocations() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<CodeNamePair>>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/user/locations',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) => CodeNamePair.fromJson(i as Map<String, dynamic>))
-        .toList();
     return value;
   }
 

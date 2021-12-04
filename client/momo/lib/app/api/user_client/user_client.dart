@@ -3,6 +3,7 @@ import 'package:momo/app/model/code_name_pair.dart';
 import 'package:momo/app/model/user/category_request.dart';
 import 'package:momo/app/model/user/university.dart';
 import 'package:momo/app/model/user/user_info_request.dart';
+import 'package:momo/app/model/user/user_response.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'user_client.g.dart';
@@ -14,6 +15,9 @@ abstract class UserClient {
     String baseUrl,
   }) = _UserClient;
 
+  @GET('/user')
+  Future<UserResponse> getUserInfo();
+
   @PATCH('/user')
   Future<dynamic> updateUserInfo(
     @Body() UserInfoRequest userInfoRequest,
@@ -23,9 +27,6 @@ abstract class UserClient {
   Future<dynamic> updateCategory(
     @Body() CategoryRequest categoryRequest,
   );
-
-  @GET('/user/locations')
-  Future<List<CodeNamePair>> getLocations();
 
   @GET('/user/duplicate-nickname')
   Future<bool> validateNickname(

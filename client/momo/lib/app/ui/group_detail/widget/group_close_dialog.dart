@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget meetCloseDialog() {
+Widget groupCloseDialog() {
   return Dialog(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(20),

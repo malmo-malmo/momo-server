@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:momo/app/util/format/group_date_format.dart';
 import 'package:momo/app/util/theme.dart';
 
 Widget memberDateRow(int headNum, String startDay, {Color? color}) {
@@ -27,7 +28,7 @@ Widget memberDateRow(int headNum, String startDay, {Color? color}) {
             color: color ?? MomoColor.white,
           ),
           Text(
-            startDay,
+            groupDateFormat(startDay),
             style: MomoTextStyle.small.copyWith(
               color: color ?? MomoColor.white,
             ),

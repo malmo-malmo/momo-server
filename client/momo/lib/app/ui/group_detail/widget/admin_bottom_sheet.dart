@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:momo/app/routes/routes.dart';
-import 'package:momo/app/ui/meeting_detail/widget/meet_close_dialog.dart';
-import 'package:momo/app/ui/meeting_detail/widget/user_bottom_sheet.dart';
+import 'package:momo/app/ui/group_detail/widget/group_close_dialog.dart';
+import 'package:momo/app/ui/group_detail/widget/user_bottom_sheet.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget meetingDetailBottomSheetAdmin() {
+Widget groupDetailBottomSheetAdmin() {
   return Consumer(builder: (context, ref, _) {
     return Container(
       padding: const EdgeInsets.only(top: 18, left: 16, right: 16),
@@ -90,7 +90,7 @@ Widget meetingDetailBottomSheetAdmin() {
               final isClose = await showDialog(
                 context: context,
                 builder: (context) {
-                  return meetCloseDialog();
+                  return groupCloseDialog();
                 },
               );
               ref.read(navigatorProvider).pop();

@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:momo/app/routes/routes.dart';
-import 'package:momo/app/ui/meeting_detail/widget/withdraw_dialog.dart';
+import 'package:momo/app/ui/group_detail/widget/withdraw_dialog.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget meetingDetailBottomSheetUser() {
+Widget groupDetailBottomSheetUser() {
   return Consumer(builder: (context, ref, _) {
     return Container(
       padding: const EdgeInsets.only(top: 18, left: 16, right: 16),

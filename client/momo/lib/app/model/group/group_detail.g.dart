@@ -12,7 +12,7 @@ _$_GroupDetail _$$_GroupDetailFromJson(Map<String, dynamic> json) =>
       managerId: json['managerId'] as int,
       city: json['city'] as String,
       district: json['district'] as String,
-      imageUrl: json['imageUrl'] as String,
+      imageUrl: json['imageUrl'] as String?,
       introduction: json['introduction'] as String,
       name: json['name'] as String,
       offline: json['offline'] as bool,

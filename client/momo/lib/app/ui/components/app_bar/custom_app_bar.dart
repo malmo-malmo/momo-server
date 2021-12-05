@@ -9,10 +9,12 @@ AppBar customAppBar({
   required bool isAction,
   String? title,
   Widget? actionWidget,
+  Color? backgroundColor,
+  Color? leadingIconColor,
 }) {
   return AppBar(
     elevation: 0,
-    backgroundColor: const Color(0xffffffff),
+    backgroundColor: backgroundColor ?? const Color(0xffffffff),
     toolbarHeight: 56,
     leading: Consumer(builder: (context, ref, _) {
       return InkWell(
@@ -21,7 +23,7 @@ AppBar customAppBar({
         },
         child: Icon(
           leadingIcon,
-          color: MomoColor.black,
+          color: leadingIconColor ?? MomoColor.black,
         ),
       );
     }),

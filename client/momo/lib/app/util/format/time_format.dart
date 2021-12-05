@@ -1,7 +1,5 @@
-import 'package:intl/intl.dart';
-
-String calStartTime(String startDateTime) =>
-    DateFormat.jm().format(DateTime.parse(startDateTime));
+String calStartTime(String startDateTime) => changeTimeFormat(
+    DateTime.parse(startDateTime).hour, DateTime.parse(startDateTime).minute);
 
 String changeTimeFormat(int hour, int minute) {
   if (hour == 12) {

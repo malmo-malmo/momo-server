@@ -7,11 +7,13 @@ class FloatingTextButton extends StatelessWidget {
   const FloatingTextButton({
     required this.hintText,
     required this.onTextChanged,
+    required this.onTapIcon,
     Key? key,
   }) : super(key: key);
 
   final String hintText;
   final Function(String text) onTextChanged;
+  final Function onTapIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,9 @@ class FloatingTextButton extends StatelessWidget {
             ),
             child: InkWell(
               borderRadius: BorderRadius.circular(22),
-              onTap: () {},
+              onTap: () {
+                onTapIcon();
+              },
               child: SvgPicture.asset('assets/icon/icon_sendgray_44.svg'),
             ),
           ),

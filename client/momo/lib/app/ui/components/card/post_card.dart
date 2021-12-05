@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/model/post/post.dart';
+import 'package:momo/app/routes/custom_arg/post_detail_arg.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/format/post_date_format.dart';
 import 'package:momo/app/util/navigation_service.dart';
@@ -15,7 +16,10 @@ Widget postCard({required Post post}) {
         onTap: () {
           ref.read(navigatorProvider).navigateTo(
                 routeName: AppRoutes.postDetail,
-                arguments: post.id,
+                arguments: PostDetailArg(
+                  postId: post.id,
+                  commentCnt: post.commentCnt,
+                ),
               );
         },
         child: Container(

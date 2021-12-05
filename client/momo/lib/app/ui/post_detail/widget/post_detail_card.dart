@@ -7,7 +7,10 @@ import 'package:momo/app/util/format/post_date_format.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget postDetailCard(PostDetail postDetail) {
+Widget postDetailCard({
+  required PostDetail postDetail,
+  required int commentCnt,
+}) {
   return SliverToBoxAdapter(
     child: Padding(
       padding: const EdgeInsets.symmetric(vertical: 24),
@@ -91,13 +94,13 @@ Widget postDetailCard(PostDetail postDetail) {
             color: MomoColor.backgroundColor,
           ),
           const SizedBox(height: 20),
-          // Text(
-          //   '댓글 수 ${postDetail.}',
-          //   style: MomoTextStyle.small.copyWith(
-          //     fontWeight: FontWeight.w400,
-          //     color: MomoColor.unSelIcon,
-          //   ),
-          // ),
+          Text(
+            '댓글 수 $commentCnt',
+            style: MomoTextStyle.small.copyWith(
+              fontWeight: FontWeight.w400,
+              color: MomoColor.unSelIcon,
+            ),
+          ),
         ],
       ),
     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:momo/app/routes/custom_arg/group_list_arg.dart';
+import 'package:momo/app/routes/custom_arg/post_detail_arg.dart';
 import 'package:momo/app/ui/attendance_list/attendance_list_page.dart';
 import 'package:momo/app/ui/full_img_page.dart';
 import 'package:momo/app/ui/gallery/gallery_page.dart';
@@ -135,10 +136,11 @@ class AppRouter {
         );
 
       case AppRoutes.postDetail:
-        final arg = settings.arguments;
+        final PostDetailArg arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
           builder: (_) => PostDetailPage(
-            postId: arg,
+            postId: arg.postId,
+            commentCnt: arg.commentCnt,
           ),
         );
 

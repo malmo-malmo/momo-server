@@ -8,7 +8,7 @@ import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:momo/app/ui/components/status/error_card.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/ui/group_detail/widget/admin_bottom_sheet.dart';
-import 'package:momo/app/ui/group_detail/widget/feed_list.dart';
+import 'package:momo/app/ui/group_detail/widget/post_list_view.dart';
 import 'package:momo/app/ui/components/card/group_detail_title.dart';
 import 'package:momo/app/ui/group_detail/widget/group_detail_card.dart';
 import 'package:momo/app/ui/group_detail/widget/request_info_card.dart';
@@ -92,7 +92,7 @@ class GroupDetailPage extends ConsumerWidget {
                 groupDetail.isParticipant
                     ? SliverPadding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
-                        sliver: FeedList(
+                        sliver: PostListView(
                           groupId: groupDetail.id,
                         ),
                       )

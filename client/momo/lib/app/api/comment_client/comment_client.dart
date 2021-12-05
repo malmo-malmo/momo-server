@@ -13,8 +13,10 @@ abstract class CommentClient {
     String baseUrl,
   }) = _CommentClient;
 
+  @POST('/comment')
   Future<Comment> createComment(@Body() CommentRequest commentRequest);
 
+  @GET('/comments/paging')
   Future<CommentResponse> getComments(
     @Query('page') int page,
     @Query('postId') int postId,

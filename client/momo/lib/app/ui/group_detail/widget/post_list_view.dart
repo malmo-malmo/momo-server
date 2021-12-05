@@ -7,8 +7,8 @@ import 'package:momo/app/ui/components/card/post_card.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/ui/components/status/no_item_card.dart';
 
-class FeedList extends ConsumerWidget {
-  const FeedList({
+class PostListView extends ConsumerWidget {
+  const PostListView({
     Key? key,
     required this.groupId,
   }) : super(key: key);

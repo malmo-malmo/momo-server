@@ -107,33 +107,3 @@ class NoticeListView extends ConsumerWidget {
     });
   }
 }
-  // child: ListView.builder(
-  //             scrollDirection: Axis.horizontal,
-  //             itemBuilder: (context, index) {
-  //               return InkWell(
-  //                 onTap: () {
-  //                   ref.read(navigatorProvider).navigateTo(
-  //                         routeName: AppRoutes.postDetail,
-  //                         arguments: index,
-  //                       );
-  //                 },
-  //                 child: Container(
-  //                   margin: const EdgeInsets.symmetric(horizontal: 4),
-  //                   height: 86,
-  //                   width: 304,
-  //                   decoration: BoxDecoration(
-  //                     borderRadius: BorderRadius.circular(16),
-  //                     color: MomoColor.main,
-  //                   ),
-  //                   child: Center(
-  //                     child: Text(
-  //                       '공지사항',
-  //                       style: MomoTextStyle.defaultStyle
-  //                           .copyWith(color: MomoColor.white),
-  //                     ),
-  //                   ),
-  //                 ),
-  //               );
-  //             },
-  //             itemCount: 10,
-  //           ),

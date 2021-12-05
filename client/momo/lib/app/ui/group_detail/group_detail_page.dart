@@ -90,9 +90,11 @@ class GroupDetailPage extends ConsumerWidget {
                             .participantGroup,
                       ),
                 groupDetail.isParticipant
-                    ? const SliverPadding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        sliver: FeedList(),
+                    ? SliverPadding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        sliver: FeedList(
+                          groupId: groupDetail.id,
+                        ),
                       )
                     : const SliverToBoxAdapter()
               ],

@@ -56,24 +56,17 @@ class _NoticeListViewState extends State<NoticeListView> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: PagedListView.separated(
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<GroupInfo>(
-          itemBuilder: (context, item, index) => FeedCard(
-            postId: index,
-            profile:
-                'https://blog.kakaocdn.net/dn/l2HIx/btqAIQ3UbfL/AaP9zEOiO8zhbj2OAjcPS1/img.jpg',
-            text:
-                '공지사항 입니다 공지사항 입니다 공지사항 입니다 공지사항 입니다 공지사항 입니다 공지사항 입니다 공지사항 입니다 공지사항 입니다 공지사항 입니다 공지사항 입니다 공지사항 입니다 공지사항 입니다 ',
-            comments: 3,
-            userName: '김모모',
-            title: '공지사항 입니다',
-            date: '2021년 12월 31일 오후 1:00',
-          ),
-        ),
-        separatorBuilder: (context, index) => const SizedBox(height: 14),
-      ),
-    );
+    // return Expanded(
+    //   child: PagedListView.separated(
+    //     pagingController: _pagingController,
+    //     builderDelegate: PagedChildBuilderDelegate<Post>(
+    //       itemBuilder: (context, item, index) => postCard(
+
+    //       ),
+    //     ),
+    //     separatorBuilder: (context, index) => const SizedBox(height: 14),
+    //   ),
+    // );
+    return Container();
   }
 }

@@ -1,39 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/model/post/post.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
-class FeedCard extends ConsumerWidget {
-  const FeedCard({
-    Key? key,
-    required this.postId,
-    required this.profile,
-    required this.text,
-    required this.comments,
-    required this.userName,
-    required this.title,
-    required this.date,
-  }) : super(key: key);
-
-  final int postId;
-  final String profile;
-  final String userName;
-  final String title;
-  final String text;
-  final int comments;
-  final String date;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 7),
-      child: InkWell(
+Widget postCard({required Post post}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 7),
+    child: Consumer(builder: (context, ref, _) {
+      return InkWell(
         onTap: () {
           ref.read(navigatorProvider).navigateTo(
                 routeName: AppRoutes.postDetail,
-                arguments: postId,
+                arguments: post.id,
               );
         },
         child: Container(
@@ -56,7 +37,8 @@ class FeedCard extends ConsumerWidget {
                       child: CircleAvatar(
                         radius: 15.w,
                         backgroundColor: Colors.transparent,
-                        backgroundImage: NetworkImage(profile),
+                        backgroundImage: NetworkImage(post.authorImage ??
+                            'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/cbdef037365169.573db7853cebb.jpg'),
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -64,12 +46,12 @@ class FeedCard extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          userName,
+                          post.authorNickname,
                           style: MomoTextStyle.small,
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          date,
+                          post.createdDate,
                           style: MomoTextStyle.small.copyWith(
                             color: const Color(0xff9e9e9e),
                           ),
@@ -80,12 +62,12 @@ class FeedCard extends ConsumerWidget {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  title,
+                  post.title,
                   style: MomoTextStyle.defaultStyle,
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  text,
+                  post.contents,
                   style: MomoTextStyle.small,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -94,7 +76,7 @@ class FeedCard extends ConsumerWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
+      );
+    }),
+  );
 }

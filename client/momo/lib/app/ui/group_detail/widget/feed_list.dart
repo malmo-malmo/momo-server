@@ -1,74 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:momo/app/model/group/group_info.dart';
+import 'package:momo/app/model/post/post.dart';
+import 'package:momo/app/provider/post/post_paging_controller_provider.dart';
 import 'package:momo/app/ui/components/card/feed_card.dart';
+import 'package:momo/app/ui/components/status/loading_card.dart';
+import 'package:momo/app/ui/components/status/no_item_card.dart';
 
-class FeedList extends StatefulWidget {
-  const FeedList({Key? key}) : super(key: key);
+class FeedList extends ConsumerWidget {
+  const FeedList({
+    Key? key,
+    required this.groupId,
+  }) : super(key: key);
 
-  @override
-  State<FeedList> createState() => _FeedListState();
-}
-
-class _FeedListState extends State<FeedList> {
-  final PagingController<int, GroupInfo> _pagingController =
-      PagingController(firstPageKey: 0);
-
-  @override
-  void initState() {
-    _pagingController.addPageRequestListener((pageKey) {
-      _fetchPage(pageKey);
-    });
-    super.initState();
-  }
+  final int groupId;
 
   @override
-  void dispose() {
-    _pagingController.dispose();
-    super.dispose();
-  }
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _pagingController = ref.watch(postPaigingControllerProvider(groupId));
 
-  Future<void> _fetchPage(int pageKey) async {
-    try {
-      await Future.delayed(const Duration(seconds: 1));
-      final newItems = List.generate(
-        10,
-        (index) => GroupInfo(
-            id: index,
-            imageUrl: '',
-            name: '',
-            offline: false,
-            participantCnt: 5,
-            startDate: ''),
-      );
-      const isLastPage = false;
-      if (isLastPage) {
-        _pagingController.appendLastPage(newItems);
-      } else {
-        final nextPageKey = pageKey + newItems.length;
-        _pagingController.appendPage(newItems, nextPageKey);
-      }
-    } catch (error) {
-      _pagingController.error = error;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return PagedSliverList<int, GroupInfo>(
+    return PagedSliverList<int, Post>(
       pagingController: _pagingController,
-      builderDelegate: PagedChildBuilderDelegate<GroupInfo>(
-        itemBuilder: (context, item, index) => FeedCard(
-          postId: index,
-          profile:
-              'https://blog.kakaocdn.net/dn/l2HIx/btqAIQ3UbfL/AaP9zEOiO8zhbj2OAjcPS1/img.jpg',
-          text:
-              '게시물 입니다 게시물 입니다 게시물 입니다 게시물 입니다 게시물 입니다 게시물 입니다 게시물 입니다 게시물 입니다 게시물 입니다 게시물 입니다 게시물 입니다 게시물 입니다 게시물 입니다 게시물 입니다 게시물 입니다 ',
-          comments: 3,
-          userName: '김모모',
-          title: '게시물 입니다',
-          date: '2021년 12월 31일 오후 1:00',
-        ),
+      builderDelegate: PagedChildBuilderDelegate<Post>(
+        itemBuilder: (context, item, index) => postCard(post: item),
+        newPageProgressIndicatorBuilder: (context) => loadingCard(),
+        firstPageProgressIndicatorBuilder: (context) => loadingCard(),
+        noItemsFoundIndicatorBuilder: (context) => noItemCard(),
       ),
     );
   }

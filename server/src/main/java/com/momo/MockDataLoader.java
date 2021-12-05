@@ -94,7 +94,7 @@ public class MockDataLoader implements CommandLineRunner {
                 .manager(managers.get(count - 1))
                 .name("모임" + count)
                 .category(categories.get(0))
-                .startDate(LocalDate.now())
+                .startDate(createRandomDate())
                 .university(UNIVERSITIES.get(0))
                 .city(CITIES.get(0))
                 .district(DISTRICTS.get(0))
@@ -106,6 +106,13 @@ public class MockDataLoader implements CommandLineRunner {
             groups.add(group);
         }
         return groupRepository.saveAll(groups);
+    }
+
+    public LocalDate createRandomDate() {
+        Random random = new Random();
+        int month = random.nextInt(11) + 1;
+        int day = random.nextInt(27) + 1;
+        return LocalDate.of(2021, month, day);
     }
 
     public List<User> insertUser() {
@@ -167,25 +174,28 @@ public class MockDataLoader implements CommandLineRunner {
 
     public void insertSchedule(List<Groups> groups) {
         List<Schedule> schedules = new ArrayList<>();
-        Random random = new Random();
-        int year = 2021;
         for (Groups group : groups) {
             for (int count = 1; count <= MAX_SCHEDULE_COUNT; count++) {
-                int month = random.nextInt(11) + 1;
-                int day = random.nextInt(27) + 1;
-                int hour = random.nextInt(23);
-                int minute = random.nextInt(60);
                 Schedule schedule = Schedule.builder()
                     .author(group.getManager())
                     .group(group)
                     .title("일정" + count)
                     .contents("일정 내용")
                     .isOffline(count % 2 == 0)
-                    .startDateTime(LocalDateTime.of(year, month, day, hour, minute))
+                    .startDateTime(createRandomDateTime())
                     .build();
                 schedules.add(schedule);
             }
         }
         scheduleRepository.saveAll(schedules);
+    }
+
+    public LocalDateTime createRandomDateTime() {
+        Random random = new Random();
+        int month = random.nextInt(11) + 1;
+        int day = random.nextInt(27) + 1;
+        int hour = random.nextInt(23);
+        int minute = random.nextInt(60);
+        return LocalDateTime.of(2021, month, day, hour, minute);
     }
 }

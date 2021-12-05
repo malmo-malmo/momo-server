@@ -26,8 +26,9 @@ class _$UserResponseTearOff {
       required String nickname,
       required String city,
       required String district,
-      required String image,
-      required String university}) {
+      String? image,
+      required String university,
+      required List<CodeNamePair> categories}) {
     return _UserResponse(
       id: id,
       nickname: nickname,
@@ -35,6 +36,7 @@ class _$UserResponseTearOff {
       district: district,
       image: image,
       university: university,
+      categories: categories,
     );
   }
 
@@ -52,8 +54,9 @@ mixin _$UserResponse {
   String get nickname => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
   String get district => throw _privateConstructorUsedError;
-  String get image => throw _privateConstructorUsedError;
+  String? get image => throw _privateConstructorUsedError;
   String get university => throw _privateConstructorUsedError;
+  List<CodeNamePair> get categories => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -71,8 +74,9 @@ abstract class $UserResponseCopyWith<$Res> {
       String nickname,
       String city,
       String district,
-      String image,
-      String university});
+      String? image,
+      String university,
+      List<CodeNamePair> categories});
 }
 
 /// @nodoc
@@ -91,6 +95,7 @@ class _$UserResponseCopyWithImpl<$Res> implements $UserResponseCopyWith<$Res> {
     Object? district = freezed,
     Object? image = freezed,
     Object? university = freezed,
+    Object? categories = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -112,11 +117,15 @@ class _$UserResponseCopyWithImpl<$Res> implements $UserResponseCopyWith<$Res> {
       image: image == freezed
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       university: university == freezed
           ? _value.university
           : university // ignore: cast_nullable_to_non_nullable
               as String,
+      categories: categories == freezed
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<CodeNamePair>,
     ));
   }
 }
@@ -133,8 +142,9 @@ abstract class _$UserResponseCopyWith<$Res>
       String nickname,
       String city,
       String district,
-      String image,
-      String university});
+      String? image,
+      String university,
+      List<CodeNamePair> categories});
 }
 
 /// @nodoc
@@ -155,6 +165,7 @@ class __$UserResponseCopyWithImpl<$Res> extends _$UserResponseCopyWithImpl<$Res>
     Object? district = freezed,
     Object? image = freezed,
     Object? university = freezed,
+    Object? categories = freezed,
   }) {
     return _then(_UserResponse(
       id: id == freezed
@@ -176,11 +187,15 @@ class __$UserResponseCopyWithImpl<$Res> extends _$UserResponseCopyWithImpl<$Res>
       image: image == freezed
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       university: university == freezed
           ? _value.university
           : university // ignore: cast_nullable_to_non_nullable
               as String,
+      categories: categories == freezed
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<CodeNamePair>,
     ));
   }
 }
@@ -193,8 +208,9 @@ class _$_UserResponse implements _UserResponse {
       required this.nickname,
       required this.city,
       required this.district,
-      required this.image,
-      required this.university});
+      this.image,
+      required this.university,
+      required this.categories});
 
   factory _$_UserResponse.fromJson(Map<String, dynamic> json) =>
       _$$_UserResponseFromJson(json);
@@ -208,13 +224,15 @@ class _$_UserResponse implements _UserResponse {
   @override
   final String district;
   @override
-  final String image;
+  final String? image;
   @override
   final String university;
+  @override
+  final List<CodeNamePair> categories;
 
   @override
   String toString() {
-    return 'UserResponse(id: $id, nickname: $nickname, city: $city, district: $district, image: $image, university: $university)';
+    return 'UserResponse(id: $id, nickname: $nickname, city: $city, district: $district, image: $image, university: $university, categories: $categories)';
   }
 
   @override
@@ -230,12 +248,14 @@ class _$_UserResponse implements _UserResponse {
                 other.district == district) &&
             (identical(other.image, image) || other.image == image) &&
             (identical(other.university, university) ||
-                other.university == university));
+                other.university == university) &&
+            const DeepCollectionEquality()
+                .equals(other.categories, categories));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, nickname, city, district, image, university);
+  int get hashCode => Object.hash(runtimeType, id, nickname, city, district,
+      image, university, const DeepCollectionEquality().hash(categories));
 
   @JsonKey(ignore: true)
   @override
@@ -254,8 +274,9 @@ abstract class _UserResponse implements UserResponse {
       required String nickname,
       required String city,
       required String district,
-      required String image,
-      required String university}) = _$_UserResponse;
+      String? image,
+      required String university,
+      required List<CodeNamePair> categories}) = _$_UserResponse;
 
   factory _UserResponse.fromJson(Map<String, dynamic> json) =
       _$_UserResponse.fromJson;
@@ -269,9 +290,11 @@ abstract class _UserResponse implements UserResponse {
   @override
   String get district;
   @override
-  String get image;
+  String? get image;
   @override
   String get university;
+  @override
+  List<CodeNamePair> get categories;
   @override
   @JsonKey(ignore: true)
   _$UserResponseCopyWith<_UserResponse> get copyWith =>

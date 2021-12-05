@@ -12,8 +12,11 @@ _$_UserResponse _$$_UserResponseFromJson(Map<String, dynamic> json) =>
       nickname: json['nickname'] as String,
       city: json['city'] as String,
       district: json['district'] as String,
-      image: json['image'] as String,
+      image: json['image'] as String?,
       university: json['university'] as String,
+      categories: (json['categories'] as List<dynamic>)
+          .map((e) => CodeNamePair.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_UserResponseToJson(_$_UserResponse instance) =>
@@ -24,4 +27,5 @@ Map<String, dynamic> _$$_UserResponseToJson(_$_UserResponse instance) =>
       'district': instance.district,
       'image': instance.image,
       'university': instance.university,
+      'categories': instance.categories,
     };

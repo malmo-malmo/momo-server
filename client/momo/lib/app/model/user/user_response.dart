@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:momo/app/model/code_name_pair.dart';
 
 part 'user_response.g.dart';
 part 'user_response.freezed.dart';
@@ -10,8 +11,9 @@ class UserResponse with _$UserResponse {
     required String nickname,
     required String city,
     required String district,
-    required String image,
+    String? image,
     required String university,
+    required List<CodeNamePair> categories,
   }) = _UserResponse;
 
   factory UserResponse.fromJson(Map<String, dynamic> json) =>

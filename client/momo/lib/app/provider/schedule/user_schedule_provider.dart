@@ -1,5 +1,3 @@
-import 'dart:developer' as dp;
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:momo/app/model/schedule/calendar_schedule.dart';
@@ -41,9 +39,6 @@ final homeUserScheduleProvider =
               date)
           .toList();
       scheduleLists.add(tmp);
-    }
-    for (int i = 0; i < scheduleLists.length; i++) {
-      dp.log('${scheduleLists[i]}');
     }
 
     return scheduleLists;

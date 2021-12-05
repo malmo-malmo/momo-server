@@ -4,6 +4,7 @@ import 'package:momo/app/api/user_client/user_client.dart';
 import 'package:momo/app/model/user/category_request.dart';
 import 'package:momo/app/model/user/university.dart';
 import 'package:momo/app/model/user/user_info_request.dart';
+import 'package:momo/app/model/user/user_response.dart';
 
 final userRepositoryProvider = Provider<UserRepository>((ref) {
   final userClient = ref.watch(userClientProvider);
@@ -16,6 +17,11 @@ class UserRepository {
   });
 
   final UserClient userClient;
+
+  Future<UserResponse> getUserData() async {
+    final response = await userClient.getUserInfo();
+    return response;
+  }
 
   Future<dynamic> updateUserInfo(UserInfoRequest userInfoRequest) async {
     final response = await userClient.updateUserInfo(userInfoRequest);

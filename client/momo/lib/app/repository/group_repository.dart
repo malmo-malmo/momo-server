@@ -19,6 +19,11 @@ class GroupRepository {
     required this.groupClient,
   });
 
+  Future<dynamic> participantGroup(int groupId) async {
+    final response = await groupClient.participantGroup(groupId);
+    return response;
+  }
+
   Future<List<CodeNamePair>> getCategories() async {
     final response = await groupClient.getGroupCategories();
     return response;

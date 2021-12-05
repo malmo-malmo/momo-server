@@ -8,7 +8,7 @@ import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:momo/app/ui/components/status/error_card.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/ui/group_detail/widget/admin_bottom_sheet.dart';
-import 'package:momo/app/ui/group_detail/widget/feed_list.dart';
+import 'package:momo/app/ui/group_detail/widget/post_list_view.dart';
 import 'package:momo/app/ui/components/card/group_detail_title.dart';
 import 'package:momo/app/ui/group_detail/widget/group_detail_card.dart';
 import 'package:momo/app/ui/group_detail/widget/request_info_card.dart';
@@ -28,8 +28,8 @@ class GroupDetailPage extends ConsumerWidget {
     final response = ref.watch(groupDetailFutureProvider(groupId));
 
     return response.when(
-      error: (error, stackTrace) => errorCard(),
-      loading: () => loadingCard(),
+      error: (error, stackTrace) => Scaffold(body: errorCard()),
+      loading: () => Scaffold(body: loadingCard()),
       data: (data) {
         final groupDetail = ref.watch(groupDetailProvider(data));
 
@@ -83,11 +83,18 @@ class GroupDetailPage extends ConsumerWidget {
                 ),
                 groupDetail.isParticipant
                     ? groupDetailCard(groupId: groupDetail.id)
-                    : requestInfoCard(introduction: groupDetail.introduction),
+                    : requestInfoCard(
+                        introduction: groupDetail.introduction,
+                        onTapButton: ref
+                            .read(groupDetailStateProvider(data).notifier)
+                            .participantGroup,
+                      ),
                 groupDetail.isParticipant
-                    ? const SliverPadding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        sliver: FeedList(),
+                    ? SliverPadding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        sliver: PostListView(
+                          groupId: groupDetail.id,
+                        ),
                       )
                     : const SliverToBoxAdapter()
               ],

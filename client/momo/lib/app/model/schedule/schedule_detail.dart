@@ -10,7 +10,7 @@ class ScheduleDetail with _$ScheduleDetail {
     required String title,
     required String contents,
     required String authorNickname,
-    required String authorImage,
+    String? authorImage,
     required String startDateTime,
     required bool offline,
     required bool attend,

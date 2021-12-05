@@ -1,34 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:momo/app/model/comment/comment.dart';
-import 'package:momo/app/provider/comment/comment_paging_controller_provider.dart';
+import 'package:momo/app/model/post/post.dart';
+import 'package:momo/app/provider/post/post_paging_controller_provider.dart';
+import 'package:momo/app/ui/components/card/post_card.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/ui/components/status/no_item_card.dart';
-import 'package:momo/app/ui/post_detail/widget/comment_card.dart';
 
-class CommentsList extends ConsumerWidget {
-  const CommentsList({
+class PostListView extends ConsumerWidget {
+  const PostListView({
     Key? key,
-    required this.postId,
+    required this.groupId,
   }) : super(key: key);
 
-  final int postId;
+  final int groupId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _pagingController =
-        ref.watch(commentPagingControllerProvider(postId));
+    final _pagingController = ref.watch(postPaigingControllerProvider(groupId));
 
-    return PagedSliverList<int, Comment>.separated(
+    return PagedSliverList<int, Post>(
       pagingController: _pagingController,
-      builderDelegate: PagedChildBuilderDelegate<Comment>(
-        itemBuilder: (context, item, index) => commentCard(item),
+      builderDelegate: PagedChildBuilderDelegate<Post>(
+        itemBuilder: (context, item, index) => postCard(post: item),
         newPageProgressIndicatorBuilder: (context) => loadingCard(),
         firstPageProgressIndicatorBuilder: (context) => loadingCard(),
         noItemsFoundIndicatorBuilder: (context) => noItemCard(),
       ),
-      separatorBuilder: (context, index) => const SizedBox(height: 10),
     );
   }
 }

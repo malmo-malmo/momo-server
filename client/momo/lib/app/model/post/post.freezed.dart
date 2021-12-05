@@ -24,7 +24,7 @@ class _$PostTearOff {
   _Post call(
       {required int id,
       required String authorNickname,
-      required String authorImage,
+      String? authorImage,
       required String title,
       required String contents,
       required int commentCnt,
@@ -52,7 +52,7 @@ const $Post = _$PostTearOff();
 mixin _$Post {
   int get id => throw _privateConstructorUsedError;
   String get authorNickname => throw _privateConstructorUsedError;
-  String get authorImage => throw _privateConstructorUsedError;
+  String? get authorImage => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get contents => throw _privateConstructorUsedError;
   int get commentCnt => throw _privateConstructorUsedError;
@@ -70,7 +70,7 @@ abstract class $PostCopyWith<$Res> {
   $Res call(
       {int id,
       String authorNickname,
-      String authorImage,
+      String? authorImage,
       String title,
       String contents,
       int commentCnt,
@@ -107,7 +107,7 @@ class _$PostCopyWithImpl<$Res> implements $PostCopyWith<$Res> {
       authorImage: authorImage == freezed
           ? _value.authorImage
           : authorImage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -136,7 +136,7 @@ abstract class _$PostCopyWith<$Res> implements $PostCopyWith<$Res> {
   $Res call(
       {int id,
       String authorNickname,
-      String authorImage,
+      String? authorImage,
       String title,
       String contents,
       int commentCnt,
@@ -174,7 +174,7 @@ class __$PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res>
       authorImage: authorImage == freezed
           ? _value.authorImage
           : authorImage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -201,7 +201,7 @@ class _$_Post implements _Post {
   _$_Post(
       {required this.id,
       required this.authorNickname,
-      required this.authorImage,
+      this.authorImage,
       required this.title,
       required this.contents,
       required this.commentCnt,
@@ -214,7 +214,7 @@ class _$_Post implements _Post {
   @override
   final String authorNickname;
   @override
-  final String authorImage;
+  final String? authorImage;
   @override
   final String title;
   @override
@@ -267,7 +267,7 @@ abstract class _Post implements Post {
   factory _Post(
       {required int id,
       required String authorNickname,
-      required String authorImage,
+      String? authorImage,
       required String title,
       required String contents,
       required int commentCnt,
@@ -280,7 +280,7 @@ abstract class _Post implements Post {
   @override
   String get authorNickname;
   @override
-  String get authorImage;
+  String? get authorImage;
   @override
   String get title;
   @override

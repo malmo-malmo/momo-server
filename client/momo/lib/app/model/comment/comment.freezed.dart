@@ -26,7 +26,7 @@ class _$CommentTearOff {
       required int authorId,
       required String authorNickname,
       required String contents,
-      required String authorImage,
+      String? authorImage,
       required String createdDate}) {
     return _Comment(
       id: id,
@@ -52,7 +52,7 @@ mixin _$Comment {
   int get authorId => throw _privateConstructorUsedError;
   String get authorNickname => throw _privateConstructorUsedError;
   String get contents => throw _privateConstructorUsedError;
-  String get authorImage => throw _privateConstructorUsedError;
+  String? get authorImage => throw _privateConstructorUsedError;
   String get createdDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -69,7 +69,7 @@ abstract class $CommentCopyWith<$Res> {
       int authorId,
       String authorNickname,
       String contents,
-      String authorImage,
+      String? authorImage,
       String createdDate});
 }
 
@@ -110,7 +110,7 @@ class _$CommentCopyWithImpl<$Res> implements $CommentCopyWith<$Res> {
       authorImage: authorImage == freezed
           ? _value.authorImage
           : authorImage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       createdDate: createdDate == freezed
           ? _value.createdDate
           : createdDate // ignore: cast_nullable_to_non_nullable
@@ -129,7 +129,7 @@ abstract class _$CommentCopyWith<$Res> implements $CommentCopyWith<$Res> {
       int authorId,
       String authorNickname,
       String contents,
-      String authorImage,
+      String? authorImage,
       String createdDate});
 }
 
@@ -171,7 +171,7 @@ class __$CommentCopyWithImpl<$Res> extends _$CommentCopyWithImpl<$Res>
       authorImage: authorImage == freezed
           ? _value.authorImage
           : authorImage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       createdDate: createdDate == freezed
           ? _value.createdDate
           : createdDate // ignore: cast_nullable_to_non_nullable
@@ -188,7 +188,7 @@ class _$_Comment implements _Comment {
       required this.authorId,
       required this.authorNickname,
       required this.contents,
-      required this.authorImage,
+      this.authorImage,
       required this.createdDate});
 
   factory _$_Comment.fromJson(Map<String, dynamic> json) =>
@@ -203,7 +203,7 @@ class _$_Comment implements _Comment {
   @override
   final String contents;
   @override
-  final String authorImage;
+  final String? authorImage;
   @override
   final String createdDate;
 
@@ -251,7 +251,7 @@ abstract class _Comment implements Comment {
       required int authorId,
       required String authorNickname,
       required String contents,
-      required String authorImage,
+      String? authorImage,
       required String createdDate}) = _$_Comment;
 
   factory _Comment.fromJson(Map<String, dynamic> json) = _$_Comment.fromJson;
@@ -265,7 +265,7 @@ abstract class _Comment implements Comment {
   @override
   String get contents;
   @override
-  String get authorImage;
+  String? get authorImage;
   @override
   String get createdDate;
   @override

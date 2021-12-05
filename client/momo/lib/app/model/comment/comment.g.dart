@@ -11,7 +11,7 @@ _$_Comment _$$_CommentFromJson(Map<String, dynamic> json) => _$_Comment(
       authorId: json['authorId'] as int,
       authorNickname: json['authorNickname'] as String,
       contents: json['contents'] as String,
-      authorImage: json['authorImage'] as String,
+      authorImage: json['authorImage'] as String?,
       createdDate: json['createdDate'] as String,
     );
 

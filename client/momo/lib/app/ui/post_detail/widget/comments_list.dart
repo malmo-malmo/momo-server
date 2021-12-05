@@ -62,7 +62,7 @@ class _CommentsListState extends State<CommentsList> {
       builderDelegate: PagedChildBuilderDelegate<Comment>(
         itemBuilder: (context, item, index) => commentCard(
           name: item.authorNickname,
-          profile: item.authorImage,
+          profile: item.authorImage!,
           text: item.contents,
         ),
       ),

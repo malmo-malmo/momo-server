@@ -113,8 +113,9 @@ class AppRouter {
         );
 
       case AppRoutes.noticeList:
+        final arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => const NoticeListPage(),
+          builder: (_) => NoticeListPage(pagingController: arg),
         );
 
       case AppRoutes.memberList:

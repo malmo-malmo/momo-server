@@ -32,7 +32,7 @@ class NoticeListView extends ConsumerWidget {
       color: const Color(0xffffffff),
       child: Column(
         children: [
-          _noticeTitle(),
+          _noticeTitle(_paigingController),
           const SizedBox(height: 17),
           SizedBox(
             height: 86,
@@ -54,31 +54,38 @@ class NoticeListView extends ConsumerWidget {
   }
 
   Widget _noticeCard(Post post) {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        height: 86,
-        width: 304,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          color: MomoColor.main,
-        ),
-        child: Center(
-          child: Text(
-            post.contents,
-            style: MomoTextStyle.defaultStyle.copyWith(
-              color: MomoColor.white,
-              height: 1.2,
+    return Consumer(builder: (context, ref, _) {
+      return InkWell(
+        onTap: () {
+          ref.read(navigatorProvider).navigateTo(
+                routeName: AppRoutes.postDetail,
+                arguments: post.id,
+              );
+        },
+        child: Container(
+          height: 86,
+          width: 304,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: MomoColor.main,
+          ),
+          child: Center(
+            child: Text(
+              post.title,
+              style: MomoTextStyle.defaultStyle.copyWith(
+                color: MomoColor.white,
+                height: 1.2,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
-  Widget _noticeTitle() {
+  Widget _noticeTitle(PagingController<int, Post> controller) {
     return Consumer(builder: (context, ref, _) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -89,9 +96,10 @@ class NoticeListView extends ConsumerWidget {
           ),
           InkWell(
             onTap: () {
-              ref
-                  .read(navigatorProvider)
-                  .navigateTo(routeName: AppRoutes.noticeList);
+              ref.read(navigatorProvider).navigateTo(
+                    routeName: AppRoutes.noticeList,
+                    arguments: controller,
+                  );
             },
             child: Transform.rotate(
               angle: pi,

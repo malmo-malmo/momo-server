@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/post/post.dart';
 import 'package:momo/app/provider/post/post_paging_controller_provider.dart';
-import 'package:momo/app/ui/components/card/feed_card.dart';
+import 'package:momo/app/ui/components/card/post_card.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/ui/components/status/no_item_card.dart';
 

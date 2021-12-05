@@ -10,7 +10,7 @@ class Comment with _$Comment {
     required int authorId,
     required String authorNickname,
     required String contents,
-    required String authorImage,
+    String? authorImage,
     required String createdDate,
   }) = _Comment;
 

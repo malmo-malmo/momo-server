@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget requestButton() {
+Widget requestButton(Function onTapButton) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 16),
     height: 56,
@@ -32,7 +32,9 @@ Widget requestButton() {
           );
         }),
       ),
-      onPressed: () {},
+      onPressed: () {
+        onTapButton();
+      },
       child: const Text(
         '신청 가능',
       ),

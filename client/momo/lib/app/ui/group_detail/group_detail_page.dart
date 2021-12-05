@@ -83,7 +83,12 @@ class GroupDetailPage extends ConsumerWidget {
                 ),
                 groupDetail.isParticipant
                     ? groupDetailCard(groupId: groupDetail.id)
-                    : requestInfoCard(introduction: groupDetail.introduction),
+                    : requestInfoCard(
+                        introduction: groupDetail.introduction,
+                        onTapButton: ref
+                            .read(groupDetailStateProvider(data).notifier)
+                            .participantGroup,
+                      ),
                 groupDetail.isParticipant
                     ? const SliverPadding(
                         padding: EdgeInsets.symmetric(horizontal: 16),

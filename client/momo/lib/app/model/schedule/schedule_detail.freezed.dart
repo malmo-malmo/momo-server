@@ -26,7 +26,7 @@ class _$ScheduleDetailTearOff {
       required String title,
       required String contents,
       required String authorNickname,
-      required String authorImage,
+      String? authorImage,
       required String startDateTime,
       required bool offline,
       required bool attend,
@@ -58,7 +58,7 @@ mixin _$ScheduleDetail {
   String get title => throw _privateConstructorUsedError;
   String get contents => throw _privateConstructorUsedError;
   String get authorNickname => throw _privateConstructorUsedError;
-  String get authorImage => throw _privateConstructorUsedError;
+  String? get authorImage => throw _privateConstructorUsedError;
   String get startDateTime => throw _privateConstructorUsedError;
   bool get offline => throw _privateConstructorUsedError;
   bool get attend => throw _privateConstructorUsedError;
@@ -80,7 +80,7 @@ abstract class $ScheduleDetailCopyWith<$Res> {
       String title,
       String contents,
       String authorNickname,
-      String authorImage,
+      String? authorImage,
       String startDateTime,
       bool offline,
       bool attend,
@@ -128,7 +128,7 @@ class _$ScheduleDetailCopyWithImpl<$Res>
       authorImage: authorImage == freezed
           ? _value.authorImage
           : authorImage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       startDateTime: startDateTime == freezed
           ? _value.startDateTime
           : startDateTime // ignore: cast_nullable_to_non_nullable
@@ -161,7 +161,7 @@ abstract class _$ScheduleDetailCopyWith<$Res>
       String title,
       String contents,
       String authorNickname,
-      String authorImage,
+      String? authorImage,
       String startDateTime,
       bool offline,
       bool attend,
@@ -211,7 +211,7 @@ class __$ScheduleDetailCopyWithImpl<$Res>
       authorImage: authorImage == freezed
           ? _value.authorImage
           : authorImage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       startDateTime: startDateTime == freezed
           ? _value.startDateTime
           : startDateTime // ignore: cast_nullable_to_non_nullable
@@ -240,7 +240,7 @@ class _$_ScheduleDetail implements _ScheduleDetail {
       required this.title,
       required this.contents,
       required this.authorNickname,
-      required this.authorImage,
+      this.authorImage,
       required this.startDateTime,
       required this.offline,
       required this.attend,
@@ -258,7 +258,7 @@ class _$_ScheduleDetail implements _ScheduleDetail {
   @override
   final String authorNickname;
   @override
-  final String authorImage;
+  final String? authorImage;
   @override
   final String startDateTime;
   @override
@@ -324,7 +324,7 @@ abstract class _ScheduleDetail implements ScheduleDetail {
       required String title,
       required String contents,
       required String authorNickname,
-      required String authorImage,
+      String? authorImage,
       required String startDateTime,
       required bool offline,
       required bool attend,
@@ -342,7 +342,7 @@ abstract class _ScheduleDetail implements ScheduleDetail {
   @override
   String get authorNickname;
   @override
-  String get authorImage;
+  String? get authorImage;
   @override
   String get startDateTime;
   @override

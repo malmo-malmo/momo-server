@@ -4,6 +4,7 @@ import 'package:momo/app/util/theme.dart';
 
 Widget requestInfoCard({
   required String introduction,
+  required Function onTapButton,
 }) {
   return SliverToBoxAdapter(
     child: Column(
@@ -29,7 +30,7 @@ Widget requestInfoCard({
           ),
         ),
         const SizedBox(height: 275),
-        requestButton(),
+        requestButton(onTapButton),
         const SizedBox(height: 36),
       ],
     ),

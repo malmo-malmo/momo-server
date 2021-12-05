@@ -34,4 +34,9 @@ class GroupDetailState extends StateNotifier<GroupDetail> {
   }) : super(state);
 
   final GroupRepository groupRepository;
+
+  Future<dynamic> participantGroup() async {
+    final response = await groupRepository.participantGroup(state.id);
+    state = state.copyWith(isParticipant: true);
+  }
 }

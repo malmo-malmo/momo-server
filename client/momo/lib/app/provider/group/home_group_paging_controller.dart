@@ -6,7 +6,7 @@ import 'package:momo/app/util/constant.dart';
 
 final categoryController =
     Provider.autoDispose<PagingController<int, GroupInfo>>((ref) {
-  final _pagingController = PagingController<int, GroupInfo>(firstPageKey: 1);
+  final _pagingController = PagingController<int, GroupInfo>(firstPageKey: 0);
   final repository = ref.watch(groupRepositoryProvider);
 
   _pagingController.addPageRequestListener((pageKey) {
@@ -23,7 +23,7 @@ final categoryController =
 
 final districtController =
     Provider.autoDispose<PagingController<int, GroupInfo>>((ref) {
-  final _pagingController = PagingController<int, GroupInfo>(firstPageKey: 1);
+  final _pagingController = PagingController<int, GroupInfo>(firstPageKey: 0);
   final repository = ref.watch(groupRepositoryProvider);
 
   _pagingController.addPageRequestListener((pageKey) {
@@ -40,7 +40,7 @@ final districtController =
 
 final universityController =
     Provider.autoDispose<PagingController<int, GroupInfo>>((ref) {
-  final _pagingController = PagingController<int, GroupInfo>(firstPageKey: 1);
+  final _pagingController = PagingController<int, GroupInfo>(firstPageKey: 0);
   final repository = ref.watch(groupRepositoryProvider);
 
   _pagingController.addPageRequestListener((pageKey) {

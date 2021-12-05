@@ -27,7 +27,7 @@ class _$PostDetailTearOff {
       required String authorNickname,
       required String title,
       required String contents,
-      required String authorImage,
+      String? authorImage,
       required List<String> imageUrls,
       required String createdDate}) {
     return _PostDetail(
@@ -57,7 +57,7 @@ mixin _$PostDetail {
   String get authorNickname => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get contents => throw _privateConstructorUsedError;
-  String get authorImage => throw _privateConstructorUsedError;
+  String? get authorImage => throw _privateConstructorUsedError;
   List<String> get imageUrls => throw _privateConstructorUsedError;
   String get createdDate => throw _privateConstructorUsedError;
 
@@ -78,7 +78,7 @@ abstract class $PostDetailCopyWith<$Res> {
       String authorNickname,
       String title,
       String contents,
-      String authorImage,
+      String? authorImage,
       List<String> imageUrls,
       String createdDate});
 }
@@ -126,7 +126,7 @@ class _$PostDetailCopyWithImpl<$Res> implements $PostDetailCopyWith<$Res> {
       authorImage: authorImage == freezed
           ? _value.authorImage
           : authorImage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       imageUrls: imageUrls == freezed
           ? _value.imageUrls
           : imageUrls // ignore: cast_nullable_to_non_nullable
@@ -151,7 +151,7 @@ abstract class _$PostDetailCopyWith<$Res> implements $PostDetailCopyWith<$Res> {
       String authorNickname,
       String title,
       String contents,
-      String authorImage,
+      String? authorImage,
       List<String> imageUrls,
       String createdDate});
 }
@@ -201,7 +201,7 @@ class __$PostDetailCopyWithImpl<$Res> extends _$PostDetailCopyWithImpl<$Res>
       authorImage: authorImage == freezed
           ? _value.authorImage
           : authorImage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       imageUrls: imageUrls == freezed
           ? _value.imageUrls
           : imageUrls // ignore: cast_nullable_to_non_nullable
@@ -223,7 +223,7 @@ class _$_PostDetail implements _PostDetail {
       required this.authorNickname,
       required this.title,
       required this.contents,
-      required this.authorImage,
+      this.authorImage,
       required this.imageUrls,
       required this.createdDate});
 
@@ -241,7 +241,7 @@ class _$_PostDetail implements _PostDetail {
   @override
   final String contents;
   @override
-  final String authorImage;
+  final String? authorImage;
   @override
   final List<String> imageUrls;
   @override
@@ -302,7 +302,7 @@ abstract class _PostDetail implements PostDetail {
       required String authorNickname,
       required String title,
       required String contents,
-      required String authorImage,
+      String? authorImage,
       required List<String> imageUrls,
       required String createdDate}) = _$_PostDetail;
 
@@ -320,7 +320,7 @@ abstract class _PostDetail implements PostDetail {
   @override
   String get contents;
   @override
-  String get authorImage;
+  String? get authorImage;
   @override
   List<String> get imageUrls;
   @override

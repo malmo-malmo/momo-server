@@ -8,7 +8,7 @@ class Post with _$Post {
   factory Post({
     required int id,
     required String authorNickname,
-    required String authorImage,
+    String? authorImage,
     required String title,
     required String contents,
     required int commentCnt,

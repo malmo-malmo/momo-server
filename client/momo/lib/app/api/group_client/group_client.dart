@@ -15,14 +15,10 @@ abstract class GroupClient {
   }) = _GroupClient;
 
   @POST('/group')
-  Future<dynamic> createGroup(
-    @Body() GroupRequest groupRequest,
-  );
+  Future<dynamic> createGroup(@Body() GroupRequest groupRequest);
 
   @GET('/group/{groupId}')
-  Future<GroupDetail> getGroupDetail(
-    @Path() int groupId,
-  );
+  Future<GroupDetail> getGroupDetail(@Path() int groupId);
 
   @GET('/group/categories')
   Future<List<CodeNamePair>> getGroupCategories();
@@ -52,4 +48,10 @@ abstract class GroupClient {
     @Query('page') int page,
     @Query('size') int size,
   );
+
+  @POST('/group/apply-participant')
+  Future<dynamic> participantGroup(@Body() int groupId);
+
+  @DELETE('/group/participant/{groupId}')
+  Future<dynamic> withdrawalGroup(@Path() int groupId);
 }

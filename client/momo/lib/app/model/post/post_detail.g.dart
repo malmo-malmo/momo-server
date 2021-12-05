@@ -13,7 +13,7 @@ _$_PostDetail _$$_PostDetailFromJson(Map<String, dynamic> json) =>
       authorNickname: json['authorNickname'] as String,
       title: json['title'] as String,
       contents: json['contents'] as String,
-      authorImage: json['authorImage'] as String,
+      authorImage: json['authorImage'] as String?,
       imageUrls:
           (json['imageUrls'] as List<dynamic>).map((e) => e as String).toList(),
       createdDate: json['createdDate'] as String,

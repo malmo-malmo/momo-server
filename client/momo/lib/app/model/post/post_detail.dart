@@ -11,7 +11,7 @@ class PostDetail with _$PostDetail {
     required String authorNickname,
     required String title,
     required String contents,
-    required String authorImage,
+    String? authorImage,
     required List<String> imageUrls,
     required String createdDate,
   }) = _PostDetail;

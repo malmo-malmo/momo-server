@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/util/theme.dart';
 
-class ScheduleListCard extends StatelessWidget {
-  const ScheduleListCard({Key? key}) : super(key: key);
+class ScheduleCard extends StatelessWidget {
+  const ScheduleCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

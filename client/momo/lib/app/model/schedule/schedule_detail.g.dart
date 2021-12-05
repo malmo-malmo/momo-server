@@ -12,7 +12,7 @@ _$_ScheduleDetail _$$_ScheduleDetailFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String,
       contents: json['contents'] as String,
       authorNickname: json['authorNickname'] as String,
-      authorImage: json['authorImage'] as String,
+      authorImage: json['authorImage'] as String?,
       startDateTime: json['startDateTime'] as String,
       offline: json['offline'] as bool,
       attend: json['attend'] as bool,

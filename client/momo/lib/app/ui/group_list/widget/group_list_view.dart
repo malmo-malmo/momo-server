@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/ui/components/card/home_group_card.dart';
-import 'package:momo/app/util/date_format.dart';
+import 'package:momo/app/util/format/group_date_format.dart';
 
 class GroupListView extends StatelessWidget {
   const GroupListView({Key? key, required this.pagingController})

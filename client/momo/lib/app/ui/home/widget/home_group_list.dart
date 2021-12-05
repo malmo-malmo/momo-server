@@ -5,7 +5,7 @@ import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/ui/components/card/home_group_card.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/ui/components/status/no_item_card.dart';
-import 'package:momo/app/util/date_format.dart';
+import 'package:momo/app/util/format/group_date_format.dart';
 
 class HomeMeetingList extends StatelessWidget {
   const HomeMeetingList({

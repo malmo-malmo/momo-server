@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:momo/app/provider/date_card_provider.dart';
-import 'package:momo/app/util/date_format.dart';
+import 'package:momo/app/util/format/day_title_format.dart';
 import 'package:momo/app/util/theme.dart';
 
 class DateInputBox extends ConsumerWidget {
@@ -60,7 +60,7 @@ class DateInputBox extends ConsumerWidget {
                 ref.read(dateCardTextStateProvider.state).state =
                     DateFormat('yyyy-MM-dd').format(dateTime) +
                         ' ' +
-                        calDay(dateTime) +
+                        dayTitleToKR(dateTime) +
                         '요일';
               }
             },

@@ -6,7 +6,8 @@ import 'package:momo/app/provider/schedule/user_schedule_provider.dart';
 import 'package:momo/app/ui/components/status/error_card.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/ui/home/widget/schedule_page_view.dart';
-import 'package:momo/app/util/date_format.dart';
+import 'package:momo/app/util/format/calendar_max_day.dart';
+import 'package:momo/app/util/format/day_title_format.dart';
 import 'package:momo/app/util/theme.dart';
 
 class ReminderCard extends ConsumerWidget {
@@ -40,8 +41,7 @@ class ReminderCard extends ConsumerWidget {
               child: ListView.builder(
                 controller: _controller,
                 scrollDirection: Axis.horizontal,
-                itemCount:
-                    calendarDay(DateTime.now().year, DateTime.now().month),
+                itemCount: calMaxDay(DateTime.now().year, DateTime.now().month),
                 itemBuilder: (_, index) {
                   final title = dayTitle(
                     DateTime.now().year,

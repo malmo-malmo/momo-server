@@ -1,19 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/group/category_check_provider.dart';
 import 'package:momo/app/provider/group/group_request_provider.dart';
-import 'package:momo/app/ui/components/button/confirm_button.dart';
+import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
+import 'package:momo/app/ui/components/button/confirm_action_icon.dart';
 import 'package:momo/app/ui/components/category/category_column.dart';
+import 'package:momo/app/ui/components/input_box/city_input_box.dart';
 import 'package:momo/app/ui/components/input_box/content_input_box.dart';
 import 'package:momo/app/ui/components/input_box/date_input_box.dart';
+import 'package:momo/app/ui/components/input_box/district_input_box.dart';
 import 'package:momo/app/ui/components/input_box/name_input_box.dart';
 import 'package:momo/app/ui/components/button/on_off_toggle_button.dart';
+import 'package:momo/app/ui/components/input_box/university_input_box.dart';
+import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/group_request/widget/head_num_input_box.dart';
-import 'package:momo/app/ui/group_request/widget/set_meet_city_box.dart';
-import 'package:momo/app/ui/group_request/widget/set_meet_country_box.dart';
-import 'package:momo/app/ui/group_request/widget/top_box.dart';
+import 'package:momo/app/ui/group_request/widget/set_image_box.dart';
+import 'package:momo/app/util/theme.dart';
 
 class GroupRequestPage extends ConsumerWidget {
   const GroupRequestPage({Key? key}) : super(key: key);
@@ -22,26 +25,42 @@ class GroupRequestPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final groupRequest = ref.watch(groupRequestProvider);
     final check = ref.watch(groupRequestCheckProvider);
-    final dialogText = "'${groupRequest.name}' 모임이 생성되었어요!";
     final checks = ref.watch(groupRequestCategoryProvider);
 
     return SafeArea(
       child: Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            const TopBox(),
-            SliverToBoxAdapter(
-              child: Padding(
+        backgroundColor: const Color(0xffffffff),
+        appBar: customAppBar(
+          leadingIcon: CupertinoIcons.xmark,
+          isAction: true,
+          title: '모임만들기',
+          actionWidget: confirmActionIcon(
+            check: check,
+            title: '완료',
+            onTapIcon: () async {
+              await ref.read(groupRequestStateProvider.notifier).createGroup();
+            },
+            isShowDialog: true,
+            dialogText: '${groupRequest.name}\n모임이 생성되었어요!',
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              SetImageBox(img: groupRequest.imageUrl),
+              Padding(
                 padding: const EdgeInsets.only(left: 26, right: 26, bottom: 24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _subTitle('모임이름'),
+                    subTitle(title: '모임명'),
                     nameInputBox(
-                        onTextChanged: ref
-                            .read(groupRequestStateProvider.notifier)
-                            .setMeetName),
-                    _subTitle('카테고리'),
+                      onTextChanged: ref
+                          .read(groupRequestStateProvider.notifier)
+                          .setGroupName,
+                    ),
+                    subTitle(title: '활동 카테고리'),
                     Wrap(
                       spacing: 20,
                       runSpacing: 20,
@@ -50,80 +69,80 @@ class GroupRequestPage extends ConsumerWidget {
                           categoryColumn(
                             check: checks[i],
                             index: i,
-                            onTabIcon: ref
-                                .read(
-                                    groupRequestCategoryStateProvider.notifier)
-                                .checkCategory,
+                            onTabIcon: (index) {
+                              ref
+                                  .read(groupRequestCategoryStateProvider
+                                      .notifier)
+                                  .checkCategory(index);
+
+                              ref
+                                  .read(groupRequestStateProvider.notifier)
+                                  .setGroupCategory(index);
+                            },
                             spaceHeight: 14,
                           ),
                       ],
                     ),
-                    _subTitle('모임 유형'),
+                    subTitle(title: '모임 유형'),
                     onOffToggleButton(
                         tabButton: ref
                             .read(groupRequestStateProvider.notifier)
                             .setOnOff),
-                    _subTitle('인원 수'),
-                    headNumInputBox(
-                        onTextChanged: ref
-                            .read(groupRequestStateProvider.notifier)
-                            .setRecruitmentCnt),
-                    _subTitle('모임 시작 날짜'),
+                    subTitle(title: '모임 시작일'),
                     DateInputBox(
-                        selcetDate: ref
-                            .read(groupRequestStateProvider.notifier)
-                            .setStartDate),
-                    _subTitle('학교'),
-                    _subTitle('지역'),
+                      selcetDate: ref
+                          .read(groupRequestStateProvider.notifier)
+                          .setStartDate,
+                    ),
+                    subTitle(title: '인원 수'),
+                    headNumInputBox(
+                      onTextChanged: ref
+                          .read(groupRequestStateProvider.notifier)
+                          .setRecruitmentCnt,
+                    ),
+                    subTitle(title: '학교'),
+                    universityInputBox(
+                      setUniversity: (text) {},
+                      backgroundColor: MomoColor.backgroundColor,
+                    ),
+                    subTitle(title: '지역'),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SetMeetCityBox(
-                          curCity: groupRequest.city,
-                          onSelect: ref
-                              .read(groupRequestStateProvider.notifier)
+                        cityInputBox(
+                          city: ref
+                              .watch(groupRequestStateProvider.notifier)
+                              .userCity,
+                          setCity: ref
+                              .watch(groupRequestStateProvider.notifier)
                               .setCity,
+                          backgroundColor: MomoColor.backgroundColor,
                         ),
-                        SetMeetCountryBox(
-                          curCountry: groupRequest.district,
-                          onSelect: ref
-                              .read(groupRequestStateProvider.notifier)
+                        districtBox(
+                          district: groupRequest.district,
+                          cityCode: groupRequest.city,
+                          setDistrict: ref
+                              .watch(groupRequestStateProvider.notifier)
                               .setDistrict,
+                          backgroundColor: MomoColor.backgroundColor,
                         ),
                       ],
                     ),
-                    _subTitle('모임 설명'),
+                    subTitle(title: '메모'),
                     contentInputBox(
                       onTextChanged: ref
                           .read(groupRequestStateProvider.notifier)
                           .setIntroduction,
-                      height: 98,
+                      height: 82,
                       maxLines: 6,
+                      hintText: '모임에 대한 간단한 메모를 남겨주세요',
                     ),
                     const SizedBox(height: 24),
-                    ConfirmButton(
-                      dialogText: dialogText,
-                      buttonText: '완료',
-                      check: check,
-                      isShowDialog: true,
-                    ),
                   ],
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _subTitle(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 43, bottom: 14),
-      child: Text(
-        title,
-        style: TextStyle(
-          fontSize: 20.sp,
+            ],
+          ),
         ),
       ),
     );

@@ -1,5 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/model/group/group_request.dart';
+import 'package:momo/app/provider/category_result_provider.dart';
+import 'package:momo/app/provider/city_result_provider.dart';
+import 'package:momo/app/repository/group_repository.dart';
 
 final groupRequestCheckProvider = Provider.autoDispose<bool>((ref) {
   final groupRequest = ref.watch(groupRequestStateProvider);
@@ -24,32 +27,43 @@ final groupRequestProvider = Provider.autoDispose<GroupRequest>((ref) {
 });
 
 final groupRequestStateProvider =
-    StateNotifierProvider.autoDispose<GroupRequestState, GroupRequest>(
-        (ref) => GroupRequestState());
+    StateNotifierProvider.autoDispose<GroupRequestState, GroupRequest>((ref) {
+  final repository = ref.watch(groupRepositoryProvider);
+  return GroupRequestState(repository: repository);
+});
 
 class GroupRequestState extends StateNotifier<GroupRequest> {
-  GroupRequestState()
+  GroupRequestState({required this.repository})
       : super(
           GroupRequest(
             name: '',
             category: '',
-            city: '',
-            district: '',
+            city: 'SEOUL',
+            district: '강남구',
             imageUrl: '',
             introduction: '',
             recruitmentCnt: 0,
             startDate: '',
-            isUniversity: false,
+            isUniversity: true,
             isOffline: false,
           ),
         );
 
-  void setMeetName(String name) => state = state.copyWith(name: name);
+  final GroupRepository repository;
 
-  void setCategory(String category) =>
-      state = state.copyWith(category: category);
+  void setGroupName(String name) => state = state.copyWith(name: name);
 
-  void setCity(String city) => state = state.copyWith(city: city);
+  void setGroupCategory(int index) =>
+      state = state.copyWith(category: categoryCodeNamePair[index].code);
+
+  void setCity(String city) => state = state.copyWith(
+      city:
+          cityCodeNamePair.where((element) => element.name == city).first.code);
+
+  String get userCity => cityCodeNamePair
+      .where((element) => element.code == state.city)
+      .first
+      .name;
 
   void setOnOff(bool isOffline) => state = state.copyWith(isOffline: isOffline);
 
@@ -62,7 +76,7 @@ class GroupRequestState extends StateNotifier<GroupRequest> {
   void setIntroduction(String introduction) =>
       state = state.copyWith(introduction: introduction);
 
-  void setSchool(bool isUniversity) =>
+  void setUniversity(bool isUniversity) =>
       state = state.copyWith(isUniversity: isUniversity);
 
   void setDistrict(String district) =>
@@ -70,4 +84,9 @@ class GroupRequestState extends StateNotifier<GroupRequest> {
 
   void setImageUrl(String imageUrl) =>
       state = state.copyWith(imageUrl: imageUrl);
+
+  Future<dynamic> createGroup() async {
+    final response = await repository.createGroup(state);
+    return response;
+  }
 }

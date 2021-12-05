@@ -6,9 +6,7 @@ import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget universityResultDialog({
-  required Function(String school) onSelect,
-}) {
+Widget universityResultDialog({required Function(String school) onSelect}) {
   return Consumer(
     builder: (context, ref, _) {
       final universityName = ref.watch(universityTextController).text;

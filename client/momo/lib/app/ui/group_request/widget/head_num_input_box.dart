@@ -10,7 +10,7 @@ Widget headNumInputBox({
       Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: MomoColor.unSelIcon,
+          color: MomoColor.backgroundColor,
         ),
         padding: const EdgeInsets.symmetric(horizontal: 16),
         height: 44,

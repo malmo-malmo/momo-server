@@ -11,10 +11,7 @@ import 'package:momo/app/ui/group_detail/widget/admin_bottom_sheet.dart';
 import 'package:momo/app/ui/group_detail/widget/feed_list.dart';
 import 'package:momo/app/ui/components/card/group_detail_title.dart';
 import 'package:momo/app/ui/group_detail/widget/group_detail_card.dart';
-import 'package:momo/app/ui/group_detail/widget/notice_list_card.dart';
-import 'package:momo/app/ui/group_detail/widget/request_button.dart';
 import 'package:momo/app/ui/group_detail/widget/request_info_card.dart';
-import 'package:momo/app/ui/group_detail/widget/schedule_list_card.dart';
 import 'package:momo/app/ui/group_detail/widget/user_bottom_sheet.dart';
 import 'package:momo/app/util/theme.dart';
 

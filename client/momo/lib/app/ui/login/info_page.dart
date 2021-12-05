@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/user/name_check_provider.dart';
-import 'package:momo/app/provider/user/user_info_provider.dart';
+import 'package:momo/app/provider/user/user_info__request_provider.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/components/dialog/confirm_dialog.dart';
+import 'package:momo/app/ui/components/input_box/city_input_box.dart';
+import 'package:momo/app/ui/components/input_box/university_input_box.dart';
+import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/login/widget/agree_button.dart';
-import 'package:momo/app/ui/login/widget/district_input_box.dart';
+import 'package:momo/app/ui/components/input_box/district_input_box.dart';
 import 'package:momo/app/ui/login/widget/input_box.dart';
-import 'package:momo/app/ui/login/widget/university_input_box.dart';
-import 'package:momo/app/ui/login/widget/university_result_dialog.dart';
-import 'package:momo/app/ui/login/widget/set_city_box.dart';
 import 'package:momo/app/ui/login/widget/title_text.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
@@ -21,9 +21,9 @@ class InfoPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final check = ref.watch(userInfoCheckProvider);
+    final check = ref.watch(userInfoRequestCheckProvider);
     final userNameCheck = ref.watch(nameCheckProvider);
-    final userInfo = ref.watch(userInfoProvider);
+    final userInfo = ref.watch(userInfoRequestProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -48,10 +48,11 @@ class InfoPage extends ConsumerWidget {
                 const SizedBox(height: 25),
                 titleText('내 정보 설정  3/3'),
                 const SizedBox(height: 50),
-                _subTitle('닉네임'),
+                subTitle(title: '닉네임'),
                 inputBox(
-                  onTextChange:
-                      ref.read(userInfoStateProvider.notifier).setUserNickname,
+                  onTextChange: ref
+                      .read(userInfoRequestStateProvider.notifier)
+                      .setUserNickname,
                   searchIcon: Container(
                     height: 32,
                     width: 62,
@@ -74,7 +75,7 @@ class InfoPage extends ConsumerWidget {
                   onTabIcon: userNameCheck
                       ? () async {
                           final check = await ref
-                              .read(userInfoStateProvider.notifier)
+                              .read(userInfoRequestStateProvider.notifier)
                               .validateName(userInfo.nickname);
                           ref.read(validateNameStateProvider.state).state =
                               check;
@@ -90,45 +91,29 @@ class InfoPage extends ConsumerWidget {
                         }
                       : () {},
                 ),
-                _subTitle('학교'),
+                subTitle(title: '학교'),
                 universityInputBox(
-                  onTabIcon: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return universityResultDialog(
-                          onSelect: ref
-                              .read(userInfoStateProvider.notifier)
-                              .setUserUniversity,
-                        );
-                      },
-                    );
-                    FocusScope.of(context).unfocus();
-                  },
-                  searchIcon: Icon(
-                    CupertinoIcons.search,
-                    size: 28.w,
-                  ),
-                ),
-                _subTitle('지역'),
+                    setUniversity: ref
+                        .watch(userInfoRequestStateProvider.notifier)
+                        .setUserUniversity),
+                subTitle(title: '지역'),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     cityInputBox(
-                      city: ref.watch(userInfoStateProvider.notifier).userCity,
-                      setCity:
-                          ref.watch(userInfoStateProvider.notifier).setUserCity,
+                      city: ref
+                          .watch(userInfoRequestStateProvider.notifier)
+                          .userCity,
+                      setCity: ref
+                          .watch(userInfoRequestStateProvider.notifier)
+                          .setUserCity,
                     ),
-                    // districtInputBox(
-                    //   district: userInfo.district,
-                    //   cityCode: userInfo.city,
-                    //   setDistrict: ref
-                    //       .read(userInfoStateProvider.notifier)
-                    //       .setUserDistrict,
-                    // ),
                     districtBox(
                       district: userInfo.district,
                       cityCode: userInfo.city,
+                      setDistrict: ref
+                          .watch(userInfoRequestStateProvider.notifier)
+                          .setUserDistrict,
                     ),
                   ],
                 ),
@@ -138,7 +123,7 @@ class InfoPage extends ConsumerWidget {
                   text: '다음',
                   onPressButton: () async {
                     await ref
-                        .read(userInfoStateProvider.notifier)
+                        .read(userInfoRequestStateProvider.notifier)
                         .updateUserInfo(userInfo);
                     ref
                         .read(navigatorProvider)
@@ -149,19 +134,6 @@ class InfoPage extends ConsumerWidget {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _subTitle(String title) {
-    return Padding(
-      padding: EdgeInsets.only(top: 30.h, bottom: 14.h),
-      child: Text(
-        title,
-        style: TextStyle(
-          color: MomoColor.black,
-          fontSize: 20.sp,
         ),
       ),
     );

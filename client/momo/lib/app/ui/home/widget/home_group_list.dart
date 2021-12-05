@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/group/group_info.dart';
-import 'package:momo/app/ui/components/card/home_group_card.dart';
+import 'package:momo/app/ui/components/card/group_card.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/ui/components/status/no_item_card.dart';
-import 'package:momo/app/util/date_format.dart';
 
 class HomeMeetingList extends StatelessWidget {
   const HomeMeetingList({
@@ -17,21 +17,12 @@ class HomeMeetingList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200,
+      height: 200.h,
       child: PagedListView<int, GroupInfo>.separated(
         pagingController: pagingController,
         scrollDirection: Axis.horizontal,
         builderDelegate: PagedChildBuilderDelegate<GroupInfo>(
-          itemBuilder: (context, item, index) => homeGroupCard(
-            title: item.name,
-            onOff: item.offline,
-            headNum: item.participantCnt,
-            date: groupDateFormat(item.startDate),
-            img:
-                'https://newsimg.hankookilbo.com/cms/articlerelease/2020/09/09/11106de2-cc63-4fae-80dc-85cbeafb6040.jpg',
-            height: 200,
-            width: 144,
-          ),
+          itemBuilder: (context, item, index) => groupCard(group: item),
           newPageProgressIndicatorBuilder: (context) => loadingCard(),
           firstPageProgressIndicatorBuilder: (context) => loadingCard(),
           noItemsFoundIndicatorBuilder: (context) => noItemCard(),

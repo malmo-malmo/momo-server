@@ -20,14 +20,14 @@ Widget onOffToggleButton({
             height: 44,
             width: 91,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: checks[0] ? MomoColor.main : MomoColor.unSelButton,
+              borderRadius: BorderRadius.circular(22),
+              color: checks[0] ? MomoColor.main : MomoColor.backgroundColor,
             ),
             child: Center(
               child: Text(
                 '온라인',
                 style: MomoTextStyle.small.copyWith(
-                  color: checks[0] ? MomoColor.white : MomoColor.unSelText,
+                  color: checks[0] ? MomoColor.white : MomoColor.unSelIcon,
                 ),
               ),
             ),
@@ -43,14 +43,14 @@ Widget onOffToggleButton({
             height: 44,
             width: 106,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: checks[1] ? MomoColor.main : MomoColor.unSelButton,
+              borderRadius: BorderRadius.circular(22),
+              color: checks[1] ? MomoColor.main : MomoColor.backgroundColor,
             ),
             child: Center(
               child: Text(
                 '오프라인',
                 style: MomoTextStyle.small.copyWith(
-                  color: checks[1] ? MomoColor.white : MomoColor.unSelText,
+                  color: checks[1] ? MomoColor.white : MomoColor.unSelIcon,
                 ),
               ),
             ),

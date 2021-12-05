@@ -2,38 +2,43 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:momo/app/ui/components/card/on_off_card.dart';
+import 'package:momo/app/ui/components/text/member_date_row.dart';
 import 'package:momo/app/util/theme.dart';
 
-class MeetingTitle extends StatelessWidget {
-  const MeetingTitle({
+class GroupDetailTitle extends StatelessWidget {
+  GroupDetailTitle({
     Key? key,
     required this.onOff,
-    required this.meetingTitle,
+    required this.title,
     required this.count,
     required this.startDate,
-    required this.location,
-    required this.school,
+    required this.city,
+    required this.university,
+    required this.district,
     required this.img,
   }) : super(key: key);
 
-  final String onOff;
-  final String meetingTitle;
+  final bool onOff;
+  final String title;
   final int count;
   final String startDate;
-  final String location;
-  final String school;
-  final String img;
+  final String city;
+  final String district;
+  final String university;
+  String? img;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 280,
+      height: 290,
       width: double.infinity,
       child: Stack(
         children: [
           Image.network(
-            img,
-            height: 280,
+            img ??
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo2lT2My2ZPXDPGCTKi6DvpSDEXB5woZPNDw&usqp=CAU',
+            height: 290,
             width: double.infinity,
             fit: BoxFit.fill,
           ),
@@ -41,62 +46,33 @@ class MeetingTitle extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(height: 88),
-                Container(
-                  width: onOff.length * 11.0 + 21.w,
-                  height: 25.h,
-                  child: Center(
-                    child: Text(
-                      onOff,
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        color: MomoColor.white,
-                      ),
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: MomoColor.main,
-                  ),
-                ),
-                const SizedBox(height: 16),
+                onOffCard(onOff),
+                const SizedBox(height: 10),
                 Text(
-                  meetingTitle,
+                  title,
                   style: MomoTextStyle.mainTitle.copyWith(
                     color: MomoColor.white,
                   ),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 46),
                 _titleRow(
                   icon: 'assets/icon/icon_locationwhite_20.svg',
-                  text: location,
+                  text: city + ' ' + district,
                   textSize: 16.sp,
                 ),
+                const SizedBox(height: 6),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _titleRow(
                       icon: 'assets/icon/icon_schoolwhite_20.svg',
-                      text: school,
+                      text: university,
                       textSize: 16.sp,
                     ),
-                    Row(
-                      children: [
-                        _titleRow(
-                          icon: 'assets/icon/icon_member_20.svg',
-                          text: '$count',
-                          textSize: 12.sp,
-                        ),
-                        const SizedBox(width: 16),
-                        _titleRow(
-                          icon: 'assets/icon/icon_daystart_20.svg',
-                          text: startDate,
-                          textSize: 12.sp,
-                        ),
-                      ],
-                    ),
+                    memberDateRow(count, startDate),
                   ],
                 )
               ],

@@ -10,7 +10,7 @@ class GroupDetail with _$GroupDetail {
     required int managerId,
     required String city,
     required String district,
-    required String imageUrl,
+    String? imageUrl,
     required String introduction,
     required String name,
     required bool offline,

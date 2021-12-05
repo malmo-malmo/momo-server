@@ -11,7 +11,7 @@ import 'package:momo/app/util/theme.dart';
 
 Widget subTitle({
   required String title,
-  required String icon,
+  String? icon,
   IconData? actionIcon,
   PagingController<int, GroupInfo>? pagingController,
 }) {
@@ -20,16 +20,21 @@ Widget subTitle({
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            SvgPicture.asset(icon),
-            SizedBox(width: 10.w),
-            Text(
-              title,
-              style: MomoTextStyle.subTitle,
-            ),
-          ],
-        ),
+        icon == null
+            ? Text(
+                title,
+                style: MomoTextStyle.subTitle,
+              )
+            : Row(
+                children: [
+                  SvgPicture.asset(icon),
+                  SizedBox(width: 10.w),
+                  Text(
+                    title,
+                    style: MomoTextStyle.subTitle,
+                  ),
+                ],
+              ),
         actionIcon != null
             ? Consumer(builder: (context, ref, _) {
                 return InkWell(

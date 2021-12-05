@@ -26,7 +26,7 @@ class _$GroupDetailTearOff {
       required int managerId,
       required String city,
       required String district,
-      required String imageUrl,
+      String? imageUrl,
       required String introduction,
       required String name,
       required bool offline,
@@ -64,7 +64,7 @@ mixin _$GroupDetail {
   int get managerId => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
   String get district => throw _privateConstructorUsedError;
-  String get imageUrl => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
   String get introduction => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   bool get offline => throw _privateConstructorUsedError;
@@ -89,7 +89,7 @@ abstract class $GroupDetailCopyWith<$Res> {
       int managerId,
       String city,
       String district,
-      String imageUrl,
+      String? imageUrl,
       String introduction,
       String name,
       bool offline,
@@ -142,7 +142,7 @@ class _$GroupDetailCopyWithImpl<$Res> implements $GroupDetailCopyWith<$Res> {
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       introduction: introduction == freezed
           ? _value.introduction
           : introduction // ignore: cast_nullable_to_non_nullable
@@ -187,7 +187,7 @@ abstract class _$GroupDetailCopyWith<$Res>
       int managerId,
       String city,
       String district,
-      String imageUrl,
+      String? imageUrl,
       String introduction,
       String name,
       bool offline,
@@ -242,7 +242,7 @@ class __$GroupDetailCopyWithImpl<$Res> extends _$GroupDetailCopyWithImpl<$Res>
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       introduction: introduction == freezed
           ? _value.introduction
           : introduction // ignore: cast_nullable_to_non_nullable
@@ -283,7 +283,7 @@ class _$_GroupDetail implements _GroupDetail {
       required this.managerId,
       required this.city,
       required this.district,
-      required this.imageUrl,
+      this.imageUrl,
       required this.introduction,
       required this.name,
       required this.offline,
@@ -304,7 +304,7 @@ class _$_GroupDetail implements _GroupDetail {
   @override
   final String district;
   @override
-  final String imageUrl;
+  final String? imageUrl;
   @override
   final String introduction;
   @override
@@ -385,7 +385,7 @@ abstract class _GroupDetail implements GroupDetail {
       required int managerId,
       required String city,
       required String district,
-      required String imageUrl,
+      String? imageUrl,
       required String introduction,
       required String name,
       required bool offline,
@@ -406,7 +406,7 @@ abstract class _GroupDetail implements GroupDetail {
   @override
   String get district;
   @override
-  String get imageUrl;
+  String? get imageUrl;
   @override
   String get introduction;
   @override

@@ -5,8 +5,8 @@ import 'package:momo/app/provider/city_result_provider.dart';
 import 'package:momo/app/provider/user/name_check_provider.dart';
 import 'package:momo/app/repository/user_repository.dart';
 
-final userInfoCheckProvider = Provider<bool>((ref) {
-  final userInfo = ref.watch(userInfoProvider);
+final userInfoRequestCheckProvider = Provider<bool>((ref) {
+  final userInfo = ref.watch(userInfoRequestProvider);
   final validateNameCheck = ref.watch(validateNameProvider);
   if (!validateNameCheck &&
       userInfo.nickname.isNotEmpty &&
@@ -18,19 +18,19 @@ final userInfoCheckProvider = Provider<bool>((ref) {
   return false;
 });
 
-final userInfoProvider = Provider<UserInfoRequest>((ref) {
-  final userInfoState = ref.watch(userInfoStateProvider);
+final userInfoRequestProvider = Provider<UserInfoRequest>((ref) {
+  final userInfoState = ref.watch(userInfoRequestStateProvider);
   return userInfoState;
 });
 
-final userInfoStateProvider =
-    StateNotifierProvider<UserInfoState, UserInfoRequest>((ref) {
+final userInfoRequestStateProvider =
+    StateNotifierProvider<UserInfoRequestState, UserInfoRequest>((ref) {
   final repository = ref.watch(userRepositoryProvider);
-  return UserInfoState(repository: repository);
+  return UserInfoRequestState(repository: repository);
 });
 
-class UserInfoState extends StateNotifier<UserInfoRequest> {
-  UserInfoState({required this.repository})
+class UserInfoRequestState extends StateNotifier<UserInfoRequest> {
+  UserInfoRequestState({required this.repository})
       : super(
           UserInfoRequest(
             nickname: '',
@@ -49,11 +49,8 @@ class UserInfoState extends StateNotifier<UserInfoRequest> {
       state = state.copyWith(university: university);
 
   void setUserCity(String city) => state = state.copyWith(
-        city: cityCodeNamePair
-            .where((element) => element.name == city)
-            .first
-            .code,
-      );
+      city:
+          cityCodeNamePair.where((element) => element.name == city).first.code);
 
   void setUserDistrict(String district) =>
       state = state.copyWith(district: district);

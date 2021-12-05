@@ -9,14 +9,16 @@ Widget contentInputBox({
 }) {
   return Container(
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(16),
       color: MomoColor.backgroundColor,
     ),
-    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+    padding: const EdgeInsets.symmetric(
+      horizontal: 24,
+    ),
     height: height,
     width: double.infinity,
     child: Center(
-      child: TextFormField(
+      child: TextField(
         maxLines: maxLines,
         onChanged: (text) {
           onTextChanged(text);

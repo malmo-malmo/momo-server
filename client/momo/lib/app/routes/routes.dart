@@ -3,6 +3,7 @@ import 'package:momo/app/routes/custom_arg/group_list_arg.dart';
 import 'package:momo/app/ui/attendance_list/attendance_list_page.dart';
 import 'package:momo/app/ui/full_img_page.dart';
 import 'package:momo/app/ui/gallery/gallery_page.dart';
+import 'package:momo/app/ui/group_detail/group_detail_page.dart';
 import 'package:momo/app/ui/group_list/group_list_page.dart';
 import 'package:momo/app/ui/group_request/group_request_page.dart';
 import 'package:momo/app/ui/login/category_page.dart';
@@ -10,13 +11,11 @@ import 'package:momo/app/ui/login/info_page.dart';
 import 'package:momo/app/ui/login/login_page.dart';
 import 'package:momo/app/ui/login/terms_page.dart';
 import 'package:momo/app/ui/main_page.dart';
-import 'package:momo/app/ui/meeting_detail/meeting_detail_page.dart';
 import 'package:momo/app/ui/member_list/member_list_page.dart';
 import 'package:momo/app/ui/notice_list/notice_list_page.dart';
 import 'package:momo/app/ui/onboarding/onboarding_page.dart';
 import 'package:momo/app/ui/post_detail/post_detail_page.dart';
 import 'package:momo/app/ui/post_request/post_request_page.dart';
-import 'package:momo/app/ui/request_meeting/request_meeting_page.dart';
 import 'package:momo/app/ui/schedule_list/schedule_list_page.dart';
 import 'package:momo/app/ui/schedule_request/schedule_request_page.dart';
 import 'package:momo/splash_page.dart';
@@ -30,10 +29,9 @@ class AppRoutes {
   static const info = '/info';
   static const onboarding = '/onboarding';
   static const groupList = '/groupList';
-  static const meetingDetail = '/meetingDetail';
+  static const groupDetail = '/groupDetail';
   static const newMeet = '/newMeet';
   static const gallery = '/gallery';
-  static const requestMeeting = '/requestMeeting';
   static const postRequest = '/postRequest';
   static const scheduleRequest = '/scheduleRequest';
   static const scheduleList = '/scheduleList';
@@ -87,9 +85,10 @@ class AppRouter {
           settings: settings,
         );
 
-      case AppRoutes.meetingDetail:
+      case AppRoutes.groupDetail:
+        final arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => const MeetingDetailPage(),
+          builder: (_) => GroupDetailPage(groupId: arg),
         );
 
       case AppRoutes.newMeet:
@@ -140,12 +139,6 @@ class AppRouter {
           builder: (_) => PostDetailPage(
             postId: arg,
           ),
-        );
-
-      case AppRoutes.requestMeeting:
-        final arg = settings.arguments;
-        return MaterialPageRoute<dynamic>(
-          builder: (_) => RequestMeetingPage(img: arg),
         );
 
       case AppRoutes.fullImage:

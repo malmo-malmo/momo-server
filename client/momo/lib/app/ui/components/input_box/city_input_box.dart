@@ -8,6 +8,7 @@ import 'package:momo/app/provider/city_result_provider.dart';
 Widget cityInputBox({
   required Function(String value) setCity,
   required String city,
+  Color? backgroundColor,
 }) {
   final _valueList = cityCodeNamePair.map((e) => e.name).toList();
 
@@ -17,7 +18,7 @@ Widget cityInputBox({
     width: 132,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(16),
-      color: const Color(0xffffffff),
+      color: backgroundColor ?? const Color(0xffffffff),
     ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

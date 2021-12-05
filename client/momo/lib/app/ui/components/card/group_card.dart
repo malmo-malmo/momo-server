@@ -2,43 +2,42 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/components/text/member_date_row.dart';
 import 'package:momo/app/ui/components/card/on_off_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget homeGroupCard({
-  required String title,
-  required int headNum,
-  required String date,
-  required String img,
-  required double width,
-  required double height,
-  required bool onOff,
+Widget groupCard({
+  required GroupInfo group,
+  double? width,
+  double? height,
 }) {
   return Consumer(builder: (context, ref, _) {
     return InkWell(
       onTap: () {
-        ref
-            .read(navigatorProvider)
-            .navigateTo(routeName: AppRoutes.meetingDetail);
+        ref.read(navigatorProvider).navigateTo(
+              routeName: AppRoutes.groupDetail,
+              arguments: group.id,
+            );
       },
       child: Stack(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Image.network(
-              img,
+              group.imageUrl ??
+                  'https://t1.daumcdn.net/cfile/tistory/213E554D58E120D71C',
               fit: BoxFit.fill,
-              width: width,
-              height: height,
+              width: width ?? 148.w,
+              height: height ?? 200.h,
             ),
           ),
           Container(
             padding: const EdgeInsets.all(14),
-            width: width,
-            height: height,
+            width: width ?? 148.w,
+            height: height ?? 200.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.transparent,
@@ -49,7 +48,7 @@ Widget homeGroupCard({
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    onOffCard(onOff),
+                    onOffCard(group.offline),
                     Icon(
                       CupertinoIcons.heart,
                       size: 24.w,
@@ -61,13 +60,13 @@ Widget homeGroupCard({
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      title,
+                      group.name,
                       style: MomoTextStyle.defaultStyle.copyWith(
                         color: MomoColor.white,
                       ),
                     ),
-                    SizedBox(height: 8.h),
-                    memberDateRow(headNum, date),
+                    SizedBox(height: 10.h),
+                    memberDateRow(group.participantCnt, group.startDate),
                   ],
                 ),
               ],

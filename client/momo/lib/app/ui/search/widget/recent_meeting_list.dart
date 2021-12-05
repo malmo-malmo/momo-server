@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/ui/components/card/home_group_card.dart';
+import 'package:momo/app/model/group/group_info.dart';
+import 'package:momo/app/ui/components/card/group_card.dart';
 
 class RecentMeetingList extends StatelessWidget {
   const RecentMeetingList({Key? key}) : super(key: key);
@@ -14,15 +15,16 @@ class RecentMeetingList extends StatelessWidget {
       crossAxisSpacing: 14,
       children: [
         for (int i = 0; i < 10; i++)
-          homeGroupCard(
-            onOff: true,
-            title: '기초를 위한 영어 회화 모임',
-            headNum: 10,
-            date: '9/1~',
-            img:
-                'https://thumb.mt.co.kr/06/2021/05/2021050417111791900_1.jpg/dims/optimize/',
+          groupCard(
+            group: GroupInfo(
+              id: 1,
+              name: '기초를 위한 영어 회화 모임',
+              offline: true,
+              participantCnt: 10,
+              startDate: '2021-12-31',
+            ),
             width: double.infinity,
-            height: 157.h,
+            height: 300.h,
           ),
       ],
     );

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:momo/app/provider/time_card_provider.dart';
-import 'package:momo/app/util/date_format.dart';
+import 'package:momo/app/util/format/time_format.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 

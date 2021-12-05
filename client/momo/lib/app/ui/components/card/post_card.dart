@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/model/post/post.dart';
+import 'package:momo/app/provider/post/post_provider.dart';
 import 'package:momo/app/routes/custom_arg/post_detail_arg.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/format/post_date_format.dart';
@@ -12,6 +13,7 @@ Widget postCard({required Post post}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 7),
     child: Consumer(builder: (context, ref, _) {
+      final postState = ref.watch(postProvider(post));
       return InkWell(
         onTap: () {
           ref.read(navigatorProvider).navigateTo(
@@ -19,11 +21,12 @@ Widget postCard({required Post post}) {
                 arguments: PostDetailArg(
                   postId: post.id,
                   commentCnt: post.commentCnt,
+                  // commentCnt: postState.commentCnt,
                 ),
               );
         },
         child: Container(
-          height: 160,
+          height: 182,
           decoration: BoxDecoration(
             color: const Color(0xffffffff),
             borderRadius: BorderRadius.circular(20),
@@ -73,9 +76,17 @@ Widget postCard({required Post post}) {
                 const SizedBox(height: 12),
                 Text(
                   post.contents,
-                  style: MomoTextStyle.small,
+                  style: MomoTextStyle.normal,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  '댓글 수 ${postState.commentCnt}',
+                  style: MomoTextStyle.small.copyWith(
+                    color: MomoColor.unSelIcon,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ],
             ),

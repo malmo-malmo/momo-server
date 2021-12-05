@@ -8,12 +8,14 @@ class FloatingTextButton extends StatelessWidget {
     required this.hintText,
     required this.onTextChanged,
     required this.onTapIcon,
+    required this.check,
     Key? key,
   }) : super(key: key);
 
   final String hintText;
   final Function(String text) onTextChanged;
   final Function onTapIcon;
+  final bool check;
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +53,15 @@ class FloatingTextButton extends StatelessWidget {
             ),
             child: InkWell(
               borderRadius: BorderRadius.circular(22),
-              onTap: () {
-                onTapIcon();
-              },
-              child: SvgPicture.asset('assets/icon/icon_sendgray_44.svg'),
+              onTap: check
+                  ? () {
+                      onTapIcon();
+                    }
+                  : null,
+              child: SvgPicture.asset(
+                'assets/icon/icon_sendgray_44.svg',
+                color: check ? MomoColor.main : null,
+              ),
             ),
           ),
         ],

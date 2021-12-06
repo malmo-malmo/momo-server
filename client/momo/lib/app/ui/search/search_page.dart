@@ -39,10 +39,7 @@ class SearchPage extends ConsumerWidget {
                     style: MomoTextStyle.mainTitle,
                   ),
                   SizedBox(height: 12.h),
-                  SearchBox(
-                    onSearch:
-                        ref.read(isShowResultStateProvider.notifier).search,
-                  ),
+                  const SearchBox(),
                 ],
               ),
             ),

@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/model/post/post.dart';
 import 'package:momo/app/provider/comment/comment_paging_controller_provider.dart';
 import 'package:momo/app/provider/comment/comment_request_provider.dart';
-import 'package:momo/app/provider/message/message_controller_provider.dart';
 import 'package:momo/app/provider/post/post_detail_provider.dart';
 import 'package:momo/app/provider/post/post_provider.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';

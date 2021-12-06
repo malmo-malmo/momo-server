@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/util/theme.dart';
@@ -22,12 +23,12 @@ class SearchedWordCards extends StatelessWidget {
 
   Widget _searchedWordCard({required String word}) {
     return Material(
-      elevation: 5,
+      elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 17),
         width: 14.0 * word.length + 56.w,
         height: 40,
         decoration: BoxDecoration(
@@ -39,13 +40,12 @@ class SearchedWordCards extends StatelessWidget {
             children: [
               Text(
                 word,
-                style: TextStyle(
-                  color: MomoColor.black,
-                  fontSize: 14.sp,
+                style: MomoTextStyle.normal.copyWith(
+                  fontWeight: FontWeight.w400,
                 ),
               ),
               Icon(
-                Icons.cancel,
+                CupertinoIcons.xmark,
                 color: MomoColor.unSelIcon,
                 size: 10.w,
               ),

@@ -10,7 +10,7 @@ final onOffToggleStateProvider =
         (ref) => OnOffToggleState());
 
 class OnOffToggleState extends StateNotifier<List<bool>> {
-  OnOffToggleState() : super([false, false]);
+  OnOffToggleState() : super([true, false]);
 
   void toggle(int index) => state = index == 0 ? [true, false] : [false, true];
 }

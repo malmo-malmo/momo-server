@@ -45,7 +45,7 @@ class GroupRequestState extends StateNotifier<GroupRequest> {
             recruitmentCnt: 0,
             startDate: '',
             isUniversity: true,
-            isOffline: false,
+            isOffline: true,
           ),
         );
 

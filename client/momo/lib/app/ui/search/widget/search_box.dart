@@ -3,20 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:momo/app/provider/search/search_result_provider.dart';
 import 'package:momo/app/ui/search/widget/filter_bottom_sheet.dart';
 
 class SearchBox extends ConsumerWidget {
   const SearchBox({
     Key? key,
-    required this.onSearch,
   }) : super(key: key);
-
-  final Function() onSearch;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Material(
-      elevation: 5,
+      elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -50,9 +48,8 @@ class SearchBox extends ConsumerWidget {
               ),
             ),
             InkWell(
-              onTap: () {
-                onSearch();
-              },
+              onTap: () =>
+                  ref.read(isShowResultStateProvider.state).state = true,
               child: SvgPicture.asset(
                 'assets/icon/search/icon_search_28.svg',
               ),

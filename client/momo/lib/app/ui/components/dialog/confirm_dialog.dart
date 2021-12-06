@@ -27,6 +27,7 @@ Widget confirmDialog({required String dialogText}) {
                 fontWeight: FontWeight.w400,
                 height: 1.2,
               ),
+              textAlign: TextAlign.center,
             ),
           ),
           Consumer(

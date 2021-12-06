@@ -12,10 +12,10 @@ import 'package:momo/app/ui/components/input_box/date_input_box.dart';
 import 'package:momo/app/ui/components/input_box/district_input_box.dart';
 import 'package:momo/app/ui/components/input_box/name_input_box.dart';
 import 'package:momo/app/ui/components/button/on_off_toggle_button.dart';
-import 'package:momo/app/ui/components/input_box/university_input_box.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/group_request/widget/head_num_input_box.dart';
 import 'package:momo/app/ui/group_request/widget/set_image_box.dart';
+import 'package:momo/app/ui/group_request/widget/university_toggle_button.dart';
 import 'package:momo/app/util/theme.dart';
 
 class GroupRequestPage extends ConsumerWidget {
@@ -41,7 +41,7 @@ class GroupRequestPage extends ConsumerWidget {
               await ref.read(groupRequestStateProvider.notifier).createGroup();
             },
             isShowDialog: true,
-            dialogText: '${groupRequest.name}\n모임이 생성되었어요!',
+            dialogText: '${groupRequest.name}\n모임을 추가했어요!',
           ),
         ),
         body: SingleChildScrollView(
@@ -94,16 +94,17 @@ class GroupRequestPage extends ConsumerWidget {
                           .read(groupRequestStateProvider.notifier)
                           .setStartDate,
                     ),
-                    subTitle(title: '인원 수'),
+                    subTitle(title: '모집 인원'),
                     headNumInputBox(
                       onTextChanged: ref
                           .read(groupRequestStateProvider.notifier)
                           .setRecruitmentCnt,
                     ),
-                    subTitle(title: '학교'),
-                    universityInputBox(
-                      setUniversity: (text) {},
-                      backgroundColor: MomoColor.backgroundColor,
+                    subTitle(title: '내 학교'),
+                    UniversityToggleButton(
+                      tabButton: ref
+                          .read(groupRequestStateProvider.notifier)
+                          .setUniversity,
                     ),
                     subTitle(title: '지역'),
                     Row(

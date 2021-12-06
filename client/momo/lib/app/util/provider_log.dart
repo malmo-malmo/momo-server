@@ -31,7 +31,7 @@ value: $value
     dp.log(
       '''
 providerUpdate: ${provider.name ?? provider.runtimeType}
-newValue: $newValue      
+newValue: $newValue
       ''',
       time: DateTime.now(),
       zone: Zone.current,

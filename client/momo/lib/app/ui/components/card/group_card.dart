@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/model/group/group_info.dart';
+import 'package:momo/app/provider/group/group_provider.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/components/text/member_date_row.dart';
 import 'package:momo/app/ui/components/card/on_off_card.dart';
@@ -15,6 +16,8 @@ Widget groupCard({
   double? height,
 }) {
   return Consumer(builder: (context, ref, _) {
+    final groupParticipantCnt = ref.watch(groupProvider(group)).participantCnt;
+
     return InkWell(
       onTap: () {
         ref.read(navigatorProvider).navigateTo(
@@ -66,7 +69,7 @@ Widget groupCard({
                       ),
                     ),
                     SizedBox(height: 10.h),
-                    memberDateRow(group.participantCnt, group.startDate),
+                    memberDateRow(groupParticipantCnt, group.startDate),
                   ],
                 ),
               ],

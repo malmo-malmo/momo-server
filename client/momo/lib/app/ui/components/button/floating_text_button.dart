@@ -1,24 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:momo/app/provider/message/message_controller_provider.dart';
 import 'package:momo/app/util/theme.dart';
 
-class FloatingTextButton extends StatelessWidget {
+class FloatingTextButton extends ConsumerWidget {
   const FloatingTextButton({
     required this.hintText,
-    required this.onTextChanged,
     required this.onTapIcon,
     required this.check,
+    required this.setMessage,
     Key? key,
   }) : super(key: key);
 
   final String hintText;
-  final Function(String text) onTextChanged;
   final Function onTapIcon;
+  final Function(String text) setMessage;
   final bool check;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _controller = ref.watch(messageTextControllerProvider);
+
     return SafeArea(
       bottom: true,
       top: false,
@@ -36,13 +40,12 @@ class FloatingTextButton extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 16.0),
                 child: TextFormField(
                   style: MomoTextStyle.defaultStyle,
+                  controller: _controller,
                   decoration: InputDecoration(
                     hintText: hintText,
                     border: InputBorder.none,
                   ),
-                  onChanged: (text) {
-                    onTextChanged(text);
-                  },
+                  onChanged: (text) => setMessage(text),
                 ),
               ),
             ),
@@ -56,6 +59,7 @@ class FloatingTextButton extends StatelessWidget {
               onTap: check
                   ? () {
                       onTapIcon();
+                      _controller.clear();
                     }
                   : null,
               child: SvgPicture.asset(

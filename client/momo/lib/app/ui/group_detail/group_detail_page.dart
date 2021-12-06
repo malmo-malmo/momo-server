@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/provider/group/group_detail_provider.dart';
+import 'package:momo/app/provider/group/group_provider.dart';
 import 'package:momo/app/provider/user/user_data_provider.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:momo/app/ui/components/status/error_card.dart';
@@ -85,9 +87,25 @@ class GroupDetailPage extends ConsumerWidget {
                     ? groupDetailCard(groupId: groupDetail.id)
                     : requestInfoCard(
                         introduction: groupDetail.introduction,
-                        onTapButton: ref
-                            .read(groupDetailStateProvider(data).notifier)
-                            .participantGroup,
+                        onTapButton: () {
+                          ref
+                              .read(groupDetailStateProvider(data).notifier)
+                              .participantGroup();
+
+                          // 모임 목록에서 참가자 수 증가
+                          ref
+                              .read(groupStateProvider(
+                                GroupInfo(
+                                  id: groupDetail.id,
+                                  name: groupDetail.name,
+                                  offline: groupDetail.offline,
+                                  participantCnt: groupDetail.participantCnt,
+                                  startDate: groupDetail.startDate,
+                                  imageUrl: groupDetail.imageUrl,
+                                ),
+                              ).notifier)
+                              .addParticipantCnt();
+                        },
                       ),
                 groupDetail.isParticipant
                     ? SliverPadding(

@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/model/post/post.dart';
 import 'package:momo/app/provider/comment/comment_paging_controller_provider.dart';
 import 'package:momo/app/provider/comment/comment_request_provider.dart';
+import 'package:momo/app/provider/message/message_controller_provider.dart';
 import 'package:momo/app/provider/post/post_detail_provider.dart';
 import 'package:momo/app/provider/post/post_provider.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
@@ -17,12 +18,10 @@ import 'package:momo/app/ui/post_detail/widget/post_detail_card.dart';
 class PostDetailPage extends ConsumerStatefulWidget {
   const PostDetailPage({
     Key? key,
-    required this.postId,
-    required this.commentCnt,
+    required this.post,
   }) : super(key: key);
 
-  final int postId;
-  final int commentCnt;
+  final Post post;
 
   @override
   ConsumerState<PostDetailPage> createState() => _PostDetailPageState();
@@ -32,7 +31,7 @@ class _PostDetailPageState extends ConsumerState<PostDetailPage> {
   @override
   Widget build(BuildContext context) {
     final postDetailResponse =
-        ref.watch(postDetailFutureProvider(widget.postId));
+        ref.watch(postDetailFutureProvider(widget.post.id));
 
     return SafeArea(
       child: postDetailResponse.when(
@@ -40,25 +39,11 @@ class _PostDetailPageState extends ConsumerState<PostDetailPage> {
         loading: () => Scaffold(body: loadingCard()),
         data: (data) {
           final postDetail = ref.watch(postDetailProvider(data));
-          final commentRequest =
-              ref.watch(commentRequestProvider(postDetail.id));
-          final commentCheck =
-              ref.watch(commentContentsCheckProvider(postDetail.id));
-          final curCommentCnt = ref
-              .watch(
-                postStateProvider(
-                  Post(
-                    id: postDetail.id,
-                    authorNickname: postDetail.authorNickname,
-                    authorImage: postDetail.authorImage,
-                    title: postDetail.title,
-                    contents: postDetail.contents,
-                    commentCnt: widget.commentCnt,
-                    createdDate: postDetail.createdDate,
-                  ),
-                ),
-              )
-              .commentCnt;
+
+          final check = ref.watch(commentContentsCheckProvider(postDetail.id));
+
+          final curCommentCnt =
+              ref.watch(postStateProvider(widget.post)).commentCnt;
 
           return Scaffold(
             backgroundColor: const Color(0xffffffff),
@@ -76,49 +61,39 @@ class _PostDetailPageState extends ConsumerState<PostDetailPage> {
                       slivers: [
                         postDetailCard(
                           postDetail: postDetail,
-                          // commentCnt: widget.commentCnt,
                           commentCnt: curCommentCnt,
                         ),
-                        CommentsList(postId: postDetail.id),
+                        CommentsList(
+                          postId: postDetail.id,
+                        ),
                       ],
                     ),
                   ),
                   FloatingTextButton(
                     hintText: '댓글을 입력하세요',
-                    onTextChanged: ref
+                    check: check,
+                    setMessage: ref
                         .read(
                             commentRequestStateProvider(postDetail.id).notifier)
                         .setContents,
-                    check: commentCheck,
                     onTapIcon: () async {
+                      //  댓글 등록
                       final comment = await ref
                           .read(commentRequestStateProvider(postDetail.id)
                               .notifier)
                           .createComment();
+                      //  컨트롤러에 댓글 추가
                       ref
-                          .read(commentPagingControllerProvider(widget.postId))
+                          .read(commentPagingControllerProvider(postDetail.id))
                           .itemList!
                           .add(comment);
+                      // 디테일 카드와 이전 페이지 댓글 갯수 갱신
                       ref
-                          .read(commentRequestStateProvider(postDetail.id)
-                              .notifier)
-                          .resetContents();
-                      ref
-                          .read(
-                            postStateProvider(
-                              Post(
-                                id: postDetail.id,
-                                authorNickname: postDetail.authorNickname,
-                                authorImage: postDetail.authorImage,
-                                title: postDetail.title,
-                                contents: postDetail.contents,
-                                commentCnt: widget.commentCnt,
-                                createdDate: postDetail.createdDate,
-                              ),
-                            ).notifier,
-                          )
+                          .read(postStateProvider(widget.post).notifier)
                           .addComment();
+                      //  입력창 내리기
                       FocusScope.of(context).unfocus();
+                      // 상태 반영, 해당 페이지 외엔 댓글 사용x --> setState 사용... 수정 필요
                       setState(() {});
                     },
                   ),

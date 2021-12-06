@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/post/post.dart';
 import 'package:momo/app/provider/post/post_paging_controller_provider.dart';
-import 'package:momo/app/routes/custom_arg/post_detail_arg.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/ui/components/status/no_item_card.dart';
@@ -58,13 +57,9 @@ class NoticeListView extends ConsumerWidget {
     return Consumer(builder: (context, ref, _) {
       return InkWell(
         onTap: () {
-          ref.read(navigatorProvider).navigateTo(
-                routeName: AppRoutes.postDetail,
-                arguments: PostDetailArg(
-                  postId: post.id,
-                  commentCnt: post.commentCnt,
-                ),
-              );
+          ref
+              .read(navigatorProvider)
+              .navigateTo(routeName: AppRoutes.postDetail, arguments: post);
         },
         child: Container(
           height: 86,

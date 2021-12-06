@@ -7,14 +7,12 @@ import 'package:momo/app/provider/search/search_result_provider.dart';
 import 'package:momo/app/ui/search/widget/filter_bottom_sheet.dart';
 
 class SearchBox extends ConsumerWidget {
-  const SearchBox({
-    Key? key,
-  }) : super(key: key);
+  const SearchBox({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Material(
-      elevation: 2,
+      elevation: 1,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -30,14 +28,10 @@ class SearchBox extends ConsumerWidget {
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
-                  builder: (context) {
-                    return filterBottomSheet();
-                  },
+                  builder: (context) => filterBottomSheet(),
                 );
               },
-              child: SvgPicture.asset(
-                'assets/icon/search/icon_filter_28.svg',
-              ),
+              child: SvgPicture.asset('assets/icon/search/icon_filter_28.svg'),
             ),
             SizedBox(
               height: 18,
@@ -50,9 +44,7 @@ class SearchBox extends ConsumerWidget {
             InkWell(
               onTap: () =>
                   ref.read(isShowResultStateProvider.state).state = true,
-              child: SvgPicture.asset(
-                'assets/icon/search/icon_search_28.svg',
-              ),
+              child: SvgPicture.asset('assets/icon/search/icon_search_28.svg'),
             ),
           ],
         ),

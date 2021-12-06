@@ -6,6 +6,7 @@ import 'package:momo/app/ui/full_img_page.dart';
 import 'package:momo/app/ui/gallery/gallery_page.dart';
 import 'package:momo/app/ui/group_detail/group_detail_page.dart';
 import 'package:momo/app/ui/group_list/group_list_page.dart';
+import 'package:momo/app/ui/group_list/recommend_group_list_page.dart';
 import 'package:momo/app/ui/group_request/group_request_page.dart';
 import 'package:momo/app/ui/login/category_page.dart';
 import 'package:momo/app/ui/login/info_page.dart';
@@ -30,6 +31,7 @@ class AppRoutes {
   static const info = '/info';
   static const onboarding = '/onboarding';
   static const groupList = '/groupList';
+  static const recommendList = '/recommendList';
   static const groupDetail = '/groupDetail';
   static const newMeet = '/newMeet';
   static const gallery = '/gallery';
@@ -83,6 +85,11 @@ class AppRouter {
             name: arg.name,
             pagingController: arg.pagingController,
           ),
+          settings: settings,
+        );
+      case AppRoutes.recommendList:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const RecommendGroupListPage(),
           settings: settings,
         );
 

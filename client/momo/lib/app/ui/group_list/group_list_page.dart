@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
-import 'package:momo/app/ui/group_list/widget/category_list.dart';
 import 'package:momo/app/ui/group_list/widget/group_list_view.dart';
 
 class GroupListPage extends StatelessWidget {
@@ -33,7 +32,6 @@ class GroupListPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              name == '추천' ? const CategoryList() : const SizedBox(),
               GroupListView(
                 pagingController: pagingController,
               ),

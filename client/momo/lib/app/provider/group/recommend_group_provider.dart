@@ -1,19 +1,23 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/group/group_info.dart';
+import 'package:momo/app/provider/category_result_provider.dart';
+import 'package:momo/app/provider/user/user_data_provider.dart';
 import 'package:momo/app/repository/group_repository.dart';
 import 'package:momo/app/util/constant.dart';
 
-final categoryListPagingController =
+final recommendPaigingControllerProvider =
     Provider.autoDispose<PagingController<int, GroupInfo>>((ref) {
-  final _pagingController = PagingController<int, GroupInfo>(firstPageKey: 1);
+  final _pagingController = PagingController<int, GroupInfo>(firstPageKey: 0);
   final repository = ref.watch(groupRepositoryProvider);
 
   Future<void> _fetchPage(int pageKey) async {
+    final categories =
+        ref.watch(groupCategoryCheckStateProvider.notifier).makeFilter();
     try {
       final newItems = await repository.getGroupBySearch(
         pageKey++,
-        categories: [],
+        categories: categories,
         cities: [],
       );
 
@@ -29,32 +33,22 @@ final categoryListPagingController =
     }
   }
 
-  _pagingController.addPageRequestListener((pageKey) {
-    _fetchPage(pageKey);
-  });
-
-  ref.onDispose(() => _pagingController.dispose());
+  _pagingController.addPageRequestListener((pageKey) => _fetchPage(pageKey));
   return _pagingController;
 });
 
-final groupCategoryStateProvider = Provider.autoDispose<List<bool>>((ref) {
+final groupCategoryCheckProvider = Provider.autoDispose<List<bool>>((ref) {
   final groupCategoryState = ref.watch(groupCategoryCheckStateProvider);
   return groupCategoryState;
 });
 
 final groupCategoryCheckStateProvider =
     StateNotifierProvider.autoDispose<GroupCategoryListState, List<bool>>(
-        (ref) {
-  final repository = ref.watch(groupRepositoryProvider);
-  return GroupCategoryListState(repository: repository);
-});
+        (ref) => GroupCategoryListState());
 
 class GroupCategoryListState extends StateNotifier<List<bool>> {
-  GroupCategoryListState({
-    required this.repository,
-  }) : super(List.generate(9, (index) => index == 0 ? true : false));
-
-  final GroupRepository repository;
+  GroupCategoryListState()
+      : super(List.generate(9, (index) => index == 0 ? true : false));
 
   void toggleCategory(int index) {
     if (index == 0) {
@@ -64,6 +58,17 @@ class GroupCategoryListState extends StateNotifier<List<bool>> {
         false,
         for (int i = 1; i < 9; i++)
           if (i == index) state[index] = !state[index] else state[i]
+      ];
+    }
+  }
+
+  List<String> makeFilter() {
+    if (state.first) {
+      return userData.categories.map((e) => e.code).toList();
+    } else {
+      return [
+        for (int i = 1; i < state.length; i++)
+          if (state[i]) categoryCodeNamePair[i - 1].code
       ];
     }
   }

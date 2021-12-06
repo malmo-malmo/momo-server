@@ -39,13 +39,17 @@ Widget subTitle({
             ? Consumer(builder: (context, ref, _) {
                 return InkWell(
                   onTap: () {
-                    ref.read(navigatorProvider).navigateTo(
-                          routeName: AppRoutes.groupList,
-                          arguments: GroupListArg(
-                            name: title,
-                            pagingController: pagingController!,
-                          ),
-                        );
+                    title != '추천'
+                        ? ref.read(navigatorProvider).navigateTo(
+                              routeName: AppRoutes.groupList,
+                              arguments: GroupListArg(
+                                name: title,
+                                pagingController: pagingController!,
+                              ),
+                            )
+                        : ref
+                            .read(navigatorProvider)
+                            .navigateTo(routeName: AppRoutes.recommendList);
                   },
                   child: Icon(
                     actionIcon,

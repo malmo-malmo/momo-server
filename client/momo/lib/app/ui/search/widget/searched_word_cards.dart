@@ -23,7 +23,7 @@ class SearchedWordCards extends StatelessWidget {
 
   Widget _searchedWordCard({required String word}) {
     return Material(
-      elevation: 2,
+      elevation: 1,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),

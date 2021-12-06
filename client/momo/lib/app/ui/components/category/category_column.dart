@@ -18,9 +18,7 @@ Widget categoryColumn({
       Consumer(builder: (context, ref, _) {
         return InkWell(
           borderRadius: BorderRadius.circular(iconSize ?? 32),
-          onTap: () {
-            onTabIcon(index);
-          },
+          onTap: () => onTabIcon(index),
           child: SvgPicture.asset(
             check ? selIcons[index] : unSelIcons[index],
             width: iconSize,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:momo/app/provider/search/search_result_paiging_controller.dart';
 import 'package:momo/app/provider/search/search_result_provider.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/search/widget/recent_meeting_list.dart';
@@ -17,16 +18,18 @@ class SearchPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isSearch = ref.watch(isShowResultProvider);
+    final pagingController = ref.watch(searchReulstPagingController);
 
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.only(right: 16, left: 16, top: 43),
+        padding: const EdgeInsets.only(right: 16, left: 16),
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 12.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -60,9 +63,11 @@ class SearchPage extends ConsumerWidget {
                       ],
                     ),
                   )
-                : const SliverPadding(
-                    padding: EdgeInsets.only(top: 30),
-                    sliver: SearchResultList(),
+                : SliverPadding(
+                    padding: const EdgeInsets.only(top: 30),
+                    sliver: SearchResultList(
+                      pagingController: pagingController,
+                    ),
                   ),
             !isSearch ? const RecentMeetingList() : const SliverToBoxAdapter(),
           ],

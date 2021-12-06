@@ -33,6 +33,7 @@ class MainPage extends ConsumerWidget {
       child: Scaffold(
         backgroundColor: const Color(0xfff7f7fd),
         body: _pages[index],
+        extendBodyBehindAppBar: true,
         bottomNavigationBar: Container(
           padding: const EdgeInsets.all(3),
           height: 64,

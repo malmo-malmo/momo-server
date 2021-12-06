@@ -1,16 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:momo/app/provider/user/category_check_provder.dart';
-import 'package:momo/app/repository/user_repository.dart';
+import 'package:momo/app/provider/category_result_provider.dart';
+import 'package:momo/app/provider/city_result_provider.dart';
 
-final checkSearchFilterProvider = Provider.autoDispose<bool>((ref) {
-  final categoryState = ref.watch(searchCategoryProvider);
-  final locationState = ref.watch(searchLocationProvider);
+final searchFilterCheckProvider = Provider.autoDispose<bool>((ref) {
+  final categoryChecks = ref.watch(searchCategoryProvider);
+  final cityChecks = ref.watch(searchCityProvider);
 
-  for (bool check in categoryState) {
-    if (check) return true;
+  for (int i = 0; i < categoryChecks.length; i++) {
+    if (categoryChecks[i]) {
+      return true;
+    }
   }
-  for (bool check in locationState) {
-    if (check) return true;
+  for (int i = 0; i < cityChecks.length; i++) {
+    if (cityChecks[i]) {
+      return true;
+    }
   }
   return false;
 });
@@ -20,19 +24,26 @@ final searchCategoryProvider = Provider.autoDispose<List<bool>>((ref) {
   return categoryState;
 });
 
-final searchLocationProvider = Provider.autoDispose<List<bool>>((ref) {
-  final categoryState = ref.watch(searchLocationStateProvider);
+final searchCityProvider = Provider.autoDispose<List<bool>>((ref) {
+  final categoryState = ref.watch(searchCityStateProvider);
   return categoryState;
 });
 
 final searchCategoryStateProvider =
-    StateNotifierProvider<CategoryState, List<bool>>((ref) {
-  final repository = ref.watch(userRepositoryProvider);
-  return CategoryState(8, repository: repository);
-});
+    StateNotifierProvider.autoDispose<ToggleState, List<bool>>(
+        (ref) => ToggleState(categoryCodeNamePair.length));
 
-final searchLocationStateProvider =
-    StateNotifierProvider<CategoryState, List<bool>>((ref) {
-  final repository = ref.watch(userRepositoryProvider);
-  return CategoryState(11, repository: repository);
-});
+final searchCityStateProvider =
+    StateNotifierProvider.autoDispose<ToggleState, List<bool>>(
+        (ref) => ToggleState(cityCodeNamePair.length));
+
+class ToggleState extends StateNotifier<List<bool>> {
+  ToggleState(int count) : super(List.generate(count, (index) => false));
+
+  void toggle(int index) {
+    state = [
+      for (int i = 0; i < state.length; i++)
+        if (i == index) state[index] = !state[index] else state[i]
+    ];
+  }
+}

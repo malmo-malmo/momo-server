@@ -1,21 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:momo/app/provider/on_off_toggle_provider.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget onOffToggleButton({
-  required Function(bool onOff) tabButton,
-}) {
-  return Consumer(builder: (context, ref, _) {
-    final checks = ref.watch(onOffToggleProvider);
+class UniversityToggleButton extends StatefulWidget {
+  const UniversityToggleButton({
+    Key? key,
+    required this.tabButton,
+  }) : super(key: key);
 
+  final void Function(bool onOff) tabButton;
+
+  @override
+  _UniversityToggleButtonState createState() => _UniversityToggleButtonState();
+}
+
+class _UniversityToggleButtonState extends State<UniversityToggleButton> {
+  List<bool> checks = [true, false];
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       children: [
         InkWell(
           borderRadius: BorderRadius.circular(22),
           onTap: () {
-            tabButton(true);
-            ref.read(onOffToggleStateProvider.notifier).toggle(0);
+            widget.tabButton(true);
+            setState(() => checks = [true, false]);
           },
           child: Container(
             height: 44,
@@ -26,7 +35,7 @@ Widget onOffToggleButton({
             ),
             child: Center(
               child: Text(
-                '온라인',
+                '포함',
                 style: MomoTextStyle.small.copyWith(
                   color: checks[0] ? MomoColor.white : MomoColor.unSelIcon,
                 ),
@@ -38,8 +47,8 @@ Widget onOffToggleButton({
         InkWell(
           borderRadius: BorderRadius.circular(22),
           onTap: () {
-            tabButton(false);
-            ref.read(onOffToggleStateProvider.notifier).toggle(1);
+            widget.tabButton(false);
+            setState(() => checks = [false, true]);
           },
           child: Container(
             height: 44,
@@ -50,7 +59,7 @@ Widget onOffToggleButton({
             ),
             child: Center(
               child: Text(
-                '오프라인',
+                '미포함',
                 style: MomoTextStyle.small.copyWith(
                   color: checks[1] ? MomoColor.white : MomoColor.unSelIcon,
                 ),
@@ -60,5 +69,5 @@ Widget onOffToggleButton({
         ),
       ],
     );
-  });
+  }
 }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:momo/app/model/post/post.dart';
 import 'package:momo/app/routes/custom_arg/group_list_arg.dart';
-import 'package:momo/app/routes/custom_arg/post_detail_arg.dart';
 import 'package:momo/app/ui/attendance_list/attendance_list_page.dart';
 import 'package:momo/app/ui/full_img_page.dart';
 import 'package:momo/app/ui/gallery/gallery_page.dart';
 import 'package:momo/app/ui/group_detail/group_detail_page.dart';
 import 'package:momo/app/ui/group_list/group_list_page.dart';
+import 'package:momo/app/ui/group_list/recommend_group_list_page.dart';
 import 'package:momo/app/ui/group_request/group_request_page.dart';
 import 'package:momo/app/ui/login/category_page.dart';
 import 'package:momo/app/ui/login/info_page.dart';
@@ -30,6 +31,7 @@ class AppRoutes {
   static const info = '/info';
   static const onboarding = '/onboarding';
   static const groupList = '/groupList';
+  static const recommendList = '/recommendList';
   static const groupDetail = '/groupDetail';
   static const newMeet = '/newMeet';
   static const gallery = '/gallery';
@@ -85,6 +87,11 @@ class AppRouter {
           ),
           settings: settings,
         );
+      case AppRoutes.recommendList:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const RecommendGroupListPage(),
+          settings: settings,
+        );
 
       case AppRoutes.groupDetail:
         final arg = settings.arguments;
@@ -136,12 +143,9 @@ class AppRouter {
         );
 
       case AppRoutes.postDetail:
-        final PostDetailArg arg = settings.arguments;
+        final Post arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => PostDetailPage(
-            postId: arg.postId,
-            commentCnt: arg.commentCnt,
-          ),
+          builder: (_) => PostDetailPage(post: arg),
         );
 
       case AppRoutes.fullImage:

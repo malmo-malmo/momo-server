@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/provider/category_result_provider.dart';
-import 'package:momo/app/provider/group/category_list_provider.dart';
+import 'package:momo/app/provider/group/recommend_group_provider.dart';
 import 'package:momo/app/ui/components/category/category_icon.dart';
 import 'package:momo/app/util/theme.dart';
 
 class CategoryList extends ConsumerWidget {
-  const CategoryList({Key? key}) : super(key: key);
+  const CategoryList({
+    Key? key,
+    required this.refresh,
+  }) : super(key: key);
+
+  final Function refresh;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final checks = ref.watch(groupCategoryStateProvider);
+    final checks = ref.watch(groupCategoryCheckProvider);
 
     return SizedBox(
       height: 80,
@@ -39,6 +44,7 @@ class CategoryList extends ConsumerWidget {
           ref
               .read(groupCategoryCheckStateProvider.notifier)
               .toggleCategory(index);
+          refresh();
         },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),

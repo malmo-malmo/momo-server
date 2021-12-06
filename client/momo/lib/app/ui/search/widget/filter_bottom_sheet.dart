@@ -2,19 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/provider/category_result_provider.dart';
+import 'package:momo/app/provider/city_result_provider.dart';
 import 'package:momo/app/provider/search/search_filter_provider.dart';
-import 'package:momo/app/ui/components/button/confirm_button.dart';
+import 'package:momo/app/provider/search/search_request_filter_provider.dart';
+import 'package:momo/app/provider/search/search_result_paiging_controller.dart';
+import 'package:momo/app/provider/search/search_result_provider.dart';
 import 'package:momo/app/ui/components/category/category_column.dart';
-import 'package:momo/app/ui/search/widget/location_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 Widget filterBottomSheet() {
   return SafeArea(
     child: Consumer(builder: (context, ref, _) {
-      final locationState = ref.watch(searchLocationProvider);
-      final categoryState = ref.watch(searchCategoryProvider);
-      final check = ref.watch(checkSearchFilterProvider);
+      final categoryChecks = ref.watch(searchCategoryProvider);
+      final cityChecks = ref.watch(searchCityProvider);
+      final check = ref.watch(searchFilterCheckProvider);
 
       return Container(
         height: double.infinity,
@@ -24,15 +27,13 @@ Widget filterBottomSheet() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 42),
+              const SizedBox(height: 50),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   children: [
                     InkWell(
-                      onTap: () {
-                        ref.read(navigatorProvider).pop();
-                      },
+                      onTap: () => ref.read(navigatorProvider).pop(),
                       child: Icon(
                         CupertinoIcons.xmark,
                         size: 21.w,
@@ -50,64 +51,56 @@ Widget filterBottomSheet() {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 40),
                     _subTitle('지역'),
                     Wrap(
                       spacing: 10,
                       runSpacing: 10,
                       children: [
-                        locationCard(
-                            title: '서울', check: locationState[0], index: 0),
-                        locationCard(
-                            title: '경기', check: locationState[1], index: 1),
-                        locationCard(
-                            title: '인천', check: locationState[2], index: 2),
-                        locationCard(
-                            title: '강원', check: locationState[3], index: 3),
-                        locationCard(
-                            title: '대전/충남/세종',
-                            check: locationState[4],
-                            index: 4),
-                        locationCard(
-                            title: '충북', check: locationState[5], index: 5),
-                        locationCard(
-                            title: '경남/부산/울산',
-                            check: locationState[6],
-                            index: 6),
-                        locationCard(
-                            title: '경북/대구', check: locationState[7], index: 7),
-                        locationCard(
-                            title: '전북', check: locationState[8], index: 8),
-                        locationCard(
-                            title: '광주/전남', check: locationState[9], index: 9),
-                        locationCard(
-                            title: '제주', check: locationState[10], index: 10),
+                        for (int i = 0; i < cityCodeNamePair.length; i++)
+                          _locationCard(
+                            title: cityCodeNamePair[i].name,
+                            check: cityChecks[i],
+                            index: i,
+                            toggle: ref
+                                .read(searchCityStateProvider.notifier)
+                                .toggle,
+                          ),
                       ],
                     ),
                     _subTitle('활동 카테고리'),
+                    const SizedBox(height: 16),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 6),
                       child: Wrap(
                         spacing: 20,
                         runSpacing: 20,
                         children: [
-                          for (int i = 0; i < categoryState.length; i++)
+                          for (int i = 0; i < categoryCodeNamePair.length; i++)
                             categoryColumn(
-                              check: categoryState[i],
+                              check: categoryChecks[i],
                               index: i,
                               onTabIcon: ref
                                   .read(searchCategoryStateProvider.notifier)
-                                  .toggleCategory,
+                                  .toggle,
                               spaceHeight: 14,
                             ),
                         ],
                       ),
                     ),
                     const SizedBox(height: 53),
-                    ConfirmButton(
+                    _searchButton(
                       check: check,
-                      buttonText: '완료',
-                      isShowDialog: false,
+                      onPressButton: () async {
+                        ref
+                            .read(categoryFilterStateProvider.notifier)
+                            .checkFilter(categoryChecks);
+                        ref
+                            .read(cityFilterStateProvider.notifier)
+                            .checkFilter(cityChecks);
+                        ref.read(isShowResultStateProvider.state).state = true;
+                        ref.read(navigatorProvider).pop();
+                        ref.read(searchReulstPagingController).refresh();
+                      },
                     ),
                     const SizedBox(height: 36),
                   ],
@@ -121,9 +114,71 @@ Widget filterBottomSheet() {
   );
 }
 
+Widget _searchButton({
+  required bool check,
+  required Function onPressButton,
+}) {
+  return SizedBox(
+    height: 57,
+    width: double.infinity,
+    child: ElevatedButton(
+      style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(32))),
+          backgroundColor: MaterialStateProperty.resolveWith((states) =>
+              states.contains(MaterialState.disabled)
+                  ? const Color(0xfff2f2f2)
+                  : MomoColor.main)),
+      onPressed: check
+          ? () {
+              onPressButton();
+            }
+          : null,
+      child: Text(
+        '완료',
+        style: MomoTextStyle.defaultStyle.copyWith(color: MomoColor.white),
+      ),
+    ),
+  );
+}
+
+Widget _locationCard({
+  required String title,
+  required bool check,
+  required int index,
+  required void Function(int index) toggle,
+}) {
+  return Material(
+    elevation: 2,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+    ),
+    child: InkWell(
+      onTap: () => toggle(index),
+      child: Container(
+        height: 41,
+        width: title.length * 7 + 70,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: check ? MomoColor.main : MomoColor.white,
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: MomoTextStyle.defaultStyle.copyWith(
+              color: check ? MomoColor.white : MomoColor.black,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
 Widget _subTitle(String title) {
   return Padding(
-    padding: const EdgeInsets.only(top: 36, bottom: 16),
+    padding: const EdgeInsets.only(top: 40, bottom: 16),
     child: Text(
       title,
       style: MomoTextStyle.subTitle,

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget headNumInputBox({
-  required Function(String text) onTextChanged,
-}) {
+Widget headNumInputBox({required Function(String text) onTextChanged}) {
   return Row(
     children: [
       Container(
@@ -12,7 +10,7 @@ Widget headNumInputBox({
           borderRadius: BorderRadius.circular(20),
           color: MomoColor.backgroundColor,
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.only(left: 24),
         height: 44,
         width: 60.w,
         child: Center(
@@ -23,6 +21,11 @@ Widget headNumInputBox({
               onChanged: (text) {
                 onTextChanged(text);
               },
+              decoration: const InputDecoration(
+                counterText: '',
+              ),
+              keyboardType: TextInputType.number,
+              maxLength: 2,
             ),
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/model/comment/comment.dart';
 import 'package:momo/app/model/comment/comment_request.dart';
@@ -29,13 +30,14 @@ class CommentRequestState extends StateNotifier<CommentRequest> {
 
   final CommentRepository repository;
 
+  final textController = TextEditingController();
+
   void setContents(String contents) =>
       state = state.copyWith(contents: contents);
 
-  void resetContents() => state = state.copyWith(contents: '');
-
   Future<Comment> createComment() async {
     final comment = await repository.createComment(state);
+    state = state.copyWith(contents: '');
     return comment;
   }
 }

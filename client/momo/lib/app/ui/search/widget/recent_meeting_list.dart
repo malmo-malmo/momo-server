@@ -19,7 +19,7 @@ class RecentMeetingList extends StatelessWidget {
             group: GroupInfo(
               id: 1,
               name: '기초를 위한 영어 회화 모임',
-              offline: true,
+              offline: i % 2 == 0,
               participantCnt: 10,
               startDate: '2021-12-31',
             ),

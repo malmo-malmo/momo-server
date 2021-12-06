@@ -6,14 +6,16 @@ import 'package:momo/app/repository/group_repository.dart';
 import 'package:momo/app/util/constant.dart';
 
 final searchReulstPagingController =
-    Provider<PagingController<int, GroupInfo>>((ref) {
+    Provider.autoDispose<PagingController<int, GroupInfo>>((ref) {
   final _pagingController = PagingController<int, GroupInfo>(firstPageKey: 0);
 
   final repository = ref.watch(groupRepositoryProvider);
-  final categories = ref.watch(categoryFilterProvider);
-  final cities = ref.watch(cityFilterProvider);
 
   Future<void> _fetchPage(int pageKey) async {
+    final categories =
+        ref.watch(categoryFilterStateProvider.notifier).makeRequestFilter();
+    final cities =
+        ref.watch(cityFilterStateProvider.notifier).makeRequestFilter();
     try {
       final newItems = await repository.getGroupBySearch(
         pageKey++,

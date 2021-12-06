@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:momo/app/provider/category_result_provider.dart';
-import 'package:momo/app/provider/city_result_provider.dart';
+import 'package:momo/app/provider/search/search_request_filter_provider.dart';
 
 final searchFilterCheckProvider = Provider.autoDispose<bool>((ref) {
   final categoryChecks = ref.watch(searchCategoryProvider);
@@ -30,15 +29,19 @@ final searchCityProvider = Provider.autoDispose<List<bool>>((ref) {
 });
 
 final searchCategoryStateProvider =
-    StateNotifierProvider.autoDispose<ToggleState, List<bool>>(
-        (ref) => ToggleState(categoryCodeNamePair.length));
+    StateNotifierProvider.autoDispose<ToggleState, List<bool>>((ref) {
+  final state = ref.watch(categoryFilterProvider).map((e) => e.check).toList();
+  return ToggleState(state);
+});
 
 final searchCityStateProvider =
-    StateNotifierProvider.autoDispose<ToggleState, List<bool>>(
-        (ref) => ToggleState(cityCodeNamePair.length));
+    StateNotifierProvider.autoDispose<ToggleState, List<bool>>((ref) {
+  final state = ref.watch(cityFilterProvider).map((e) => e.check).toList();
+  return ToggleState(state);
+});
 
 class ToggleState extends StateNotifier<List<bool>> {
-  ToggleState(int count) : super(List.generate(count, (index) => false));
+  ToggleState(List<bool> state) : super(state);
 
   void toggle(int index) {
     state = [

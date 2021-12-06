@@ -93,10 +93,10 @@ Widget filterBottomSheet() {
                       onPressButton: () async {
                         ref
                             .read(categoryFilterStateProvider.notifier)
-                            .makeCategoryFilter(categoryChecks);
+                            .checkFilter(categoryChecks);
                         ref
                             .read(cityFilterStateProvider.notifier)
-                            .makeCityFilter(cityChecks);
+                            .checkFilter(cityChecks);
                         ref.read(isShowResultStateProvider.state).state = true;
                         ref.read(navigatorProvider).pop();
                         ref.read(searchReulstPagingController).refresh();

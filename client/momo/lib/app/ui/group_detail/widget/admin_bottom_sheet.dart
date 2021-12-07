@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:momo/app/model/enum/post_type.dart';
+import 'package:momo/app/routes/custom_arg/post_request_arg.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/group_detail/widget/group_close_dialog.dart';
 import 'package:momo/app/ui/group_detail/widget/user_bottom_sheet.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget groupDetailBottomSheetAdmin() {
+Widget groupDetailBottomSheetAdmin(int groupId) {
   return Consumer(builder: (context, ref, _) {
     return Container(
       padding: const EdgeInsets.only(top: 18, left: 16, right: 16),
@@ -28,7 +30,10 @@ Widget groupDetailBottomSheetAdmin() {
             onTap: () async {
               await ref.read(navigatorProvider).navigateTo(
                     routeName: AppRoutes.postRequest,
-                    arguments: '게시물',
+                    arguments: PostRequestArg(
+                      postType: PostType.normal,
+                      groupId: groupId,
+                    ),
                   );
               ref.read(navigatorProvider).pop();
             },
@@ -41,7 +46,10 @@ Widget groupDetailBottomSheetAdmin() {
             onTap: () async {
               await ref.read(navigatorProvider).navigateTo(
                     routeName: AppRoutes.postRequest,
-                    arguments: '공지사항',
+                    arguments: PostRequestArg(
+                      postType: PostType.notice,
+                      groupId: groupId,
+                    ),
                   );
               ref.read(navigatorProvider).pop();
             },

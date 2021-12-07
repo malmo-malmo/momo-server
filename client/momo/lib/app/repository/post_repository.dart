@@ -4,6 +4,7 @@ import 'package:momo/app/api/post_client/post_client.dart';
 import 'package:momo/app/model/enum/post_type.dart';
 import 'package:momo/app/model/post/post.dart';
 import 'package:momo/app/model/post/post_detail.dart';
+import 'package:momo/app/model/post/post_request.dart';
 import 'package:momo/app/util/constant.dart';
 
 final postRepositoryProvider = Provider<PostRepository>((ref) {
@@ -15,6 +16,11 @@ class PostRepository {
   final PostClient postClient;
 
   PostRepository({required this.postClient});
+
+  Future<dynamic> createPost(PostRequest postRequest) async {
+    final response = await postClient.createPost(postRequest);
+    return response;
+  }
 
   Future<List<Post>> getPosts({
     required int page,

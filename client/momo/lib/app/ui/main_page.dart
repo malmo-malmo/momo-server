@@ -49,31 +49,31 @@ class MainPage extends ConsumerWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              bottomIcon(
+              _bottomIcon(
                 index: 0,
                 title: '홈',
                 selImg: 'assets/icon/tab/tabicon_homepurple_32.svg',
                 unSelImg: 'assets/icon/tab/tabicon_homegray_32.svg',
               ),
-              bottomIcon(
+              _bottomIcon(
                 index: 1,
                 title: '검색',
                 selImg: 'assets/icon/tab/tabicon_searchpurple_32.svg',
                 unSelImg: 'assets/icon/tab/tabicon_searchgray_32.svg',
               ),
-              bottomIcon(
+              _bottomIcon(
                 index: 2,
                 title: '캘린더',
                 selImg: 'assets/icon/tab/tabicon_calenderpurple_32.svg',
                 unSelImg: 'assets/icon/tab/tabicon_calendargray_32.svg',
               ),
-              bottomIcon(
+              _bottomIcon(
                 index: 3,
                 title: '내 모임',
                 selImg: 'assets/icon/tab/tabicon_mymoimpurple_32.svg',
                 unSelImg: 'assets/icon/tab/tabicon_mymoimgray_32.svg',
               ),
-              bottomIcon(
+              _bottomIcon(
                 index: 4,
                 title: '마이페이지',
                 selImg: 'assets/icon/tab/tabicon_mypagepurple.svg',
@@ -95,32 +95,27 @@ class MainPage extends ConsumerWidget {
         return null;
 
       case 2:
-        return isShow
-            ? Consumer(builder: (context, ref, _) {
-                return FloatingActionButton(
-                  onPressed: () {
-                    ref
-                        .read(navigatorProvider)
-                        .navigateTo(routeName: AppRoutes.scheduleRequest);
-                  },
-                  backgroundColor: MomoColor.main,
-                  child: SvgPicture.asset(
-                    'assets/icon/calendar/floatingbtn_addschedule_84.svg',
-                  ),
-                );
-              })
-            : null;
+        return Consumer(builder: (context, ref, _) {
+          return FloatingActionButton(
+              onPressed: () {
+                ref
+                    .read(navigatorProvider)
+                    .navigateTo(routeName: AppRoutes.scheduleRequest);
+              },
+              backgroundColor: MomoColor.main,
+              child: SvgPicture.asset(
+                  'assets/icon/calendar/floatingbtn_addschedule_84.svg'));
+        });
       case 3:
         return isShow
             ? Consumer(builder: (context, ref, _) {
                 return FloatingActionButton(
                   onPressed: () => ref
                       .read(navigatorProvider)
-                      .navigateTo(routeName: AppRoutes.newMeet),
+                      .navigateTo(routeName: AppRoutes.groupRequest),
                   backgroundColor: MomoColor.main,
                   child: SvgPicture.asset(
-                    'assets/icon/meet/floatingbtn_addmoim_64.svg',
-                  ),
+                      'assets/icon/meet/floatingbtn_addmoim_64.svg'),
                 );
               })
             : null;
@@ -129,7 +124,7 @@ class MainPage extends ConsumerWidget {
     }
   }
 
-  Widget bottomIcon({
+  Widget _bottomIcon({
     required int index,
     required String selImg,
     required String unSelImg,
@@ -140,15 +135,11 @@ class MainPage extends ConsumerWidget {
       return Expanded(
         flex: 1,
         child: InkWell(
-          onTap: () {
-            ref.read(bottomIndexStateProvider.state).state = index;
-          },
+          onTap: () => ref.read(bottomIndexStateProvider.state).state = index,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset(
-                bottomIndex == index ? selImg : unSelImg,
-              ),
+              SvgPicture.asset(bottomIndex == index ? selImg : unSelImg),
               Text(
                 title,
                 style: TextStyle(

@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:momo/app/util/constant.dart';
 
 final isSelectPhoto = Provider.autoDispose<bool>((ref) {
   final galleryState = ref.watch(galleryProvider);
@@ -8,6 +9,11 @@ final isSelectPhoto = Provider.autoDispose<bool>((ref) {
     }
   }
   return false;
+});
+
+final checkMaxPhoto = Provider.autoDispose<bool>((ref) {
+  final galleryState = ref.watch(galleryProvider);
+  return galleryState.where((e) => e).toList().length == maxSelectCount;
 });
 
 final galleryProvider = Provider.autoDispose<List<bool>>((ref) {
@@ -20,9 +26,19 @@ final galleryStateProvider =
         (ref) => GalleryState());
 
 class GalleryState extends StateNotifier<List<bool>> {
-  GalleryState() : super(List.generate(100, (index) => false));
+  GalleryState() : super(List.generate(maxPhotoCount, (index) => false));
 
-  void checkPhoto(int idx) {
-    state = List.generate(100, (index) => index == idx ? true : false);
+  void toggle(int index) {
+    state = [
+      for (int i = 0; i < state.length; i++)
+        if (i == index) state[index] = !state[index] else state[i]
+    ];
+  }
+
+  void checkOne(int index) {
+    state = [
+      for (int i = 0; i < state.length; i++)
+        if (i == index) true else false
+    ];
   }
 }

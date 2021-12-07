@@ -1,125 +1,112 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:momo/app/model/enum/photo_request_type.dart';
+import 'package:momo/app/model/enum/post_type.dart';
 import 'package:momo/app/provider/post/post_request_provider.dart';
+import 'package:momo/app/routes/custom_arg/post_request_arg.dart';
 import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
+import 'package:momo/app/ui/components/button/confirm_action_icon.dart';
 import 'package:momo/app/ui/components/input_box/content_input_box.dart';
 import 'package:momo/app/ui/components/input_box/name_input_box.dart';
 import 'package:momo/app/ui/post_request/widget/img_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class PostRequestPage extends ConsumerWidget {
   const PostRequestPage({
     Key? key,
-    required this.title,
+    required this.postRequestArg,
   }) : super(key: key);
 
-  final String title;
+  final PostRequestArg postRequestArg;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final postRequest = ref.watch(postRequestProvider);
-    final check = ref.watch(postRequestCheckProvider);
+    final postRequest = ref.watch(postRequestProvider(postRequestArg));
+
+    final check = ref.watch(postRequestCheckProvider(postRequestArg));
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color(0xffffffff),
+        appBar: customAppBar(
+          leadingIcon: CupertinoIcons.xmark,
+          title: '${postRequestArg.postType.postTypeToName} 작성',
+          isAction: true,
+          actionWidget: confirmActionIcon(
+            check: check,
+            title: '완료',
+            onTapIcon: () async {
+              await ref
+                  .read(postRequestStateProvider(postRequestArg).notifier)
+                  .createPost();
+            },
+            isShowDialog: true,
+          ),
+        ),
         body: Padding(
-          padding: const EdgeInsets.only(right: 16, left: 16, top: 18),
+          padding: const EdgeInsets.only(right: 16, left: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: CustomScrollView(
                   slivers: [
-                    SliverToBoxAdapter(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  ref.read(navigatorProvider).pop();
-                                },
-                                child: Icon(
-                                  CupertinoIcons.xmark,
-                                  size: 28.w,
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                '$title 작성',
-                                style: MomoTextStyle.defaultStyle,
-                              ),
-                            ],
-                          ),
-                          InkWell(
-                            onTap: () {
-                              ref.read(navigatorProvider).pop();
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              height: 29,
-                              width: 58,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: check
-                                    ? MomoColor.main
-                                    : const Color(0xfff0f0f0),
-                              ),
-                              child: Center(
-                                  child: Text(
-                                '완료',
-                                style: MomoTextStyle.small.copyWith(
-                                  color: check
-                                      ? MomoColor.white
-                                      : MomoColor.unSelIcon,
-                                ),
-                              )),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                     const SliverToBoxAdapter(child: SizedBox(height: 24)),
                     SliverToBoxAdapter(
                       child: nameInputBox(
                         onTextChanged: ref
-                            .read(postRequestStateProvider.notifier)
+                            .read(postRequestStateProvider(postRequestArg)
+                                .notifier)
                             .setTitle,
                         hintText: '제목',
                       ),
                     ),
-                    const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                    const SliverToBoxAdapter(child: SizedBox(height: 14)),
                     SliverToBoxAdapter(
                       child: contentInputBox(
                         onTextChanged: ref
-                            .read(postRequestStateProvider.notifier)
+                            .read(postRequestStateProvider(postRequestArg)
+                                .notifier)
                             .setContents,
-                        maxLines: 20,
+                        maxLines: 24,
                         height: 400,
-                        hintText: '내용을 입력하세요!',
+                        hintText: '내용을 작성해주세요',
                       ),
                     ),
                     const SliverToBoxAdapter(child: SizedBox(height: 24)),
                     SliverToBoxAdapter(
-                      child: Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: [
-                          imgCard(img: postRequest.imageUrls.first),
-                        ],
-                      ),
+                      child: postRequest.imageUrls.isEmpty
+                          ? const SizedBox(
+                              child: Center(
+                                child: Text('No Image'),
+                              ),
+                            )
+                          : Wrap(
+                              spacing: 8,
+                              runSpacing: 8,
+                              children: List.generate(
+                                postRequest.imageUrls.length,
+                                (index) => imgCard(
+                                  img: postRequest.imageUrls[index],
+                                  deleteImg: ref
+                                      .read(postRequestStateProvider(
+                                              postRequestArg)
+                                          .notifier)
+                                      .deleteImg,
+                                ),
+                              ),
+                            ),
                     ),
                   ],
                 ),
               ),
-              FloatingCameraBotton(
-                // selectImg: ref.read(postRequestStateProvider.notifier).setImage,
-                selectImg: (text) {},
+              _FloatingCameraBotton(
+                addImages: ref
+                    .read(postRequestStateProvider(postRequestArg).notifier)
+                    .setImages,
               ),
             ],
           ),
@@ -129,13 +116,13 @@ class PostRequestPage extends ConsumerWidget {
   }
 }
 
-class FloatingCameraBotton extends StatelessWidget {
-  const FloatingCameraBotton({
+class _FloatingCameraBotton extends StatelessWidget {
+  const _FloatingCameraBotton({
     Key? key,
-    required this.selectImg,
+    required this.addImages,
   }) : super(key: key);
 
-  final Function(String img) selectImg;
+  final Function(List<String> images) addImages;
 
   @override
   Widget build(BuildContext context) {
@@ -148,14 +135,23 @@ class FloatingCameraBotton extends StatelessWidget {
           height: 56,
           child: InkWell(
             onTap: () async {
-              final imgPath = await ref
-                  .read(navigatorProvider)
-                  .navigateTo(routeName: AppRoutes.gallery);
-              selectImg(imgPath);
+              List<String>? images =
+                  await ref.read(navigatorProvider).navigateTo(
+                        routeName: AppRoutes.gallery,
+                        arguments: PhotoRequestType.many,
+                      );
+              if (images != null) {
+                // addImages(images);
+                addImages(
+                  [
+                    'https://src.hidoc.co.kr/image/lib/2021/8/27/1630049987719_0.jpg',
+                    'https://static.wtable.co.kr/image-resize/production/service/recipe/655/16x9/74eb99a1-cb37-4ef0-a3a9-f7ab12e3b8fe.jpg',
+                    'https://dasima.xyz/wp-content/uploads/2021/01/domino-bulgogi-pizza-1.png',
+                  ],
+                );
+              }
             },
-            child: SvgPicture.asset(
-              'assets/icon/btn_camera_32.svg',
-            ),
+            child: SvgPicture.asset('assets/icon/btn_camera_32.svg'),
           ),
         );
       }),

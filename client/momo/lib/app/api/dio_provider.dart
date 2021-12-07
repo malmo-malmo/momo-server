@@ -3,7 +3,7 @@ import 'dart:developer' as dp;
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:momo/app/model/token_data.dart';
+import 'package:momo/app/model/common/token_data.dart';
 import 'package:momo/main.dart';
 
 final dioProvider = Provider<Dio>((ref) {

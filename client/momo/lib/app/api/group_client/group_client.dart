@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:momo/app/model/code_name_pair.dart';
+import 'package:momo/app/model/common/code_name_pair.dart';
 import 'package:momo/app/model/group/group_detail.dart';
 import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/model/group/group_request.dart';

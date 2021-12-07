@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/ui/components/card/group_card.dart';
@@ -17,7 +16,7 @@ class HomeMeetingList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200.h,
+      height: 200,
       child: PagedListView<int, GroupInfo>.separated(
         pagingController: pagingController,
         scrollDirection: Axis.horizontal,

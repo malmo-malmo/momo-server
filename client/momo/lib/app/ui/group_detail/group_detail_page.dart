@@ -20,14 +20,14 @@ import 'package:momo/app/util/theme.dart';
 class GroupDetailPage extends ConsumerWidget {
   const GroupDetailPage({
     Key? key,
-    required this.groupId,
+    required this.group,
   }) : super(key: key);
 
-  final int groupId;
+  final GroupInfo group;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final response = ref.watch(groupDetailFutureProvider(groupId));
+    final response = ref.watch(groupDetailFutureProvider(group.id));
 
     return response.when(
       error: (error, stackTrace) => Scaffold(body: errorCard()),
@@ -55,10 +55,10 @@ class GroupDetailPage extends ConsumerWidget {
                                   topRight: Radius.circular(16),
                                 ),
                               ),
-                              builder: (context) =>
-                                  userData.id == groupDetail.managerId
-                                      ? groupDetailBottomSheetAdmin()
-                                      : groupDetailBottomSheetUser());
+                              builder: (context) => userData.id ==
+                                      groupDetail.managerId
+                                  ? groupDetailBottomSheetAdmin(groupDetail.id)
+                                  : groupDetailBottomSheetUser(groupDetail.id));
                         },
                         child: SvgPicture.asset(
                             'assets/icon/icon_ooowhite_28.svg'),
@@ -94,16 +94,7 @@ class GroupDetailPage extends ConsumerWidget {
 
                           // 모임 목록에서 참가자 수 증가
                           ref
-                              .read(groupStateProvider(
-                                GroupInfo(
-                                  id: groupDetail.id,
-                                  name: groupDetail.name,
-                                  offline: groupDetail.offline,
-                                  participantCnt: groupDetail.participantCnt,
-                                  startDate: groupDetail.startDate,
-                                  imageUrl: groupDetail.imageUrl,
-                                ),
-                              ).notifier)
+                              .read(groupStateProvider(group).notifier)
                               .addParticipantCnt();
                         },
                       ),

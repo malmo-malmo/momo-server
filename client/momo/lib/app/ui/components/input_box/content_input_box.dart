@@ -9,22 +9,25 @@ Widget contentInputBox({
 }) {
   return Container(
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(20),
       color: MomoColor.backgroundColor,
     ),
-    padding: const EdgeInsets.symmetric(
-      horizontal: 24,
-    ),
+    padding: const EdgeInsets.symmetric(horizontal: 24),
     height: height,
     width: double.infinity,
     child: Center(
-      child: TextField(
-        maxLines: maxLines,
+      child: TextFormField(
         onChanged: (text) {
           onTextChanged(text);
         },
+        style: MomoTextStyle.normal,
+        maxLines: maxLines,
         decoration: InputDecoration(
           hintText: hintText ?? '',
+          hintStyle: MomoTextStyle.normal.copyWith(
+            color: MomoColor.unSelIcon,
+            fontWeight: FontWeight.w400,
+          ),
         ),
       ),
     ),

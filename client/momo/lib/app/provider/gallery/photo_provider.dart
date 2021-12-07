@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:momo/app/util/constant.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 final photoListProvider =
@@ -8,7 +9,7 @@ final photoListProvider =
 
   final recentAssets = await recentAlbum.getAssetListRange(
     start: 0,
-    end: 100,
+    end: maxPhotoCount,
   );
 
   return recentAssets

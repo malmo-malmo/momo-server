@@ -10,6 +10,7 @@ Widget confirmActionIcon({
   required Function onTapIcon,
   required bool isShowDialog,
   String? dialogText,
+  Object? result,
 }) {
   return Consumer(builder: (context, ref, _) {
     return InkWell(
@@ -22,7 +23,7 @@ Widget confirmActionIcon({
                     builder: (context) =>
                         confirmDialog(dialogText: dialogText ?? '완료되었습니다'));
               }
-              ref.read(navigatorProvider).pop();
+              ref.read(navigatorProvider).pop(result: result);
             }
           : null,
       child: Padding(

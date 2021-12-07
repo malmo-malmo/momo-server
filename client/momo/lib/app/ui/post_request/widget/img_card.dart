@@ -7,6 +7,7 @@ import 'package:momo/app/util/theme.dart';
 
 Widget imgCard({
   required String img,
+  required void Function(String img) deleteImg,
 }) {
   return img.isEmpty
       ? const SizedBox(
@@ -25,25 +26,31 @@ Widget imgCard({
               width: 100,
               child: Stack(
                 children: [
-                  SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: Image.file(
-                      File(img),
-                      fit: BoxFit.fill,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: SizedBox(
+                      height: 100,
+                      width: 100,
+                      // child: Image.file(
+                      //   File(img),
+                      //   fit: BoxFit.fill,
+                      // ),
+                      child: Image.network(
+                        img,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   Align(
                     alignment: Alignment.topRight,
-                    child: InkWell(
-                      onTap: () {
-                        // ref
-                        //     .read(postRequestStateProvider.notifier)
-                        //     .setImage('');
-                      },
-                      child: const Icon(
-                        CupertinoIcons.xmark,
-                        color: MomoColor.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: InkWell(
+                        onTap: () => deleteImg(img),
+                        child: const Icon(
+                          CupertinoIcons.xmark,
+                          color: MomoColor.white,
+                        ),
                       ),
                     ),
                   ),

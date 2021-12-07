@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/api/api_provider.dart';
 import 'package:momo/app/api/schedule_client/schedule_client.dart';
-import 'package:momo/app/model/code_name_pair.dart';
+import 'package:momo/app/model/common/code_name_pair.dart';
 import 'package:momo/app/model/schedule/calendar_schedule.dart';
 import 'package:momo/app/model/schedule/schedule_request.dart';
 import 'package:momo/app/model/schedule/schedule_response.dart';

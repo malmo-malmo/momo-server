@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:momo/app/model/enum/photo_request_type.dart';
 import 'package:momo/app/provider/group/group_request_provider.dart';
+import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 import 'package:photo_manager/photo_manager.dart';
@@ -16,11 +20,7 @@ class SetImageBox extends ConsumerWidget {
 
   Future<bool> photoManager() async {
     PermissionState result = await PhotoManager.requestPermissionExtend();
-    if (result.isAuth) {
-      return true;
-    } else {
-      return false;
-    }
+    return result.isAuth ? true : false;
   }
 
   final String img;
@@ -41,15 +41,9 @@ class SetImageBox extends ConsumerWidget {
                     child: Text('등록된 배경사진이 없습니다'),
                   ),
                 )
-              // : Image.file(
-              //     File(img),
-              //     height: 215.h,
-              //     width: double.infinity,
-              //     fit: BoxFit.none,
-              //   ),
-              : Image.network(
-                  img,
-                  height: double.infinity,
+              : Image.file(
+                  File(img),
+                  height: 215.h,
                   width: double.infinity,
                   fit: BoxFit.none,
                 ),
@@ -65,11 +59,16 @@ class SetImageBox extends ConsumerWidget {
                   onTap: () async {
                     final check = await photoManager();
                     if (check) {
-                      // String? imagePath = await ref
-                      //     .read(navigatorProvider)
-                      //     .navigateTo(routeName: AppRoutes.gallery);
-                      ref.read(groupRequestStateProvider.notifier).setImageUrl(
-                          'http://ojsfile.ohmynews.com/CRI_T_IMG/2020/1211/A0002701462_T.jpg');
+                      String? imagePath =
+                          await ref.read(navigatorProvider).navigateTo(
+                                routeName: AppRoutes.gallery,
+                                arguments: PhotoRequestType.one,
+                              );
+                      if (imagePath != null) {
+                        ref
+                            .read(groupRequestStateProvider.notifier)
+                            .setImageUrl(imagePath);
+                      }
                     }
                   },
                   child: SvgPicture.asset(

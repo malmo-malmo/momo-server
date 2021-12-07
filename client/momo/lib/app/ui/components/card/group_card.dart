@@ -22,7 +22,7 @@ Widget groupCard({
       onTap: () {
         ref.read(navigatorProvider).navigateTo(
               routeName: AppRoutes.groupDetail,
-              arguments: group.id,
+              arguments: group,
             );
       },
       child: Stack(
@@ -33,13 +33,13 @@ Widget groupCard({
               group.imageUrl ??
                   'https://t1.daumcdn.net/cfile/tistory/213E554D58E120D71C',
               fit: BoxFit.fill,
-              width: width ?? 148.w,
+              width: width ?? 148,
               height: height ?? 200.h,
             ),
           ),
           Container(
             padding: const EdgeInsets.all(14),
-            width: width ?? 148.w,
+            width: width ?? 148,
             height: height ?? 200.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),

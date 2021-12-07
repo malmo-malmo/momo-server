@@ -25,7 +25,7 @@ class ReminderCard extends ConsumerWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(26),
       ),
-      elevation: 5,
+      elevation: 2,
       child: Container(
         padding: const EdgeInsets.only(top: 20),
         height: 360,

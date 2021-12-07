@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/model/post/post.dart';
 import 'package:momo/app/routes/custom_arg/group_list_arg.dart';
+import 'package:momo/app/routes/custom_arg/post_request_arg.dart';
 import 'package:momo/app/ui/attendance_list/attendance_list_page.dart';
 import 'package:momo/app/ui/full_img_page.dart';
 import 'package:momo/app/ui/gallery/gallery_page.dart';
@@ -33,7 +35,7 @@ class AppRoutes {
   static const groupList = '/groupList';
   static const recommendList = '/recommendList';
   static const groupDetail = '/groupDetail';
-  static const newMeet = '/newMeet';
+  static const groupRequest = '/groupRequest';
   static const gallery = '/gallery';
   static const postRequest = '/postRequest';
   static const scheduleRequest = '/scheduleRequest';
@@ -94,26 +96,26 @@ class AppRouter {
         );
 
       case AppRoutes.groupDetail:
-        final arg = settings.arguments;
+        final GroupInfo arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => GroupDetailPage(groupId: arg),
+          builder: (_) => GroupDetailPage(group: arg),
         );
 
-      case AppRoutes.newMeet:
+      case AppRoutes.groupRequest:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const GroupRequestPage(),
         );
 
       case AppRoutes.gallery:
+        final arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => GalleryPage(),
+          builder: (_) => GalleryPage(requestType: arg),
         );
 
       case AppRoutes.postRequest:
-        final arg = settings.arguments;
+        final PostRequestArg arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => PostRequestPage(title: arg),
-        );
+            builder: (_) => PostRequestPage(postRequestArg: arg));
 
       case AppRoutes.scheduleRequest:
         return MaterialPageRoute<dynamic>(

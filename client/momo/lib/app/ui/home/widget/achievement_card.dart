@@ -13,7 +13,7 @@ class AchievementCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(20),
-      elevation: 5,
+      elevation: 2,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         height: 304.h,

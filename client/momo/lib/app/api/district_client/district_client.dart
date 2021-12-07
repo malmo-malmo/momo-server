@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:momo/app/model/code_name_pair.dart';
-import 'package:momo/app/model/district_response.dart';
+import 'package:momo/app/model/common/code_name_pair.dart';
+import 'package:momo/app/model/common/district_response.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'district_client.g.dart';

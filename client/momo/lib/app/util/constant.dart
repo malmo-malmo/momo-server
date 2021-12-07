@@ -1,3 +1,7 @@
+const maxPhotoCount = 10;
+
+const maxSelectCount = 7;
+
 const pageSize = 20;
 
 const selIcons = [

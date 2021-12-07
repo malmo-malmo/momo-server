@@ -68,24 +68,30 @@ Widget postDetailCard({
           ),
           const SizedBox(height: 32),
           Consumer(builder: (context, ref, _) {
-            return InkWell(
-              borderRadius: BorderRadius.circular(16),
-              onTap: () {
-                ref.read(navigatorProvider).navigateTo(
-                      routeName: AppRoutes.fullImage,
-                      arguments:
-                          'https://img.hankyung.com/photo/202110/20211018153155_616d14db35cb3_1.jpg',
-                    );
-              },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.network(
-                  'https://img.hankyung.com/photo/202110/20211018153155_616d14db35cb3_1.jpg',
-                  width: 72,
-                  height: 72,
-                  fit: BoxFit.cover,
-                ),
-              ),
+            return Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                for (int i = 0; i < postDetail.imageUrls.length; i++)
+                  InkWell(
+                    borderRadius: BorderRadius.circular(16),
+                    onTap: () {
+                      ref.read(navigatorProvider).navigateTo(
+                            routeName: AppRoutes.fullImage,
+                            arguments: postDetail.imageUrls[i],
+                          );
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.network(
+                        postDetail.imageUrls[i],
+                        width: 72,
+                        height: 72,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+              ],
             );
           }),
           const SizedBox(height: 30),

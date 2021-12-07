@@ -12,7 +12,7 @@ class EventCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Material(
-      elevation: 5,
+      elevation: 2,
       borderRadius: BorderRadius.circular(16),
       child: InkWell(
         child: Container(

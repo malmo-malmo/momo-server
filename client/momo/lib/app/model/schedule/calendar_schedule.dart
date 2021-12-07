@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:momo/app/model/code_name_pair.dart';
+import 'package:momo/app/model/common/code_name_pair.dart';
 
 part 'calendar_schedule.g.dart';
 part 'calendar_schedule.freezed.dart';

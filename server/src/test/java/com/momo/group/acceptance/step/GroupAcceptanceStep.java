@@ -33,6 +33,8 @@ public class GroupAcceptanceStep {
             () -> assertThat(response.getDistrict()).isEqualTo(request.getDistrict()),
             () -> assertThat(response.isOffline()).isEqualTo(request.getIsOffline()),
             () -> assertThat(response.getIntroduction()).isEqualTo(request.getIntroduction()),
+            () -> assertThat(response.getRecruitmentCnt()).isEqualTo(request.getRecruitmentCnt()),
+            () -> assertThat(response.isEnd()).isFalse(),
             () -> assertThat(response.getParticipantCnt()).isEqualTo(1L),
             () -> assertThat(response.getIsParticipant()).isEqualTo(isParticipant)
         );

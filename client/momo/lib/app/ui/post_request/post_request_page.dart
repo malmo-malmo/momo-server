@@ -141,14 +141,7 @@ class _FloatingCameraBotton extends StatelessWidget {
                         arguments: PhotoRequestType.many,
                       );
               if (images != null) {
-                // addImages(images);
-                addImages(
-                  [
-                    'https://src.hidoc.co.kr/image/lib/2021/8/27/1630049987719_0.jpg',
-                    'https://static.wtable.co.kr/image-resize/production/service/recipe/655/16x9/74eb99a1-cb37-4ef0-a3a9-f7ab12e3b8fe.jpg',
-                    'https://dasima.xyz/wp-content/uploads/2021/01/domino-bulgogi-pizza-1.png',
-                  ],
-                );
+                addImages(images);
               }
             },
             child: SvgPicture.asset('assets/icon/btn_camera_32.svg'),

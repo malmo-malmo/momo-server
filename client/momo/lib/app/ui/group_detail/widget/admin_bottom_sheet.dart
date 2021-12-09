@@ -60,9 +60,10 @@ Widget groupDetailBottomSheetAdmin(int groupId) {
           ),
           InkWell(
             onTap: () async {
-              await ref
-                  .read(navigatorProvider)
-                  .navigateTo(routeName: AppRoutes.scheduleRequest);
+              await ref.read(navigatorProvider).navigateTo(
+                    routeName: AppRoutes.scheduleRequest,
+                    arguments: groupId,
+                  );
               ref.read(navigatorProvider).pop();
             },
             child: sheetTabButtob(

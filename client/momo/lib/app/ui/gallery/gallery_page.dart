@@ -10,7 +10,6 @@ import 'package:momo/app/provider/gallery/photo_provider.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:momo/app/ui/components/button/confirm_action_icon.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
-import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 /// 모임 생성 시에는 1개 제한
@@ -29,6 +28,7 @@ class GalleryPage extends ConsumerStatefulWidget {
 
 class _GalleryPageState extends ConsumerState<GalleryPage> {
   List<String> images = [];
+  String image = '';
 
   late FToast fToast;
 
@@ -63,7 +63,7 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
                   title: '추가',
                   onTapIcon: () {},
                   result: widget.requestType == PhotoRequestType.one
-                      ? images.last
+                      ? image
                       : images,
                   isShowDialog: false,
                 ),
@@ -88,7 +88,9 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
                               return InkWell(
                                 onTap: widget.requestType ==
                                         PhotoRequestType.one
-                                    ? () {
+                                    ? () async {
+                                        await photoList[index].file.then(
+                                            (value) => image = (value!.path));
                                         ref
                                             .read(galleryStateProvider.notifier)
                                             .checkOne(index);
@@ -96,9 +98,12 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
                                     : (isMax && !checks[index]
                                         ? _showToast
                                         : () async {
-                                            await photoList[index].file.then(
-                                                (value) =>
-                                                    images.add(value!.path));
+                                            final imageFile =
+                                                await photoList[index].file;
+
+                                            checks[index]
+                                                ? images.remove(imageFile!.path)
+                                                : images.add(imageFile!.path);
 
                                             ref
                                                 .read(galleryStateProvider

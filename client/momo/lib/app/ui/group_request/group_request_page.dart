@@ -38,8 +38,6 @@ class GroupRequestPage extends ConsumerWidget {
             check: check,
             title: '완료',
             onTapIcon: () async {
-              ref.read(groupRequestStateProvider.notifier).setImageUrl(
-                  'http://ojsfile.ohmynews.com/CRI_T_IMG/2020/1211/A0002701462_T.jpg');
               await ref.read(groupRequestStateProvider.notifier).createGroup();
             },
             isShowDialog: true,

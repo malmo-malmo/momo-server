@@ -18,6 +18,7 @@ Widget confirmActionIcon({
           ? () async {
               onTapIcon();
               if (isShowDialog) {
+                FocusScope.of(context).unfocus();
                 await showDialog(
                     context: context,
                     builder: (context) =>

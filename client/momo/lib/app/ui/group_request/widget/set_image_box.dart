@@ -45,7 +45,7 @@ class SetImageBox extends ConsumerWidget {
                   File(img),
                   height: 215.h,
                   width: double.infinity,
-                  fit: BoxFit.none,
+                  fit: BoxFit.cover,
                 ),
           Align(
             alignment: Alignment.bottomRight,

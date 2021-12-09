@@ -43,7 +43,7 @@ public class PostService {
             validateGroupParticipant(user, group);
         } else {
             if (group.isNotManager(user)) {
-                throw new CustomException(ErrorCode.GROUP_NOTICE_UNAUTHORIZED);
+                throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
             }
         }
         Post post = postRepository.save(Post.create(user, group, request.toEntity()));

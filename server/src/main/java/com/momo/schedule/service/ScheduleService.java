@@ -40,7 +40,7 @@ public class ScheduleService {
 
     public void validateNotGroupManager(Groups group, User user) {
         if (group.isNotManager(user)) {
-            throw new CustomException(ErrorCode.GROUP_SCHEDULE_UNAUTHORIZED);
+            throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
         }
     }
 

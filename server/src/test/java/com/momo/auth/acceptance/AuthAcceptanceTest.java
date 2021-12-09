@@ -2,6 +2,8 @@ package com.momo.auth.acceptance;
 
 import static com.momo.auth.acceptance.step.AuthAcceptanceStep.assertThatRefreshLogin;
 import static com.momo.auth.acceptance.step.AuthAcceptanceStep.requestToRefreshLogin;
+import static com.momo.common.acceptance.step.AcceptanceStep.assertThatCustomException;
+import static com.momo.common.exception.ErrorCode.INVALID_REFRESH_TOKEN;
 import static com.momo.fixture.UserFixture.USER1;
 
 import com.momo.auth.TokenProvider;
@@ -9,6 +11,7 @@ import com.momo.auth.controller.dto.OAuthLoginResponse;
 import com.momo.auth.controller.dto.RefreshLoginRequest;
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
+import com.momo.common.exception.ErrorCode;
 import com.momo.user.acceptance.step.UserAcceptanceStep;
 import com.momo.user.domain.model.User;
 import io.restassured.response.ExtractableResponse;
@@ -53,6 +56,6 @@ public class AuthAcceptanceTest extends AcceptanceTest {
     public void 잘못된_리프레쉬_토큰으로_로그인하면_실패한다() {
         RefreshLoginRequest refreshLoginRequest = new RefreshLoginRequest("invalidRefreshToken");
         ExtractableResponse<Response> response = requestToRefreshLogin(refreshLoginRequest);
-        AcceptanceStep.assertThatErrorIsInvalidRefreshToken(response);
+        assertThatCustomException(response, INVALID_REFRESH_TOKEN);
     }
 }

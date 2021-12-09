@@ -1,5 +1,7 @@
 package com.momo.post.acceptance;
 
+import static com.momo.common.acceptance.step.AcceptanceStep.assertThatCustomException;
+import static com.momo.common.exception.ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST1;
 import static com.momo.fixture.PostFixture.NOTICE_CREATE_REQUEST1;
 import static com.momo.fixture.PostFixture.POST_CREATE_REQUEST1;
@@ -12,6 +14,7 @@ import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToFindPost
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
+import com.momo.common.exception.ErrorCode;
 import com.momo.post.acceptance.step.PostAcceptanceStep;
 import com.momo.post.controller.dto.PostCardResponse;
 import com.momo.post.controller.dto.PostCardsRequest;
@@ -39,8 +42,8 @@ public class PostAcceptanceTest extends AcceptanceTest {
         String token = getAccessToken(USER1);
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         String invalidToken = getAccessToken(USER2);
-        ExtractableResponse<Response> res = requestToCreatePost(invalidToken, POST_CREATE_REQUEST1, groupId);
-        AcceptanceStep.assertThatErrorIsParticipantUnAuthorized(res);
+        ExtractableResponse<Response> response = requestToCreatePost(invalidToken, POST_CREATE_REQUEST1, groupId);
+        assertThatCustomException(response, GROUP_PARTICIPANT_UNAUTHORIZED);
     }
 
     @Test
@@ -57,7 +60,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         String invalidToken = getAccessToken(USER2);
         ExtractableResponse<Response> response = requestToCreatePost(invalidToken, NOTICE_CREATE_REQUEST1, groupId);
-        AcceptanceStep.assertThatErrorIsNoticeUnAuthorized(response);
+        assertThatCustomException(response, ErrorCode.GROUP_MANAGER_AUTHORIZED);
     }
 
     @Test
@@ -78,7 +81,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
         Long postId = extractId(requestToCreatePost(token, POST_CREATE_REQUEST1, groupId));
         String invalidToken = getAccessToken(USER2);
         ExtractableResponse<Response> response = requestToFindPost(invalidToken, postId);
-        AcceptanceStep.assertThatErrorIsParticipantUnAuthorized(response);
+        assertThatCustomException(response, GROUP_PARTICIPANT_UNAUTHORIZED);
     }
 
     @Test
@@ -102,6 +105,6 @@ public class PostAcceptanceTest extends AcceptanceTest {
         requestToCreatePost(token, POST_CREATE_REQUEST1, groupId);
         PostCardsRequest postCardsRequest = new PostCardsRequest(groupId, PostType.NOTICE.name(), 0, 10);
         ExtractableResponse<Response> response = requestToFindPosts(invalidToken, postCardsRequest);
-        AcceptanceStep.assertThatErrorIsParticipantUnAuthorized(response);
+        assertThatCustomException(response, GROUP_PARTICIPANT_UNAUTHORIZED);
     }
 }

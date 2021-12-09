@@ -29,7 +29,7 @@ public class ParticipantService {
     public List<ParticipantResponse> findByGroupId(User user, Long groupId) {
         Groups group = getGroupById(groupId);
         validateNotGroupManager(group, user);
-        Long scheduleCnt = scheduleRepository.countByGroupAndIsAttendanceCheck(group, true);
+        Long scheduleCnt = scheduleRepository.countByGroupAndAttendanceCheck(group, true);
         return participantRepository.findParticipantAndAttendanceRateByGroup(group, scheduleCnt);
     }
 

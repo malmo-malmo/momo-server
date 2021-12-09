@@ -43,11 +43,11 @@ public class Schedule extends BaseEntity {
     @Lob
     private String contents;
 
-    private boolean isAttendanceCheck;
+    private boolean attendanceCheck;
 
     @Builder
     public Schedule(Long id, Groups group, User author, String title, boolean isOffline,
-        LocalDateTime startDateTime, String contents, boolean isAttendanceCheck) {
+        LocalDateTime startDateTime, String contents, boolean attendanceCheck) {
         this.id = id;
         this.group = group;
         this.author = author;
@@ -55,7 +55,7 @@ public class Schedule extends BaseEntity {
         this.isOffline = isOffline;
         this.startDateTime = startDateTime;
         this.contents = contents;
-        this.isAttendanceCheck = isAttendanceCheck;
+        this.attendanceCheck = attendanceCheck;
     }
 
     public static Schedule create(Schedule schedule, Groups group, User user) {
@@ -66,7 +66,7 @@ public class Schedule extends BaseEntity {
             .isOffline(schedule.isOffline())
             .startDateTime(schedule.getStartDateTime())
             .contents(schedule.getContents())
-            .isAttendanceCheck(false)
+            .attendanceCheck(false)
             .build();
     }
 }

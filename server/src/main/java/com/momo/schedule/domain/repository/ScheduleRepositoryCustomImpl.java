@@ -37,9 +37,9 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
                 schedule.isOffline,
                 schedule.startDateTime,
                 schedule.contents,
-                schedule.isAttendanceCheck,
+                schedule.attendanceCheck,
                 JPAExpressions
-                    .select(attendance.isAttendance)
+                    .select(attendance.isAttend)
                     .from(attendance)
                     .where(attendance.schedule.eq(schedule).and(attendance.user.eq(userParam)))
             ))

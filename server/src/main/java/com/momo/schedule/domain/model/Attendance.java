@@ -36,6 +36,5 @@ public class Attendance {
   @JoinColumn(name = "schedule_id")
   private Schedule schedule;
 
-  @Column(name = "attendance_flag")
-  private Boolean isAttendance;
+  private boolean isAttend;
 }

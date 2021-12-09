@@ -29,7 +29,7 @@ public class ParticipantRepositoryCustomImpl implements ParticipantRepositoryCus
                 JPAExpressions
                     .select(attendance.count())
                     .from(attendance)
-                    .where(attendance.user.eq(participant.user).and(attendance.isAttendance.eq(true)))
+                    .where(attendance.user.eq(participant.user).and(attendance.isAttend.eq(true)))
             ))
             .from(participant)
             .leftJoin(user).on(participant.user.eq(user))

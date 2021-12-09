@@ -17,7 +17,7 @@ import org.springframework.http.MediaType;
 public class ScheduleAcceptanceStep {
 
     public static void assertThatFindGroupSchedule(ScheduleCreateRequest request, GroupSchedulesResponse response,
-        User author, boolean isAttend, boolean isAttendanceCheck) {
+        User author, boolean isAttend, boolean attendanceCheck) {
         Assertions.assertAll(
             () -> assertThat(response.getSchedules().size()).isEqualTo(1),
             () -> assertThat(response.getManagerId()).isNotNull(),
@@ -28,7 +28,7 @@ public class ScheduleAcceptanceStep {
             () -> assertThat(response.getSchedules().get(0).getContents()).isEqualTo(request.getContents()),
             () -> assertThat(response.getSchedules().get(0).isOffline()).isEqualTo(request.getIsOffline()),
             () -> assertThat(response.getSchedules().get(0).isAttend()).isEqualTo(isAttend),
-            () -> assertThat(response.getSchedules().get(0).isAttendanceCheck()).isEqualTo(isAttendanceCheck)
+            () -> assertThat(response.getSchedules().get(0).isAttendanceCheck()).isEqualTo(attendanceCheck)
         );
     }
 

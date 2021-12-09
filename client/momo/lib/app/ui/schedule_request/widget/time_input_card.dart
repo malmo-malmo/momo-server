@@ -1,54 +1,59 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/provider/time_card_provider.dart';
 import 'package:momo/app/ui/schedule_request/widget/time_picker_dialog.dart';
+import 'package:momo/app/util/format/time_format.dart';
 import 'package:momo/app/util/theme.dart';
 
-class TimeInputCard extends ConsumerWidget {
+class TimeInputCard extends StatefulWidget {
   const TimeInputCard({
     Key? key,
     required this.selcetTime,
   }) : super(key: key);
 
-  final Function(String date) selcetTime;
+  final Function(int hour, int minute) selcetTime;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final timeCardText = ref.watch(timeCardTextProvider);
+  State<TimeInputCard> createState() => _TimeInputCardState();
+}
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      height: 44,
-      width: 123.w,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: MomoColor.unSelIcon,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            timeCardText,
+class _TimeInputCardState extends State<TimeInputCard> {
+  String timeText = '';
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () async {
+        final result = await showDialog(
+          context: context,
+          builder: (context) => timePickerDialog(),
+        );
+
+        if (result != null) {
+          result[0] = result[2] ? result[0] : result[0] + 12;
+          widget.selcetTime(result[0], result[1]);
+          timeText = changeTimeFormat(result[0], result[1]);
+          setState(() {});
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        height: 44,
+        width: 123.w,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: timeText.isEmpty
+              ? MomoColor.backgroundColor
+              : MomoColor.unSelIcon,
+        ),
+        child: Center(
+          child: Text(
+            timeText,
             style: MomoTextStyle.defaultStyle.copyWith(
               color: MomoColor.white,
             ),
           ),
-          InkWell(
-            onTap: () async {
-              await showDialog(
-                context: context,
-                builder: (context) {
-                  return timePickerDialog(selcetTime: selcetTime);
-                },
-              );
-            },
-            child: const Icon(
-              CupertinoIcons.clock,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

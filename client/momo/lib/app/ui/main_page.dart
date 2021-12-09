@@ -96,24 +96,22 @@ class MainPage extends ConsumerWidget {
 
       case 2:
         return Consumer(builder: (context, ref, _) {
-          return FloatingActionButton(
-              onPressed: () {
+          return InkWell(
+              onTap: () {
                 ref
                     .read(navigatorProvider)
                     .navigateTo(routeName: AppRoutes.scheduleRequest);
               },
-              backgroundColor: MomoColor.main,
               child: SvgPicture.asset(
                   'assets/icon/calendar/floatingbtn_addschedule_84.svg'));
         });
       case 3:
         return isShow
             ? Consumer(builder: (context, ref, _) {
-                return FloatingActionButton(
-                  onPressed: () => ref
+                return InkWell(
+                  onTap: () => ref
                       .read(navigatorProvider)
                       .navigateTo(routeName: AppRoutes.groupRequest),
-                  backgroundColor: MomoColor.main,
                   child: SvgPicture.asset(
                       'assets/icon/meet/floatingbtn_addmoim_64.svg'),
                 );

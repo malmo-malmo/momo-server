@@ -118,8 +118,9 @@ class AppRouter {
             builder: (_) => PostRequestPage(postRequestArg: arg));
 
       case AppRoutes.scheduleRequest:
+        final arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => const ScheduleRequestPage(),
+          builder: (_) => ScheduleRequestPage(groupId: arg),
         );
 
       case AppRoutes.noticeList:

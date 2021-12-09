@@ -31,12 +31,8 @@ Widget imgCard({
                     child: SizedBox(
                       height: 100,
                       width: 100,
-                      // child: Image.file(
-                      //   File(img),
-                      //   fit: BoxFit.fill,
-                      // ),
-                      child: Image.network(
-                        img,
+                      child: Image.file(
+                        File(img),
                         fit: BoxFit.cover,
                       ),
                     ),

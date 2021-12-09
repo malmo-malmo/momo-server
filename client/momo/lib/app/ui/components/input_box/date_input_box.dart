@@ -1,24 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:momo/app/provider/date_card_provider.dart';
 import 'package:momo/app/util/format/day_title_format.dart';
 import 'package:momo/app/util/theme.dart';
 
-class DateInputBox extends ConsumerWidget {
+class DateInputBox extends StatefulWidget {
   const DateInputBox({
     Key? key,
     required this.selcetDate,
   }) : super(key: key);
 
-  final Function(String date) selcetDate;
+  final Function(DateTime dateTime) selcetDate;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final dateCardText = ref.watch(dateCardTextProvider);
+  State<DateInputBox> createState() => _DateInputBoxState();
+}
 
+class _DateInputBoxState extends State<DateInputBox> {
+  String dateTimeText = '';
+
+  @override
+  Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
         final dateTime = await showDatePicker(
@@ -39,12 +42,12 @@ class DateInputBox extends ConsumerWidget {
               );
             });
         if (dateTime != null) {
-          selcetDate(DateFormat('yyyy-MM-dd').format(dateTime));
-          ref.read(dateCardTextStateProvider.state).state =
-              DateFormat('yyyy-MM-dd').format(dateTime) +
-                  ' ' +
-                  dayTitleToKR(dateTime) +
-                  '요일';
+          widget.selcetDate(dateTime);
+          dateTimeText = DateFormat('yyyy-MM-dd').format(dateTime) +
+              ' ' +
+              dayTitleToKR(dateTime) +
+              '요일';
+          setState(() {});
         }
       },
       child: Container(
@@ -53,13 +56,13 @@ class DateInputBox extends ConsumerWidget {
         width: 190.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: dateCardText.isEmpty
+          color: dateTimeText.isEmpty
               ? MomoColor.backgroundColor
               : MomoColor.unSelIcon,
         ),
         child: Center(
           child: Text(
-            dateCardText,
+            dateTimeText,
             style: MomoTextStyle.defaultStyle.copyWith(
               color: MomoColor.white,
             ),

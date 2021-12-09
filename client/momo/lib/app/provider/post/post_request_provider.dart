@@ -64,7 +64,15 @@ class PostRequestState extends StateNotifier<PostRequest> {
   }
 
   Future<dynamic> createPost() async {
-    final response = await repository.createPost(state);
+    final response = await repository.createPost(
+      state.copyWith(
+        imageUrls: [
+          'https://src.hidoc.co.kr/image/lib/2021/8/27/1630049987719_0.jpg',
+          'https://static.wtable.co.kr/image-resize/production/service/recipe/655/16x9/74eb99a1-cb37-4ef0-a3a9-f7ab12e3b8fe.jpg',
+          'https://dasima.xyz/wp-content/uploads/2021/01/domino-bulgogi-pizza-1.png',
+        ],
+      ),
+    );
     return response;
   }
 }

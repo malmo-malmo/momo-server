@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:momo/app/model/group/group_request.dart';
 import 'package:momo/app/provider/category_result_provider.dart';
 import 'package:momo/app/provider/city_result_provider.dart';
@@ -70,8 +71,8 @@ class GroupRequestState extends StateNotifier<GroupRequest> {
   void setRecruitmentCnt(String recruitmentCnt) =>
       state = state.copyWith(recruitmentCnt: int.parse(recruitmentCnt));
 
-  void setStartDate(String startDate) =>
-      state = state.copyWith(startDate: startDate);
+  void setStartDate(DateTime dateTime) => state =
+      state.copyWith(startDate: DateFormat('yyyy-MM-dd').format(dateTime));
 
   void setIntroduction(String introduction) =>
       state = state.copyWith(introduction: introduction);
@@ -86,7 +87,12 @@ class GroupRequestState extends StateNotifier<GroupRequest> {
       state = state.copyWith(imageUrl: imageUrl);
 
   Future<dynamic> createGroup() async {
-    final response = await repository.createGroup(state);
+    final response = await repository.createGroup(
+      state.copyWith(
+        imageUrl:
+            'http://ojsfile.ohmynews.com/CRI_T_IMG/2020/1211/A0002701462_T.jpg',
+      ),
+    );
     return response;
   }
 }

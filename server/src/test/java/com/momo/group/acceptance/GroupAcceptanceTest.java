@@ -38,14 +38,14 @@ import org.junit.jupiter.api.Test;
 public class GroupAcceptanceTest extends AcceptanceTest {
 
     @Test
-    public void 모임을_생성한다() {
+    void 모임을_생성한다() {
         String token = getAccessToken(USER1);
         ExtractableResponse<Response> response = requestToCreateGroup(token, GROUP_CREATE_REQUEST1);
         AcceptanceStep.assertThatStatusIsCreated(response);
     }
 
     @Test
-    public void 관리자가_모임을_상세_조회한다() {
+    void 관리자가_모임을_상세_조회한다() {
         String token = getAccessToken(USER1);
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         ExtractableResponse<Response> response = requestToFindGroup(token, groupId);
@@ -55,7 +55,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 모임에_참여하지_않은_유저가_모임을_상세_조회한다() {
+    void 모임에_참여하지_않은_유저가_모임을_상세_조회한다() {
         Long groupId = extractId(requestToCreateGroup(getAccessToken(USER1), GROUP_CREATE_REQUEST1));
         ExtractableResponse<Response> response = requestToFindGroup(getAccessToken(USER2), groupId);
         GroupResponse groupResponse = getObject(response, GroupResponse.class);
@@ -64,7 +64,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 유저가_검색_조건으로_모임_목록을_조회한다() {
+    void 유저가_검색_조건으로_모임_목록을_조회한다() {
         requestToCreateGroup(getAccessToken(USER1), GROUP_CREATE_REQUEST1); //서울 건강
         requestToCreateGroup(getAccessToken(USER2), GROUP_CREATE_REQUEST2); //서울 자기계발
         requestToCreateGroup(getAccessToken(USER3), GROUP_CREATE_REQUEST3); //서울 건강
@@ -82,7 +82,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 유저가_검색_조건없이_모임_목록을_조회한다() {
+    void 유저가_검색_조건없이_모임_목록을_조회한다() {
         requestToCreateGroup(getAccessToken(USER1), GROUP_CREATE_REQUEST1); //서울 건강
         requestToCreateGroup(getAccessToken(USER2), GROUP_CREATE_REQUEST2); //서울 자기계발
         GroupSearchConditionRequest request = GroupSearchConditionRequest.builder()
@@ -96,7 +96,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 로그인한_유저의_학교로_모임_목록을_조회한다() {
+    void 로그인한_유저의_학교로_모임_목록을_조회한다() {
         requestToCreateGroup(getAccessToken(USER1), GROUP_CREATE_REQUEST1); //같은 학교 모임
         requestToCreateGroup(getAccessToken(USER2), GROUP_CREATE_REQUEST2); //다른 학교 모임
         requestToCreateGroup(getAccessToken(USER3), GROUP_CREATE_REQUEST3); //다른 학교 모임
@@ -107,7 +107,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 로그인한_유저의_지역으로_모임_목록을_조회한다() {
+    void 로그인한_유저의_지역으로_모임_목록을_조회한다() {
         requestToCreateGroup(getAccessToken(USER1), GROUP_CREATE_REQUEST1); //같은 지역 모임
         requestToCreateGroup(getAccessToken(USER2), GROUP_CREATE_REQUEST2); //같은 지역 모임
         requestToCreateGroup(getAccessToken(USER3), GROUP_CREATE_REQUEST3); //다른 지역 모임
@@ -118,7 +118,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 로그인한_유저의_관심_카테고리로_모임_목록을_조회한다() {
+    void 로그인한_유저의_관심_카테고리로_모임_목록을_조회한다() {
         requestToCreateGroup(getAccessToken(USER1), GROUP_CREATE_REQUEST1); //관심 카테고리 모임 O
         requestToCreateGroup(getAccessToken(USER2), GROUP_CREATE_REQUEST2); //관심 카테고리 모임 O
         requestToCreateGroup(getAccessToken(USER3), GROUP_CREATE_REQUEST3); //관심 카테고리 모임 O
@@ -129,7 +129,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 모임_카테고리_목록을_조회한다() {
+    void 모임_카테고리_목록을_조회한다() {
         String token = getAccessToken(USER1);
         ExtractableResponse<Response> response = requestToFindCategories(token);
         AcceptanceStep.assertThatStatusIsOk(response);
@@ -137,7 +137,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 모임장이_권한을_양도한다() {
+    void 모임장이_권한을_양도한다() {
         String managerToken = getAccessToken(USER1);
         String participantToken = getAccessToken(USER2);
         Long participantId = getObject(requestToFindMyInformation(participantToken), UserResponse.class).getId();
@@ -148,7 +148,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 모임장이_아닌_유저가_권한을_양도하면_실패한다() {
+    void 모임장이_아닌_유저가_권한을_양도하면_실패한다() {
         String managerToken = getAccessToken(USER1);
         String participantToken = getAccessToken(USER2);
         Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));

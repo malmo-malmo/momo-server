@@ -39,6 +39,8 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
                 groups.district,
                 groups.isOffline,
                 groups.introduction,
+                groups.recruitmentCnt,
+                groups.isEnd,
                 JPAExpressions
                     .select(participant.count())
                     .from(participant)

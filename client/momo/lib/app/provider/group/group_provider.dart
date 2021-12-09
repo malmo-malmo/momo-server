@@ -17,4 +17,7 @@ class GroupState extends StateNotifier<GroupInfo> {
 
   void addParticipantCnt() =>
       state = state.copyWith(participantCnt: state.participantCnt + 1);
+
+  void subParticipantCnt() =>
+      state = state.copyWith(participantCnt: state.participantCnt - 1);
 }

@@ -27,8 +27,7 @@ public class UserController {
     @ApiOperation(value = "내 정보 조회")
     @GetMapping
     public ResponseEntity<UserResponse> findMyInformation(@CurrentUser User user) {
-        UserResponse userResponse = UserResponse.of(user);
-        return ResponseEntity.ok(userResponse);
+        return ResponseEntity.ok(UserResponse.of(user));
     }
 
     @ApiOperation(value = "닉네임 중복 확인")

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/schedule/user_schedule_provider.dart';
 import 'package:momo/app/ui/components/status/error_card.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
+import 'package:momo/app/ui/components/status/no_item_card.dart';
 import 'package:momo/app/ui/home/widget/schedule_page_view.dart';
 import 'package:momo/app/util/format/calendar_max_day.dart';
 import 'package:momo/app/util/format/day_title_format.dart';
@@ -56,20 +57,23 @@ class ReminderCard extends ConsumerWidget {
                 },
               ),
             ),
-            scheduleResponses.when(
-              error: (error, stackTrace) => errorCard(),
-              loading: () => loadingCard(),
-              data: (schedules) {
-                final curSchedule = schedules
-                    .where((e) =>
-                        DateTime.parse(e.first.startDateTime).day ==
-                        DateTime.now().day)
-                    .toList();
+            Expanded(
+              child: scheduleResponses.when(
+                error: (error, stackTrace) => errorCard(),
+                loading: () => loadingCard(),
+                data: (schedules) {
+                  final curSchedule = schedules
+                      .where((e) =>
+                          DateTime.parse(e.first.startDateTime).day ==
+                          DateTime.now().day)
+                      .toList();
+                  if (curSchedule.isEmpty) {
+                    return noItemCard();
+                  }
 
-                return Expanded(
-                  child: schedulePageView(schedules: curSchedule.first),
-                );
-              },
+                  return schedulePageView(schedules: curSchedule.first);
+                },
+              ),
             ),
           ],
         ),

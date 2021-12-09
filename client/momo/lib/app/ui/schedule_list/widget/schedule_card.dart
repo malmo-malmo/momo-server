@@ -1,21 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/util/format/post_date_format.dart';
 import 'package:momo/app/util/theme.dart';
 
 Widget scheduleCard({
-  required int postId,
+  required int scheduleId,
   required String profile,
-  required String userName,
+  required String nickname,
   required String title,
-  required String text,
+  required String contents,
   required String date,
   required bool attendance,
 }) {
   return InkWell(
     onTap: () {},
     child: Material(
-      elevation: 3,
+      elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -50,12 +51,12 @@ Widget scheduleCard({
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            userName,
+                            nickname,
                             style: MomoTextStyle.small,
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            date,
+                            postDateFormat(date),
                             style: MomoTextStyle.small.copyWith(
                               color: const Color(0xff9e9e9e),
                             ),
@@ -107,7 +108,7 @@ Widget scheduleCard({
               ),
               const SizedBox(height: 12),
               Text(
-                text,
+                contents,
                 style: MomoTextStyle.small,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,

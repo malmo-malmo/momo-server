@@ -8,7 +8,7 @@ Widget groupDetailCard({required int groupId}) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const ScheduleCard(),
+        ScheduleCard(groupId: groupId),
         Container(
           height: 10,
           color: MomoColor.backgroundColor,

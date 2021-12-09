@@ -46,7 +46,7 @@ public class PostResponse {
         return PostResponse.builder()
             .id(post.getId())
             .authorId(post.getAuthor().getId())
-            .authorImage(post.getAuthor().getImage())
+            .authorImage(post.getAuthor().getImageUrl())
             .authorNickname(post.getAuthor().getNickname())
             .title(post.getTitle())
             .contents(post.getContents())

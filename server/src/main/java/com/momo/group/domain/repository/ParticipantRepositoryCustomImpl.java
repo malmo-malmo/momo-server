@@ -24,7 +24,7 @@ public class ParticipantRepositoryCustomImpl implements ParticipantRepositoryCus
         List<ParticipantResponse> responses = queryFactory
             .select(new QParticipantResponse(
                 participant.user.id,
-                participant.user.image,
+                participant.user.imageUrl,
                 participant.user.nickname,
                 JPAExpressions
                     .select(attendance.count())

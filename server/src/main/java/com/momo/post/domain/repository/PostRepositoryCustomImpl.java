@@ -28,7 +28,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
         List<PostCardResponse> content = queryFactory.
             select(new QPostCardResponse(
                 post.id,
-                post.author.image,
+                post.author.imageUrl,
                 post.author.nickname,
                 post.title,
                 post.contents,

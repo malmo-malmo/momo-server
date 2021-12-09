@@ -38,7 +38,7 @@ public class User extends BaseEntity {
 
     private String nickname;
 
-    private String image;
+    private String imageUrl;
 
     private String city;
 
@@ -51,13 +51,13 @@ public class User extends BaseEntity {
     private String refreshToken;
 
     @Builder
-    public User(Long id, String providerId, SocialProvider provider, String nickname, String image, String city,
+    public User(Long id, String providerId, SocialProvider provider, String nickname, String imageUrl, String city,
         String district, String university, String categories, String refreshToken) {
         this.id = id;
         this.providerId = providerId;
         this.provider = provider;
         this.nickname = nickname;
-        this.image = image;
+        this.imageUrl = imageUrl;
         this.city = city;
         this.district = district;
         this.university = university;

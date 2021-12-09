@@ -10,16 +10,16 @@ public class ParticipantResponse {
 
     private Long userId;
 
-    private String image;
+    private String imageUrl;
 
     private String nickname;
 
     private Long attendanceRate;
 
     @QueryProjection
-    public ParticipantResponse(Long userId, String image, String nickname, Long attendanceRate) {
+    public ParticipantResponse(Long userId, String imageUrl, String nickname, Long attendanceRate) {
         this.userId = userId;
-        this.image = image;
+        this.imageUrl = imageUrl;
         this.nickname = nickname;
         this.attendanceRate = attendanceRate;
     }

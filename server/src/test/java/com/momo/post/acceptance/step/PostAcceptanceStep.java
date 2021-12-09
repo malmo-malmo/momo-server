@@ -27,7 +27,7 @@ public class PostAcceptanceStep {
             () -> assertThat(response.getTitle()).isEqualTo(request.getTitle()),
             () -> assertThat(response.getImageUrls().size()).isEqualTo(request.getImageUrls().size()),
             () -> assertThat(response.getId()).isEqualTo(postId),
-            () -> assertThat(response.getAuthorImage()).isEqualTo(createUser.getImage()),
+            () -> assertThat(response.getAuthorImage()).isEqualTo(createUser.getImageUrl()),
             () -> assertThat(response.getAuthorNickname()).isEqualTo(createUser.getNickname()),
             () -> assertThat(response.getAuthorId()).isNotNull(),
             () -> assertThat(response.getCreatedDate()).isNotNull()
@@ -41,7 +41,7 @@ public class PostAcceptanceStep {
             () -> assertThat(responses.get(0).getTitle()).isEqualTo(request.getTitle()),
             () -> assertThat(responses.get(0).getContents()).isEqualTo(request.getContents()),
             () -> assertThat(responses.get(0).getTitle()).isEqualTo(request.getTitle()),
-            () -> assertThat(responses.get(0).getAuthorImage()).isEqualTo(createUser.getImage()),
+            () -> assertThat(responses.get(0).getAuthorImage()).isEqualTo(createUser.getImageUrl()),
             () -> assertThat(responses.get(0).getAuthorNickname()).isEqualTo(createUser.getNickname()),
             () -> assertThat(responses.get(0).getCommentCnt()).isEqualTo(commentCnt),
             () -> assertThat(responses.get(0).getCreatedDate()).isNotNull()

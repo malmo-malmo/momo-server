@@ -19,7 +19,7 @@ public class CommentAcceptanceStep {
 
     public static void assertThatCreateComment(User user, CommentCreateRequest request, CommentResponse response) {
         Assertions.assertAll(
-            () -> assertThat(response.getAuthorImage()).isEqualTo(user.getImage()),
+            () -> assertThat(response.getAuthorImage()).isEqualTo(user.getImageUrl()),
             () -> assertThat(response.getAuthorNickname()).isEqualTo(user.getNickname()),
             () -> assertThat(response.getContents()).isEqualTo(request.getContents())
         );

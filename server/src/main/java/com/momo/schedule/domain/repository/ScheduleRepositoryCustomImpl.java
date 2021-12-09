@@ -31,7 +31,7 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
         List<GroupScheduleResponse> content = queryFactory
             .select(new QGroupScheduleResponse(
                 schedule.id,
-                schedule.author.image,
+                schedule.author.imageUrl,
                 schedule.author.nickname,
                 schedule.title,
                 schedule.isOffline,

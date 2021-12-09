@@ -23,6 +23,7 @@ public class ParticipantRepositoryCustomImpl implements ParticipantRepositoryCus
     public List<ParticipantResponse> findParticipantAndAttendanceRateByGroup(Groups group, Long scheduleCnt) {
         List<ParticipantResponse> responses = queryFactory
             .select(new QParticipantResponse(
+                participant.user.id,
                 participant.user.image,
                 participant.user.nickname,
                 JPAExpressions

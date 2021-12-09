@@ -2,11 +2,19 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 class ScheduleCard extends StatelessWidget {
-  const ScheduleCard({Key? key}) : super(key: key);
+  const ScheduleCard({
+    Key? key,
+    required this.groupId,
+  }) : super(key: key);
+
+  final int groupId;
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +34,22 @@ class ScheduleCard extends StatelessWidget {
                 '다가오는 일정',
                 style: MomoTextStyle.subTitle,
               ),
-              Transform.rotate(
-                angle: pi,
-                child: Icon(
-                  CupertinoIcons.back,
-                  color: MomoColor.black,
-                  size: 24.w,
-                ),
-              ),
+              Consumer(builder: (context, ref, _) {
+                return InkWell(
+                  onTap: () {
+                    ref.read(navigatorProvider).navigateTo(
+                        routeName: AppRoutes.scheduleList, arguments: groupId);
+                  },
+                  child: Transform.rotate(
+                    angle: pi,
+                    child: Icon(
+                      CupertinoIcons.back,
+                      color: MomoColor.black,
+                      size: 24.w,
+                    ),
+                  ),
+                );
+              }),
             ],
           ),
           const SizedBox(height: 16),

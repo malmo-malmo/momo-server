@@ -13,11 +13,13 @@ class GroupDetail with _$GroupDetail {
     String? imageUrl,
     required String introduction,
     required String name,
-    required bool offline,
+    required bool isOffline,
     required bool isParticipant,
     required int participantCnt,
     required String startDate,
     required String university,
+    required bool isEnd,
+    required int recruitmentCnt,
   }) = _GroupDetail;
 
   factory GroupDetail.fromJson(Map<String, dynamic> json) =>

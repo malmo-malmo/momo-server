@@ -14,6 +14,7 @@ final dioProvider = Provider<Dio>((ref) {
       headers: {
         'Authorization': '${tokenData.accessTokenType} ${tokenData.accessToken}'
       },
+      connectTimeout: 5000,
     ),
   );
 
@@ -29,7 +30,7 @@ final dioProvider = Provider<Dio>((ref) {
         RequestOptions options = error.response!.requestOptions;
 
         dp.log('>>>>>>>>>> 토큰재발급 <<<<<<<<<<');
-        dio
+        await dio
             .post('$baseUrl/oauth/login/refresh',
                 data: {'refreshToken': tokenData.refreshToken})
             .then((response) {

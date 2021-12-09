@@ -3,14 +3,37 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:momo/app/model/enum/post_type.dart';
+import 'package:momo/app/model/group/group_info.dart';
+import 'package:momo/app/provider/group/group_provider.dart';
 import 'package:momo/app/routes/custom_arg/post_request_arg.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/group_detail/widget/withdraw_dialog.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget groupDetailBottomSheetUser(int groupId) {
-  return Consumer(builder: (context, ref, _) {
+class UserBottomSheet extends ConsumerStatefulWidget {
+  const UserBottomSheet({
+    Key? key,
+    required this.group,
+  }) : super(key: key);
+
+  final GroupInfo group;
+
+  @override
+  _UserBottomSheetState createState() => _UserBottomSheetState();
+}
+
+class _UserBottomSheetState extends ConsumerState<UserBottomSheet> {
+  final fToast = FToast();
+
+  @override
+  void initState() {
+    super.initState();
+    fToast.init(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(top: 18, left: 16, right: 16),
       height: 154,
@@ -33,7 +56,7 @@ Widget groupDetailBottomSheetUser(int groupId) {
                     routeName: AppRoutes.postRequest,
                     arguments: PostRequestArg(
                       postType: PostType.normal,
-                      groupId: groupId,
+                      groupId: widget.group.id,
                     ),
                   );
               ref.read(navigatorProvider).pop();
@@ -45,24 +68,18 @@ Widget groupDetailBottomSheetUser(int groupId) {
           ),
           InkWell(
             onTap: () async {
+              // ref.read(navigatorProvider).pop();
               final isWithdraw = await showDialog(
                 context: context,
-                builder: (context) {
-                  return withdrawDialog();
-                },
+                builder: (context) => withdrawDialog(widget.group.id),
               );
-              ref.read(navigatorProvider).pop();
-              if (isWithdraw) {
+              if (isWithdraw != null && isWithdraw) {
+                ref
+                    .read(groupStateProvider(widget.group).notifier)
+                    .subParticipantCnt();
+                _showToast('탈퇴되었어요');
                 ref.read(navigatorProvider).pop();
-                Fluttertoast.showToast(
-                  msg: "탈퇴되셨습니다.",
-                  toastLength: Toast.LENGTH_LONG,
-                  gravity: ToastGravity.BOTTOM,
-                  timeInSecForIosWeb: 1,
-                  backgroundColor: MomoColor.main,
-                  textColor: Colors.white,
-                  fontSize: 16.0,
-                );
+                ref.read(navigatorProvider).pop();
               }
             },
             child: sheetTabButtob(
@@ -73,7 +90,31 @@ Widget groupDetailBottomSheetUser(int groupId) {
         ],
       ),
     );
-  });
+  }
+
+  void _showToast(String title) {
+    fToast.showToast(
+      child: Container(
+        width: 320,
+        height: 52,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+          color: MomoColor.black.withOpacity(0.8),
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: MomoTextStyle.small.copyWith(
+              color: MomoColor.white,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ),
+      ),
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 1),
+    );
+  }
 }
 
 Widget sheetTabButtob({

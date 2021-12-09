@@ -1,118 +1,131 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/model/member/member.dart';
+import 'package:momo/app/provider/group/participant_users_provider.dart';
+import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
+import 'package:momo/app/ui/components/status/error_card.dart';
+import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/ui/member_list/widget/admin_dialog.dart';
-import 'package:momo/app/ui/member_list/widget/member_list.dart';
+import 'package:momo/app/ui/member_list/widget/member_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
-class MemberListPage extends StatelessWidget {
-  const MemberListPage({Key? key}) : super(key: key);
+class MemberListPage extends ConsumerWidget {
+  const MemberListPage({
+    Key? key,
+    required this.groupId,
+  }) : super(key: key);
+
+  final int groupId;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final memeberResponse = ref.watch(participantUsersProvider(groupId));
+
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          leading: Consumer(
-            builder: (context, ref, _) {
-              return InkWell(
-                onTap: () {
-                  ref.read(navigatorProvider).pop(result: false);
-                },
-                child: const Icon(
-                  CupertinoIcons.xmark,
-                  color: MomoColor.black,
-                ),
-              );
-            },
-          ),
-          actions: [
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              height: 36,
-              width: 64,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                // color: check ? MomoColor.main : const Color(0xfff0f0f0),
-              ),
-              child: Center(
-                child: Text(
-                  '완료',
-                  style: MomoTextStyle.small.copyWith(
-                      // color: check ? MomoColor.white : MomoColor.unSelIcon,
+      child: memeberResponse.when(
+        error: (error, stackTrace) => errorCard(),
+        loading: () => loadingCard(),
+        data: (data) {
+          final checks = ref.watch(participantCheckProvider(data.length));
+          final checkIndex = ref.watch(isCheckUserProvider(data.length));
+
+          return Scaffold(
+            backgroundColor: MomoColor.backgroundColor,
+            appBar: customAppBar(
+              leadingIcon: CupertinoIcons.xmark,
+              isAction: true,
+              actionWidget: InkWell(
+                onTap: checkIndex != -1
+                    ? () async {
+                        final check = await showDialog(
+                          context: context,
+                          builder: (context) =>
+                              adminDialog(participantUser: data[checkIndex]),
+                        );
+                        if (check) {
+                          ref.read(navigatorProvider).pop(result: true);
+                        }
+                      }
+                    : null,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Container(
+                    height: 36,
+                    width: 64,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: checkIndex != -1
+                          ? MomoColor.main
+                          : const Color(0xfff0f0f0),
+                    ),
+                    child: Center(
+                        child: Text(
+                      '완료',
+                      style: MomoTextStyle.small.copyWith(
+                        color: checkIndex != -1
+                            ? MomoColor.white
+                            : MomoColor.unSelIcon,
                       ),
+                    )),
+                  ),
                 ),
               ),
-            )
-          ],
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text('이름(닉네임)'),
-                  Text('선택'),
-                ],
-              ),
-              const Expanded(
-                child: MemberList(),
-              ),
-              Consumer(builder: (context, ref, _) {
-                return SizedBox(
-                  height: 57,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(32),
-                        ),
-                      ),
-                      backgroundColor: MaterialStateProperty.resolveWith(
-                        (states) {
-                          if (states.contains(MaterialState.disabled)) {
-                            return const Color(0xfff2f2f2);
-                          }
-                          return MomoColor.main;
-                        },
+            ),
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 30, right: 24, left: 24, bottom: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('닉네임', style: MomoTextStyle.defaultStyle),
+                          Text('선택', style: MomoTextStyle.defaultStyle),
+                        ],
                       ),
                     ),
-                    onPressed: () async {
-                      final check = await showDialog(
-                        context: context,
-                        builder: (context) => adminDialog(
-                          member: Member(
-                            id: 1,
-                            name: '김모모',
-                            profile:
-                                'https://t1.daumcdn.net/cfile/blog/999B27505C55A61321',
-                            rate: 90,
+                    Material(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      elevation: 2,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        width: double.infinity,
+                        height: 32 + 72.0 * data.length,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: const Color(0xffffffff),
+                        ),
+                        child: ListView.builder(
+                          itemCount: data.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) => memberCard(
+                            name: data[index].nickname,
+                            profile: data[index].image ??
+                                'https://img.insight.co.kr/static/2019/04/20/700/mev0r133kiy3hx0u4c48.jpg',
+                            rate: data[index].attendanceRate,
+                            check: checks[index],
+                            index: index,
+                            onSelect: ref
+                                .read(
+                                    participantsCheckStateProvider(data.length)
+                                        .notifier)
+                                .check,
                           ),
                         ),
-                      );
-                      if (check) {
-                        ref.read(navigatorProvider).pop(result: true);
-                      }
-                    },
-                    child: Text(
-                      '완료',
-                      style: TextStyle(
-                        fontSize: 16.sp,
                       ),
                     ),
-                  ),
-                );
-              }),
-            ],
-          ),
-        ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

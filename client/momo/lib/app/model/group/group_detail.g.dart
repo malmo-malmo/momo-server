@@ -15,11 +15,13 @@ _$_GroupDetail _$$_GroupDetailFromJson(Map<String, dynamic> json) =>
       imageUrl: json['imageUrl'] as String?,
       introduction: json['introduction'] as String,
       name: json['name'] as String,
-      offline: json['offline'] as bool,
+      isOffline: json['isOffline'] as bool,
       isParticipant: json['isParticipant'] as bool,
       participantCnt: json['participantCnt'] as int,
       startDate: json['startDate'] as String,
       university: json['university'] as String,
+      isEnd: json['isEnd'] as bool,
+      recruitmentCnt: json['recruitmentCnt'] as int,
     );
 
 Map<String, dynamic> _$$_GroupDetailToJson(_$_GroupDetail instance) =>
@@ -31,9 +33,11 @@ Map<String, dynamic> _$$_GroupDetailToJson(_$_GroupDetail instance) =>
       'imageUrl': instance.imageUrl,
       'introduction': instance.introduction,
       'name': instance.name,
-      'offline': instance.offline,
+      'isOffline': instance.isOffline,
       'isParticipant': instance.isParticipant,
       'participantCnt': instance.participantCnt,
       'startDate': instance.startDate,
       'university': instance.university,
+      'isEnd': instance.isEnd,
+      'recruitmentCnt': instance.recruitmentCnt,
     };

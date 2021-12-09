@@ -47,18 +47,19 @@ class GroupDetailPage extends ConsumerWidget {
                       child: InkWell(
                         onTap: () {
                           showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(16),
-                                  topRight: Radius.circular(16),
-                                ),
+                            context: context,
+                            isScrollControlled: true,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(16),
+                                topRight: Radius.circular(16),
                               ),
-                              builder: (context) => userData.id ==
-                                      groupDetail.managerId
-                                  ? groupDetailBottomSheetAdmin(groupDetail.id)
-                                  : groupDetailBottomSheetUser(groupDetail.id));
+                            ),
+                            builder: (context) =>
+                                userData.id == groupDetail.managerId
+                                    ? AdminBottomSheet(groupId: groupDetail.id)
+                                    : UserBottomSheet(group: group),
+                          );
                         },
                         child: SvgPicture.asset(
                             'assets/icon/icon_ooowhite_28.svg'),
@@ -74,7 +75,7 @@ class GroupDetailPage extends ConsumerWidget {
                 SliverToBoxAdapter(
                   child: GroupDetailTitle(
                     title: groupDetail.name,
-                    onOff: groupDetail.offline,
+                    onOff: groupDetail.isOffline,
                     count: groupDetail.participantCnt,
                     startDate: groupDetail.startDate,
                     city: groupDetail.city,

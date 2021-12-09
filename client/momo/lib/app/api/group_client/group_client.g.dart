@@ -173,6 +173,24 @@ class _GroupClient implements GroupClient {
     return value;
   }
 
+  @override
+  Future<List<ParticipantUser>> getParticipantUsers(groupId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'groupId': groupId};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<ParticipantUser>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/group/participants',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => ParticipantUser.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

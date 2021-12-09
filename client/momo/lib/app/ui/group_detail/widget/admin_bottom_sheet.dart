@@ -9,8 +9,29 @@ import 'package:momo/app/ui/group_detail/widget/user_bottom_sheet.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget groupDetailBottomSheetAdmin(int groupId) {
-  return Consumer(builder: (context, ref, _) {
+class AdminBottomSheet extends ConsumerStatefulWidget {
+  const AdminBottomSheet({
+    Key? key,
+    required this.groupId,
+  }) : super(key: key);
+
+  final int groupId;
+
+  @override
+  _AdminBottomSheetState createState() => _AdminBottomSheetState();
+}
+
+class _AdminBottomSheetState extends ConsumerState<AdminBottomSheet> {
+  final fToast = FToast();
+
+  @override
+  void initState() {
+    super.initState();
+    fToast.init(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(top: 18, left: 16, right: 16),
       height: 310,
@@ -32,7 +53,7 @@ Widget groupDetailBottomSheetAdmin(int groupId) {
                     routeName: AppRoutes.postRequest,
                     arguments: PostRequestArg(
                       postType: PostType.normal,
-                      groupId: groupId,
+                      groupId: widget.groupId,
                     ),
                   );
               ref.read(navigatorProvider).pop();
@@ -48,7 +69,7 @@ Widget groupDetailBottomSheetAdmin(int groupId) {
                     routeName: AppRoutes.postRequest,
                     arguments: PostRequestArg(
                       postType: PostType.notice,
-                      groupId: groupId,
+                      groupId: widget.groupId,
                     ),
                   );
               ref.read(navigatorProvider).pop();
@@ -62,7 +83,7 @@ Widget groupDetailBottomSheetAdmin(int groupId) {
             onTap: () async {
               await ref.read(navigatorProvider).navigateTo(
                     routeName: AppRoutes.scheduleRequest,
-                    arguments: groupId,
+                    arguments: widget.groupId,
                   );
               ref.read(navigatorProvider).pop();
             },
@@ -75,18 +96,11 @@ Widget groupDetailBottomSheetAdmin(int groupId) {
             onTap: () async {
               final isTransfer = await ref.read(navigatorProvider).navigateTo(
                     routeName: AppRoutes.memberList,
+                    arguments: widget.groupId,
                   );
-              ref.read(navigatorProvider).pop();
-              if (isTransfer) {
-                Fluttertoast.showToast(
-                  msg: '권한을 넘기셨습니다',
-                  toastLength: Toast.LENGTH_LONG,
-                  gravity: ToastGravity.BOTTOM,
-                  timeInSecForIosWeb: 1,
-                  backgroundColor: MomoColor.main,
-                  textColor: Colors.white,
-                  fontSize: 16.0,
-                );
+              if (isTransfer != null && isTransfer) {
+                ref.read(navigatorProvider).pop();
+                _showToast('권한을 넘겼어요');
               }
             },
             child: sheetTabButtob(
@@ -123,5 +137,29 @@ Widget groupDetailBottomSheetAdmin(int groupId) {
         ],
       ),
     );
-  });
+  }
+
+  void _showToast(String title) {
+    fToast.showToast(
+      child: Container(
+        width: 320,
+        height: 52,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+          color: MomoColor.black.withOpacity(0.8),
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: MomoTextStyle.small.copyWith(
+              color: MomoColor.white,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ),
+      ),
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 1),
+    );
+  }
 }

@@ -25,11 +25,10 @@ class ScheduleListPage extends StatelessWidget {
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              SizedBox(height: 25),
-              ScheduleList(),
+          child: CustomScrollView(
+            slivers: [
+              const SliverToBoxAdapter(child: SizedBox(height: 25)),
+              ScheduleList(groupId: groupId),
             ],
           ),
         ),

@@ -1,24 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/schedule/schedule_detail.dart';
+import 'package:momo/app/provider/user/user_data_provider.dart';
+import 'package:momo/app/repository/schedule_repository.dart';
+import 'package:momo/app/ui/components/status/loading_card.dart';
+import 'package:momo/app/ui/components/status/no_item_card.dart';
+import 'package:momo/app/ui/schedule_list/widget/admin_schedule_card.dart';
 import 'package:momo/app/ui/schedule_list/widget/schedule_card.dart';
+import 'package:momo/app/util/constant.dart';
 
-class ScheduleList extends StatefulWidget {
-  const ScheduleList({Key? key}) : super(key: key);
+class ScheduleList extends ConsumerStatefulWidget {
+  const ScheduleList({
+    Key? key,
+    required this.groupId,
+  }) : super(key: key);
+
+  final int groupId;
 
   @override
-  State<ScheduleList> createState() => _ScheduleListState();
+  ConsumerState<ScheduleList> createState() => _ScheduleListState();
 }
 
-class _ScheduleListState extends State<ScheduleList> {
+class _ScheduleListState extends ConsumerState<ScheduleList> {
+  late int _manageId;
+
   final PagingController<int, ScheduleDetail> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
   void initState() {
-    _pagingController.addPageRequestListener((pageKey) {
-      _fetchPage(pageKey);
-    });
+    _pagingController.addPageRequestListener((pageKey) => _fetchPage(pageKey));
     super.initState();
   }
 
@@ -29,24 +41,14 @@ class _ScheduleListState extends State<ScheduleList> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
+    final repository = ref.watch(scheduleRepositoryProvider);
     try {
-      await Future.delayed(const Duration(seconds: 1));
-      final newItems = List.generate(
-        10,
-        (index) => ScheduleDetail(
-          id: index,
-          title: 'title',
-          contents: 'contents',
-          authorNickname: 'authorNickname',
-          authorImage:
-              'https://pds.joins.com/news/component/htmlphoto_mmdata/202107/08/84e9e4ec-c128-4c88-a727-344e0eb996e3.jpg',
-          startDateTime: 'startDateTime',
-          offline: false,
-          attendanceCheck: false,
-          attend: false,
-        ),
-      );
-      const isLastPage = false;
+      final response =
+          await repository.getSchedules(pageKey++, groupId: widget.groupId);
+      _manageId = response.managerId;
+      final newItems = response.schedules;
+
+      final isLastPage = newItems.length < pageSize;
       if (isLastPage) {
         _pagingController.appendLastPage(newItems);
       } else {
@@ -60,46 +62,39 @@ class _ScheduleListState extends State<ScheduleList> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: PagedListView.separated(
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<ScheduleDetail>(
-            itemBuilder: (context, item, index) {
-          // if (index == 0) {
-          //   return adminScheduleCard(
-          //     postId: item.id,
-          //     profile: item.profile,
-          //     userName: item.name,
-          //     title: item.title,
-          //     text: item.contents,
-          //     date: '2021년 12월 31일 오후 9:00',
-          //     attendance: item.attendance,
-          //     isCheck: true,
-          //   );
-          // } else if (index == 1) {
-          //   return adminScheduleCard(
-          //     postId: item.id,
-          //     profile: item.profile,
-          //     userName: item.name,
-          //     title: item.title,
-          //     text: item.contents,
-          //     date: '2021년 12월 31일 오후 9:00',
-          //     attendance: item.attendance,
-          //     isCheck: false,
-          //   );
-          // }
-          return scheduleCard(
-            postId: item.id,
-            profile: '',
-            userName: '',
-            title: item.title,
-            text: item.contents,
-            date: '2021년 12월 31일 오후 9:00',
-            attendance: item.attend,
-          );
-        }),
-        separatorBuilder: (context, index) => const SizedBox(height: 14),
+    return PagedSliverList.separated(
+      pagingController: _pagingController,
+      builderDelegate: PagedChildBuilderDelegate<ScheduleDetail>(
+        itemBuilder: (context, item, index) {
+          return _manageId == userData.id
+              ? adminScheduleCard(
+                  groupId: widget.groupId,
+                  scheduleId: item.id,
+                  profile: item.authorImage ??
+                      'https://photo.hankooki.com/newsphoto/v001/2021/09/13/kha20210913180225_O_01_C_1.jpg',
+                  nickname: item.authorNickname,
+                  title: item.title,
+                  contents: item.contents,
+                  date: item.startDateTime,
+                  attendance: item.attend,
+                  isCheck: item.attendanceCheck,
+                )
+              : scheduleCard(
+                  scheduleId: item.id,
+                  profile: item.authorImage ??
+                      'https://photo.hankooki.com/newsphoto/v001/2021/09/13/kha20210913180225_O_01_C_1.jpg',
+                  nickname: item.authorNickname,
+                  title: item.title,
+                  contents: item.contents,
+                  date: item.startDateTime,
+                  attendance: item.attend,
+                );
+        },
+        newPageProgressIndicatorBuilder: (context) => loadingCard(),
+        firstPageProgressIndicatorBuilder: (context) => loadingCard(),
+        noItemsFoundIndicatorBuilder: (context) => noItemCard(),
       ),
+      separatorBuilder: (context, index) => const SizedBox(height: 14),
     );
   }
 }

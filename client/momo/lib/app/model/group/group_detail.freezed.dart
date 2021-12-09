@@ -29,11 +29,13 @@ class _$GroupDetailTearOff {
       String? imageUrl,
       required String introduction,
       required String name,
-      required bool offline,
+      required bool isOffline,
       required bool isParticipant,
       required int participantCnt,
       required String startDate,
-      required String university}) {
+      required String university,
+      required bool isEnd,
+      required int recruitmentCnt}) {
     return _GroupDetail(
       id: id,
       managerId: managerId,
@@ -42,11 +44,13 @@ class _$GroupDetailTearOff {
       imageUrl: imageUrl,
       introduction: introduction,
       name: name,
-      offline: offline,
+      isOffline: isOffline,
       isParticipant: isParticipant,
       participantCnt: participantCnt,
       startDate: startDate,
       university: university,
+      isEnd: isEnd,
+      recruitmentCnt: recruitmentCnt,
     );
   }
 
@@ -67,11 +71,13 @@ mixin _$GroupDetail {
   String? get imageUrl => throw _privateConstructorUsedError;
   String get introduction => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  bool get offline => throw _privateConstructorUsedError;
+  bool get isOffline => throw _privateConstructorUsedError;
   bool get isParticipant => throw _privateConstructorUsedError;
   int get participantCnt => throw _privateConstructorUsedError;
   String get startDate => throw _privateConstructorUsedError;
   String get university => throw _privateConstructorUsedError;
+  bool get isEnd => throw _privateConstructorUsedError;
+  int get recruitmentCnt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -92,11 +98,13 @@ abstract class $GroupDetailCopyWith<$Res> {
       String? imageUrl,
       String introduction,
       String name,
-      bool offline,
+      bool isOffline,
       bool isParticipant,
       int participantCnt,
       String startDate,
-      String university});
+      String university,
+      bool isEnd,
+      int recruitmentCnt});
 }
 
 /// @nodoc
@@ -116,11 +124,13 @@ class _$GroupDetailCopyWithImpl<$Res> implements $GroupDetailCopyWith<$Res> {
     Object? imageUrl = freezed,
     Object? introduction = freezed,
     Object? name = freezed,
-    Object? offline = freezed,
+    Object? isOffline = freezed,
     Object? isParticipant = freezed,
     Object? participantCnt = freezed,
     Object? startDate = freezed,
     Object? university = freezed,
+    Object? isEnd = freezed,
+    Object? recruitmentCnt = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -151,9 +161,9 @@ class _$GroupDetailCopyWithImpl<$Res> implements $GroupDetailCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      offline: offline == freezed
-          ? _value.offline
-          : offline // ignore: cast_nullable_to_non_nullable
+      isOffline: isOffline == freezed
+          ? _value.isOffline
+          : isOffline // ignore: cast_nullable_to_non_nullable
               as bool,
       isParticipant: isParticipant == freezed
           ? _value.isParticipant
@@ -171,6 +181,14 @@ class _$GroupDetailCopyWithImpl<$Res> implements $GroupDetailCopyWith<$Res> {
           ? _value.university
           : university // ignore: cast_nullable_to_non_nullable
               as String,
+      isEnd: isEnd == freezed
+          ? _value.isEnd
+          : isEnd // ignore: cast_nullable_to_non_nullable
+              as bool,
+      recruitmentCnt: recruitmentCnt == freezed
+          ? _value.recruitmentCnt
+          : recruitmentCnt // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -190,11 +208,13 @@ abstract class _$GroupDetailCopyWith<$Res>
       String? imageUrl,
       String introduction,
       String name,
-      bool offline,
+      bool isOffline,
       bool isParticipant,
       int participantCnt,
       String startDate,
-      String university});
+      String university,
+      bool isEnd,
+      int recruitmentCnt});
 }
 
 /// @nodoc
@@ -216,11 +236,13 @@ class __$GroupDetailCopyWithImpl<$Res> extends _$GroupDetailCopyWithImpl<$Res>
     Object? imageUrl = freezed,
     Object? introduction = freezed,
     Object? name = freezed,
-    Object? offline = freezed,
+    Object? isOffline = freezed,
     Object? isParticipant = freezed,
     Object? participantCnt = freezed,
     Object? startDate = freezed,
     Object? university = freezed,
+    Object? isEnd = freezed,
+    Object? recruitmentCnt = freezed,
   }) {
     return _then(_GroupDetail(
       id: id == freezed
@@ -251,9 +273,9 @@ class __$GroupDetailCopyWithImpl<$Res> extends _$GroupDetailCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      offline: offline == freezed
-          ? _value.offline
-          : offline // ignore: cast_nullable_to_non_nullable
+      isOffline: isOffline == freezed
+          ? _value.isOffline
+          : isOffline // ignore: cast_nullable_to_non_nullable
               as bool,
       isParticipant: isParticipant == freezed
           ? _value.isParticipant
@@ -271,6 +293,14 @@ class __$GroupDetailCopyWithImpl<$Res> extends _$GroupDetailCopyWithImpl<$Res>
           ? _value.university
           : university // ignore: cast_nullable_to_non_nullable
               as String,
+      isEnd: isEnd == freezed
+          ? _value.isEnd
+          : isEnd // ignore: cast_nullable_to_non_nullable
+              as bool,
+      recruitmentCnt: recruitmentCnt == freezed
+          ? _value.recruitmentCnt
+          : recruitmentCnt // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -286,11 +316,13 @@ class _$_GroupDetail implements _GroupDetail {
       this.imageUrl,
       required this.introduction,
       required this.name,
-      required this.offline,
+      required this.isOffline,
       required this.isParticipant,
       required this.participantCnt,
       required this.startDate,
-      required this.university});
+      required this.university,
+      required this.isEnd,
+      required this.recruitmentCnt});
 
   factory _$_GroupDetail.fromJson(Map<String, dynamic> json) =>
       _$$_GroupDetailFromJson(json);
@@ -310,7 +342,7 @@ class _$_GroupDetail implements _GroupDetail {
   @override
   final String name;
   @override
-  final bool offline;
+  final bool isOffline;
   @override
   final bool isParticipant;
   @override
@@ -319,10 +351,14 @@ class _$_GroupDetail implements _GroupDetail {
   final String startDate;
   @override
   final String university;
+  @override
+  final bool isEnd;
+  @override
+  final int recruitmentCnt;
 
   @override
   String toString() {
-    return 'GroupDetail(id: $id, managerId: $managerId, city: $city, district: $district, imageUrl: $imageUrl, introduction: $introduction, name: $name, offline: $offline, isParticipant: $isParticipant, participantCnt: $participantCnt, startDate: $startDate, university: $university)';
+    return 'GroupDetail(id: $id, managerId: $managerId, city: $city, district: $district, imageUrl: $imageUrl, introduction: $introduction, name: $name, isOffline: $isOffline, isParticipant: $isParticipant, participantCnt: $participantCnt, startDate: $startDate, university: $university, isEnd: $isEnd, recruitmentCnt: $recruitmentCnt)';
   }
 
   @override
@@ -341,7 +377,8 @@ class _$_GroupDetail implements _GroupDetail {
             (identical(other.introduction, introduction) ||
                 other.introduction == introduction) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.offline, offline) || other.offline == offline) &&
+            (identical(other.isOffline, isOffline) ||
+                other.isOffline == isOffline) &&
             (identical(other.isParticipant, isParticipant) ||
                 other.isParticipant == isParticipant) &&
             (identical(other.participantCnt, participantCnt) ||
@@ -349,7 +386,10 @@ class _$_GroupDetail implements _GroupDetail {
             (identical(other.startDate, startDate) ||
                 other.startDate == startDate) &&
             (identical(other.university, university) ||
-                other.university == university));
+                other.university == university) &&
+            (identical(other.isEnd, isEnd) || other.isEnd == isEnd) &&
+            (identical(other.recruitmentCnt, recruitmentCnt) ||
+                other.recruitmentCnt == recruitmentCnt));
   }
 
   @override
@@ -362,11 +402,13 @@ class _$_GroupDetail implements _GroupDetail {
       imageUrl,
       introduction,
       name,
-      offline,
+      isOffline,
       isParticipant,
       participantCnt,
       startDate,
-      university);
+      university,
+      isEnd,
+      recruitmentCnt);
 
   @JsonKey(ignore: true)
   @override
@@ -388,11 +430,13 @@ abstract class _GroupDetail implements GroupDetail {
       String? imageUrl,
       required String introduction,
       required String name,
-      required bool offline,
+      required bool isOffline,
       required bool isParticipant,
       required int participantCnt,
       required String startDate,
-      required String university}) = _$_GroupDetail;
+      required String university,
+      required bool isEnd,
+      required int recruitmentCnt}) = _$_GroupDetail;
 
   factory _GroupDetail.fromJson(Map<String, dynamic> json) =
       _$_GroupDetail.fromJson;
@@ -412,7 +456,7 @@ abstract class _GroupDetail implements GroupDetail {
   @override
   String get name;
   @override
-  bool get offline;
+  bool get isOffline;
   @override
   bool get isParticipant;
   @override
@@ -421,6 +465,10 @@ abstract class _GroupDetail implements GroupDetail {
   String get startDate;
   @override
   String get university;
+  @override
+  bool get isEnd;
+  @override
+  int get recruitmentCnt;
   @override
   @JsonKey(ignore: true)
   _$GroupDetailCopyWith<_GroupDetail> get copyWith =>

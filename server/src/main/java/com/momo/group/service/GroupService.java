@@ -69,12 +69,18 @@ public class GroupService {
             .findAllByCategoriesOrderByCreatedDateDesc(user.getCategories(), PageRequest.of(page, size));
     }
 
-    public void handOverAuthorityByUserId(User user, Long groupId, Long userId) {
+    public void updateManagerByUserId(User user, Long groupId, Long userId) {
         Groups group = getGroupById(groupId);
-        validateNotGroupManager(group, user);
+        validateGroupManager(group, user);
         User participant = getUserById(userId);
         validateGroupParticipant(participant, group);
-        group.handOverAuthorityToUser(participant);
+        group.updateManager(participant);
+    }
+
+    public void endGroupById(User user, Long groupId) {
+        Groups group = getGroupById(groupId);
+        validateGroupManager(group, user);
+        group.endGroup();
     }
 
     public Groups getGroupById(Long groupId) {
@@ -87,9 +93,9 @@ public class GroupService {
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
-    public void validateNotGroupManager(Groups group, User user) {
+    public void validateGroupManager(Groups group, User user) {
         if (group.isNotManager(user)) {
-            throw new CustomException(ErrorCode.GROUP_AUTHORITY_HAND_OVER_UNAUTHORIZED);
+            throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
         }
     }
 

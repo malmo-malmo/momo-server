@@ -31,10 +31,10 @@ public class GroupAcceptanceStep {
             () -> assertThat(response.getUniversity()).isEqualTo(university),
             () -> assertThat(response.getCity()).isEqualTo(request.getCity()),
             () -> assertThat(response.getDistrict()).isEqualTo(request.getDistrict()),
-            () -> assertThat(response.isOffline()).isEqualTo(request.getIsOffline()),
+            () -> assertThat(response.getIsOffline()).isEqualTo(request.getIsOffline()),
             () -> assertThat(response.getIntroduction()).isEqualTo(request.getIntroduction()),
             () -> assertThat(response.getRecruitmentCnt()).isEqualTo(request.getRecruitmentCnt()),
-            () -> assertThat(response.isEnd()).isFalse(),
+            () -> assertThat(response.getIsEnd()).isFalse(),
             () -> assertThat(response.getParticipantCnt()).isEqualTo(1L),
             () -> assertThat(response.getIsParticipant()).isEqualTo(isParticipant)
         );
@@ -42,6 +42,10 @@ public class GroupAcceptanceStep {
 
     public static void assertThatFindCategory(List<EnumResponse> responses) {
         assertThat(EnumResponse.listOfCategory().size()).isEqualTo(responses.size());
+    }
+
+    public static void assertThatEndGroup(GroupResponse response) {
+        assertThat(response.getIsEnd()).isTrue();
     }
 
     public static ExtractableResponse<Response> requestToCreateGroup(String token,
@@ -131,13 +135,23 @@ public class GroupAcceptanceStep {
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToHandOverAuthority(String token, Long groupId, Long userId) {
+    public static ExtractableResponse<Response> requestToUpdateManager(String token, Long groupId, Long userId) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .pathParam("id", groupId)
             .pathParam("userId", userId)
             .when()
-            .patch("api/group/{id}/authority/{userId}")
+            .patch("api/group/{id}/manager/{userId}")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> requestToEndGroup(String token, Long groupId) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .pathParam("id", groupId)
+            .when()
+            .patch("api/group/{id}/end")
             .then().log().all()
             .extract();
     }

@@ -52,10 +52,8 @@ public class Groups extends BaseEntity {
 
     private int recruitmentCnt;
 
-    @Column(name = "offline_flag")
     private boolean isOffline;
 
-    @Column(name = "end_flag")
     private boolean isEnd;
 
     @Builder
@@ -99,10 +97,14 @@ public class Groups extends BaseEntity {
     }
 
     public boolean isNotManager(User user) {
-        return !user.isSameUser(manager);
+        return user.isNotSameUser(manager);
     }
 
-    public void handOverAuthorityToUser(User user) {
+    public void updateManager(User user) {
         this.manager = user;
+    }
+
+    public void endGroup() {
+        this.isEnd = true;
     }
 }

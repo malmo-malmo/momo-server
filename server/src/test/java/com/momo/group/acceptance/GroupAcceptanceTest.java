@@ -1,5 +1,9 @@
 package com.momo.group.acceptance;
 
+import static com.momo.common.acceptance.step.AcceptanceStep.assertThatCustomException;
+import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsCreated;
+import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
+import static com.momo.common.exception.ErrorCode.GROUP_MANAGER_AUTHORIZED;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST1;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST2;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST3;
@@ -7,23 +11,24 @@ import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST4;
 import static com.momo.fixture.UserFixture.USER1;
 import static com.momo.fixture.UserFixture.USER2;
 import static com.momo.fixture.UserFixture.USER3;
+import static com.momo.group.acceptance.step.GroupAcceptanceStep.assertThatEndGroup;
+import static com.momo.group.acceptance.step.GroupAcceptanceStep.assertThatFindCategory;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.assertThatFindGroup;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
+import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToEndGroup;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindCategories;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroup;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsByCategories;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsByDistrict;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsBySearchCondition;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsByUserUniversity;
-import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToHandOverAuthority;
+import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToUpdateManager;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToApplyParticipant;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindMyInformation;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.acceptance.AcceptanceTest;
-import com.momo.common.acceptance.step.AcceptanceStep;
 import com.momo.common.dto.EnumResponse;
-import com.momo.group.acceptance.step.GroupAcceptanceStep;
 import com.momo.group.controller.dto.GroupCardResponse;
 import com.momo.group.controller.dto.GroupResponse;
 import com.momo.group.controller.dto.GroupSearchConditionRequest;
@@ -41,7 +46,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
     void 모임을_생성한다() {
         String token = getAccessToken(USER1);
         ExtractableResponse<Response> response = requestToCreateGroup(token, GROUP_CREATE_REQUEST1);
-        AcceptanceStep.assertThatStatusIsCreated(response);
+        assertThatStatusIsCreated(response);
     }
 
     @Test
@@ -50,7 +55,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         ExtractableResponse<Response> response = requestToFindGroup(token, groupId);
         GroupResponse groupResponse = getObject(response, GroupResponse.class);
-        AcceptanceStep.assertThatStatusIsOk(response);
+        assertThatStatusIsOk(response);
         assertThatFindGroup(GROUP_CREATE_REQUEST1, groupResponse, true, USER1.getUniversity());
     }
 
@@ -59,7 +64,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
         Long groupId = extractId(requestToCreateGroup(getAccessToken(USER1), GROUP_CREATE_REQUEST1));
         ExtractableResponse<Response> response = requestToFindGroup(getAccessToken(USER2), groupId);
         GroupResponse groupResponse = getObject(response, GroupResponse.class);
-        AcceptanceStep.assertThatStatusIsOk(response);
+        assertThatStatusIsOk(response);
         assertThatFindGroup(GROUP_CREATE_REQUEST1, groupResponse, false, USER1.getUniversity());
     }
 
@@ -77,7 +82,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
             .build();
         ExtractableResponse<Response> response = requestToFindGroupsBySearchCondition(getAccessToken(USER1), request);
         List<GroupCardResponse> groupCardResponses = getObjects(response, GroupCardResponse.class);
-        AcceptanceStep.assertThatStatusIsOk(response);
+        assertThatStatusIsOk(response);
         assertThat(groupCardResponses.size()).isEqualTo(3);
     }
 
@@ -91,7 +96,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
             .build();
         ExtractableResponse<Response> response = requestToFindGroupsBySearchCondition(getAccessToken(USER1), request);
         List<GroupCardResponse> groupCardResponses = getObjects(response, GroupCardResponse.class);
-        AcceptanceStep.assertThatStatusIsOk(response);
+        assertThatStatusIsOk(response);
         assertThat(groupCardResponses.size()).isEqualTo(2);
     }
 
@@ -102,7 +107,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
         requestToCreateGroup(getAccessToken(USER3), GROUP_CREATE_REQUEST3); //다른 학교 모임
         ExtractableResponse<Response> response = requestToFindGroupsByUserUniversity(getAccessToken(USER1));
         List<GroupCardResponse> groupCardResponses = getObjects(response, GroupCardResponse.class);
-        AcceptanceStep.assertThatStatusIsOk(response);
+        assertThatStatusIsOk(response);
         assertThat(groupCardResponses.size()).isEqualTo(1);
     }
 
@@ -113,7 +118,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
         requestToCreateGroup(getAccessToken(USER3), GROUP_CREATE_REQUEST3); //다른 지역 모임
         ExtractableResponse<Response> response = requestToFindGroupsByDistrict(getAccessToken(USER1));
         List<GroupCardResponse> groupCardResponses = getObjects(response, GroupCardResponse.class);
-        AcceptanceStep.assertThatStatusIsOk(response);
+        assertThatStatusIsOk(response);
         assertThat(groupCardResponses.size()).isEqualTo(2);
     }
 
@@ -124,7 +129,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
         requestToCreateGroup(getAccessToken(USER3), GROUP_CREATE_REQUEST3); //관심 카테고리 모임 O
         ExtractableResponse<Response> response = requestToFindGroupsByCategories(getAccessToken(USER1));
         List<GroupCardResponse> groupCardResponses = getObjects(response, GroupCardResponse.class);
-        AcceptanceStep.assertThatStatusIsOk(response);
+        assertThatStatusIsOk(response);
         assertThat(groupCardResponses.size()).isEqualTo(3);
     }
 
@@ -132,8 +137,8 @@ public class GroupAcceptanceTest extends AcceptanceTest {
     void 모임_카테고리_목록을_조회한다() {
         String token = getAccessToken(USER1);
         ExtractableResponse<Response> response = requestToFindCategories(token);
-        AcceptanceStep.assertThatStatusIsOk(response);
-        GroupAcceptanceStep.assertThatFindCategory(getObjects(response, EnumResponse.class));
+        assertThatStatusIsOk(response);
+        assertThatFindCategory(getObjects(response, EnumResponse.class));
     }
 
     @Test
@@ -143,8 +148,8 @@ public class GroupAcceptanceTest extends AcceptanceTest {
         Long participantId = getObject(requestToFindMyInformation(participantToken), UserResponse.class).getId();
         Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));
         requestToApplyParticipant(participantToken, groupId);
-        ExtractableResponse<Response> response = requestToHandOverAuthority(managerToken, groupId, participantId);
-        AcceptanceStep.assertThatStatusIsOk(response);
+        ExtractableResponse<Response> response = requestToUpdateManager(managerToken, groupId, participantId);
+        assertThatStatusIsOk(response);
     }
 
     @Test
@@ -153,7 +158,26 @@ public class GroupAcceptanceTest extends AcceptanceTest {
         String participantToken = getAccessToken(USER2);
         Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));
         requestToApplyParticipant(participantToken, groupId);
-        ExtractableResponse<Response> response = requestToHandOverAuthority(participantToken, groupId, 1L);
-        AcceptanceStep.assertThatErrorIsHandOverUnAuthorized(response);
+        ExtractableResponse<Response> response = requestToUpdateManager(participantToken, groupId, 1L);
+        assertThatCustomException(response, GROUP_MANAGER_AUTHORIZED);
+    }
+
+    @Test
+    void 모임장이_모임을_종료한다() {
+        String token = getAccessToken(USER1);
+        Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
+        ExtractableResponse<Response> response = requestToEndGroup(token, groupId);
+        assertThatStatusIsOk(response);
+        GroupResponse groupResponse = getObject(requestToFindGroup(token, groupId), GroupResponse.class);
+        assertThatEndGroup(groupResponse);
+    }
+
+    @Test
+    void 모임장이_아닌_유저가_모임을_종료하면_실패한다() {
+        String managerToken = getAccessToken(USER1);
+        String participantToken = getAccessToken(USER2);
+        Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));
+        ExtractableResponse<Response> response = requestToEndGroup(participantToken, groupId);
+        assertThatCustomException(response, GROUP_MANAGER_AUTHORIZED);
     }
 }

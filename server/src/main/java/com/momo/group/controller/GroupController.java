@@ -86,10 +86,17 @@ public class GroupController {
     }
 
     @ApiOperation(value = "모임장 권한 양도")
-    @PatchMapping("/group/{id}/authority/{userId}")
-    public ResponseEntity<Void> handOverAuthorityByUser(@CurrentUser User user, @PathVariable Long id,
+    @PatchMapping("/group/{id}/manager/{userId}")
+    public ResponseEntity<Void> updateManagerByUserId(@CurrentUser User user, @PathVariable Long id,
         @PathVariable Long userId) {
-        groupService.handOverAuthorityByUserId(user, id, userId);
+        groupService.updateManagerByUserId(user, id, userId);
+        return ResponseEntity.ok().build();
+    }
+
+    @ApiOperation(value = "모임 종료")
+    @PatchMapping("/group/{id}/end")
+    public ResponseEntity<Void> endGroupById(@CurrentUser User user, @PathVariable Long id) {
+        groupService.endGroupById(user, id);
         return ResponseEntity.ok().build();
     }
 }

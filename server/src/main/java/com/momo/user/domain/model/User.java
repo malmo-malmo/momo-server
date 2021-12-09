@@ -23,6 +23,8 @@ import org.apache.commons.lang3.StringUtils;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseEntity {
 
+    private final static String CATEGORY_SEPARATOR = ",";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -78,6 +80,10 @@ public class User extends BaseEntity {
         return id.equals(user.getId());
     }
 
+    public boolean isNotSameUser(User user) {
+        return !id.equals(user.getId());
+    }
+
     public void update(User user) {
         this.nickname = user.getNickname();
         this.city = user.getCity();
@@ -91,7 +97,7 @@ public class User extends BaseEntity {
 
     public List<Category> getCategories() {
         return Category.listOf(
-            Arrays.asList(StringUtils.split(this.categories, ","))
+            Arrays.asList(StringUtils.split(this.categories, CATEGORY_SEPARATOR))
         );
     }
 }

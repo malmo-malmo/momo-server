@@ -1,5 +1,7 @@
 package com.momo.schedule.acceptance;
 
+import static com.momo.common.acceptance.step.AcceptanceStep.assertThatCustomException;
+import static com.momo.common.exception.ErrorCode.GROUP_MANAGER_AUTHORIZED;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST1;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST2;
 import static com.momo.fixture.ScheduleFixture.SCHEDULE_CREATE_REQUEST1;
@@ -15,6 +17,7 @@ import static com.momo.schedule.acceptance.step.ScheduleAcceptanceStep.requestTo
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
+import com.momo.common.exception.ErrorCode;
 import com.momo.schedule.controller.dto.GroupSchedulesResponse;
 import com.momo.schedule.controller.dto.UserScheduleResponse;
 import io.restassured.response.ExtractableResponse;
@@ -40,7 +43,7 @@ public class ScheduleAcceptanceTest extends AcceptanceTest {
         String invalidToken = getAccessToken(USER2);
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         ExtractableResponse<Response> res = requestToCreateSchedule(invalidToken, SCHEDULE_CREATE_REQUEST1, groupId);
-        AcceptanceStep.assertThatErrorIsScheduleUnAuthorized(res);
+        assertThatCustomException(res, GROUP_MANAGER_AUTHORIZED);
     }
 
     //TODO : 출석체크 기능 개발 후 출석 여부를 확인해야한다.

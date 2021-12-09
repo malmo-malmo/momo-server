@@ -1,5 +1,7 @@
 package com.momo.group.acceptance;
 
+import static com.momo.common.acceptance.step.AcceptanceStep.assertThatCustomException;
+import static com.momo.common.exception.ErrorCode.GROUP_MANAGER_WITHDRAW_NOT_ALLOW;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST1;
 import static com.momo.fixture.UserFixture.USER1;
 import static com.momo.fixture.UserFixture.USER2;
@@ -11,6 +13,7 @@ import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestTo
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
+import com.momo.common.exception.ErrorCode;
 import com.momo.group.controller.dto.ParticipantResponse;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -23,7 +26,7 @@ public class ParticipantAcceptanceTest extends AcceptanceTest {
 
     //TODO : 출석체크 기능 완료되면 유저별 출석한 일정 수, 모임 일정 수를 확인하는 테스트 코드 필요
     @Test
-    public void 모임_관리자가_참여자를_조회한다() {
+    public void 모임_관리자가_참여자_목록을_조회한다() {
         String managerToken = getAccessToken(USER1);
         String participantToken = getAccessToken(USER2);
         Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));
@@ -33,13 +36,13 @@ public class ParticipantAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 모임_관리자가_아닌_유저가_참여자를_조회하면_실패한다() {
+    public void 모임_관리자가_아닌_유저가_참여자_목록을_조회하면_실패한다() {
         String managerToken = getAccessToken(USER1);
         String participantToken = getAccessToken(USER2);
         Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));
         requestToApplyParticipant(participantToken, groupId);
         ExtractableResponse<Response> response = requestToFindParticipants(participantToken, groupId);
-        AcceptanceStep.assertThatErrorIsParticipantsUnAuthorized(response);
+        assertThatCustomException(response, ErrorCode.GROUP_PARTICIPANTS_UNAUTHORIZED);
     }
 
     @Test
@@ -60,6 +63,6 @@ public class ParticipantAcceptanceTest extends AcceptanceTest {
         String managerToken = getAccessToken(USER1);
         Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));
         ExtractableResponse<Response> response = requestToDeleteParticipant(managerToken, groupId);
-        AcceptanceStep.assertThatErrorIsDeleteManager(response);
+        assertThatCustomException(response, GROUP_MANAGER_WITHDRAW_NOT_ALLOW);
     }
 }

@@ -26,38 +26,7 @@ public class AcceptanceStep {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
 
-    public static void assertThatErrorIsInvalidRefreshToken(ExtractableResponse<Response> response) {
-        assertThat(response.body().as(ErrorResponse.class).getMessage()).isEqualTo(
-            ErrorCode.INVALID_REFRESH_TOKEN.getMessage());
-    }
-
-    public static void assertThatErrorIsParticipantUnAuthorized(ExtractableResponse<Response> response) {
-        assertThat(response.body().as(ErrorResponse.class).getMessage()).isEqualTo(
-            ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED.getMessage());
-    }
-
-    public static void assertThatErrorIsNoticeUnAuthorized(ExtractableResponse<Response> response) {
-        assertThat(response.body().as(ErrorResponse.class).getMessage()).isEqualTo(
-            ErrorCode.GROUP_NOTICE_UNAUTHORIZED.getMessage());
-    }
-
-    public static void assertThatErrorIsScheduleUnAuthorized(ExtractableResponse<Response> response) {
-        assertThat(response.body().as(ErrorResponse.class).getMessage()).isEqualTo(
-            ErrorCode.GROUP_SCHEDULE_UNAUTHORIZED.getMessage());
-    }
-
-    public static void assertThatErrorIsParticipantsUnAuthorized(ExtractableResponse<Response> response) {
-        assertThat(response.body().as(ErrorResponse.class).getMessage()).isEqualTo(
-            ErrorCode.GROUP_PARTICIPANTS_UNAUTHORIZED.getMessage());
-    }
-
-    public static void assertThatErrorIsHandOverUnAuthorized(ExtractableResponse<Response> response) {
-        assertThat(response.body().as(ErrorResponse.class).getMessage()).isEqualTo(
-            ErrorCode.GROUP_AUTHORITY_HAND_OVER_UNAUTHORIZED.getMessage());
-    }
-
-    public static void assertThatErrorIsDeleteManager(ExtractableResponse<Response> response) {
-        assertThat(response.body().as(ErrorResponse.class).getMessage()).isEqualTo(
-            ErrorCode.GROUP_MANAGER_WITHDRAW_NOT_ALLOW.getMessage());
+    public static void assertThatCustomException(ExtractableResponse<Response> response, ErrorCode errorCode) {
+        assertThat(response.body().as(ErrorResponse.class).getMessage()).isEqualTo(errorCode.getMessage());
     }
 }

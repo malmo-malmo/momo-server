@@ -90,9 +90,6 @@ public class User extends BaseEntity {
     }
 
     public List<Category> getCategories() {
-        if (Objects.isNull(categories)) {
-            return null;
-        }
         return Category.listOf(
             Arrays.asList(StringUtils.split(this.categories, ","))
         );

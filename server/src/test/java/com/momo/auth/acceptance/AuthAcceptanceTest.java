@@ -1,8 +1,10 @@
-package com.momo.auth;
+package com.momo.auth.acceptance;
 
-import static com.momo.auth.step.AuthAcceptanceStep.assertThatRefreshLogin;
-import static com.momo.auth.step.AuthAcceptanceStep.requestToRefreshLogin;
+import static com.momo.auth.acceptance.step.AuthAcceptanceStep.assertThatRefreshLogin;
+import static com.momo.auth.acceptance.step.AuthAcceptanceStep.requestToRefreshLogin;
+import static com.momo.fixture.UserFixture.USER1;
 
+import com.momo.auth.TokenProvider;
 import com.momo.auth.controller.dto.OAuthLoginResponse;
 import com.momo.auth.controller.dto.RefreshLoginRequest;
 import com.momo.common.acceptance.AcceptanceTest;
@@ -28,10 +30,7 @@ public class AuthAcceptanceTest extends AcceptanceTest {
     @BeforeEach
     public void setUp() {
         super.setUp();
-        User user = User.builder()
-            .providerId("1")
-            .build();
-        User savedUser = userRepository.save(user);
+        User savedUser = userRepository.save(USER1);
         refreshToken = tokenProvider.createRefreshToken(savedUser);
         savedUser.updateRefreshToken(refreshToken);
         userRepository.save(savedUser);

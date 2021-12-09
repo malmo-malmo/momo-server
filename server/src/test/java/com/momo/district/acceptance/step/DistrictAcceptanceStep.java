@@ -1,4 +1,4 @@
-package com.momo.district.step;
+package com.momo.district.acceptance.step;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;

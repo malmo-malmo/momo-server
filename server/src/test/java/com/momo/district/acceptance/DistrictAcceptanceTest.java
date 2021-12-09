@@ -1,9 +1,9 @@
-package com.momo.district;
+package com.momo.district.acceptance;
 
-import static com.momo.district.step.DistrictAcceptanceStep.assertThatFindCities;
-import static com.momo.district.step.DistrictAcceptanceStep.assertThatFindDistricts;
-import static com.momo.district.step.DistrictAcceptanceStep.requestToFindCities;
-import static com.momo.district.step.DistrictAcceptanceStep.requestToFindDistricts;
+import static com.momo.district.acceptance.step.DistrictAcceptanceStep.assertThatFindCities;
+import static com.momo.district.acceptance.step.DistrictAcceptanceStep.assertThatFindDistricts;
+import static com.momo.district.acceptance.step.DistrictAcceptanceStep.requestToFindCities;
+import static com.momo.district.acceptance.step.DistrictAcceptanceStep.requestToFindDistricts;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;

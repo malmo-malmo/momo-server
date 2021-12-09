@@ -7,7 +7,7 @@ import 'package:momo/app/ui/components/text/member_date_row.dart';
 import 'package:momo/app/util/theme.dart';
 
 class GroupDetailTitle extends StatelessWidget {
-  GroupDetailTitle({
+  const GroupDetailTitle({
     Key? key,
     required this.onOff,
     required this.title,
@@ -26,7 +26,7 @@ class GroupDetailTitle extends StatelessWidget {
   final String city;
   final String district;
   final String university;
-  String? img;
+  final String? img;
 
   @override
   Widget build(BuildContext context) {

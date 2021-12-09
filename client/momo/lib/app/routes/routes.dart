@@ -130,8 +130,9 @@ class AppRouter {
         );
 
       case AppRoutes.memberList:
+        final arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => const MemberListPage(),
+          builder: (_) => MemberListPage(groupId: arg),
         );
 
       case AppRoutes.scheduleList:

@@ -39,7 +39,7 @@ class GroupRequestState extends StateNotifier<GroupRequest> {
           GroupRequest(
             name: '',
             category: '',
-            city: 'SEOUL',
+            city: '서울특별시',
             district: '강남구',
             imageUrl: '',
             introduction: '',
@@ -59,12 +59,12 @@ class GroupRequestState extends StateNotifier<GroupRequest> {
 
   void setCity(String city) => state = state.copyWith(
       city:
-          cityCodeNamePair.where((element) => element.name == city).first.code);
+          cityCodeNamePair.where((element) => element.name == city).first.name);
 
   String get userCity => cityCodeNamePair
-      .where((element) => element.code == state.city)
+      .where((element) => element.name == state.city)
       .first
-      .name;
+      .code;
 
   void setOnOff(bool isOffline) => state = state.copyWith(isOffline: isOffline);
 

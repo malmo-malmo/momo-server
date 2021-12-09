@@ -57,7 +57,7 @@ class GroupDetailPage extends ConsumerWidget {
                               ),
                               builder: (context) => userData.id ==
                                       groupDetail.managerId
-                                  ? groupDetailBottomSheetAdmin(groupDetail.id)
+                                  ? AdminBottomSheet(groupId: groupDetail.id)
                                   : groupDetailBottomSheetUser(groupDetail.id));
                         },
                         child: SvgPicture.asset(
@@ -74,7 +74,7 @@ class GroupDetailPage extends ConsumerWidget {
                 SliverToBoxAdapter(
                   child: GroupDetailTitle(
                     title: groupDetail.name,
-                    onOff: groupDetail.offline,
+                    onOff: groupDetail.isOffline,
                     count: groupDetail.participantCnt,
                     startDate: groupDetail.startDate,
                     city: groupDetail.city,

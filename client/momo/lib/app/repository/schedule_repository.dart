@@ -1,3 +1,5 @@
+import 'dart:developer' as dp;
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/api/api_provider.dart';
 import 'package:momo/app/api/schedule_client/schedule_client.dart';
@@ -35,7 +37,7 @@ class ScheduleRepository {
       String searchStartDate, String searchEndDate) async {
     final response =
         await scheduleClient.getUserSchedules(searchStartDate, searchEndDate);
-    // return response;
+    dp.log('$response');
 
     //  테스트 일정
     return List.generate(

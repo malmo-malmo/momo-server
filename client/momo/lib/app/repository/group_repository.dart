@@ -5,6 +5,7 @@ import 'package:momo/app/model/common/code_name_pair.dart';
 import 'package:momo/app/model/group/group_detail.dart';
 import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/model/group/group_request.dart';
+import 'package:momo/app/model/user/participant_user.dart';
 import 'package:momo/app/util/constant.dart';
 
 final groupRepositoryProvider = Provider<GroupRepository>((ref) {
@@ -61,6 +62,11 @@ class GroupRepository {
   }) async {
     final response =
         await groupClient.getGroupsBySearch(page, pageSize, categories, cities);
+    return response;
+  }
+
+  Future<List<ParticipantUser>> getParticipantUsers(int groupId) async {
+    final response = await groupClient.getParticipantUsers(groupId);
     return response;
   }
 }

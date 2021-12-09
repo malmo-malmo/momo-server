@@ -3,6 +3,7 @@ import 'package:momo/app/model/common/code_name_pair.dart';
 import 'package:momo/app/model/group/group_detail.dart';
 import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/model/group/group_request.dart';
+import 'package:momo/app/model/user/participant_user.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'group_client.g.dart';
@@ -54,4 +55,8 @@ abstract class GroupClient {
 
   @DELETE('/group/participant/{groupId}')
   Future<dynamic> withdrawalGroup(@Path() int groupId);
+
+  @GET('/group/participants')
+  Future<List<ParticipantUser>> getParticipantUsers(
+      @Query('groupId') int groupId);
 }

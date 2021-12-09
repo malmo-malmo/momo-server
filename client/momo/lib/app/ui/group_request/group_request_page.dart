@@ -111,9 +111,7 @@ class GroupRequestPage extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         cityInputBox(
-                          city: ref
-                              .watch(groupRequestStateProvider.notifier)
-                              .userCity,
+                          city: groupRequest.city,
                           setCity: ref
                               .watch(groupRequestStateProvider.notifier)
                               .setCity,
@@ -121,7 +119,9 @@ class GroupRequestPage extends ConsumerWidget {
                         ),
                         districtBox(
                           district: groupRequest.district,
-                          cityCode: groupRequest.city,
+                          cityCode: ref
+                              .watch(groupRequestStateProvider.notifier)
+                              .userCity,
                           setDistrict: ref
                               .watch(groupRequestStateProvider.notifier)
                               .setDistrict,

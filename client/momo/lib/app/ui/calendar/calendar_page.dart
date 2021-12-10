@@ -7,6 +7,7 @@ import 'package:momo/app/provider/bottom_index_provider.dart';
 import 'package:momo/app/provider/calendar/day_provider.dart';
 import 'package:momo/app/provider/calendar/scroll_state_provider.dart';
 import 'package:momo/app/provider/schedule/calendar_schedule_provider.dart';
+import 'package:momo/app/provider/schedule/schedule_event_provider.dart';
 import 'package:momo/app/ui/calendar/widget/time_line_card.dart';
 import 'package:momo/app/ui/components/calendar_style/calendar_header_style.dart';
 import 'package:momo/app/ui/components/calendar_style/momo_default_builder.dart';
@@ -57,6 +58,7 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
     final calFormat = ref.watch(calendarFormatProvder);
     final requestDate = ref.watch(calendarTodayProvider);
     final scheduleResponse = ref.watch(calendarScheduleProvider(requestDate));
+    final scheduleEvent = ref.watch(scheduleEventProvider);
 
     return Column(
       children: [
@@ -89,10 +91,13 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
             onDaySelected: (selDay, foDay) =>
                 ref.read(selectdDayProvider.state).state = selDay,
             eventLoader: (date) {
-              if (date.weekday == DateTime.monday) {
-                return ['1'];
+              for (int i = 0; i < scheduleEvent.length; i++) {
+                if (scheduleEvent[i].year == date.year &&
+                    scheduleEvent[i].month == date.month &&
+                    scheduleEvent[i].day == date.day) {
+                  return ['event'];
+                }
               }
-
               return [];
             },
             selectedDayPredicate: (date) => selectedDay == date,
@@ -129,8 +134,11 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
           child: scheduleResponse.when(
             error: (error, stacktrace) => errorCard(),
             loading: () => loadingCard(),
-            data: (schedules) {
-              if (schedules.isEmpty) {
+            data: (scheduleData) {
+              // ref
+              //     .watch(scheduleEventStateProvider.notifier)
+              //     .changeEvent(scheduleData.dateTimes);
+              if (scheduleData.schedules.isEmpty) {
                 return noItemCard();
               }
               return Padding(
@@ -139,9 +147,9 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
                       CustomScrollView(controller: _scrollController, slivers: [
                     SliverList(
                         delegate: SliverChildListDelegate(List.generate(
-                            schedules.length,
-                            (index) =>
-                                TimeLineCard(schedules: schedules[index]))))
+                            scheduleData.schedules.length,
+                            (index) => TimeLineCard(
+                                schedules: scheduleData.schedules[index]))))
                   ]));
             },
           ),

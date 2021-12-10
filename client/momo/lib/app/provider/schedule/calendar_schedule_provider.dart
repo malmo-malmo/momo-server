@@ -5,7 +5,8 @@ import 'package:momo/app/repository/schedule_repository.dart';
 import 'package:momo/app/util/format/schedule_request_date_format.dart';
 
 final calendarScheduleProvider = FutureProvider.family
-    .autoDispose<List<List<CalendarSchedule>>, DateTime>((ref, dateTime) async {
+    .autoDispose<CalendarScheduleResponseCustom, DateTime>(
+        (ref, dateTime) async {
   final repository = ref.watch(scheduleRepositoryProvider);
   final schedules = await repository.getUserSchedules(
     calSearchStartDay(dateTime.year, dateTime.month),
@@ -33,5 +34,18 @@ final calendarScheduleProvider = FutureProvider.family
     scheduleLists.add(tmp);
   }
 
-  return scheduleLists;
+  return CalendarScheduleResponseCustom(
+    dateTimes: dates.map((e) => DateTime.parse(e)).toList(),
+    schedules: scheduleLists,
+  );
 });
+
+class CalendarScheduleResponseCustom {
+  final List<DateTime> dateTimes;
+  final List<List<CalendarSchedule>> schedules;
+
+  CalendarScheduleResponseCustom({
+    required this.dateTimes,
+    required this.schedules,
+  });
+}

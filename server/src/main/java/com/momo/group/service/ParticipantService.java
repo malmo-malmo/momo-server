@@ -7,7 +7,6 @@ import com.momo.group.domain.model.Groups;
 import com.momo.group.domain.model.Participant;
 import com.momo.group.domain.repository.GroupRepository;
 import com.momo.group.domain.repository.ParticipantRepository;
-import com.momo.schedule.domain.repository.ScheduleRepository;
 import com.momo.user.domain.model.User;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -23,14 +22,17 @@ public class ParticipantService {
 
     private final GroupRepository groupRepository;
 
-    private final ScheduleRepository scheduleRepository;
-
     @Transactional(readOnly = true)
     public List<ParticipantResponse> findByGroupId(User user, Long groupId) {
         Groups group = getGroupById(groupId);
         validateNotGroupManager(group, user);
-        Long scheduleCnt = scheduleRepository.countByGroupAndAttendanceCheck(group, true);
-        return participantRepository.findParticipantAndAttendanceRateByGroup(group, scheduleCnt);
+        List<Participant> participants = participantRepository.findAllByGroup(group);
+
+        for (Participant participant : participants) {
+            participant.calculateAttendanceRate();
+        }
+
+        return ParticipantResponse.listOf(participants);
     }
 
     public void validateNotGroupManager(Groups group, User user) {

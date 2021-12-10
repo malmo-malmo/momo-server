@@ -7,6 +7,8 @@ Widget schedulePageView({
 }) {
   // 3개씩 일정 분리
   final sepSchedules = [];
+
+  //  3개씩 잘라서 넣기
   for (; schedules.length >= 3;) {
     sepSchedules.add(schedules.sublist(0, 3));
     schedules.removeRange(0, 3);

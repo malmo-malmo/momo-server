@@ -13,7 +13,7 @@ import 'package:momo/app/util/theme.dart';
 
 Widget scheduleCard({required CalendarSchedule schedule}) {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+    padding: const EdgeInsets.symmetric(horizontal: 24),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

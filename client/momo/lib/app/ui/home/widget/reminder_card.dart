@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/provider/schedule/reminder_schedule_check_provider.dart';
 import 'package:momo/app/provider/schedule/user_schedule_provider.dart';
 import 'package:momo/app/ui/components/status/error_card.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
@@ -21,15 +22,16 @@ class ReminderCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final scheduleResponses = ref.watch(homeUserScheduleProvider);
+    final _dayCount = calMaxDay(DateTime.now().year, DateTime.now().month);
+    final dayChecks = ref.watch(reminderScheduleCheckProvider(_dayCount));
+    final today = ref.watch(todayProvider);
 
     return Material(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(26),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26)),
       elevation: 2,
       child: Container(
-        padding: const EdgeInsets.only(top: 20),
-        height: 360,
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        height: 342,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(26),
           color: MomoColor.white,
@@ -38,25 +40,28 @@ class ReminderCard extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             SizedBox(
-              height: 89.h,
+              height: 89,
               child: ListView.builder(
                 controller: _controller,
                 scrollDirection: Axis.horizontal,
-                itemCount: calMaxDay(DateTime.now().year, DateTime.now().month),
+                itemCount: _dayCount,
                 itemBuilder: (_, index) {
-                  final title = dayTitle(
-                    DateTime.now().year,
-                    DateTime.now().month,
-                    DateTime.now().day + index,
-                  );
                   return _dateCard(
-                    title: title,
-                    day: index + 1,
+                    title: dayTitle(DateTime.now().year, DateTime.now().month,
+                        DateTime.now().day + index),
+                    check: dayChecks[index],
                     index: index,
+                    selectDay: ref
+                        .read(reminderScheduleCheckStateProvider(_dayCount)
+                            .notifier)
+                        .check,
+                    changeDay: (day) =>
+                        ref.read(todayStateProvider.state).state = day,
                   );
                 },
               ),
             ),
+            const SizedBox(height: 20),
             Expanded(
               child: scheduleResponses.when(
                 error: (error, stackTrace) => errorCard(),
@@ -64,8 +69,7 @@ class ReminderCard extends ConsumerWidget {
                 data: (schedules) {
                   final curSchedule = schedules
                       .where((e) =>
-                          DateTime.parse(e.first.startDateTime).day ==
-                          DateTime.now().day)
+                          DateTime.parse(e.first.startDateTime).day == today)
                       .toList();
                   if (curSchedule.isEmpty) {
                     return noItemCard();
@@ -83,20 +87,26 @@ class ReminderCard extends ConsumerWidget {
 
   Widget _dateCard({
     required String title,
-    required int day,
     required int index,
+    required bool check,
+    required void Function(int index) selectDay,
+    required void Function(int day) changeDay,
   }) {
-    return Consumer(builder: (context, ref, _) {
-      final check = DateTime.now().day == day;
-      return Container(
-        height: 89.h,
+    return InkWell(
+      onTap: () {
+        selectDay(index);
+        changeDay(index + 1);
+      },
+      child: Container(
+        padding: const EdgeInsets.only(top: 27, bottom: 19),
+        height: 89,
         width: 53.w,
         decoration: BoxDecoration(
           color: check ? MomoColor.main : MomoColor.white,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               title,
@@ -104,12 +114,12 @@ class ReminderCard extends ConsumerWidget {
                 color: check ? MomoColor.white : MomoColor.black,
               ),
             ),
-            Text('$day',
+            Text('${index + 1}',
                 style: MomoTextStyle.normal.copyWith(
                     color: check ? MomoColor.white : MomoColor.black)),
           ],
         ),
-      );
-    });
+      ),
+    );
   }
 }

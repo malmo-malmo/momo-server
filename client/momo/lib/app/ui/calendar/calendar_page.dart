@@ -6,12 +6,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/provider/bottom_index_provider.dart';
 import 'package:momo/app/provider/calendar/day_provider.dart';
 import 'package:momo/app/provider/calendar/scroll_state_provider.dart';
+import 'package:momo/app/provider/schedule/calendar_schedule_provider.dart';
+import 'package:momo/app/ui/calendar/widget/time_line_card.dart';
 import 'package:momo/app/ui/components/calendar_style/calendar_header_style.dart';
-import 'package:momo/app/ui/calendar/widget/time_line_list.dart';
 import 'package:momo/app/ui/components/calendar_style/momo_default_builder.dart';
 import 'package:momo/app/ui/components/calendar_style/momo_dow_builder.dart';
 import 'package:momo/app/ui/components/calendar_style/momo_selected_builder.dart';
 import 'package:momo/app/ui/components/calendar_style/momo_today_builder.dart';
+import 'package:momo/app/ui/components/status/error_card.dart';
+import 'package:momo/app/ui/components/status/loading_card.dart';
+import 'package:momo/app/ui/components/status/no_item_card.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/util/theme.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -50,36 +54,37 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
   @override
   Widget build(BuildContext context) {
     final selectedDay = ref.watch(selectdDayProvider);
-    final focusedDay = ref.watch(focusedDayProvider);
     final calFormat = ref.watch(calendarFormatProvder);
+    final requestDate = ref.watch(calendarTodayProvider);
+    final scheduleResponse = ref.watch(calendarScheduleProvider(requestDate));
 
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 24),
-      child: Column(
-        children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: SvgPicture.asset(
-              'assets/icon/icon_msg_28.svg',
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              '캘린더',
-              style: MomoTextStyle.mainTitle,
-            ),
-          ),
-          const SizedBox(height: 30),
-          TableCalendar(
+    return Column(
+      children: [
+        Container(
+            padding: const EdgeInsets.only(top: 43, right: 16, left: 16),
+            color: const Color(0xffffffff),
+            child: Align(
+                alignment: Alignment.centerRight,
+                child: SvgPicture.asset('assets/icon/icon_msg_28.svg'))),
+        Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            color: const Color(0xffffffff),
+            child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text('캘린더', style: MomoTextStyle.mainTitle))),
+        Container(height: 30, color: const Color(0xffffffff)),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          color: const Color(0xffffffff),
+          child: TableCalendar(
             firstDay: DateTime.utc(2021, 1, 1),
             lastDay: DateTime.utc(2022, 12, 31),
-            focusedDay: focusedDay,
+            focusedDay: selectedDay,
             calendarFormat: calFormat,
             formatAnimationDuration: const Duration(milliseconds: 500),
             locale: 'ko-KR',
             onFormatChanged: (format) {},
-            rowHeight: 56,
+            rowHeight: 52,
             headerStyle: calendarHeaderStyle(),
             onDaySelected: (selDay, foDay) =>
                 ref.read(selectdDayProvider.state).state = selDay,
@@ -106,32 +111,42 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
               dowBuilder: momoDowBuilder,
               defaultBuilder: momoDefaultBuilder,
             ),
+            onPageChanged: (dateTime) {
+              ref.read(calendarTodayStateProvider.state).state = dateTime;
+              ref.read(selectdDayProvider.state).state = dateTime;
+            },
           ),
-          Expanded(
-            child: CustomScrollView(
-              controller: _scrollController,
-              slivers: [
-                SliverToBoxAdapter(
-                  child: subTitle(
-                    title: '타임라인',
-                    icon: 'assets/icon/calendar/icon_timeline_28.svg',
-                  ),
-                ),
-                SliverPadding(
-                  padding: const EdgeInsets.only(right: 2),
-                  sliver: SliverList(
-                    delegate: SliverChildListDelegate(
-                      [
-                        const TimeLineList(),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+        ),
+        Container(height: 30, color: const Color(0xffffffff)),
+        Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            height: 96,
+            width: double.infinity,
+            child: subTitle(
+                title: '타임라인',
+                icon: 'assets/icon/calendar/icon_timeline_28.svg')),
+        Expanded(
+          child: scheduleResponse.when(
+            error: (error, stacktrace) => errorCard(),
+            loading: () => loadingCard(),
+            data: (schedules) {
+              if (schedules.isEmpty) {
+                return noItemCard();
+              }
+              return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child:
+                      CustomScrollView(controller: _scrollController, slivers: [
+                    SliverList(
+                        delegate: SliverChildListDelegate(List.generate(
+                            schedules.length,
+                            (index) =>
+                                TimeLineCard(schedules: schedules[index]))))
+                  ]));
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

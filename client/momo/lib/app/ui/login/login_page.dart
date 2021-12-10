@@ -1,8 +1,10 @@
 import 'dart:developer' as dp;
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kakao_flutter_sdk/all.dart';
@@ -49,56 +51,62 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
         backgroundColor: MomoColor.main,
         body: Padding(
-          padding: EdgeInsets.only(
-              left: 24, right: 24, top: _height * 0.35, bottom: 56),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SvgPicture.asset(
-                'assets/icon/ic_momo.svg',
-              ),
-              // InkWell(
-              //   onTap: () async {
-              //     await _loginWithKakao();
-              //     ref
-              //         .read(navigatorProvider)
-              //         .navigateToRemove(routeName: AppRoutes.trems);
-              //   },
-              //   child: Image.asset(
-              //     'assets/image/kakao_login_large_wide.png',
-              //   ),
-              // )
-
-              //  제플린 디자인
-              SizedBox(
-                width: double.infinity,
-                height: 56,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    await _loginWithKakao();
-                    ref
-                        .read(navigatorProvider)
-                        .navigateToRemove(routeName: AppRoutes.trems);
-                  },
-                  style: ElevatedButton.styleFrom(
-                      primary: const Color(0xffffffff),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 56),
+          child: SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                SvgPicture.asset('assets/icon/ic_momo.svg'),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: InkWell(
+                    onTap: () async {
+                      await _loginWithKakao();
+                      ref
+                          .read(navigatorProvider)
+                          .navigateToRemove(routeName: AppRoutes.trems);
+                    },
+                    child: Container(
+                      height: 56,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                      )),
-                  child: Text(
-                    '카카오 계정으로 로그인',
-                    style: MomoTextStyle.defaultStyle
-                        .copyWith(color: MomoColor.main),
+                        color: const Color(0xfffee500),
+                      ),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 25),
+                              child: Icon(
+                                CupertinoIcons.chat_bubble_fill,
+                                color: Color(0xff191700),
+                                size: 18,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            '카카오로 시작하기',
+                            style: MomoTextStyle.defaultStyle.copyWith(
+                              fontSize: 15.sp,
+                              color: const Color(0xff191919),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              )
-            ],
+              ],
+            ),
           ),
         ),
       ),

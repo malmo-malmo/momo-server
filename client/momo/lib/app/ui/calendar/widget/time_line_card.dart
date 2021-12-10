@@ -1,20 +1,19 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/model/schedule/calendar_schedule.dart';
+import 'package:momo/app/ui/components/card/schedule_column.dart';
+import 'package:momo/app/util/format/day_title_format.dart';
 import 'package:momo/app/util/theme.dart';
 
 class TimeLineCard extends StatelessWidget {
-  const TimeLineCard({
-    Key? key,
-    required this.count,
-  }) : super(key: key);
+  const TimeLineCard({Key? key, required this.schedules}) : super(key: key);
 
-  final int count;
+  final List<CalendarSchedule> schedules;
 
   @override
   Widget build(BuildContext context) {
+    final dateTime = DateTime.parse(schedules.first.startDateTime);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 7),
       child: Row(
@@ -24,11 +23,12 @@ class TimeLineCard extends StatelessWidget {
           Column(
             children: [
               Text(
-                '8',
+                '${dateTime.day}',
                 style: MomoTextStyle.subTitle,
               ),
+              const SizedBox(height: 4),
               Text(
-                'Mon',
+                dayTitle(dateTime.year, dateTime.month, dateTime.day),
                 style: MomoTextStyle.normal,
               ),
             ],
@@ -37,73 +37,12 @@ class TimeLineCard extends StatelessWidget {
           Expanded(
             child: Material(
               borderRadius: BorderRadius.circular(20),
-              elevation: 5,
+              elevation: 1,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                height: count * 76,
-                child: Center(
-                  child: ListView.separated(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return _meetingCard(
-                        time: '오전 11:00 ~ 12:00',
-                        title: '청계천 달리기 & 산책',
-                        icon: CupertinoIcons.alarm,
-                      );
-                    },
-                    itemCount: count,
-                    separatorBuilder: (BuildContext context, int index) {
-                      return Container(
-                        height: 1,
-                        color: const Color(0xffdedede),
-                      );
-                    },
-                  ),
-                ),
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                height: schedules.length * 76,
+                child: scheduleColumn(schedules),
               ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _meetingCard({
-    required String title,
-    required String time,
-    required IconData icon,
-  }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Icon(icon, size: 36.w),
-              const SizedBox(width: 14),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: MomoTextStyle.defaultStyle,
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    time,
-                    style: MomoTextStyle.small,
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Transform.rotate(
-            angle: pi,
-            child: Icon(
-              CupertinoIcons.back,
-              color: MomoColor.black,
-              size: 18.w,
             ),
           ),
         ],

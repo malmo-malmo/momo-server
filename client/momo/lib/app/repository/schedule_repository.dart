@@ -37,20 +37,20 @@ class ScheduleRepository {
       String searchStartDate, String searchEndDate) async {
     final response =
         await scheduleClient.getUserSchedules(searchStartDate, searchEndDate);
-    dp.log('$response');
+    return response;
 
     //  테스트 일정
-    return List.generate(
-      100,
-      (index) => CalendarSchedule(
-        category: CodeNamePair(
-          code: categoryCodeNamePair[index % 7].code,
-          name: categoryCodeNamePair[index % 7].name,
-        ),
-        groupId: 1,
-        startDateTime: '2021-12-0${index % 9 + 1}T13:59:58.176Z',
-        title: '일정 $index',
-      ),
-    );
+    // return List.generate(
+    //   100,
+    //   (index) => CalendarSchedule(
+    //     category: CodeNamePair(
+    //       code: categoryCodeNamePair[index % 7].code,
+    //       name: categoryCodeNamePair[index % 7].name,
+    //     ),
+    //     groupId: 1,
+    //     startDateTime: '2021-12-0${index % 9 + 1}T13:59:58.176Z',
+    //     title: '일정 $index',
+    //   ),
+    // );
   }
 }

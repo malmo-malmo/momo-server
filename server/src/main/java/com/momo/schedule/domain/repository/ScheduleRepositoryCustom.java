@@ -10,7 +10,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface ScheduleRepositoryCustom {
 
-    List<GroupScheduleResponse> findAllByGroupAndUserOrderByCreatedDateDesc(Groups group, User user, Pageable pageable);
+    List<GroupScheduleResponse> findAllByGroupAndUserOrderByCreatedDateDesc(Groups group, Long userId,
+        Pageable pageable);
 
     List<Schedule> findAllByStartDateTimeBetween(LocalDateTime startDateTime, LocalDateTime endDateTime, User user);
 }

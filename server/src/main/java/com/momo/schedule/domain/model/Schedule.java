@@ -69,4 +69,8 @@ public class Schedule extends BaseEntity {
             .attendanceCheck(false)
             .build();
     }
+
+    public void checkAttendance() {
+        this.attendanceCheck = true;
+    }
 }

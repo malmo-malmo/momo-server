@@ -3,7 +3,7 @@ package com.momo.schedule.acceptance.step;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.schedule.controller.dto.GroupSchedulesResponse;
+import com.momo.schedule.controller.dto.GroupScheduleResponses;
 import com.momo.schedule.controller.dto.ScheduleCreateRequest;
 import com.momo.schedule.controller.dto.UserScheduleResponse;
 import com.momo.user.domain.model.User;
@@ -16,19 +16,23 @@ import org.springframework.http.MediaType;
 
 public class ScheduleAcceptanceStep {
 
-    public static void assertThatFindGroupSchedule(ScheduleCreateRequest request, GroupSchedulesResponse response,
+    public static void assertThatFindGroupSchedule(ScheduleCreateRequest request, GroupScheduleResponses response,
         User author, boolean isAttend, boolean attendanceCheck) {
         Assertions.assertAll(
-            () -> assertThat(response.getSchedules().size()).isEqualTo(1),
+            () -> assertThat(response.getGroupScheduleResponses().size()).isEqualTo(1),
             () -> assertThat(response.getManagerId()).isNotNull(),
-            () -> assertThat(response.getSchedules().get(0).getAuthorImage()).isEqualTo(author.getImageUrl()),
-            () -> assertThat(response.getSchedules().get(0).getAuthorNickname()).isEqualTo(author.getNickname()),
-            () -> assertThat(response.getSchedules().get(0).getTitle()).isEqualTo(request.getTitle()),
-            () -> assertThat(response.getSchedules().get(0).getStartDateTime()).isEqualTo(request.getStartDateTime()),
-            () -> assertThat(response.getSchedules().get(0).getContents()).isEqualTo(request.getContents()),
-            () -> assertThat(response.getSchedules().get(0).isOffline()).isEqualTo(request.getIsOffline()),
-            () -> assertThat(response.getSchedules().get(0).isAttend()).isEqualTo(isAttend),
-            () -> assertThat(response.getSchedules().get(0).isAttendanceCheck()).isEqualTo(attendanceCheck)
+            () -> assertThat(response.getGroupScheduleResponses().get(0).getAuthorImage())
+                .isEqualTo(author.getImageUrl()),
+            () -> assertThat(response.getGroupScheduleResponses().get(0).getAuthorNickname())
+                .isEqualTo(author.getNickname()),
+            () -> assertThat(response.getGroupScheduleResponses().get(0).getTitle()).isEqualTo(request.getTitle()),
+            () -> assertThat(response.getGroupScheduleResponses().get(0).getStartDateTime())
+                .isEqualTo(request.getStartDateTime()),
+            () -> assertThat(response.getGroupScheduleResponses().get(0).getContents())
+                .isEqualTo(request.getContents()),
+            () -> assertThat(response.getGroupScheduleResponses().get(0).isOffline()).isEqualTo(request.getIsOffline()),
+            () -> assertThat(response.getGroupScheduleResponses().get(0).isAttend()).isEqualTo(isAttend),
+            () -> assertThat(response.getGroupScheduleResponses().get(0).isAttendanceCheck()).isEqualTo(attendanceCheck)
         );
     }
 

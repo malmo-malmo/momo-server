@@ -26,7 +26,7 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<GroupScheduleResponse> findAllByGroupAndUserOrderByCreatedDateDesc(Groups group, User userParam,
+    public List<GroupScheduleResponse> findAllByGroupAndUserOrderByCreatedDateDesc(Groups group, Long userId,
         Pageable pageable) {
         List<GroupScheduleResponse> content = queryFactory
             .select(new QGroupScheduleResponse(
@@ -41,7 +41,7 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
                 JPAExpressions
                     .select(attendance.isAttend)
                     .from(attendance)
-                    .where(attendance.schedule.eq(schedule).and(attendance.user.eq(userParam)))
+                    .where(attendance.schedule.eq(schedule).and(attendance.userId.eq(userId)))
             ))
             .from(schedule)
             .leftJoin(user).on(schedule.author.eq(user))

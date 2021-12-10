@@ -17,8 +17,7 @@ import static com.momo.schedule.acceptance.step.ScheduleAcceptanceStep.requestTo
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
-import com.momo.common.exception.ErrorCode;
-import com.momo.schedule.controller.dto.GroupSchedulesResponse;
+import com.momo.schedule.controller.dto.GroupScheduleResponses;
 import com.momo.schedule.controller.dto.UserScheduleResponse;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -30,7 +29,7 @@ import org.junit.jupiter.api.Test;
 public class ScheduleAcceptanceTest extends AcceptanceTest {
 
     @Test
-    public void 모임_관리자가_모임에_일정을_등록한다() {
+    void 모임_관리자가_모임에_일정을_등록한다() {
         String token = getAccessToken(USER1);
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         ExtractableResponse<Response> response = requestToCreateSchedule(token, SCHEDULE_CREATE_REQUEST1, groupId);
@@ -38,7 +37,7 @@ public class ScheduleAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 모임_관리자가_아니면_일정_등록을_실패한다() {
+    void 모임_관리자가_아니면_일정_등록을_실패한다() {
         String token = getAccessToken(USER1);
         String invalidToken = getAccessToken(USER2);
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
@@ -48,18 +47,18 @@ public class ScheduleAcceptanceTest extends AcceptanceTest {
 
     //TODO : 출석체크 기능 개발 후 출석 여부를 확인해야한다.
     @Test
-    public void 모임_참여자가_모임의_일정_목록을_조회한다() {
+    void 모임_참여자가_모임의_일정_목록을_조회한다() {
         String token = getAccessToken(USER1);
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         requestToCreateSchedule(token, SCHEDULE_CREATE_REQUEST1, groupId);
         ExtractableResponse<Response> response = requestToFindGroupSchedules(token, groupId);
-        GroupSchedulesResponse groupSchedulesResponse = getObject(response, GroupSchedulesResponse.class);
+        GroupScheduleResponses groupSchedulesResponse = getObject(response, GroupScheduleResponses.class);
         AcceptanceStep.assertThatStatusIsOk(response);
         assertThatFindGroupSchedule(SCHEDULE_CREATE_REQUEST1, groupSchedulesResponse, USER1, false, false);
     }
 
     @Test
-    public void 로그인한_유저가_캘린더에서_선택한_월의_모든_일정을_조회한다() {
+    void 로그인한_유저가_캘린더에서_선택한_월의_모든_일정을_조회한다() {
         String token = getAccessToken(USER1);
         Long groupId1 = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         Long groupId2 = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST2));

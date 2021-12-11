@@ -116,17 +116,9 @@ class _AdminBottomSheetState extends ConsumerState<AdminBottomSheet> {
                   return groupCloseDialog();
                 },
               );
-              ref.read(navigatorProvider).pop();
               if (isClose) {
-                Fluttertoast.showToast(
-                  msg: '모임이 종료되었습니다',
-                  toastLength: Toast.LENGTH_LONG,
-                  gravity: ToastGravity.BOTTOM,
-                  timeInSecForIosWeb: 1,
-                  backgroundColor: MomoColor.main,
-                  textColor: Colors.white,
-                  fontSize: 16.0,
-                );
+                _showToast('모임이 종료되었어요.');
+                ref.read(navigatorProvider).pop();
               }
             },
             child: sheetTabButtob(

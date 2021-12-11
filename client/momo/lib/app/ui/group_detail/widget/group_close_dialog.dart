@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
@@ -10,58 +9,71 @@ Widget groupCloseDialog() {
       borderRadius: BorderRadius.circular(20),
     ),
     child: Container(
-      padding: const EdgeInsets.only(right: 24, left: 24, top: 48, bottom: 24),
-      height: 203,
-      width: 294,
+      padding: const EdgeInsets.only(top: 42),
+      height: 220,
+      width: 280,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             '정말 모임에서 종료하시겠어요?',
-            style: TextStyle(color: MomoColor.black, fontSize: 16.sp),
+            style: MomoTextStyle.defaultStyle
+                .copyWith(fontWeight: FontWeight.w400),
           ),
           Text(
-            '모임이 종료되면 더이상 기능을 이용하실 수 없습니다',
-            style: TextStyle(color: MomoColor.black, fontSize: 16.sp),
+            '모임을 종료하면 더 이상 기능을\n이용할 수 없어요',
+            style: MomoTextStyle.defaultStyle
+                .copyWith(fontWeight: FontWeight.w400),
+            textAlign: TextAlign.center,
           ),
           SizedBox(
-            height: 44,
-            width: 241,
+            height: 56,
+            width: 280,
             child: Consumer(builder: (context, ref, _) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: MomoColor.main,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    onPressed: () {
+                  InkWell(
+                    onTap: () async {
                       ref.read(navigatorProvider).pop(result: true);
                     },
-                    child: Text(
-                      '네, 종료!',
-                      style: TextStyle(
-                        fontSize: 16.sp,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                        ),
+                        color: MomoColor.main,
+                      ),
+                      height: 56,
+                      width: 140,
+                      child: Center(
+                        child: Text(
+                          '  네, 나갈래요',
+                          style: MomoTextStyle.defaultStyle.copyWith(
+                            color: MomoColor.white,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: MomoColor.main,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                  InkWell(
+                    onTap: () => ref.read(navigatorProvider).pop(result: false),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(20),
+                        ),
+                        color: MomoColor.unSelButton,
                       ),
-                    ),
-                    onPressed: () {
-                      ref.read(navigatorProvider).pop(result: false);
-                    },
-                    child: Text(
-                      '아니요',
-                      style: TextStyle(
-                        fontSize: 16.sp,
+                      height: 56,
+                      width: 140,
+                      child: Center(
+                        child: Text(
+                          '아니요',
+                          style: MomoTextStyle.defaultStyle.copyWith(
+                            color: MomoColor.unSelText,
+                          ),
+                        ),
                       ),
                     ),
                   ),

@@ -11,7 +11,6 @@ class ParticipationMettingList extends StatelessWidget {
       children: [
         for (int i = 0; i < 5; i++)
           const ParticipationMeetingCard(
-            icon: CupertinoIcons.app,
             title: '청계천 달리기 & 산책',
             time: '오후 7:00 ~ 9:00',
           ),

@@ -6,8 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/util/theme.dart';
 import 'package:pie_chart/pie_chart.dart';
 
-class AchievementCard extends StatelessWidget {
-  const AchievementCard({Key? key}) : super(key: key);
+class TopRateCard extends StatelessWidget {
+  const TopRateCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

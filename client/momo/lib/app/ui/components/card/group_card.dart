@@ -67,6 +67,8 @@ Widget groupCard({
                       style: MomoTextStyle.defaultStyle.copyWith(
                         color: MomoColor.white,
                       ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: 10.h),
                     memberDateRow(groupParticipantCnt, group.startDate),

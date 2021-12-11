@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/provider/group/home_group_paging_controller.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
-import 'package:momo/app/ui/home/widget/achievement_card.dart';
+import 'package:momo/app/ui/home/widget/top_rate_card.dart';
 import 'package:momo/app/ui/home/widget/event_card.dart';
 import 'package:momo/app/ui/home/widget/home_group_list.dart';
 import 'package:momo/app/ui/home/widget/reminder_card.dart';
@@ -72,7 +72,7 @@ class HomePage extends ConsumerWidget {
                 title: '주간 달성률 Top4',
                 icon: 'assets/icon/home/icon_topfour_28.svg',
               ),
-              const AchievementCard(),
+              const TopRateCard(),
               SizedBox(height: 30.h),
               const EventCard(),
             ],

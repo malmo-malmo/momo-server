@@ -63,7 +63,8 @@ class ManageMeetingCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         child: LinearProgressIndicator(
                           value: rate.toDouble() / 100,
-                          backgroundColor: Colors.grey,
+                          color: MomoColor.main,
+                          backgroundColor: MomoColor.white,
                         ),
                       ),
                     ),

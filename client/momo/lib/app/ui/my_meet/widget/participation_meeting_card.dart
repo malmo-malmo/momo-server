@@ -3,17 +3,16 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/ui/components/category/category_icon.dart';
 import 'package:momo/app/util/theme.dart';
 
 class ParticipationMeetingCard extends StatelessWidget {
   const ParticipationMeetingCard({
     Key? key,
-    required this.icon,
     required this.title,
     required this.time,
   }) : super(key: key);
 
-  final IconData icon;
   final String title;
   final String time;
 
@@ -22,7 +21,7 @@ class ParticipationMeetingCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 7),
       child: Material(
-        elevation: 3,
+        elevation: 1,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -38,22 +37,11 @@ class ParticipationMeetingCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(icon, size: 40),
+                  categoryIcon('건강'),
                   const SizedBox(width: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        title,
-                        style: MomoTextStyle.defaultStyle,
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        title,
-                        style: MomoTextStyle.small,
-                      ),
-                    ],
+                  Text(
+                    title,
+                    style: MomoTextStyle.defaultStyle,
                   ),
                 ],
               ),

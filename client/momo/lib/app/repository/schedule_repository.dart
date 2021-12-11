@@ -1,13 +1,9 @@
-import 'dart:developer' as dp;
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/api/api_provider.dart';
 import 'package:momo/app/api/schedule_client/schedule_client.dart';
-import 'package:momo/app/model/common/code_name_pair.dart';
 import 'package:momo/app/model/schedule/calendar_schedule.dart';
 import 'package:momo/app/model/schedule/schedule_request.dart';
 import 'package:momo/app/model/schedule/schedule_response.dart';
-import 'package:momo/app/provider/category_result_provider.dart';
 import 'package:momo/app/util/constant.dart';
 
 final scheduleRepositoryProvider = Provider<ScheduleRepository>((ref) {

@@ -32,7 +32,7 @@ public class CommentService {
 
     public CommentResponse create(User user, CommentCreateRequest commentCreateRequest) {
         Post post = getPostById(commentCreateRequest.getPostId());
-        validateGroupParticipant(user, post.getGroup());
+        validateParticipant(post.getGroup(), user);
         Comment comment = Comment.create(post, user, commentCreateRequest.getContents());
         return CommentResponse.of(commentRepository.save(comment));
     }
@@ -40,7 +40,7 @@ public class CommentService {
     @Transactional(readOnly = true)
     public CommentsResponse findPageByPostId(User user, CommentsRequest request) {
         Post post = getPostById(request.getPostId());
-        validateGroupParticipant(user, post.getGroup());
+        validateParticipant(post.getGroup(), user);
         Page<Comment> pageComments = commentRepository
             .findAllByPostOrderByCreatedDateAsc(post, PageRequest.of(request.getPage(), request.getSize()));
         return CommentsResponse.of(pageComments.getContent(), pageComments.getTotalElements());
@@ -51,8 +51,8 @@ public class CommentService {
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
-    public void validateGroupParticipant(User user, Groups group) {
-        if (!participantRepository.existsByUserAndGroup(user, group)) {
+    public void validateParticipant(Groups group, User user) {
+        if (!participantRepository.existsByGroupAndUser(group, user)) {
             throw new CustomException(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED);
         }
     }

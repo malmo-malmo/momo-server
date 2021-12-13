@@ -10,7 +10,7 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
 
     List<Participant> findAllByGroup(Groups group);
 
-    Boolean existsByUserAndGroup(User user, Groups group);
+    Boolean existsByGroupAndUser(Groups group, User user);
 
-    void deleteByUserAndGroup(User user, Groups group);
+    void deleteByGroupAndUser(Groups group, User user);
 }

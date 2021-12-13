@@ -41,7 +41,7 @@ public class AttendanceService {
     }
 
     public void validateGroupManager(Groups group, User user) {
-        if (group.isNotManager(user)) {
+        if (!group.isManager(user)) {
             throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
         }
     }

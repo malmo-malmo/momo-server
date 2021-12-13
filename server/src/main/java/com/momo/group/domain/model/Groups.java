@@ -96,10 +96,6 @@ public class Groups extends BaseEntity {
         return user.isSameUser(manager);
     }
 
-    public boolean isNotManager(User user) {
-        return user.isNotSameUser(manager);
-    }
-
     public void updateManager(User user) {
         this.manager = user;
     }

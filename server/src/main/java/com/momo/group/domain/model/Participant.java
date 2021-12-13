@@ -42,7 +42,6 @@ public class Participant extends BaseEntity {
     @Transient
     private int attendanceRate;
 
-
     @Builder
     public Participant(Long id, User user, Groups group) {
         this.id = id;
@@ -64,18 +63,5 @@ public class Participant extends BaseEntity {
             return;
         }
         attendanceRate = attendanceCount / scheduleCount * 100;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Participant{" +
-            "id=" + id +
-            ", group=" + group +
-            ", user=" + user +
-            ", scheduleCount=" + scheduleCount +
-            ", attendanceCount=" + attendanceCount +
-            ", attendanceRate=" + attendanceRate +
-            '}';
     }
 }

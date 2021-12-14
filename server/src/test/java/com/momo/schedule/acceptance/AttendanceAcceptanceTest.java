@@ -3,7 +3,7 @@ package com.momo.schedule.acceptance;
 import static com.momo.fixture.AttendanceFixture.getAttendanceCreateRequest;
 import static com.momo.fixture.AttendanceFixture.getAttendanceCreateRequests;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST1;
-import static com.momo.fixture.ScheduleFixture.SCHEDULE_CREATE_REQUEST1;
+import static com.momo.fixture.ScheduleFixture.getScheduleCreateRequest1;
 import static com.momo.fixture.UserFixture.USER1;
 import static com.momo.fixture.UserFixture.USER2;
 import static com.momo.fixture.UserFixture.USER3;
@@ -33,7 +33,7 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
         requestToApplyParticipant(userToken1, groupId);
         requestToApplyParticipant(userToken2, groupId);
 
-        Long scheduleId = extractId(requestToCreateSchedule(managerToken, SCHEDULE_CREATE_REQUEST1, groupId));
+        Long scheduleId = extractId(requestToCreateSchedule(managerToken, getScheduleCreateRequest1(groupId)));
 
         Long managerId = getObject(requestToFindMyInformation(managerToken), UserResponse.class).getId();
         Long userId1 = getObject(requestToFindMyInformation(userToken1), UserResponse.class).getId();

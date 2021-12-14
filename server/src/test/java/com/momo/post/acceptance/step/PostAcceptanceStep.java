@@ -48,9 +48,7 @@ public class PostAcceptanceStep {
         );
     }
 
-    public static ExtractableResponse<Response> requestToCreatePost(String token, PostCreateRequest postCreateRequest,
-        Long groupId) {
-        postCreateRequest.setGroupId(groupId);
+    public static ExtractableResponse<Response> requestToCreatePost(String token, PostCreateRequest postCreateRequest) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)

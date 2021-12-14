@@ -40,9 +40,7 @@ public class ScheduleAcceptanceStep {
         assertThat(response.size()).isEqualTo(2);
     }
 
-    public static ExtractableResponse<Response> requestToCreateSchedule(String token, ScheduleCreateRequest request,
-        Long groupId) {
-        request.setGroupId(groupId);
+    public static ExtractableResponse<Response> requestToCreateSchedule(String token, ScheduleCreateRequest request) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)

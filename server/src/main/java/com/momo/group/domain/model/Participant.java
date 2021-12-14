@@ -9,10 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Formula;
 
 @Entity
 @Getter
@@ -24,12 +26,21 @@ public class Participant extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id")
+    private Groups group;
+
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_id")
-    private Groups group;
+    @Formula("(select count(1) from schedule s where s.group_id = group_id and s.attendance_check = true)")
+    private int scheduleCount;
+
+    @Formula("(select count(1) from attendance a where a.group_id = group_id and a.user_id = user_id and a.is_attend = true)")
+    private int attendanceCount;
+
+    @Transient
+    private int attendanceRate;
 
     @Builder
     public Participant(Long id, User user, Groups group) {
@@ -43,5 +54,14 @@ public class Participant extends BaseEntity {
             .user(user)
             .group(group)
             .build();
+    }
+
+    public void calculateAttendanceRate() {
+        //TODO: 따로 Util 클래스 필요?
+        if (scheduleCount == 0) {
+            attendanceRate = 0;
+            return;
+        }
+        attendanceRate = attendanceCount / scheduleCount * 100;
     }
 }

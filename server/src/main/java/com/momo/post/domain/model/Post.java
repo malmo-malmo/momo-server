@@ -3,6 +3,8 @@ package com.momo.post.domain.model;
 import com.momo.common.domain.BaseEntity;
 import com.momo.group.domain.model.Groups;
 import com.momo.user.domain.model.User;
+import java.util.List;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -43,6 +45,9 @@ public class Post extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private PostType type;
 
+    @Embedded
+    private final Images images = Images.empty();
+
     @Builder
     public Post(Long id, User author, Groups group, String title, String contents, PostType type) {
         this.id = id;
@@ -61,5 +66,9 @@ public class Post extends BaseEntity {
             .contents(post.getContents())
             .type(post.getType())
             .build();
+    }
+
+    public void changeImages(List<String> imageUrls) {
+        images.changeAll(this, imageUrls);
     }
 }

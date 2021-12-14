@@ -1,10 +1,8 @@
 package com.momo.post.controller.dto;
 
-import com.momo.post.domain.model.Image;
 import com.momo.post.domain.model.Post;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,15 +40,15 @@ public class PostResponse {
         this.createdDate = createdDate;
     }
 
-    public static PostResponse of(Post post, List<Image> images) {
+    public static PostResponse of(Post post) {
         return PostResponse.builder()
             .id(post.getId())
             .authorId(post.getAuthor().getId())
-            .authorImage(post.getAuthor().getImage())
+            .authorImage(post.getAuthor().getImageUrl())
             .authorNickname(post.getAuthor().getNickname())
             .title(post.getTitle())
             .contents(post.getContents())
-            .imageUrls(images.stream().map(Image::getImageUrl).collect(Collectors.toList()))
+            .imageUrls(post.getImages().toImageUrls())
             .createdDate(post.getCreatedDate())
             .build();
     }

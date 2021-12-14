@@ -6,8 +6,8 @@ import com.momo.group.domain.model.Groups;
 import com.momo.group.domain.repository.GroupRepository;
 import com.momo.group.domain.repository.ParticipantRepository;
 import com.momo.schedule.controller.dto.GroupScheduleResponse;
+import com.momo.schedule.controller.dto.GroupScheduleResponses;
 import com.momo.schedule.controller.dto.GroupSchedulesRequest;
-import com.momo.schedule.controller.dto.GroupSchedulesResponse;
 import com.momo.schedule.controller.dto.ScheduleCreateRequest;
 import com.momo.schedule.controller.dto.UserScheduleResponse;
 import com.momo.schedule.controller.dto.UserSchedulesRequest;
@@ -34,28 +34,28 @@ public class ScheduleService {
 
     public Long create(User user, ScheduleCreateRequest request) {
         Groups group = getGroupById(request.getGroupId());
-        validateNotGroupManager(group, user);
+        validateGroupManager(group, user);
         return scheduleRepository.save(Schedule.create(request.toEntity(), group, user)).getId();
     }
 
-    public void validateNotGroupManager(Groups group, User user) {
-        if (group.isNotManager(user)) {
+    public void validateGroupManager(Groups group, User user) {
+        if (!group.isManager(user)) {
             throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
         }
     }
 
     @Transactional(readOnly = true)
-    public GroupSchedulesResponse findPageByUserAndGroupId(User user, GroupSchedulesRequest request) {
+    public GroupScheduleResponses findPageByUserAndGroupId(User user, GroupSchedulesRequest request) {
         Groups group = getGroupById(request.getGroupId());
-        validateGroupParticipant(user, group);
+        validateParticipant(group, user);
         PageRequest pageRequest = PageRequest.of(request.getPage(), request.getSize());
         List<GroupScheduleResponse> responses = scheduleRepository
-            .findAllByGroupAndUserOrderByCreatedDateDesc(group, user, pageRequest);
-        return GroupSchedulesResponse.of(responses, group.getManager().getId());
+            .findAllByGroupAndUserOrderByCreatedDateDesc(group, user.getId(), pageRequest);
+        return GroupScheduleResponses.of(responses, group.getManager().getId());
     }
 
-    public void validateGroupParticipant(User user, Groups group) {
-        if (!participantRepository.existsByUserAndGroup(user, group)) {
+    public void validateParticipant(Groups group, User user) {
+        if (!participantRepository.existsByGroupAndUser(group, user)) {
             throw new CustomException(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED);
         }
     }

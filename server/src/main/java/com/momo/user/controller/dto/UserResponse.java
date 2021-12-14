@@ -41,7 +41,7 @@ public class UserResponse {
         return UserResponse.builder()
             .id(user.getId())
             .nickname(user.getNickname())
-            .image(user.getImage())
+            .image(user.getImageUrl())
             .city(user.getCity())
             .district(user.getDistrict())
             .university(user.getUniversity())

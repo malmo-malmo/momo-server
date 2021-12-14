@@ -44,7 +44,7 @@ public class ParticipantController {
     }
 
     @ApiOperation(value = "모임 탈퇴")
-    @DeleteMapping("/group/participant/{groupId}")
+    @DeleteMapping("/group/{groupId}/participant")
     public ResponseEntity<Void> delete(@CurrentUser User user, @PathVariable Long groupId) {
         participantService.deleteByGroupId(user, groupId);
         return ResponseEntity.noContent().build();

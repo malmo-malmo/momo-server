@@ -73,7 +73,7 @@ public class GroupService {
         Groups group = getGroupById(groupId);
         validateGroupManager(group, user);
         User participant = getUserById(userId);
-        validateGroupParticipant(participant, group);
+        validateParticipant(group, participant);
         group.updateManager(participant);
     }
 
@@ -94,13 +94,13 @@ public class GroupService {
     }
 
     public void validateGroupManager(Groups group, User user) {
-        if (group.isNotManager(user)) {
+        if (!group.isManager(user)) {
             throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
         }
     }
 
-    public void validateGroupParticipant(User user, Groups group) {
-        if (!participantRepository.existsByUserAndGroup(user, group)) {
+    public void validateParticipant(Groups group, User user) {
+        if (!participantRepository.existsByGroupAndUser(group, user)) {
             throw new CustomException(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED);
         }
     }

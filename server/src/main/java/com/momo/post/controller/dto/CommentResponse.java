@@ -39,7 +39,7 @@ public class CommentResponse {
         return CommentResponse.builder()
             .id(comment.getId())
             .authorId(comment.getUser().getId())
-            .authorImage(comment.getUser().getImage())
+            .authorImage(comment.getUser().getImageUrl())
             .authorNickname(comment.getUser().getNickname())
             .contents(comment.getContents())
             .createdDate(comment.getCreatedDate())

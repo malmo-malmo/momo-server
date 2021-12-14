@@ -19,7 +19,7 @@ public class UserAcceptanceStep {
         Assertions.assertAll(
             () -> assertThat(response.getId()).isNotNull(),
             () -> assertThat(response.getNickname()).isEqualTo(user.getNickname()),
-            () -> assertThat(response.getImage()).isEqualTo(user.getImage()),
+            () -> assertThat(response.getImage()).isEqualTo(user.getImageUrl()),
             () -> assertThat(response.getCity()).isEqualTo(user.getCity()),
             () -> assertThat(response.getDistrict()).isEqualTo(user.getDistrict()),
             () -> assertThat(response.getUniversity()).isEqualTo(user.getUniversity()),

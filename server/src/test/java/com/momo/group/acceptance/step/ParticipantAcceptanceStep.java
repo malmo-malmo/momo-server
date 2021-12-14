@@ -31,7 +31,7 @@ public class ParticipantAcceptanceStep {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .pathParam("groupId", groupId)
-            .delete("/api/group/participant/{groupId}")
+            .delete("/api/group/{groupId}/participant")
             .then().log().all()
             .extract();
     }

@@ -28,4 +28,8 @@ public enum PostType {
             .findFirst()
             .orElseThrow(() -> new CustomException(ErrorCode.GROUP_CATEGORY_NOT_FOUND));
     }
+
+    public boolean isSameName(String typeName) {
+        return this.name().equals(typeName);
+    }
 }

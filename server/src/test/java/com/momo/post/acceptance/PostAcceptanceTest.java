@@ -3,8 +3,8 @@ package com.momo.post.acceptance;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatCustomException;
 import static com.momo.common.exception.ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST1;
-import static com.momo.fixture.PostFixture.NOTICE_CREATE_REQUEST1;
-import static com.momo.fixture.PostFixture.POST_CREATE_REQUEST1;
+import static com.momo.fixture.PostFixture.getNoticeCreateRequest;
+import static com.momo.fixture.PostFixture.getPostCreateRequest;
 import static com.momo.fixture.UserFixture.USER1;
 import static com.momo.fixture.UserFixture.USER2;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
@@ -33,7 +33,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     public void 모임에_게시물을_등록한다() {
         String token = getAccessToken(USER1);
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
-        ExtractableResponse<Response> res = requestToCreatePost(token, POST_CREATE_REQUEST1, groupId);
+        ExtractableResponse<Response> res = requestToCreatePost(token, getPostCreateRequest(groupId));
         AcceptanceStep.assertThatStatusIsCreated(res);
     }
 
@@ -42,7 +42,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
         String token = getAccessToken(USER1);
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         String invalidToken = getAccessToken(USER2);
-        ExtractableResponse<Response> response = requestToCreatePost(invalidToken, POST_CREATE_REQUEST1, groupId);
+        ExtractableResponse<Response> response = requestToCreatePost(invalidToken, getPostCreateRequest(groupId));
         assertThatCustomException(response, GROUP_PARTICIPANT_UNAUTHORIZED);
     }
 
@@ -50,7 +50,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     public void 모임에_공지사항을_등록한다() {
         String token = getAccessToken(USER1);
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
-        ExtractableResponse<Response> response = requestToCreatePost(token, NOTICE_CREATE_REQUEST1, groupId);
+        ExtractableResponse<Response> response = requestToCreatePost(token, getNoticeCreateRequest(groupId));
         AcceptanceStep.assertThatStatusIsCreated(response);
     }
 
@@ -59,7 +59,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
         String token = getAccessToken(USER1);
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         String invalidToken = getAccessToken(USER2);
-        ExtractableResponse<Response> response = requestToCreatePost(invalidToken, NOTICE_CREATE_REQUEST1, groupId);
+        ExtractableResponse<Response> response = requestToCreatePost(invalidToken, getNoticeCreateRequest(groupId));
         assertThatCustomException(response, ErrorCode.GROUP_MANAGER_AUTHORIZED);
     }
 
@@ -67,18 +67,18 @@ public class PostAcceptanceTest extends AcceptanceTest {
     public void 모임_게시물_또는_공지사항을_상세_조회한다() {
         String token = getAccessToken(USER1);
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
-        Long postId = extractId(requestToCreatePost(token, POST_CREATE_REQUEST1, groupId));
+        Long postId = extractId(requestToCreatePost(token, getPostCreateRequest(groupId)));
         ExtractableResponse<Response> response = requestToFindPost(token, postId);
         PostResponse postResponse = getObject(response, PostResponse.class);
         AcceptanceStep.assertThatStatusIsOk(response);
-        PostAcceptanceStep.assertThatFindPost(POST_CREATE_REQUEST1, postResponse, postId, USER1);
+        PostAcceptanceStep.assertThatFindPost(getPostCreateRequest(groupId), postResponse, postId, USER1);
     }
 
     @Test
     public void 모임_게시물_또는_공지사항을_상세_조회할_때_참여자가_아니면_실패한다() {
         String token = getAccessToken(USER1);
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
-        Long postId = extractId(requestToCreatePost(token, POST_CREATE_REQUEST1, groupId));
+        Long postId = extractId(requestToCreatePost(token, getPostCreateRequest(groupId)));
         String invalidToken = getAccessToken(USER2);
         ExtractableResponse<Response> response = requestToFindPost(invalidToken, postId);
         assertThatCustomException(response, GROUP_PARTICIPANT_UNAUTHORIZED);
@@ -88,13 +88,13 @@ public class PostAcceptanceTest extends AcceptanceTest {
     public void 게시물_목록을_조회한다() {
         String token = getAccessToken(USER1);
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
-        requestToCreatePost(token, POST_CREATE_REQUEST1, groupId);
-        requestToCreatePost(token, NOTICE_CREATE_REQUEST1, groupId);
+        requestToCreatePost(token, getPostCreateRequest(groupId));
+        requestToCreatePost(token, getNoticeCreateRequest(groupId));
         PostCardsRequest postCardsRequest = new PostCardsRequest(groupId, PostType.NORMAL.name(), 0, 10);
         ExtractableResponse<Response> response = requestToFindPosts(token, postCardsRequest);
         List<PostCardResponse> postCardResponses = getObjects(response, PostCardResponse.class);
         AcceptanceStep.assertThatStatusIsOk(response);
-        PostAcceptanceStep.assertThatFindPosts(POST_CREATE_REQUEST1, postCardResponses, USER1, 0);
+        PostAcceptanceStep.assertThatFindPosts(getPostCreateRequest(groupId), postCardResponses, USER1, 0);
     }
 
     @Test
@@ -102,7 +102,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
         String token = getAccessToken(USER1);
         String invalidToken = getAccessToken(USER2);
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
-        requestToCreatePost(token, POST_CREATE_REQUEST1, groupId);
+        requestToCreatePost(token, getPostCreateRequest(groupId));
         PostCardsRequest postCardsRequest = new PostCardsRequest(groupId, PostType.NOTICE.name(), 0, 10);
         ExtractableResponse<Response> response = requestToFindPosts(invalidToken, postCardsRequest);
         assertThatCustomException(response, GROUP_PARTICIPANT_UNAUTHORIZED);

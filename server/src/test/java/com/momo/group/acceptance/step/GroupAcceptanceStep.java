@@ -31,12 +31,12 @@ public class GroupAcceptanceStep {
             () -> assertThat(response.getUniversity()).isEqualTo(university),
             () -> assertThat(response.getCity()).isEqualTo(request.getCity()),
             () -> assertThat(response.getDistrict()).isEqualTo(request.getDistrict()),
-            () -> assertThat(response.getIsOffline()).isEqualTo(request.getIsOffline()),
+            () -> assertThat(response.isOffline()).isEqualTo(request.getIsOffline()),
             () -> assertThat(response.getIntroduction()).isEqualTo(request.getIntroduction()),
             () -> assertThat(response.getRecruitmentCnt()).isEqualTo(request.getRecruitmentCnt()),
-            () -> assertThat(response.getIsEnd()).isFalse(),
+            () -> assertThat(response.isEnd()).isFalse(),
             () -> assertThat(response.getParticipantCnt()).isEqualTo(1L),
-            () -> assertThat(response.getIsParticipant()).isEqualTo(isParticipant)
+            () -> assertThat(response.isParticipant()).isEqualTo(isParticipant)
         );
     }
 
@@ -45,7 +45,7 @@ public class GroupAcceptanceStep {
     }
 
     public static void assertThatEndGroup(GroupResponse response) {
-        assertThat(response.getIsEnd()).isTrue();
+        assertThat(response.isEnd()).isTrue();
     }
 
     public static ExtractableResponse<Response> requestToCreateGroup(String token,

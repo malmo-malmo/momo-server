@@ -1,7 +1,7 @@
 package com.momo.schedule.controller;
 
 import com.momo.schedule.controller.dto.GroupSchedulesRequest;
-import com.momo.schedule.controller.dto.GroupSchedulesResponse;
+import com.momo.schedule.controller.dto.GroupScheduleResponses;
 import com.momo.schedule.controller.dto.ScheduleCreateRequest;
 import com.momo.schedule.controller.dto.UserScheduleResponse;
 import com.momo.schedule.controller.dto.UserSchedulesRequest;
@@ -39,9 +39,9 @@ public class ScheduleController {
 
     @ApiOperation(value = "모임 일정 조회")
     @GetMapping("/schedule/group-schedules")
-    public ResponseEntity<GroupSchedulesResponse> findPageByGroup(@CurrentUser User user,
+    public ResponseEntity<GroupScheduleResponses> findPageByGroup(@CurrentUser User user,
         @ModelAttribute @Valid GroupSchedulesRequest groupSchedulesRequest) {
-        GroupSchedulesResponse response = scheduleService.findPageByUserAndGroupId(user, groupSchedulesRequest);
+        GroupScheduleResponses response = scheduleService.findPageByUserAndGroupId(user, groupSchedulesRequest);
         return ResponseEntity.ok(response);
     }
 

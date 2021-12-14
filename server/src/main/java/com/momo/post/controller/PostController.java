@@ -46,7 +46,7 @@ public class PostController {
 
     @ApiOperation(value = "게시물 목록 조회")
     @GetMapping("/posts/paging")
-    public ResponseEntity<List<PostCardResponse>> findPageByGroupAndType(@CurrentUser User user,
+    public ResponseEntity<List<PostCardResponse>> findPageByCardsRequest(@CurrentUser User user,
         @ModelAttribute @Valid PostCardsRequest postCardsRequest) {
         List<PostCardResponse> postCardResponses = postService.findPageByGroupIdAndType(user, postCardsRequest);
         return ResponseEntity.ok(postCardResponses);

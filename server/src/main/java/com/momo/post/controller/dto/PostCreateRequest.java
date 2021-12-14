@@ -23,17 +23,17 @@ public class PostCreateRequest {
     private String contents;
 
     @NotBlank(message = "게시물 타입은 필수 입력값입니다.")
-    private String postType;
+    private String typeName;
 
     private List<String> imageUrls;
 
     @Builder
-    public PostCreateRequest(Long groupId, String title, String contents, String postType,
+    public PostCreateRequest(Long groupId, String title, String contents, String typeName,
         List<String> imageUrls) {
         this.groupId = groupId;
         this.title = title;
         this.contents = contents;
-        this.postType = postType;
+        this.typeName = typeName;
         this.imageUrls = imageUrls;
     }
 
@@ -41,7 +41,7 @@ public class PostCreateRequest {
         return Post.builder()
             .title(title)
             .contents(contents)
-            .type(PostType.of(postType))
+            .type(PostType.of(typeName))
             .build();
     }
 }

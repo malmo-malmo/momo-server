@@ -20,11 +20,13 @@ class _$CommentListDtoTearOff {
   _CommentListDto call(
       {required List<Comment> comments,
       required int nextPage,
-      required bool hasNext}) {
+      required bool hasNext,
+      required int commentCnt}) {
     return _CommentListDto(
       comments: comments,
       nextPage: nextPage,
       hasNext: hasNext,
+      commentCnt: commentCnt,
     );
   }
 }
@@ -37,6 +39,7 @@ mixin _$CommentListDto {
   List<Comment> get comments => throw _privateConstructorUsedError;
   int get nextPage => throw _privateConstructorUsedError;
   bool get hasNext => throw _privateConstructorUsedError;
+  int get commentCnt => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CommentListDtoCopyWith<CommentListDto> get copyWith =>
@@ -48,7 +51,8 @@ abstract class $CommentListDtoCopyWith<$Res> {
   factory $CommentListDtoCopyWith(
           CommentListDto value, $Res Function(CommentListDto) then) =
       _$CommentListDtoCopyWithImpl<$Res>;
-  $Res call({List<Comment> comments, int nextPage, bool hasNext});
+  $Res call(
+      {List<Comment> comments, int nextPage, bool hasNext, int commentCnt});
 }
 
 /// @nodoc
@@ -65,6 +69,7 @@ class _$CommentListDtoCopyWithImpl<$Res>
     Object? comments = freezed,
     Object? nextPage = freezed,
     Object? hasNext = freezed,
+    Object? commentCnt = freezed,
   }) {
     return _then(_value.copyWith(
       comments: comments == freezed
@@ -79,6 +84,10 @@ class _$CommentListDtoCopyWithImpl<$Res>
           ? _value.hasNext
           : hasNext // ignore: cast_nullable_to_non_nullable
               as bool,
+      commentCnt: commentCnt == freezed
+          ? _value.commentCnt
+          : commentCnt // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -90,7 +99,8 @@ abstract class _$CommentListDtoCopyWith<$Res>
           _CommentListDto value, $Res Function(_CommentListDto) then) =
       __$CommentListDtoCopyWithImpl<$Res>;
   @override
-  $Res call({List<Comment> comments, int nextPage, bool hasNext});
+  $Res call(
+      {List<Comment> comments, int nextPage, bool hasNext, int commentCnt});
 }
 
 /// @nodoc
@@ -109,6 +119,7 @@ class __$CommentListDtoCopyWithImpl<$Res>
     Object? comments = freezed,
     Object? nextPage = freezed,
     Object? hasNext = freezed,
+    Object? commentCnt = freezed,
   }) {
     return _then(_CommentListDto(
       comments: comments == freezed
@@ -123,6 +134,10 @@ class __$CommentListDtoCopyWithImpl<$Res>
           ? _value.hasNext
           : hasNext // ignore: cast_nullable_to_non_nullable
               as bool,
+      commentCnt: commentCnt == freezed
+          ? _value.commentCnt
+          : commentCnt // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -131,7 +146,10 @@ class __$CommentListDtoCopyWithImpl<$Res>
 
 class _$_CommentListDto implements _CommentListDto {
   _$_CommentListDto(
-      {required this.comments, required this.nextPage, required this.hasNext});
+      {required this.comments,
+      required this.nextPage,
+      required this.hasNext,
+      required this.commentCnt});
 
   @override
   final List<Comment> comments;
@@ -139,10 +157,12 @@ class _$_CommentListDto implements _CommentListDto {
   final int nextPage;
   @override
   final bool hasNext;
+  @override
+  final int commentCnt;
 
   @override
   String toString() {
-    return 'CommentListDto(comments: $comments, nextPage: $nextPage, hasNext: $hasNext)';
+    return 'CommentListDto(comments: $comments, nextPage: $nextPage, hasNext: $hasNext, commentCnt: $commentCnt)';
   }
 
   @override
@@ -153,12 +173,18 @@ class _$_CommentListDto implements _CommentListDto {
             const DeepCollectionEquality().equals(other.comments, comments) &&
             (identical(other.nextPage, nextPage) ||
                 other.nextPage == nextPage) &&
-            (identical(other.hasNext, hasNext) || other.hasNext == hasNext));
+            (identical(other.hasNext, hasNext) || other.hasNext == hasNext) &&
+            (identical(other.commentCnt, commentCnt) ||
+                other.commentCnt == commentCnt));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(comments), nextPage, hasNext);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(comments),
+      nextPage,
+      hasNext,
+      commentCnt);
 
   @JsonKey(ignore: true)
   @override
@@ -170,7 +196,8 @@ abstract class _CommentListDto implements CommentListDto {
   factory _CommentListDto(
       {required List<Comment> comments,
       required int nextPage,
-      required bool hasNext}) = _$_CommentListDto;
+      required bool hasNext,
+      required int commentCnt}) = _$_CommentListDto;
 
   @override
   List<Comment> get comments;
@@ -178,6 +205,8 @@ abstract class _CommentListDto implements CommentListDto {
   int get nextPage;
   @override
   bool get hasNext;
+  @override
+  int get commentCnt;
   @override
   @JsonKey(ignore: true)
   _$CommentListDtoCopyWith<_CommentListDto> get copyWith =>

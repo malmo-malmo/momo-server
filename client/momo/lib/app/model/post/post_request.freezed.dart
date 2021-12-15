@@ -26,13 +26,13 @@ class _$PostRequestTearOff {
       required String title,
       required String contents,
       required List<String> imageUrls,
-      required String postType}) {
+      required String typeName}) {
     return _PostRequest(
       groupId: groupId,
       title: title,
       contents: contents,
       imageUrls: imageUrls,
-      postType: postType,
+      typeName: typeName,
     );
   }
 
@@ -50,7 +50,7 @@ mixin _$PostRequest {
   String get title => throw _privateConstructorUsedError;
   String get contents => throw _privateConstructorUsedError;
   List<String> get imageUrls => throw _privateConstructorUsedError;
-  String get postType => throw _privateConstructorUsedError;
+  String get typeName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -68,7 +68,7 @@ abstract class $PostRequestCopyWith<$Res> {
       String title,
       String contents,
       List<String> imageUrls,
-      String postType});
+      String typeName});
 }
 
 /// @nodoc
@@ -85,7 +85,7 @@ class _$PostRequestCopyWithImpl<$Res> implements $PostRequestCopyWith<$Res> {
     Object? title = freezed,
     Object? contents = freezed,
     Object? imageUrls = freezed,
-    Object? postType = freezed,
+    Object? typeName = freezed,
   }) {
     return _then(_value.copyWith(
       groupId: groupId == freezed
@@ -104,9 +104,9 @@ class _$PostRequestCopyWithImpl<$Res> implements $PostRequestCopyWith<$Res> {
           ? _value.imageUrls
           : imageUrls // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      postType: postType == freezed
-          ? _value.postType
-          : postType // ignore: cast_nullable_to_non_nullable
+      typeName: typeName == freezed
+          ? _value.typeName
+          : typeName // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -124,7 +124,7 @@ abstract class _$PostRequestCopyWith<$Res>
       String title,
       String contents,
       List<String> imageUrls,
-      String postType});
+      String typeName});
 }
 
 /// @nodoc
@@ -143,7 +143,7 @@ class __$PostRequestCopyWithImpl<$Res> extends _$PostRequestCopyWithImpl<$Res>
     Object? title = freezed,
     Object? contents = freezed,
     Object? imageUrls = freezed,
-    Object? postType = freezed,
+    Object? typeName = freezed,
   }) {
     return _then(_PostRequest(
       groupId: groupId == freezed
@@ -162,9 +162,9 @@ class __$PostRequestCopyWithImpl<$Res> extends _$PostRequestCopyWithImpl<$Res>
           ? _value.imageUrls
           : imageUrls // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      postType: postType == freezed
-          ? _value.postType
-          : postType // ignore: cast_nullable_to_non_nullable
+      typeName: typeName == freezed
+          ? _value.typeName
+          : typeName // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -178,7 +178,7 @@ class _$_PostRequest implements _PostRequest {
       required this.title,
       required this.contents,
       required this.imageUrls,
-      required this.postType});
+      required this.typeName});
 
   factory _$_PostRequest.fromJson(Map<String, dynamic> json) =>
       _$$_PostRequestFromJson(json);
@@ -192,11 +192,11 @@ class _$_PostRequest implements _PostRequest {
   @override
   final List<String> imageUrls;
   @override
-  final String postType;
+  final String typeName;
 
   @override
   String toString() {
-    return 'PostRequest(groupId: $groupId, title: $title, contents: $contents, imageUrls: $imageUrls, postType: $postType)';
+    return 'PostRequest(groupId: $groupId, title: $title, contents: $contents, imageUrls: $imageUrls, typeName: $typeName)';
   }
 
   @override
@@ -209,13 +209,13 @@ class _$_PostRequest implements _PostRequest {
             (identical(other.contents, contents) ||
                 other.contents == contents) &&
             const DeepCollectionEquality().equals(other.imageUrls, imageUrls) &&
-            (identical(other.postType, postType) ||
-                other.postType == postType));
+            (identical(other.typeName, typeName) ||
+                other.typeName == typeName));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, groupId, title, contents,
-      const DeepCollectionEquality().hash(imageUrls), postType);
+      const DeepCollectionEquality().hash(imageUrls), typeName);
 
   @JsonKey(ignore: true)
   @override
@@ -234,7 +234,7 @@ abstract class _PostRequest implements PostRequest {
       required String title,
       required String contents,
       required List<String> imageUrls,
-      required String postType}) = _$_PostRequest;
+      required String typeName}) = _$_PostRequest;
 
   factory _PostRequest.fromJson(Map<String, dynamic> json) =
       _$_PostRequest.fromJson;
@@ -248,7 +248,7 @@ abstract class _PostRequest implements PostRequest {
   @override
   List<String> get imageUrls;
   @override
-  String get postType;
+  String get typeName;
   @override
   @JsonKey(ignore: true)
   _$PostRequestCopyWith<_PostRequest> get copyWith =>

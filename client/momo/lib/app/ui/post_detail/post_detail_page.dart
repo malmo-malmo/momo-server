@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/model/post/post.dart';
 import 'package:momo/app/provider/comment/comment_list_provider.dart';
 import 'package:momo/app/provider/post/post_detail_provider.dart';
-import 'package:momo/app/provider/post/post_provider.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:momo/app/ui/components/button/floating_text_button.dart';
 import 'package:momo/app/ui/components/status/error_card.dart';
@@ -13,23 +12,14 @@ import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/ui/post_detail/widget/comments_list.dart';
 import 'package:momo/app/ui/post_detail/widget/post_detail_card.dart';
 
-class PostDetailPage extends ConsumerStatefulWidget {
-  const PostDetailPage({
-    Key? key,
-    required this.post,
-  }) : super(key: key);
+class PostDetailPage extends ConsumerWidget {
+  const PostDetailPage({Key? key, required this.post}) : super(key: key);
 
   final Post post;
 
   @override
-  ConsumerState<PostDetailPage> createState() => _PostDetailPageState();
-}
-
-class _PostDetailPageState extends ConsumerState<PostDetailPage> {
-  @override
-  Widget build(BuildContext context) {
-    final postDetailResponse =
-        ref.watch(postDetailFutureProvider(widget.post.id));
+  Widget build(BuildContext context, WidgetRef ref) {
+    final postDetailResponse = ref.watch(postDetailFutureProvider(post.id));
 
     return SafeArea(
       child: postDetailResponse.when(
@@ -37,9 +27,6 @@ class _PostDetailPageState extends ConsumerState<PostDetailPage> {
         loading: () => Scaffold(body: loadingCard()),
         data: (data) {
           final postDetail = ref.watch(postDetailProvider(data));
-
-          final curCommentCnt =
-              ref.watch(postStateProvider(widget.post)).commentCnt;
 
           return Scaffold(
             backgroundColor: const Color(0xffffffff),
@@ -55,10 +42,7 @@ class _PostDetailPageState extends ConsumerState<PostDetailPage> {
                   Expanded(
                     child: CustomScrollView(
                       slivers: [
-                        postDetailCard(
-                          postDetail: postDetail,
-                          commentCnt: curCommentCnt,
-                        ),
+                        postDetailCard(postDetail: postDetail),
                         CommentsList(postId: postDetail.id),
                       ],
                     ),
@@ -71,12 +55,7 @@ class _PostDetailPageState extends ConsumerState<PostDetailPage> {
                               commentListStateProvider(postDetail.id).notifier)
                           .createComment(text);
                     },
-                    onTapIcon: () async {
-                      ref
-                          .read(postStateProvider(widget.post).notifier)
-                          .addComment();
-                      FocusScope.of(context).unfocus();
-                    },
+                    onTapIcon: () {},
                   ),
                 ],
               ),

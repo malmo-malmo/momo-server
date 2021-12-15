@@ -9,5 +9,6 @@ class CommentListDto with _$CommentListDto {
     required List<Comment> comments,
     required int nextPage,
     required bool hasNext,
+    required int commentCnt,
   }) = _CommentListDto;
 }

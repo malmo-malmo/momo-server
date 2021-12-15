@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/model/post/post_detail.dart';
+import 'package:momo/app/provider/post/post_detail_provider.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/components/card/profile_avatar.dart';
 import 'package:momo/app/util/format/post_date_format.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget postDetailCard({
-  required PostDetail postDetail,
-  required int commentCnt,
-}) {
+Widget postDetailCard({required PostDetail postDetail}) {
   return SliverToBoxAdapter(
     child: Padding(
       padding: const EdgeInsets.symmetric(vertical: 24),
@@ -91,13 +89,15 @@ Widget postDetailCard({
           const SizedBox(height: 30),
           Container(height: 1, color: MomoColor.backgroundColor),
           const SizedBox(height: 20),
-          Text(
-            '댓글 수 $commentCnt',
-            style: MomoTextStyle.small.copyWith(
-              fontWeight: FontWeight.w400,
-              color: MomoColor.unSelIcon,
-            ),
-          ),
+          Consumer(builder: (context, ref, _) {
+            return Text(
+              '댓글 수 ${ref.watch(postDetailCommentCntStateProvider)}',
+              style: MomoTextStyle.small.copyWith(
+                fontWeight: FontWeight.w400,
+                color: MomoColor.unSelIcon,
+              ),
+            );
+          }),
         ],
       ),
     ),

@@ -46,14 +46,13 @@ class _ScheduleListState extends ConsumerState<ScheduleList> {
       final response =
           await repository.getSchedules(pageKey++, groupId: widget.groupId);
       _manageId = response.managerId;
-      final newItems = response.schedules;
+      final newItems = response.groupScheduleResponses;
 
       final isLastPage = newItems.length < pageSize;
       if (isLastPage) {
         _pagingController.appendLastPage(newItems);
       } else {
-        final nextPageKey = pageKey + newItems.length;
-        _pagingController.appendPage(newItems, nextPageKey);
+        _pagingController.appendPage(newItems, pageKey);
       }
     } catch (error) {
       _pagingController.error = error;

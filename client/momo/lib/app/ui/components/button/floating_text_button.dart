@@ -65,6 +65,7 @@ class _FloatingTextButtonState extends State<FloatingTextButton> {
                       widget.sendMessage(_controller.text);
                       widget.onTapIcon();
                       _controller.clear();
+                      FocusScope.of(context).unfocus();
                     }
                   : null,
               child: SvgPicture.asset(

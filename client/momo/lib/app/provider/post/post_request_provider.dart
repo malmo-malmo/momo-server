@@ -40,7 +40,7 @@ class PostRequestState extends StateNotifier<PostRequest> {
             title: '',
             groupId: postRequestArg.groupId,
             imageUrls: [],
-            postType: postRequestArg.postType.postTypeToString,
+            typeName: postRequestArg.postType.postTypeToString,
           ),
         );
 

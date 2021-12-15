@@ -25,6 +25,7 @@ class CommentListState extends StateNotifier<CommentListDto> {
             comments: [],
             nextPage: 0,
             hasNext: true,
+            commentCnt: 0,
           ),
         );
 
@@ -41,6 +42,7 @@ class CommentListState extends StateNotifier<CommentListDto> {
       ],
       hasNext: response.comments.length == pageSize,
       nextPage: page,
+      commentCnt: response.commentCnt,
     );
   }
 
@@ -52,6 +54,7 @@ class CommentListState extends StateNotifier<CommentListDto> {
         comment,
         ...state.comments,
       ],
+      commentCnt: state.commentCnt + 1,
     );
   }
 }

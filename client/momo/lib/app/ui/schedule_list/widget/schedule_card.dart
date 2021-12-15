@@ -16,7 +16,7 @@ Widget scheduleCard({
   return InkWell(
     onTap: () {},
     child: Material(
-      elevation: 2,
+      elevation: 1,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),

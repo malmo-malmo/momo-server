@@ -18,10 +18,7 @@ import 'package:momo/app/ui/group_detail/widget/user_bottom_sheet.dart';
 import 'package:momo/app/util/theme.dart';
 
 class GroupDetailPage extends ConsumerWidget {
-  const GroupDetailPage({
-    Key? key,
-    required this.group,
-  }) : super(key: key);
+  const GroupDetailPage({Key? key, required this.group}) : super(key: key);
 
   final GroupInfo group;
 
@@ -45,26 +42,21 @@ class GroupDetailPage extends ConsumerWidget {
                   ? Padding(
                       padding: const EdgeInsets.only(right: 8),
                       child: InkWell(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(16),
-                                topRight: Radius.circular(16),
-                              ),
-                            ),
-                            builder: (context) =>
-                                userData.id == groupDetail.managerId
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(16),
+                                        topRight: Radius.circular(16))),
+                                builder: (context) => userData.id ==
+                                        groupDetail.managerId
                                     ? AdminBottomSheet(groupId: groupDetail.id)
-                                    : UserBottomSheet(group: group),
-                          );
-                        },
-                        child: SvgPicture.asset(
-                            'assets/icon/icon_ooowhite_28.svg'),
-                      ),
-                    )
+                                    : UserBottomSheet(group: group));
+                          },
+                          child: SvgPicture.asset(
+                              'assets/icon/icon_ooowhite_28.svg')))
                   : const SizedBox(),
               leadingIconColor: MomoColor.white,
               backgroundColor: Colors.transparent,
@@ -93,7 +85,6 @@ class GroupDetailPage extends ConsumerWidget {
                               .read(groupDetailStateProvider(data).notifier)
                               .participantGroup();
 
-                          // 모임 목록에서 참가자 수 증가
                           ref
                               .read(groupStateProvider(group).notifier)
                               .addParticipantCnt();
@@ -102,9 +93,7 @@ class GroupDetailPage extends ConsumerWidget {
                 groupDetail.participant
                     ? SliverPadding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
-                        sliver: PostListView(
-                          groupId: groupDetail.id,
-                        ),
+                        sliver: PostListView(groupId: groupDetail.id),
                       )
                     : const SliverToBoxAdapter()
               ],

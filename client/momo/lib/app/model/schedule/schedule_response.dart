@@ -8,7 +8,7 @@ part 'schedule_response.freezed.dart';
 class ScheduleResponse with _$ScheduleResponse {
   factory ScheduleResponse({
     required int managerId,
-    required List<ScheduleDetail> schedules,
+    required List<ScheduleDetail> groupScheduleResponses,
   }) = _ScheduleResponse;
 
   factory ScheduleResponse.fromJson(Map<String, dynamic> json) =>

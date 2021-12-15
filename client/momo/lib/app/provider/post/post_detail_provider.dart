@@ -2,6 +2,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/model/post/post_detail.dart';
 import 'package:momo/app/repository/post_repository.dart';
 
+final postDetailCommentCntStateProvider =
+    StateProvider.autoDispose<int>((ref) => 0);
+
 final postDetailProvider =
     Provider.family.autoDispose<PostDetail, PostDetail>((ref, postDetail) {
   final postDetailState = ref.watch(postDetailStateProvider(postDetail));

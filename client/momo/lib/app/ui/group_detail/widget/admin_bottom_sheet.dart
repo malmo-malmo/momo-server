@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:momo/app/model/enum/post_type.dart';
+import 'package:momo/app/provider/post/post_paging_controller_provider.dart';
 import 'package:momo/app/routes/custom_arg/post_request_arg.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/group_detail/widget/group_close_dialog.dart';
@@ -57,6 +58,7 @@ class _AdminBottomSheetState extends ConsumerState<AdminBottomSheet> {
                     ),
                   );
               ref.read(navigatorProvider).pop();
+              ref.read(postPaigingControllerProvider(widget.groupId)).refresh();
             },
             child: sheetTabButtob(
               title: '게시물 작성',
@@ -73,6 +75,9 @@ class _AdminBottomSheetState extends ConsumerState<AdminBottomSheet> {
                     ),
                   );
               ref.read(navigatorProvider).pop();
+              ref
+                  .read(noticePaigingControllerProvider(widget.groupId))
+                  .refresh();
             },
             child: sheetTabButtob(
               title: '공지사항 작성',

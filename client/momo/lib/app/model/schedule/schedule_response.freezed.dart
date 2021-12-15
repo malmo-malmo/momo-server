@@ -22,10 +22,11 @@ class _$ScheduleResponseTearOff {
   const _$ScheduleResponseTearOff();
 
   _ScheduleResponse call(
-      {required int managerId, required List<ScheduleDetail> schedules}) {
+      {required int managerId,
+      required List<ScheduleDetail> groupScheduleResponses}) {
     return _ScheduleResponse(
       managerId: managerId,
-      schedules: schedules,
+      groupScheduleResponses: groupScheduleResponses,
     );
   }
 
@@ -40,7 +41,8 @@ const $ScheduleResponse = _$ScheduleResponseTearOff();
 /// @nodoc
 mixin _$ScheduleResponse {
   int get managerId => throw _privateConstructorUsedError;
-  List<ScheduleDetail> get schedules => throw _privateConstructorUsedError;
+  List<ScheduleDetail> get groupScheduleResponses =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +55,7 @@ abstract class $ScheduleResponseCopyWith<$Res> {
   factory $ScheduleResponseCopyWith(
           ScheduleResponse value, $Res Function(ScheduleResponse) then) =
       _$ScheduleResponseCopyWithImpl<$Res>;
-  $Res call({int managerId, List<ScheduleDetail> schedules});
+  $Res call({int managerId, List<ScheduleDetail> groupScheduleResponses});
 }
 
 /// @nodoc
@@ -68,16 +70,16 @@ class _$ScheduleResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? managerId = freezed,
-    Object? schedules = freezed,
+    Object? groupScheduleResponses = freezed,
   }) {
     return _then(_value.copyWith(
       managerId: managerId == freezed
           ? _value.managerId
           : managerId // ignore: cast_nullable_to_non_nullable
               as int,
-      schedules: schedules == freezed
-          ? _value.schedules
-          : schedules // ignore: cast_nullable_to_non_nullable
+      groupScheduleResponses: groupScheduleResponses == freezed
+          ? _value.groupScheduleResponses
+          : groupScheduleResponses // ignore: cast_nullable_to_non_nullable
               as List<ScheduleDetail>,
     ));
   }
@@ -90,7 +92,7 @@ abstract class _$ScheduleResponseCopyWith<$Res>
           _ScheduleResponse value, $Res Function(_ScheduleResponse) then) =
       __$ScheduleResponseCopyWithImpl<$Res>;
   @override
-  $Res call({int managerId, List<ScheduleDetail> schedules});
+  $Res call({int managerId, List<ScheduleDetail> groupScheduleResponses});
 }
 
 /// @nodoc
@@ -107,16 +109,16 @@ class __$ScheduleResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? managerId = freezed,
-    Object? schedules = freezed,
+    Object? groupScheduleResponses = freezed,
   }) {
     return _then(_ScheduleResponse(
       managerId: managerId == freezed
           ? _value.managerId
           : managerId // ignore: cast_nullable_to_non_nullable
               as int,
-      schedules: schedules == freezed
-          ? _value.schedules
-          : schedules // ignore: cast_nullable_to_non_nullable
+      groupScheduleResponses: groupScheduleResponses == freezed
+          ? _value.groupScheduleResponses
+          : groupScheduleResponses // ignore: cast_nullable_to_non_nullable
               as List<ScheduleDetail>,
     ));
   }
@@ -125,7 +127,8 @@ class __$ScheduleResponseCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ScheduleResponse implements _ScheduleResponse {
-  _$_ScheduleResponse({required this.managerId, required this.schedules});
+  _$_ScheduleResponse(
+      {required this.managerId, required this.groupScheduleResponses});
 
   factory _$_ScheduleResponse.fromJson(Map<String, dynamic> json) =>
       _$$_ScheduleResponseFromJson(json);
@@ -133,11 +136,11 @@ class _$_ScheduleResponse implements _ScheduleResponse {
   @override
   final int managerId;
   @override
-  final List<ScheduleDetail> schedules;
+  final List<ScheduleDetail> groupScheduleResponses;
 
   @override
   String toString() {
-    return 'ScheduleResponse(managerId: $managerId, schedules: $schedules)';
+    return 'ScheduleResponse(managerId: $managerId, groupScheduleResponses: $groupScheduleResponses)';
   }
 
   @override
@@ -147,12 +150,13 @@ class _$_ScheduleResponse implements _ScheduleResponse {
             other is _ScheduleResponse &&
             (identical(other.managerId, managerId) ||
                 other.managerId == managerId) &&
-            const DeepCollectionEquality().equals(other.schedules, schedules));
+            const DeepCollectionEquality()
+                .equals(other.groupScheduleResponses, groupScheduleResponses));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, managerId, const DeepCollectionEquality().hash(schedules));
+  int get hashCode => Object.hash(runtimeType, managerId,
+      const DeepCollectionEquality().hash(groupScheduleResponses));
 
   @JsonKey(ignore: true)
   @override
@@ -167,8 +171,9 @@ class _$_ScheduleResponse implements _ScheduleResponse {
 
 abstract class _ScheduleResponse implements ScheduleResponse {
   factory _ScheduleResponse(
-      {required int managerId,
-      required List<ScheduleDetail> schedules}) = _$_ScheduleResponse;
+          {required int managerId,
+          required List<ScheduleDetail> groupScheduleResponses}) =
+      _$_ScheduleResponse;
 
   factory _ScheduleResponse.fromJson(Map<String, dynamic> json) =
       _$_ScheduleResponse.fromJson;
@@ -176,7 +181,7 @@ abstract class _ScheduleResponse implements ScheduleResponse {
   @override
   int get managerId;
   @override
-  List<ScheduleDetail> get schedules;
+  List<ScheduleDetail> get groupScheduleResponses;
   @override
   @JsonKey(ignore: true)
   _$ScheduleResponseCopyWith<_ScheduleResponse> get copyWith =>

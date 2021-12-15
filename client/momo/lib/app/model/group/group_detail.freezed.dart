@@ -29,12 +29,12 @@ class _$GroupDetailTearOff {
       String? imageUrl,
       required String introduction,
       required String name,
-      required bool isOffline,
-      required bool isParticipant,
+      required bool offline,
+      required bool participant,
       required int participantCnt,
       required String startDate,
       required String university,
-      required bool isEnd,
+      required bool end,
       required int recruitmentCnt}) {
     return _GroupDetail(
       id: id,
@@ -44,12 +44,12 @@ class _$GroupDetailTearOff {
       imageUrl: imageUrl,
       introduction: introduction,
       name: name,
-      isOffline: isOffline,
-      isParticipant: isParticipant,
+      offline: offline,
+      participant: participant,
       participantCnt: participantCnt,
       startDate: startDate,
       university: university,
-      isEnd: isEnd,
+      end: end,
       recruitmentCnt: recruitmentCnt,
     );
   }
@@ -71,12 +71,12 @@ mixin _$GroupDetail {
   String? get imageUrl => throw _privateConstructorUsedError;
   String get introduction => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  bool get isOffline => throw _privateConstructorUsedError;
-  bool get isParticipant => throw _privateConstructorUsedError;
+  bool get offline => throw _privateConstructorUsedError;
+  bool get participant => throw _privateConstructorUsedError;
   int get participantCnt => throw _privateConstructorUsedError;
   String get startDate => throw _privateConstructorUsedError;
   String get university => throw _privateConstructorUsedError;
-  bool get isEnd => throw _privateConstructorUsedError;
+  bool get end => throw _privateConstructorUsedError;
   int get recruitmentCnt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -98,12 +98,12 @@ abstract class $GroupDetailCopyWith<$Res> {
       String? imageUrl,
       String introduction,
       String name,
-      bool isOffline,
-      bool isParticipant,
+      bool offline,
+      bool participant,
       int participantCnt,
       String startDate,
       String university,
-      bool isEnd,
+      bool end,
       int recruitmentCnt});
 }
 
@@ -124,12 +124,12 @@ class _$GroupDetailCopyWithImpl<$Res> implements $GroupDetailCopyWith<$Res> {
     Object? imageUrl = freezed,
     Object? introduction = freezed,
     Object? name = freezed,
-    Object? isOffline = freezed,
-    Object? isParticipant = freezed,
+    Object? offline = freezed,
+    Object? participant = freezed,
     Object? participantCnt = freezed,
     Object? startDate = freezed,
     Object? university = freezed,
-    Object? isEnd = freezed,
+    Object? end = freezed,
     Object? recruitmentCnt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -161,13 +161,13 @@ class _$GroupDetailCopyWithImpl<$Res> implements $GroupDetailCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      isOffline: isOffline == freezed
-          ? _value.isOffline
-          : isOffline // ignore: cast_nullable_to_non_nullable
+      offline: offline == freezed
+          ? _value.offline
+          : offline // ignore: cast_nullable_to_non_nullable
               as bool,
-      isParticipant: isParticipant == freezed
-          ? _value.isParticipant
-          : isParticipant // ignore: cast_nullable_to_non_nullable
+      participant: participant == freezed
+          ? _value.participant
+          : participant // ignore: cast_nullable_to_non_nullable
               as bool,
       participantCnt: participantCnt == freezed
           ? _value.participantCnt
@@ -181,9 +181,9 @@ class _$GroupDetailCopyWithImpl<$Res> implements $GroupDetailCopyWith<$Res> {
           ? _value.university
           : university // ignore: cast_nullable_to_non_nullable
               as String,
-      isEnd: isEnd == freezed
-          ? _value.isEnd
-          : isEnd // ignore: cast_nullable_to_non_nullable
+      end: end == freezed
+          ? _value.end
+          : end // ignore: cast_nullable_to_non_nullable
               as bool,
       recruitmentCnt: recruitmentCnt == freezed
           ? _value.recruitmentCnt
@@ -208,12 +208,12 @@ abstract class _$GroupDetailCopyWith<$Res>
       String? imageUrl,
       String introduction,
       String name,
-      bool isOffline,
-      bool isParticipant,
+      bool offline,
+      bool participant,
       int participantCnt,
       String startDate,
       String university,
-      bool isEnd,
+      bool end,
       int recruitmentCnt});
 }
 
@@ -236,12 +236,12 @@ class __$GroupDetailCopyWithImpl<$Res> extends _$GroupDetailCopyWithImpl<$Res>
     Object? imageUrl = freezed,
     Object? introduction = freezed,
     Object? name = freezed,
-    Object? isOffline = freezed,
-    Object? isParticipant = freezed,
+    Object? offline = freezed,
+    Object? participant = freezed,
     Object? participantCnt = freezed,
     Object? startDate = freezed,
     Object? university = freezed,
-    Object? isEnd = freezed,
+    Object? end = freezed,
     Object? recruitmentCnt = freezed,
   }) {
     return _then(_GroupDetail(
@@ -273,13 +273,13 @@ class __$GroupDetailCopyWithImpl<$Res> extends _$GroupDetailCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      isOffline: isOffline == freezed
-          ? _value.isOffline
-          : isOffline // ignore: cast_nullable_to_non_nullable
+      offline: offline == freezed
+          ? _value.offline
+          : offline // ignore: cast_nullable_to_non_nullable
               as bool,
-      isParticipant: isParticipant == freezed
-          ? _value.isParticipant
-          : isParticipant // ignore: cast_nullable_to_non_nullable
+      participant: participant == freezed
+          ? _value.participant
+          : participant // ignore: cast_nullable_to_non_nullable
               as bool,
       participantCnt: participantCnt == freezed
           ? _value.participantCnt
@@ -293,9 +293,9 @@ class __$GroupDetailCopyWithImpl<$Res> extends _$GroupDetailCopyWithImpl<$Res>
           ? _value.university
           : university // ignore: cast_nullable_to_non_nullable
               as String,
-      isEnd: isEnd == freezed
-          ? _value.isEnd
-          : isEnd // ignore: cast_nullable_to_non_nullable
+      end: end == freezed
+          ? _value.end
+          : end // ignore: cast_nullable_to_non_nullable
               as bool,
       recruitmentCnt: recruitmentCnt == freezed
           ? _value.recruitmentCnt
@@ -316,12 +316,12 @@ class _$_GroupDetail implements _GroupDetail {
       this.imageUrl,
       required this.introduction,
       required this.name,
-      required this.isOffline,
-      required this.isParticipant,
+      required this.offline,
+      required this.participant,
       required this.participantCnt,
       required this.startDate,
       required this.university,
-      required this.isEnd,
+      required this.end,
       required this.recruitmentCnt});
 
   factory _$_GroupDetail.fromJson(Map<String, dynamic> json) =>
@@ -342,9 +342,9 @@ class _$_GroupDetail implements _GroupDetail {
   @override
   final String name;
   @override
-  final bool isOffline;
+  final bool offline;
   @override
-  final bool isParticipant;
+  final bool participant;
   @override
   final int participantCnt;
   @override
@@ -352,13 +352,13 @@ class _$_GroupDetail implements _GroupDetail {
   @override
   final String university;
   @override
-  final bool isEnd;
+  final bool end;
   @override
   final int recruitmentCnt;
 
   @override
   String toString() {
-    return 'GroupDetail(id: $id, managerId: $managerId, city: $city, district: $district, imageUrl: $imageUrl, introduction: $introduction, name: $name, isOffline: $isOffline, isParticipant: $isParticipant, participantCnt: $participantCnt, startDate: $startDate, university: $university, isEnd: $isEnd, recruitmentCnt: $recruitmentCnt)';
+    return 'GroupDetail(id: $id, managerId: $managerId, city: $city, district: $district, imageUrl: $imageUrl, introduction: $introduction, name: $name, offline: $offline, participant: $participant, participantCnt: $participantCnt, startDate: $startDate, university: $university, end: $end, recruitmentCnt: $recruitmentCnt)';
   }
 
   @override
@@ -377,17 +377,16 @@ class _$_GroupDetail implements _GroupDetail {
             (identical(other.introduction, introduction) ||
                 other.introduction == introduction) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.isOffline, isOffline) ||
-                other.isOffline == isOffline) &&
-            (identical(other.isParticipant, isParticipant) ||
-                other.isParticipant == isParticipant) &&
+            (identical(other.offline, offline) || other.offline == offline) &&
+            (identical(other.participant, participant) ||
+                other.participant == participant) &&
             (identical(other.participantCnt, participantCnt) ||
                 other.participantCnt == participantCnt) &&
             (identical(other.startDate, startDate) ||
                 other.startDate == startDate) &&
             (identical(other.university, university) ||
                 other.university == university) &&
-            (identical(other.isEnd, isEnd) || other.isEnd == isEnd) &&
+            (identical(other.end, end) || other.end == end) &&
             (identical(other.recruitmentCnt, recruitmentCnt) ||
                 other.recruitmentCnt == recruitmentCnt));
   }
@@ -402,12 +401,12 @@ class _$_GroupDetail implements _GroupDetail {
       imageUrl,
       introduction,
       name,
-      isOffline,
-      isParticipant,
+      offline,
+      participant,
       participantCnt,
       startDate,
       university,
-      isEnd,
+      end,
       recruitmentCnt);
 
   @JsonKey(ignore: true)
@@ -430,12 +429,12 @@ abstract class _GroupDetail implements GroupDetail {
       String? imageUrl,
       required String introduction,
       required String name,
-      required bool isOffline,
-      required bool isParticipant,
+      required bool offline,
+      required bool participant,
       required int participantCnt,
       required String startDate,
       required String university,
-      required bool isEnd,
+      required bool end,
       required int recruitmentCnt}) = _$_GroupDetail;
 
   factory _GroupDetail.fromJson(Map<String, dynamic> json) =
@@ -456,9 +455,9 @@ abstract class _GroupDetail implements GroupDetail {
   @override
   String get name;
   @override
-  bool get isOffline;
+  bool get offline;
   @override
-  bool get isParticipant;
+  bool get participant;
   @override
   int get participantCnt;
   @override
@@ -466,7 +465,7 @@ abstract class _GroupDetail implements GroupDetail {
   @override
   String get university;
   @override
-  bool get isEnd;
+  bool get end;
   @override
   int get recruitmentCnt;
   @override

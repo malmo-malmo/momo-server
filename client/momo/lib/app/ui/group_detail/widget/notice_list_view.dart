@@ -14,10 +14,7 @@ import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 class NoticeListView extends ConsumerWidget {
-  const NoticeListView({
-    Key? key,
-    required this.groupId,
-  }) : super(key: key);
+  const NoticeListView({Key? key, required this.groupId}) : super(key: key);
 
   final int groupId;
 
@@ -56,10 +53,11 @@ class NoticeListView extends ConsumerWidget {
   Widget _noticeCard(Post post) {
     return Consumer(builder: (context, ref, _) {
       return InkWell(
-        onTap: () {
-          ref
+        onTap: () async {
+          await ref
               .read(navigatorProvider)
               .navigateTo(routeName: AppRoutes.postDetail, arguments: post);
+          ref.read(noticePaigingControllerProvider(groupId)).refresh();
         },
         child: Container(
           height: 86,
@@ -89,10 +87,7 @@ class NoticeListView extends ConsumerWidget {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            '공지사항',
-            style: MomoTextStyle.subTitle,
-          ),
+          Text('공지사항', style: MomoTextStyle.subTitle),
           InkWell(
             onTap: () {
               ref.read(navigatorProvider).navigateTo(

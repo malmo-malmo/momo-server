@@ -10,7 +10,7 @@ class PostRequest with _$PostRequest {
     required String title,
     required String contents,
     required List<String> imageUrls,
-    required String postType,
+    required String typeName,
   }) = _PostRequest;
 
   factory PostRequest.fromJson(Map<String, dynamic> json) =>

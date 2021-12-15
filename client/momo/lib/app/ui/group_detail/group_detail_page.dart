@@ -18,10 +18,7 @@ import 'package:momo/app/ui/group_detail/widget/user_bottom_sheet.dart';
 import 'package:momo/app/util/theme.dart';
 
 class GroupDetailPage extends ConsumerWidget {
-  const GroupDetailPage({
-    Key? key,
-    required this.group,
-  }) : super(key: key);
+  const GroupDetailPage({Key? key, required this.group}) : super(key: key);
 
   final GroupInfo group;
 
@@ -40,31 +37,26 @@ class GroupDetailPage extends ConsumerWidget {
             backgroundColor: const Color(0xfff7f7f7),
             appBar: customAppBar(
               leadingIcon: CupertinoIcons.back,
-              isAction: groupDetail.isParticipant,
-              actionWidget: groupDetail.isParticipant
+              isAction: groupDetail.participant,
+              actionWidget: groupDetail.participant
                   ? Padding(
                       padding: const EdgeInsets.only(right: 8),
                       child: InkWell(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(16),
-                                topRight: Radius.circular(16),
-                              ),
-                            ),
-                            builder: (context) =>
-                                userData.id == groupDetail.managerId
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(16),
+                                        topRight: Radius.circular(16))),
+                                builder: (context) => userData.id ==
+                                        groupDetail.managerId
                                     ? AdminBottomSheet(groupId: groupDetail.id)
-                                    : UserBottomSheet(group: group),
-                          );
-                        },
-                        child: SvgPicture.asset(
-                            'assets/icon/icon_ooowhite_28.svg'),
-                      ),
-                    )
+                                    : UserBottomSheet(group: group));
+                          },
+                          child: SvgPicture.asset(
+                              'assets/icon/icon_ooowhite_28.svg')))
                   : const SizedBox(),
               leadingIconColor: MomoColor.white,
               backgroundColor: Colors.transparent,
@@ -75,7 +67,7 @@ class GroupDetailPage extends ConsumerWidget {
                 SliverToBoxAdapter(
                   child: GroupDetailTitle(
                     title: groupDetail.name,
-                    onOff: groupDetail.isOffline,
+                    onOff: groupDetail.offline,
                     count: groupDetail.participantCnt,
                     startDate: groupDetail.startDate,
                     city: groupDetail.city,
@@ -84,7 +76,7 @@ class GroupDetailPage extends ConsumerWidget {
                     img: groupDetail.imageUrl,
                   ),
                 ),
-                groupDetail.isParticipant
+                groupDetail.participant
                     ? groupDetailCard(groupId: groupDetail.id)
                     : requestInfoCard(
                         introduction: groupDetail.introduction,
@@ -93,18 +85,15 @@ class GroupDetailPage extends ConsumerWidget {
                               .read(groupDetailStateProvider(data).notifier)
                               .participantGroup();
 
-                          // 모임 목록에서 참가자 수 증가
                           ref
                               .read(groupStateProvider(group).notifier)
                               .addParticipantCnt();
                         },
                       ),
-                groupDetail.isParticipant
+                groupDetail.participant
                     ? SliverPadding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
-                        sliver: PostListView(
-                          groupId: groupDetail.id,
-                        ),
+                        sliver: PostListView(groupId: groupDetail.id),
                       )
                     : const SliverToBoxAdapter()
               ],

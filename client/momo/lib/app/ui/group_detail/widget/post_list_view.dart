@@ -8,10 +8,7 @@ import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/ui/components/status/no_item_card.dart';
 
 class PostListView extends ConsumerWidget {
-  const PostListView({
-    Key? key,
-    required this.groupId,
-  }) : super(key: key);
+  const PostListView({Key? key, required this.groupId}) : super(key: key);
 
   final int groupId;
 
@@ -22,7 +19,7 @@ class PostListView extends ConsumerWidget {
     return PagedSliverList<int, Post>(
       pagingController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<Post>(
-        itemBuilder: (context, item, index) => postCard(post: item),
+        itemBuilder: (context, item, index) => PostCard(post: item),
         newPageProgressIndicatorBuilder: (context) => loadingCard(),
         firstPageProgressIndicatorBuilder: (context) => loadingCard(),
         noItemsFoundIndicatorBuilder: (context) => noItemCard(),

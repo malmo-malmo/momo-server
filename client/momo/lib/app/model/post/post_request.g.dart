@@ -13,7 +13,7 @@ _$_PostRequest _$$_PostRequestFromJson(Map<String, dynamic> json) =>
       contents: json['contents'] as String,
       imageUrls:
           (json['imageUrls'] as List<dynamic>).map((e) => e as String).toList(),
-      postType: json['postType'] as String,
+      typeName: json['typeName'] as String,
     );
 
 Map<String, dynamic> _$$_PostRequestToJson(_$_PostRequest instance) =>
@@ -22,5 +22,5 @@ Map<String, dynamic> _$$_PostRequestToJson(_$_PostRequest instance) =>
       'title': instance.title,
       'contents': instance.contents,
       'imageUrls': instance.imageUrls,
-      'postType': instance.postType,
+      'typeName': instance.typeName,
     };

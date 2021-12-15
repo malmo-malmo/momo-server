@@ -5,10 +5,7 @@ import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 class FullImagePage extends StatelessWidget {
-  const FullImagePage({
-    Key? key,
-    required this.img,
-  }) : super(key: key);
+  const FullImagePage({Key? key, required this.img}) : super(key: key);
 
   final String img;
 
@@ -18,28 +15,21 @@ class FullImagePage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: MomoColor.black,
         appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          leading: Consumer(builder: (context, ref, _) {
-            return InkWell(
-              onTap: () {
-                ref.read(navigatorProvider).pop();
-              },
-              child: const Icon(
-                CupertinoIcons.back,
-                color: MomoColor.white,
-              ),
-            );
-          }),
-        ),
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            leading: Consumer(
+                builder: (context, ref, _) => InkWell(
+                    onTap: () => ref.read(navigatorProvider).pop(),
+                    child: const Icon(CupertinoIcons.back,
+                        color: MomoColor.white)))),
         extendBodyBehindAppBar: true,
         body: Padding(
-          padding: const EdgeInsets.only(top: 204, bottom: 234),
+          padding: const EdgeInsets.only(top: 120, bottom: 160),
           child: Image.network(
             img,
             height: double.infinity,
             width: double.infinity,
-            fit: BoxFit.fill,
+            fit: BoxFit.contain,
           ),
         ),
       ),

@@ -14,10 +14,7 @@ import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 class NoticeListView extends ConsumerWidget {
-  const NoticeListView({
-    Key? key,
-    required this.groupId,
-  }) : super(key: key);
+  const NoticeListView({Key? key, required this.groupId}) : super(key: key);
 
   final int groupId;
 

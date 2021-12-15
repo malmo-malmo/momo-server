@@ -58,6 +58,7 @@ class _AdminBottomSheetState extends ConsumerState<AdminBottomSheet> {
                     ),
                   );
               ref.read(navigatorProvider).pop();
+              ref.read(postPaigingControllerProvider(widget.groupId)).refresh();
             },
             child: sheetTabButtob(
               title: '게시물 작성',

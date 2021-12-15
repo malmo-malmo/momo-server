@@ -34,7 +34,7 @@ class NoticeListPage extends StatelessWidget {
           child: PagedListView.separated(
             pagingController: pagingController,
             builderDelegate: PagedChildBuilderDelegate<Post>(
-              itemBuilder: (context, item, index) => postCard(post: item),
+              itemBuilder: (context, item, index) => PostCard(post: item),
               newPageProgressIndicatorBuilder: (context) => loadingCard(),
               firstPageProgressIndicatorBuilder: (context) => loadingCard(),
               noItemsFoundIndicatorBuilder: (context) => noItemCard(),

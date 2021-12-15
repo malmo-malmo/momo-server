@@ -1,28 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:momo/app/provider/message/message_controller_provider.dart';
 import 'package:momo/app/util/theme.dart';
 
-class FloatingTextButton extends ConsumerWidget {
+class FloatingTextButton extends StatefulWidget {
   const FloatingTextButton({
     required this.hintText,
     required this.onTapIcon,
-    required this.check,
-    required this.setMessage,
+    required this.sendMessage,
     Key? key,
   }) : super(key: key);
 
   final String hintText;
   final Function onTapIcon;
-  final Function(String text) setMessage;
-  final bool check;
+  final Function(String text) sendMessage;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final _controller = ref.watch(messageTextControllerProvider);
+  State<FloatingTextButton> createState() => _FloatingTextButtonState();
+}
 
+class _FloatingTextButtonState extends State<FloatingTextButton> {
+  bool check = false;
+  final _controller = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
     return SafeArea(
       bottom: true,
       top: false,
@@ -42,23 +44,26 @@ class FloatingTextButton extends ConsumerWidget {
                   style: MomoTextStyle.defaultStyle,
                   controller: _controller,
                   decoration: InputDecoration(
-                    hintText: hintText,
+                    hintText: widget.hintText,
                     border: InputBorder.none,
                   ),
-                  onChanged: (text) => setMessage(text),
+                  onChanged: (text) {
+                    setState(() {
+                      check = _controller.text.isNotEmpty;
+                    });
+                  },
                 ),
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(
-              left: 12,
-            ),
+            padding: const EdgeInsets.only(left: 12),
             child: InkWell(
               borderRadius: BorderRadius.circular(22),
               onTap: check
                   ? () {
-                      onTapIcon();
+                      widget.sendMessage(_controller.text);
+                      widget.onTapIcon();
                       _controller.clear();
                     }
                   : null,

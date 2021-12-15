@@ -27,7 +27,7 @@ void main() async {
     ProviderScope(
       child: const MyApp(),
       observers: [
-        Logger(),
+        // Logger(),
       ],
     ),
   );

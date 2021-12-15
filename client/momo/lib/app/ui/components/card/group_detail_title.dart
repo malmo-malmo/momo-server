@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/components/card/on_off_card.dart';
 import 'package:momo/app/ui/components/text/member_date_row.dart';
+import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 class GroupDetailTitle extends StatelessWidget {
@@ -35,13 +38,24 @@ class GroupDetailTitle extends StatelessWidget {
       width: double.infinity,
       child: Stack(
         children: [
-          Image.network(
-            img ??
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo2lT2My2ZPXDPGCTKi6DvpSDEXB5woZPNDw&usqp=CAU',
-            height: 290,
-            width: double.infinity,
-            fit: BoxFit.fill,
-          ),
+          Consumer(builder: (context, ref, _) {
+            return InkWell(
+              onTap: () {
+                ref.read(navigatorProvider).navigateTo(
+                      routeName: AppRoutes.fullImage,
+                      arguments: img ??
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo2lT2My2ZPXDPGCTKi6DvpSDEXB5woZPNDw&usqp=CAU',
+                    );
+              },
+              child: Image.network(
+                img ??
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo2lT2My2ZPXDPGCTKi6DvpSDEXB5woZPNDw&usqp=CAU',
+                height: 290,
+                width: double.infinity,
+                fit: BoxFit.fill,
+              ),
+            );
+          }),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Column(

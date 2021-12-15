@@ -13,12 +13,12 @@ class GroupDetail with _$GroupDetail {
     String? imageUrl,
     required String introduction,
     required String name,
-    required bool isOffline,
-    required bool isParticipant,
+    required bool offline,
+    required bool participant,
     required int participantCnt,
     required String startDate,
     required String university,
-    required bool isEnd,
+    required bool end,
     required int recruitmentCnt,
   }) = _GroupDetail;
 

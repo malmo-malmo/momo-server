@@ -55,17 +55,11 @@ Widget postDetailCard({
               ],
             ),
           ),
-          Text(
-            postDetail.title,
-            style: MomoTextStyle.defaultStyle,
-          ),
+          Text(postDetail.title, style: MomoTextStyle.defaultStyle),
           const SizedBox(height: 20),
-          Text(
-            postDetail.contents,
-            style: MomoTextStyle.normal.copyWith(
-              fontWeight: FontWeight.w400,
-            ),
-          ),
+          Text(postDetail.contents,
+              style:
+                  MomoTextStyle.normal.copyWith(fontWeight: FontWeight.w400)),
           const SizedBox(height: 32),
           Consumer(builder: (context, ref, _) {
             return Wrap(
@@ -95,10 +89,7 @@ Widget postDetailCard({
             );
           }),
           const SizedBox(height: 30),
-          Container(
-            height: 1,
-            color: MomoColor.backgroundColor,
-          ),
+          Container(height: 1, color: MomoColor.backgroundColor),
           const SizedBox(height: 20),
           Text(
             '댓글 수 $commentCnt',

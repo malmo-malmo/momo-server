@@ -13,9 +13,7 @@ Widget groupDetailCard({required int groupId}) {
           height: 10,
           color: MomoColor.backgroundColor,
         ),
-        NoticeListView(
-          groupId: groupId,
-        ),
+        NoticeListView(groupId: groupId),
         Padding(
           padding: const EdgeInsets.only(left: 16, top: 27, bottom: 17),
           child: Text(

@@ -40,8 +40,8 @@ class GroupDetailPage extends ConsumerWidget {
             backgroundColor: const Color(0xfff7f7f7),
             appBar: customAppBar(
               leadingIcon: CupertinoIcons.back,
-              isAction: groupDetail.isParticipant,
-              actionWidget: groupDetail.isParticipant
+              isAction: groupDetail.participant,
+              actionWidget: groupDetail.participant
                   ? Padding(
                       padding: const EdgeInsets.only(right: 8),
                       child: InkWell(
@@ -75,7 +75,7 @@ class GroupDetailPage extends ConsumerWidget {
                 SliverToBoxAdapter(
                   child: GroupDetailTitle(
                     title: groupDetail.name,
-                    onOff: groupDetail.isOffline,
+                    onOff: groupDetail.offline,
                     count: groupDetail.participantCnt,
                     startDate: groupDetail.startDate,
                     city: groupDetail.city,
@@ -84,7 +84,7 @@ class GroupDetailPage extends ConsumerWidget {
                     img: groupDetail.imageUrl,
                   ),
                 ),
-                groupDetail.isParticipant
+                groupDetail.participant
                     ? groupDetailCard(groupId: groupDetail.id)
                     : requestInfoCard(
                         introduction: groupDetail.introduction,
@@ -99,7 +99,7 @@ class GroupDetailPage extends ConsumerWidget {
                               .addParticipantCnt();
                         },
                       ),
-                groupDetail.isParticipant
+                groupDetail.participant
                     ? SliverPadding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         sliver: PostListView(

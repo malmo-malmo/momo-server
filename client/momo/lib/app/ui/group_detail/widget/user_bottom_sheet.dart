@@ -68,7 +68,6 @@ class _UserBottomSheetState extends ConsumerState<UserBottomSheet> {
           ),
           InkWell(
             onTap: () async {
-              // ref.read(navigatorProvider).pop();
               final isWithdraw = await showDialog(
                 context: context,
                 builder: (context) => withdrawDialog(widget.group.id),

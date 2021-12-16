@@ -24,7 +24,7 @@ public class Images {
         return new Images();
     }
 
-    public void changeAll(Post post, List<String> imageUrls) {
+    public void updateAll(Post post, List<String> imageUrls) {
         if (images.size() > 0) {
             deleteAll();
         }
@@ -34,7 +34,7 @@ public class Images {
         }
     }
 
-    public void deleteAll() {
+    private void deleteAll() {
         images.clear();
     }
 

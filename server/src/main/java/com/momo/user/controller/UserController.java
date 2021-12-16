@@ -32,8 +32,9 @@ public class UserController {
 
     @ApiOperation(value = "닉네임 중복 확인")
     @GetMapping("/duplicate-nickname")
-    public ResponseEntity<Boolean> validateDuplicateNickname(@RequestParam String nickname) {
-        return ResponseEntity.ok(userService.validateDuplicateNickname(nickname));
+    public ResponseEntity<Void> validateDuplicateNickname(@RequestParam String nickname) {
+        userService.validateDuplicateNickname(nickname);
+        return ResponseEntity.ok().build();
     }
 
     @ApiOperation(value = "내 정보 수정")

@@ -34,7 +34,7 @@ public class PostService {
         Groups group = getGroupById(request.getGroupId());
         validatePostType(group, user, request.getTypeName());
         Post post = Post.create(user, group, request.toEntity());
-        post.changeImages(request.getImageUrls());
+        post.updateImages(request.getImageUrls());
         return postRepository.save(post).getId();
     }
 

@@ -2,6 +2,7 @@ package com.momo.common.dto;
 
 import com.momo.district.domain.model.City;
 import com.momo.group.domain.model.Category;
+import com.momo.user.domain.model.FavoriteCategories;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,7 +42,10 @@ public class EnumResponse {
             .collect(Collectors.toList());
     }
 
-    public static List<EnumResponse> listFromCategories(List<Category> categories) {
-        return categories.stream().map(EnumResponse::ofCategory).collect(Collectors.toList());
+    public static List<EnumResponse> listFromCategories(FavoriteCategories favoriteCategories) {
+        return favoriteCategories.getFavoriteCategories()
+            .stream()
+            .map(favoriteCategory -> EnumResponse.ofCategory(favoriteCategory.getCategory()))
+            .collect(Collectors.toList());
     }
 }

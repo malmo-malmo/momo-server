@@ -5,8 +5,6 @@ import com.momo.common.exception.ErrorCode;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.CollectionUtils;
 
 public enum Category {
     HEALTH("건강"),
@@ -40,13 +38,8 @@ public enum Category {
     }
 
     public static List<Category> listOf(List<String> categories) {
-        if (CollectionUtils.isEmpty(categories)) {
-            return null;
-        }
-        return categories.stream().map(Category::of).collect(Collectors.toList());
-    }
-
-    public static String toEntitySaveFormat(List<String> categories) {
-        return StringUtils.join(Category.listOf(categories), ",");
+        return categories.stream()
+            .map(Category::of)
+            .collect(Collectors.toList());
     }
 }

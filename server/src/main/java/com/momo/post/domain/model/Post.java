@@ -68,7 +68,7 @@ public class Post extends BaseEntity {
             .build();
     }
 
-    public void changeImages(List<String> imageUrls) {
-        images.changeAll(this, imageUrls);
+    public void updateImages(List<String> imageUrls) {
+        images.updateAll(this, imageUrls);
     }
 }

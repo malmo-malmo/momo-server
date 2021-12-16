@@ -20,18 +20,14 @@ public class UserService {
 
     public void update(User loginUser, UserUpdateRequest userUpdateRequest) {
         User user = findByUser(loginUser);
-        //TODO : 리팩토링 필요
-        if (user.isNotSameNickname(userUpdateRequest.getNickname())) {
-            validateIsDuplicateNickname(userUpdateRequest.getNickname());
+        if (user.isSameNickname(userUpdateRequest.getNickname())) {
+            return;
         }
+        validateDuplicateNickname(userUpdateRequest.getNickname());
         user.update(userUpdateRequest.toEntity());
     }
 
-    public boolean validateDuplicateNickname(String nickname) {
-        return userRepository.existsByNickname(nickname);
-    }
-
-    public void validateIsDuplicateNickname(String nickname) {
+    public void validateDuplicateNickname(String nickname) {
         if (userRepository.existsByNickname(nickname)) {
             throw new CustomException(ErrorCode.DUPLICATED_NICKNAME);
         }
@@ -39,7 +35,7 @@ public class UserService {
 
     public void updateCategories(User loginUser, CategoryRequest request) {
         User user = findByUser(loginUser);
-        user.updateCategories(Category.toEntitySaveFormat(request.getCategories()));
+        user.updateFavoriteCategories(Category.listOf(request.getCategories()));
     }
 
     public User findByUser(User user) {

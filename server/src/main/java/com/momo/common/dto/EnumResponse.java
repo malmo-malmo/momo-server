@@ -36,16 +36,16 @@ public class EnumResponse {
             .collect(Collectors.toList());
     }
 
-    public static List<EnumResponse> listOfCity() {
-        return Arrays.stream(City.values())
-            .map(status -> EnumResponse.of(status.getCode(), status.getName()))
+    public static List<EnumResponse> listFromCategories(FavoriteCategories favoriteCategories) {
+        return favoriteCategories.toCategories()
+            .stream()
+            .map(EnumResponse::ofCategory)
             .collect(Collectors.toList());
     }
 
-    public static List<EnumResponse> listFromCategories(FavoriteCategories favoriteCategories) {
-        return favoriteCategories.getFavoriteCategories()
-            .stream()
-            .map(favoriteCategory -> EnumResponse.ofCategory(favoriteCategory.getCategory()))
+    public static List<EnumResponse> listOfCity() {
+        return Arrays.stream(City.values())
+            .map(status -> EnumResponse.of(status.getCode(), status.getName()))
             .collect(Collectors.toList());
     }
 }

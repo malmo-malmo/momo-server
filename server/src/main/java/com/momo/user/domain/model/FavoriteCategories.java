@@ -6,6 +6,7 @@ import com.momo.group.domain.model.Category;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
@@ -46,5 +47,11 @@ public class FavoriteCategories {
 
     private void deleteAll() {
         favoriteCategories.clear();
+    }
+
+    public List<Category> toCategories() {
+        return favoriteCategories.stream()
+            .map(FavoriteCategory::getCategory)
+            .collect(Collectors.toList());
     }
 }

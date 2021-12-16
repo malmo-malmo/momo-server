@@ -4,6 +4,7 @@ import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public enum Category {
@@ -38,6 +39,9 @@ public enum Category {
     }
 
     public static List<Category> listOf(List<String> categories) {
+        if (Objects.isNull(categories)) {
+            return null;
+        }
         return categories.stream()
             .map(Category::of)
             .collect(Collectors.toList());

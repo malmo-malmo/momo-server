@@ -1,37 +1,52 @@
 package com.momo.fixture;
 
+import static com.momo.group.domain.model.Category.HEALTH;
+import static com.momo.group.domain.model.Category.HOBBY;
+import static com.momo.group.domain.model.Category.SELF_DEVELOPMENT;
+import static com.momo.group.domain.model.Category.STOCK;
+
 import com.momo.user.domain.model.SocialProvider;
 import com.momo.user.domain.model.User;
+import java.util.List;
 
 public class UserFixture {
 
-    public static final User USER1 = User.builder()
-        .nickname("user1")
-        .university("대학교1")
-        .categories("HEALTH,SELF_DEVELOPMENT")
-        .city("서울시")
-        .district("강동구")
-        .providerId("1")
-        .provider(SocialProvider.KAKAO)
-        .build();
+    public static User getUser1() {
+        User user = User.builder()
+            .nickname("UserFixture.getUser1()")
+            .university("대학교1")
+            .city("서울시")
+            .district("강동구")
+            .providerId("1")
+            .provider(SocialProvider.KAKAO)
+            .build();
+        user.updateFavoriteCategories(List.of(HEALTH, SELF_DEVELOPMENT));
+        return user;
+    }
 
-    public static final User USER2 = User.builder()
-        .nickname("user2")
-        .university("대학교2")
-        .categories("HOBBY")
-        .city("서울시")
-        .district("강동구")
-        .providerId("2")
-        .provider(SocialProvider.KAKAO)
-        .build();
+    public static User getUser2() {
+        User user = User.builder()
+            .nickname("UserFixture.getUser2()")
+            .university("대학교2")
+            .city("서울시")
+            .district("강동구")
+            .providerId("2")
+            .provider(SocialProvider.KAKAO)
+            .build();
+        user.updateFavoriteCategories(List.of(HOBBY));
+        return user;
+    }
 
-    public static final User USER3 = User.builder()
-        .nickname("user3")
-        .university("대학교1")
-        .categories("STOCK")
-        .city("서울시")
-        .district("강남구")
-        .providerId("3")
-        .provider(SocialProvider.KAKAO)
-        .build();
+    public static User getUser3() {
+        User user = User.builder()
+            .nickname("UserFixture.getUser3()")
+            .university("대학교1")
+            .city("서울시")
+            .district("강남구")
+            .providerId("3")
+            .provider(SocialProvider.KAKAO)
+            .build();
+        user.updateFavoriteCategories(List.of(STOCK));
+        return user;
+    }
 }

@@ -31,7 +31,6 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String providerId;
 
-    @Column(nullable = false)
     private String refreshToken;
 
     private String nickname;
@@ -48,16 +47,16 @@ public class User extends BaseEntity {
     private final FavoriteCategories favoriteCategories = FavoriteCategories.empty();
 
     @Builder
-    public User(String providerId, SocialProvider provider, String nickname, String imageUrl, String city,
-        String district, String university, String refreshToken) {
-        this.providerId = providerId;
+    public User(SocialProvider provider, String providerId, String refreshToken, String nickname, String imageUrl,
+        String city, String district, String university) {
         this.provider = provider;
+        this.providerId = providerId;
+        this.refreshToken = refreshToken;
         this.nickname = nickname;
         this.imageUrl = imageUrl;
         this.city = city;
         this.district = district;
         this.university = university;
-        this.refreshToken = refreshToken;
     }
 
     public void updateRefreshToken(String refreshToken) {

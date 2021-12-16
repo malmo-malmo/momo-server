@@ -4,9 +4,9 @@ import static com.momo.fixture.AttendanceFixture.getAttendanceCreateRequest;
 import static com.momo.fixture.AttendanceFixture.getAttendanceCreateRequests;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST1;
 import static com.momo.fixture.ScheduleFixture.getScheduleCreateRequest1;
-import static com.momo.fixture.UserFixture.USER1;
-import static com.momo.fixture.UserFixture.USER2;
-import static com.momo.fixture.UserFixture.USER3;
+import static com.momo.fixture.UserFixture.getUser1;
+import static com.momo.fixture.UserFixture.getUser2;
+import static com.momo.fixture.UserFixture.getUser3;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToApplyParticipant;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToFindParticipants;
@@ -24,9 +24,9 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
 
     @Test
     void 모임_관리자가_일정_출석_체크를_한다() {
-        String managerToken = getAccessToken(USER1);
-        String userToken1 = getAccessToken(USER2);
-        String userToken2 = getAccessToken(USER3);
+        String managerToken = getAccessToken(getUser1());
+        String userToken1 = getAccessToken(getUser2());
+        String userToken2 = getAccessToken(getUser3());
 
         Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));
 

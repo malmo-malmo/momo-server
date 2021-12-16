@@ -1,6 +1,6 @@
 package com.momo.user.acceptance;
 
-import static com.momo.fixture.UserFixture.USER1;
+import static com.momo.fixture.UserFixture.getUser1;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
@@ -18,7 +18,7 @@ public class UniversityAcceptanceTest extends AcceptanceTest {
     @Test
     public void 커리어넷_오픈_API로_대학교_이름을_조회한다() {
         String universityName = "한국";
-        String token = getAccessToken(USER1);
+        String token = getAccessToken(getUser1());
         ExtractableResponse<Response> res = UniversityAcceptanceStep.requestToFind(token, universityName);
         AcceptanceStep.assertThatStatusIsOk(res);
         Assertions.assertThat(getObjects(res, UniversityResponse.class).size()).isGreaterThan(0);

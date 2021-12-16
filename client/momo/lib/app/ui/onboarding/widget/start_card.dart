@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/provider/user/user_data_provider.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/navigation_service.dart';
@@ -55,7 +54,10 @@ Widget startCard() {
             ),
           ),
           const SizedBox(height: 69),
-          SvgPicture.asset('assets/icon/onboarding/icon_onboard_4.svg'),
+          Image.asset(
+            'assets/image/icon_onboard_4.png',
+            width: 189.w,
+          ),
           const SizedBox(height: 20),
           Text(
             '추천, 내 주변, 학교\n관련 모임까지 한 눈에',

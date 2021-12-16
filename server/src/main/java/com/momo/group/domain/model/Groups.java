@@ -3,11 +3,11 @@ package com.momo.group.domain.model;
 import com.momo.common.domain.BaseEntity;
 import com.momo.user.domain.model.User;
 import java.time.LocalDate;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +29,7 @@ public class Groups extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "manager_id")
+    @JoinColumn(name = "manager_id", foreignKey = @ForeignKey(name = "user_fk_groups"))
     private User manager;
 
     private String name;

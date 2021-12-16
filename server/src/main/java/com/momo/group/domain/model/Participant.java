@@ -4,6 +4,7 @@ import com.momo.common.domain.BaseEntity;
 import com.momo.user.domain.model.User;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,11 +27,11 @@ public class Participant extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_id")
+    @JoinColumn(foreignKey = @ForeignKey(name = "group_fk_participant"))
     private Groups group;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(foreignKey = @ForeignKey(name = "user_fk_participant"))
     private User user;
 
     @Formula("(select count(1) from schedule s where s.group_id = group_id and s.attendance_check = true)")

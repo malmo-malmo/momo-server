@@ -120,7 +120,8 @@ class _AchievementCardState extends State<AchievementCard> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('내 모임 달성률 top3', style: MomoTextStyle.small),
+                          const Text('내 모임 달성률 top3',
+                              style: MomoTextStyle.small),
                           const SizedBox(height: 16),
                           _groupRateRow(
                               groupName: '기초를 위한 영어 회화 모임', rate: 100),

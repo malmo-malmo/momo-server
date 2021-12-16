@@ -11,8 +11,8 @@ Widget groupDetailCard({required int groupId}) {
         ScheduleCard(groupId: groupId),
         Container(height: 10, color: MomoColor.backgroundColor),
         NoticeListView(groupId: groupId),
-        Padding(
-          padding: const EdgeInsets.only(left: 16, top: 27, bottom: 17),
+        const Padding(
+          padding: EdgeInsets.only(left: 16, top: 27, bottom: 17),
           child: Text('게시물', style: MomoTextStyle.subTitle),
         ),
       ],

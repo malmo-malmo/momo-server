@@ -53,12 +53,12 @@ class AttendanceListPage extends ConsumerWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('닉네임', style: MomoTextStyle.defaultStyle),
+                          const Text('닉네임', style: MomoTextStyle.defaultStyle),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
+                            children: const [
                               Text('출석', style: MomoTextStyle.defaultStyle),
-                              const SizedBox(width: 27),
+                              SizedBox(width: 27),
                               Text('결석', style: MomoTextStyle.defaultStyle),
                             ],
                           ),

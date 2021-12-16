@@ -91,7 +91,7 @@ class Mypage extends StatelessWidget {
                     index: index - 1,
                     onTabIcon: (index) {},
                     iconSize: 78,
-                    textStyle: MomoTextStyle.defaultStyle
+                    textStyle: MomoTextStyle.normal
                         .copyWith(fontWeight: FontWeight.w400),
                     spaceHeight: 8,
                   );

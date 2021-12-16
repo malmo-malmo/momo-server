@@ -87,7 +87,7 @@ class NoticeListView extends ConsumerWidget {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('공지사항', style: MomoTextStyle.subTitle),
+          const Text('공지사항', style: MomoTextStyle.subTitle),
           InkWell(
             onTap: () {
               ref.read(navigatorProvider).navigateTo(

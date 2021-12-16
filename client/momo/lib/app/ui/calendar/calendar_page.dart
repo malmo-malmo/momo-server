@@ -71,7 +71,7 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
         Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             color: const Color(0xffffffff),
-            child: Align(
+            child: const Align(
                 alignment: Alignment.centerLeft,
                 child: Text('캘린더', style: MomoTextStyle.mainTitle))),
         Container(height: 30, color: const Color(0xffffffff)),

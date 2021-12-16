@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyBehavior extends ScrollBehavior {
   @override
@@ -36,38 +35,38 @@ class MomoColor {
 }
 
 class MomoTextStyle {
-  static final mainTitle = TextStyle(
-    fontSize: 28.sp,
+  static const mainTitle = TextStyle(
+    fontSize: 28,
     color: MomoColor.black,
     fontWeight: FontWeight.w700,
   );
-  static final onboarding = TextStyle(
-    fontSize: 24.sp,
+  static const onboarding = TextStyle(
+    fontSize: 24,
     color: MomoColor.white,
     fontWeight: FontWeight.w700,
   );
-  static final subTitle = TextStyle(
-    fontSize: 20.sp,
+  static const subTitle = TextStyle(
+    fontSize: 20,
     color: MomoColor.black,
     fontWeight: FontWeight.w700,
   );
-  static final defaultStyle = TextStyle(
-    fontSize: 16.sp,
+  static const defaultStyle = TextStyle(
+    fontSize: 16,
     color: MomoColor.black,
     fontWeight: FontWeight.w700,
   );
-  static final normal = TextStyle(
-    fontSize: 14.sp,
+  static const normal = TextStyle(
+    fontSize: 14,
     color: MomoColor.black,
     fontWeight: FontWeight.w700,
   );
-  static final small = TextStyle(
-    fontSize: 12.sp,
+  static const small = TextStyle(
+    fontSize: 12,
     color: MomoColor.black,
     fontWeight: FontWeight.w700,
   );
-  static final card = TextStyle(
-    fontSize: 10.sp,
+  static const card = TextStyle(
+    fontSize: 10,
     color: MomoColor.black,
     fontWeight: FontWeight.w700,
   );

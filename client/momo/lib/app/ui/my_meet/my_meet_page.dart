@@ -36,7 +36,7 @@ class _MyMeetPageState extends ConsumerState<MyMeetPage> {
                 ],
               ),
               SizedBox(height: 12.h),
-              Text(
+              const Text(
                 '내 모임',
                 style: MomoTextStyle.mainTitle,
               ),

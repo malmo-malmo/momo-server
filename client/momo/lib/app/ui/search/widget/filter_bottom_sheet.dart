@@ -40,7 +40,7 @@ Widget filterBottomSheet() {
                       ),
                     ),
                     const SizedBox(width: 14),
-                    Text('검색필터', style: MomoTextStyle.defaultStyle),
+                    const Text('검색필터', style: MomoTextStyle.defaultStyle),
                   ],
                 ),
               ),

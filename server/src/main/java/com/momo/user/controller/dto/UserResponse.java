@@ -45,7 +45,7 @@ public class UserResponse {
             .city(user.getCity())
             .district(user.getDistrict())
             .university(user.getUniversity())
-            .categories(EnumResponse.listFromCategories(user.getCategories()))
+            .categories(EnumResponse.listFromCategories(user.getFavoriteCategories()))
             .build();
     }
 }

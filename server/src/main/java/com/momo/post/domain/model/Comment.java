@@ -4,6 +4,7 @@ import com.momo.common.domain.BaseEntity;
 import com.momo.user.domain.model.User;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,11 +26,11 @@ public class Comment extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
+    @JoinColumn(foreignKey = @ForeignKey(name = "post_fk_comment"))
     private Post post;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(foreignKey = @ForeignKey(name = "user_fk_comment"))
     private User user;
 
     @Lob

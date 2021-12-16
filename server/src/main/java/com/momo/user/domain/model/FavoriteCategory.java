@@ -1,6 +1,9 @@
-package com.momo.post.domain.model;
+package com.momo.user.domain.model;
 
+import com.momo.group.domain.model.Category;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -16,29 +19,29 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Image {
+public class FavoriteCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "post_fk_image"))
-    private Post post;
+    @JoinColumn(foreignKey = @ForeignKey(name = "user_fk_favorite_category"))
+    private User user;
 
-    private String imageUrl;
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
     @Builder
-    public Image(Long id, Post post, String imageUrl) {
-        this.id = id;
-        this.post = post;
-        this.imageUrl = imageUrl;
+    public FavoriteCategory(User user, Category category) {
+        this.user = user;
+        this.category = category;
     }
 
-    public static Image create(Post post, String imageUrl) {
-        return Image.builder()
-            .post(post)
-            .imageUrl(imageUrl)
+    public static FavoriteCategory create(User user, Category category) {
+        return FavoriteCategory.builder()
+            .user(user)
+            .category(category)
             .build();
     }
 }

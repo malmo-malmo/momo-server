@@ -66,7 +66,10 @@ public class GroupService {
     @Transactional(readOnly = true)
     public List<GroupCardResponse> findPageByUserCategories(User user, int page, int size) {
         return groupRepository
-            .findAllByCategoriesOrderByCreatedDateDesc(user.getCategories(), PageRequest.of(page, size));
+            .findAllByCategoriesOrderByCreatedDateDesc(
+                user.getFavoriteCategories().toCategories(),
+                PageRequest.of(page, size)
+            );
     }
 
     public void updateManagerByUserId(User user, Long groupId, Long userId) {

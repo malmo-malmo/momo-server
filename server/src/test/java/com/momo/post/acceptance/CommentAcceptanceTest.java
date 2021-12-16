@@ -2,7 +2,7 @@ package com.momo.post.acceptance;
 
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST1;
 import static com.momo.fixture.PostFixture.getNoticeCreateRequest;
-import static com.momo.fixture.UserFixture.USER1;
+import static com.momo.fixture.UserFixture.getUser1;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
 import static com.momo.post.acceptance.step.CommentAcceptanceStep.assertThatCreateComment;
 import static com.momo.post.acceptance.step.CommentAcceptanceStep.assertThatFindComments;
@@ -27,7 +27,7 @@ public class CommentAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void 모임_참여자가_게시물에_댓글을_등록한다() {
-        String token = getAccessToken(USER1);
+        String token = getAccessToken(getUser1());
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         Long postId = extractId(requestToCreatePost(token, getNoticeCreateRequest(groupId)));
 
@@ -35,12 +35,12 @@ public class CommentAcceptanceTest extends AcceptanceTest {
         ExtractableResponse<Response> response = requestToCreateComment(token, commentCreateRequest);
 
         AcceptanceStep.assertThatStatusIsCreated(response);
-        assertThatCreateComment(USER1, commentCreateRequest, getObject(response, CommentResponse.class));
+        assertThatCreateComment(getUser1(), commentCreateRequest, getObject(response, CommentResponse.class));
     }
 
     @Test
     public void 모임_참여자가_게시물_댓글_목록을_조회한다() {
-        String token = getAccessToken(USER1);
+        String token = getAccessToken(getUser1());
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         Long postId = extractId(requestToCreatePost(token, getNoticeCreateRequest(groupId)));
 

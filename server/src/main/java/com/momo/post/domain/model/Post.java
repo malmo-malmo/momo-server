@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,11 +31,11 @@ public class Post extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "author_id", foreignKey = @ForeignKey(name = "user_fk_post"))
     private User author;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_id")
+    @JoinColumn(foreignKey = @ForeignKey(name = "groups_fk_post"))
     private Groups group;
 
     private String title;
@@ -68,7 +69,7 @@ public class Post extends BaseEntity {
             .build();
     }
 
-    public void changeImages(List<String> imageUrls) {
-        images.changeAll(this, imageUrls);
+    public void updateImages(List<String> imageUrls) {
+        images.updateAll(this, imageUrls);
     }
 }

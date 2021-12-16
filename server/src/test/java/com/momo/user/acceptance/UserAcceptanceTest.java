@@ -1,6 +1,6 @@
 package com.momo.user.acceptance;
 
-import static com.momo.fixture.UserFixture.USER1;
+import static com.momo.fixture.UserFixture.getUser1;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatFindMyInformation;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindMyInformation;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdate;
@@ -22,11 +22,11 @@ public class UserAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void 내_정보를_조회한다() {
-        String token = getAccessToken(USER1);
+        String token = getAccessToken(getUser1());
         ExtractableResponse<Response> response = requestToFindMyInformation(token);
         UserResponse userResponse = getObject(response, UserResponse.class);
         AcceptanceStep.assertThatStatusIsOk(response);
-        assertThatFindMyInformation(userResponse, USER1);
+        assertThatFindMyInformation(userResponse, getUser1());
     }
 
     @Test
@@ -37,7 +37,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
             .city("서울시")
             .district("강동구")
             .build();
-        String token = getAccessToken(USER1);
+        String token = getAccessToken(getUser1());
         ExtractableResponse<Response> response = requestToUpdate(token, userUpdateRequest);
         AcceptanceStep.assertThatStatusIsOk(response);
     }
@@ -47,7 +47,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
         UserUpdateRequest userUpdateRequest = UserUpdateRequest.builder()
             .nickname(" ")
             .build();
-        String token = getAccessToken(USER1);
+        String token = getAccessToken(getUser1());
         ExtractableResponse<Response> response = requestToUpdate(token, userUpdateRequest);
         AcceptanceStep.assertThatStatusIsBadRequest(response);
     }
@@ -56,7 +56,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
     public void 관심_카테고리를_수정한다() {
         CategoryRequest categoryRequest = new CategoryRequest(
             List.of("HEALTH", "EMPLOYMENT", "HOBBY"));
-        String token = getAccessToken(USER1);
+        String token = getAccessToken(getUser1());
         ExtractableResponse<Response> response = UserAcceptanceStep.requestToUpdateCategory(token, categoryRequest);
         AcceptanceStep.assertThatStatusIsOk(response);
     }
@@ -64,7 +64,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
     @Test
     public void 관심_카테고리를_수정할_때_잘못된_ENUM_값을_보내면_실패한다() {
         CategoryRequest categoryRequest = new CategoryRequest(List.of("HEALTH", "EMPLOYMENT", "HOBB"));
-        String token = getAccessToken(USER1);
+        String token = getAccessToken(getUser1());
         ExtractableResponse<Response> response = UserAcceptanceStep.requestToUpdateCategory(token, categoryRequest);
         AcceptanceStep.assertThatStatusIsBadRequest(response);
     }

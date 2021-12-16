@@ -25,6 +25,7 @@ public enum ErrorCode {
     INVALID_INDEX_NUMBER(400, "잘못된 인덱스 번호입니다."),
 
     DUPLICATED_NICKNAME(400, "이미 존재하는 닉네임입니다."),
+    INVALID_FAVORITE_CATEGORY(400, "최소 한 개의 관심 카테고리를 선택해야 합니다."),
 
     CITY_CATEGORY_CODE_NOT_FOUND(400, "지역(시/도) 카테고리 타입이 존재하지 않습니다."),
 

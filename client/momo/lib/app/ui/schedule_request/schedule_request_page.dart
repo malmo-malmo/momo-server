@@ -55,7 +55,7 @@ class ScheduleRequestPage extends ConsumerWidget {
                         onTextChanged: scheduleRequestState.setTitle,
                         hintText: '제목'),
                     subTitle(title: '모임 유형'),
-                    onOffToggleButton(tabButton: scheduleRequestState.setOnOff),
+                    OnOffToggleButton(tabButton: scheduleRequestState.setOnOff),
                     subTitle(title: '날짜 및 시간'),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

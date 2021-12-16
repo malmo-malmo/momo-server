@@ -84,7 +84,7 @@ class GroupRequestPage extends ConsumerWidget {
                       ],
                     ),
                     subTitle(title: '모임 유형'),
-                    onOffToggleButton(
+                    OnOffToggleButton(
                         tabButton: ref
                             .read(groupRequestStateProvider.notifier)
                             .setOnOff),

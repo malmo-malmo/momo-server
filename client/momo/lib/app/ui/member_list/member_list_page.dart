@@ -82,7 +82,7 @@ class MemberListPage extends ConsumerWidget {
                           top: 30, right: 24, left: 24, bottom: 16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                        children: const [
                           Text('닉네임', style: MomoTextStyle.defaultStyle),
                           Text('선택', style: MomoTextStyle.defaultStyle),
                         ],

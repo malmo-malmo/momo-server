@@ -89,7 +89,7 @@ class TermsPage extends ConsumerWidget {
               ),
             ),
             const SizedBox(width: 16),
-            Text(
+            const Text(
               '전체 동의',
               style: MomoTextStyle.defaultStyle,
             ),

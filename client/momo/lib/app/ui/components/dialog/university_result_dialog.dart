@@ -21,7 +21,7 @@ Widget universityResultDialog({required Function(String school) onSelect}) {
           width: 250,
           child: Column(
             children: [
-              Text(
+              const Text(
                 '대학교를 선택하세요',
                 style: MomoTextStyle.subTitle,
               ),

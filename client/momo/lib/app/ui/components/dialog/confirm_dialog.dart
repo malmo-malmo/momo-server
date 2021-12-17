@@ -25,7 +25,7 @@ Widget confirmDialog({required String dialogText}) {
               dialogText,
               style: MomoTextStyle.defaultStyle.copyWith(
                 fontWeight: FontWeight.w400,
-                height: 1.2,
+                height: 1.3,
               ),
               textAlign: TextAlign.center,
             ),
@@ -44,7 +44,7 @@ Widget confirmDialog({required String dialogText}) {
                     ),
                     color: MomoColor.main,
                   ),
-                  height: 44,
+                  height: 56,
                   width: double.infinity,
                   child: Center(
                     child: Text(

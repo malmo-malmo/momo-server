@@ -21,7 +21,7 @@ Widget districtResultDialog({
           width: 250,
           child: Column(
             children: [
-              Text(
+              const Text(
                 '지역을 선택하세요',
                 style: MomoTextStyle.subTitle,
               ),

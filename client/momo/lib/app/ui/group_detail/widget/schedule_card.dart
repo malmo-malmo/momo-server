@@ -30,7 +30,7 @@ class ScheduleCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 '다가오는 일정',
                 style: MomoTextStyle.subTitle,
               ),
@@ -55,14 +55,14 @@ class ScheduleCard extends StatelessWidget {
           const SizedBox(height: 16),
           Container(height: 1, color: MomoColor.divider),
           const SizedBox(height: 20),
-          Text(
+          const Text(
             '우리 꼭 같이 달려요',
             style: MomoTextStyle.defaultStyle,
           ),
           const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: const [
               Text(
                 '11/5(금)',
                 style: MomoTextStyle.small,

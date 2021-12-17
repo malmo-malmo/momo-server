@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/city_result_provider.dart';
+import 'package:momo/app/util/theme.dart';
 
 Widget cityInputBox({
   required Function(String value) setCity,
@@ -27,6 +28,7 @@ Widget cityInputBox({
           child: DropdownButton(
             value: city,
             underline: const SizedBox(),
+            style: MomoTextStyle.defaultStyleR,
             elevation: 0,
             isExpanded: true,
             borderRadius: BorderRadius.circular(8),

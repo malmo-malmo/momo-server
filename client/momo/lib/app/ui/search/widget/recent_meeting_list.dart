@@ -9,24 +9,26 @@ class RecentMeetingList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverGrid.count(
-      crossAxisCount: 2,
-      mainAxisSpacing: 14,
-      crossAxisSpacing: 14,
-      children: [
-        for (int i = 0; i < 10; i++)
-          groupCard(
-            group: GroupInfo(
-              id: 1,
-              name: '기초를 위한 영어 회화 모임',
-              offline: i % 2 == 0,
-              participantCnt: 10,
-              startDate: '2021-12-31',
-            ),
-            width: double.infinity,
-            height: 300.h,
+    return SliverGrid(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 14,
+          crossAxisSpacing: 14,
+          mainAxisExtent: 200.h),
+      delegate: SliverChildBuilderDelegate(
+        (context, index) => groupCard(
+          group: GroupInfo(
+            id: 1,
+            name: '기초를 위한 영어 회화 모임',
+            offline: index % 2 == 0,
+            participantCnt: 10,
+            startDate: '2021-12-31',
           ),
-      ],
+          width: double.infinity,
+          height: 200.h,
+        ),
+        childCount: 10,
+      ),
     );
   }
 }

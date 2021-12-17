@@ -17,7 +17,7 @@ Widget requestInfoCard({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 '모임 설명',
                 style: MomoTextStyle.subTitle,
               ),

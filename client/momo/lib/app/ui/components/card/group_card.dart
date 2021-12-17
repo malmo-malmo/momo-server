@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/provider/group/group_provider.dart';
 import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/ui/components/card/cashed_image_card.dart';
 import 'package:momo/app/ui/components/text/member_date_row.dart';
 import 'package:momo/app/ui/components/card/on_off_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
@@ -29,12 +30,11 @@ Widget groupCard({
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: Image.network(
-              group.imageUrl ??
-                  'https://t1.daumcdn.net/cfile/tistory/213E554D58E120D71C',
-              fit: BoxFit.fill,
-              width: width ?? 148,
+            child: cachedImageCard(
+              imageUrl:
+                  'http://m.pokjukworld.co.kr/web/product/big/pokjukworld_222.jpg',
               height: height ?? 200.h,
+              width: width ?? 148,
             ),
           ),
           Container(
@@ -52,11 +52,8 @@ Widget groupCard({
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     onOffCard(group.offline),
-                    Icon(
-                      CupertinoIcons.heart,
-                      size: 24.w,
-                      color: MomoColor.white,
-                    ),
+                    Icon(CupertinoIcons.heart,
+                        size: 24.w, color: MomoColor.white)
                   ],
                 ),
                 Column(
@@ -64,9 +61,8 @@ Widget groupCard({
                   children: [
                     Text(
                       group.name,
-                      style: MomoTextStyle.defaultStyle.copyWith(
-                        color: MomoColor.white,
-                      ),
+                      style: MomoTextStyle.defaultStyle
+                          .copyWith(color: MomoColor.white),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),

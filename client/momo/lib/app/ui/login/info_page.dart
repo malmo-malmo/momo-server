@@ -64,7 +64,7 @@ class InfoPage extends ConsumerWidget {
                     child: Center(
                       child: Text(
                         '중복확인',
-                        style: TextStyle(
+                        style: MomoTextStyle.card.copyWith(
                           color: userNameCheck
                               ? MomoColor.white
                               : MomoColor.unSelText,

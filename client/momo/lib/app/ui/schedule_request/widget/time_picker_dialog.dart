@@ -28,7 +28,7 @@ Widget timePickerDialog() {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _custromPicker(
-                    children: [
+                    children: const [
                       Center(child: Text('오전', style: MomoTextStyle.subTitle)),
                       Center(child: Text('오후', style: MomoTextStyle.subTitle)),
                     ],
@@ -44,10 +44,7 @@ Widget timePickerDialog() {
                                     style: MomoTextStyle.subTitle))),
                         onSelect: (index) => hour = index,
                       ),
-                      Text(
-                        ':',
-                        style: MomoTextStyle.subTitle,
-                      ),
+                      const Text(':', style: MomoTextStyle.subTitle),
                       _custromPicker(
                         children: List.generate(
                             12,

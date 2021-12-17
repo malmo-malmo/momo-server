@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/util/theme.dart';
 
 Widget inputBox({
   required Widget searchIcon,
@@ -19,7 +20,6 @@ Widget inputBox({
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(
-          height: 18,
           width: 240.w,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14),
@@ -27,6 +27,8 @@ Widget inputBox({
               onChanged: (text) {
                 onTextChange(text);
               },
+              style: MomoTextStyle.defaultStyle
+                  .copyWith(fontWeight: FontWeight.w400),
             ),
           ),
         ),

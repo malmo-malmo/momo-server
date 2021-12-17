@@ -1,64 +1,65 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:momo/app/provider/on_off_toggle_provider.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget onOffToggleButton({
-  required Function(bool onOff) tabButton,
-}) {
-  return Consumer(builder: (context, ref, _) {
-    final checks = ref.watch(onOffToggleProvider);
+class OnOffToggleButton extends StatefulWidget {
+  const OnOffToggleButton({
+    Key? key,
+    required this.tabButton,
+  }) : super(key: key);
 
-    return Row(
-      children: [
-        InkWell(
+  final Function(bool onOff) tabButton;
+
+  @override
+  _OnOffToggleButtonState createState() => _OnOffToggleButtonState();
+}
+
+class _OnOffToggleButtonState extends State<OnOffToggleButton> {
+  List<bool> checks = [true, false];
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(children: [
+      InkWell(
           borderRadius: BorderRadius.circular(22),
           onTap: () {
-            tabButton(true);
-            ref.read(onOffToggleStateProvider.notifier).toggle(0);
+            widget.tabButton(true);
+            checks = [true, false];
+            setState(() {});
           },
           child: Container(
-            height: 44,
-            width: 91,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(22),
-              color: checks[0] ? MomoColor.main : MomoColor.backgroundColor,
-            ),
-            child: Center(
-              child: Text(
-                '온라인',
-                style: MomoTextStyle.small.copyWith(
-                  color: checks[0] ? MomoColor.white : MomoColor.unSelIcon,
-                ),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 16),
-        InkWell(
+              height: 44,
+              width: 91,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                  color:
+                      checks[0] ? MomoColor.main : MomoColor.backgroundColor),
+              child: Center(
+                  child: Text('온라인',
+                      style: MomoTextStyle.small.copyWith(
+                          color: checks[0]
+                              ? MomoColor.white
+                              : MomoColor.unSelIcon))))),
+      const SizedBox(width: 16),
+      InkWell(
           borderRadius: BorderRadius.circular(22),
           onTap: () {
-            tabButton(false);
-            ref.read(onOffToggleStateProvider.notifier).toggle(1);
+            widget.tabButton(false);
+            checks = [false, true];
+            setState(() {});
           },
           child: Container(
-            height: 44,
-            width: 106,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(22),
-              color: checks[1] ? MomoColor.main : MomoColor.backgroundColor,
-            ),
-            child: Center(
-              child: Text(
-                '오프라인',
-                style: MomoTextStyle.small.copyWith(
-                  color: checks[1] ? MomoColor.white : MomoColor.unSelIcon,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  });
+              height: 44,
+              width: 106,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                  color:
+                      checks[1] ? MomoColor.main : MomoColor.backgroundColor),
+              child: Center(
+                  child: Text('오프라인',
+                      style: MomoTextStyle.small.copyWith(
+                          color: checks[1]
+                              ? MomoColor.white
+                              : MomoColor.unSelIcon)))))
+    ]);
+  }
 }

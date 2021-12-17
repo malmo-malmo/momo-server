@@ -29,7 +29,7 @@ class SearchedWordCards extends StatelessWidget {
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 17),
-        width: 14.0 * word.length + 56.w,
+        width: 14.0 * word.length + 56,
         height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),

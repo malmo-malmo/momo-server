@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/provider/bottom_index_provider.dart';
 import 'package:momo/app/routes/routes.dart';
@@ -131,18 +130,18 @@ class MainPage extends ConsumerWidget {
       return Expanded(
         flex: 1,
         child: InkWell(
-          onTap: () => ref.read(bottomIndexStateProvider.state).state = index,
+          onTap: () => ref.read(bottomIndexProvider.state).state = index,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(bottomIndex == index ? selImg : unSelImg),
               Text(
                 title,
-                style: TextStyle(
+                style: MomoTextStyle.card.copyWith(
                   color: bottomIndex == index
                       ? MomoColor.main
                       : MomoColor.unSelText,
-                  fontSize: 11.sp,
+                  fontSize: 11,
                 ),
               ),
             ],

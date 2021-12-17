@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/ui/components/dialog/district_result_dioalog.dart';
+import 'package:momo/app/util/theme.dart';
 
 Widget districtBox({
   required String district,
@@ -25,7 +26,10 @@ Widget districtBox({
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(district),
+          Text(
+            district,
+            style: MomoTextStyle.defaultStyleR,
+          ),
           InkWell(
             child: Transform.rotate(
               angle: pi * 3 / 2,

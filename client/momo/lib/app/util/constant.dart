@@ -14,6 +14,7 @@ const selIcons = [
   iconHealing,
   iconJob,
 ];
+
 const unSelIcons = [
   'assets/icon/category/icon_healthlightgray_64.svg',
   'assets/icon/category/icon_foodlightgray_64.svg',

@@ -23,7 +23,6 @@ Widget universityInputBox({
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: 18,
               width: 240.w,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 14),

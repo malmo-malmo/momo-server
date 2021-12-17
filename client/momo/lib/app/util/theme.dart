@@ -40,31 +40,43 @@ class MomoTextStyle {
     color: MomoColor.black,
     fontWeight: FontWeight.w700,
   );
+
   static const onboarding = TextStyle(
     fontSize: 24,
     color: MomoColor.white,
     fontWeight: FontWeight.w700,
   );
+
   static const subTitle = TextStyle(
     fontSize: 20,
     color: MomoColor.black,
     fontWeight: FontWeight.w700,
   );
+
   static const defaultStyle = TextStyle(
     fontSize: 16,
     color: MomoColor.black,
     fontWeight: FontWeight.w700,
   );
+
+  static const defaultStyleR = TextStyle(
+    fontSize: 16,
+    color: MomoColor.black,
+    fontWeight: FontWeight.w400,
+  );
+
   static const normal = TextStyle(
     fontSize: 14,
     color: MomoColor.black,
     fontWeight: FontWeight.w700,
   );
+
   static const small = TextStyle(
     fontSize: 12,
     color: MomoColor.black,
     fontWeight: FontWeight.w700,
   );
+
   static const card = TextStyle(
     fontSize: 10,
     color: MomoColor.black,

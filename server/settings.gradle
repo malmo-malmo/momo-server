@@ -1,1 +1,5 @@
 rootProject.name = 'server'
+include 'module-api'
+include 'module-core'
+include 'module-common'
+

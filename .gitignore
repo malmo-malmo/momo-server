@@ -7,7 +7,7 @@
 ### server ###
 server/.gradle
 server/out/
-server/build/
+server/**/build/
 server/!gradle/wrapper/gradle-wrapper.jar
 server/!**/src/main/**
 server/!**/src/test/**

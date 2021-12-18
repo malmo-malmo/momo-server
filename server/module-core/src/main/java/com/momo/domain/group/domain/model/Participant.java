@@ -27,7 +27,7 @@ public class Participant extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "group_fk_participant"))
+    @JoinColumn(foreignKey = @ForeignKey(name = "groups_fk_participant"))
     private Groups group;
 
     @ManyToOne

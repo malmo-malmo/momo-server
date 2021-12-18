@@ -22,8 +22,8 @@
 
 ## 🏠 Members
 
-|            [leeeeeoy](https://github.com/leeeeeoy)             |            [highright96](https://github.com/highright96)             |  
-| :----------------------------------------------------------: | :----------------------------------------------------------: 
-| <img src="https://avatars.githubusercontent.com/u/63850050?v=4" width=200px alt="_"/> | <img src="https://user-images.githubusercontent.com/55661631/141674899-d7496769-6736-47ee-a0cc-2c631520790a.jpg" width=200px alt="_"/> 
-|                         프론트엔드                         |                        백엔드                         |  
+|            [leeeeeoy](https://github.com/leeeeeoy)             |            [highright96](https://github.com/highright96)             |            [Gun Kim](https://github.com/gunkim)             |  
+| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: 
+| <img src="https://avatars.githubusercontent.com/u/63850050?v=4" width=200px alt="_"/> | <img src="https://user-images.githubusercontent.com/55661631/141674899-d7496769-6736-47ee-a0cc-2c631520790a.jpg" width=200px alt="_"/>  | <img src="https://user-images.githubusercontent.com/55661631/146635003-76581188-a138-4e94-8ea9-2b92b00ef35d.png" width=200px alt="_"/> 
+|                         프론트엔드                         |                        백엔드                         |                        백엔드                         | 
 

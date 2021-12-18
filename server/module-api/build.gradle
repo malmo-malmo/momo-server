@@ -8,4 +8,5 @@ dependencies {
     implementation "io.springfox:springfox-boot-starter:3.0.0"
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.google.guava:guava:31.0.1-jre'
 }

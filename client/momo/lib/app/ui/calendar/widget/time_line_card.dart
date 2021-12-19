@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:momo/app/model/schedule/calendar_schedule.dart';
 import 'package:momo/app/ui/components/card/schedule_column.dart';

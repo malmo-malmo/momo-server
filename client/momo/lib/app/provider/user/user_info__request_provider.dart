@@ -61,8 +61,12 @@ class UserInfoRequestState extends StateNotifier<UserInfoRequest> {
       .name;
 
   Future<bool> validateName(String nickname) async {
-    final response = await repository.validateNickname(nickname);
-    return response;
+    try {
+      await repository.validateNickname(nickname);
+      return false;
+    } catch (e) {
+      return true;
+    }
   }
 
   Future<dynamic> updateUserInfo(UserInfoRequest userInfoRequest) async {

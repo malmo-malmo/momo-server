@@ -28,7 +28,7 @@ abstract class UserClient {
   );
 
   @GET('/user/duplicate-nickname')
-  Future<bool> validateNickname(
+  Future<dynamic> validateNickname(
     @Query('nickname') String nickname,
   );
 

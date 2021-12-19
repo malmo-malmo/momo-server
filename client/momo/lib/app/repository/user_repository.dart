@@ -28,7 +28,7 @@ class UserRepository {
     return response;
   }
 
-  Future<bool> validateNickname(String nickname) async {
+  Future<dynamic> validateNickname(String nickname) async {
     final isValidate = await userClient.validateNickname(nickname);
     return isValidate;
   }

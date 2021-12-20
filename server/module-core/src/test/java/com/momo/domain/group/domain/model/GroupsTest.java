@@ -19,25 +19,21 @@ public class GroupsTest {
                 .build();
     }
     @Test
-    @DisplayName("Groups 생성 테스트")
-    void groupsTest() {
+    void 모임_생성_테스트() {
         assertThat(groups).isNotNull();
     }
     @Test
-    @DisplayName("해당 사용자가 그룹 담당자인지 체크 테스트")
-    void isManagerTest() {
+    void 모임_담당자_여부_확인_테스트() {
         boolean isManager = groups.isManager(User.builder().id(1l).build());
         assertThat(isManager).isTrue();
     }
     @Test
-    @DisplayName("그룹 담당자 변경 테스트")
-    void updateManagerTest() {
+    void 모임_담당자_변경_테스트() {
         groups.updateManager(User.builder().id(2l).build());
         assertThat(groups.getManager().getId()).isEqualTo(2l);
     }
     @Test
-    @DisplayName("그룹 종료 테스트")
-    void endGroupTest() {
+    void 모임_종료_테스트() {
         groups.endGroup();
         assertThat(groups.isEnd()).isTrue();
     }

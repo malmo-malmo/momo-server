@@ -3,6 +3,7 @@ package com.momo.domain.user.domain.model;
 import com.momo.domain.common.domain.BaseEntity;
 import com.momo.domain.group.domain.model.Category;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -47,8 +48,8 @@ public class User extends BaseEntity {
     private final FavoriteCategories favoriteCategories = FavoriteCategories.empty();
 
     @Builder
-    public User(Long id, SocialProvider provider, String providerId, String refreshToken, String nickname, String imageUrl,
-        String city, String district, String university) {
+    public User(Long id, SocialProvider provider, String providerId, String refreshToken, String nickname,
+        String imageUrl, String city, String district, String university) {
         this.id = id;
         this.provider = provider;
         this.providerId = providerId;
@@ -65,6 +66,9 @@ public class User extends BaseEntity {
     }
 
     public boolean isSameNickname(String nickname) {
+        if (Objects.isNull(this.nickname)) {
+            return false;
+        }
         return this.nickname.equals(nickname);
     }
 

@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-@DisplayName("그룹 비즈니스 로직 테스트")
+@DisplayName("모임 서비스 테스트")
 public class GroupServiceTest extends ServiceTest {
     @Mock
     private GroupRepository groupRepository;
@@ -30,8 +30,7 @@ public class GroupServiceTest extends ServiceTest {
     private GroupService groupService;
 
     @Test
-    @DisplayName("그룹 생성 테스트")
-    void createTest() {
+    void 모임_생성_테스트() {
         given(groupRepository.save(any())).willReturn(Groups.builder().id(1l).build());
         given(participantRepository.save(any())).willReturn(Participant.builder().build());
 

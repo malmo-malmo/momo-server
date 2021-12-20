@@ -9,29 +9,34 @@ import org.junit.jupiter.api.Test;
 
 @DisplayName("Groups POJO 테스트")
 public class GroupsTest {
+
     private Groups groups;
 
     @BeforeEach
     void setup() {
         groups = Groups.builder()
-                .id(1l)
-                .manager(User.builder().id(1l).build())
-                .build();
+            .id(1L)
+            .manager(User.builder().id(1L).build())
+            .build();
     }
+
     @Test
     void 모임_생성_테스트() {
         assertThat(groups).isNotNull();
     }
+
     @Test
     void 모임_담당자_여부_확인_테스트() {
-        boolean isManager = groups.isManager(User.builder().id(1l).build());
+        boolean isManager = groups.isManager(User.builder().id(1L).build());
         assertThat(isManager).isTrue();
     }
+
     @Test
     void 모임_담당자_변경_테스트() {
-        groups.updateManager(User.builder().id(2l).build());
-        assertThat(groups.getManager().getId()).isEqualTo(2l);
+        groups.updateManager(User.builder().id(2L).build());
+        assertThat(groups.getManager().getId()).isEqualTo(2L);
     }
+
     @Test
     void 모임_종료_테스트() {
         groups.endGroup();

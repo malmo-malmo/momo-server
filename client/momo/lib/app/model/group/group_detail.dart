@@ -17,7 +17,7 @@ class GroupDetail with _$GroupDetail {
     required bool participant,
     required int participantCnt,
     required String startDate,
-    required String university,
+    String? university,
     required bool end,
     required int recruitmentCnt,
   }) = _GroupDetail;

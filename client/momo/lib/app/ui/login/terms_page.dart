@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/provider/user/terms_check_provider.dart';
 import 'package:momo/app/routes/routes.dart';
-import 'package:momo/app/ui/login/widget/agree_button.dart';
+import 'package:momo/app/ui/components/button/confirm_button.dart';
 import 'package:momo/app/ui/login/widget/title_text.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
@@ -38,14 +38,14 @@ class TermsPage extends ConsumerWidget {
                 const SizedBox(height: 14),
                 _termsRow('이벤트 수신 동의 (선택)', 2, termsCheck[2]),
                 const SizedBox(height: 300),
-                agreeButton(
+                ConfirmButton(
                   check: isAgree,
                   onPressButton: () {
                     ref
                         .read(navigatorProvider)
                         .navigateTo(routeName: AppRoutes.category);
                   },
-                  text: '다음',
+                  buttonText: '다음',
                 ),
                 const SizedBox(height: 36),
               ],
@@ -139,9 +139,8 @@ class TermsPage extends ConsumerWidget {
             ),
             Text(
               '보기',
-              style: MomoTextStyle.small.copyWith(
-                decoration: TextDecoration.underline,
-              ),
+              style: MomoTextStyle.small
+                  .copyWith(decoration: TextDecoration.underline),
             )
           ],
         ),

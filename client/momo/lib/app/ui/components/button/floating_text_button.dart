@@ -25,7 +25,6 @@ class _FloatingTextButtonState extends State<FloatingTextButton> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      bottom: true,
       top: false,
       child: Row(
         children: [

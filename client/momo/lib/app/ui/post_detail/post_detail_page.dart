@@ -56,8 +56,7 @@ class PostDetailPage extends ConsumerWidget {
                       hintText: '댓글을 입력하세요',
                       sendMessage: (text) async {
                         await ref
-                            .read(commentListStateProvider(postDetail.id)
-                                .notifier)
+                            .read(commentListProvider(postDetail.id).notifier)
                             .createComment(text);
                       },
                       onTapIcon: () {},

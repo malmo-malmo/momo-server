@@ -19,7 +19,7 @@ _$_GroupDetail _$$_GroupDetailFromJson(Map<String, dynamic> json) =>
       participant: json['participant'] as bool,
       participantCnt: json['participantCnt'] as int,
       startDate: json['startDate'] as String,
-      university: json['university'] as String,
+      university: json['university'] as String?,
       end: json['end'] as bool,
       recruitmentCnt: json['recruitmentCnt'] as int,
     );

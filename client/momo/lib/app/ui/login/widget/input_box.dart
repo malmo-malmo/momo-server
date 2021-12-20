@@ -19,13 +19,11 @@ Widget inputBox({
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(
-          width: 240.w,
+          width: 200.w,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14),
             child: TextFormField(
-              onChanged: (text) {
-                onTextChange(text);
-              },
+              onChanged: onTextChange,
               style: MomoTextStyle.defaultStyle
                   .copyWith(fontWeight: FontWeight.w400),
             ),

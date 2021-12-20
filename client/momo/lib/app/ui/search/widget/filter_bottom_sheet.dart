@@ -8,6 +8,7 @@ import 'package:momo/app/provider/search/search_filter_provider.dart';
 import 'package:momo/app/provider/search/search_request_filter_provider.dart';
 import 'package:momo/app/provider/search/search_result_paiging_controller.dart';
 import 'package:momo/app/provider/search/search_result_provider.dart';
+import 'package:momo/app/ui/components/button/confirm_button.dart';
 import 'package:momo/app/ui/components/category/category_column.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
@@ -33,12 +34,8 @@ Widget filterBottomSheet() {
                 child: Row(
                   children: [
                     InkWell(
-                      onTap: () => ref.read(navigatorProvider).pop(),
-                      child: Icon(
-                        CupertinoIcons.xmark,
-                        size: 21.w,
-                      ),
-                    ),
+                        onTap: () => ref.read(navigatorProvider).pop(),
+                        child: Icon(CupertinoIcons.xmark, size: 21.w)),
                     const SizedBox(width: 14),
                     const Text('검색필터', style: MomoTextStyle.defaultStyle),
                   ],
@@ -88,7 +85,7 @@ Widget filterBottomSheet() {
                       ),
                     ),
                     const SizedBox(height: 53),
-                    _searchButton(
+                    ConfirmButton(
                       check: check,
                       onPressButton: () async {
                         ref
@@ -101,6 +98,7 @@ Widget filterBottomSheet() {
                         ref.read(navigatorProvider).pop();
                         ref.read(searchReulstPagingController).refresh();
                       },
+                      buttonText: '완료',
                     ),
                     const SizedBox(height: 36),
                   ],
@@ -114,34 +112,6 @@ Widget filterBottomSheet() {
   );
 }
 
-Widget _searchButton({
-  required bool check,
-  required Function onPressButton,
-}) {
-  return SizedBox(
-    height: 57,
-    width: double.infinity,
-    child: ElevatedButton(
-      style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(32))),
-          backgroundColor: MaterialStateProperty.resolveWith((states) =>
-              states.contains(MaterialState.disabled)
-                  ? const Color(0xfff2f2f2)
-                  : MomoColor.main)),
-      onPressed: check
-          ? () {
-              onPressButton();
-            }
-          : null,
-      child: Text(
-        '완료',
-        style: MomoTextStyle.defaultStyle.copyWith(color: MomoColor.white),
-      ),
-    ),
-  );
-}
-
 Widget _locationCard({
   required String title,
   required bool check,
@@ -150,9 +120,7 @@ Widget _locationCard({
 }) {
   return Material(
     elevation: 2,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(20),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     child: InkWell(
       onTap: () => toggle(index),
       child: Container(

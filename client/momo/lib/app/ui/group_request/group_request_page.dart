@@ -109,7 +109,6 @@ class GroupRequestPage extends ConsumerWidget {
                     ),
                     const SubTitle(title: '지역'),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CityInputBox(
                           city: groupRequest.city,
@@ -118,6 +117,7 @@ class GroupRequestPage extends ConsumerWidget {
                               .setCity,
                           backgroundColor: MomoColor.backgroundColor,
                         ),
+                        const SizedBox(width: 24),
                         DistrictInputBox(
                           district: groupRequest.district,
                           cityCode: ref

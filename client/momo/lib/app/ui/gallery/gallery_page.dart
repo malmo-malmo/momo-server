@@ -12,8 +12,6 @@ import 'package:momo/app/ui/components/button/confirm_action_icon.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/util/theme.dart';
 
-/// 모임 생성 시에는 1개 제한
-/// 공지사항, 게시글은 7개?
 class GalleryPage extends ConsumerStatefulWidget {
   const GalleryPage({Key? key, required this.requestType}) : super(key: key);
 

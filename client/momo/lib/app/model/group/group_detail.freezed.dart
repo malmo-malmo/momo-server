@@ -33,7 +33,7 @@ class _$GroupDetailTearOff {
       required bool participant,
       required int participantCnt,
       required String startDate,
-      required String university,
+      String? university,
       required bool end,
       required int recruitmentCnt}) {
     return _GroupDetail(
@@ -75,7 +75,7 @@ mixin _$GroupDetail {
   bool get participant => throw _privateConstructorUsedError;
   int get participantCnt => throw _privateConstructorUsedError;
   String get startDate => throw _privateConstructorUsedError;
-  String get university => throw _privateConstructorUsedError;
+  String? get university => throw _privateConstructorUsedError;
   bool get end => throw _privateConstructorUsedError;
   int get recruitmentCnt => throw _privateConstructorUsedError;
 
@@ -102,7 +102,7 @@ abstract class $GroupDetailCopyWith<$Res> {
       bool participant,
       int participantCnt,
       String startDate,
-      String university,
+      String? university,
       bool end,
       int recruitmentCnt});
 }
@@ -180,7 +180,7 @@ class _$GroupDetailCopyWithImpl<$Res> implements $GroupDetailCopyWith<$Res> {
       university: university == freezed
           ? _value.university
           : university // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       end: end == freezed
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
@@ -212,7 +212,7 @@ abstract class _$GroupDetailCopyWith<$Res>
       bool participant,
       int participantCnt,
       String startDate,
-      String university,
+      String? university,
       bool end,
       int recruitmentCnt});
 }
@@ -292,7 +292,7 @@ class __$GroupDetailCopyWithImpl<$Res> extends _$GroupDetailCopyWithImpl<$Res>
       university: university == freezed
           ? _value.university
           : university // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       end: end == freezed
           ? _value.end
           : end // ignore: cast_nullable_to_non_nullable
@@ -320,7 +320,7 @@ class _$_GroupDetail implements _GroupDetail {
       required this.participant,
       required this.participantCnt,
       required this.startDate,
-      required this.university,
+      this.university,
       required this.end,
       required this.recruitmentCnt});
 
@@ -350,7 +350,7 @@ class _$_GroupDetail implements _GroupDetail {
   @override
   final String startDate;
   @override
-  final String university;
+  final String? university;
   @override
   final bool end;
   @override
@@ -433,7 +433,7 @@ abstract class _GroupDetail implements GroupDetail {
       required bool participant,
       required int participantCnt,
       required String startDate,
-      required String university,
+      String? university,
       required bool end,
       required int recruitmentCnt}) = _$_GroupDetail;
 
@@ -463,7 +463,7 @@ abstract class _GroupDetail implements GroupDetail {
   @override
   String get startDate;
   @override
-  String get university;
+  String? get university;
   @override
   bool get end;
   @override

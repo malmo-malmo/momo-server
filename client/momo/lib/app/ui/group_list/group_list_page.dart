@@ -21,7 +21,7 @@ class GroupListPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffffffff),
-        appBar: customAppBar(
+        appBar: CustomAppBar(
           leadingIcon: CupertinoIcons.back,
           isAction: true,
           title: name + ' 더보기',

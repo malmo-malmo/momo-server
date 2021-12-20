@@ -10,7 +10,6 @@ import 'package:momo/app/provider/user/user_data_provider.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
-import 'package:momo/main.dart';
 
 class SplashPage extends ConsumerStatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -27,9 +26,6 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   }
 
   Future<void> _pushToNextPage() async {
-    final isGPhone = await getDeviceInfo();
-    baseUrl =
-        isGPhone ? 'http://10.0.2.2:8080/api' : 'http://192.168.0.2:8080/api';
     final check = hasNoToken();
 
     if (check) {

@@ -8,7 +8,7 @@ part of 'group_client.dart';
 
 class _GroupClient implements GroupClient {
   _GroupClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://localhost:8080/api';
+    baseUrl ??= 'http://gunimon.iptime.org:8100/api';
   }
 
   final Dio _dio;

@@ -22,7 +22,7 @@ class NoticeListPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: MomoColor.backgroundColor,
-        appBar: customAppBar(
+        appBar: CustomAppBar(
           leadingIcon: CupertinoIcons.back,
           isAction: true,
           actionWidget: SvgPicture.asset(

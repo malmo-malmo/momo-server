@@ -22,7 +22,7 @@ class RecommendGroupListPage extends ConsumerWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffffffff),
-        appBar: customAppBar(
+        appBar: CustomAppBar(
           leadingIcon: CupertinoIcons.back,
           isAction: true,
           title: '추천 더보기',

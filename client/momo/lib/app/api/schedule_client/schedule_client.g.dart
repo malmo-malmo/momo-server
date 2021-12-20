@@ -8,7 +8,7 @@ part of 'schedule_client.dart';
 
 class _ScheduleClient implements ScheduleClient {
   _ScheduleClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://localhost:8080/api';
+    baseUrl ??= 'http://gunimon.iptime.org:8100/api';
   }
 
   final Dio _dio;

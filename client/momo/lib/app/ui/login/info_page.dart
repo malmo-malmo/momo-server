@@ -98,7 +98,7 @@ class InfoPage extends ConsumerWidget {
                         .setUserUniversity),
                 subTitle(title: '지역'),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     cityInputBox(
                       city: ref
@@ -108,6 +108,7 @@ class InfoPage extends ConsumerWidget {
                           .watch(userInfoRequestStateProvider.notifier)
                           .setUserCity,
                     ),
+                    const SizedBox(width: 48),
                     districtBox(
                       district: userInfo.district,
                       cityCode: userInfo.city,

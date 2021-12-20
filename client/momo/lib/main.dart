@@ -9,19 +9,13 @@ import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/provider_log.dart';
 import 'package:momo/app/util/theme.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-String? baseUrl;
 
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(TokenDataAdapter());
   await Hive.openBox('auth');
 
-  await dotenv.load(fileName: ".env");
-  final kakaoKey = dotenv.get('KAKAOKEY');
-
-  KakaoContext.clientId = kakaoKey;
+  KakaoContext.clientId = '51af7920a3ab81a3de0020af102e70cd';
 
   runApp(
     ProviderScope(

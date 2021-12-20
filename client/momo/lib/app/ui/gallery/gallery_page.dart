@@ -15,10 +15,7 @@ import 'package:momo/app/util/theme.dart';
 /// 모임 생성 시에는 1개 제한
 /// 공지사항, 게시글은 7개?
 class GalleryPage extends ConsumerStatefulWidget {
-  const GalleryPage({
-    Key? key,
-    required this.requestType,
-  }) : super(key: key);
+  const GalleryPage({Key? key, required this.requestType}) : super(key: key);
 
   final PhotoRequestType requestType;
 
@@ -54,7 +51,7 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
             final isMax = ref.watch(checkMaxPhoto);
 
             return Scaffold(
-              appBar: customAppBar(
+              appBar: CustomAppBar(
                 leadingIcon: CupertinoIcons.back,
                 isAction: true,
                 title: '사진첩',

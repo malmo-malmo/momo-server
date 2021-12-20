@@ -35,7 +35,7 @@ class GroupDetailPage extends ConsumerWidget {
         return SafeArea(
           child: Scaffold(
             backgroundColor: const Color(0xfff7f7f7),
-            appBar: customAppBar(
+            appBar: CustomAppBar(
               leadingIcon: CupertinoIcons.back,
               isAction: groupDetail.participant,
               actionWidget: groupDetail.participant

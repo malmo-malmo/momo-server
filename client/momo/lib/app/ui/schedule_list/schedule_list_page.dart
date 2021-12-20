@@ -18,7 +18,7 @@ class ScheduleListPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: MomoColor.backgroundColor,
-        appBar: customAppBar(
+        appBar: CustomAppBar(
           leadingIcon: CupertinoIcons.back,
           isAction: true,
           actionWidget: SvgPicture.asset('assets/icon/icon_msg_28.svg'),

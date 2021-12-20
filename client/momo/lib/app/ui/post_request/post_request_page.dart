@@ -31,7 +31,7 @@ class PostRequestPage extends ConsumerWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffffffff),
-        appBar: customAppBar(
+        appBar: CustomAppBar(
           leadingIcon: CupertinoIcons.xmark,
           title: '${postRequestArg.postType.postTypeToName} 작성',
           isAction: true,

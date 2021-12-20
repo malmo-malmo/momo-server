@@ -8,7 +8,7 @@ part of 'post_client.dart';
 
 class _PostClient implements PostClient {
   _PostClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://localhost:8080/api';
+    baseUrl ??= 'http://gunimon.iptime.org:8100/api';
   }
 
   final Dio _dio;

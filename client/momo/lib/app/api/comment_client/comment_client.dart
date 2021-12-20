@@ -6,7 +6,7 @@ import 'package:retrofit/retrofit.dart';
 
 part 'comment_client.g.dart';
 
-@RestApi(baseUrl: 'http://localhost:8080/api')
+@RestApi(baseUrl: 'http://gunimon.iptime.org:8100/api')
 abstract class CommentClient {
   factory CommentClient(
     Dio dio, {

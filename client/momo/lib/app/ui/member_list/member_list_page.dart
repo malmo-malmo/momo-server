@@ -32,7 +32,7 @@ class MemberListPage extends ConsumerWidget {
 
           return Scaffold(
             backgroundColor: MomoColor.backgroundColor,
-            appBar: customAppBar(
+            appBar: CustomAppBar(
               leadingIcon: CupertinoIcons.xmark,
               isAction: true,
               actionWidget: InkWell(

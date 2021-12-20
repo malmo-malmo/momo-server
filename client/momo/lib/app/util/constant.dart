@@ -1,4 +1,4 @@
-const maxPhotoCount = 10;
+const maxPhotoCount = 100000;
 
 const maxSelectCount = 7;
 

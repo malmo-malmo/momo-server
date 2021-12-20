@@ -6,7 +6,7 @@ import 'package:retrofit/retrofit.dart';
 
 part 'post_client.g.dart';
 
-@RestApi(baseUrl: 'http://localhost:8080/api')
+@RestApi(baseUrl: 'http://gunimon.iptime.org:8100/api')
 abstract class PostClient {
   factory PostClient(
     Dio dio, {

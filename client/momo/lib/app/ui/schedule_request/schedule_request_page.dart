@@ -28,7 +28,7 @@ class ScheduleRequestPage extends ConsumerWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffffffff),
-        appBar: customAppBar(
+        appBar: CustomAppBar(
           leadingIcon: CupertinoIcons.xmark,
           isAction: true,
           title: '일정추가',

@@ -35,7 +35,7 @@ class PostDetailPage extends ConsumerWidget {
 
             return Scaffold(
               backgroundColor: const Color(0xffffffff),
-              appBar: customAppBar(
+              appBar: CustomAppBar(
                 leadingIcon: CupertinoIcons.back,
                 isAction: true,
                 actionWidget: SvgPicture.asset('assets/icon/icon_msg_28.svg'),

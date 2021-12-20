@@ -11,6 +11,4 @@ server/**/build/
 server/!gradle/wrapper/gradle-wrapper.jar
 server/!**/src/main/**
 server/!**/src/test/**
-server/src/main/resources/application-*.yml
-server/src/test/resources/application-*.yml
 server/src/main/generated

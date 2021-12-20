@@ -27,8 +27,8 @@ class GroupDetailPage extends ConsumerWidget {
     final response = ref.watch(groupDetailFutureProvider(group.id));
 
     return response.when(
-      error: (error, stackTrace) => Scaffold(body: errorCard()),
-      loading: () => Scaffold(body: loadingCard()),
+      error: (error, stackTrace) => const Scaffold(body: ErrorCard()),
+      loading: () => const Scaffold(body: LoadingCard()),
       data: (data) {
         final groupDetail = ref.watch(groupDetailProvider(data));
 

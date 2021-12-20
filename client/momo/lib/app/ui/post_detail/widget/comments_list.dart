@@ -52,9 +52,9 @@ class _CommentsListState extends ConsumerState<CommentsList> {
       pagingController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<Comment>(
         itemBuilder: (context, item, index) => commentCard(item),
-        newPageProgressIndicatorBuilder: (context) => loadingCard(),
-        firstPageProgressIndicatorBuilder: (context) => loadingCard(),
-        noItemsFoundIndicatorBuilder: (context) => noItemCard(),
+        newPageProgressIndicatorBuilder: (context) => const LoadingCard(),
+        firstPageProgressIndicatorBuilder: (context) => const LoadingCard(),
+        noItemsFoundIndicatorBuilder: (context) => const NoItemCard(),
       ),
       separatorBuilder: (context, index) => const SizedBox(height: 10),
     );

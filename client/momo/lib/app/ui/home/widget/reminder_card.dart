@@ -63,15 +63,15 @@ class ReminderCard extends ConsumerWidget {
             const SizedBox(height: 20),
             Expanded(
               child: scheduleResponses.when(
-                error: (error, stackTrace) => errorCard(),
-                loading: () => loadingCard(),
+                error: (error, stackTrace) => const ErrorCard(),
+                loading: () => const LoadingCard(),
                 data: (schedules) {
                   final curSchedule = schedules
                       .where((e) =>
                           DateTime.parse(e.first.startDateTime).day == today)
                       .toList();
                   if (curSchedule.isEmpty) {
-                    return noItemCard();
+                    return const NoItemCard();
                   }
 
                   return schedulePageView(schedules: curSchedule.first);

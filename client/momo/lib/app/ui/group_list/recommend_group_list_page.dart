@@ -45,10 +45,12 @@ class RecommendGroupListPage extends ConsumerWidget {
                       height: 200.h,
                       width: double.infinity,
                     ),
-                    newPageProgressIndicatorBuilder: (context) => loadingCard(),
+                    newPageProgressIndicatorBuilder: (context) =>
+                        const LoadingCard(),
                     firstPageProgressIndicatorBuilder: (context) =>
-                        loadingCard(),
-                    noItemsFoundIndicatorBuilder: (context) => noItemCard(),
+                        const LoadingCard(),
+                    noItemsFoundIndicatorBuilder: (context) =>
+                        const NoItemCard(),
                   ),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,

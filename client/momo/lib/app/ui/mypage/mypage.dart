@@ -36,7 +36,7 @@ class Mypage extends StatelessWidget {
                   '${userData.nickname}님의\n마이페이지',
                   style: MomoTextStyle.mainTitle.copyWith(height: 1.2),
                 ),
-                profileAvatar(
+                ProfileAvatar(
                   img: userData.image ??
                       'https://file.mk.co.kr/meet/neds/2020/08/image_readtop_2020_864116_15980534304326707.png',
                   rad: 34,
@@ -63,7 +63,7 @@ class Mypage extends StatelessWidget {
             ),
             const SizedBox(height: 14),
             const AchievementCard(),
-            subTitle(
+            const SubTitle(
               title: '관심 카테고리',
               icon: 'assets/icon/mypage/icon_interestcategory_28.svg',
             ),
@@ -85,7 +85,7 @@ class Mypage extends StatelessWidget {
                       ),
                     );
                   }
-                  return categoryColumn(
+                  return CategoryColumn(
                     check: true,
                     index: index - 1,
                     onTabIcon: (index) {},
@@ -99,7 +99,7 @@ class Mypage extends StatelessWidget {
                 itemCount: 9,
               ),
             ),
-            subTitle(
+            const SubTitle(
                 title: '최근 본 모임',
                 icon: 'assets/icon/search/icon_recentsee_28.svg'),
             SizedBox(

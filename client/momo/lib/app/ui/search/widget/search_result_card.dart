@@ -30,14 +30,14 @@ Widget searchResultCard({required GroupInfo group}) {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              onOffCard(group.offline),
+              OnOffCard(onOff: group.offline),
               Text(
                 group.name,
                 style: MomoTextStyle.normal,
               ),
-              memberDateRow(
-                groupParticipantCnt.participantCnt,
-                group.startDate,
+              MemberDateRow(
+                headNum: groupParticipantCnt.participantCnt,
+                startDay: group.startDate,
                 color: MomoColor.black,
               ),
             ],

@@ -11,17 +11,27 @@ class SearchedWordCards extends StatelessWidget {
     return Wrap(
       spacing: 8,
       runSpacing: 8,
-      children: [
-        _searchedWordCard(word: '국내여행'),
-        _searchedWordCard(word: '영어'),
-        _searchedWordCard(word: '산책로'),
-        _searchedWordCard(word: '회화'),
-        _searchedWordCard(word: '패러글라이딩'),
+      children: const [
+        _SearchedWordCard(word: '국내여행'),
+        _SearchedWordCard(word: '영어'),
+        _SearchedWordCard(word: '산책로'),
+        _SearchedWordCard(word: '회화'),
+        _SearchedWordCard(word: '패러글라이딩'),
       ],
     );
   }
+}
 
-  Widget _searchedWordCard({required String word}) {
+class _SearchedWordCard extends StatelessWidget {
+  const _SearchedWordCard({
+    Key? key,
+    required this.word,
+  }) : super(key: key);
+
+  final String word;
+
+  @override
+  Widget build(BuildContext context) {
     return Material(
       elevation: 1,
       shape: RoundedRectangleBorder(

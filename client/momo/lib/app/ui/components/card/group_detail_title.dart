@@ -62,7 +62,7 @@ class GroupDetailTitle extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(height: 88),
-                onOffCard(onOff),
+                OnOffCard(onOff: onOff),
                 const SizedBox(height: 10),
                 Text(
                   title,
@@ -85,7 +85,7 @@ class GroupDetailTitle extends StatelessWidget {
                       text: university,
                       textSize: 16.sp,
                     ),
-                    memberDateRow(count, startDate),
+                    MemberDateRow(headNum: count, startDay: startDate),
                   ],
                 )
               ],

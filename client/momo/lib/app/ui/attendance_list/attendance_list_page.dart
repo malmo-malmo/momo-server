@@ -24,8 +24,8 @@ class AttendanceListPage extends ConsumerWidget {
 
     return SafeArea(
       child: memeberResponse.when(
-        error: (error, stackTrace) => Scaffold(body: errorCard()),
-        loading: () => Scaffold(body: loadingCard()),
+        error: (error, stackTrace) => const Scaffold(body: ErrorCard()),
+        loading: () => const Scaffold(body: LoadingCard()),
         data: (data) {
           final checks = ref.watch(attendanceCheckProvider(data.length));
           final check = ref.watch(isCheckAttendance(data.length));
@@ -35,7 +35,7 @@ class AttendanceListPage extends ConsumerWidget {
             appBar: CustomAppBar(
               leadingIcon: CupertinoIcons.xmark,
               isAction: true,
-              actionWidget: confirmActionIcon(
+              actionWidget: ConfirmActionIcon(
                   check: check,
                   title: '완료',
                   onTapIcon: () {},

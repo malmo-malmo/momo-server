@@ -76,7 +76,7 @@ Widget filterBottomSheet() {
                         runSpacing: 20,
                         children: [
                           for (int i = 0; i < categoryCodeNamePair.length; i++)
-                            categoryColumn(
+                            CategoryColumn(
                               check: categoryChecks[i],
                               index: i,
                               onTabIcon: ref

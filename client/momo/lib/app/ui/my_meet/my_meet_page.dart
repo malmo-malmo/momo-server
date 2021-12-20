@@ -39,12 +39,12 @@ class _MyMeetPageState extends ConsumerState<MyMeetPage> {
                 '내 모임',
                 style: MomoTextStyle.mainTitle,
               ),
-              subTitle(
+              const SubTitle(
                 title: '내가 만든 모임',
                 icon: 'assets/icon/meet/icon_manage_28.svg',
               ),
               const ManageMeetingList(),
-              subTitle(
+              const SubTitle(
                 title: '그 외 참여 모임',
                 icon: 'assets/icon/meet/icon_othermoim.svg',
               ),

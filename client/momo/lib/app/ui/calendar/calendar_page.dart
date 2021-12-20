@@ -126,19 +126,19 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             height: 96,
             width: double.infinity,
-            child: subTitle(
+            child: const SubTitle(
                 title: '타임라인',
                 icon: 'assets/icon/calendar/icon_timeline_28.svg')),
         Expanded(
           child: scheduleResponse.when(
-            error: (error, stacktrace) => errorCard(),
-            loading: () => loadingCard(),
+            error: (error, stacktrace) => const ErrorCard(),
+            loading: () => const LoadingCard(),
             data: (scheduleData) {
               // ref
               //     .watch(scheduleEventStateProvider.notifier)
               //     .changeEvent(scheduleData.dateTimes);
               if (scheduleData.schedules.isEmpty) {
-                return noItemCard();
+                return const NoItemCard();
               }
               return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),

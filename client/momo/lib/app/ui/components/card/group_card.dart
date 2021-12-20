@@ -30,8 +30,8 @@ Widget groupCard({
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: cachedImageCard(
-              imageUrl:
+            child: CachedImageCard(
+              imageUrl: group.imageUrl ??
                   'http://m.pokjukworld.co.kr/web/product/big/pokjukworld_222.jpg',
               height: height ?? 200.h,
               width: width ?? 148,
@@ -51,7 +51,7 @@ Widget groupCard({
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    onOffCard(group.offline),
+                    OnOffCard(onOff: group.offline),
                     Icon(CupertinoIcons.heart,
                         size: 24.w, color: MomoColor.white)
                   ],
@@ -67,7 +67,9 @@ Widget groupCard({
                       overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: 10.h),
-                    memberDateRow(groupParticipantCnt, group.startDate),
+                    MemberDateRow(
+                        headNum: groupParticipantCnt,
+                        startDay: group.startDate),
                   ],
                 ),
               ],

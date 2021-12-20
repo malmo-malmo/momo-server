@@ -18,7 +18,7 @@ Widget adminDialog({required ParticipantUser participantUser}) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            profileAvatar(
+            ProfileAvatar(
                 img: participantUser.image ??
                     'https://www.nemopan.com/files/attach/images/6294/004/387/013/63dac7acb2889fd9d34b68a338f9af8c.jpg',
                 rad: 24),

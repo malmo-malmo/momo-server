@@ -20,9 +20,9 @@ class PostListView extends ConsumerWidget {
       pagingController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<Post>(
         itemBuilder: (context, item, index) => PostCard(post: item),
-        newPageProgressIndicatorBuilder: (context) => loadingCard(),
-        firstPageProgressIndicatorBuilder: (context) => loadingCard(),
-        noItemsFoundIndicatorBuilder: (context) => noItemCard(),
+        newPageProgressIndicatorBuilder: (context) => const LoadingCard(),
+        firstPageProgressIndicatorBuilder: (context) => const LoadingCard(),
+        noItemsFoundIndicatorBuilder: (context) => const NoItemCard(),
       ),
     );
   }

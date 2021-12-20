@@ -6,29 +6,34 @@ import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget universityResultDialog({required Function(String school) onSelect}) {
-  return Consumer(
-    builder: (context, ref, _) {
-      final universityName = ref.watch(universityTextController).text;
-      final universityResult =
-          ref.watch(universityResultProvider(universityName));
+class UniversityResultDialog extends StatelessWidget {
+  const UniversityResultDialog({Key? key, required this.onSelect})
+      : super(key: key);
 
-      return Dialog(
-        insetPadding: const EdgeInsets.all(1),
-        child: Container(
-          padding: const EdgeInsets.all(24),
-          height: 300,
-          width: 250,
-          child: Column(
-            children: [
-              const Text(
-                '대학교를 선택하세요',
-                style: MomoTextStyle.subTitle,
-              ),
-              const SizedBox(height: 48),
-              Expanded(
+  final Function(String school) onSelect;
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      insetPadding: const EdgeInsets.all(1),
+      child: Container(
+        padding: const EdgeInsets.all(24),
+        height: 300,
+        width: 250,
+        child: Column(
+          children: [
+            const Text(
+              '대학교를 선택하세요',
+              style: MomoTextStyle.subTitle,
+            ),
+            const SizedBox(height: 48),
+            Consumer(builder: (context, ref, _) {
+              final universityName = ref.watch(universityTextController).text;
+              final universityResult =
+                  ref.watch(universityResultProvider(universityName));
+              return Expanded(
                 child: universityResult.when(
-                  loading: () => loadingCard(),
+                  loading: () => const LoadingCard(),
                   error: (error, stack) =>
                       Center(child: Text(error.toString())),
                   data: (data) => data.isEmpty
@@ -60,11 +65,11 @@ Widget universityResultDialog({required Function(String school) onSelect}) {
                               const SizedBox(height: 16),
                         ),
                 ),
-              ),
-            ],
-          ),
+              );
+            }),
+          ],
         ),
-      );
-    },
-  );
+      ),
+    );
+  }
 }

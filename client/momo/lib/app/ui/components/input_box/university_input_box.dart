@@ -37,7 +37,7 @@ Widget universityInputBox({
                 showDialog(
                     context: context,
                     builder: (context) =>
-                        universityResultDialog(onSelect: setUniversity));
+                        UniversityResultDialog(onSelect: setUniversity));
                 FocusScope.of(context).unfocus();
               },
             ),

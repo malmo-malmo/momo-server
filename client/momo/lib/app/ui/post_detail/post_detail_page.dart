@@ -28,8 +28,8 @@ class PostDetailPage extends ConsumerWidget {
           .pop(result: ref.read(postDetailCommentCntStateProvider)),
       child: SafeArea(
         child: postDetailResponse.when(
-          error: (error, stackTrace) => Scaffold(body: errorCard()),
-          loading: () => Scaffold(body: loadingCard()),
+          error: (error, stackTrace) => const Scaffold(body: ErrorCard()),
+          loading: () => const Scaffold(body: LoadingCard()),
           data: (data) {
             final postDetail = ref.watch(postDetailProvider(data));
 

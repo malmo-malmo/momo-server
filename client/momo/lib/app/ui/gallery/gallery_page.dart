@@ -41,7 +41,7 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
     final photoState = ref.watch(photoListProvider);
     return SafeArea(
       child: photoState.when(
-          loading: () => Scaffold(body: loadingCard()),
+          loading: () => const Scaffold(body: LoadingCard()),
           error: (error, stack) =>
               const Scaffold(body: Center(child: Text('사진을 불러 올 수 없습니다...'))),
           data: (photoList) {
@@ -55,7 +55,7 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
                 leadingIcon: CupertinoIcons.back,
                 isAction: true,
                 title: '사진첩',
-                actionWidget: confirmActionIcon(
+                actionWidget: ConfirmActionIcon(
                   check: checkPhoto,
                   title: '추가',
                   onTapIcon: () {},
@@ -79,7 +79,7 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
                           builder: (_, snapshot) {
                             final bytes = snapshot.data;
                             if (bytes == null) {
-                              return loadingCard();
+                              return const LoadingCard();
                             }
                             return Consumer(builder: (context, ref, _) {
                               return InkWell(

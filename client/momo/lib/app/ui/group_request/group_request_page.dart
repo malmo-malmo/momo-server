@@ -10,7 +10,6 @@ import 'package:momo/app/ui/components/input_box/city_input_box.dart';
 import 'package:momo/app/ui/components/input_box/content_input_box.dart';
 import 'package:momo/app/ui/components/input_box/date_input_box.dart';
 import 'package:momo/app/ui/components/input_box/district_input_box.dart';
-import 'package:momo/app/ui/components/input_box/name_input_box.dart';
 import 'package:momo/app/ui/components/button/on_off_toggle_button.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/group_request/widget/head_num_input_box.dart';
@@ -34,7 +33,7 @@ class GroupRequestPage extends ConsumerWidget {
           leadingIcon: CupertinoIcons.xmark,
           isAction: true,
           title: '모임만들기',
-          actionWidget: confirmActionIcon(
+          actionWidget: ConfirmActionIcon(
             check: check,
             title: '완료',
             onTapIcon: () async {
@@ -54,19 +53,21 @@ class GroupRequestPage extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    subTitle(title: '모임명'),
-                    nameInputBox(
+                    const SubTitle(title: '모임명'),
+                    TextInputBox(
                       onTextChanged: ref
                           .read(groupRequestStateProvider.notifier)
                           .setGroupName,
+                      height: 44,
+                      hintText: '',
                     ),
-                    subTitle(title: '활동 카테고리'),
+                    const SubTitle(title: '활동 카테고리'),
                     Wrap(
                       spacing: 20,
                       runSpacing: 20,
                       children: [
                         for (int i = 0; i < checks.length; i++)
-                          categoryColumn(
+                          CategoryColumn(
                             check: checks[i],
                             index: i,
                             onTabIcon: (index) {
@@ -83,41 +84,41 @@ class GroupRequestPage extends ConsumerWidget {
                           ),
                       ],
                     ),
-                    subTitle(title: '모임 유형'),
+                    const SubTitle(title: '모임 유형'),
                     OnOffToggleButton(
                         tabButton: ref
                             .read(groupRequestStateProvider.notifier)
                             .setOnOff),
-                    subTitle(title: '모임 시작일'),
+                    const SubTitle(title: '모임 시작일'),
                     DateInputBox(
                       selcetDate: ref
                           .read(groupRequestStateProvider.notifier)
                           .setStartDate,
                     ),
-                    subTitle(title: '모집 인원'),
+                    const SubTitle(title: '모집 인원'),
                     headNumInputBox(
                       onTextChanged: ref
                           .read(groupRequestStateProvider.notifier)
                           .setRecruitmentCnt,
                     ),
-                    subTitle(title: '내 학교'),
+                    const SubTitle(title: '내 학교'),
                     UniversityToggleButton(
                       tabButton: ref
                           .read(groupRequestStateProvider.notifier)
                           .setUniversity,
                     ),
-                    subTitle(title: '지역'),
+                    const SubTitle(title: '지역'),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        cityInputBox(
+                        CityInputBox(
                           city: groupRequest.city,
                           setCity: ref
                               .watch(groupRequestStateProvider.notifier)
                               .setCity,
                           backgroundColor: MomoColor.backgroundColor,
                         ),
-                        districtBox(
+                        DistrictInputBox(
                           district: groupRequest.district,
                           cityCode: ref
                               .watch(groupRequestStateProvider.notifier)
@@ -129,8 +130,8 @@ class GroupRequestPage extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    subTitle(title: '메모'),
-                    contentInputBox(
+                    const SubTitle(title: '메모'),
+                    TextInputBox(
                       onTextChanged: ref
                           .read(groupRequestStateProvider.notifier)
                           .setIntroduction,

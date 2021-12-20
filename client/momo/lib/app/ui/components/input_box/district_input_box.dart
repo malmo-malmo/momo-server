@@ -2,18 +2,26 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/ui/components/dialog/district_result_dioalog.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget districtBox({
-  required String district,
-  required String cityCode,
-  required Function(String) setDistrict,
-  Color? backgroundColor,
-}) {
-  return Consumer(builder: (context, ref, _) {
+class DistrictInputBox extends StatelessWidget {
+  const DistrictInputBox({
+    Key? key,
+    required this.district,
+    required this.cityCode,
+    required this.setDistrict,
+    this.backgroundColor,
+  }) : super(key: key);
+
+  final String district;
+  final String cityCode;
+  final Function(String) setDistrict;
+  final Color? backgroundColor;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
@@ -42,7 +50,7 @@ Widget districtBox({
               showDialog(
                 context: context,
                 builder: (context) {
-                  return districtResultDialog(
+                  return DistrictResultDialog(
                     onSelect: setDistrict,
                     cityCode: cityCode,
                   );
@@ -53,5 +61,5 @@ Widget districtBox({
         ],
       ),
     );
-  });
+  }
 }

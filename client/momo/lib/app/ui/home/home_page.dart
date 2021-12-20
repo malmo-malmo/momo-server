@@ -42,32 +42,32 @@ class HomePage extends ConsumerWidget {
                   height: 1.3,
                 ),
               ),
-              subTitle(
+              SubTitle(
                 title: '${DateTime.now().month}월 리마인더',
                 icon: 'assets/icon/home/icon_recommend_28.svg',
               ),
               ReminderCard(),
-              subTitle(
+              const SubTitle(
                 title: '추천',
                 icon: 'assets/icon/home/icon_recommend_28.svg',
                 actionIcon: Icons.add,
               ),
               HomeMeetingList(pagingController: categoryPagingController),
-              subTitle(
+              SubTitle(
                 title: '내 학교',
                 icon: 'assets/icon/home/icon_myschool_28.svg',
                 actionIcon: Icons.add,
                 pagingController: universityPagingController,
               ),
               HomeMeetingList(pagingController: universityPagingController),
-              subTitle(
+              SubTitle(
                 title: '주변',
                 icon: 'assets/icon/home/icon_location_28.svg',
                 actionIcon: Icons.add,
                 pagingController: districtPagingController,
               ),
               HomeMeetingList(pagingController: districtPagingController),
-              subTitle(
+              const SubTitle(
                 title: '주간 달성률 Top4',
                 icon: 'assets/icon/home/icon_topfour_28.svg',
               ),

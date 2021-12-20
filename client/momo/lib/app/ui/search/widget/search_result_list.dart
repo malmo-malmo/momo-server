@@ -19,9 +19,9 @@ class SearchResultList extends StatelessWidget {
       pagingController: pagingController,
       builderDelegate: PagedChildBuilderDelegate<GroupInfo>(
         itemBuilder: (context, item, index) => searchResultCard(group: item),
-        newPageProgressIndicatorBuilder: (context) => loadingCard(),
-        firstPageProgressIndicatorBuilder: (context) => loadingCard(),
-        noItemsFoundIndicatorBuilder: (context) => noItemCard(),
+        newPageProgressIndicatorBuilder: (context) => const LoadingCard(),
+        firstPageProgressIndicatorBuilder: (context) => const LoadingCard(),
+        noItemsFoundIndicatorBuilder: (context) => const NoItemCard(),
       ),
       separatorBuilder: (context, index) => const SizedBox(height: 14),
     );

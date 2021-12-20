@@ -38,9 +38,11 @@ class NoticeListView extends ConsumerWidget {
               scrollDirection: Axis.horizontal,
               builderDelegate: PagedChildBuilderDelegate<Post>(
                 itemBuilder: (context, item, index) => _noticeCard(item),
-                newPageProgressIndicatorBuilder: (context) => loadingCard(),
-                firstPageProgressIndicatorBuilder: (context) => loadingCard(),
-                noItemsFoundIndicatorBuilder: (context) => noItemCard(),
+                newPageProgressIndicatorBuilder: (context) =>
+                    const LoadingCard(),
+                firstPageProgressIndicatorBuilder: (context) =>
+                    const LoadingCard(),
+                noItemsFoundIndicatorBuilder: (context) => const NoItemCard(),
               ),
               separatorBuilder: (context, index) => const SizedBox(width: 14),
             ),

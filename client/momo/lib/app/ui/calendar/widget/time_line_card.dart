@@ -40,7 +40,7 @@ class TimeLineCard extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 height: schedules.length * 76,
-                child: scheduleColumn(schedules),
+                child: ScheduleColumn(schedules: schedules),
               ),
             ),
           ),

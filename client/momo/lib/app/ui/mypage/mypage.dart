@@ -36,7 +36,7 @@ class Mypage extends StatelessWidget {
                   '${userData.nickname}님의\n마이페이지',
                   style: MomoTextStyle.mainTitle.copyWith(height: 1.2),
                 ),
-                profileAvatar(
+                ProfileAvatar(
                   img: userData.image ??
                       'https://file.mk.co.kr/meet/neds/2020/08/image_readtop_2020_864116_15980534304326707.png',
                   rad: 34,
@@ -54,16 +54,16 @@ class Mypage extends StatelessWidget {
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  infoColumn(count: 8, title: '총 모임'),
-                  infoColumn(count: 6, title: '찜한 모임'),
-                  infoColumn(count: 10, title: '획득뱃지'),
+                children: const [
+                  InfoColumn(count: 8, title: '총 모임'),
+                  InfoColumn(count: 6, title: '찜한 모임'),
+                  InfoColumn(count: 10, title: '획득뱃지'),
                 ],
               ),
             ),
             const SizedBox(height: 14),
             const AchievementCard(),
-            subTitle(
+            const SubTitle(
               title: '관심 카테고리',
               icon: 'assets/icon/mypage/icon_interestcategory_28.svg',
             ),
@@ -85,7 +85,7 @@ class Mypage extends StatelessWidget {
                       ),
                     );
                   }
-                  return categoryColumn(
+                  return CategoryColumn(
                     check: true,
                     index: index - 1,
                     onTabIcon: (index) {},
@@ -99,7 +99,7 @@ class Mypage extends StatelessWidget {
                 itemCount: 9,
               ),
             ),
-            subTitle(
+            const SubTitle(
                 title: '최근 본 모임',
                 icon: 'assets/icon/search/icon_recentsee_28.svg'),
             SizedBox(
@@ -107,7 +107,7 @@ class Mypage extends StatelessWidget {
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return groupCard(
+                  return GroupCard(
                     group: GroupInfo(
                       id: 1,
                       name: '기초를 위한 영어 회화 모임',

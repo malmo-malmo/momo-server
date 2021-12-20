@@ -24,15 +24,15 @@ class MemberListPage extends ConsumerWidget {
 
     return SafeArea(
       child: memeberResponse.when(
-        error: (error, stackTrace) => errorCard(),
-        loading: () => loadingCard(),
+        error: (error, stackTrace) => const ErrorCard(),
+        loading: () => const LoadingCard(),
         data: (data) {
           final checks = ref.watch(participantCheckProvider(data.length));
           final checkIndex = ref.watch(isCheckUserProvider(data.length));
 
           return Scaffold(
             backgroundColor: MomoColor.backgroundColor,
-            appBar: customAppBar(
+            appBar: CustomAppBar(
               leadingIcon: CupertinoIcons.xmark,
               isAction: true,
               actionWidget: InkWell(

@@ -8,7 +8,7 @@ part of 'user_client.dart';
 
 class _UserClient implements UserClient {
   _UserClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://10.0.2.2:8080/api';
+    baseUrl ??= 'http://gunimon.iptime.org:8100/api';
   }
 
   final Dio _dio;

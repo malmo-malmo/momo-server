@@ -6,10 +6,8 @@ import 'package:momo/app/ui/components/status/no_item_card.dart';
 import 'package:momo/app/ui/search/widget/search_result_card.dart';
 
 class SearchResultList extends StatelessWidget {
-  const SearchResultList({
-    Key? key,
-    required this.pagingController,
-  }) : super(key: key);
+  const SearchResultList({Key? key, required this.pagingController})
+      : super(key: key);
 
   final PagingController<int, GroupInfo> pagingController;
 
@@ -18,10 +16,10 @@ class SearchResultList extends StatelessWidget {
     return PagedSliverList.separated(
       pagingController: pagingController,
       builderDelegate: PagedChildBuilderDelegate<GroupInfo>(
-        itemBuilder: (context, item, index) => searchResultCard(group: item),
-        newPageProgressIndicatorBuilder: (context) => loadingCard(),
-        firstPageProgressIndicatorBuilder: (context) => loadingCard(),
-        noItemsFoundIndicatorBuilder: (context) => noItemCard(),
+        itemBuilder: (context, item, index) => SearchResultCard(group: item),
+        newPageProgressIndicatorBuilder: (context) => const LoadingCard(),
+        firstPageProgressIndicatorBuilder: (context) => const LoadingCard(),
+        noItemsFoundIndicatorBuilder: (context) => const NoItemCard(),
       ),
       separatorBuilder: (context, index) => const SizedBox(height: 14),
     );

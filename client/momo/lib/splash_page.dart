@@ -1,4 +1,3 @@
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +9,6 @@ import 'package:momo/app/provider/user/user_data_provider.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
-import 'package:momo/main.dart';
 
 class SplashPage extends ConsumerStatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -23,13 +21,10 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   @override
   initState() {
     super.initState();
-    _pushToNextPage();
+    Future.delayed(Duration.zero).then((value) => _pushToNextPage());
   }
 
   Future<void> _pushToNextPage() async {
-    final isGPhone = await getDeviceInfo();
-    baseUrl =
-        isGPhone ? 'http://10.0.2.2:8080/api' : 'http://192.168.0.2:8080/api';
     final check = hasNoToken();
 
     if (check) {
@@ -46,12 +41,6 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   bool hasNoToken() {
     final token = Hive.box('auth').get('tokenData') ?? 'no token';
     return token == 'no token';
-  }
-
-  Future<bool> getDeviceInfo() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    return androidInfo.model == 'sdk_gphone_x86' ? true : false;
   }
 
   @override

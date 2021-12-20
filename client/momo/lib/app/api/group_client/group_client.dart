@@ -8,7 +8,7 @@ import 'package:retrofit/retrofit.dart';
 
 part 'group_client.g.dart';
 
-@RestApi(baseUrl: 'http://localhost:8080/api')
+@RestApi(baseUrl: 'http://gunimon.iptime.org:8100/api')
 abstract class GroupClient {
   factory GroupClient(
     Dio dio, {
@@ -53,7 +53,7 @@ abstract class GroupClient {
   @POST('/group/apply-participant')
   Future<dynamic> participantGroup(@Body() int groupId);
 
-  @DELETE('/group/participant/{groupId}')
+  @DELETE('/group/{groupId}/participant')
   Future<dynamic> withdrawalGroup(@Path() int groupId);
 
   @GET('/group/participants')

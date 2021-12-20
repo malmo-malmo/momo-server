@@ -7,15 +7,11 @@ import 'package:momo/app/ui/components/button/confirm_action_icon.dart';
 import 'package:momo/app/ui/components/button/on_off_toggle_button.dart';
 import 'package:momo/app/ui/components/input_box/content_input_box.dart';
 import 'package:momo/app/ui/components/input_box/date_input_box.dart';
-import 'package:momo/app/ui/components/input_box/name_input_box.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/schedule_request/widget/time_input_card.dart';
 
 class ScheduleRequestPage extends ConsumerWidget {
-  const ScheduleRequestPage({
-    Key? key,
-    this.groupId,
-  }) : super(key: key);
+  const ScheduleRequestPage({Key? key, this.groupId}) : super(key: key);
 
   final int? groupId;
 
@@ -28,11 +24,11 @@ class ScheduleRequestPage extends ConsumerWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffffffff),
-        appBar: customAppBar(
+        appBar: CustomAppBar(
           leadingIcon: CupertinoIcons.xmark,
           isAction: true,
           title: '일정추가',
-          actionWidget: confirmActionIcon(
+          actionWidget: ConfirmActionIcon(
             check: check,
             title: '완료',
             onTapIcon: () async {
@@ -50,13 +46,15 @@ class ScheduleRequestPage extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    subTitle(title: '일정명'),
-                    nameInputBox(
-                        onTextChanged: scheduleRequestState.setTitle,
-                        hintText: '제목'),
-                    subTitle(title: '모임 유형'),
+                    const SubTitle(title: '일정명'),
+                    TextInputBox(
+                      onTextChanged: scheduleRequestState.setTitle,
+                      hintText: '제목',
+                      height: 44,
+                    ),
+                    const SubTitle(title: '모임 유형'),
                     OnOffToggleButton(tabButton: scheduleRequestState.setOnOff),
-                    subTitle(title: '날짜 및 시간'),
+                    const SubTitle(title: '날짜 및 시간'),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -64,8 +62,8 @@ class ScheduleRequestPage extends ConsumerWidget {
                         TimeInputCard(selcetTime: scheduleRequestState.setTime),
                       ],
                     ),
-                    subTitle(title: '메모'),
-                    contentInputBox(
+                    const SubTitle(title: '메모'),
+                    TextInputBox(
                         onTextChanged: scheduleRequestState.setContents,
                         maxLines: 2,
                         height: 82,

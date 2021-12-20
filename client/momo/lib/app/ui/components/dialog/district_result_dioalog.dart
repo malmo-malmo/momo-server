@@ -5,38 +5,37 @@ import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget districtResultDialog({
-  required Function(String university) onSelect,
-  required String cityCode,
-}) {
-  return Consumer(
-    builder: (context, ref, _) {
-      final districtList = ref.watch(districtResultProvider(cityCode));
+class DistrictResultDialog extends StatelessWidget {
+  const DistrictResultDialog({
+    Key? key,
+    required this.onSelect,
+    required this.cityCode,
+  }) : super(key: key);
 
-      return Dialog(
-        insetPadding: const EdgeInsets.all(1),
-        child: Container(
-          padding: const EdgeInsets.all(24),
-          height: 300,
-          width: 250,
-          child: Column(
-            children: [
-              const Text(
-                '지역을 선택하세요',
-                style: MomoTextStyle.subTitle,
-              ),
-              const SizedBox(height: 48),
-              Expanded(
+  final Function(String university) onSelect;
+  final String cityCode;
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      insetPadding: const EdgeInsets.all(1),
+      child: Container(
+        padding: const EdgeInsets.all(24),
+        height: 300,
+        width: 250,
+        child: Column(
+          children: [
+            const Text('지역을 선택하세요', style: MomoTextStyle.subTitle),
+            const SizedBox(height: 48),
+            Consumer(builder: (context, ref, _) {
+              final districtList = ref.watch(districtResultProvider(cityCode));
+              return Expanded(
                 child: districtList.when(
-                  loading: () => loadingCard(),
+                  loading: () => const LoadingCard(),
                   error: (error, stack) =>
                       Center(child: Text(error.toString())),
                   data: (data) => data.isEmpty
-                      ? const Center(
-                          child: Text(
-                            '다시 시도해주세요!',
-                          ),
-                        )
+                      ? const Center(child: Text('다시 시도해주세요!'))
                       : ListView.separated(
                           itemBuilder: (context, index) {
                             return InkWell(
@@ -58,11 +57,11 @@ Widget districtResultDialog({
                               const SizedBox(height: 16),
                         ),
                 ),
-              ),
-            ],
-          ),
+              );
+            }),
+          ],
         ),
-      );
-    },
-  );
+      ),
+    );
+  }
 }

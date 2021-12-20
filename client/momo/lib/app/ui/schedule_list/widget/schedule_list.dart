@@ -89,9 +89,9 @@ class _ScheduleListState extends ConsumerState<ScheduleList> {
                   attendance: item.attend,
                 );
         },
-        newPageProgressIndicatorBuilder: (context) => loadingCard(),
-        firstPageProgressIndicatorBuilder: (context) => loadingCard(),
-        noItemsFoundIndicatorBuilder: (context) => noItemCard(),
+        newPageProgressIndicatorBuilder: (context) => const LoadingCard(),
+        firstPageProgressIndicatorBuilder: (context) => const LoadingCard(),
+        noItemsFoundIndicatorBuilder: (context) => const NoItemCard(),
       ),
       separatorBuilder: (context, index) => const SizedBox(height: 14),
     );

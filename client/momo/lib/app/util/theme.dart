@@ -11,7 +11,9 @@ class MyBehavior extends ScrollBehavior {
 final momoThemeData = ThemeData(
   fontFamily: 'NanumSquareOTF',
   appBarTheme: const AppBarTheme(
-    backgroundColor: MomoColor.backgroundColor,
+    backgroundColor: Color(0xffffffff),
+    toolbarHeight: 56,
+    elevation: 0,
   ),
   backgroundColor: MomoColor.backgroundColor,
   inputDecorationTheme: const InputDecorationTheme(

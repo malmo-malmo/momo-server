@@ -11,10 +11,7 @@ import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 class AdminBottomSheet extends ConsumerStatefulWidget {
-  const AdminBottomSheet({
-    Key? key,
-    required this.groupId,
-  }) : super(key: key);
+  const AdminBottomSheet({Key? key, required this.groupId}) : super(key: key);
 
   final int groupId;
 

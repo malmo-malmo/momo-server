@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:momo/app/model/common/token_data.dart';
-import 'package:momo/main.dart';
 
 final dioProvider = Provider<Dio>((ref) {
   TokenData tokenData = Hive.box('auth').get('tokenData');
@@ -31,7 +30,7 @@ final dioProvider = Provider<Dio>((ref) {
 
         dp.log('>>>>>>>>>> 토큰재발급 <<<<<<<<<<');
         await dio
-            .post('$baseUrl/oauth/login/refresh',
+            .post('http://gunimon.iptime.org:8090/oauth/login/refresh',
                 data: {'refreshToken': tokenData.refreshToken})
             .then((response) {
               //  Hive에 tokenData 갱신
@@ -86,6 +85,7 @@ class CustomLogInterceptor extends Interceptor {
     dp.log('ERROR headers: [${err.requestOptions.headers}]');
     dp.log('ERROR err: [${err.error}]');
     dp.log('ERROR msg: [${err.message}]');
+    dp.log('ERROR stackTrace: [${err.stackTrace}]');
     super.onError(err, handler);
   }
 }

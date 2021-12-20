@@ -14,10 +14,7 @@ import 'package:momo/app/util/theme.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class DateInputBox extends StatefulWidget {
-  const DateInputBox({
-    Key? key,
-    required this.selcetDate,
-  }) : super(key: key);
+  const DateInputBox({Key? key, required this.selcetDate}) : super(key: key);
 
   final Function(DateTime dateTime) selcetDate;
 
@@ -34,7 +31,7 @@ class _DateInputBoxState extends State<DateInputBox> {
       onTap: () async {
         final dateTime = await showDialog(
           context: context,
-          builder: (context) => _calendarDialog(),
+          builder: (context) => const _CalendarDialog(),
         );
 
         if (dateTime != null) {
@@ -67,8 +64,13 @@ class _DateInputBoxState extends State<DateInputBox> {
       ),
     );
   }
+}
 
-  Widget _calendarDialog() {
+class _CalendarDialog extends StatelessWidget {
+  const _CalendarDialog({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, _) {
       final _selectDay = ref.watch(selectDayProvider);
 
@@ -85,7 +87,7 @@ class _DateInputBoxState extends State<DateInputBox> {
               Padding(
                 padding: const EdgeInsets.only(top: 8, right: 28, left: 28),
                 child: TableCalendar(
-                  firstDay: DateTime.utc(2021, 1, 1),
+                  firstDay: DateTime.now(),
                   lastDay: DateTime.utc(2022, 12, 31),
                   focusedDay: _selectDay,
                   formatAnimationDuration: const Duration(milliseconds: 500),

@@ -23,7 +23,7 @@ Widget postDetailCard({required PostDetail postDetail}) {
               children: [
                 Row(
                   children: [
-                    profileAvatar(
+                    ProfileAvatar(
                       img: postDetail.authorImage ??
                           'https://www.theguru.co.kr/data/photos/20210937/art_16316071303022_bf8378.jpg',
                       rad: 18,

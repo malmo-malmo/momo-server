@@ -15,10 +15,7 @@ import 'package:momo/app/util/theme.dart';
 /// 모임 생성 시에는 1개 제한
 /// 공지사항, 게시글은 7개?
 class GalleryPage extends ConsumerStatefulWidget {
-  const GalleryPage({
-    Key? key,
-    required this.requestType,
-  }) : super(key: key);
+  const GalleryPage({Key? key, required this.requestType}) : super(key: key);
 
   final PhotoRequestType requestType;
 
@@ -44,7 +41,7 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
     final photoState = ref.watch(photoListProvider);
     return SafeArea(
       child: photoState.when(
-          loading: () => Scaffold(body: loadingCard()),
+          loading: () => const Scaffold(body: LoadingCard()),
           error: (error, stack) =>
               const Scaffold(body: Center(child: Text('사진을 불러 올 수 없습니다...'))),
           data: (photoList) {
@@ -54,11 +51,11 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
             final isMax = ref.watch(checkMaxPhoto);
 
             return Scaffold(
-              appBar: customAppBar(
+              appBar: CustomAppBar(
                 leadingIcon: CupertinoIcons.back,
                 isAction: true,
                 title: '사진첩',
-                actionWidget: confirmActionIcon(
+                actionWidget: ConfirmActionIcon(
                   check: checkPhoto,
                   title: '추가',
                   onTapIcon: () {},
@@ -82,7 +79,7 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
                           builder: (_, snapshot) {
                             final bytes = snapshot.data;
                             if (bytes == null) {
-                              return loadingCard();
+                              return const LoadingCard();
                             }
                             return Consumer(builder: (context, ref, _) {
                               return InkWell(
@@ -110,7 +107,7 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
                                                     .notifier)
                                                 .toggle(index);
                                           }),
-                                child: _imageThumbnail(
+                                child: _ImageThmbnail(
                                   check: checks[index],
                                   imageData: bytes,
                                 ),
@@ -125,27 +122,6 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
               ),
             );
           }),
-    );
-  }
-
-  Widget _imageThumbnail({required bool check, required Uint8List imageData}) {
-    return Stack(
-      children: [
-        Positioned.fill(
-            child: Image.memory(imageData,
-                fit: BoxFit.cover, gaplessPlayback: true)),
-        check
-            ? Opacity(
-                opacity: 0.4,
-                child: Container(
-                    height: double.infinity,
-                    width: double.infinity,
-                    color: MomoColor.black))
-            : const SizedBox(),
-        check
-            ? const Center(child: Icon(Icons.check, color: MomoColor.white))
-            : const SizedBox(),
-      ],
     );
   }
 
@@ -165,7 +141,39 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
         ),
       ),
       gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 1),
+      toastDuration: const Duration(microseconds: 500),
+    );
+  }
+}
+
+class _ImageThmbnail extends StatelessWidget {
+  const _ImageThmbnail({
+    Key? key,
+    required this.check,
+    required this.imageData,
+  }) : super(key: key);
+  final bool check;
+  final Uint8List imageData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Positioned.fill(
+            child: Image.memory(imageData,
+                fit: BoxFit.cover, gaplessPlayback: true)),
+        check
+            ? Opacity(
+                opacity: 0.4,
+                child: Container(
+                    height: double.infinity,
+                    width: double.infinity,
+                    color: MomoColor.black))
+            : const SizedBox(),
+        check
+            ? const Center(child: Icon(Icons.check, color: MomoColor.white))
+            : const SizedBox(),
+      ],
     );
   }
 }

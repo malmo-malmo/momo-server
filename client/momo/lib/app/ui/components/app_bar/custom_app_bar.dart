@@ -3,37 +3,43 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
-AppBar customAppBar({
-  required IconData leadingIcon,
-  required bool isAction,
-  String? title,
-  Widget? actionWidget,
-  Color? backgroundColor,
-  Color? leadingIconColor,
-}) {
-  return AppBar(
-    elevation: 0,
-    backgroundColor: backgroundColor ?? const Color(0xffffffff),
-    toolbarHeight: 56,
-    leading: Consumer(builder: (context, ref, _) {
-      return InkWell(
-        onTap: () {
-          ref.read(navigatorProvider).pop();
-        },
-        child: Icon(
-          leadingIcon,
-          color: leadingIconColor ?? MomoColor.black,
-        ),
-      );
-    }),
-    title: Text(title ?? '', style: MomoTextStyle.defaultStyle),
-    actions: [
-      isAction
-          ? Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: actionWidget,
-            )
-          : const SizedBox(),
-    ],
-  );
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomAppBar({
+    Key? key,
+    required this.leadingIcon,
+    required this.isAction,
+    this.title,
+    this.actionWidget,
+    this.backgroundColor,
+    this.leadingIconColor,
+  }) : super(key: key);
+
+  final IconData leadingIcon;
+  final bool isAction;
+  final String? title;
+  final Widget? actionWidget;
+  final Color? backgroundColor;
+  final Color? leadingIconColor;
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+        backgroundColor: backgroundColor,
+        leading: Consumer(
+            builder: (context, ref, _) => InkWell(
+                onTap: () => ref.read(navigatorProvider).pop(),
+                child: Icon(leadingIcon,
+                    color: leadingIconColor ?? MomoColor.black))),
+        title: Text(title ?? '', style: MomoTextStyle.defaultStyle),
+        actions: [
+          isAction
+              ? Padding(
+                  padding: const EdgeInsets.only(right: 16),
+                  child: actionWidget,
+                )
+              : const SizedBox()
+        ]);
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(56);
 }

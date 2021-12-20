@@ -56,7 +56,7 @@ class CategoryPage extends ConsumerWidget {
                       runSpacing: 64.h,
                       children: [
                         for (int i = 0; i < categoryState.length; i++)
-                          categoryColumn(
+                          CategoryColumn(
                             check: categoryState[i],
                             index: i,
                             onTabIcon: ref

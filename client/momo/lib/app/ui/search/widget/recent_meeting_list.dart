@@ -16,7 +16,7 @@ class RecentMeetingList extends StatelessWidget {
           crossAxisSpacing: 14,
           mainAxisExtent: 200.h),
       delegate: SliverChildBuilderDelegate(
-        (context, index) => groupCard(
+        (context, index) => GroupCard(
           group: GroupInfo(
             id: 1,
             name: '기초를 위한 영어 회화 모임',

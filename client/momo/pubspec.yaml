@@ -3,10 +3,10 @@ description: marmo-marmo.
 
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+1
+version: 0.0.1+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.15.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -17,7 +17,7 @@ dependencies:
   flutter_riverpod: ^1.0.0
   flutter_screenutil: ^5.0.0
   flutter_svg: ^1.0.0
-  freezed_annotation:
+  freezed_annotation: ^1.1.0
   json_annotation: ^4.3.0
   flutter_rating_bar: ^4.0.0
   retrofit: ^2.1.0
@@ -29,12 +29,8 @@ dependencies:
   table_calendar: ^3.0.3
   hive: ^2.0.4
   hive_flutter: ^1.1.0
-  flutter_dotenv: ^5.0.2
-  minio: ^3.0.0
-  crypto: ^3.0.1
   fluttertoast: ^8.0.8
   kakao_flutter_sdk: ^0.9.0
-  device_info_plus: ^3.1.1
   cached_network_image: ^3.2.0
 
   cupertino_icons: ^1.0.2
@@ -66,7 +62,6 @@ flutter:
     - assets/icon/search/
     - assets/icon/tab/
     - assets/icon/onboarding/
-    - .env
 
   fonts:
     - family: NanumSquareOTF

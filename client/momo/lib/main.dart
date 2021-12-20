@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,19 +10,13 @@ import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/provider_log.dart';
 import 'package:momo/app/util/theme.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-String? baseUrl;
 
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(TokenDataAdapter());
   await Hive.openBox('auth');
 
-  await dotenv.load(fileName: ".env");
-  final kakaoKey = dotenv.get('KAKAOKEY');
-
-  KakaoContext.clientId = kakaoKey;
+  KakaoContext.clientId = '51af7920a3ab81a3de0020af102e70cd';
 
   runApp(
     ProviderScope(
@@ -38,6 +33,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return ScreenUtilInit(
       designSize: const Size(360, 640),
       builder: () => MaterialApp(

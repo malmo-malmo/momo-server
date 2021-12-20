@@ -50,16 +50,15 @@ class SearchPage extends ConsumerWidget {
                 ? SliverToBoxAdapter(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        subTitle(
-                          title: '최근검색어',
-                          icon: 'assets/icon/search/icon_recentsearch_28.svg',
-                        ),
-                        const SearchedWordCards(),
-                        subTitle(
-                          title: '최근 본 모임',
-                          icon: 'assets/icon/search/icon_recentsee_28.svg',
-                        ),
+                      children: const [
+                        SubTitle(
+                            title: '최근검색어',
+                            icon:
+                                'assets/icon/search/icon_recentsearch_28.svg'),
+                        SearchedWordCards(),
+                        SubTitle(
+                            title: '최근 본 모임',
+                            icon: 'assets/icon/search/icon_recentsee_28.svg')
                       ],
                     ),
                   )

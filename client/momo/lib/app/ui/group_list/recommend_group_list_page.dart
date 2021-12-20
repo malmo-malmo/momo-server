@@ -22,7 +22,7 @@ class RecommendGroupListPage extends ConsumerWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffffffff),
-        appBar: customAppBar(
+        appBar: CustomAppBar(
           leadingIcon: CupertinoIcons.back,
           isAction: true,
           title: '추천 더보기',
@@ -40,15 +40,17 @@ class RecommendGroupListPage extends ConsumerWidget {
                 child: PagedGridView(
                   pagingController: _pagingController,
                   builderDelegate: PagedChildBuilderDelegate<GroupInfo>(
-                    itemBuilder: (context, item, index) => groupCard(
+                    itemBuilder: (context, item, index) => GroupCard(
                       group: item,
                       height: 200.h,
                       width: double.infinity,
                     ),
-                    newPageProgressIndicatorBuilder: (context) => loadingCard(),
+                    newPageProgressIndicatorBuilder: (context) =>
+                        const LoadingCard(),
                     firstPageProgressIndicatorBuilder: (context) =>
-                        loadingCard(),
-                    noItemsFoundIndicatorBuilder: (context) => noItemCard(),
+                        const LoadingCard(),
+                    noItemsFoundIndicatorBuilder: (context) =>
+                        const NoItemCard(),
                   ),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,

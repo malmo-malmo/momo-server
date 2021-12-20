@@ -10,7 +10,6 @@ import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:momo/app/ui/components/button/confirm_action_icon.dart';
 import 'package:momo/app/ui/components/input_box/content_input_box.dart';
-import 'package:momo/app/ui/components/input_box/name_input_box.dart';
 import 'package:momo/app/ui/post_request/widget/img_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
 
@@ -31,11 +30,11 @@ class PostRequestPage extends ConsumerWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffffffff),
-        appBar: customAppBar(
+        appBar: CustomAppBar(
           leadingIcon: CupertinoIcons.xmark,
           title: '${postRequestArg.postType.postTypeToName} 작성',
           isAction: true,
-          actionWidget: confirmActionIcon(
+          actionWidget: ConfirmActionIcon(
             check: check,
             title: '완료',
             onTapIcon: () async {
@@ -56,17 +55,18 @@ class PostRequestPage extends ConsumerWidget {
                   slivers: [
                     const SliverToBoxAdapter(child: SizedBox(height: 24)),
                     SliverToBoxAdapter(
-                      child: nameInputBox(
+                      child: TextInputBox(
                         onTextChanged: ref
                             .read(postRequestStateProvider(postRequestArg)
                                 .notifier)
                             .setTitle,
                         hintText: '제목',
+                        height: 44,
                       ),
                     ),
                     const SliverToBoxAdapter(child: SizedBox(height: 14)),
                     SliverToBoxAdapter(
-                      child: contentInputBox(
+                      child: TextInputBox(
                         onTextChanged: ref
                             .read(postRequestStateProvider(postRequestArg)
                                 .notifier)
@@ -117,10 +117,8 @@ class PostRequestPage extends ConsumerWidget {
 }
 
 class _FloatingCameraBotton extends StatelessWidget {
-  const _FloatingCameraBotton({
-    Key? key,
-    required this.addImages,
-  }) : super(key: key);
+  const _FloatingCameraBotton({Key? key, required this.addImages})
+      : super(key: key);
 
   final Function(List<String> images) addImages;
 
@@ -135,6 +133,7 @@ class _FloatingCameraBotton extends StatelessWidget {
           height: 56,
           child: InkWell(
             onTap: () async {
+              FocusScope.of(context).unfocus();
               List<String>? images =
                   await ref.read(navigatorProvider).navigateTo(
                         routeName: AppRoutes.gallery,

@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:momo/app/model/enum/post_type.dart';
 import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/provider/group/group_provider.dart';
+import 'package:momo/app/provider/post/post_paging_controller_provider.dart';
 import 'package:momo/app/routes/custom_arg/post_request_arg.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/group_detail/widget/withdraw_dialog.dart';
@@ -12,10 +13,7 @@ import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
 class UserBottomSheet extends ConsumerStatefulWidget {
-  const UserBottomSheet({
-    Key? key,
-    required this.group,
-  }) : super(key: key);
+  const UserBottomSheet({Key? key, required this.group}) : super(key: key);
 
   final GroupInfo group;
 
@@ -60,6 +58,9 @@ class _UserBottomSheetState extends ConsumerState<UserBottomSheet> {
                     ),
                   );
               ref.read(navigatorProvider).pop();
+              ref
+                  .read(postPaigingControllerProvider(widget.group.id))
+                  .refresh();
             },
             child: sheetTabButtob(
               title: '게시물 작성',

@@ -8,7 +8,7 @@ part of 'district_client.dart';
 
 class _DistrictClient implements DistrictClient {
   _DistrictClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://localhost:8080/api';
+    baseUrl ??= 'http://gunimon.iptime.org:8100/api';
   }
 
   final Dio _dio;

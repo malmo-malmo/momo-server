@@ -24,7 +24,7 @@ Widget attendanceCard({
       children: [
         Row(
           children: [
-            profileAvatar(img: profile, rad: 18.w),
+            ProfileAvatar(img: profile, rad: 18.w),
             const SizedBox(width: 10),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,

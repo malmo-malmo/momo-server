@@ -8,7 +8,7 @@ part of 'group_client.dart';
 
 class _GroupClient implements GroupClient {
   _GroupClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://localhost:8080/api';
+    baseUrl ??= 'http://gunimon.iptime.org:8100/api';
   }
 
   final Dio _dio;
@@ -166,7 +166,7 @@ class _GroupClient implements GroupClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'DELETE', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/group/participant/$groupId',
+            .compose(_dio.options, '/group/$groupId/participant',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;

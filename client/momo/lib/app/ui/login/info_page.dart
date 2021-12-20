@@ -36,9 +36,7 @@ class InfoPage extends ConsumerWidget {
               children: [
                 const SizedBox(height: 45),
                 InkWell(
-                  onTap: () {
-                    ref.read(navigatorProvider).pop();
-                  },
+                  onTap: () => ref.read(navigatorProvider).pop(),
                   child: Icon(
                     CupertinoIcons.back,
                     color: MomoColor.black,
@@ -48,7 +46,7 @@ class InfoPage extends ConsumerWidget {
                 const SizedBox(height: 25),
                 titleText('내 정보 설정  3/3'),
                 const SizedBox(height: 50),
-                subTitle(title: '닉네임'),
+                const SubTitle(title: '닉네임'),
                 inputBox(
                   onTextChange: ref
                       .read(userInfoRequestStateProvider.notifier)
@@ -82,7 +80,7 @@ class InfoPage extends ConsumerWidget {
 
                           showDialog(
                             context: context,
-                            builder: (context) => confirmDialog(
+                            builder: (context) => ConfirmDialog(
                               dialogText:
                                   !check ? '사용 가능한 닉네임이에요' : '중복된 닉네임입니다',
                             ),
@@ -91,16 +89,16 @@ class InfoPage extends ConsumerWidget {
                         }
                       : () {},
                 ),
-                subTitle(title: '학교'),
+                const SubTitle(title: '학교'),
                 universityInputBox(
                     setUniversity: ref
                         .watch(userInfoRequestStateProvider.notifier)
                         .setUserUniversity),
-                subTitle(title: '지역'),
+                const SubTitle(title: '지역'),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    cityInputBox(
+                    CityInputBox(
                       city: ref
                           .watch(userInfoRequestStateProvider.notifier)
                           .userCity,
@@ -108,7 +106,8 @@ class InfoPage extends ConsumerWidget {
                           .watch(userInfoRequestStateProvider.notifier)
                           .setUserCity,
                     ),
-                    districtBox(
+                    const SizedBox(width: 48),
+                    DistrictInputBox(
                       district: userInfo.district,
                       cityCode: userInfo.city,
                       setDistrict: ref

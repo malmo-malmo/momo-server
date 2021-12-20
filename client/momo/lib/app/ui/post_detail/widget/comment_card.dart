@@ -17,7 +17,7 @@ Widget commentCard(Comment comment) {
       children: [
         Row(
           children: [
-            profileAvatar(
+            ProfileAvatar(
               img: comment.authorImage ??
                   'https://biz.chosun.com/resizer/kh_pcdsIH0PJWIXenLBD4Oi94Wg=/464x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/HAXYB5XB4CCHXUB6VQVALOZFVY.jpg',
               rad: 18.w,

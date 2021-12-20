@@ -27,15 +27,15 @@ class GroupDetailPage extends ConsumerWidget {
     final response = ref.watch(groupDetailFutureProvider(group.id));
 
     return response.when(
-      error: (error, stackTrace) => Scaffold(body: errorCard()),
-      loading: () => Scaffold(body: loadingCard()),
+      error: (error, stackTrace) => const Scaffold(body: ErrorCard()),
+      loading: () => const Scaffold(body: LoadingCard()),
       data: (data) {
         final groupDetail = ref.watch(groupDetailProvider(data));
 
         return SafeArea(
           child: Scaffold(
             backgroundColor: const Color(0xfff7f7f7),
-            appBar: customAppBar(
+            appBar: CustomAppBar(
               leadingIcon: CupertinoIcons.back,
               isAction: groupDetail.participant,
               actionWidget: groupDetail.participant

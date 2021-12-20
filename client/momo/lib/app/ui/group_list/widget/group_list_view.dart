@@ -16,7 +16,7 @@ class GroupListView extends StatelessWidget {
       child: PagedGridView(
         pagingController: pagingController,
         builderDelegate: PagedChildBuilderDelegate<GroupInfo>(
-          itemBuilder: (context, item, index) => groupCard(
+          itemBuilder: (context, item, index) => GroupCard(
             group: item,
             height: 200.h,
             width: double.infinity,

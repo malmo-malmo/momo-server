@@ -12,14 +12,14 @@ Widget calendarSchdules({required DateTime requestDate}) {
       final scheduleResponse = ref.watch(calendarScheduleProvider(requestDate));
 
       return scheduleResponse.when(
-        error: (error, stacktrace) => errorCard(),
-        loading: () => loadingCard(),
+        error: (error, stacktrace) => const ErrorCard(),
+        loading: () => const LoadingCard(),
         data: (scheduleData) {
           // ref
           //     .watch(scheduleEventStateProvider.notifier)
           //     .changeEvent(scheduleData.dateTimes);
           if (scheduleData.schedules.isEmpty) {
-            return noItemCard();
+            return const NoItemCard();
           }
           return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),

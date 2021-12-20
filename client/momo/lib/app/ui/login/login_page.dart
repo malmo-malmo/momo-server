@@ -14,7 +14,6 @@ import 'package:momo/app/provider/city_result_provider.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
-import 'package:momo/main.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -28,15 +27,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   Future<void> _loginWithKakao() async {
     final authCode = await getAuthCode();
-
     final response = await dio.post(
-      '$baseUrl/oauth/login',
+      'http://gunimon.iptime.org:8100/api/oauth/login',
       data: {
         'authorizationCode': '$authCode',
         'provider': 'kakao',
       },
     );
-
     final tokenData = TokenData(
       accessToken: response.data['accessToken'],
       accessTokenType: response.data['accessTokenType'],

@@ -36,8 +36,14 @@ public class GroupServiceTest extends ServiceTest {
         given(participantRepository.save(any())).willReturn(Participant.builder().build());
 
         Long groupId = groupService.create(
-            User.builder().university("서울대").build(),
-            GroupCreateRequest.builder().isUniversity(true).category(Category.EMPLOYMENT.getCode()).isOffline(false).build());
+            User.builder()
+                .university("서울대")
+                .build(),
+            GroupCreateRequest.builder()
+                .isUniversity(true)
+                .category(Category.EMPLOYMENT.getCode())
+                .isOffline(false)
+                .build());
         assertThat(groupId).isEqualTo(1l);
     }
 }

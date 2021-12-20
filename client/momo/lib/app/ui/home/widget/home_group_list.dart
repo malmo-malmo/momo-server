@@ -21,7 +21,7 @@ class HomeMeetingList extends StatelessWidget {
         pagingController: pagingController,
         scrollDirection: Axis.horizontal,
         builderDelegate: PagedChildBuilderDelegate<GroupInfo>(
-          itemBuilder: (context, item, index) => groupCard(group: item),
+          itemBuilder: (context, item, index) => GroupCard(group: item),
           newPageProgressIndicatorBuilder: (context) => const LoadingCard(),
           firstPageProgressIndicatorBuilder: (context) => const LoadingCard(),
           noItemsFoundIndicatorBuilder: (context) => const NoItemCard(),

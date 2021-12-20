@@ -1,4 +1,3 @@
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,7 +21,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   @override
   initState() {
     super.initState();
-    _pushToNextPage();
+    Future.delayed(Duration.zero).then((value) => _pushToNextPage());
   }
 
   Future<void> _pushToNextPage() async {
@@ -42,12 +41,6 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   bool hasNoToken() {
     final token = Hive.box('auth').get('tokenData') ?? 'no token';
     return token == 'no token';
-  }
-
-  Future<bool> getDeviceInfo() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    return androidInfo.model == 'sdk_gphone_x86' ? true : false;
   }
 
   @override

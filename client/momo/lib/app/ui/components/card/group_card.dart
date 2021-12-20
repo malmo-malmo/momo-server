@@ -11,12 +11,20 @@ import 'package:momo/app/ui/components/card/on_off_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
 
-Widget groupCard({
-  required GroupInfo group,
-  double? width,
-  double? height,
-}) {
-  return Consumer(builder: (context, ref, _) {
+class GroupCard extends ConsumerWidget {
+  const GroupCard({
+    Key? key,
+    required this.group,
+    this.width,
+    this.height,
+  }) : super(key: key);
+
+  final GroupInfo group;
+  final double? width;
+  final double? height;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     final groupParticipantCnt = ref.watch(groupProvider(group)).participantCnt;
 
     return InkWell(
@@ -78,5 +86,5 @@ Widget groupCard({
         ],
       ),
     );
-  });
+  }
 }

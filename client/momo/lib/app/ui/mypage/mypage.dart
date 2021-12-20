@@ -107,7 +107,7 @@ class Mypage extends StatelessWidget {
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return groupCard(
+                  return GroupCard(
                     group: GroupInfo(
                       id: 1,
                       name: '기초를 위한 영어 회화 모임',

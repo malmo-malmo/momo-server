@@ -40,7 +40,7 @@ class RecommendGroupListPage extends ConsumerWidget {
                 child: PagedGridView(
                   pagingController: _pagingController,
                   builderDelegate: PagedChildBuilderDelegate<GroupInfo>(
-                    itemBuilder: (context, item, index) => groupCard(
+                    itemBuilder: (context, item, index) => GroupCard(
                       group: item,
                       height: 200.h,
                       width: double.infinity,

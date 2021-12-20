@@ -117,10 +117,8 @@ class PostRequestPage extends ConsumerWidget {
 }
 
 class _FloatingCameraBotton extends StatelessWidget {
-  const _FloatingCameraBotton({
-    Key? key,
-    required this.addImages,
-  }) : super(key: key);
+  const _FloatingCameraBotton({Key? key, required this.addImages})
+      : super(key: key);
 
   final Function(List<String> images) addImages;
 
@@ -135,6 +133,7 @@ class _FloatingCameraBotton extends StatelessWidget {
           height: 56,
           child: InkWell(
             onTap: () async {
+              FocusScope.of(context).unfocus();
               List<String>? images =
                   await ref.read(navigatorProvider).navigateTo(
                         routeName: AppRoutes.gallery,

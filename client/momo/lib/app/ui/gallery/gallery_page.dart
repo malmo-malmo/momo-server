@@ -107,7 +107,7 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
                                                     .notifier)
                                                 .toggle(index);
                                           }),
-                                child: _imageThumbnail(
+                                child: _ImageThmbnail(
                                   check: checks[index],
                                   imageData: bytes,
                                 ),
@@ -122,27 +122,6 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
               ),
             );
           }),
-    );
-  }
-
-  Widget _imageThumbnail({required bool check, required Uint8List imageData}) {
-    return Stack(
-      children: [
-        Positioned.fill(
-            child: Image.memory(imageData,
-                fit: BoxFit.cover, gaplessPlayback: true)),
-        check
-            ? Opacity(
-                opacity: 0.4,
-                child: Container(
-                    height: double.infinity,
-                    width: double.infinity,
-                    color: MomoColor.black))
-            : const SizedBox(),
-        check
-            ? const Center(child: Icon(Icons.check, color: MomoColor.white))
-            : const SizedBox(),
-      ],
     );
   }
 
@@ -162,7 +141,39 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
         ),
       ),
       gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 1),
+      toastDuration: const Duration(microseconds: 500),
+    );
+  }
+}
+
+class _ImageThmbnail extends StatelessWidget {
+  const _ImageThmbnail({
+    Key? key,
+    required this.check,
+    required this.imageData,
+  }) : super(key: key);
+  final bool check;
+  final Uint8List imageData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Positioned.fill(
+            child: Image.memory(imageData,
+                fit: BoxFit.cover, gaplessPlayback: true)),
+        check
+            ? Opacity(
+                opacity: 0.4,
+                child: Container(
+                    height: double.infinity,
+                    width: double.infinity,
+                    color: MomoColor.black))
+            : const SizedBox(),
+        check
+            ? const Center(child: Icon(Icons.check, color: MomoColor.white))
+            : const SizedBox(),
+      ],
     );
   }
 }

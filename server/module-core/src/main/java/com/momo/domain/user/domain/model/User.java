@@ -47,8 +47,9 @@ public class User extends BaseEntity {
     private final FavoriteCategories favoriteCategories = FavoriteCategories.empty();
 
     @Builder
-    public User(SocialProvider provider, String providerId, String refreshToken, String nickname, String imageUrl,
+    public User(Long id, SocialProvider provider, String providerId, String refreshToken, String nickname, String imageUrl,
         String city, String district, String university) {
+        this.id = id;
         this.provider = provider;
         this.providerId = providerId;
         this.refreshToken = refreshToken;

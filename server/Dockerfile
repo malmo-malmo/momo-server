@@ -1,3 +1,5 @@
+
+
 FROM adoptopenjdk:11-jre-hotspot
 
 EXPOSE 8080
@@ -15,5 +17,10 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN mkdir /opt/app
 COPY module-api/build/libs/module-api-1.0.jar /opt/app
 
+ARG PASSWORD
+ENV PASSWORD ${PASSWORD}
+
 CMD ["java","-jar", \
+"-Dspring.profiles.active=dev", \
+"-Djasypt.encryptor.password=${PASSWORD}", \
 "/opt/app/module-api-1.0.jar"]

@@ -53,7 +53,7 @@ abstract class GroupClient {
   @POST('/group/apply-participant')
   Future<dynamic> participantGroup(@Body() int groupId);
 
-  @DELETE('/group/participant/{groupId}')
+  @DELETE('/group/{groupId}/participant')
   Future<dynamic> withdrawalGroup(@Path() int groupId);
 
   @GET('/group/participants')

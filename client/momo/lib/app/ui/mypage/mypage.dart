@@ -54,10 +54,10 @@ class Mypage extends StatelessWidget {
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  infoColumn(count: 8, title: '총 모임'),
-                  infoColumn(count: 6, title: '찜한 모임'),
-                  infoColumn(count: 10, title: '획득뱃지'),
+                children: const [
+                  InfoColumn(count: 8, title: '총 모임'),
+                  InfoColumn(count: 6, title: '찜한 모임'),
+                  InfoColumn(count: 10, title: '획득뱃지'),
                 ],
               ),
             ),

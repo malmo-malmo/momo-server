@@ -15,6 +15,10 @@ public class JasyptConfig {
 
     @Bean("jasyptStringEncryptor")
     public StringEncryptor stringEncryptor() {
+        return createStringEncryptor(this.password);
+    }
+
+    public static StringEncryptor createStringEncryptor(String password) {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
         config.setPassword(password);

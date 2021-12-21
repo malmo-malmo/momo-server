@@ -11,4 +11,6 @@ dependencies {
     implementation 'com.google.guava:guava:31.0.1-jre'
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3'
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.27'
+    implementation group: 'com.github.maricn', name: 'logback-slack-appender', version: '1.4.0'
+    implementation group: 'org.codehaus.janino', name: 'janino', version: '3.1.6'
 }

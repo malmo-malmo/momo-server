@@ -1,20 +1,12 @@
 spring:
   profiles:
-    active: local
+    active: dev
     include: auth
   h2:
     console:
       enabled: true
-  datasource:
-    url: jdbc:h2:mem:momodb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
   jpa:
     generate-ddl: true
-    hibernate:
-      ddl-auto: create
-    show-sql: true
     properties:
       hibernate:
         jdbc:

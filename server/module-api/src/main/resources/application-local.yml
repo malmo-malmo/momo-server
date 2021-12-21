@@ -9,3 +9,5 @@ spring:
     hibernate:
       ddl-auto: create
     database-platform: org.hibernate.dialect.H2Dialect
+logging:
+  config: classpath:logback/logback-local.xml

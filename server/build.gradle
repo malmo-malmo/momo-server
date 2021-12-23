@@ -47,6 +47,5 @@ subprojects {
 
     test {
         useJUnitPlatform()
-        systemProperty 'jasypt.encryptor.password', findProperty("jasypt.encryptor.password")
     }
 }

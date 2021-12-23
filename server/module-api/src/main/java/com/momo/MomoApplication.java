@@ -24,7 +24,7 @@ public class MomoApplication {
     }
 
     private static StandardEncryptableEnvironment getEnvironment() {
-        String password = Optional.ofNullable(System.getProperty("jasypt.encryptor.password"))
+        String password = Optional.ofNullable(System.getenv("JASYPT_PASSWORD"))
             .orElseThrow(() -> new RuntimeException("프로퍼티 복호화 비밀번호를 찾을 수 없습니다."));
 
         return new StandardEncryptableEnvironment(

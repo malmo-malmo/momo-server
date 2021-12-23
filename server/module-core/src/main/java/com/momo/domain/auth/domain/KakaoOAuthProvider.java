@@ -17,22 +17,22 @@ public class KakaoOAuthProvider extends OAuthProvider {
         restTemplate = restTemplateBuilder.build();
     }
 
-    @Value("${app.oauth2.kakao.clientId}")
+    @Value("${app.oauth2.kakao.client-id}")
     private void setClientId(String clientId) {
         super.clientId = clientId;
     }
 
-    @Value("${app.oauth2.kakao.clientSecret}")
+    @Value("${app.oauth2.kakao.client-secret}")
     private void setClientSecret(String clientSecret) {
         super.clientSecret = clientSecret;
     }
 
-    @Value("${app.oauth2.kakao.tokenUri}")
+    @Value("${app.oauth2.kakao.token-uri}")
     private void setTokenUri(String tokenUri) {
         super.tokenUri = tokenUri;
     }
 
-    @Value("${app.oauth2.kakao.userInfoUri}")
+    @Value("${app.oauth2.kakao.user-info-uri}")
     private void setUserInfoUri(String userInfoUri) {
         super.userInfoUri = userInfoUri;
     }

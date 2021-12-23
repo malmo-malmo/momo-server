@@ -19,16 +19,16 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class TokenProvider {
 
-    @Value("${app.auth.accessTokenSecretKey}")
+    @Value("${app.auth.access-token-secret-key}")
     private String accessTokenSecretKey;
 
-    @Value("${app.auth.accessTokenExpirationMsec}")
+    @Value("${app.auth.access-token-expiration-msec}")
     private long accessTokenExpirationMsec;
 
-    @Value("${app.auth.refreshTokenSecretKey}")
+    @Value("${app.auth.refresh-token-secret-key}")
     private String refreshTokenSecretKey;
 
-    @Value("${app.auth.refreshTokenExpirationMsec}")
+    @Value("${app.auth.refresh-token-expiration-msec}")
     private long refreshTokenExpirationMsec;
 
     public String createAccessToken(User user) {

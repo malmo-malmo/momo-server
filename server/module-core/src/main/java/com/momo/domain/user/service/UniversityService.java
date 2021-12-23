@@ -22,7 +22,7 @@ import java.util.List;
 @Service
 public class UniversityService {
 
-    @Value("${app.openApi.careerNet.url}")
+    @Value("${app.openApi.career-net.url}")
     private String secretUrl;
 
     public List<UniversityResponse> findByUniversityName(String universityName) {

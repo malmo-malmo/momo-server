@@ -53,5 +53,6 @@ sourceSets {
     main.java.srcDir querydslDir
 }
 compileQuerydsl {
+    delete file('build/generated')
     options.annotationProcessorPath = configurations.querydsl
 }

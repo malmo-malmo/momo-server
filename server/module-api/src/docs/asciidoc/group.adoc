@@ -1,0 +1,5 @@
+== 모임 API
+=== 모임 생성
+모임을 생성합니다.
+
+operation::group/create[snippets='http-request,http-response,request-fields']

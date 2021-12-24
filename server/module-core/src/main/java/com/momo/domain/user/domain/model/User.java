@@ -72,11 +72,11 @@ public class User extends BaseEntity {
         this.refreshToken = refreshToken;
     }
 
-    public boolean isSameNickname(String nickname) {
+    public boolean isNotSameNickname(String nickname) {
         if (Objects.isNull(this.nickname)) {
-            return false;
+            return true;
         }
-        return this.nickname.equals(nickname);
+        return !this.nickname.equals(nickname);
     }
 
     public boolean isSameUser(User user) {

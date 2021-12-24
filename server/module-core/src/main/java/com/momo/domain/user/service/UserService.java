@@ -20,10 +20,9 @@ public class UserService {
 
     public void update(User loginUser, UserUpdateRequest userUpdateRequest) {
         User user = findByUser(loginUser);
-        if (user.isSameNickname(userUpdateRequest.getNickname())) {
-            return;
+        if (user.isNotSameNickname(userUpdateRequest.getNickname())) {
+            validateDuplicateNickname(userUpdateRequest.getNickname());
         }
-        validateDuplicateNickname(userUpdateRequest.getNickname());
         user.update(userUpdateRequest.toEntity());
     }
 

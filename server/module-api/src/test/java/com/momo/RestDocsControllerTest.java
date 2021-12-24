@@ -22,9 +22,15 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @ExtendWith({SpringExtension.class, RestDocumentationExtension.class})
 public class RestDocsControllerTest {
 
+    private static final String SCHEME = "http";
+    private static final String HOST = "gunimon.iptime.org";
+    private static final int PORT = 8100;
+
     protected MockMvc mockMvc;
+
     @Autowired
     protected ObjectMapper objectMapper;
+
     @MockBean
     public OAuthService oAuthService;
 
@@ -37,9 +43,9 @@ public class RestDocsControllerTest {
             .webAppContextSetup(webApplicationContext)
             .apply(documentationConfiguration(restDocumentationContextProvider)
                 .uris()
-                .withScheme("http")
-                .withHost("gunimon.iptime.org")
-                .withPort(8100)
+                .withScheme(this.SCHEME)
+                .withHost(this.HOST)
+                .withPort(this.PORT)
                 .and()
                 .operationPreprocessors()
                 .withRequestDefaults(prettyPrint())

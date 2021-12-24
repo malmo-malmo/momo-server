@@ -61,6 +61,13 @@ public class User extends BaseEntity {
         this.university = university;
     }
 
+    public static User createSocialLoginUser(String providerId, SocialProvider socialProvider) {
+        return User.builder()
+            .providerId(providerId)
+            .provider(socialProvider)
+            .build();
+    }
+
     public void updateRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }

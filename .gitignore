@@ -13,3 +13,4 @@ server/!**/src/main/**
 server/!**/src/test/**
 server/src/main/generated
 server/logs
+server/module-api/src/main/resources/static/docs

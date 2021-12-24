@@ -1,0 +1,37 @@
+= Momo API Docs
+Momo API Document
+:toc-title: Momo API Document
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:imagesdir: /
+:toc: left
+:toclevels: 3
+:sectlinks:
+:sectnums:
+:custom-docdir: {docdir}/src/docs/asciidoc
+:docdir: {docdir}/src/docs/asciidoc
+
+[[overview]]
+== Overview
+모모 서버 API 문서입니다.
+
+== Common
+=== Server
+|===
+| 환경 | IP | PORT | DOMAIN
+
+| 개발서버
+| `gunimon.iptime.org`
+| `8100`
+| `미정`
+
+| 운영서버
+| `미정`
+| `미정`
+| `미정`
+|===
+
+
+[[APIs]]
+include::{docfile}/../group.adoc[]

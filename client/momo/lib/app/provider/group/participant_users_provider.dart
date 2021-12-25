@@ -3,7 +3,7 @@ import 'package:momo/app/model/user/participant_user.dart';
 import 'package:momo/app/repository/group_repository.dart';
 
 final isCheckUserProvider = Provider.family.autoDispose<int, int>((ref, count) {
-  final checkState = ref.watch(participantCheckProvider(count));
+  final checkState = ref.watch(participantCheckStateProvider(count));
   for (int i = 0; i < checkState.length; i++) {
     if (checkState[i]) {
       return i;
@@ -12,13 +12,7 @@ final isCheckUserProvider = Provider.family.autoDispose<int, int>((ref, count) {
   return -1;
 });
 
-final participantCheckProvider =
-    Provider.family.autoDispose<List<bool>, int>((ref, count) {
-  final participantState = ref.watch(participantsCheckStateProvider(count));
-  return participantState;
-});
-
-final participantsCheckStateProvider = StateNotifierProvider.family
+final participantCheckStateProvider = StateNotifierProvider.family
     .autoDispose<CheckState, List<bool>, int>(
         (ref, count) => CheckState(count));
 

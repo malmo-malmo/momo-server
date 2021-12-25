@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:momo/app/ui/group_detail/widget/request_button.dart';
+import 'package:momo/app/ui/components/button/confirm_button.dart';
 import 'package:momo/app/util/theme.dart';
 
 Widget requestInfoCard({
@@ -30,7 +30,11 @@ Widget requestInfoCard({
           ),
         ),
         const SizedBox(height: 275),
-        requestButton(onTapButton),
+        ConfirmButton(
+          onPressButton: onTapButton,
+          buttonText: '신청가능',
+          check: true,
+        ),
         const SizedBox(height: 36),
       ],
     ),

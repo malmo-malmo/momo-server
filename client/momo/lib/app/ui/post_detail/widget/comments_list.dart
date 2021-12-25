@@ -24,7 +24,7 @@ class _CommentsListState extends ConsumerState<CommentsList> {
   @override
   void initState() {
     _pagingController.addPageRequestListener((pageKey) => ref
-        .read(commentListStateProvider(widget.postId).notifier)
+        .read(commentListProvider(widget.postId).notifier)
         .getComments(pageKey));
 
     super.initState();
@@ -38,7 +38,7 @@ class _CommentsListState extends ConsumerState<CommentsList> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen<CommentListDto>(commentListStateProvider(widget.postId),
+    ref.listen<CommentListDto>(commentListProvider(widget.postId),
         (previous, next) {
       _pagingController.value = PagingState(
           itemList: next.comments,
@@ -51,7 +51,7 @@ class _CommentsListState extends ConsumerState<CommentsList> {
     return PagedSliverList<int, Comment>.separated(
       pagingController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<Comment>(
-        itemBuilder: (context, item, index) => commentCard(item),
+        itemBuilder: (context, item, index) => CommentCard(comment: item),
         newPageProgressIndicatorBuilder: (context) => const LoadingCard(),
         firstPageProgressIndicatorBuilder: (context) => const LoadingCard(),
         noItemsFoundIndicatorBuilder: (context) => const NoItemCard(),

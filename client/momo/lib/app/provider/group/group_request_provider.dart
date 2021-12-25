@@ -22,11 +22,6 @@ final groupRequestCheckProvider = Provider.autoDispose<bool>((ref) {
   return false;
 });
 
-final groupRequestProvider = Provider.autoDispose<GroupRequest>((ref) {
-  final groupRequestState = ref.watch(groupRequestStateProvider);
-  return groupRequestState;
-});
-
 final groupRequestStateProvider =
     StateNotifierProvider.autoDispose<GroupRequestState, GroupRequest>((ref) {
   final repository = ref.watch(groupRepositoryProvider);

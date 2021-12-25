@@ -4,11 +4,12 @@ import 'package:momo/app/model/group/group_detail.dart';
 import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/model/group/group_request.dart';
 import 'package:momo/app/model/user/participant_user.dart';
+import 'package:momo/app/util/constant.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'group_client.g.dart';
 
-@RestApi(baseUrl: 'http://gunimon.iptime.org:8100/api')
+@RestApi(baseUrl: baseUrl)
 abstract class GroupClient {
   factory GroupClient(
     Dio dio, {

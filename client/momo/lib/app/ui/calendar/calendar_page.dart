@@ -104,9 +104,7 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
               markerBuilder: (context, date, events) {
                 return events.isNotEmpty
                     ? const CircleAvatar(
-                        radius: 3,
-                        backgroundColor: MomoColor.main,
-                      )
+                        radius: 3, backgroundColor: MomoColor.main)
                     : const SizedBox();
               },
               selectedBuilder: (context, date, focusedDay) =>

@@ -5,11 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/user/name_check_provider.dart';
 import 'package:momo/app/provider/user/user_info__request_provider.dart';
 import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/ui/components/button/confirm_button.dart';
 import 'package:momo/app/ui/components/dialog/confirm_dialog.dart';
 import 'package:momo/app/ui/components/input_box/city_input_box.dart';
 import 'package:momo/app/ui/components/input_box/university_input_box.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
-import 'package:momo/app/ui/login/widget/agree_button.dart';
 import 'package:momo/app/ui/components/input_box/district_input_box.dart';
 import 'package:momo/app/ui/login/widget/input_box.dart';
 import 'package:momo/app/ui/login/widget/title_text.dart';
@@ -96,7 +96,6 @@ class InfoPage extends ConsumerWidget {
                         .setUserUniversity),
                 const SubTitle(title: '지역'),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     CityInputBox(
                       city: ref
@@ -106,7 +105,7 @@ class InfoPage extends ConsumerWidget {
                           .watch(userInfoRequestStateProvider.notifier)
                           .setUserCity,
                     ),
-                    const SizedBox(width: 48),
+                    const SizedBox(width: 24),
                     DistrictInputBox(
                       district: userInfo.district,
                       cityCode: userInfo.city,
@@ -117,9 +116,9 @@ class InfoPage extends ConsumerWidget {
                   ],
                 ),
                 const SizedBox(height: 200),
-                agreeButton(
+                ConfirmButton(
                   check: check,
-                  text: '다음',
+                  buttonText: '다음',
                   onPressButton: () async {
                     await ref
                         .read(userInfoRequestStateProvider.notifier)

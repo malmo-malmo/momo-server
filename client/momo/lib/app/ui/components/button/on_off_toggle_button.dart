@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:momo/app/util/theme.dart';
 
 class OnOffToggleButton extends StatefulWidget {
-  const OnOffToggleButton({
-    Key? key,
-    required this.tabButton,
-  }) : super(key: key);
+  const OnOffToggleButton({Key? key, required this.tabButton})
+      : super(key: key);
 
   final Function(bool onOff) tabButton;
 

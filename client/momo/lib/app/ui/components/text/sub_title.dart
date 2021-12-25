@@ -48,24 +48,18 @@ class SubTitle extends StatelessWidget {
           actionIcon != null
               ? Consumer(builder: (context, ref, _) {
                   return InkWell(
-                    onTap: () {
-                      title != '추천'
-                          ? ref.read(navigatorProvider).navigateTo(
+                      onTap: () {
+                        title != '추천'
+                            ? ref.read(navigatorProvider).navigateTo(
                                 routeName: AppRoutes.groupList,
                                 arguments: GroupListArg(
-                                  name: title,
-                                  pagingController: pagingController!,
-                                ),
-                              )
-                          : ref
-                              .read(navigatorProvider)
-                              .navigateTo(routeName: AppRoutes.recommendList);
-                    },
-                    child: Icon(
-                      actionIcon,
-                      size: 30,
-                    ),
-                  );
+                                    name: title,
+                                    pagingController: pagingController!))
+                            : ref
+                                .read(navigatorProvider)
+                                .navigateTo(routeName: AppRoutes.recommendList);
+                      },
+                      child: Icon(actionIcon, size: 30));
                 })
               : const SizedBox(),
         ],

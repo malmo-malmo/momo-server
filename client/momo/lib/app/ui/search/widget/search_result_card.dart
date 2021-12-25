@@ -15,7 +15,7 @@ class SearchResultCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final groupParticipantCnt = ref.watch(groupProvider(group));
+    final groupParticipantCnt = ref.watch(groupStateProvider(group));
 
     return InkWell(
       onTap: () {

@@ -1,12 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/model/post/post_request.dart';
-import 'package:momo/app/model/enum/post_type.dart';
 import 'package:momo/app/repository/post_repository.dart';
 import 'package:momo/app/routes/custom_arg/post_request_arg.dart';
 
 final postRequestCheckProvider =
     Provider.family.autoDispose<bool, PostRequestArg>((ref, postRequestArg) {
-  final postRequest = ref.watch(postRequestProvider(postRequestArg));
+  final postRequest = ref.watch(postRequestStateProvider(postRequestArg));
 
   if (postRequest.contents.isNotEmpty &&
       postRequest.title.isNotEmpty &&
@@ -14,12 +13,6 @@ final postRequestCheckProvider =
     return true;
   }
   return false;
-});
-
-final postRequestProvider = Provider.family
-    .autoDispose<PostRequest, PostRequestArg>((ref, postRequestArg) {
-  final postRequestState = ref.watch(postRequestStateProvider(postRequestArg));
-  return postRequestState;
 });
 
 final postRequestStateProvider = StateNotifierProvider.family
@@ -40,7 +33,7 @@ class PostRequestState extends StateNotifier<PostRequest> {
             title: '',
             groupId: postRequestArg.groupId,
             imageUrls: [],
-            typeName: postRequestArg.postType.postTypeToString,
+            typeName: postRequestArg.postType.name.toUpperCase(),
           ),
         );
 

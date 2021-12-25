@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/routes/routes.dart';
 import 'package:momo/app/ui/components/card/on_off_card.dart';
@@ -16,7 +15,7 @@ class GroupDetailTitle extends StatelessWidget {
     required this.count,
     required this.startDate,
     required this.city,
-    required this.university,
+    this.university,
     required this.district,
     required this.img,
   }) : super(key: key);
@@ -27,7 +26,7 @@ class GroupDetailTitle extends StatelessWidget {
   final String startDate;
   final String city;
   final String district;
-  final String university;
+  final String? university;
   final String? img;
 
   @override
@@ -74,7 +73,7 @@ class GroupDetailTitle extends StatelessWidget {
                 _titleRow(
                   icon: 'assets/icon/icon_locationwhite_20.svg',
                   text: city + ' ' + district,
-                  textSize: 16.sp,
+                  textSize: 16,
                 ),
                 const SizedBox(height: 6),
                 Row(
@@ -82,8 +81,8 @@ class GroupDetailTitle extends StatelessWidget {
                   children: [
                     _titleRow(
                       icon: 'assets/icon/icon_schoolwhite_20.svg',
-                      text: university,
-                      textSize: 16.sp,
+                      text: university ?? '대학교 없음',
+                      textSize: 16,
                     ),
                     MemberDateRow(headNum: count, startDay: startDate),
                   ],
@@ -103,9 +102,7 @@ class GroupDetailTitle extends StatelessWidget {
   }) {
     return Row(
       children: [
-        SvgPicture.asset(
-          icon,
-        ),
+        SvgPicture.asset(icon),
         const SizedBox(width: 8),
         Text(
           text,

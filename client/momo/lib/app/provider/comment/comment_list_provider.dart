@@ -4,13 +4,7 @@ import 'package:momo/app/model/comment/comment_request.dart';
 import 'package:momo/app/repository/comment_repository.dart';
 import 'package:momo/app/util/constant.dart';
 
-final commentListProvider =
-    Provider.family.autoDispose<CommentListDto, int>((ref, postId) {
-  final commentListState = ref.watch(commentListStateProvider(postId));
-  return commentListState;
-});
-
-final commentListStateProvider = StateNotifierProvider.family
+final commentListProvider = StateNotifierProvider.family
     .autoDispose<CommentListState, CommentListDto, int>((ref, postId) {
   final commentRepository = ref.watch(commentRepositoryProvider);
   return CommentListState(postId: postId, commentRepository: commentRepository);

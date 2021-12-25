@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/user/category_check_provder.dart';
 import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/ui/components/button/confirm_button.dart';
 import 'package:momo/app/ui/components/category/category_column.dart';
-import 'package:momo/app/ui/login/widget/agree_button.dart';
 import 'package:momo/app/ui/login/widget/title_text.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/theme.dart';
@@ -68,9 +68,9 @@ class CategoryPage extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 64),
-                agreeButton(
+                ConfirmButton(
                   check: isCheckCategory,
-                  text: '다음',
+                  buttonText: '다음',
                   onPressButton: () async {
                     await ref
                         .read(categoryStateProvider.notifier)

@@ -30,7 +30,7 @@ class GroupDetailPage extends ConsumerWidget {
       error: (error, stackTrace) => const Scaffold(body: ErrorCard()),
       loading: () => const Scaffold(body: LoadingCard()),
       data: (data) {
-        final groupDetail = ref.watch(groupDetailProvider(data));
+        final groupDetail = ref.watch(groupDetailStateProvider(data));
 
         return SafeArea(
           child: Scaffold(

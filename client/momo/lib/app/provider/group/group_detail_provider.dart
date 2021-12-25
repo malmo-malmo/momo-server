@@ -2,14 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/model/group/group_detail.dart';
 import 'package:momo/app/repository/group_repository.dart';
 
-final groupDetailProvider =
-    Provider.family.autoDispose<GroupDetail, GroupDetail>(
-  (ref, groupDetail) {
-    final groupDetailState = ref.watch(groupDetailStateProvider(groupDetail));
-    return groupDetailState;
-  },
-);
-
 final groupDetailStateProvider = StateNotifierProvider.family
     .autoDispose<GroupDetailState, GroupDetail, GroupDetail>(
   (ref, groupDetail) {

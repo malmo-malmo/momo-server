@@ -12,8 +12,6 @@ import 'package:momo/app/ui/components/button/confirm_action_icon.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/util/theme.dart';
 
-/// 모임 생성 시에는 1개 제한
-/// 공지사항, 게시글은 7개?
 class GalleryPage extends ConsumerStatefulWidget {
   const GalleryPage({Key? key, required this.requestType}) : super(key: key);
 
@@ -45,7 +43,7 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
           error: (error, stack) =>
               const Scaffold(body: Center(child: Text('사진을 불러 올 수 없습니다...'))),
           data: (photoList) {
-            final checks = ref.watch(galleryProvider);
+            final checks = ref.watch(galleryStateProvider);
             final checkPhoto = ref.watch(isSelectPhoto);
 
             final isMax = ref.watch(checkMaxPhoto);

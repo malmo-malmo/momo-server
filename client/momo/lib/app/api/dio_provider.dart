@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:momo/app/model/common/token_data.dart';
+import 'package:momo/app/util/constant.dart';
 
 final dioProvider = Provider<Dio>((ref) {
   TokenData tokenData = Hive.box('auth').get('tokenData');
@@ -17,6 +18,8 @@ final dioProvider = Provider<Dio>((ref) {
     ),
   );
 
+  final authDio = Dio();
+
   dio.interceptors.add(CustomLogInterceptor());
 
   //  QueuedInterceptorsWrapper: 요청이 순차적으로 들어간다
@@ -29,30 +32,20 @@ final dioProvider = Provider<Dio>((ref) {
         RequestOptions options = error.response!.requestOptions;
 
         dp.log('>>>>>>>>>> 토큰재발급 <<<<<<<<<<');
-        await dio
-            .post('http://gunimon.iptime.org:8090/oauth/login/refresh',
-                data: {'refreshToken': tokenData.refreshToken})
-            .then((response) {
-              //  Hive에 tokenData 갱신
-              Hive.box('auth').put(
-                'tokenData',
-                TokenData(
-                  accessToken: response.data['accessToken'],
-                  accessTokenType: response.data['accessTokenType'],
-                  refreshToken: response.data['refreshToken'],
-                ),
-              );
-            })
-            .whenComplete(() {})
-            .then((e) {
-              dio.fetch(options).then(
-                    (r) => handler.resolve(r),
-                    onError: (e) => handler.reject(e),
-                  );
-            });
+        authDio.post(baseUrl + '/oauth/login/refresh',
+            data: {'refreshToken': tokenData.refreshToken}).then((response) {
+          //  Hive에 tokenData 갱신
+          Hive.box('auth').put(
+            'tokenData',
+            TokenData(
+              accessToken: response.data['accessToken'],
+              accessTokenType: response.data['accessTokenType'],
+              refreshToken: response.data['refreshToken'],
+            ),
+          );
+        }).then((e) => dio.fetch(options).then((r) => handler.resolve(r)));
         return;
       }
-
       return handler.next(error);
     },
   ));

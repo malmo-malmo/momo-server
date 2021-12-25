@@ -1,11 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final groupRequestCategoryProvider = Provider.autoDispose<List<bool>>((ref) {
-  final groupRequestCategoryState =
-      ref.watch(groupRequestCategoryStateProvider);
-  return groupRequestCategoryState;
-});
-
 final groupRequestCategoryStateProvider =
     StateNotifierProvider.autoDispose<GroupRequestCategoryState, List<bool>>(
         (ref) => GroupRequestCategoryState());

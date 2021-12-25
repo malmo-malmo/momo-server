@@ -27,7 +27,7 @@ class MemberListPage extends ConsumerWidget {
         error: (error, stackTrace) => const ErrorCard(),
         loading: () => const LoadingCard(),
         data: (data) {
-          final checks = ref.watch(participantCheckProvider(data.length));
+          final checks = ref.watch(participantCheckStateProvider(data.length));
           final checkIndex = ref.watch(isCheckUserProvider(data.length));
 
           return Scaffold(
@@ -112,9 +112,8 @@ class MemberListPage extends ConsumerWidget {
                             check: checks[index],
                             index: index,
                             onSelect: ref
-                                .read(
-                                    participantsCheckStateProvider(data.length)
-                                        .notifier)
+                                .read(participantCheckStateProvider(data.length)
+                                    .notifier)
                                 .check,
                           ),
                         ),

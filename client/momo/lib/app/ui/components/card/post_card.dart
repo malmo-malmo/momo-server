@@ -25,7 +25,7 @@ class _PostCardState extends State<PostCard> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 7),
       child: Consumer(builder: (context, ref, _) {
-        final postState = ref.watch(postProvider(widget.post));
+        final postState = ref.watch(postStateProvider(widget.post));
         return InkWell(
           onTap: () async {
             final commentCnt = await ref.read(navigatorProvider).navigateTo(

@@ -15,26 +15,20 @@ Widget headNumInputBox({required Function(String text) onTextChanged}) {
         width: 60.w,
         child: Center(
           child: SizedBox(
-            height: 18,
+            height: 44,
             width: 40.w,
             child: TextField(
-              onChanged: (text) {
-                onTextChanged(text);
-              },
-              decoration: const InputDecoration(
-                counterText: '',
-              ),
+              onChanged: onTextChanged,
+              decoration: const InputDecoration(counterText: ''),
               keyboardType: TextInputType.number,
               maxLength: 2,
+              maxLines: 1,
             ),
           ),
         ),
       ),
       const SizedBox(width: 16),
-      Text(
-        '명',
-        style: TextStyle(fontSize: 16.sp),
-      ),
+      const Text('명', style: TextStyle(fontSize: 16)),
     ],
   );
 }

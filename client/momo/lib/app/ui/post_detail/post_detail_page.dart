@@ -27,27 +27,27 @@ class PostDetailPage extends ConsumerWidget {
           .read(navigatorProvider)
           .pop(result: ref.read(postDetailCommentCntStateProvider)),
       child: SafeArea(
-        child: postDetailResponse.when(
-          error: (error, stackTrace) => const Scaffold(body: ErrorCard()),
-          loading: () => const Scaffold(body: LoadingCard()),
-          data: (data) {
-            final postDetail = ref.watch(postDetailProvider(data));
+        child: Scaffold(
+          backgroundColor: const Color(0xffffffff),
+          appBar: CustomAppBar(
+            leadingIcon: CupertinoIcons.back,
+            isAction: true,
+            actionWidget: SvgPicture.asset('assets/icon/icon_msg_28.svg'),
+          ),
+          body: postDetailResponse.when(
+            error: (error, stackTrace) => const ErrorCard(),
+            loading: () => const LoadingCard(),
+            data: (data) {
+              final postDetail = ref.watch(postDetailStateProvider(data));
 
-            return Scaffold(
-              backgroundColor: const Color(0xffffffff),
-              appBar: CustomAppBar(
-                leadingIcon: CupertinoIcons.back,
-                isAction: true,
-                actionWidget: SvgPicture.asset('assets/icon/icon_msg_28.svg'),
-              ),
-              body: Padding(
+              return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
                     Expanded(
                       child: CustomScrollView(
                         slivers: [
-                          postDetailCard(postDetail: postDetail),
+                          PostDetailCard(postDetail: postDetail),
                           CommentsList(postId: postDetail.id),
                         ],
                       ),
@@ -56,17 +56,16 @@ class PostDetailPage extends ConsumerWidget {
                       hintText: '댓글을 입력하세요',
                       sendMessage: (text) async {
                         await ref
-                            .read(commentListStateProvider(postDetail.id)
-                                .notifier)
+                            .read(commentListProvider(postDetail.id).notifier)
                             .createComment(text);
                       },
                       onTapIcon: () {},
                     ),
                   ],
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

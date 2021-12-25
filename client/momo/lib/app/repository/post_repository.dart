@@ -27,7 +27,7 @@ class PostRepository {
     required int groupId,
   }) async {
     final response = await postClient.getPosts(
-        groupId, page, pageSize, PostType.normal.postTypeToString);
+        groupId, page, pageSize, PostType.normal.name.toUpperCase());
     return response;
   }
 
@@ -36,7 +36,7 @@ class PostRepository {
     required int groupId,
   }) async {
     final response = await postClient.getPosts(
-        groupId, page, pageSize, PostType.notice.postTypeToString);
+        groupId, page, pageSize, PostType.notice.name.toUpperCase());
     return response;
   }
 

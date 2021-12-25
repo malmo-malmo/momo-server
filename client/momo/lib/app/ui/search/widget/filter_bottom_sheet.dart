@@ -16,8 +16,8 @@ import 'package:momo/app/util/theme.dart';
 Widget filterBottomSheet() {
   return SafeArea(
     child: Consumer(builder: (context, ref, _) {
-      final categoryChecks = ref.watch(searchCategoryProvider);
-      final cityChecks = ref.watch(searchCityProvider);
+      final categoryChecks = ref.watch(searchCategoryStateProvider);
+      final cityChecks = ref.watch(searchCityStateProvider);
       final check = ref.watch(searchFilterCheckProvider);
 
       return Container(

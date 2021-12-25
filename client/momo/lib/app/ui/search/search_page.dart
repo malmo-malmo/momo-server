@@ -17,7 +17,7 @@ class SearchPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isSearch = ref.watch(isShowResultProvider);
+    final isSearch = ref.watch(isShowResultStateProvider);
     final pagingController = ref.watch(searchReulstPagingController);
 
     return SafeArea(

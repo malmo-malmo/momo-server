@@ -5,12 +5,6 @@ import 'package:momo/app/repository/post_repository.dart';
 final postDetailCommentCntStateProvider =
     StateProvider.autoDispose<int>((ref) => 0);
 
-final postDetailProvider =
-    Provider.family.autoDispose<PostDetail, PostDetail>((ref, postDetail) {
-  final postDetailState = ref.watch(postDetailStateProvider(postDetail));
-  return postDetailState;
-});
-
 final postDetailStateProvider = StateNotifierProvider.family
     .autoDispose<PostDetailState, PostDetail, PostDetail>((ref, postDetail) {
   final postRepository = ref.watch(postRepositoryProvider);

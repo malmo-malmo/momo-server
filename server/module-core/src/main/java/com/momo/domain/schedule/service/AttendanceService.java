@@ -31,7 +31,7 @@ public class AttendanceService {
         validateGroupManager(group, user);
         Schedule schedule = getScheduleById(requests.getScheduleId());
         schedule.updateAttendanceCheck(true);
-        List<Attendance> attendances = Attendance.create(requests.toEntities(), group, schedule);
+        List<Attendance> attendances = Attendance.createAttendances(requests.toEntities(), group, schedule);
         attendanceRepository.saveAll(attendances);
     }
 

@@ -2,6 +2,7 @@ package com.momo.domain.schedule.domain.model;
 
 import com.momo.domain.group.domain.model.Groups;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -46,11 +47,18 @@ public class Attendance {
         this.isAttend = isAttend;
     }
 
-    public static List<Attendance> create(List<Attendance> attendances, Groups group, Schedule schedule) {
-        for (Attendance attendance : attendances) {
-            attendance.group = group;
-            attendance.schedule = schedule;
-        }
-        return attendances;
+    private static Attendance create(Attendance attendance, Groups group, Schedule schedule) {
+        return Attendance.builder()
+            .group(group)
+            .schedule(schedule)
+            .userId(attendance.getUserId())
+            .isAttend(attendance.isAttend())
+            .build();
+    }
+
+    public static List<Attendance> createAttendances(List<Attendance> attendances, Groups group, Schedule schedule) {
+        return attendances.stream()
+            .map(attendance -> Attendance.create(attendance, group, schedule))
+            .collect(Collectors.toList());
     }
 }

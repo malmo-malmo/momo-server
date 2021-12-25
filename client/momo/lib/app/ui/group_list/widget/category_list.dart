@@ -7,16 +7,13 @@ import 'package:momo/app/ui/components/category/category_icon.dart';
 import 'package:momo/app/util/theme.dart';
 
 class CategoryList extends ConsumerWidget {
-  const CategoryList({
-    Key? key,
-    required this.refresh,
-  }) : super(key: key);
+  const CategoryList({Key? key, required this.refresh}) : super(key: key);
 
   final Function refresh;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final checks = ref.watch(groupCategoryCheckProvider);
+    final checks = ref.watch(groupCategoryCheckStateProvider);
 
     return SizedBox(
       height: 80,
@@ -24,57 +21,70 @@ class CategoryList extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(vertical: 18),
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          if (index == 0) {
-            return _categoryFilterCard('맞춤추천', index, checks[index]);
-          }
-          return _categoryFilterCard(
-              categoryCodeNamePair[index - 1].name, index, checks[index]);
+          return _CatogoryFilterCard(
+            check: checks[index],
+            index: index,
+            name: index == 0 ? '맞춤추천' : categoryCodeNamePair[index - 1].name,
+            refresh: refresh,
+          );
         },
         itemCount: 9,
         separatorBuilder: (context, index) => const SizedBox(width: 8),
       ),
     );
   }
+}
 
-  Widget _categoryFilterCard(String name, int index, bool check) {
-    return Consumer(builder: (context, ref, _) {
-      return InkWell(
-        borderRadius: BorderRadius.circular(22),
-        onTap: () {
-          ref
-              .read(groupCategoryCheckStateProvider.notifier)
-              .toggleCategory(index);
-          refresh();
-        },
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-          height: 44,
-          width: 67 + name.length * 13,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(22),
-            color: name == '맞춤추천'
-                ? (check ? const Color(0xffbca9f7) : const Color(0xfff0f0f0))
-                : (check ? const Color(0xff616161) : const Color(0xfff0f0f0)),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              name == '맞춤추천'
-                  ? SvgPicture.asset(
-                      'assets/icon/home/icon_recommend_28.svg',
-                      width: 28,
-                    )
-                  : categoryIcon(name, size: 28),
-              Text(
-                name,
-                style: MomoTextStyle.normal.copyWith(
-                  color: check ? MomoColor.white : null,
-                ),
-              ),
-            ],
-          ),
+class _CatogoryFilterCard extends ConsumerWidget {
+  const _CatogoryFilterCard({
+    Key? key,
+    required this.name,
+    required this.index,
+    required this.check,
+    required this.refresh,
+  }) : super(key: key);
+
+  final String name;
+  final int index;
+  final bool check;
+  final Function refresh;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(22),
+      onTap: () {
+        ref
+            .read(groupCategoryCheckStateProvider.notifier)
+            .toggleCategory(index);
+        refresh();
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        height: 44,
+        width: 67 + name.length * 13,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(22),
+          color: name == '맞춤추천'
+              ? (check ? const Color(0xffbca9f7) : const Color(0xfff0f0f0))
+              : (check ? const Color(0xff616161) : const Color(0xfff0f0f0)),
         ),
-      );
-    });
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            name == '맞춤추천'
+                ? SvgPicture.asset('assets/icon/home/icon_recommend_28.svg',
+                    width: 28)
+                : categoryIcon(name, size: 28),
+            Text(
+              name,
+              style: MomoTextStyle.normal.copyWith(
+                color: check ? MomoColor.white : null,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

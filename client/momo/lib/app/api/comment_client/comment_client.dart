@@ -2,11 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:momo/app/model/comment/comment.dart';
 import 'package:momo/app/model/comment/comment_request.dart';
 import 'package:momo/app/model/comment/comment_response.dart';
+import 'package:momo/app/util/constant.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'comment_client.g.dart';
 
-@RestApi(baseUrl: 'http://gunimon.iptime.org:8100/api')
+@RestApi(baseUrl: baseUrl)
 abstract class CommentClient {
   factory CommentClient(
     Dio dio, {

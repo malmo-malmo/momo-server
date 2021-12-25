@@ -3,11 +3,12 @@ import 'package:momo/app/model/user/category_request.dart';
 import 'package:momo/app/model/user/university.dart';
 import 'package:momo/app/model/user/user_info_request.dart';
 import 'package:momo/app/model/user/user_response.dart';
+import 'package:momo/app/util/constant.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'user_client.g.dart';
 
-@RestApi(baseUrl: 'http://gunimon.iptime.org:8100/api')
+@RestApi(baseUrl: baseUrl)
 abstract class UserClient {
   factory UserClient(
     Dio dio, {

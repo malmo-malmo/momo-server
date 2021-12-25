@@ -43,7 +43,7 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
           error: (error, stack) =>
               const Scaffold(body: Center(child: Text('사진을 불러 올 수 없습니다...'))),
           data: (photoList) {
-            final checks = ref.watch(galleryProvider);
+            final checks = ref.watch(galleryStateProvider);
             final checkPhoto = ref.watch(isSelectPhoto);
 
             final isMax = ref.watch(checkMaxPhoto);

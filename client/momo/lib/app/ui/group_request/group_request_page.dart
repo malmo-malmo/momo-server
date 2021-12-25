@@ -22,9 +22,9 @@ class GroupRequestPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final groupRequest = ref.watch(groupRequestProvider);
+    final groupRequest = ref.watch(groupRequestStateProvider);
     final check = ref.watch(groupRequestCheckProvider);
-    final checks = ref.watch(groupRequestCategoryProvider);
+    final checks = ref.watch(groupRequestCategoryStateProvider);
 
     return SafeArea(
       child: Scaffold(

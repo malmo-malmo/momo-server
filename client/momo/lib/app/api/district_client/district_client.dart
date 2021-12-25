@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:momo/app/model/common/code_name_pair.dart';
 import 'package:momo/app/model/common/district_response.dart';
+import 'package:momo/app/util/constant.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'district_client.g.dart';
 
-@RestApi(baseUrl: 'http://gunimon.iptime.org:8100/api')
+@RestApi(baseUrl: baseUrl)
 abstract class DistrictClient {
   factory DistrictClient(
     Dio dio, {

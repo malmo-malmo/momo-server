@@ -37,11 +37,6 @@ final recommendPaigingControllerProvider =
   return _pagingController;
 });
 
-final groupCategoryCheckProvider = Provider.autoDispose<List<bool>>((ref) {
-  final groupCategoryState = ref.watch(groupCategoryCheckStateProvider);
-  return groupCategoryState;
-});
-
 final groupCategoryCheckStateProvider =
     StateNotifierProvider.autoDispose<GroupCategoryListState, List<bool>>(
         (ref) => GroupCategoryListState());

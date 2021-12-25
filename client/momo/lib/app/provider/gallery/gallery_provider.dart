@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/util/constant.dart';
 
 final isSelectPhoto = Provider.autoDispose<bool>((ref) {
-  final galleryState = ref.watch(galleryProvider);
+  final galleryState = ref.watch(galleryStateProvider);
   for (int i = 0; i < galleryState.length; i++) {
     if (galleryState[i]) {
       return true;
@@ -12,13 +12,8 @@ final isSelectPhoto = Provider.autoDispose<bool>((ref) {
 });
 
 final checkMaxPhoto = Provider.autoDispose<bool>((ref) {
-  final galleryState = ref.watch(galleryProvider);
-  return galleryState.where((e) => e).toList().length == maxSelectCount;
-});
-
-final galleryProvider = Provider.autoDispose<List<bool>>((ref) {
   final galleryState = ref.watch(galleryStateProvider);
-  return galleryState;
+  return galleryState.where((e) => e).toList().length == maxSelectCount;
 });
 
 final galleryStateProvider =

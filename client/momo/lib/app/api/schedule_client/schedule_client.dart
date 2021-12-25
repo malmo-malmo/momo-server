@@ -2,11 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:momo/app/model/schedule/calendar_schedule.dart';
 import 'package:momo/app/model/schedule/schedule_request.dart';
 import 'package:momo/app/model/schedule/schedule_response.dart';
+import 'package:momo/app/util/constant.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'schedule_client.g.dart';
 
-@RestApi(baseUrl: 'http://gunimon.iptime.org:8100/api')
+@RestApi(baseUrl: baseUrl)
 abstract class ScheduleClient {
   factory ScheduleClient(
     Dio dio, {

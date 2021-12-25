@@ -44,10 +44,13 @@ public class Participant extends BaseEntity {
     private int attendanceRate;
 
     @Builder
-    public Participant(Long id, User user, Groups group) {
+    public Participant(Long id, Groups group, User user, int scheduleCount, int attendanceCount, int attendanceRate) {
         this.id = id;
-        this.user = user;
         this.group = group;
+        this.user = user;
+        this.scheduleCount = scheduleCount;
+        this.attendanceCount = attendanceCount;
+        this.attendanceRate = attendanceRate;
     }
 
     public static Participant create(User user, Groups group) {
@@ -58,11 +61,11 @@ public class Participant extends BaseEntity {
     }
 
     public void calculateAttendanceRate() {
-        //TODO: 따로 Util 클래스 필요?
+        // TODO : 백분율 전략 패턴으로 변경 필요 - Strategy Pattern
         if (scheduleCount == 0) {
             attendanceRate = 0;
             return;
         }
-        attendanceRate = attendanceCount / scheduleCount * 100;
+        attendanceRate = (int) ((double) attendanceCount / scheduleCount * 100);
     }
 }

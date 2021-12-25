@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:momo/app/ui/components/button/message_button.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/my_meet/widget/manage_meeting_list.dart';
 import 'package:momo/app/ui/my_meet/widget/participation_meeting_list.dart';
@@ -26,14 +26,7 @@ class _MyMeetPageState extends ConsumerState<MyMeetPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  SvgPicture.asset(
-                    'assets/icon/icon_msg_28.svg',
-                  ),
-                ],
-              ),
+              const MessageButton(),
               SizedBox(height: 12.h),
               const Text(
                 '내 모임',

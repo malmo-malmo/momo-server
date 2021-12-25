@@ -4,6 +4,8 @@ import 'package:momo/app/model/post/post.dart';
 import 'package:momo/app/routes/custom_arg/group_list_arg.dart';
 import 'package:momo/app/routes/custom_arg/post_request_arg.dart';
 import 'package:momo/app/ui/attendance_list/attendance_list_page.dart';
+import 'package:momo/app/ui/chat_list/chat_list_page.dart';
+import 'package:momo/app/ui/chat_room/chat_room_page.dart';
 import 'package:momo/app/ui/full_img_page.dart';
 import 'package:momo/app/ui/gallery/gallery_page.dart';
 import 'package:momo/app/ui/group_detail/group_detail_page.dart';
@@ -45,6 +47,8 @@ class AppRoutes {
   static const memberList = '/memberList';
   static const fullImage = '/fullImage';
   static const attendanceList = '/attendanceList';
+  static const chatList = '/chatList';
+  static const chatRoom = '/chatRoom';
 }
 
 class AppRouter {
@@ -157,6 +161,16 @@ class AppRouter {
         final arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
           builder: (_) => FullImagePage(img: arg),
+        );
+
+      case AppRoutes.chatList:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const ChatListPage(),
+        );
+
+      case AppRoutes.chatRoom:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const ChatRoomPage(),
         );
     }
   }

@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:momo/app/provider/search/search_result_paiging_controller.dart';
 import 'package:momo/app/provider/search/search_result_provider.dart';
+import 'package:momo/app/ui/components/button/message_button.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/search/widget/recent_meeting_list.dart';
 import 'package:momo/app/ui/search/widget/search_box.dart';
@@ -30,12 +30,7 @@ class SearchPage extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 12.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      SvgPicture.asset('assets/icon/icon_msg_28.svg'),
-                    ],
-                  ),
+                  const MessageButton(),
                   SizedBox(height: 12.h),
                   Text(
                     !isSearch ? '검색' : '검색결과',

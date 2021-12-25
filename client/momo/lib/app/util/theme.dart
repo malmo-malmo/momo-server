@@ -34,6 +34,7 @@ class MomoColor {
   static const divider = Color(0xffdcd9e5);
   static const unSelButton = Color(0xffdedede);
   static const backgroundColor = Color(0xfff7f7f7);
+  static const blur = Color(0x1aa59ad0);
 }
 
 class MomoTextStyle {

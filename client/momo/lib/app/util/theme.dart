@@ -14,6 +14,8 @@ final momoThemeData = ThemeData(
     backgroundColor: Color(0xffffffff),
     toolbarHeight: 56,
     elevation: 0,
+    centerTitle: false,
+    titleSpacing: 0,
   ),
   backgroundColor: MomoColor.backgroundColor,
   inputDecorationTheme: const InputDecorationTheme(

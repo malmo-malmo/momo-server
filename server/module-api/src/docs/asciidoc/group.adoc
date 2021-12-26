@@ -3,3 +3,13 @@
 모임을 생성합니다.
 
 operation::group/create[snippets='http-request,http-response,request-fields']
+
+=== 모임 상세 조회
+모임 상세 정보를 조회합니다.
+
+operation::group/find[snippets='http-request,http-response,path-parameters,response-fields']
+
+=== 모임 목록 검색
+모임 목록을 조회합니다.
+
+operation::group/findPageBySearchCondition[snippets='http-request,http-response,request-parameters,response-fields']

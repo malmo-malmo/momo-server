@@ -3,15 +3,19 @@ package com.momo.group.docs;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.momo.RestDocsControllerTest;
 import com.momo.api.group.GroupController;
+import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupCreateRequest;
+import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.service.GroupService;
 import java.time.LocalDate;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -51,5 +55,54 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .andDo(print())
             .andExpect(status().isCreated())
             .andDo(GroupDocumentation.createGroup());
+    }
+
+    @Test
+    public void 모임_상세_조회_테스트() throws Exception {
+        when(groupService.findById(any(), any())).thenReturn(GroupResponse.builder()
+            .id(1l)
+            .managerId(2l)
+            .name("A 모임")
+            .imageUrl("http://~~")
+            .startDate(LocalDate.now())
+            .university("한국대")
+            .city("서울")
+            .district("마포구")
+            .isOffline(true)
+            .introduction("테스트 모임입니다.")
+            .recruitmentCnt(4)
+            .isEnd(false)
+            .participantCnt(2l)
+            .isParticipant(true)
+            .build()
+        );
+        long groupId = 1l;
+        super.mockMvc.perform(get("/api/group/{id}", groupId))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(GroupDocumentation.findGroup());
+    }
+
+    @Test
+    public void 모임_목록_조회_검색_테스트() throws Exception {
+        when(groupService.findPageBySearchCondition(any()))
+            .thenReturn(List.of(
+                GroupCardResponse.builder()
+                    .id(1l)
+                    .name("A 모임")
+                    .imageUrl("http://~~")
+                    .startDate(LocalDate.now())
+                    .isOffline(false)
+                    .participantCnt(3l)
+                    .build()
+            ));
+        super.mockMvc.perform(get("/api/groups/search/paging")
+                .param("cities", String.valueOf(List.of("성남", "서울")))
+                .param("categories", String.valueOf(List.of("취미")))
+                .param("page", String.valueOf(1))
+                .param("size", String.valueOf(10)))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(GroupDocumentation.findPageBySearchCondition());
     }
 }

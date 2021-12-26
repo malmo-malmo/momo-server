@@ -2,6 +2,7 @@ package com.momo.domain.group.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import java.time.LocalDate;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -37,6 +38,7 @@ public class GroupResponse {
 
     private boolean isParticipant;
 
+    @Builder
     @QueryProjection
     public GroupResponse(Long id, Long managerId, String name, String imageUrl, LocalDate startDate,
         String university, String city, String district, boolean isOffline, String introduction,

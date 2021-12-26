@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/chat_room/widget/chat_message_row.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:momo/app/ui/components/button/floating_text_button.dart';
-import 'package:momo/app/util/theme.dart';
 
 class ChatRoomPage extends StatelessWidget {
   const ChatRoomPage({Key? key}) : super(key: key);
@@ -33,7 +33,7 @@ class ChatRoomPage extends StatelessWidget {
                           height: 56,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: const Color(0xff7295ff),
+                            color: MomoColor.chatInfo,
                           ),
                           child: Center(
                               child: Text(

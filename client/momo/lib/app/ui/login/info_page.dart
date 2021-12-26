@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/user/name_check_provider.dart';
 import 'package:momo/app/provider/user/user_info__request_provider.dart';
 import 'package:momo/app/routes/app_routers.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/button/confirm_button.dart';
 import 'package:momo/app/ui/components/dialog/confirm_dialog.dart';
 import 'package:momo/app/ui/components/input_box/city_input_box.dart';
@@ -14,7 +15,6 @@ import 'package:momo/app/ui/components/input_box/district_input_box.dart';
 import 'package:momo/app/ui/login/widget/input_box.dart';
 import 'package:momo/app/ui/login/widget/title_text.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class InfoPage extends ConsumerWidget {
   const InfoPage({Key? key}) : super(key: key);
@@ -27,7 +27,6 @@ class InfoPage extends ConsumerWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xfff7f7f7),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),

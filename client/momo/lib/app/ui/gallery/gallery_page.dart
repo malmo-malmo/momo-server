@@ -7,10 +7,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:momo/app/model/enum/photo_request_type.dart';
 import 'package:momo/app/provider/gallery/gallery_provider.dart';
 import 'package:momo/app/provider/gallery/photo_provider.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:momo/app/ui/components/button/confirm_action_icon.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
-import 'package:momo/app/util/theme.dart';
 
 class GalleryPage extends ConsumerStatefulWidget {
   const GalleryPage({Key? key, required this.requestType}) : super(key: key);

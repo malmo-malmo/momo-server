@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:momo/app/util/theme.dart';
+import 'package:momo/app/theme/theme.dart';
 
 class UniversityToggleButton extends StatefulWidget {
-  const UniversityToggleButton({
-    Key? key,
-    required this.tabButton,
-  }) : super(key: key);
+  const UniversityToggleButton({Key? key, required this.tabButton})
+      : super(key: key);
 
   final void Function(bool onOff) tabButton;
 

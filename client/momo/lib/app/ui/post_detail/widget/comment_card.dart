@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/model/comment/comment.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/card/profile_avatar.dart';
-import 'package:momo/app/util/theme.dart';
 
 class CommentCard extends StatelessWidget {
   const CommentCard({Key? key, required this.comment}) : super(key: key);
@@ -39,9 +39,7 @@ class CommentCard extends StatelessWidget {
                   ),
                   Text(
                     comment.contents,
-                    style: MomoTextStyle.normal.copyWith(
-                      fontWeight: FontWeight.w400,
-                    ),
+                    style: MomoTextStyle.normal,
                   ),
                 ],
               ),

@@ -7,6 +7,7 @@ import 'package:momo/app/provider/calendar/day_provider.dart';
 import 'package:momo/app/provider/calendar/scroll_state_provider.dart';
 import 'package:momo/app/provider/schedule/calendar_schedule_provider.dart';
 import 'package:momo/app/provider/schedule/schedule_event_provider.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/calendar/widget/time_line_card.dart';
 import 'package:momo/app/ui/components/calendar_style/calendar_header_style.dart';
 import 'package:momo/app/ui/components/calendar_style/momo_default_builder.dart';
@@ -17,7 +18,6 @@ import 'package:momo/app/ui/components/status/error_card.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/ui/components/status/no_item_card.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
-import 'package:momo/app/util/theme.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarPage extends ConsumerStatefulWidget {
@@ -63,20 +63,20 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
       children: [
         Container(
             padding: const EdgeInsets.only(top: 43, right: 16, left: 16),
-            color: const Color(0xffffffff),
+            color: MomoColor.flutterWhite,
             child: Align(
                 alignment: Alignment.centerRight,
                 child: SvgPicture.asset('assets/icon/icon_msg_28.svg'))),
         Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            color: const Color(0xffffffff),
+            color: MomoColor.flutterWhite,
             child: const Align(
                 alignment: Alignment.centerLeft,
                 child: Text('캘린더', style: MomoTextStyle.mainTitle))),
-        Container(height: 30, color: const Color(0xffffffff)),
+        Container(height: 30, color: MomoColor.flutterWhite),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          color: const Color(0xffffffff),
+          color: MomoColor.flutterWhite,
           child: TableCalendar(
             firstDay: DateTime.utc(2021, 1, 1),
             lastDay: DateTime.utc(2022, 12, 31),

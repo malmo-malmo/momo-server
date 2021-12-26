@@ -3,13 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/schedule/reminder_schedule_check_provider.dart';
 import 'package:momo/app/provider/schedule/user_schedule_provider.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/status/error_card.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/ui/components/status/no_item_card.dart';
 import 'package:momo/app/ui/home/widget/schedule_page_view.dart';
 import 'package:momo/app/util/format/calendar_max_day.dart';
 import 'package:momo/app/util/format/day_title_format.dart';
-import 'package:momo/app/util/theme.dart';
 
 class ReminderCard extends ConsumerWidget {
   ReminderCard({Key? key}) : super(key: key);

@@ -4,10 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/provider/group/group_provider.dart';
 import 'package:momo/app/routes/app_routers.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/text/member_date_row.dart';
 import 'package:momo/app/ui/components/card/on_off_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class SearchResultCard extends ConsumerWidget {
   const SearchResultCard({Key? key, required this.group}) : super(key: key);

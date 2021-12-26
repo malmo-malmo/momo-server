@@ -8,10 +8,10 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/post/post.dart';
 import 'package:momo/app/provider/post/post_paging_controller_provider.dart';
 import 'package:momo/app/routes/app_routers.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/ui/components/status/no_item_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class NoticeListView extends ConsumerWidget {
   const NoticeListView({Key? key, required this.groupId}) : super(key: key);
@@ -26,7 +26,6 @@ class NoticeListView extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       height: 182,
-      color: const Color(0xffffffff),
       child: Column(
         children: [
           _noticeTitle(_paigingController),

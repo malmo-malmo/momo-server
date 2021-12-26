@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/repository/group_repository.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 Widget withdrawDialog(int groupId) {
   return Dialog(
@@ -19,7 +18,7 @@ Widget withdrawDialog(int groupId) {
         children: [
           Text(
             '정말 모임에서 탈퇴하시겠어요?',
-            style: TextStyle(color: MomoColor.black, fontSize: 16.sp),
+            style: MomoTextStyle.defaultStyle.copyWith(color: MomoColor.black),
           ),
           Consumer(builder: (context, ref, _) {
             return Row(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/util/theme.dart';
+import 'package:momo/app/theme/theme.dart';
 
 class OnOffCard extends StatelessWidget {
   const OnOffCard({Key? key, required this.onOff}) : super(key: key);
@@ -15,8 +15,7 @@ class OnOffCard extends StatelessWidget {
       child: Center(
         child: Text(
           onOff ? '온라인' : '오프라인',
-          style: TextStyle(
-            fontSize: 12.sp,
+          style: MomoTextStyle.small.copyWith(
             color: onOff ? MomoColor.main : MomoColor.white,
           ),
         ),

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/routes/app_routers.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/card/on_off_card.dart';
 import 'package:momo/app/ui/components/text/member_date_row.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class GroupDetailTitle extends StatelessWidget {
   const GroupDetailTitle({
@@ -73,7 +73,6 @@ class GroupDetailTitle extends StatelessWidget {
                 _titleRow(
                   icon: 'assets/icon/icon_locationwhite_20.svg',
                   text: city + ' ' + district,
-                  textSize: 16,
                 ),
                 const SizedBox(height: 6),
                 Row(
@@ -82,7 +81,6 @@ class GroupDetailTitle extends StatelessWidget {
                     _titleRow(
                       icon: 'assets/icon/icon_schoolwhite_20.svg',
                       text: university ?? '대학교 없음',
-                      textSize: 16,
                     ),
                     MemberDateRow(headNum: count, startDay: startDate),
                   ],
@@ -98,7 +96,6 @@ class GroupDetailTitle extends StatelessWidget {
   Widget _titleRow({
     required String icon,
     required String text,
-    required double textSize,
   }) {
     return Row(
       children: [
@@ -106,8 +103,7 @@ class GroupDetailTitle extends StatelessWidget {
         const SizedBox(width: 8),
         Text(
           text,
-          style: TextStyle(
-            fontSize: textSize,
+          style: MomoTextStyle.defaultStyle.copyWith(
             color: MomoColor.white,
           ),
         ),

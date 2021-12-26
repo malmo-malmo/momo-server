@@ -4,11 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/user/category_check_provder.dart';
 import 'package:momo/app/routes/app_routers.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/button/confirm_button.dart';
 import 'package:momo/app/ui/components/category/category_column.dart';
 import 'package:momo/app/ui/login/widget/title_text.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class CategoryPage extends ConsumerWidget {
   const CategoryPage({Key? key}) : super(key: key);
@@ -48,7 +48,6 @@ class CategoryPage extends ConsumerWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(26),
-                    color: const Color(0xffffffff),
                   ),
                   child: Center(
                     child: Wrap(

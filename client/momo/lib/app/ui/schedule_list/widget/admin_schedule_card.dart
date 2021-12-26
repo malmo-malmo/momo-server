@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/routes/app_routers.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/format/post_date_format.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 Widget adminScheduleCard({
   required int groupId,
@@ -31,9 +31,7 @@ Widget adminScheduleCard({
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Container(
           height: 204,
-          decoration: BoxDecoration(
-              color: const Color(0xffffffff),
-              borderRadius: BorderRadius.circular(20)),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
             child: Column(
@@ -66,7 +64,7 @@ Widget adminScheduleCard({
                             Text(
                               postDateFormat(date),
                               style: MomoTextStyle.small.copyWith(
-                                color: const Color(0xff9e9e9e),
+                                color: MomoColor.unSelIcon,
                               ),
                             ),
                           ],
@@ -131,14 +129,14 @@ Widget adminScheduleCard({
                       width: 72,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color:
-                            isCheck ? const Color(0xfff0f0f0) : MomoColor.main,
+                        color: isCheck
+                            ? MomoColor.checkBackground
+                            : MomoColor.main,
                       ),
                       child: Center(
                         child: Text(
                           isCheck ? '확인완료' : '출석체크',
-                          style: MomoTextStyle.small.copyWith(
-                            fontSize: 10.sp,
+                          style: MomoTextStyle.card.copyWith(
                             color:
                                 isCheck ? MomoColor.unSelIcon : MomoColor.white,
                           ),

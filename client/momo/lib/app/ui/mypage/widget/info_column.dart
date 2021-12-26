@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:momo/app/util/theme.dart';
+import 'package:momo/app/theme/theme.dart';
 
 class InfoColumn extends StatelessWidget {
   const InfoColumn({
@@ -33,9 +33,7 @@ class InfoColumn extends StatelessWidget {
         ),
         Text(
           title,
-          style: MomoTextStyle.normal.copyWith(
-            fontWeight: FontWeight.w400,
-          ),
+          style: MomoTextStyle.normalR,
         ),
       ],
     );

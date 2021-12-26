@@ -7,9 +7,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kakao_flutter_sdk/all.dart';
 import 'package:momo/app/model/common/token_data.dart';
 import 'package:momo/app/routes/app_routers.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/provider_log.dart';
-import 'package:momo/app/util/theme.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -47,16 +47,15 @@ class MyApp extends ConsumerWidget {
         navigatorKey: ref.watch(navigatorProvider).navigatorKey,
         scrollBehavior: MyBehavior(),
         initialRoute: AppRoutes.splash,
-        theme: momoThemeData,
+        theme: MomoThemeData.momoNormarTheme(),
+        darkTheme: MomoThemeData.momoDarkTheme(),
         onGenerateRoute: (settings) => AppRouter.onGenerateRoute(settings),
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: const [
-          Locale('ko', 'KR'),
-        ],
+        supportedLocales: const [Locale('ko', 'KR')],
       ),
     );
   }

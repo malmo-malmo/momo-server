@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/mypage/widget/custom_expantion_list.dart';
-import 'package:momo/app/util/theme.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class AchievementCard extends StatefulWidget {
@@ -31,11 +31,10 @@ class _AchievementCardState extends State<AchievementCard> {
                   fontWeight: FontWeight.w400,
                   color: MomoColor.main,
                 ),
-                children: [
+                children: const [
                   TextSpan(
                     text: '살펴보기',
-                    style: MomoTextStyle.normal
-                        .copyWith(fontWeight: FontWeight.w400),
+                    style: MomoTextStyle.normalR,
                   ),
                 ],
               ),
@@ -51,8 +50,7 @@ class _AchievementCardState extends State<AchievementCard> {
                 RichText(
                   text: TextSpan(
                     text: '당신은 진정한 ',
-                    style: MomoTextStyle.subTitle
-                        .copyWith(fontWeight: FontWeight.w400),
+                    style: MomoTextStyle.subTitleR,
                     children: [
                       TextSpan(
                         text: '프로 모임러!',
@@ -93,7 +91,6 @@ class _AchievementCardState extends State<AchievementCard> {
                               ],
                             ],
                             initialAngleInDegree: 270,
-                            // colorList: const [Color(0xff846eaa), Color(0xfff5f5fb)],
                             legendOptions: const LegendOptions(
                               showLegendsInRow: false,
                               showLegends: false,
@@ -158,17 +155,13 @@ class _AchievementCardState extends State<AchievementCard> {
             width: 103,
             child: Text(
               groupName,
-              style: MomoTextStyle.small.copyWith(
-                fontWeight: FontWeight.w400,
-              ),
+              style: MomoTextStyle.smallR,
               overflow: TextOverflow.ellipsis,
             ),
           ),
           Text(
             '$rate%',
-            style: MomoTextStyle.small.copyWith(
-              fontWeight: FontWeight.w400,
-            ),
+            style: MomoTextStyle.smallR,
           ),
         ],
       ),

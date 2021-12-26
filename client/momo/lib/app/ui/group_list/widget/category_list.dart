@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/provider/category_result_provider.dart';
 import 'package:momo/app/provider/group/recommend_group_provider.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/category/category_icon.dart';
-import 'package:momo/app/util/theme.dart';
 
 class CategoryList extends ConsumerWidget {
   const CategoryList({Key? key, required this.refresh}) : super(key: key);
@@ -66,8 +66,8 @@ class _CatogoryFilterCard extends ConsumerWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(22),
           color: name == '맞춤추천'
-              ? (check ? const Color(0xffbca9f7) : const Color(0xfff0f0f0))
-              : (check ? const Color(0xff616161) : const Color(0xfff0f0f0)),
+              ? (check ? MomoColor.mainLight : MomoColor.checkBackground)
+              : (check ? MomoColor.unSelText : MomoColor.checkBackground),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

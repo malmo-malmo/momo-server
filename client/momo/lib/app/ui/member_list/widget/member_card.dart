@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/card/profile_avatar.dart';
-import 'package:momo/app/util/theme.dart';
 
 Widget memberCard({
   required String name,
@@ -46,12 +46,12 @@ Widget memberCard({
           },
           child: CircleAvatar(
             radius: 12,
-            backgroundColor: check ? MomoColor.main : const Color(0xfff0f0f0),
+            backgroundColor: check ? MomoColor.main : MomoColor.checkBackground,
             child: check
                 ? const Icon(
                     Icons.check,
                     size: 16,
-                    color: Color(0xfffdfdfd),
+                    color: MomoColor.white,
                   )
                 : const SizedBox(),
           ),

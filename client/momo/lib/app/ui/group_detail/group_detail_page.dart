@@ -6,6 +6,7 @@ import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/provider/group/group_detail_provider.dart';
 import 'package:momo/app/provider/group/group_provider.dart';
 import 'package:momo/app/provider/user/user_data_provider.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:momo/app/ui/components/status/error_card.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
@@ -15,7 +16,6 @@ import 'package:momo/app/ui/components/card/group_detail_title.dart';
 import 'package:momo/app/ui/group_detail/widget/group_detail_card.dart';
 import 'package:momo/app/ui/group_detail/widget/request_info_card.dart';
 import 'package:momo/app/ui/group_detail/widget/user_bottom_sheet.dart';
-import 'package:momo/app/util/theme.dart';
 
 class GroupDetailPage extends ConsumerWidget {
   const GroupDetailPage({Key? key, required this.group}) : super(key: key);
@@ -34,7 +34,6 @@ class GroupDetailPage extends ConsumerWidget {
 
         return SafeArea(
           child: Scaffold(
-            backgroundColor: const Color(0xfff7f7f7),
             appBar: CustomAppBar(
               leadingIcon: CupertinoIcons.back,
               isAction: groupDetail.participant,

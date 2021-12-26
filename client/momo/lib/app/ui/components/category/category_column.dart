@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/provider/category_result_provider.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/constant.dart';
-import 'package:momo/app/util/theme.dart';
 
 class CategoryColumn extends StatelessWidget {
   const CategoryColumn({

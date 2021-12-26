@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class ConfirmDialog extends StatelessWidget {
   const ConfirmDialog({Key? key, required this.dialogText}) : super(key: key);
@@ -11,12 +11,12 @@ class ConfirmDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-        insetPadding: const EdgeInsets.all(0.1),
+        insetPadding: const EdgeInsets.all(0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: const Color(0xffffffff)),
+                color: MomoColor.flutterWhite),
             height: dialogText.contains('\n') ? 172 : 148,
             width: 280,
             child: Column(
@@ -25,8 +25,8 @@ class ConfirmDialog extends StatelessWidget {
                   Padding(
                       padding: const EdgeInsets.only(top: 40),
                       child: Text(dialogText,
-                          style: MomoTextStyle.defaultStyle.copyWith(
-                              fontWeight: FontWeight.w400, height: 1.4),
+                          style:
+                              MomoTextStyle.defaultStyleR.copyWith(height: 1.4),
                           textAlign: TextAlign.center)),
                   Consumer(
                     builder: (context, ref, _) {

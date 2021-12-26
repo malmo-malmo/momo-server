@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:momo/app/model/schedule/calendar_schedule.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/card/schedule_column.dart';
 import 'package:momo/app/util/format/day_title_format.dart';
-import 'package:momo/app/util/theme.dart';
 
 class TimeLineCard extends StatelessWidget {
   const TimeLineCard({Key? key, required this.schedules}) : super(key: key);
@@ -21,10 +21,7 @@ class TimeLineCard extends StatelessWidget {
         children: [
           Column(
             children: [
-              Text(
-                '${dateTime.day}',
-                style: MomoTextStyle.subTitle,
-              ),
+              Text('${dateTime.day}', style: MomoTextStyle.subTitle),
               const SizedBox(height: 4),
               Text(
                 dayTitle(dateTime.year, dateTime.month, dateTime.day),

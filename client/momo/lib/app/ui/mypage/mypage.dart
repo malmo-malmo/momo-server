@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/provider/user/user_data_provider.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/card/group_card.dart';
 import 'package:momo/app/ui/components/card/profile_avatar.dart';
 import 'package:momo/app/ui/components/category/category_column.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/mypage/widget/info_column.dart';
 import 'package:momo/app/ui/mypage/widget/achievemint_card.dart';
-import 'package:momo/app/util/theme.dart';
 
 class Mypage extends StatelessWidget {
   const Mypage({Key? key}) : super(key: key);
@@ -17,7 +17,6 @@ class Mypage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      color: const Color(0xffffffff),
       height: double.infinity,
       width: double.infinity,
       child: SingleChildScrollView(
@@ -90,8 +89,7 @@ class Mypage extends StatelessWidget {
                     index: index - 1,
                     onTabIcon: (index) {},
                     iconSize: 78,
-                    textStyle: MomoTextStyle.normal
-                        .copyWith(fontWeight: FontWeight.w400),
+                    textStyle: MomoTextStyle.normalR,
                     spaceHeight: 8,
                   );
                 },

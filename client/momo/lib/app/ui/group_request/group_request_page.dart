@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/provider/group/category_check_provider.dart';
 import 'package:momo/app/provider/group/group_request_provider.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:momo/app/ui/components/button/confirm_action_icon.dart';
 import 'package:momo/app/ui/components/category/category_column.dart';
@@ -15,7 +16,6 @@ import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/group_request/widget/head_num_input_box.dart';
 import 'package:momo/app/ui/group_request/widget/set_image_box.dart';
 import 'package:momo/app/ui/group_request/widget/university_toggle_button.dart';
-import 'package:momo/app/util/theme.dart';
 
 class GroupRequestPage extends ConsumerWidget {
   const GroupRequestPage({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class GroupRequestPage extends ConsumerWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xffffffff),
+        backgroundColor: MomoColor.flutterWhite,
         appBar: CustomAppBar(
           leadingIcon: CupertinoIcons.xmark,
           isAction: true,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/button/confirm_button.dart';
-import 'package:momo/app/util/theme.dart';
 
 Widget requestInfoCard({
   required String introduction,
@@ -17,15 +17,9 @@ Widget requestInfoCard({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                '모임 설명',
-                style: MomoTextStyle.subTitle,
-              ),
+              const Text('모임 설명', style: MomoTextStyle.subTitle),
               const SizedBox(height: 14),
-              Text(
-                introduction,
-                style: MomoTextStyle.normal,
-              ),
+              Text(introduction, style: MomoTextStyle.normal),
             ],
           ),
         ),

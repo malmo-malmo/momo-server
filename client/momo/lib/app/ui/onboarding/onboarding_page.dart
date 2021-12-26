@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/onboarding/widget/onboard_card.dart';
 import 'package:momo/app/ui/onboarding/widget/start_card.dart';
-import 'package:momo/app/util/theme.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({Key? key}) : super(key: key);

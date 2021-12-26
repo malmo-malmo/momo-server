@@ -5,10 +5,10 @@ import 'package:momo/app/model/enum/post_type.dart';
 import 'package:momo/app/provider/post/post_paging_controller_provider.dart';
 import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/routes/custom_arg/post_request_arg.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/group_detail/widget/group_close_dialog.dart';
 import 'package:momo/app/ui/group_detail/widget/user_bottom_sheet.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class AdminBottomSheet extends ConsumerStatefulWidget {
   const AdminBottomSheet({Key? key, required this.groupId}) : super(key: key);
@@ -41,7 +41,7 @@ class _AdminBottomSheetState extends ConsumerState<AdminBottomSheet> {
             width: 52,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              color: const Color(0xffd1d1d1),
+              color: MomoColor.bottomSheetTop,
             ),
           ),
           const SizedBox(height: 18),
@@ -145,9 +145,8 @@ class _AdminBottomSheetState extends ConsumerState<AdminBottomSheet> {
         child: Center(
           child: Text(
             title,
-            style: MomoTextStyle.small.copyWith(
+            style: MomoTextStyle.smallR.copyWith(
               color: MomoColor.white,
-              fontWeight: FontWeight.w400,
             ),
           ),
         ),

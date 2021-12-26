@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/dialog/district_result_dioalog.dart';
-import 'package:momo/app/util/theme.dart';
 
 class DistrictInputBox extends StatelessWidget {
   const DistrictInputBox({
@@ -26,7 +26,7 @@ class DistrictInputBox extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: backgroundColor ?? const Color(0xffffffff),
+        color: backgroundColor ?? MomoColor.flutterWhite,
       ),
       height: 44,
       width: 120,

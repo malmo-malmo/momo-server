@@ -8,10 +8,10 @@ import 'package:momo/app/provider/search/search_filter_provider.dart';
 import 'package:momo/app/provider/search/search_request_filter_provider.dart';
 import 'package:momo/app/provider/search/search_result_paiging_controller.dart';
 import 'package:momo/app/provider/search/search_result_provider.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/button/confirm_button.dart';
 import 'package:momo/app/ui/components/category/category_column.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 Widget filterBottomSheet() {
   return SafeArea(
@@ -20,10 +20,9 @@ Widget filterBottomSheet() {
       final cityChecks = ref.watch(searchCityStateProvider);
       final check = ref.watch(searchFilterCheckProvider);
 
-      return Container(
+      return SizedBox(
         height: double.infinity,
         width: double.infinity,
-        color: const Color(0xffffffff),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

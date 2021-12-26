@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:momo/app/util/theme.dart';
+import 'package:momo/app/theme/theme.dart';
 
 class TextInputBox extends StatelessWidget {
   const TextInputBox({
@@ -32,9 +32,8 @@ class TextInputBox extends StatelessWidget {
           maxLines: maxLines,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: MomoTextStyle.normal.copyWith(
+            hintStyle: MomoTextStyle.normalR.copyWith(
               color: MomoColor.unSelIcon,
-              fontWeight: FontWeight.w400,
             ),
           ),
         ),

@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kakao_flutter_sdk/all.dart';
 import 'package:momo/app/model/common/token_data.dart';
-import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/util/navigation_service.dart';
 import 'package:momo/app/util/provider_log.dart';
 import 'package:momo/app/util/theme.dart';

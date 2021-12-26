@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/provider/bottom_index_provider.dart';
-import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/ui/calendar/calendar_page.dart';
 import 'package:momo/app/ui/home/home_page.dart';
 import 'package:momo/app/ui/my_meet/my_meet_page.dart';

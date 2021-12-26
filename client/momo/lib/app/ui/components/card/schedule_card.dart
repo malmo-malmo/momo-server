@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/model/schedule/calendar_schedule.dart';
-import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/ui/components/category/category_icon.dart';
 import 'package:momo/app/util/format/time_format.dart';
 import 'package:momo/app/util/navigation_service.dart';

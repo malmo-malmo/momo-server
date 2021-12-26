@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 Widget groupCloseDialog() {
   return Dialog(
@@ -15,15 +15,10 @@ Widget groupCloseDialog() {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            '정말 모임에서 종료하시겠어요?',
-            style: MomoTextStyle.defaultStyle
-                .copyWith(fontWeight: FontWeight.w400),
-          ),
-          Text(
+          const Text('정말 모임에서 종료하시겠어요?', style: MomoTextStyle.defaultStyleR),
+          const Text(
             '모임을 종료하면 더 이상 기능을\n이용할 수 없어요',
-            style: MomoTextStyle.defaultStyle
-                .copyWith(fontWeight: FontWeight.w400),
+            style: MomoTextStyle.defaultStyleR,
             textAlign: TextAlign.center,
           ),
           SizedBox(

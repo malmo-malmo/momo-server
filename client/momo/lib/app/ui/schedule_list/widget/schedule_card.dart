@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/format/post_date_format.dart';
-import 'package:momo/app/util/theme.dart';
 
 Widget scheduleCard({
   required int scheduleId,
@@ -23,7 +23,6 @@ Widget scheduleCard({
       child: Container(
         height: 160,
         decoration: BoxDecoration(
-          color: const Color(0xffffffff),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Padding(
@@ -58,7 +57,7 @@ Widget scheduleCard({
                           Text(
                             postDateFormat(date),
                             style: MomoTextStyle.small.copyWith(
-                              color: const Color(0xff9e9e9e),
+                              color: MomoColor.unSelIcon,
                             ),
                           ),
                         ],
@@ -88,11 +87,10 @@ Widget scheduleCard({
                           const SizedBox(width: 4),
                           Text(
                             attendance ? '출석' : '불참',
-                            style: MomoTextStyle.small.copyWith(
+                            style: MomoTextStyle.card.copyWith(
                               color: attendance
                                   ? const Color(0xff8da8fa)
                                   : const Color(0xffff5e5c),
-                              fontSize: 10.sp,
                             ),
                           ),
                         ],

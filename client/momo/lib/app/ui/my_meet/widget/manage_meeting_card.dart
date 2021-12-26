@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/card/profile_avatar.dart';
-import 'package:momo/app/util/theme.dart';
 
 class ManageMeetingCard extends StatelessWidget {
   const ManageMeetingCard({
@@ -70,9 +70,8 @@ class ManageMeetingCard extends StatelessWidget {
                     const SizedBox(width: 10),
                     Text(
                       '$rate%',
-                      style: TextStyle(
+                      style: MomoTextStyle.small.copyWith(
                         color: MomoColor.white,
-                        fontSize: 12.sp,
                       ),
                     )
                   ],

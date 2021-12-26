@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/button/message_button.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/my_meet/widget/manage_meeting_list.dart';
 import 'package:momo/app/ui/my_meet/widget/participation_meeting_list.dart';
-import 'package:momo/app/util/theme.dart';
 
 class MyMeetPage extends ConsumerStatefulWidget {
   const MyMeetPage({Key? key}) : super(key: key);

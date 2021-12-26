@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/provider/user/terms_check_provider.dart';
-import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/routes/app_routers.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/button/confirm_button.dart';
 import 'package:momo/app/ui/login/widget/title_text.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class TermsPage extends ConsumerWidget {
   const TermsPage({Key? key}) : super(key: key);
@@ -18,7 +18,6 @@ class TermsPage extends ConsumerWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xfff7f7f7),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
@@ -78,12 +77,11 @@ class TermsPage extends ConsumerWidget {
               },
               child: CircleAvatar(
                 radius: 15,
-                backgroundColor:
-                    check ? MomoColor.main : const Color(0xff9e9e9e),
+                backgroundColor: check ? MomoColor.main : MomoColor.unSelIcon,
                 child: const Icon(
                   Icons.check,
                   size: 20,
-                  color: Color(0xfffdfdfd),
+                  color: MomoColor.white,
                 ),
               ),
             ),

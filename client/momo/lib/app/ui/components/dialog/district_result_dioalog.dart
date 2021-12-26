@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/provider/district_result_provider.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class DistrictResultDialog extends StatelessWidget {
   const DistrictResultDialog({
@@ -18,7 +18,7 @@ class DistrictResultDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      insetPadding: const EdgeInsets.all(1),
+      insetPadding: const EdgeInsets.all(0),
       child: Container(
         padding: const EdgeInsets.all(24),
         height: 300,

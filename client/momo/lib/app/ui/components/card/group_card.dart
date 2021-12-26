@@ -4,12 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/provider/group/group_provider.dart';
-import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/routes/app_routers.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/card/cashed_image_card.dart';
 import 'package:momo/app/ui/components/text/member_date_row.dart';
 import 'package:momo/app/ui/components/card/on_off_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class GroupCard extends ConsumerWidget {
   const GroupCard({

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/provider/bottom_index_provider.dart';
-import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/routes/app_routers.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/calendar/calendar_page.dart';
 import 'package:momo/app/ui/home/home_page.dart';
 import 'package:momo/app/ui/my_meet/my_meet_page.dart';
 import 'package:momo/app/ui/mypage/mypage.dart';
 import 'package:momo/app/ui/search/search_page.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class MainPage extends ConsumerWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -29,7 +29,7 @@ class MainPage extends ConsumerWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xfff7f7fd),
+        backgroundColor: MomoColor.scaffoldBackground,
         body: _pages[index],
         extendBodyBehindAppBar: true,
         bottomNavigationBar: Container(

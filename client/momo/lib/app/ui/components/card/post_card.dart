@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/model/post/post.dart';
 import 'package:momo/app/provider/post/post_provider.dart';
-import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/routes/app_routers.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/format/post_date_format.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class PostCard extends StatefulWidget {
   const PostCard({Key? key, required this.post}) : super(key: key);
@@ -38,7 +38,7 @@ class _PostCardState extends State<PostCard> {
           child: Container(
             height: 182,
             decoration: BoxDecoration(
-              color: const Color(0xffffffff),
+              color: MomoColor.flutterWhite,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Padding(
@@ -72,7 +72,7 @@ class _PostCardState extends State<PostCard> {
                           Text(
                             postDateFormat(widget.post.createdDate),
                             style: MomoTextStyle.small.copyWith(
-                              color: const Color(0xff9e9e9e),
+                              color: MomoColor.unSelIcon,
                             ),
                           ),
                         ],
@@ -89,9 +89,8 @@ class _PostCardState extends State<PostCard> {
                   const SizedBox(height: 12),
                   Text(
                     '댓글 수 ${_commentCnt ?? postState.commentCnt}',
-                    style: MomoTextStyle.small.copyWith(
-                        color: MomoColor.unSelIcon,
-                        fontWeight: FontWeight.w400),
+                    style: MomoTextStyle.smallR
+                        .copyWith(color: MomoColor.unSelIcon),
                   ),
                 ],
               ),

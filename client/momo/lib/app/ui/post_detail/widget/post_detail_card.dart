@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/model/post/post_detail.dart';
 import 'package:momo/app/provider/post/post_detail_provider.dart';
-import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/routes/app_routers.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/card/profile_avatar.dart';
 import 'package:momo/app/util/format/post_date_format.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class PostDetailCard extends StatelessWidget {
   const PostDetailCard({Key? key, required this.postDetail}) : super(key: key);
@@ -40,15 +40,12 @@ class PostDetailCard extends StatelessWidget {
                         children: [
                           Text(
                             postDetail.authorNickname,
-                            style: MomoTextStyle.normal.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
+                            style: MomoTextStyle.normalR,
                           ),
                           const SizedBox(height: 6),
                           Text(
                             postDateFormat(postDetail.createdDate),
-                            style: MomoTextStyle.small.copyWith(
-                              fontWeight: FontWeight.w400,
+                            style: MomoTextStyle.smallR.copyWith(
                               color: MomoColor.unSelIcon,
                             ),
                           ),
@@ -61,9 +58,7 @@ class PostDetailCard extends StatelessWidget {
             ),
             Text(postDetail.title, style: MomoTextStyle.defaultStyle),
             const SizedBox(height: 20),
-            Text(postDetail.contents,
-                style:
-                    MomoTextStyle.normal.copyWith(fontWeight: FontWeight.w400)),
+            Text(postDetail.contents, style: MomoTextStyle.normalR),
             const SizedBox(height: 32),
             Consumer(builder: (context, ref, _) {
               return Wrap(
@@ -98,8 +93,7 @@ class PostDetailCard extends StatelessWidget {
             Consumer(builder: (context, ref, _) {
               return Text(
                 '댓글 수 ${ref.watch(postDetailCommentCntStateProvider)}',
-                style: MomoTextStyle.small.copyWith(
-                  fontWeight: FontWeight.w400,
+                style: MomoTextStyle.smallR.copyWith(
                   color: MomoColor.unSelIcon,
                 ),
               );

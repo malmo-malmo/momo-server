@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/util/theme.dart';
+import 'package:momo/app/theme/theme.dart';
 
 Widget headNumInputBox({required Function(String text) onTextChanged}) {
   return Row(
@@ -28,7 +28,7 @@ Widget headNumInputBox({required Function(String text) onTextChanged}) {
         ),
       ),
       const SizedBox(width: 16),
-      const Text('명', style: TextStyle(fontSize: 16)),
+      const Text('명', style: MomoTextStyle.defaultStyleR),
     ],
   );
 }

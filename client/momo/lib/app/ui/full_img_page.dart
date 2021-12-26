@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
-import 'package:momo/app/util/theme.dart';
 
 class FullImagePage extends StatelessWidget {
   const FullImagePage({Key? key, required this.img}) : super(key: key);

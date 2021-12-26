@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:momo/app/util/theme.dart';
+import 'package:momo/app/theme/theme.dart';
 
 class ProfileAvatar extends StatelessWidget {
   const ProfileAvatar({

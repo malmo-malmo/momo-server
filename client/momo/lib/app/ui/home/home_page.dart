@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/group/home_group_paging_controller.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/button/message_button.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/home/widget/top_rate_card.dart';
 import 'package:momo/app/ui/home/widget/event_card.dart';
 import 'package:momo/app/ui/home/widget/home_group_list.dart';
 import 'package:momo/app/ui/home/widget/reminder_card.dart';
-import 'package:momo/app/util/theme.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);

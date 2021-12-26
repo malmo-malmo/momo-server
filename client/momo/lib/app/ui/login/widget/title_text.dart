@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:momo/app/util/theme.dart';
+import 'package:momo/app/theme/theme.dart';
 
 Widget titleText(String title) {
   return Text(
@@ -11,9 +11,6 @@ Widget titleText(String title) {
 Widget subTitleText(String subTitle) {
   return Text(
     subTitle,
-    style: MomoTextStyle.normal.copyWith(
-      fontWeight: FontWeight.w400,
-      height: 2,
-    ),
+    style: MomoTextStyle.normalR.copyWith(height: 2),
   );
 }

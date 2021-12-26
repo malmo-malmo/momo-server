@@ -6,16 +6,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/model/enum/photo_request_type.dart';
 import 'package:momo/app/provider/group/group_request_provider.dart';
-import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/routes/app_routers.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 class SetImageBox extends ConsumerWidget {
-  const SetImageBox({
-    Key? key,
-    required this.img,
-  }) : super(key: key);
+  const SetImageBox({Key? key, required this.img}) : super(key: key);
 
   Future<bool> photoManager() async {
     PermissionState result = await PhotoManager.requestPermissionExtend();
@@ -72,7 +69,7 @@ class SetImageBox extends ConsumerWidget {
                   },
                   child: SvgPicture.asset(
                     'assets/icon/btn_camera_32.svg',
-                    color: img.isEmpty ? null : const Color(0xffffffff),
+                    color: img.isEmpty ? null : MomoColor.flutterWhite,
                   ),
                 ),
               ),

@@ -4,15 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/routes/app_routers.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class ScheduleCard extends StatelessWidget {
-  const ScheduleCard({
-    Key? key,
-    required this.groupId,
-  }) : super(key: key);
+  const ScheduleCard({Key? key, required this.groupId}) : super(key: key);
 
   final int groupId;
 
@@ -21,7 +18,6 @@ class ScheduleCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       height: 148,
-      color: const Color(0xffffffff),
       width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -55,22 +51,13 @@ class ScheduleCard extends StatelessWidget {
           const SizedBox(height: 16),
           Container(height: 1, color: MomoColor.divider),
           const SizedBox(height: 20),
-          const Text(
-            '우리 꼭 같이 달려요',
-            style: MomoTextStyle.defaultStyle,
-          ),
+          const Text('우리 꼭 같이 달려요', style: MomoTextStyle.defaultStyle),
           const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
-              Text(
-                '11/5(금)',
-                style: MomoTextStyle.small,
-              ),
-              Text(
-                '오후 6:00 ~ 9:00',
-                style: MomoTextStyle.small,
-              ),
+              Text('11/5(금)', style: MomoTextStyle.small),
+              Text('오후 6:00 ~ 9:00', style: MomoTextStyle.small),
             ],
           ),
         ],

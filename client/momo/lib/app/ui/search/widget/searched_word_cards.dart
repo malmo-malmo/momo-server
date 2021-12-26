@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/util/theme.dart';
+import 'package:momo/app/theme/theme.dart';
 
 class SearchedWordCards extends StatelessWidget {
   const SearchedWordCards({Key? key}) : super(key: key);
@@ -50,9 +50,7 @@ class _SearchedWordCard extends StatelessWidget {
             children: [
               Text(
                 word,
-                style: MomoTextStyle.normal.copyWith(
-                  fontWeight: FontWeight.w400,
-                ),
+                style: MomoTextStyle.normalR,
               ),
               Icon(
                 CupertinoIcons.xmark,

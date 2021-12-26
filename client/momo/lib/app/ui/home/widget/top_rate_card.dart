@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:momo/app/util/theme.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class TopRateCard extends StatelessWidget {
@@ -99,7 +99,6 @@ class TopRateCard extends StatelessWidget {
                     ],
                   ],
                   initialAngleInDegree: 270,
-                  // colorList: const [Color(0xff846eaa), Color(0xfff5f5fb)],
                   legendOptions: const LegendOptions(
                     showLegendsInRow: false,
                     showLegends: false,
@@ -113,12 +112,7 @@ class TopRateCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(
-                '$rate',
-                style: MomoTextStyle.small.copyWith(
-                  fontSize: 10.sp,
-                ),
-              ),
+              Text('$rate', style: MomoTextStyle.card),
             ],
           ),
         ],

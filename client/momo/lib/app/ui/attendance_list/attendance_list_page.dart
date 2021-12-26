@@ -3,18 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/provider/group/participant_users_provider.dart';
 import 'package:momo/app/provider/schedule/attendance_check_provider.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/attendance_list/widget/attendance_card.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:momo/app/ui/components/button/confirm_action_icon.dart';
 import 'package:momo/app/ui/components/status/error_card.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
-import 'package:momo/app/util/theme.dart';
 
 class AttendanceListPage extends ConsumerWidget {
-  const AttendanceListPage({
-    Key? key,
-    required this.groupId,
-  }) : super(key: key);
+  const AttendanceListPage({Key? key, required this.groupId}) : super(key: key);
 
   final int groupId;
 
@@ -67,8 +64,7 @@ class AttendanceListPage extends ConsumerWidget {
                     ),
                     Material(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
+                          borderRadius: BorderRadius.circular(20)),
                       elevation: 2,
                       child: Container(
                         padding: const EdgeInsets.symmetric(vertical: 16),
@@ -76,7 +72,7 @@ class AttendanceListPage extends ConsumerWidget {
                         height: 32 + 72.0 * data.length,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: const Color(0xffffffff),
+                          color: MomoColor.flutterWhite,
                         ),
                         child: ListView.builder(
                           itemCount: data.length,

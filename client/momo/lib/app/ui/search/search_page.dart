@@ -4,13 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/search/search_result_paiging_controller.dart';
 import 'package:momo/app/provider/search/search_result_provider.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/button/message_button.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/search/widget/recent_meeting_list.dart';
 import 'package:momo/app/ui/search/widget/search_box.dart';
 import 'package:momo/app/ui/search/widget/search_result_list.dart';
 import 'package:momo/app/ui/search/widget/searched_word_cards.dart';
-import 'package:momo/app/util/theme.dart';
 
 class SearchPage extends ConsumerWidget {
   const SearchPage({Key? key}) : super(key: key);

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:momo/app/ui/schedule_list/widget/schedule_list.dart';
-import 'package:momo/app/util/theme.dart';
 
 class ScheduleListPage extends StatelessWidget {
   const ScheduleListPage({

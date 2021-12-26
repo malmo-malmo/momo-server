@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/dialog/confirm_dialog.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class ConfirmActionIcon extends ConsumerWidget {
   const ConfirmActionIcon({
@@ -44,8 +44,9 @@ class ConfirmActionIcon extends ConsumerWidget {
                 height: 36,
                 width: 64,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: check ? MomoColor.main : const Color(0xfff0f0f0)),
+                  borderRadius: BorderRadius.circular(16),
+                  color: check ? MomoColor.main : MomoColor.checkBackground,
+                ),
                 child: Center(
                     child: Text(title,
                         style: MomoTextStyle.small.copyWith(

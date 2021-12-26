@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/group_detail/widget/notice_list_view.dart';
 import 'package:momo/app/ui/group_detail/widget/schedule_card.dart';
-import 'package:momo/app/util/theme.dart';
 
 Widget groupDetailCard({required int groupId}) {
   return SliverToBoxAdapter(

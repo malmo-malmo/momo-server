@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/format/group_date_format.dart';
-import 'package:momo/app/util/theme.dart';
 
 class MemberDateRow extends StatelessWidget {
   const MemberDateRow({

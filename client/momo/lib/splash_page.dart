@@ -6,9 +6,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:momo/app/provider/category_result_provider.dart';
 import 'package:momo/app/provider/city_result_provider.dart';
 import 'package:momo/app/provider/user/user_data_provider.dart';
-import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/routes/app_routers.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class SplashPage extends ConsumerStatefulWidget {
   const SplashPage({Key? key}) : super(key: key);

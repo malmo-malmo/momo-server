@@ -11,10 +11,10 @@ import 'package:kakao_flutter_sdk/all.dart';
 import 'package:momo/app/model/common/token_data.dart';
 import 'package:momo/app/provider/category_result_provider.dart';
 import 'package:momo/app/provider/city_result_provider.dart';
-import 'package:momo/app/routes/routes.dart';
+import 'package:momo/app/routes/app_routers.dart';
+import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/constant.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:momo/app/util/theme.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -75,7 +75,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: const Color(0xfffee500),
+                        color: MomoColor.kakao,
                       ),
                       child: Stack(
                         alignment: Alignment.center,
@@ -86,7 +86,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               padding: EdgeInsets.only(left: 25),
                               child: Icon(
                                 CupertinoIcons.chat_bubble_fill,
-                                color: Color(0xff191700),
+                                color: MomoColor.kakaoIcon,
                                 size: 18,
                               ),
                             ),
@@ -95,7 +95,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             '카카오로 시작하기',
                             style: MomoTextStyle.defaultStyle.copyWith(
                               fontSize: 15.sp,
-                              color: const Color(0xff191919),
+                              color: MomoColor.kakaoText,
                             ),
                           ),
                         ],

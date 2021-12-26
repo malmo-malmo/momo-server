@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/city_result_provider.dart';
-import 'package:momo/app/util/theme.dart';
+import 'package:momo/app/theme/theme.dart';
 
 class CityInputBox extends StatelessWidget {
   CityInputBox({
@@ -28,7 +28,7 @@ class CityInputBox extends StatelessWidget {
       width: 156,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: backgroundColor ?? const Color(0xffffffff),
+        color: backgroundColor ?? MomoColor.flutterWhite,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

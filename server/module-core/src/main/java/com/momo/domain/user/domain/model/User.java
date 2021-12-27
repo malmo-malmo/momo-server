@@ -61,15 +61,22 @@ public class User extends BaseEntity {
         this.university = university;
     }
 
+    public static User createSocialLoginUser(String providerId, SocialProvider socialProvider) {
+        return User.builder()
+            .providerId(providerId)
+            .provider(socialProvider)
+            .build();
+    }
+
     public void updateRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }
 
-    public boolean isSameNickname(String nickname) {
+    public boolean isNotSameNickname(String nickname) {
         if (Objects.isNull(this.nickname)) {
-            return false;
+            return true;
         }
-        return this.nickname.equals(nickname);
+        return !this.nickname.equals(nickname);
     }
 
     public boolean isSameUser(User user) {

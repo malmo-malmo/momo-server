@@ -46,9 +46,6 @@ public class KakaoOAuthProvider extends OAuthProvider {
     @Override
     protected User parseSocialLoginUser(ResponseEntity<String> response) {
         JSONObject jsonObject = new JSONObject(response.getBody());
-        return User.builder()
-            .providerId(String.valueOf(jsonObject.get("id")))
-            .provider(SocialProvider.KAKAO)
-            .build();
+        return User.createSocialLoginUser(String.valueOf(jsonObject.get("id")), SocialProvider.KAKAO);
     }
 }

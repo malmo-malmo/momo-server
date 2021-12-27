@@ -1,4 +1,4 @@
-package com.momo.domain.group.service;
+package com.momo.domain.group;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -11,6 +11,7 @@ import com.momo.domain.group.domain.model.Participant;
 import com.momo.domain.group.domain.repository.GroupRepository;
 import com.momo.domain.group.domain.repository.ParticipantRepository;
 import com.momo.domain.group.dto.GroupCreateRequest;
+import com.momo.domain.group.service.GroupService;
 import com.momo.domain.user.domain.model.User;
 import com.momo.domain.user.domain.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;

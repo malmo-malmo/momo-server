@@ -34,6 +34,7 @@ Momo API Document
 
 
 [[APIs]]
+include::{docfile}/../oauth.adoc[]
 include::{docfile}/../group.adoc[]
 include::{docfile}/../district.adoc[]
 include::{docfile}/../comment.adoc[]

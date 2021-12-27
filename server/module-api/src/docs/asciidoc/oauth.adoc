@@ -1,0 +1,11 @@
+=== 인증
+
+== 로그인
+로그인을 합니다.
+
+operation::oauth/oauthLogin[snippets='http-request,http-response,request-fields,response-fields']
+
+== 재발급 로그인
+로그인 연장을 합니다.
+
+operation::oauth/refreshLogin[snippets='http-request,http-response,request-fields,response-fields']

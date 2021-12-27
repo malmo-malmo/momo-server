@@ -2,6 +2,7 @@ package com.momo.domain.post.domain.model;
 
 import com.momo.domain.common.domain.BaseEntity;
 import com.momo.domain.user.domain.model.User;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -37,7 +38,9 @@ public class Comment extends BaseEntity {
     private String contents;
 
     @Builder
-    public Comment(Long id, Post post, User user, String contents) {
+    public Comment(Long id, Post post, User user, String contents, LocalDateTime createdDate,
+        LocalDateTime lastModifiedDate) {
+        super(createdDate, lastModifiedDate);
         this.id = id;
         this.post = post;
         this.user = user;

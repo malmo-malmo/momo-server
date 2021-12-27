@@ -2,8 +2,10 @@ package com.momo.group.docs;
 
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -58,7 +60,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
     }
 
     @Test
-    public void 모임_상세_조회_테스트() throws Exception {
+    public void 모임_상세_조회() throws Exception {
         when(groupService.findById(any(), any())).thenReturn(GroupResponse.builder()
             .id(1l)
             .managerId(2l)
@@ -84,7 +86,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
     }
 
     @Test
-    public void 모임_목록_조회_검색_테스트() throws Exception {
+    public void 모임_목록_조회_검색() throws Exception {
         when(groupService.findPageBySearchCondition(any()))
             .thenReturn(List.of(
                 GroupCardResponse.builder()
@@ -104,5 +106,86 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(GroupDocumentation.findPageBySearchCondition());
+    }
+    @Test
+    public void 모임_목록_조회_내학교더보기() throws Exception {
+        when(groupService.findPageByUserUniversity(any(), anyInt(), anyInt()))
+            .thenReturn(List.of(
+                GroupCardResponse.builder()
+                    .id(1l)
+                    .name("A 모임")
+                    .imageUrl("http://~~")
+                    .startDate(LocalDate.now())
+                    .isOffline(false)
+                    .participantCnt(3l)
+                    .build()
+            ));
+        super.mockMvc.perform(get("/api/groups/user-university/paging")
+                .param("page", String.valueOf(1))
+                .param("size", String.valueOf(10)))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(GroupDocumentation.findPageByUserUniversity());
+    }
+    @Test
+    public void 모임_목록_조회_주변더보기() throws Exception {
+        when(groupService.findPageByUserDistrict(any(), anyInt(), anyInt()))
+            .thenReturn(List.of(
+                GroupCardResponse.builder()
+                    .id(1l)
+                    .name("A 모임")
+                    .imageUrl("http://~~")
+                    .startDate(LocalDate.now())
+                    .isOffline(false)
+                    .participantCnt(3l)
+                    .build()
+            ));
+        super.mockMvc.perform(get("/api/groups/user-district/paging")
+                .param("page", String.valueOf(1))
+                .param("size", String.valueOf(10)))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(GroupDocumentation.findPageByUserLocation());
+    }
+    @Test
+    public void 모임_목록_조회_추천더보기() throws Exception {
+        when(groupService.findPageByUserCategories(any(), anyInt(), anyInt()))
+            .thenReturn(List.of(
+                GroupCardResponse.builder()
+                    .id(1l)
+                    .name("A 모임")
+                    .imageUrl("http://~~")
+                    .startDate(LocalDate.now())
+                    .isOffline(false)
+                    .participantCnt(3l)
+                    .build()
+            ));
+        super.mockMvc.perform(get("/api/groups/user-categories/paging")
+                .param("page", String.valueOf(1))
+                .param("size", String.valueOf(10)))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(GroupDocumentation.findPageByUserCategories());
+    }
+    @Test
+    public void 모임_카테고리_목록_조회() throws Exception {
+        super.mockMvc.perform(get("/api/group/categories"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(GroupDocumentation.findGroupCategories());
+    }
+    @Test
+    public void 모임장_권한_양도() throws Exception {
+        super.mockMvc.perform(patch("/api/group/{id}/manager/{userId}", 1l, 2l))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(GroupDocumentation.updateManagerByUserId());
+    }
+    @Test
+    public void 모임_종료() throws Exception {
+        super.mockMvc.perform(patch("/api/group/{id}/end", 1l))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(GroupDocumentation.endGroupById());
     }
 }

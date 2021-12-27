@@ -81,4 +81,90 @@ public class GroupDocumentation {
             responseFields(responseGroup)
         );
     }
+
+    public static RestDocumentationResultHandler findPageByUserUniversity() {
+        ParameterDescriptor[] requestSearch = new ParameterDescriptor[]{
+            parameterWithName("page").description("페이지 번호"),
+            parameterWithName("size").description("페이지 사이즈")
+        };
+        FieldDescriptor[] responseGroup = new FieldDescriptor[]{
+            fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("모임 ID"),
+            fieldWithPath("[].name").type(JsonFieldType.STRING).description("모임 이름"),
+            fieldWithPath("[].imageUrl").type(JsonFieldType.STRING).description("모임 이미지 URL"),
+            fieldWithPath("[].startDate").type(JsonFieldType.STRING).description("모임 시작일자"),
+            fieldWithPath("[].offline").type(JsonFieldType.BOOLEAN).description("모임 온/오프라인 여부"),
+            fieldWithPath("[].participantCnt").type(JsonFieldType.NUMBER).description("모임 참가자 수"),
+        };
+        return document("group/findPageByUserUniversity",
+            requestParameters(requestSearch),
+            responseFields(responseGroup)
+        );
+    }
+
+    public static RestDocumentationResultHandler findPageByUserLocation() {
+        ParameterDescriptor[] requestSearch = new ParameterDescriptor[]{
+            parameterWithName("page").description("페이지 번호"),
+            parameterWithName("size").description("페이지 사이즈")
+        };
+        FieldDescriptor[] responseGroup = new FieldDescriptor[]{
+            fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("모임 ID"),
+            fieldWithPath("[].name").type(JsonFieldType.STRING).description("모임 이름"),
+            fieldWithPath("[].imageUrl").type(JsonFieldType.STRING).description("모임 이미지 URL"),
+            fieldWithPath("[].startDate").type(JsonFieldType.STRING).description("모임 시작일자"),
+            fieldWithPath("[].offline").type(JsonFieldType.BOOLEAN).description("모임 온/오프라인 여부"),
+            fieldWithPath("[].participantCnt").type(JsonFieldType.NUMBER).description("모임 참가자 수"),
+        };
+        return document("group/findPageByUserLocation",
+            requestParameters(requestSearch),
+            responseFields(responseGroup)
+        );
+    }
+
+    public static RestDocumentationResultHandler findPageByUserCategories() {
+        ParameterDescriptor[] requestSearch = new ParameterDescriptor[]{
+            parameterWithName("page").description("페이지 번호"),
+            parameterWithName("size").description("페이지 사이즈")
+        };
+        FieldDescriptor[] responseGroup = new FieldDescriptor[]{
+            fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("모임 ID"),
+            fieldWithPath("[].name").type(JsonFieldType.STRING).description("모임 이름"),
+            fieldWithPath("[].imageUrl").type(JsonFieldType.STRING).description("모임 이미지 URL"),
+            fieldWithPath("[].startDate").type(JsonFieldType.STRING).description("모임 시작일자"),
+            fieldWithPath("[].offline").type(JsonFieldType.BOOLEAN).description("모임 온/오프라인 여부"),
+            fieldWithPath("[].participantCnt").type(JsonFieldType.NUMBER).description("모임 참가자 수"),
+        };
+        return document("group/findPageByUserCategories",
+            requestParameters(requestSearch),
+            responseFields(responseGroup)
+        );
+    }
+
+    public static RestDocumentationResultHandler findGroupCategories() {
+        FieldDescriptor[] responseCategories = new FieldDescriptor[]{
+            fieldWithPath("[].code").type(JsonFieldType.STRING).description("카테고리 코드"),
+            fieldWithPath("[].name").type(JsonFieldType.STRING).description("카테고리 이름")
+        };
+        return document("group/findGroupCategories",
+            responseFields(responseCategories)
+        );
+    }
+
+    public static RestDocumentationResultHandler updateManagerByUserId() {
+        ParameterDescriptor[] requestPathParams = new ParameterDescriptor[]{
+            parameterWithName("id").description("모임 ID"),
+            parameterWithName("userId").description("위임할 사용자 ID")
+        };
+        return document("group/updateManagerByUserId",
+            pathParameters(requestPathParams)
+        );
+    }
+
+    public static RestDocumentationResultHandler endGroupById() {
+        ParameterDescriptor[] requestPathParams = new ParameterDescriptor[]{
+            parameterWithName("id").description("모임 ID")
+        };
+        return document("group/endGroupById",
+            pathParameters(requestPathParams)
+        );
+    }
 }

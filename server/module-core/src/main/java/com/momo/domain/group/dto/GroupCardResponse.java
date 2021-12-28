@@ -2,6 +2,7 @@ package com.momo.domain.group.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import java.time.LocalDate;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +22,7 @@ public class GroupCardResponse {
 
     private Long participantCnt;
 
+    @Builder
     @QueryProjection
     public GroupCardResponse(Long id, String name, String imageUrl, LocalDate startDate, boolean isOffline,
         Long participantCnt) {

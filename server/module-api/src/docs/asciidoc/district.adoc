@@ -1,0 +1,9 @@
+== 구역 API
+=== 시/도 목록 조회
+시/도 목록을 조회합니다.
+
+operation::district/findCities[snippets='http-request,http-response,response-fields']
+=== 구/군 목록 조회
+구/군 목록을 조회합니다.
+
+operation::district/findDistrictsByCity[snippets='http-request,http-response,request-parameters,response-fields']

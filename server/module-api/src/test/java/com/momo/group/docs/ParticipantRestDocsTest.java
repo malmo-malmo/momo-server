@@ -48,14 +48,14 @@ public class ParticipantRestDocsTest extends RestDocsControllerTest {
     public void 모임_참여자_목록_조회() throws Exception {
         when(participantService.findByGroupId(any(), anyLong())).thenReturn(List.of(
             ParticipantResponse.builder()
-                .userId(1l)
+                .userId(1L)
                 .imageUrl("http://~~")
                 .nickname("A사람")
                 .attendanceRate(10)
                 .build()
         ));
         super.mockMvc.perform(get("/api/group/participants")
-                .param("groupId", String.valueOf(1l)))
+                .param("groupId", String.valueOf(1L)))
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(ParticipantDocumenttation.findByGroup());
@@ -63,7 +63,7 @@ public class ParticipantRestDocsTest extends RestDocsControllerTest {
 
     @Test
     public void 모임_탈퇴() throws Exception {
-        super.mockMvc.perform(delete("/api/group/{groupId}/participant", 1l))
+        super.mockMvc.perform(delete("/api/group/{groupId}/participant", 1L))
             .andDo(print())
             .andExpect(status().isNoContent())
             .andDo(ParticipantDocumenttation.delete());

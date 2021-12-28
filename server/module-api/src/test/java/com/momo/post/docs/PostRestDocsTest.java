@@ -35,7 +35,7 @@ public class PostRestDocsTest extends RestDocsControllerTest {
     @Test
     public void 게시글_작성() throws Exception {
         PostCreateRequest request = PostCreateRequest.builder()
-            .groupId(1l)
+            .groupId(1L)
             .title("테스트 게시글")
             .contents("테스트 게시글 내용")
             .typeName("테스트 타입")
@@ -54,8 +54,8 @@ public class PostRestDocsTest extends RestDocsControllerTest {
     @Test
     public void 게시글_상세_조회() throws Exception {
         when(postService.findById(any(), anyLong())).thenReturn(PostResponse.builder()
-            .id(1l)
-            .authorId(1l)
+            .id(1L)
+            .authorId(1L)
             .authorImage("http://~~")
             .authorNickname("테스트맨")
             .title("테스트 게시글 제목")
@@ -65,7 +65,7 @@ public class PostRestDocsTest extends RestDocsControllerTest {
             .build()
         );
 
-        super.mockMvc.perform(get("/api/post/{id}", 1l))
+        super.mockMvc.perform(get("/api/post/{id}", 1L))
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(PostDocumentation.find());
@@ -75,17 +75,17 @@ public class PostRestDocsTest extends RestDocsControllerTest {
     public void 게시글_목록_조회() throws Exception {
         when(postService.findPageByGroupIdAndType(any(), any())).thenReturn(List.of(
             PostCardResponse.builder()
-                .id(1l)
+                .id(1L)
                 .authorImage("http://~~")
                 .authorNickname("테스트맨")
                 .title("테스트 게시글")
                 .contents("테스트 내용")
                 .createdDate(LocalDateTime.now())
-                .commentCnt(1l)
+                .commentCnt(1L)
                 .build()
         ));
-        super.mockMvc.perform(get("/api/posts/paging", 1l)
-                .param("groupId", String.valueOf(1l))
+        super.mockMvc.perform(get("/api/posts/paging", 1L)
+                .param("groupId", String.valueOf(1L))
                 .param("type", "테스트 타입")
                 .param("page", String.valueOf(1))
                 .param("size", String.valueOf(10))

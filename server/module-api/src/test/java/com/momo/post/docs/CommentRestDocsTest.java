@@ -36,8 +36,8 @@ public class CommentRestDocsTest extends RestDocsControllerTest {
     @Test
     public void 게시물_댓글_등록() throws Exception {
         when(commentService.create(any(), any())).thenReturn(CommentResponse.builder()
-            .id(1l)
-            .authorId(1l)
+            .id(1L)
+            .authorId(1L)
             .authorImage("http://~~")
             .authorNickname("테스트맨")
             .contents("테스트 댓글")
@@ -45,7 +45,7 @@ public class CommentRestDocsTest extends RestDocsControllerTest {
             .build()
         );
 
-        CommentCreateRequest request = new CommentCreateRequest(1l, "테스트 댓글");
+        CommentCreateRequest request = new CommentCreateRequest(1L, "테스트 댓글");
         String content = super.objectMapper.writeValueAsString(request);
         super.mockMvc.perform(post("/api/comment")
                 .content(content)
@@ -60,17 +60,17 @@ public class CommentRestDocsTest extends RestDocsControllerTest {
         when(commentService.findPageByPostId(any(), any())).thenReturn(CommentsResponse.of(
             List.of(
                 Comment.builder()
-                    .id(1l)
-                    .user(User.builder().id(1l).imageUrl("http://~~").nickname("테스트맨").build())
+                    .id(1L)
+                    .user(User.builder().id(1L).imageUrl("http://~~").nickname("테스트맨").build())
                     .contents("테스트 댓글")
                     .createdDate(LocalDateTime.now())
                     .build()
             ),
-            1l
+            1L
         ));
 
         super.mockMvc.perform(get("/api/comments/paging")
-                .param("postId", String.valueOf(1l))
+                .param("postId", String.valueOf(1L))
                 .param("page", String.valueOf(1))
                 .param("size", String.valueOf(10))
             )

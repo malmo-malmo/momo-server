@@ -38,15 +38,15 @@ public class ParticipantController {
     @ApiOperation(value = "모임 참여자 목록 조회")
     @GetMapping("/group/participants")
     public ResponseEntity<List<ParticipantResponse>> findByGroup(@CurrentUser User user,
-                                                                 @RequestParam Long groupId) {
+        @RequestParam Long groupId) {
         List<ParticipantResponse> responses = participantService.findByGroupId(user, groupId);
         return ResponseEntity.ok(responses);
     }
 
     @ApiOperation(value = "모임 탈퇴")
     @DeleteMapping("/group/{groupId}/participant")
-    public ResponseEntity<Void> delete(@CurrentUser User user, @PathVariable Long groupId) {
-        participantService.deleteByGroupId(user, groupId);
+    public ResponseEntity<Void> withdraw(@CurrentUser User user, @PathVariable Long groupId) {
+        participantService.withdrawByGroupId(user, groupId);
         return ResponseEntity.noContent().build();
     }
 }

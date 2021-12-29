@@ -35,11 +35,11 @@ public class ParticipantService {
 
     public void validateGroupManager(Groups group, User user) {
         if (!group.isManager(user)) {
-            throw new CustomException(ErrorCode.GROUP_PARTICIPANTS_UNAUTHORIZED);
+            throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
         }
     }
 
-    public void deleteByGroupId(User user, Long groupId) {
+    public void withdrawByGroupId(User user, Long groupId) {
         Groups group = getGroupById(groupId);
         validateNotGroupManager(group, user);
         participantRepository.deleteByGroupAndUser(group, user);

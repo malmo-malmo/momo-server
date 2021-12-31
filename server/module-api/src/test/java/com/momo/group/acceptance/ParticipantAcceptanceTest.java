@@ -43,7 +43,7 @@ public class ParticipantAcceptanceTest extends AcceptanceTest {
         Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));
         requestToApplyParticipant(participantToken, groupId);
         ExtractableResponse<Response> response = requestToFindParticipants(participantToken, groupId);
-        assertThatCustomException(response, ErrorCode.GROUP_PARTICIPANTS_UNAUTHORIZED);
+        assertThatCustomException(response, ErrorCode.GROUP_MANAGER_AUTHORIZED);
     }
 
     @Test

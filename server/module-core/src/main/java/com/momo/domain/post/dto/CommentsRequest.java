@@ -1,13 +1,12 @@
 package com.momo.domain.post.dto;
 
 import javax.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class CommentsRequest {
 
     @NotNull(message = "게시물 ID는 필수값입니다.")
@@ -18,4 +17,11 @@ public class CommentsRequest {
 
     @NotNull(message = "페이지 사이즈는 필수값입니다.")
     private Integer size;
+
+    @Builder
+    public CommentsRequest(Long postId, Integer page, Integer size) {
+        this.postId = postId;
+        this.page = page;
+        this.size = size;
+    }
 }

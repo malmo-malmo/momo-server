@@ -7,28 +7,36 @@ import com.momo.domain.group.domain.repository.GroupRepository;
 import com.momo.domain.group.domain.repository.ParticipantRepository;
 import com.momo.domain.schedule.domain.model.Schedule;
 import com.momo.domain.schedule.domain.repository.ScheduleRepository;
-import com.momo.domain.schedule.dto.*;
+import com.momo.domain.schedule.dto.GroupScheduleResponse;
+import com.momo.domain.schedule.dto.GroupScheduleResponses;
+import com.momo.domain.schedule.dto.GroupSchedulesRequest;
+import com.momo.domain.schedule.dto.ScheduleCreateRequest;
+import com.momo.domain.schedule.dto.UserScheduleResponse;
+import com.momo.domain.schedule.dto.UserSchedulesRequest;
 import com.momo.domain.user.domain.model.User;
+import java.time.LocalDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class ScheduleService {
+
     private final ScheduleRepository scheduleRepository;
+
     private final GroupRepository groupRepository;
+
     private final ParticipantRepository participantRepository;
 
     public Long create(User user, ScheduleCreateRequest request) {
         Groups group = getGroupById(request.getGroupId());
         validateGroupManager(group, user);
-        return scheduleRepository.save(Schedule.create(request.toEntity(), group, user)).getId();
+        Schedule schedule = Schedule.create(request.toEntity(), group, user);
+        return scheduleRepository.save(schedule).getId();
     }
 
     public void validateGroupManager(Groups group, User user) {

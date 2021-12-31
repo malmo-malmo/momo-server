@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,8 @@ public class AttendanceCreateRequests {
     private Long scheduleId;
 
     @Valid
+    @Size(min = 1)
+    @NotNull(message = "출석 리스트는 필수값입니다.")
     private List<AttendanceCreateRequest> attendanceCreateRequests;
 
     @Builder

@@ -2,6 +2,7 @@ package com.momo.domain.schedule.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import java.time.LocalDateTime;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -27,6 +28,7 @@ public class GroupScheduleResponse {
 
     private boolean isAttend;
 
+    @Builder
     @QueryProjection
     public GroupScheduleResponse(Long id, String authorImage, String authorNickname, String title, boolean isOffline,
         LocalDateTime startDateTime, String contents, boolean attendanceCheck, boolean isAttend) {

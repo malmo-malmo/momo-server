@@ -1,6 +1,7 @@
 package com.momo.api.group;
 
 import com.momo.domain.auth.domain.CurrentUser;
+import com.momo.domain.group.dto.ParticipantRequest;
 import com.momo.domain.group.dto.ParticipantResponse;
 import com.momo.domain.group.service.ParticipantService;
 import com.momo.domain.user.domain.model.User;
@@ -30,8 +31,8 @@ public class ParticipantController {
     @ApiOperation(value = "참여 신청")
     @PostMapping("/group/apply-participant")
     public ResponseEntity<Void> applyParticipantByGroup(@CurrentUser User user,
-        @RequestBody Long groupId) {
-        participantService.applyParticipantByGroup(user, groupId);
+        @RequestBody ParticipantRequest request) {
+        participantService.applyParticipantByGroup(user, request.getGroupId());
         return ResponseEntity.ok().build();
     }
 

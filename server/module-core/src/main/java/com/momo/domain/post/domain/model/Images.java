@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.hibernate.annotations.BatchSize;
 
 @Getter
@@ -25,8 +26,9 @@ public class Images {
     }
 
     public void updateAll(Post post, List<String> imageUrls) {
-        if (images.size() > 0) {
-            deleteAll();
+        deleteAll();
+        if (CollectionUtils.isEmpty(imageUrls)) {
+            return;
         }
         for (String imageUrl : imageUrls) {
             Image image = Image.create(post, imageUrl);
@@ -37,6 +39,7 @@ public class Images {
     private void deleteAll() {
         images.clear();
     }
+
 
     public List<String> toImageUrls() {
         return images.stream()

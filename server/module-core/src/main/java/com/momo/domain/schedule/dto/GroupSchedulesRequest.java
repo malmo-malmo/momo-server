@@ -1,13 +1,12 @@
 package com.momo.domain.schedule.dto;
 
 import javax.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class GroupSchedulesRequest {
 
     @NotNull(message = "모임 ID는 필수값입니다.")
@@ -18,4 +17,11 @@ public class GroupSchedulesRequest {
 
     @NotNull(message = "사이즈는 필수값입니다.")
     private Integer size;
+
+    @Builder
+    public GroupSchedulesRequest(Long groupId, Integer page, Integer size) {
+        this.groupId = groupId;
+        this.page = page;
+        this.size = size;
+    }
 }

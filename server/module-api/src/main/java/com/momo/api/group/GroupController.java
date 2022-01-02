@@ -26,9 +26,9 @@ public class GroupController {
     private final GroupService groupService;
 
     @ApiOperation(value = "모임 생성")
-    @PostMapping("/")
+    @PostMapping("/group")
     public ResponseEntity<Void> create(@CurrentUser User user,
-                                       @Valid @RequestBody GroupCreateRequest groupCreateRequest) throws URISyntaxException {
+        @Valid @RequestBody GroupCreateRequest groupCreateRequest) throws URISyntaxException {
         Long groupId = groupService.create(user, groupCreateRequest);
         return ResponseEntity.created(new URI("/api/group/" + groupId)).build();
     }

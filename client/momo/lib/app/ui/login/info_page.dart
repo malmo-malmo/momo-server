@@ -58,9 +58,8 @@ class InfoPage extends ConsumerWidget {
                                   final check = await ref
                                       .read(userInfoRequestProvider.notifier)
                                       .validateName(userInfo.nickname);
-                                  ref
-                                      .read(validateNameStateProvider.state)
-                                      .state = check;
+                                  ref.read(validateNameProvider.state).state =
+                                      check;
 
                                   showDialog(
                                     context: context,

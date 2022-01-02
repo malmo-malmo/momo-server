@@ -4,7 +4,7 @@ import 'package:momo/app/provider/category_result_provider.dart';
 import 'package:momo/app/repository/user_repository.dart';
 
 final isCheckCategoryProvider = Provider.autoDispose<bool>((ref) {
-  final categoryState = ref.watch(categoryStateProvider);
+  final categoryState = ref.watch(categoryChecksProvider);
 
   for (bool check in categoryState) {
     if (check) return true;
@@ -12,12 +12,7 @@ final isCheckCategoryProvider = Provider.autoDispose<bool>((ref) {
   return false;
 });
 
-final categoryProvider = Provider.autoDispose<List<bool>>((ref) {
-  final categoryState = ref.watch(categoryStateProvider);
-  return categoryState;
-});
-
-final categoryStateProvider =
+final categoryChecksProvider =
     StateNotifierProvider.autoDispose<CategoryState, List<bool>>((ref) {
   final repository = ref.watch(userRepositoryProvider);
   return CategoryState(8, repository: repository);

@@ -15,7 +15,7 @@ class CategoryPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final categoryState = ref.watch(categoryProvider);
+    final categoryState = ref.watch(categoryChecksProvider);
     final isCheckCategory = ref.watch(isCheckCategoryProvider);
 
     return SafeArea(
@@ -65,7 +65,7 @@ class CategoryPage extends ConsumerWidget {
                                     check: categoryState[i],
                                     index: i,
                                     onTabIcon: ref
-                                        .read(categoryStateProvider.notifier)
+                                        .read(categoryChecksProvider.notifier)
                                         .toggleCategory,
                                   ),
                               ],
@@ -82,7 +82,7 @@ class CategoryPage extends ConsumerWidget {
                         buttonText: '다음',
                         onPressButton: () async {
                           await ref
-                              .read(categoryStateProvider.notifier)
+                              .read(categoryChecksProvider.notifier)
                               .updateUserCategories();
                           ref
                               .read(navigatorProvider)

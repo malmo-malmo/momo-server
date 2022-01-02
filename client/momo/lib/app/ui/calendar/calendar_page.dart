@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:momo/app/provider/bottom_index_provider.dart';
 import 'package:momo/app/provider/calendar/day_provider.dart';
 import 'package:momo/app/provider/calendar/scroll_state_provider.dart';
 import 'package:momo/app/provider/schedule/calendar_schedule_provider.dart';
@@ -33,13 +31,6 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
   @override
   void initState() {
     _scrollController.addListener(() {
-      final direction = _scrollController.position.userScrollDirection;
-      if (direction == ScrollDirection.forward) {
-        ref.read(checkScrollStateProvider.state).state = true;
-      } else {
-        ref.read(checkScrollStateProvider.state).state = false;
-      }
-
       if (_scrollController.position.pixels < 50) {
         ref.read(scrollStateProvider.state).state = 0;
       } else if (_scrollController.position.pixels < 100) {

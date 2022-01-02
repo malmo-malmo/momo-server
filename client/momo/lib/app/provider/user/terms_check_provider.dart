@@ -1,13 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 //  약관 동의
-
-final termsCheckProvider = Provider<List<bool>>((ref) {
-  final termsCheck = ref.watch(termsCheckStateProvider);
-  return termsCheck;
-});
-
-final termsCheckStateProvider =
+final termsCheckProvider =
     StateNotifierProvider<TermsCheck, List<bool>>((ref) => TermsCheck());
 
 // 전체 동의

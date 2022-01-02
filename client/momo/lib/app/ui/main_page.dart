@@ -25,7 +25,6 @@ class MainPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final index = ref.watch(bottomIndexProvider);
-    final visible = ref.watch(checkScrollProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -80,12 +79,12 @@ class MainPage extends ConsumerWidget {
             ],
           ),
         ),
-        floatingActionButton: _floatingButton(index, visible),
+        floatingActionButton: _floatingButton(index),
       ),
     );
   }
 
-  Widget? _floatingButton(int index, bool isShow) {
+  Widget? _floatingButton(int index) {
     switch (index) {
       case 0:
         return null;

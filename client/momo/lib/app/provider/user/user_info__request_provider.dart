@@ -18,12 +18,7 @@ final userInfoRequestCheckProvider = Provider<bool>((ref) {
   return false;
 });
 
-final userInfoRequestProvider = Provider<UserInfoRequest>((ref) {
-  final userInfoState = ref.watch(userInfoRequestStateProvider);
-  return userInfoState;
-});
-
-final userInfoRequestStateProvider =
+final userInfoRequestProvider =
     StateNotifierProvider<UserInfoRequestState, UserInfoRequest>((ref) {
   final repository = ref.watch(userRepositoryProvider);
   return UserInfoRequestState(repository: repository);
@@ -35,7 +30,7 @@ class UserInfoRequestState extends StateNotifier<UserInfoRequest> {
           UserInfoRequest(
             nickname: '',
             university: '',
-            city: 'SEOUL',
+            city: '서울특별시',
             district: '강남구',
           ),
         );
@@ -48,17 +43,16 @@ class UserInfoRequestState extends StateNotifier<UserInfoRequest> {
   void setUserUniversity(String university) =>
       state = state.copyWith(university: university);
 
-  void setUserCity(String city) => state = state.copyWith(
-      city:
-          cityCodeNamePair.where((element) => element.name == city).first.code);
+  void setUserCity(String city) =>
+      state = state.copyWith(city: city, district: '');
 
   void setUserDistrict(String district) =>
       state = state.copyWith(district: district);
 
   String get userCity => cityCodeNamePair
-      .where((element) => element.code == state.city)
+      .where((element) => element.name == state.city)
       .first
-      .name;
+      .code;
 
   Future<bool> validateName(String nickname) async {
     try {

@@ -3,7 +3,7 @@ package com.momo.api.auth;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 
-import com.momo.domain.auth.domain.CurrentUser;
+import com.momo.common.CurrentUser;
 import com.momo.domain.auth.service.OAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;

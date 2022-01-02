@@ -6,7 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.momo.domain.schedule.dto.GroupScheduleResponses;
 import com.momo.domain.schedule.dto.ScheduleCreateRequest;
 import com.momo.domain.schedule.dto.UserScheduleResponse;
-import com.momo.domain.user.domain.model.User;
+import com.momo.domain.user.entity.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;

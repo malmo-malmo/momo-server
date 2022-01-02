@@ -3,7 +3,7 @@ package com.momo.domain.district.dto;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.momo.domain.district.domain.model.District;
+import com.momo.domain.district.entity.District;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

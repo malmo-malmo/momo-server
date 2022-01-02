@@ -1,7 +1,7 @@
 package com.momo.domain.group.dto;
 
-import com.momo.domain.group.domain.model.Category;
-import com.momo.domain.group.domain.model.Groups;
+import com.momo.domain.group.entity.Category;
+import com.momo.domain.group.entity.Groups;
 import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

@@ -8,8 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.RestDocsControllerTest;
 import com.momo.api.district.DistrictController;
-import com.momo.domain.district.domain.model.District;
-import com.momo.domain.district.domain.repository.DistrictRepository;
+import com.momo.domain.district.entity.District;
+import com.momo.domain.district.repository.DistrictRepository;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

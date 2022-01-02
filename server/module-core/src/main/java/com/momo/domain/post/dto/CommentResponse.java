@@ -1,6 +1,6 @@
 package com.momo.domain.post.dto;
 
-import com.momo.domain.post.domain.model.Comment;
+import com.momo.domain.post.entity.Comment;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;

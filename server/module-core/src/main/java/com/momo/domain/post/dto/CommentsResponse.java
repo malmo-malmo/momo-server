@@ -2,7 +2,7 @@ package com.momo.domain.post.dto;
 
 import java.util.List;
 
-import com.momo.domain.post.domain.model.Comment;
+import com.momo.domain.post.entity.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

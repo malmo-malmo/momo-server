@@ -1,13 +1,13 @@
 package com.momo.api.group;
 
-import com.momo.domain.auth.domain.CurrentUser;
+import com.momo.common.CurrentUser;
 import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.dto.GroupSearchConditionRequest;
 import com.momo.domain.group.service.GroupService;
-import com.momo.domain.user.domain.model.User;
+import com.momo.domain.user.entity.User;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,7 @@ public class GroupController {
     private final GroupService groupService;
 
     @ApiOperation(value = "모임 생성")
-    @PostMapping("/group")
+    @PostMapping("/")
     public ResponseEntity<Void> create(@CurrentUser User user,
                                        @Valid @RequestBody GroupCreateRequest groupCreateRequest) throws URISyntaxException {
         Long groupId = groupService.create(user, groupCreateRequest);

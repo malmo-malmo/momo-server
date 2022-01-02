@@ -1,6 +1,6 @@
 package com.momo.config;
 
-import com.momo.domain.auth.domain.CurrentUser;
+import com.momo.common.CurrentUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import springfox.documentation.builders.PathSelectors;

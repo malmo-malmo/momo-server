@@ -1,6 +1,6 @@
 package com.momo.domain.post.dto;
 
-import com.momo.domain.post.domain.model.Post;
+import com.momo.domain.post.entity.Post;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Builder;

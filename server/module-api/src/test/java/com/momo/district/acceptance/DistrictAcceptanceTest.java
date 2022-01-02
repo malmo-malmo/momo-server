@@ -9,7 +9,7 @@ import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
 import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.district.dto.DistrictResponse;
-import com.momo.domain.district.domain.model.City;
+import com.momo.domain.district.entity.City;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;

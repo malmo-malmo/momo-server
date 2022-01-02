@@ -1,6 +1,6 @@
 package com.momo.domain.user.dto;
 
-import com.momo.domain.user.domain.model.User;
+import com.momo.domain.user.entity.User;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import lombok.Builder;

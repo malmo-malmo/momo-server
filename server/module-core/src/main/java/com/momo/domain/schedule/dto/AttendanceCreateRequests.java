@@ -1,6 +1,6 @@
 package com.momo.domain.schedule.dto;
 
-import com.momo.domain.schedule.domain.model.Attendance;
+import com.momo.domain.schedule.entity.Attendance;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;

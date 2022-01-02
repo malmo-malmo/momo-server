@@ -1,6 +1,6 @@
 package com.momo.fixture;
 
-import com.momo.domain.post.domain.model.PostType;
+import com.momo.domain.post.entity.PostType;
 import com.momo.domain.post.dto.PostCreateRequest;
 
 import java.util.List;

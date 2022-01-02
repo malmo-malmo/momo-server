@@ -1,12 +1,12 @@
 package com.momo.api.post;
 
-import com.momo.domain.auth.domain.CurrentUser;
+import com.momo.common.CurrentUser;
 import com.momo.domain.post.dto.PostCardResponse;
 import com.momo.domain.post.dto.PostCardsRequest;
 import com.momo.domain.post.dto.PostCreateRequest;
 import com.momo.domain.post.dto.PostResponse;
 import com.momo.domain.post.service.PostService;
-import com.momo.domain.user.domain.model.User;
+import com.momo.domain.user.entity.User;
 import io.swagger.annotations.ApiOperation;
 import java.net.URI;
 import java.net.URISyntaxException;

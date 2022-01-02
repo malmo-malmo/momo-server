@@ -1,7 +1,7 @@
 package com.momo.domain.post.dto;
 
-import com.momo.domain.post.domain.model.Post;
-import com.momo.domain.post.domain.model.PostType;
+import com.momo.domain.post.entity.Post;
+import com.momo.domain.post.entity.PostType;
 import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

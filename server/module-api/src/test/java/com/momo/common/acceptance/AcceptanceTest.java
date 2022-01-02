@@ -2,9 +2,9 @@ package com.momo.common.acceptance;
 
 import static org.springframework.http.HttpHeaders.LOCATION;
 
-import com.momo.domain.auth.TokenProvider;
-import com.momo.domain.user.domain.model.User;
-import com.momo.domain.user.domain.repository.UserRepository;
+import com.momo.domain.auth.provider.TokenProvider;
+import com.momo.domain.user.entity.User;
+import com.momo.domain.user.repository.UserRepository;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;

@@ -2,9 +2,9 @@ package com.momo.api.district;
 
 import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.district.dto.DistrictResponse;
-import com.momo.domain.district.domain.model.City;
-import com.momo.domain.district.domain.model.District;
-import com.momo.domain.district.domain.repository.DistrictRepository;
+import com.momo.domain.district.entity.City;
+import com.momo.domain.district.entity.District;
+import com.momo.domain.district.repository.DistrictRepository;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

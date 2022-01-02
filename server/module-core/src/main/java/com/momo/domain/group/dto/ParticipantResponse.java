@@ -1,6 +1,6 @@
 package com.momo.domain.group.dto;
 
-import com.momo.domain.group.domain.model.Participant;
+import com.momo.domain.group.entity.Participant;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Builder;

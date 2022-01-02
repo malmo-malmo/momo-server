@@ -1,6 +1,6 @@
 package com.momo.fixture;
 
-import com.momo.domain.group.domain.model.Category;
+import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.dto.GroupCreateRequest;
 
 import java.time.LocalDate;

@@ -69,7 +69,6 @@ class InfoPage extends ConsumerWidget {
                                           : '중복된 닉네임입니다',
                                     ),
                                   );
-                                  FocusScope.of(context).unfocus();
                                 }
                               : () {},
                           onTextChange: ref

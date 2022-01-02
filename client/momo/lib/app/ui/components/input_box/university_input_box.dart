@@ -20,6 +20,7 @@ class UniversityInputBox extends StatefulWidget {
 
 class _UniversityInputBoxState extends State<UniversityInputBox> {
   final _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,6 +44,7 @@ class _UniversityInputBoxState extends State<UniversityInputBox> {
                   hintText: '학교를 입력해주세요',
                   border: InputBorder.none,
                 ),
+                onChanged: widget.setUniversity,
               ),
             ),
           ),
@@ -57,7 +59,6 @@ class _UniversityInputBoxState extends State<UniversityInputBox> {
               );
               _controller.text = university;
               widget.setUniversity(university);
-              FocusScope.of(context).unfocus();
             },
           ),
         ],

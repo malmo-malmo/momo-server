@@ -34,9 +34,7 @@ class CategoryPage extends ConsumerWidget {
                       children: [
                         const SizedBox(height: 45),
                         InkWell(
-                          onTap: () {
-                            ref.read(navigatorProvider).pop();
-                          },
+                          onTap: () => ref.read(navigatorProvider).pop(),
                           child: Icon(
                             CupertinoIcons.back,
                             color: MomoColor.black,
@@ -77,19 +75,21 @@ class CategoryPage extends ConsumerWidget {
                         const SizedBox(height: 64),
                       ],
                     ),
-                    ConfirmButton(
-                      check: isCheckCategory,
-                      buttonText: '다음',
-                      onPressButton: () async {
-                        await ref
-                            .read(categoryStateProvider.notifier)
-                            .updateUserCategories();
-                        ref
-                            .read(navigatorProvider)
-                            .navigateTo(routeName: AppRoutes.info);
-                      },
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 36),
+                      child: ConfirmButton(
+                        check: isCheckCategory,
+                        buttonText: '다음',
+                        onPressButton: () async {
+                          await ref
+                              .read(categoryStateProvider.notifier)
+                              .updateUserCategories();
+                          ref
+                              .read(navigatorProvider)
+                              .navigateTo(routeName: AppRoutes.info);
+                        },
+                      ),
                     ),
-                    const SizedBox(height: 36),
                   ],
                 ),
               ),

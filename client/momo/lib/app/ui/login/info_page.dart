@@ -9,10 +9,10 @@ import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/button/confirm_button.dart';
 import 'package:momo/app/ui/components/dialog/confirm_dialog.dart';
 import 'package:momo/app/ui/components/input_box/city_input_box.dart';
+import 'package:momo/app/ui/components/input_box/district_input_box.dart';
 import 'package:momo/app/ui/components/input_box/nickname_input_box.dart';
 import 'package:momo/app/ui/components/input_box/university_input_box.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
-import 'package:momo/app/ui/components/input_box/district_input_box.dart';
 import 'package:momo/app/ui/login/widget/title_text.dart';
 import 'package:momo/app/util/navigation_service.dart';
 
@@ -56,8 +56,7 @@ class InfoPage extends ConsumerWidget {
                           onTabIcon: userNameCheck
                               ? () async {
                                   final check = await ref
-                                      .read(
-                                          userInfoRequestStateProvider.notifier)
+                                      .read(userInfoRequestProvider.notifier)
                                       .validateName(userInfo.nickname);
                                   ref
                                       .read(validateNameStateProvider.state)
@@ -75,32 +74,32 @@ class InfoPage extends ConsumerWidget {
                                 }
                               : () {},
                           onTextChange: ref
-                              .read(userInfoRequestStateProvider.notifier)
+                              .read(userInfoRequestProvider.notifier)
                               .setUserNickname,
                           userNicknameCheck: userNameCheck,
                         ),
                         const SubTitle(title: '학교'),
                         UniversityInputBox(
                             setUniversity: ref
-                                .read(userInfoRequestStateProvider.notifier)
+                                .read(userInfoRequestProvider.notifier)
                                 .setUserUniversity),
                         const SubTitle(title: '지역'),
                         Row(
                           children: [
                             CityInputBox(
-                              city: ref
-                                  .watch(userInfoRequestStateProvider.notifier)
-                                  .userCity,
+                              city: userInfo.city,
                               setCity: ref
-                                  .watch(userInfoRequestStateProvider.notifier)
+                                  .watch(userInfoRequestProvider.notifier)
                                   .setUserCity,
                             ),
                             const SizedBox(width: 24),
                             DistrictInputBox(
                               district: userInfo.district,
-                              cityCode: userInfo.city,
+                              cityCode: ref
+                                  .watch(userInfoRequestProvider.notifier)
+                                  .userCity,
                               setDistrict: ref
-                                  .watch(userInfoRequestStateProvider.notifier)
+                                  .watch(userInfoRequestProvider.notifier)
                                   .setUserDistrict,
                             ),
                           ],
@@ -113,7 +112,7 @@ class InfoPage extends ConsumerWidget {
                       buttonText: '다음',
                       onPressButton: () async {
                         await ref
-                            .read(userInfoRequestStateProvider.notifier)
+                            .read(userInfoRequestProvider.notifier)
                             .updateUserInfo(userInfo);
                         ref
                             .read(navigatorProvider)

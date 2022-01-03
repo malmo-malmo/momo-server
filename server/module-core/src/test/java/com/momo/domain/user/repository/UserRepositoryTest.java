@@ -33,11 +33,6 @@ public class UserRepositoryTest extends RepositoryTest {
         );
     }
 
-    @AfterEach
-    public void after() {
-        userRepository.deleteAll();
-    }
-
     @Test
     public void 유저를_저장한다() {
         User user = userRepository.findAll().get(0);
@@ -97,6 +92,7 @@ public class UserRepositoryTest extends RepositoryTest {
         boolean isExistsNickname = userRepository.existsByNickname("testMan");
         assertThat(isExistsNickname).isTrue();
     }
+
     private User getUser(Optional<User> optionalUser) {
         assertThat(optionalUser.isPresent()).isTrue();
         return optionalUser.get();

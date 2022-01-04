@@ -1,17 +1,20 @@
 package com.momo.domain.user.repository;
 
 import com.momo.common.RepositoryTest;
+import com.momo.domain.district.entity.City;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@DisplayName("참가자 레포지토리 테스트")
 public class UserRepositoryTest extends RepositoryTest {
 
     @Autowired
@@ -26,7 +29,7 @@ public class UserRepositoryTest extends RepositoryTest {
                 .refreshToken("refresh Token")
                 .nickname("testMan")
                 .imageUrl("http://~~")
-                .city("서울")
+                .city(City.SEOUL)
                 .district("마포구")
                 .university("한국대")
                 .build()
@@ -43,7 +46,7 @@ public class UserRepositoryTest extends RepositoryTest {
             () -> assertThat(user.getRefreshToken()).isEqualTo("refresh Token"),
             () -> assertThat(user.getNickname()).isEqualTo("testMan"),
             () -> assertThat(user.getImageUrl()).isEqualTo("http://~~"),
-            () -> assertThat(user.getCity()).isEqualTo("서울"),
+            () -> assertThat(user.getCity()).isEqualTo(City.SEOUL),
             () -> assertThat(user.getDistrict()).isEqualTo("마포구"),
             () -> assertThat(user.getUniversity()).isEqualTo("한국대")
         );
@@ -61,7 +64,7 @@ public class UserRepositoryTest extends RepositoryTest {
             () -> assertThat(user.getRefreshToken()).isEqualTo("refresh Token"),
             () -> assertThat(user.getNickname()).isEqualTo("testMan"),
             () -> assertThat(user.getImageUrl()).isEqualTo("http://~~"),
-            () -> assertThat(user.getCity()).isEqualTo("서울"),
+            () -> assertThat(user.getCity()).isEqualTo(City.SEOUL),
             () -> assertThat(user.getDistrict()).isEqualTo("마포구"),
             () -> assertThat(user.getUniversity()).isEqualTo("한국대")
         );
@@ -81,7 +84,7 @@ public class UserRepositoryTest extends RepositoryTest {
             () -> assertThat(user.getRefreshToken()).isEqualTo("refresh Token"),
             () -> assertThat(user.getNickname()).isEqualTo("testMan"),
             () -> assertThat(user.getImageUrl()).isEqualTo("http://~~"),
-            () -> assertThat(user.getCity()).isEqualTo("서울"),
+            () -> assertThat(user.getCity()).isEqualTo(City.SEOUL),
             () -> assertThat(user.getDistrict()).isEqualTo("마포구"),
             () -> assertThat(user.getUniversity()).isEqualTo("한국대")
         );

@@ -3,7 +3,7 @@ package com.momo.user.acceptance.step;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.domain.group.dto.CategoryRequest;
+import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.dto.UserResponse;
 import com.momo.domain.user.dto.UserUpdateRequest;
@@ -20,7 +20,8 @@ public class UserAcceptanceStep {
             () -> assertThat(response.getId()).isNotNull(),
             () -> assertThat(response.getNickname()).isEqualTo(user.getNickname()),
             () -> assertThat(response.getImage()).isEqualTo(user.getImageUrl()),
-            () -> assertThat(response.getCity()).isEqualTo(user.getCity()),
+            () -> assertThat(response.getCity().getCode()).isEqualTo(user.getCity().getCode()),
+            () -> assertThat(response.getCity().getName()).isEqualTo(user.getCity().getName()),
             () -> assertThat(response.getDistrict()).isEqualTo(user.getDistrict()),
             () -> assertThat(response.getUniversity()).isEqualTo(user.getUniversity()),
             () -> assertThat(response.getCategories().size()).isEqualTo(2)
@@ -48,14 +49,14 @@ public class UserAcceptanceStep {
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToUpdateCategory(String token,
-        CategoryRequest request) {
+    public static ExtractableResponse<Response> requestToUpdateFavoriteCategories(String token,
+        FavoriteCategoriesUpdateRequest request) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .body(request)
             .when()
-            .patch("/api/user/categories")
+            .patch("/api/user/favorite-categories")
             .then().log().all()
             .extract();
     }

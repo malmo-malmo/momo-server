@@ -5,6 +5,7 @@ import static com.momo.domain.group.entity.Category.HOBBY;
 import static com.momo.domain.group.entity.Category.SELF_DEVELOPMENT;
 import static com.momo.domain.group.entity.Category.STOCK;
 
+import com.momo.domain.district.entity.City;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import java.util.List;
@@ -15,7 +16,7 @@ public class UserFixture {
         User user = User.builder()
             .nickname("UserFixture.getUser1()")
             .university("대학교1")
-            .city("서울시")
+            .city(City.SEOUL)
             .district("강동구")
             .providerId("1")
             .provider(SocialProvider.KAKAO)
@@ -28,7 +29,7 @@ public class UserFixture {
         User user = User.builder()
             .nickname("UserFixture.getUser2()")
             .university("대학교2")
-            .city("서울시")
+            .city(City.SEOUL)
             .district("강동구")
             .providerId("2")
             .provider(SocialProvider.KAKAO)
@@ -41,7 +42,7 @@ public class UserFixture {
         User user = User.builder()
             .nickname("UserFixture.getUser3()")
             .university("대학교1")
-            .city("서울시")
+            .city(City.SEOUL)
             .district("강남구")
             .providerId("3")
             .provider(SocialProvider.KAKAO)

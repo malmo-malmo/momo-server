@@ -11,11 +11,12 @@ import static org.mockito.Mockito.verify;
 import com.momo.common.ServiceTest;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
+import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
-import com.momo.domain.group.dto.CategoryRequest;
+import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
+import com.momo.domain.user.dto.UserUpdateRequest;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
-import com.momo.domain.user.dto.UserUpdateRequest;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,7 +49,7 @@ public class UserServiceTest extends ServiceTest {
         UserUpdateRequest userUpdateRequest = UserUpdateRequest.builder()
             .nickname("변경할 닉네임")
             .university("변경할 대학교")
-            .city("도시")
+            .city(City.SEOUL)
             .district("행정구역")
             .build();
 
@@ -72,7 +73,7 @@ public class UserServiceTest extends ServiceTest {
         UserUpdateRequest userUpdateRequest = UserUpdateRequest.builder()
             .nickname("닉네임")
             .university("변경할 대학교")
-            .city("도시")
+            .city(City.SEOUL)
             .district("행정구역")
             .build();
 
@@ -104,18 +105,20 @@ public class UserServiceTest extends ServiceTest {
 
     @Test
     void 유저_관심_카테고리_정보_업데이트_테스트() {
-        CategoryRequest categoryRequest = new CategoryRequest(List.of("HOBBY", "LIFE"));
+        FavoriteCategoriesUpdateRequest categoryRequest = new FavoriteCategoriesUpdateRequest(
+            List.of(Category.HOBBY, Category.LIFE)
+        );
 
         given(userRepository.findById(any())).willReturn(of(user));
 
-        userService.updateCategories(user, categoryRequest);
+        userService.updateFavoriteCategories(user, categoryRequest);
 
         Assertions.assertAll(
             () -> assertThat(user.getFavoriteCategories().getFavoriteCategories().size()).isEqualTo(2),
             () -> assertThat(user.getFavoriteCategories().getFavoriteCategories().get(0).getCategory())
-                .isEqualTo(Category.of(categoryRequest.getCategories().get(0))),
+                .isEqualTo(categoryRequest.getFavoriteCategories().get(0)),
             () -> assertThat(user.getFavoriteCategories().getFavoriteCategories().get(1).getCategory())
-                .isEqualTo(Category.of(categoryRequest.getCategories().get(1)))
+                .isEqualTo(categoryRequest.getFavoriteCategories().get(1))
         );
     }
 }

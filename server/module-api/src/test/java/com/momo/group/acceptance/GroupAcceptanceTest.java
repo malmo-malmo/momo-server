@@ -29,9 +29,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.domain.common.dto.EnumResponse;
+import com.momo.domain.district.entity.City;
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.dto.GroupSearchConditionRequest;
+import com.momo.domain.group.entity.Category;
 import com.momo.domain.user.dto.UserResponse;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -75,8 +77,8 @@ public class GroupAcceptanceTest extends AcceptanceTest {
         requestToCreateGroup(getAccessToken(getUser3()), GROUP_CREATE_REQUEST3); //서울 건강
         requestToCreateGroup(getAccessToken(getUser3()), GROUP_CREATE_REQUEST4); //경기 밥약
         GroupSearchConditionRequest request = GroupSearchConditionRequest.builder()
-            .cities(List.of("서울", "경기"))
-            .categories(List.of("HEALTH", "RICE"))
+            .cities(List.of(City.SEOUL, City.GYEONGGI))
+            .categories(List.of(Category.HEALTH, Category.RICE))
             .page(0)
             .size(10)
             .build();

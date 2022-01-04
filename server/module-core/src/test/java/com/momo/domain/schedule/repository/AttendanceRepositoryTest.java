@@ -3,6 +3,7 @@ package com.momo.domain.schedule.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
+import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Groups;
 import com.momo.domain.schedule.entity.Attendance;
 import com.momo.domain.schedule.entity.Schedule;
@@ -11,9 +12,11 @@ import com.momo.domain.user.entity.User;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+@DisplayName("출석 레포지토리 테스트")
 public class AttendanceRepositoryTest extends RepositoryTest {
 
     @Autowired
@@ -27,12 +30,12 @@ public class AttendanceRepositoryTest extends RepositoryTest {
             .refreshToken("refresh Token")
             .nickname("testMan")
             .imageUrl("http://~~")
-            .city("서울")
+            .city(City.SEOUL)
             .district("마포구")
             .university("한국대")
             .build());
         Groups group = save(Groups.builder()
-            .city("서울")
+            .city(City.SEOUL)
             .district("마포")
             .imageUrl("http://~")
             .introduction("안녕하세요")

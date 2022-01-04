@@ -29,7 +29,7 @@ public class GroupAcceptanceStep {
             () -> assertThat(response.getImageUrl()).isEqualTo(request.getImageUrl()),
             () -> assertThat(response.getStartDate()).isEqualTo(request.getStartDate()),
             () -> assertThat(response.getUniversity()).isEqualTo(university),
-            () -> assertThat(response.getCity()).isEqualTo(request.getCity()),
+            () -> assertThat(response.getCity()).isEqualTo(request.getCity().getName()),
             () -> assertThat(response.getDistrict()).isEqualTo(request.getDistrict()),
             () -> assertThat(response.isOffline()).isEqualTo(request.getIsOffline()),
             () -> assertThat(response.getIntroduction()).isEqualTo(request.getIntroduction()),

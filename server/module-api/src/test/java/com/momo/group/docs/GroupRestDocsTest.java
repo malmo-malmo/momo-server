@@ -12,9 +12,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.RestDocsControllerTest;
 import com.momo.api.group.GroupController;
+import com.momo.domain.district.entity.City;
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.group.dto.GroupResponse;
+import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.service.GroupService;
 import java.time.LocalDate;
 import java.util.List;
@@ -40,9 +42,9 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
         when(groupService.create(any(), any())).thenReturn(1L);
         GroupCreateRequest request = GroupCreateRequest.builder()
             .name("A 모임")
-            .category("HOBBY")
+            .category(Category.HOBBY)
             .isUniversity(true)
-            .city("서울")
+            .city(City.SEOUL)
             .district("마포구")
             .startDate(LocalDate.now())
             .recruitmentCnt(4)
@@ -68,7 +70,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .imageUrl("http://~~")
             .startDate(LocalDate.now())
             .university("한국대")
-            .city("서울")
+            .city(City.SEOUL)
             .district("마포구")
             .isOffline(true)
             .introduction("테스트 모임입니다.")
@@ -99,8 +101,10 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
                     .build()
             ));
         super.mockMvc.perform(get("/api/groups/search/paging")
-                .param("cities", String.valueOf(List.of("성남", "서울")))
-                .param("categories", String.valueOf(List.of("취미")))
+                .param("cities", String.valueOf(City.SEOUL))
+                .param("cities", String.valueOf(City.GYEONGGI))
+                .param("categories", String.valueOf(Category.HOBBY))
+                .param("categories", String.valueOf(Category.LIFE))
                 .param("page", String.valueOf(1))
                 .param("size", String.valueOf(10)))
             .andDo(print())

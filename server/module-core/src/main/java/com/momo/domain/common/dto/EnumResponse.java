@@ -30,6 +30,10 @@ public class EnumResponse {
         return new EnumResponse(category.getCode(), category.getName());
     }
 
+    public static EnumResponse ofCity(City city) {
+        return new EnumResponse(city.getCode(), city.getName());
+    }
+
     public static List<EnumResponse> listOfCategory() {
         return Arrays.stream(Category.values())
             .map(status -> EnumResponse.of(status.getCode(), status.getName()))

@@ -2,23 +2,21 @@ package com.momo.domain.group.service;
 
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.group.entity.Category;
-import com.momo.domain.group.entity.Groups;
-import com.momo.domain.group.entity.Participant;
-import com.momo.domain.group.repository.GroupRepository;
-import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.dto.GroupSearchConditionRequest;
+import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Participant;
+import com.momo.domain.group.repository.GroupRepository;
+import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional
@@ -46,10 +44,9 @@ public class GroupService {
 
     @Transactional(readOnly = true)
     public List<GroupCardResponse> findPageBySearchCondition(GroupSearchConditionRequest request) {
-        List<Category> categories = Category.listOf(request.getCategories());
         PageRequest page = PageRequest.of(request.getPage(), request.getSize());
         return groupRepository
-            .findAllBySearchConditionOrderByCreatedDateDesc(request.getCities(), categories, page);
+            .findAllBySearchConditionOrderByCreatedDateDesc(request.getCities(), request.getCategories(), page);
     }
 
     @Transactional(readOnly = true)
@@ -66,11 +63,10 @@ public class GroupService {
 
     @Transactional(readOnly = true)
     public List<GroupCardResponse> findPageByUserCategories(User user, int page, int size) {
-        return groupRepository
-            .findAllByCategoriesOrderByCreatedDateDesc(
-                user.getFavoriteCategories().toCategories(),
-                PageRequest.of(page, size)
-            );
+        return groupRepository.findAllByCategoriesOrderByCreatedDateDesc(
+            user.getFavoriteCategories().toCategories(),
+            PageRequest.of(page, size)
+        );
     }
 
     public void updateManagerByUserId(User user, Long groupId, Long userId) {

@@ -2,32 +2,25 @@ package com.momo.domain.user.dto;
 
 import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.user.entity.User;
+import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 public class UserResponse {
 
     private Long id;
-
     private String nickname;
-
     private String image;
-
-    private String city;
-
+    private EnumResponse city;
     private String district;
-
     private String university;
-
     private List<EnumResponse> categories;
 
     @Builder
-    public UserResponse(Long id, String nickname, String image, String city, String district, String university,
+    public UserResponse(Long id, String nickname, String image, EnumResponse city, String district, String university,
         List<EnumResponse> categories) {
         this.id = id;
         this.nickname = nickname;
@@ -43,7 +36,7 @@ public class UserResponse {
             .id(user.getId())
             .nickname(user.getNickname())
             .image(user.getImageUrl())
-            .city(user.getCity())
+            .city(EnumResponse.ofCity(user.getCity()))
             .district(user.getDistrict())
             .university(user.getUniversity())
             .categories(EnumResponse.listFromCategories(user.getFavoriteCategories()))

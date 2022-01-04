@@ -1,7 +1,9 @@
 package com.momo.domain.user.dto;
 
+import com.momo.domain.district.entity.City;
 import com.momo.domain.user.entity.User;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
@@ -18,14 +20,14 @@ public class UserUpdateRequest {
     @NotBlank(message = "학교 이름은 필수 입력값입니다.")
     private String university;
 
-    @NotBlank(message = "사는 지역은 필수 입력값입니다.")
-    private String city;
+    @NotNull(message = "사는 지역은 필수 입력값입니다.")
+    private City city;
 
     @NotBlank(message = "사는 지역은 필수 입력값입니다.")
     private String district;
 
     @Builder
-    public UserUpdateRequest(String nickname, String university, String city, String district) {
+    public UserUpdateRequest(String nickname, String university, City city, String district) {
         this.nickname = nickname;
         this.university = university;
         this.city = city;

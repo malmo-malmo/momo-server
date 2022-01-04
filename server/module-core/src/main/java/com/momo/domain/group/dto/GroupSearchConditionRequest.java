@@ -1,5 +1,7 @@
 package com.momo.domain.group.dto;
 
+import com.momo.domain.district.entity.City;
+import com.momo.domain.group.entity.Category;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
@@ -10,9 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GroupSearchConditionRequest {
 
-    private List<String> cities;
+    private List<City> cities;
 
-    private List<String> categories;
+    private List<Category> categories;
 
     @NotNull(message = "페이지 번호는 필수값입니다.")
     private Integer page;
@@ -21,7 +23,7 @@ public class GroupSearchConditionRequest {
     private Integer size;
 
     @Builder
-    public GroupSearchConditionRequest(List<String> cities, List<String> categories, int page, int size) {
+    public GroupSearchConditionRequest(List<City> cities, List<Category> categories, int page, int size) {
         this.cities = cities;
         this.categories = categories;
         this.page = page;

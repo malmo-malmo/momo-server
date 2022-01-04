@@ -1,6 +1,7 @@
 package com.momo.domain.user.entity;
 
 import com.momo.domain.common.entity.BaseEntity;
+import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
 import java.util.List;
 import java.util.Objects;
@@ -38,7 +39,8 @@ public class User extends BaseEntity {
 
     private String imageUrl;
 
-    private String city;
+    @Enumerated(EnumType.STRING)
+    private City city;
 
     private String district;
 
@@ -49,7 +51,7 @@ public class User extends BaseEntity {
 
     @Builder
     public User(Long id, SocialProvider provider, String providerId, String refreshToken, String nickname,
-        String imageUrl, String city, String district, String university) {
+        String imageUrl, City city, String district, String university) {
         this.id = id;
         this.provider = provider;
         this.providerId = providerId;

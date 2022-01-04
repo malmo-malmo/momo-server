@@ -1,6 +1,7 @@
 package com.momo.domain.group.entity;
 
 import com.momo.domain.common.entity.BaseEntity;
+import com.momo.domain.district.entity.City;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDate;
 import javax.persistence.Entity;
@@ -43,7 +44,8 @@ public class Groups extends BaseEntity {
 
     private String university;
 
-    private String city;
+    @Enumerated(EnumType.STRING)
+    private City city;
 
     private String district;
 
@@ -58,7 +60,7 @@ public class Groups extends BaseEntity {
 
     @Builder
     public Groups(Long id, User manager, String name, String imageUrl, Category category, LocalDate startDate,
-        String university, String city, String district, String introduction, int recruitmentCnt, boolean isOffline,
+        String university, City city, String district, String introduction, int recruitmentCnt, boolean isOffline,
         boolean isEnd) {
         this.id = id;
         this.manager = manager;

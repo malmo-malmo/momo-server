@@ -1,10 +1,10 @@
 package com.momo.api.user;
 
 import com.momo.common.CurrentUser;
-import com.momo.domain.group.dto.CategoryRequest;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.user.dto.UserResponse;
 import com.momo.domain.user.dto.UserUpdateRequest;
+import com.momo.domain.user.entity.User;
 import com.momo.domain.user.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
@@ -46,10 +46,10 @@ public class UserController {
     }
 
     @ApiOperation(value = "관심 카테고리 수정")
-    @PatchMapping("/categories")
-    public ResponseEntity<Void> updateCategories(@CurrentUser User user,
-        @Valid @RequestBody CategoryRequest categoryRequest) {
-        userService.updateCategories(user, categoryRequest);
+    @PatchMapping("/favorite-categories")
+    public ResponseEntity<Void> updateFavoriteCategories(@CurrentUser User user,
+        @Valid @RequestBody FavoriteCategoriesUpdateRequest request) {
+        userService.updateFavoriteCategories(user, request);
         return ResponseEntity.ok().build();
     }
 }

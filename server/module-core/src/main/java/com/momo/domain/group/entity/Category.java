@@ -2,7 +2,6 @@ package com.momo.domain.group.entity;
 
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;

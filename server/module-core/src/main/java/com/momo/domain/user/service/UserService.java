@@ -2,8 +2,7 @@ package com.momo.domain.user.service;
 
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.group.entity.Category;
-import com.momo.domain.group.dto.CategoryRequest;
+import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
 import com.momo.domain.user.dto.UserUpdateRequest;
@@ -32,9 +31,9 @@ public class UserService {
         }
     }
 
-    public void updateCategories(User loginUser, CategoryRequest request) {
+    public void updateFavoriteCategories(User loginUser, FavoriteCategoriesUpdateRequest request) {
         User user = findByUser(loginUser);
-        user.updateFavoriteCategories(Category.listOf(request.getCategories()));
+        user.updateFavoriteCategories(request.getFavoriteCategories());
     }
 
     public User findByUser(User user) {

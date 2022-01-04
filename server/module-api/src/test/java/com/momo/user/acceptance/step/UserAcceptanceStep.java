@@ -4,7 +4,7 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.domain.group.dto.CategoryRequest;
-import com.momo.domain.user.domain.model.User;
+import com.momo.domain.user.entity.User;
 import com.momo.domain.user.dto.UserResponse;
 import com.momo.domain.user.dto.UserUpdateRequest;
 import io.restassured.response.ExtractableResponse;

@@ -1,8 +1,8 @@
 package com.momo.api.user;
 
-import com.momo.domain.auth.domain.CurrentUser;
+import com.momo.common.CurrentUser;
 import com.momo.domain.group.dto.CategoryRequest;
-import com.momo.domain.user.domain.model.User;
+import com.momo.domain.user.entity.User;
 import com.momo.domain.user.dto.UserResponse;
 import com.momo.domain.user.dto.UserUpdateRequest;
 import com.momo.domain.user.service.UserService;

@@ -2,10 +2,10 @@ package com.momo.api.schedule;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
-import com.momo.domain.auth.domain.CurrentUser;
+import com.momo.common.CurrentUser;
 import com.momo.domain.schedule.dto.AttendanceCreateRequests;
 import com.momo.domain.schedule.service.AttendanceService;
-import com.momo.domain.user.domain.model.User;
+import com.momo.domain.user.entity.User;
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;

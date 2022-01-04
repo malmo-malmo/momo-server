@@ -2,12 +2,12 @@ package com.momo.domain.group.service;
 
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.group.domain.model.Groups;
-import com.momo.domain.group.domain.model.Participant;
-import com.momo.domain.group.domain.repository.GroupRepository;
-import com.momo.domain.group.domain.repository.ParticipantRepository;
+import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Participant;
+import com.momo.domain.group.repository.GroupRepository;
+import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.group.dto.ParticipantResponse;
-import com.momo.domain.user.domain.model.User;
+import com.momo.domain.user.entity.User;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

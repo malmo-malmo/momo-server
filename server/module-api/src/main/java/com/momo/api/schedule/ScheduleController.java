@@ -1,9 +1,9 @@
 package com.momo.api.schedule;
 
-import com.momo.domain.auth.domain.CurrentUser;
+import com.momo.common.CurrentUser;
 import com.momo.domain.schedule.dto.*;
 import com.momo.domain.schedule.service.ScheduleService;
-import com.momo.domain.user.domain.model.User;
+import com.momo.domain.user.entity.User;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

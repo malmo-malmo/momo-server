@@ -1,15 +1,15 @@
 package com.momo.domain.auth.service;
 
-import com.momo.domain.auth.TokenProvider;
-import com.momo.domain.auth.domain.OAuthProvider;
-import com.momo.domain.auth.domain.OAuthProviderFactory;
+import com.momo.domain.auth.provider.TokenProvider;
+import com.momo.domain.auth.provider.OAuthProvider;
+import com.momo.domain.auth.provider.OAuthProviderFactory;
 import com.momo.domain.auth.dto.OAuthLoginRequest;
 import com.momo.domain.auth.dto.OAuthLoginResponse;
 import com.momo.domain.auth.dto.RefreshLoginRequest;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.user.domain.model.User;
-import com.momo.domain.user.domain.repository.UserRepository;
+import com.momo.domain.user.entity.User;
+import com.momo.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

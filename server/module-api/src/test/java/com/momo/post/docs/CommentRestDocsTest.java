@@ -9,12 +9,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.RestDocsControllerTest;
 import com.momo.api.post.CommentController;
-import com.momo.domain.post.domain.model.Comment;
+import com.momo.domain.post.entity.Comment;
 import com.momo.domain.post.dto.CommentCreateRequest;
 import com.momo.domain.post.dto.CommentResponse;
 import com.momo.domain.post.dto.CommentsResponse;
 import com.momo.domain.post.service.CommentService;
-import com.momo.domain.user.domain.model.User;
+import com.momo.domain.user.entity.User;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;

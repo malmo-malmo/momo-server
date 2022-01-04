@@ -2,7 +2,7 @@ package com.momo.domain.schedule.dto;
 
 import javax.validation.constraints.NotNull;
 
-import com.momo.domain.schedule.domain.model.Attendance;
+import com.momo.domain.schedule.entity.Attendance;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;

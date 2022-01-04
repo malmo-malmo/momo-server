@@ -1,12 +1,12 @@
 package com.momo.fixture;
 
-import static com.momo.domain.group.domain.model.Category.HEALTH;
-import static com.momo.domain.group.domain.model.Category.HOBBY;
-import static com.momo.domain.group.domain.model.Category.SELF_DEVELOPMENT;
-import static com.momo.domain.group.domain.model.Category.STOCK;
+import static com.momo.domain.group.entity.Category.HEALTH;
+import static com.momo.domain.group.entity.Category.HOBBY;
+import static com.momo.domain.group.entity.Category.SELF_DEVELOPMENT;
+import static com.momo.domain.group.entity.Category.STOCK;
 
-import com.momo.domain.user.domain.model.SocialProvider;
-import com.momo.domain.user.domain.model.User;
+import com.momo.domain.user.entity.SocialProvider;
+import com.momo.domain.user.entity.User;
 import java.util.List;
 
 public class UserFixture {

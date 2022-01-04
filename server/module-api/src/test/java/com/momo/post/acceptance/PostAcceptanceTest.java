@@ -15,7 +15,7 @@ import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToFindPost
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.post.domain.model.PostType;
+import com.momo.domain.post.entity.PostType;
 import com.momo.domain.post.dto.PostCardResponse;
 import com.momo.domain.post.dto.PostCardsRequest;
 import com.momo.domain.post.dto.PostResponse;

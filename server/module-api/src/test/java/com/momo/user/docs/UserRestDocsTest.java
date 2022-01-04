@@ -9,9 +9,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.RestDocsControllerTest;
 import com.momo.api.user.UserController;
-import com.momo.domain.group.domain.model.Category;
+import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.dto.CategoryRequest;
-import com.momo.domain.user.domain.model.User;
+import com.momo.domain.user.entity.User;
 import com.momo.domain.user.dto.UserUpdateRequest;
 import com.momo.domain.user.service.UserService;
 import java.util.List;

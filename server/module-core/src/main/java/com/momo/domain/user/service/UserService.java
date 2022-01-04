@@ -2,10 +2,10 @@ package com.momo.domain.user.service;
 
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.group.domain.model.Category;
+import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.dto.CategoryRequest;
-import com.momo.domain.user.domain.model.User;
-import com.momo.domain.user.domain.repository.UserRepository;
+import com.momo.domain.user.entity.User;
+import com.momo.domain.user.repository.UserRepository;
 import com.momo.domain.user.dto.UserUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

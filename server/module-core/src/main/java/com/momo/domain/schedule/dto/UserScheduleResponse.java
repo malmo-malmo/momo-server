@@ -1,7 +1,7 @@
 package com.momo.domain.schedule.dto;
 
 import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.schedule.domain.model.Schedule;
+import com.momo.domain.schedule.entity.Schedule;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;

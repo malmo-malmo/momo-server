@@ -1,7 +1,7 @@
 package com.momo.domain.user.dto;
 
 import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.user.domain.model.User;
+import com.momo.domain.user.entity.User;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;

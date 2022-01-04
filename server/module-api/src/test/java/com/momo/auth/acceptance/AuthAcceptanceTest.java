@@ -8,10 +8,10 @@ import static com.momo.fixture.UserFixture.getUser1;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
-import com.momo.domain.auth.TokenProvider;
+import com.momo.domain.auth.provider.TokenProvider;
 import com.momo.domain.auth.dto.OAuthLoginResponse;
 import com.momo.domain.auth.dto.RefreshLoginRequest;
-import com.momo.domain.user.domain.model.User;
+import com.momo.domain.user.entity.User;
 import com.momo.user.acceptance.step.UserAcceptanceStep;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;

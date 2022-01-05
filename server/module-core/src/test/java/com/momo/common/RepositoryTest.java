@@ -4,10 +4,12 @@ import com.google.common.base.CaseFormat;
 import com.momo.TestProfile;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Table;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.springframework.beans.factory.InitializingBean;
@@ -60,8 +62,12 @@ public class RepositoryTest implements InitializingBean {
     @Override
     public void afterPropertiesSet() {
         tables = em.getMetamodel().getEntities().stream()
-            .filter(e -> e.getJavaType().getAnnotation(Entity.class) != null)
-            .map(e -> CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, e.getName()))
+            .filter(entityType -> entityType.getJavaType().getAnnotation(Entity.class) != null)
+            .map(entityType -> {
+                Optional<Table> atTable = Optional.ofNullable(entityType.getJavaType().getAnnotation(Table.class));
+                return CaseFormat.UPPER_CAMEL
+                    .to(CaseFormat.LOWER_UNDERSCORE, atTable.isPresent() ? atTable.get().name() : entityType.getName());
+            })
             .collect(Collectors.toList());
     }
 }

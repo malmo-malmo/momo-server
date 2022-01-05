@@ -6,15 +6,21 @@ import 'package:momo/app/ui/components/status/error_card.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/ui/components/status/no_item_card.dart';
 
-class CalendarSchedules extends ConsumerWidget {
+class CalendarSchedules extends ConsumerStatefulWidget {
   const CalendarSchedules({Key? key, required this.requestDate})
       : super(key: key);
 
   final DateTime requestDate;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final scheduleResponse = ref.watch(calendarScheduleProvider(requestDate));
+  ConsumerState<CalendarSchedules> createState() => _CalendarSchedulesState();
+}
+
+class _CalendarSchedulesState extends ConsumerState<CalendarSchedules> {
+  @override
+  Widget build(BuildContext context) {
+    final scheduleResponse =
+        ref.watch(calendarScheduleProvider(widget.requestDate));
 
     return scheduleResponse.when(
       error: (error, stacktrace) => const ErrorCard(),
@@ -27,14 +33,22 @@ class CalendarSchedules extends ConsumerWidget {
           return const NoItemCard();
         }
         return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: CustomScrollView(slivers: [
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: CustomScrollView(
+            slivers: [
               SliverList(
-                  delegate: SliverChildListDelegate(List.generate(
-                      scheduleData.schedules.length,
-                      (index) => TimeLineCard(
-                          schedules: scheduleData.schedules[index]))))
-            ]));
+                delegate: SliverChildListDelegate(
+                  List.generate(
+                    scheduleData.schedules.length,
+                    (index) => TimeLineCard(
+                      schedules: scheduleData.schedules[index],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
       },
     );
   }

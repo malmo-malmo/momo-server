@@ -2,9 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/city_result_provider.dart';
 import 'package:momo/app/theme/theme.dart';
+import 'package:momo/app/ui/components/input_box/custom_dropdown_list.dart';
+import 'package:momo/app/util/offset/cal_offset.dart';
+
+final _cityInputBoxKey = GlobalKey();
 
 class CityInputBox extends StatelessWidget {
   CityInputBox({
@@ -23,6 +26,7 @@ class CityInputBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: _cityInputBoxKey,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       height: 44,
       width: 156,
@@ -33,32 +37,38 @@ class CityInputBox extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: DropdownButton(
-              value: city,
-              selectedItemBuilder: (context) => _valueList
-                  .map((value) => Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(value, style: MomoTextStyle.defaultStyleR)))
-                  .toList(),
-              underline: const SizedBox(),
-              elevation: 0,
-              isExpanded: true,
-              borderRadius: BorderRadius.circular(8),
-              icon: Transform.rotate(
-                angle: pi * 3 / 2,
-                child: Icon(CupertinoIcons.back, size: 12.w),
-              ),
-              items: _valueList
-                  .map((value) => DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value, style: MomoTextStyle.defaultStyleR)))
-                  .toList(),
-              onChanged: (String? value) {
-                setCity(value!);
-              },
+          Text(
+            city.isEmpty ? '서울' : city,
+            style: MomoTextStyle.defaultStyleR.copyWith(
+              color: city.isEmpty ? MomoColor.unSelIcon : null,
             ),
           ),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                      opaque: false,
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          CustomDropDownList(
+                            values: _valueList,
+                            setValue: setCity,
+                            curValue: city,
+                            offset: getParentOffset(_cityInputBoxKey),
+                            defaultValue: '서울',
+                          ),
+                      transitionsBuilder: (context, animation,
+                              secondaryAnimation, child) =>
+                          FadeTransition(opacity: animation, child: child)));
+            },
+            child: Transform.rotate(
+              angle: pi * 3 / 2,
+              child: const Icon(
+                CupertinoIcons.back,
+                size: 20,
+              ),
+            ),
+          )
         ],
       ),
     );

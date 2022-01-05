@@ -130,15 +130,23 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
                 return const NoItemCard();
               }
               return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child:
-                      CustomScrollView(controller: _scrollController, slivers: [
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: CustomScrollView(
+                  controller: _scrollController,
+                  slivers: [
                     SliverList(
-                        delegate: SliverChildListDelegate(List.generate(
-                            scheduleData.schedules.length,
-                            (index) => TimeLineCard(
-                                schedules: scheduleData.schedules[index]))))
-                  ]));
+                      delegate: SliverChildListDelegate(
+                        List.generate(
+                          scheduleData.schedules.length,
+                          (index) => TimeLineCard(
+                            schedules: scheduleData.schedules[index],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              );
             },
           ),
         ),

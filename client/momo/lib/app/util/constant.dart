@@ -1,6 +1,6 @@
 const baseUrl = 'http://gunimon.iptime.org:8100/api';
 
-const maxPhotoCount = 100000;
+const maxPhotoCount = 10000;
 
 const maxSelectCount = 7;
 

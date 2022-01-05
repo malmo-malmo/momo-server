@@ -30,8 +30,8 @@ class UserInfoRequestState extends StateNotifier<UserInfoRequest> {
           UserInfoRequest(
             nickname: '',
             university: '',
-            city: '서울특별시',
-            district: '강남구',
+            city: '',
+            district: '',
           ),
         );
 
@@ -43,16 +43,20 @@ class UserInfoRequestState extends StateNotifier<UserInfoRequest> {
   void setUserUniversity(String university) =>
       state = state.copyWith(university: university);
 
-  void setUserCity(String city) =>
-      state = state.copyWith(city: city, district: '');
+  void setUserCity(String city) => state = state.copyWith(
+      city:
+          cityCodeNamePair.where((element) => element.name == city).first.code,
+      district: '');
 
   void setUserDistrict(String district) =>
       state = state.copyWith(district: district);
 
-  String get userCity => cityCodeNamePair
-      .where((element) => element.name == state.city)
-      .first
-      .code;
+  String get userCity => state.city.isEmpty
+      ? ''
+      : cityCodeNamePair
+          .where((element) => element.code == state.city)
+          .first
+          .name;
 
   Future<bool> validateName(String nickname) async {
     try {

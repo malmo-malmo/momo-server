@@ -85,7 +85,9 @@ class InfoPage extends ConsumerWidget {
                         Row(
                           children: [
                             CityInputBox(
-                              city: userInfo.city,
+                              city: ref
+                                  .watch(userInfoRequestProvider.notifier)
+                                  .userCity,
                               setCity: ref
                                   .watch(userInfoRequestProvider.notifier)
                                   .setUserCity,
@@ -93,9 +95,7 @@ class InfoPage extends ConsumerWidget {
                             const SizedBox(width: 24),
                             DistrictInputBox(
                               district: userInfo.district,
-                              cityCode: ref
-                                  .watch(userInfoRequestProvider.notifier)
-                                  .userCity,
+                              cityCode: userInfo.city,
                               setDistrict: ref
                                   .watch(userInfoRequestProvider.notifier)
                                   .setUserDistrict,

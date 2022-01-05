@@ -19,7 +19,8 @@ public class UserDocumentation {
             fieldWithPath("id").type(JsonFieldType.NUMBER).description("유저 ID"),
             fieldWithPath("nickname").type(JsonFieldType.STRING).description("유저 닉네임"),
             fieldWithPath("image").type(JsonFieldType.STRING).description("유저 이미지 URL"),
-            fieldWithPath("city").type(JsonFieldType.STRING).description("유저 거주 도시"),
+            fieldWithPath("city.code").type(JsonFieldType.STRING).description("유저 거주 도시 코드"),
+            fieldWithPath("city.name").type(JsonFieldType.STRING).description("유저 거주 도시 이름"),
             fieldWithPath("district").type(JsonFieldType.STRING).description("유저 거주 지역"),
             fieldWithPath("university").type(JsonFieldType.STRING).description("유저 학교"),
             fieldWithPath("categories[].code").type(JsonFieldType.STRING).description("유저 인기 카테고리 코드"),
@@ -51,11 +52,11 @@ public class UserDocumentation {
         );
     }
 
-    public static RestDocumentationResultHandler updateCategories() {
+    public static RestDocumentationResultHandler updateFavoriteCategories() {
         FieldDescriptor[] requestUser = new FieldDescriptor[]{
-            fieldWithPath("categories").type(JsonFieldType.ARRAY).description("관심 카테고리 목록"),
+            fieldWithPath("favoriteCategories").type(JsonFieldType.ARRAY).description("관심 카테고리 목록"),
         };
-        return document("user/updateCategories",
+        return document("user/updateFavoriteCategories",
             requestFields(requestUser)
         );
     }

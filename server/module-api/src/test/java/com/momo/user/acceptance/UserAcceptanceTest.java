@@ -7,13 +7,16 @@ import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdate;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
-import com.momo.domain.group.dto.CategoryRequest;
+import com.momo.domain.district.entity.City;
+import com.momo.domain.group.entity.Category;
+import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.user.dto.UserResponse;
 import com.momo.domain.user.dto.UserUpdateRequest;
 import com.momo.user.acceptance.step.UserAcceptanceStep;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +37,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
         UserUpdateRequest userUpdateRequest = UserUpdateRequest.builder()
             .nickname("모모")
             .university("한국대학교")
-            .city("서울시")
+            .city(City.SEOUL)
             .district("강동구")
             .build();
         String token = getAccessToken(getUser1());
@@ -54,18 +57,21 @@ public class UserAcceptanceTest extends AcceptanceTest {
 
     @Test
     public void 관심_카테고리를_수정한다() {
-        CategoryRequest categoryRequest = new CategoryRequest(
-            List.of("HEALTH", "EMPLOYMENT", "HOBBY"));
+        FavoriteCategoriesUpdateRequest request = new FavoriteCategoriesUpdateRequest(
+            List.of(Category.HEALTH, Category.EMPLOYMENT, Category.HOBBY));
         String token = getAccessToken(getUser1());
-        ExtractableResponse<Response> response = UserAcceptanceStep.requestToUpdateCategory(token, categoryRequest);
+        ExtractableResponse<Response> response = UserAcceptanceStep.requestToUpdateFavoriteCategories(token, request);
         AcceptanceStep.assertThatStatusIsOk(response);
     }
 
     @Test
+    @Disabled
     public void 관심_카테고리를_수정할_때_잘못된_ENUM_값을_보내면_실패한다() {
-        CategoryRequest categoryRequest = new CategoryRequest(List.of("HEALTH", "EMPLOYMENT", "HOBB"));
+        FavoriteCategoriesUpdateRequest request = new FavoriteCategoriesUpdateRequest(
+            List.of(Category.HEALTH, Category.EMPLOYMENT, Category.HOBBY)
+        );
         String token = getAccessToken(getUser1());
-        ExtractableResponse<Response> response = UserAcceptanceStep.requestToUpdateCategory(token, categoryRequest);
+        ExtractableResponse<Response> response = UserAcceptanceStep.requestToUpdateFavoriteCategories(token, request);
         AcceptanceStep.assertThatStatusIsBadRequest(response);
     }
 }

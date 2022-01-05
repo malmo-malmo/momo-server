@@ -21,4 +21,4 @@ operation::user/update[snippets='http-request,http-response,request-fields']
 
 === 관심 카테고리 수정
 
-operation::user/updateCategories[snippets='http-request,http-response,request-fields']
+operation::user/updateFavoriteCategories[snippets='http-request,http-response,request-fields']

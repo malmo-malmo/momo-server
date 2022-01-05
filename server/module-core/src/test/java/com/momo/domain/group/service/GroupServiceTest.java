@@ -53,9 +53,9 @@ public class GroupServiceTest extends ServiceTest {
     @Test
     void 모임_생성_테스트() {
         GroupCreateRequest groupCreateRequest = GroupCreateRequest.builder()
-            .category(Category.EMPLOYMENT.getCode())
+            .category(Category.EMPLOYMENT)
             .isUniversity(true)
-            .city(City.SEOUL.getCode())
+            .city(City.SEOUL)
             .isOffline(true)
             .build();
 

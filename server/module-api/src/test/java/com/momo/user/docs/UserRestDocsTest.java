@@ -9,10 +9,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.RestDocsControllerTest;
 import com.momo.api.user.UserController;
+import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
-import com.momo.domain.group.dto.CategoryRequest;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.user.dto.UserUpdateRequest;
+import com.momo.domain.user.entity.User;
 import com.momo.domain.user.service.UserService;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -38,7 +39,7 @@ public class UserRestDocsTest extends RestDocsControllerTest {
             .id(1L)
             .nickname("테스트맨")
             .imageUrl("http://~~")
-            .city("서울")
+            .city(City.SEOUL)
             .district("마포구")
             .university("한국대")
             .build();
@@ -66,7 +67,7 @@ public class UserRestDocsTest extends RestDocsControllerTest {
         UserUpdateRequest request = UserUpdateRequest.builder()
             .nickname("테스트 이름")
             .university("한국대")
-            .city("서울")
+            .city(City.SEOUL)
             .district("마포구")
             .build();
         String content = super.objectMapper.writeValueAsString(request);
@@ -81,14 +82,14 @@ public class UserRestDocsTest extends RestDocsControllerTest {
 
     @Test
     public void 관심_카테고리_수정() throws Exception {
-        CategoryRequest request = new CategoryRequest(List.of("생활"));
+        FavoriteCategoriesUpdateRequest request = new FavoriteCategoriesUpdateRequest(List.of(Category.LIFE));
         String content = super.objectMapper.writeValueAsString(request);
-        super.mockMvc.perform(patch("/api/user/categories")
+        super.mockMvc.perform(patch("/api/user/favorite-categories")
                 .content(content)
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
             )
             .andDo(print())
             .andExpect(status().isOk())
-            .andDo(UserDocumentation.updateCategories());
+            .andDo(UserDocumentation.updateFavoriteCategories());
     }
 }

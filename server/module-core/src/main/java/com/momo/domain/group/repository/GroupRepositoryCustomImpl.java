@@ -3,23 +3,23 @@ package com.momo.domain.group.repository;
 import static com.momo.domain.group.entity.QGroups.groups;
 import static com.momo.domain.group.entity.QParticipant.participant;
 
-import com.momo.domain.group.entity.Category;
+import com.momo.domain.district.entity.City;
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.dto.QGroupCardResponse;
 import com.momo.domain.group.dto.QGroupResponse;
+import com.momo.domain.group.entity.Category;
 import com.momo.domain.user.entity.User;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.CollectionUtils;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
@@ -57,8 +57,8 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
     }
 
     @Override
-    public List<GroupCardResponse> findAllBySearchConditionOrderByCreatedDateDesc(List<String> cities,
-                                                                                  List<Category> categories, Pageable pageable) {
+    public List<GroupCardResponse> findAllBySearchConditionOrderByCreatedDateDesc(List<City> cities,
+        List<Category> categories, Pageable pageable) {
         QueryResults<GroupCardResponse> results = queryFactory
             .select(new QGroupCardResponse(
                 groups.id,
@@ -80,7 +80,7 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
         return new PageImpl<>(results.getResults(), pageable, results.getTotal()).getContent();
     }
 
-    private BooleanExpression cityIn(List<String> cities) {
+    private BooleanExpression cityIn(List<City> cities) {
         return CollectionUtils.isEmpty(cities) ? null : groups.city.in(cities);
     }
 

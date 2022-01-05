@@ -3,6 +3,7 @@ package com.momo.domain.post.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
+import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Groups;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.entity.PostType;
@@ -36,13 +37,13 @@ public class PostRepositoryTest extends RepositoryTest {
                 .refreshToken("refresh Token")
                 .nickname("testMan")
                 .imageUrl("http://~~")
-                .city("서울")
+                .city(City.SEOUL)
                 .district("마포구")
                 .university("한국대")
                 .build()
         );
         group = save(Groups.builder()
-            .city("서울")
+            .city(City.SEOUL)
             .district("마포")
             .imageUrl("http://~")
             .introduction("안녕하세요")

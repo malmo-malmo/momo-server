@@ -1,5 +1,6 @@
 package com.momo.domain.group.dto;
 
+import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Groups;
 import java.time.LocalDate;
@@ -18,13 +19,13 @@ public class GroupCreateRequest {
     private String name;
 
     @NotNull(message = "카테고리는 필수 입력값입니다.")
-    private String category;
+    private Category category;
 
     @NotNull(message = "학교 여부는 필수 입력값입니다.")
     private Boolean isUniversity;
 
-    @NotBlank(message = "지역은 필수 입력값입니다.")
-    private String city;
+    @NotNull(message = "지역은 필수 입력값입니다.")
+    private City city;
 
     @NotBlank(message = "지역은 필수 입력값입니다.")
     private String district;
@@ -46,7 +47,7 @@ public class GroupCreateRequest {
     private Boolean isOffline;
 
     @Builder
-    public GroupCreateRequest(String name, String category, Boolean isUniversity, String city, String district,
+    public GroupCreateRequest(String name, Category category, Boolean isUniversity, City city, String district,
         LocalDate startDate, int recruitmentCnt, String introduction, String imageUrl, Boolean isOffline) {
         this.name = name;
         this.category = category;
@@ -63,7 +64,7 @@ public class GroupCreateRequest {
     public Groups toEntity() {
         return Groups.builder()
             .name(name)
-            .category(Category.of(category))
+            .category(category)
             .city(city)
             .district(district)
             .startDate(startDate)

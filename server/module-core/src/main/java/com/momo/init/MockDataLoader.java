@@ -1,5 +1,6 @@
 package com.momo.init;
 
+import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Groups;
 import com.momo.domain.group.entity.Participant;
@@ -13,22 +14,24 @@ import com.momo.domain.schedule.repository.ScheduleRepository;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 @Component
-@Profile("local")
 @RequiredArgsConstructor
 public class MockDataLoader implements CommandLineRunner {
+
     private static final int MAX_GROUP_COUNT = 50;
     private static final int MAX_USER_COUNT = 500;
     private static final int MAX_POST_COUNT = 30;
@@ -37,7 +40,7 @@ public class MockDataLoader implements CommandLineRunner {
         Arrays.asList("서울대학교", "연세대학교", "고려대학교", "서강대학교", "성균관대학교", "한양대학교");
     private static final List<String> DISTRICTS =
         Arrays.asList("강남구", "강동구", "은평구", "서초구", "송파구", "종로구", "마포구");
-    private static final List<String> CITIES = List.of("서울특별시");
+    private static final List<City> CITIES = List.of(City.SEOUL);
 
     private final UserRepository userRepository;
     private final GroupRepository groupRepository;
@@ -47,6 +50,10 @@ public class MockDataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        long savedUserCount = userRepository.count();
+        if (savedUserCount == MAX_USER_COUNT) {
+            return;
+        }
         insertTestData();
     }
 

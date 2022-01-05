@@ -22,7 +22,7 @@ create table if not exists favorite_category
     primary key (id)
 ) engine = InnoDB;
 
-create table if not exists groups
+create table if not exists group_tb
 (
     id                 bigint  not null auto_increment,
     created_date       timestamp,
@@ -120,7 +120,7 @@ create table if not exists district
 alter table attendance
     add constraint groups_fk_attendance
         foreign key (group_id)
-            references groups (id)
+            references group_tb (id)
             on delete cascade;
 
 alter table attendance
@@ -147,7 +147,7 @@ alter table favorite_category
             references user (id)
             on delete cascade;
 
-alter table groups
+alter table group_tb
     add constraint user_fk_groups
         foreign key (manager_id)
             references user (id);
@@ -161,7 +161,7 @@ alter table image
 alter table participant
     add constraint groups_fk_participant
         foreign key (group_id)
-            references groups (id)
+            references group_tb (id)
             on delete cascade;
 
 alter table participant
@@ -179,7 +179,7 @@ alter table post
 alter table post
     add constraint groups_fk_post
         foreign key (group_id)
-            references groups (id)
+            references group_tb (id)
             on delete cascade;
 
 alter table schedule
@@ -191,5 +191,5 @@ alter table schedule
 alter table schedule
     add constraint groups_fk_schedule
         foreign key (group_id)
-            references groups (id)
+            references group_tb (id)
             on delete cascade;

@@ -5,6 +5,7 @@
 *.ipr
 
 ### server ###
+logs
 server/.gradle
 server/**/out/
 server/**/build/
@@ -12,5 +13,4 @@ server/!gradle/wrapper/gradle-wrapper.jar
 server/!**/src/main/**
 server/!**/src/test/**
 server/src/main/generated
-server/logs
 server/module-api/src/main/resources/static/docs

@@ -1,6 +1,6 @@
 package com.momo.domain.schedule.entity;
 
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.Column;
@@ -27,8 +27,8 @@ public class Attendance {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "groups_fk_attendance"))
-    private Groups group;
+    @JoinColumn(foreignKey = @ForeignKey(name = "group_tb_fk_attendance"))
+    private Group group;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "schedule_fk_attendance"))
@@ -40,14 +40,14 @@ public class Attendance {
     private boolean isAttend;
 
     @Builder
-    public Attendance(Groups group, Schedule schedule, Long userId, boolean isAttend) {
+    public Attendance(Group group, Schedule schedule, Long userId, boolean isAttend) {
         this.group = group;
         this.schedule = schedule;
         this.userId = userId;
         this.isAttend = isAttend;
     }
 
-    private static Attendance create(Attendance attendance, Groups group, Schedule schedule) {
+    private static Attendance create(Attendance attendance, Group group, Schedule schedule) {
         return Attendance.builder()
             .group(group)
             .schedule(schedule)
@@ -56,7 +56,7 @@ public class Attendance {
             .build();
     }
 
-    public static List<Attendance> createAttendances(List<Attendance> attendances, Groups group, Schedule schedule) {
+    public static List<Attendance> createAttendances(List<Attendance> attendances, Group group, Schedule schedule) {
         return attendances.stream()
             .map(attendance -> Attendance.create(attendance, group, schedule))
             .collect(Collectors.toList());

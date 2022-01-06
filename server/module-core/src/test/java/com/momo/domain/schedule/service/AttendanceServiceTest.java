@@ -10,7 +10,7 @@ import static org.mockito.Mockito.verify;
 import com.momo.common.ServiceTest;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.schedule.entity.Schedule;
 import com.momo.domain.schedule.repository.AttendanceRepository;
@@ -44,7 +44,7 @@ public class AttendanceServiceTest extends ServiceTest {
 
     private User user;
 
-    private Groups group;
+    private Group group;
 
     private Schedule schedule;
 
@@ -52,7 +52,7 @@ public class AttendanceServiceTest extends ServiceTest {
     void setUp() {
         manager = User.builder().id(1L).build();
         user = User.builder().id(2L).build();
-        group = Groups.builder()
+        group = Group.builder()
             .id(1L)
             .manager(manager)
             .build();

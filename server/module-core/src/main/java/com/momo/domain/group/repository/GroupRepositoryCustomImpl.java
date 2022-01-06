@@ -1,6 +1,6 @@
 package com.momo.domain.group.repository;
 
-import static com.momo.domain.group.entity.QGroups.groups;
+import static com.momo.domain.group.entity.QGroup.group;
 import static com.momo.domain.group.entity.QParticipant.participant;
 
 import com.momo.domain.district.entity.City;
@@ -30,29 +30,29 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
     public GroupResponse findGroupAndParticipantCntAndAuthorityById(User loginUser, Long groupId) {
         return queryFactory
             .select(new QGroupResponse(
-                groups.id,
-                groups.manager.id,
-                groups.name,
-                groups.imageUrl,
-                groups.startDate,
-                groups.university,
-                groups.city,
-                groups.district,
-                groups.isOffline,
-                groups.introduction,
-                groups.recruitmentCnt,
-                groups.isEnd,
+                group.id,
+                group.manager.id,
+                group.name,
+                group.imageUrl,
+                group.startDate,
+                group.university,
+                group.city,
+                group.district,
+                group.isOffline,
+                group.introduction,
+                group.recruitmentCnt,
+                group.isEnd,
                 JPAExpressions
                     .select(participant.count())
                     .from(participant)
-                    .where(participant.group.eq(groups)),
+                    .where(participant.group.eq(group)),
                 JPAExpressions
                     .select(participant.count().eq(1L))
                     .from(participant)
                     .where(participant.group.id.eq(groupId).and(participant.user.eq(loginUser)))
             ))
-            .from(groups)
-            .where(groups.id.eq(groupId))
+            .from(group)
+            .where(group.id.eq(groupId))
             .fetchOne();
     }
 
@@ -61,19 +61,19 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
         List<Category> categories, Pageable pageable) {
         QueryResults<GroupCardResponse> results = queryFactory
             .select(new QGroupCardResponse(
-                groups.id,
-                groups.name,
-                groups.imageUrl,
-                groups.startDate,
-                groups.isOffline,
+                group.id,
+                group.name,
+                group.imageUrl,
+                group.startDate,
+                group.isOffline,
                 countParticipantQuery()
             ))
-            .from(groups)
+            .from(group)
             .where(
                 cityIn(cities),
                 categoryIn(categories)
             )
-            .orderBy(groups.createdDate.desc())
+            .orderBy(group.createdDate.desc())
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
             .fetchResults();
@@ -81,27 +81,27 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
     }
 
     private BooleanExpression cityIn(List<City> cities) {
-        return CollectionUtils.isEmpty(cities) ? null : groups.city.in(cities);
+        return CollectionUtils.isEmpty(cities) ? null : group.city.in(cities);
     }
 
     private BooleanExpression categoryIn(List<Category> categories) {
-        return CollectionUtils.isEmpty(categories) ? null : groups.category.in(categories);
+        return CollectionUtils.isEmpty(categories) ? null : group.category.in(categories);
     }
 
     @Override
     public List<GroupCardResponse> findAllByUniversityOrderByCreatedDateDesc(String university, Pageable pageable) {
         QueryResults<GroupCardResponse> results = queryFactory
             .select(new QGroupCardResponse(
-                groups.id,
-                groups.name,
-                groups.imageUrl,
-                groups.startDate,
-                groups.isOffline,
+                group.id,
+                group.name,
+                group.imageUrl,
+                group.startDate,
+                group.isOffline,
                 countParticipantQuery()
             ))
-            .from(groups)
-            .where(groups.university.eq(university))
-            .orderBy(groups.createdDate.desc())
+            .from(group)
+            .where(group.university.eq(university))
+            .orderBy(group.createdDate.desc())
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
             .fetchResults();
@@ -112,16 +112,16 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
     public List<GroupCardResponse> findAllByDistrictOrderByCreatedDateDesc(String district, Pageable pageable) {
         QueryResults<GroupCardResponse> results = queryFactory
             .select(new QGroupCardResponse(
-                groups.id,
-                groups.name,
-                groups.imageUrl,
-                groups.startDate,
-                groups.isOffline,
+                group.id,
+                group.name,
+                group.imageUrl,
+                group.startDate,
+                group.isOffline,
                 countParticipantQuery()
             ))
-            .from(groups)
-            .where(groups.district.eq(district))
-            .orderBy(groups.createdDate.desc())
+            .from(group)
+            .where(group.district.eq(district))
+            .orderBy(group.createdDate.desc())
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
             .fetchResults();
@@ -133,16 +133,16 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
         Pageable pageable) {
         QueryResults<GroupCardResponse> results = queryFactory
             .select(new QGroupCardResponse(
-                groups.id,
-                groups.name,
-                groups.imageUrl,
-                groups.startDate,
-                groups.isOffline,
+                group.id,
+                group.name,
+                group.imageUrl,
+                group.startDate,
+                group.isOffline,
                 countParticipantQuery()
             ))
-            .from(groups)
-            .where(groups.category.in(categories))
-            .orderBy(groups.createdDate.desc())
+            .from(group)
+            .where(group.category.in(categories))
+            .orderBy(group.createdDate.desc())
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
             .fetchResults();
@@ -153,6 +153,6 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
         return JPAExpressions
             .select(participant.count())
             .from(participant)
-            .where(participant.group.eq(groups));
+            .where(participant.group.eq(group));
     }
 }

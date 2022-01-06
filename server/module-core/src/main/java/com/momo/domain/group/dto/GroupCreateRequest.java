@@ -2,7 +2,7 @@ package com.momo.domain.group.dto;
 
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -61,8 +61,8 @@ public class GroupCreateRequest {
         this.isOffline = isOffline;
     }
 
-    public Groups toEntity() {
-        return Groups.builder()
+    public Group toEntity() {
+        return Group.builder()
             .name(name)
             .category(category)
             .city(city)

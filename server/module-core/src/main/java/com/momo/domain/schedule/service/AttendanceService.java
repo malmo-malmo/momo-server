@@ -2,7 +2,7 @@ package com.momo.domain.schedule.service;
 
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.schedule.entity.Attendance;
 import com.momo.domain.schedule.entity.Schedule;
@@ -27,7 +27,7 @@ public class AttendanceService {
     private final AttendanceRepository attendanceRepository;
 
     public void create(User user, AttendanceCreateRequests requests) {
-        Groups group = getGroupById(requests.getGroupId());
+        Group group = getGroupById(requests.getGroupId());
         validateGroupManager(group, user);
         Schedule schedule = getScheduleById(requests.getScheduleId());
         schedule.updateAttendanceCheck(true);
@@ -35,12 +35,12 @@ public class AttendanceService {
         attendanceRepository.saveAll(attendances);
     }
 
-    public Groups getGroupById(Long groupId) {
+    public Group getGroupById(Long groupId) {
         return groupRepository.findById(groupId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
-    public void validateGroupManager(Groups group, User user) {
+    public void validateGroupManager(Group group, User user) {
         if (!group.isManager(user)) {
             throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
         }

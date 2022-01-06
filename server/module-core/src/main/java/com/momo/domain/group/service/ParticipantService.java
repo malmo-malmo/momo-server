@@ -2,7 +2,7 @@ package com.momo.domain.group.service;
 
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
@@ -24,7 +24,7 @@ public class ParticipantService {
 
     @Transactional(readOnly = true)
     public List<ParticipantResponse> findByGroupId(User user, Long groupId) {
-        Groups group = getGroupById(groupId);
+        Group group = getGroupById(groupId);
         validateGroupManager(group, user);
         List<Participant> participants = participantRepository.findAllByGroup(group);
         for (Participant participant : participants) {
@@ -33,24 +33,24 @@ public class ParticipantService {
         return ParticipantResponse.listOf(participants);
     }
 
-    public void validateGroupManager(Groups group, User user) {
+    public void validateGroupManager(Group group, User user) {
         if (!group.isManager(user)) {
             throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
         }
     }
 
     public void withdrawByGroupId(User user, Long groupId) {
-        Groups group = getGroupById(groupId);
+        Group group = getGroupById(groupId);
         validateNotGroupManager(group, user);
         participantRepository.deleteByGroupAndUser(group, user);
     }
 
-    public Groups getGroupById(Long groupId) {
+    public Group getGroupById(Long groupId) {
         return groupRepository.findById(groupId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
-    public void validateNotGroupManager(Groups group, User user) {
+    public void validateNotGroupManager(Group group, User user) {
         if (group.isManager(user)) {
             throw new CustomException(ErrorCode.GROUP_MANAGER_WITHDRAW_NOT_ALLOW);
         }
@@ -60,7 +60,7 @@ public class ParticipantService {
     테스트를 위해 임시로 만든 API
     */
     public void applyParticipantByGroup(User user, Long groupId) {
-        Groups group = getGroupById(groupId);
+        Group group = getGroupById(groupId);
         participantRepository.save(Participant.create(user, group));
     }
 

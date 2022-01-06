@@ -2,9 +2,7 @@ package com.momo.domain.post.entity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.domain.group.entity.Groups;
-import com.momo.domain.post.entity.Post;
-import com.momo.domain.post.entity.PostType;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.user.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,12 +14,12 @@ public class PostTest {
 
     private User user;
 
-    private Groups group;
+    private Group group;
 
     @BeforeEach
     void setUp() {
         user = User.builder().id(1L).build();
-        group = Groups.builder().id(1L).build();
+        group = Group.builder().id(1L).build();
     }
 
     @Test

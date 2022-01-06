@@ -12,7 +12,7 @@ import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
@@ -59,7 +59,7 @@ public class GroupServiceTest extends ServiceTest {
             .isOffline(true)
             .build();
 
-        given(groupRepository.save(any())).willReturn(Groups.builder().id(1L).build());
+        given(groupRepository.save(any())).willReturn(Group.builder().id(1L).build());
         given(participantRepository.save(any())).willReturn(Participant.builder().build());
 
         Long actual = groupService.create(manager, groupCreateRequest);
@@ -71,7 +71,7 @@ public class GroupServiceTest extends ServiceTest {
 
     @Test
     void 모임_권한_양도_테스트_성공() {
-        Groups group = Groups.builder()
+        Group group = Group.builder()
             .manager(manager)
             .build();
 
@@ -89,7 +89,7 @@ public class GroupServiceTest extends ServiceTest {
 
     @Test
     void 모임_관리자가_아니면_권한_양도_테스트를_실패한다() {
-        Groups group = Groups.builder()
+        Group group = Group.builder()
             .manager(manager)
             .build();
 
@@ -102,7 +102,7 @@ public class GroupServiceTest extends ServiceTest {
 
     @Test
     void 모임_참여자가_아니면_권한_양도_테스트를_실패한다() {
-        Groups group = Groups.builder()
+        Group group = Group.builder()
             .manager(manager)
             .build();
 
@@ -117,7 +117,7 @@ public class GroupServiceTest extends ServiceTest {
 
     @Test
     void 모임_종료_테스트_성공() {
-        Groups group = Groups.builder()
+        Group group = Group.builder()
             .manager(manager)
             .build();
 
@@ -131,7 +131,7 @@ public class GroupServiceTest extends ServiceTest {
 
     @Test
     void 모임_관리자가_아니면_종료_테스트를_실패한다() {
-        Groups group = Groups.builder()
+        Group group = Group.builder()
             .manager(manager)
             .build();
 

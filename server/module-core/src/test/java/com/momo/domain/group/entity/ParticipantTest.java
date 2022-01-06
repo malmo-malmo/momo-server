@@ -2,8 +2,6 @@ package com.momo.domain.group.entity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.domain.group.entity.Groups;
-import com.momo.domain.group.entity.Participant;
 import com.momo.domain.user.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,12 +13,12 @@ public class ParticipantTest {
 
     private User user;
 
-    private Groups group;
+    private Group group;
 
     @BeforeEach
     void setUp() {
         user = User.builder().id(1L).build();
-        group = Groups.builder()
+        group = Group.builder()
             .id(1L)
             .manager(user)
             .build();

@@ -1,7 +1,7 @@
 package com.momo.domain.schedule.entity;
 
 import com.momo.domain.common.entity.BaseEntity;
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
@@ -28,8 +28,8 @@ public class Schedule extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "groups_fk_schedule"))
-    private Groups group;
+    @JoinColumn(foreignKey = @ForeignKey(name = "group_tb_fk_schedule"))
+    private Group group;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", foreignKey = @ForeignKey(name = "user_fk_schedule"))
@@ -47,7 +47,7 @@ public class Schedule extends BaseEntity {
     private boolean attendanceCheck = false;
 
     @Builder
-    public Schedule(Long id, Groups group, User author, String title, boolean isOffline,
+    public Schedule(Long id, Group group, User author, String title, boolean isOffline,
         LocalDateTime startDateTime, String contents) {
         this.id = id;
         this.group = group;
@@ -58,7 +58,7 @@ public class Schedule extends BaseEntity {
         this.contents = contents;
     }
 
-    public static Schedule create(Schedule schedule, Groups group, User user) {
+    public static Schedule create(Schedule schedule, Group group, User user) {
         return Schedule.builder()
             .group(group)
             .author(user)

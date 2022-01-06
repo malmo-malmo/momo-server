@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.momo.common.RepositoryTest;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.user.entity.SocialProvider;
@@ -27,7 +27,7 @@ public class GroupRepositoryTest extends RepositoryTest {
 
     User user;
 
-    Groups group;
+    Group group;
 
     @BeforeEach
     void before() {
@@ -43,7 +43,7 @@ public class GroupRepositoryTest extends RepositoryTest {
                 .university("한국대")
                 .build()
         );
-        group = save(Groups.builder()
+        group = save(Group.builder()
             .city(City.SEOUL)
             .district("마포")
             .imageUrl("http://~")
@@ -59,7 +59,7 @@ public class GroupRepositoryTest extends RepositoryTest {
     }
     @Test
     public void 모임을_저장한다() {
-        Groups group = groupRepository.findAll().get(0);
+        Group group = groupRepository.findAll().get(0);
 
         Assertions.assertAll(
             () -> assertThat(group).isEqualTo(this.group),

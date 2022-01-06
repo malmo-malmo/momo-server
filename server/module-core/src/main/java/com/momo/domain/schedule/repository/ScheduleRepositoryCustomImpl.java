@@ -1,12 +1,12 @@
 package com.momo.domain.schedule.repository;
 
-import static com.momo.domain.group.entity.QGroups.groups;
+import static com.momo.domain.group.entity.QGroup.group;
 import static com.momo.domain.group.entity.QParticipant.participant;
 import static com.momo.domain.schedule.entity.QAttendance.attendance;
 import static com.momo.domain.schedule.entity.QSchedule.schedule;
 import static com.momo.domain.user.entity.QUser.user;
 
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.schedule.dto.GroupScheduleResponse;
 import com.momo.domain.schedule.dto.QGroupScheduleResponse;
 import com.momo.domain.schedule.entity.Schedule;
@@ -26,7 +26,7 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<GroupScheduleResponse> findAllByGroupAndUserOrderByCreatedDateDesc(Groups group, Long userId,
+    public List<GroupScheduleResponse> findAllByGroupAndUserOrderByCreatedDateDesc(Group group, Long userId,
                                                                                    Pageable pageable) {
         List<GroupScheduleResponse> content = queryFactory
             .select(new QGroupScheduleResponse(
@@ -63,7 +63,7 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
                                                         User user) {
         return queryFactory
             .selectFrom(schedule)
-            .leftJoin(schedule.group, groups).fetchJoin()
+            .leftJoin(schedule.group, group).fetchJoin()
             .where(schedule.group.in(
                 JPAExpressions
                     .select(participant.group)

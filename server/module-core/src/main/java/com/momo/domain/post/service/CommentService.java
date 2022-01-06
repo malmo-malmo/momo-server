@@ -2,7 +2,7 @@ package com.momo.domain.post.service;
 
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.post.entity.Comment;
 import com.momo.domain.post.entity.Post;
@@ -51,7 +51,7 @@ public class CommentService {
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
-    public void validateParticipant(Groups group, User user) {
+    public void validateParticipant(Group group, User user) {
         if (!participantRepository.existsByGroupAndUser(group, user)) {
             throw new CustomException(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED);
         }

@@ -11,7 +11,7 @@ import static org.mockito.Mockito.verify;
 import com.momo.common.ServiceTest;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.post.entity.Post;
@@ -48,14 +48,14 @@ public class PostServiceTest extends ServiceTest {
 
     private User user;
 
-    private Groups group;
+    private Group group;
 
     @BeforeEach
     void setUp() {
         manager = User.builder().id(1L).build();
         participant = User.builder().id(2L).build();
         user = User.builder().id(3L).build();
-        group = Groups.builder()
+        group = Group.builder()
             .id(1L)
             .manager(manager)
             .build();

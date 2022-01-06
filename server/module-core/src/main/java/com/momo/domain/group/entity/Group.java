@@ -25,14 +25,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "group_tb")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Groups extends BaseEntity {
+public class Group extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "manager_id", foreignKey = @ForeignKey(name = "user_fk_groups"))
+    @JoinColumn(name = "manager_id", foreignKey = @ForeignKey(name = "user_fk_group_tb"))
     private User manager;
 
     private String name;
@@ -61,7 +61,7 @@ public class Groups extends BaseEntity {
     private boolean isEnd;
 
     @Builder
-    public Groups(Long id, User manager, String name, String imageUrl, Category category, LocalDate startDate,
+    public Group(Long id, User manager, String name, String imageUrl, Category category, LocalDate startDate,
         String university, City city, String district, String introduction, int recruitmentCnt, boolean isOffline,
         boolean isEnd) {
         this.id = id;
@@ -79,8 +79,8 @@ public class Groups extends BaseEntity {
         this.isEnd = isEnd;
     }
 
-    public static Groups create(User user, Groups group, boolean isUniversity) {
-        return Groups.builder()
+    public static Group create(User user, Group group, boolean isUniversity) {
+        return Group.builder()
             .manager(user)
             .name(group.getName())
             .imageUrl(group.getImageUrl())

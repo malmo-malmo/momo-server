@@ -2,8 +2,7 @@ package com.momo.domain.schedule.entity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.domain.group.entity.Groups;
-import com.momo.domain.schedule.entity.Schedule;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Assertions;
@@ -16,12 +15,12 @@ public class ScheduleTest {
 
     private User user;
 
-    private Groups group;
+    private Group group;
 
     @BeforeEach
     void setUp() {
         user = User.builder().id(1L).build();
-        group = Groups.builder().id(1L).build();
+        group = Group.builder().id(1L).build();
     }
 
     @Test

@@ -2,9 +2,7 @@ package com.momo.domain.schedule.entity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.domain.group.entity.Groups;
-import com.momo.domain.schedule.entity.Attendance;
-import com.momo.domain.schedule.entity.Schedule;
+import com.momo.domain.group.entity.Group;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,13 +12,13 @@ import org.junit.jupiter.api.Test;
 @DisplayName("Attendance POJO 테스트")
 public class AttendanceTest {
 
-    private Groups group;
+    private Group group;
 
     private Schedule schedule;
 
     @BeforeEach
     void setUp() {
-        group = Groups.builder().id(1L).build();
+        group = Group.builder().id(1L).build();
         schedule = Schedule.builder().id(1L).build();
     }
 

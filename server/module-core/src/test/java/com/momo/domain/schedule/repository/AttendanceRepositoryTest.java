@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
 import com.momo.domain.district.entity.City;
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.schedule.entity.Attendance;
 import com.momo.domain.schedule.entity.Schedule;
 import com.momo.domain.user.entity.SocialProvider;
@@ -34,7 +34,7 @@ public class AttendanceRepositoryTest extends RepositoryTest {
             .district("마포구")
             .university("한국대")
             .build());
-        Groups group = save(Groups.builder()
+        Group group = save(Group.builder()
             .city(City.SEOUL)
             .district("마포")
             .imageUrl("http://~")

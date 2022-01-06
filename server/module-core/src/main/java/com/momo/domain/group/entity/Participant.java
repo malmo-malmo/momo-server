@@ -27,8 +27,8 @@ public class Participant extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "groups_fk_participant"))
-    private Groups group;
+    @JoinColumn(foreignKey = @ForeignKey(name = "group_tb_fk_participant"))
+    private Group group;
 
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "user_fk_participant"))
@@ -44,7 +44,7 @@ public class Participant extends BaseEntity {
     private int attendanceRate;
 
     @Builder
-    public Participant(Long id, Groups group, User user, int scheduleCount, int attendanceCount, int attendanceRate) {
+    public Participant(Long id, Group group, User user, int scheduleCount, int attendanceCount, int attendanceRate) {
         this.id = id;
         this.group = group;
         this.user = user;
@@ -53,7 +53,7 @@ public class Participant extends BaseEntity {
         this.attendanceRate = attendanceRate;
     }
 
-    public static Participant create(User user, Groups group) {
+    public static Participant create(User user, Group group) {
         return Participant.builder()
             .user(user)
             .group(group)

@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
 import com.momo.domain.district.entity.City;
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.post.entity.Image;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.entity.PostType;
@@ -43,7 +43,7 @@ public class ImageRepositoryTest extends RepositoryTest {
                 .university("한국대")
                 .build()
         );
-        Groups group = save(Groups.builder()
+        Group group = save(Group.builder()
             .city(City.SEOUL)
             .district("마포")
             .imageUrl("http://~")

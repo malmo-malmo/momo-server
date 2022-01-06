@@ -1,7 +1,7 @@
 package com.momo.domain.post.entity;
 
 import com.momo.domain.common.entity.BaseEntity;
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.user.entity.User;
 import java.util.List;
 import javax.persistence.Embedded;
@@ -35,8 +35,8 @@ public class Post extends BaseEntity {
     private User author;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "groups_fk_post"))
-    private Groups group;
+    @JoinColumn(foreignKey = @ForeignKey(name = "group_tb_fk_post"))
+    private Group group;
 
     private String title;
 
@@ -50,7 +50,7 @@ public class Post extends BaseEntity {
     private final Images images = Images.empty();
 
     @Builder
-    public Post(Long id, User author, Groups group, String title, String contents, PostType type) {
+    public Post(Long id, User author, Group group, String title, String contents, PostType type) {
         this.id = id;
         this.author = author;
         this.group = group;
@@ -59,7 +59,7 @@ public class Post extends BaseEntity {
         this.type = type;
     }
 
-    public static Post create(User user, Groups group, Post post) {
+    public static Post create(User user, Group group, Post post) {
         return Post.builder()
             .author(user)
             .group(group)

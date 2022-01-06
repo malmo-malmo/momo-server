@@ -6,7 +6,7 @@ import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.dto.GroupSearchConditionRequest;
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
@@ -30,8 +30,8 @@ public class GroupService {
     private final UserRepository userRepository;
 
     public Long create(User user, GroupCreateRequest groupCreateRequest) {
-        Groups group = Groups.create(user, groupCreateRequest.toEntity(), groupCreateRequest.getIsUniversity());
-        Groups savedGroup = groupRepository.save(group);
+        Group group = Group.create(user, groupCreateRequest.toEntity(), groupCreateRequest.getIsUniversity());
+        Group savedGroup = groupRepository.save(group);
         Participant participant = Participant.create(user, savedGroup);
         participantRepository.save(participant);
         return savedGroup.getId();
@@ -70,7 +70,7 @@ public class GroupService {
     }
 
     public void updateManagerByUserId(User user, Long groupId, Long userId) {
-        Groups group = getGroupById(groupId);
+        Group group = getGroupById(groupId);
         validateGroupManager(group, user);
         User participant = getUserById(userId);
         validateParticipant(group, participant);
@@ -78,12 +78,12 @@ public class GroupService {
     }
 
     public void endGroupById(User user, Long groupId) {
-        Groups group = getGroupById(groupId);
+        Group group = getGroupById(groupId);
         validateGroupManager(group, user);
         group.endGroup();
     }
 
-    public Groups getGroupById(Long groupId) {
+    public Group getGroupById(Long groupId) {
         return groupRepository.findById(groupId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
@@ -93,13 +93,13 @@ public class GroupService {
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
-    public void validateGroupManager(Groups group, User user) {
+    public void validateGroupManager(Group group, User user) {
         if (!group.isManager(user)) {
             throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
         }
     }
 
-    public void validateParticipant(Groups group, User user) {
+    public void validateParticipant(Group group, User user) {
         if (!participantRepository.existsByGroupAndUser(group, user)) {
             throw new CustomException(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED);
         }

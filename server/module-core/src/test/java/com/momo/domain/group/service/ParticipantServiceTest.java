@@ -10,7 +10,7 @@ import static org.mockito.Mockito.verify;
 import com.momo.common.ServiceTest;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
@@ -51,7 +51,7 @@ public class ParticipantServiceTest extends ServiceTest {
 
     @Test
     void 모임_참여자_목록_조회_테스트() {
-        Groups group = Groups.builder()
+        Group group = Group.builder()
             .manager(manager)
             .build();
         Participant participant1 = Participant.builder()
@@ -93,7 +93,7 @@ public class ParticipantServiceTest extends ServiceTest {
 
     @Test
     void 모임_관리자가_아니면_참여자_목록_조회_테스트가_실패한다() {
-        Groups group = Groups.builder()
+        Group group = Group.builder()
             .manager(manager)
             .build();
 
@@ -106,7 +106,7 @@ public class ParticipantServiceTest extends ServiceTest {
 
     @Test
     void 모임_탈퇴_테스트() {
-        Groups group = Groups.builder()
+        Group group = Group.builder()
             .manager(manager)
             .build();
         given(groupRepository.findById(any())).willReturn(of(group));
@@ -116,7 +116,7 @@ public class ParticipantServiceTest extends ServiceTest {
 
     @Test
     void 모임_관리자가_탈퇴를_시도하면_테스트가_실패한다() {
-        Groups group = Groups.builder()
+        Group group = Group.builder()
             .manager(manager)
             .build();
 

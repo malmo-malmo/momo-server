@@ -10,7 +10,7 @@ import static org.mockito.Mockito.verify;
 import com.momo.common.ServiceTest;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.post.entity.Comment;
 import com.momo.domain.post.entity.Post;
@@ -53,7 +53,7 @@ public class CommentServiceTest extends ServiceTest {
 
     @BeforeEach
     void setUp() {
-        Groups group = Groups.builder().id(1L).build();
+        Group group = Group.builder().id(1L).build();
         post = Post.builder()
             .id(1L)
             .group(group)

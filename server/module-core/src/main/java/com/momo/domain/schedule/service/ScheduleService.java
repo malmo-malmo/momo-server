@@ -2,7 +2,7 @@ package com.momo.domain.schedule.service;
 
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.schedule.entity.Schedule;
@@ -33,13 +33,13 @@ public class ScheduleService {
     private final ParticipantRepository participantRepository;
 
     public Long create(User user, ScheduleCreateRequest request) {
-        Groups group = getGroupById(request.getGroupId());
+        Group group = getGroupById(request.getGroupId());
         validateGroupManager(group, user);
         Schedule schedule = Schedule.create(request.toEntity(), group, user);
         return scheduleRepository.save(schedule).getId();
     }
 
-    public void validateGroupManager(Groups group, User user) {
+    public void validateGroupManager(Group group, User user) {
         if (!group.isManager(user)) {
             throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
         }
@@ -47,7 +47,7 @@ public class ScheduleService {
 
     @Transactional(readOnly = true)
     public GroupScheduleResponses findPageByUserAndGroupId(User user, GroupSchedulesRequest request) {
-        Groups group = getGroupById(request.getGroupId());
+        Group group = getGroupById(request.getGroupId());
         validateParticipant(group, user);
         PageRequest pageRequest = PageRequest.of(request.getPage(), request.getSize());
         List<GroupScheduleResponse> responses = scheduleRepository
@@ -55,7 +55,7 @@ public class ScheduleService {
         return GroupScheduleResponses.of(responses, group.getManager().getId());
     }
 
-    public void validateParticipant(Groups group, User user) {
+    public void validateParticipant(Group group, User user) {
         if (!participantRepository.existsByGroupAndUser(group, user)) {
             throw new CustomException(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED);
         }
@@ -70,7 +70,7 @@ public class ScheduleService {
         return UserScheduleResponse.listOf(schedules);
     }
 
-    public Groups getGroupById(Long groupId) {
+    public Group getGroupById(Long groupId) {
         return groupRepository.findById(groupId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }

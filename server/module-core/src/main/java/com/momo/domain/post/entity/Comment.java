@@ -38,13 +38,12 @@ public class Comment extends BaseEntity {
     private String contents;
 
     @Builder
-    public Comment(Long id, Post post, User user, String contents, LocalDateTime createdDate,
-        LocalDateTime lastModifiedDate) {
-        super(createdDate, lastModifiedDate);
+    public Comment(Long id, Post post, User user, String contents, LocalDateTime createdDate) {
         this.id = id;
         this.post = post;
         this.user = user;
         this.contents = contents;
+        this.createdDate = createdDate;
     }
 
     public static Comment create(Post post, User user, String contents) {

@@ -1,7 +1,6 @@
 package com.momo.common;
 
 import com.google.common.base.CaseFormat;
-import com.momo.TestProfile;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import java.util.Optional;
@@ -20,11 +19,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
 
 @Disabled
 @DataJpaTest
-@ActiveProfiles(TestProfile.LOCAL)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import(TestConfig.class)
 public class RepositoryTest implements InitializingBean {

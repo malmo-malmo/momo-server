@@ -14,6 +14,15 @@ import org.springframework.restdocs.request.ParameterDescriptor;
 
 public class UserDocumentation {
 
+    public static RestDocumentationResultHandler createFavoriteGroup() {
+        FieldDescriptor[] request = new FieldDescriptor[]{
+            fieldWithPath("groupId").type(JsonFieldType.NUMBER).description("모임 ID")
+        };
+        return document("user/createFavoriteGroup",
+            requestFields(request)
+        );
+    }
+
     public static RestDocumentationResultHandler findMyInformation() {
         FieldDescriptor[] responseUser = new FieldDescriptor[]{
             fieldWithPath("id").type(JsonFieldType.NUMBER).description("유저 ID"),
@@ -37,6 +46,21 @@ public class UserDocumentation {
         };
         return document("user/validateDuplicateNickname",
             requestParameters(requestParam)
+        );
+    }
+
+    public static RestDocumentationResultHandler findFavoriteGroups() {
+        FieldDescriptor[] response = new FieldDescriptor[]{
+            fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("관심 모임 ID"),
+            fieldWithPath("[].groupCardResponse.id").type(JsonFieldType.NUMBER).description("모임 ID"),
+            fieldWithPath("[].groupCardResponse.name").type(JsonFieldType.STRING).description("모임 이름"),
+            fieldWithPath("[].groupCardResponse.imageUrl").type(JsonFieldType.STRING).description("모임 대표 이미지 URL"),
+            fieldWithPath("[].groupCardResponse.startDate").type(JsonFieldType.STRING).description("모임 시작 날짜"),
+            fieldWithPath("[].groupCardResponse.offline").type(JsonFieldType.BOOLEAN).description("모임 오프라인 여부"),
+            fieldWithPath("[].groupCardResponse.participantCnt").type(JsonFieldType.NUMBER).description("모임 참여자 수")
+        };
+        return document("user/findFavoriteGroups",
+            responseFields(response)
         );
     }
 

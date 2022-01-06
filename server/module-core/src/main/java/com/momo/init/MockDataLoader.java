@@ -2,7 +2,7 @@ package com.momo.init;
 
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
-import com.momo.domain.group.entity.Groups;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
@@ -51,7 +51,7 @@ public class MockDataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) {
         long savedUserCount = userRepository.count();
-        if (savedUserCount == MAX_USER_COUNT) {
+        if (savedUserCount > 0) {
             return;
         }
         insertTestData();
@@ -60,7 +60,7 @@ public class MockDataLoader implements CommandLineRunner {
     @Transactional
     public void insertTestData() {
         List<User> savedManagers = insertManager();
-        List<Groups> savedGroups = insertGroup(savedManagers);
+        List<Group> savedGroups = insertGroup(savedManagers);
         List<User> savedUsers = insertUser();
         insertParticipant(savedGroups, savedUsers);
         insertPost(savedGroups);
@@ -85,15 +85,15 @@ public class MockDataLoader implements CommandLineRunner {
         return userRepository.saveAll(managers);
     }
 
-    public List<Groups> insertGroup(List<User> managers) {
+    public List<Group> insertGroup(List<User> managers) {
         Random random = new Random();
-        List<Groups> groups = new ArrayList<>();
+        List<Group> groups = new ArrayList<>();
         List<Category> categories = Stream.of(Category.values()).collect(Collectors.toList());
         for (int count = 1; count <= MAX_GROUP_COUNT; count++) {
             Collections.shuffle(categories);
             Collections.shuffle(UNIVERSITIES);
             Collections.shuffle(DISTRICTS);
-            Groups group = Groups.builder()
+            Group group = Group.builder()
                 .manager(managers.get(count - 1))
                 .name("모임" + count)
                 .category(categories.get(0))
@@ -136,10 +136,10 @@ public class MockDataLoader implements CommandLineRunner {
         return userRepository.saveAll(users);
     }
 
-    public void insertParticipant(List<Groups> groups, List<User> users) {
+    public void insertParticipant(List<Group> groups, List<User> users) {
         List<Participant> participants = new ArrayList<>();
         int userCount = 0;
-        for (Groups group : groups) {
+        for (Group group : groups) {
             Participant manager = Participant.builder()
                 .user(group.getManager())
                 .group(group)
@@ -158,9 +158,9 @@ public class MockDataLoader implements CommandLineRunner {
         participantRepository.saveAll(participants);
     }
 
-    public void insertPost(List<Groups> groups) {
+    public void insertPost(List<Group> groups) {
         List<Post> posts = new ArrayList<>();
-        for (Groups group : groups) {
+        for (Group group : groups) {
             for (int count = 1; count <= MAX_POST_COUNT; count++) {
                 Post post = Post.builder()
                     .author(group.getManager())
@@ -175,9 +175,9 @@ public class MockDataLoader implements CommandLineRunner {
         postRepository.saveAll(posts);
     }
 
-    public void insertSchedule(List<Groups> groups) {
+    public void insertSchedule(List<Group> groups) {
         List<Schedule> schedules = new ArrayList<>();
-        for (Groups group : groups) {
+        for (Group group : groups) {
             for (int count = 1; count <= MAX_SCHEDULE_COUNT; count++) {
                 Schedule schedule = Schedule.builder()
                     .author(group.getManager())

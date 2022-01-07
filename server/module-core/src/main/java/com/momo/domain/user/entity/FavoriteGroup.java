@@ -30,7 +30,7 @@ public class FavoriteGroup extends BaseEntity {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "group_fk_favorite_group"))
+    @JoinColumn(foreignKey = @ForeignKey(name = "group_tb_fk_favorite_group"))
     private Group group;
 
     @Builder

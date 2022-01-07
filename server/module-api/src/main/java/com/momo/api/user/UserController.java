@@ -3,6 +3,7 @@ package com.momo.api.user;
 import com.momo.common.CurrentUser;
 import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.user.dto.FavoriteGroupCardResponse;
+import com.momo.domain.user.dto.FavoriteGroupCountResponse;
 import com.momo.domain.user.dto.FavoriteGroupCreateRequest;
 import com.momo.domain.user.dto.UserResponse;
 import com.momo.domain.user.dto.UserUpdateRequest;
@@ -13,8 +14,10 @@ import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
-
     private final FavoriteGroupService favoriteGroupService;
 
     @PostMapping("/favorite-group")
@@ -48,6 +50,11 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/favorite-group-count")
+    public ResponseEntity<FavoriteGroupCountResponse> findFavoriteGroupCount(@CurrentUser User user) {
+        return ResponseEntity.ok(favoriteGroupService.count(user));
+    }
+
     @GetMapping("/favorite-groups")
     public ResponseEntity<List<FavoriteGroupCardResponse>> findFavoriteGroups(@CurrentUser User user) {
         List<FavoriteGroupCardResponse> responses = favoriteGroupService.findAll(user);
@@ -66,5 +73,11 @@ public class UserController {
         @Valid @RequestBody FavoriteCategoriesUpdateRequest request) {
         userService.updateFavoriteCategories(user, request);
         return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/favorite-group/{id}")
+    public ResponseEntity<Void> deleteFavoriteGroup(@CurrentUser User user, @PathVariable Long id) {
+        favoriteGroupService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

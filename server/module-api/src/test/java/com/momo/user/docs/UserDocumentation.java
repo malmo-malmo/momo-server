@@ -5,6 +5,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 
 import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
@@ -49,6 +50,15 @@ public class UserDocumentation {
         );
     }
 
+    public static RestDocumentationResultHandler findFavoriteGroupCount() {
+        FieldDescriptor[] response = new FieldDescriptor[]{
+            fieldWithPath("count").type(JsonFieldType.NUMBER).description("관심 모임 수"),
+        };
+        return document("user/findFavoriteGroupCount",
+            responseFields(response)
+        );
+    }
+
     public static RestDocumentationResultHandler findFavoriteGroups() {
         FieldDescriptor[] response = new FieldDescriptor[]{
             fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("관심 모임 ID"),
@@ -83,6 +93,14 @@ public class UserDocumentation {
         };
         return document("user/updateFavoriteCategories",
             requestFields(requestUser)
+        );
+    }
+
+    public static RestDocumentationResultHandler deleteFavoriteGroup() {
+        return document("user/deleteFavoriteGroup",
+            pathParameters(
+                parameterWithName("id").description("모임 ID")
+            )
         );
     }
 }

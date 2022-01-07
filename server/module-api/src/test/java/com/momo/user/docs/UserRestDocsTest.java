@@ -2,6 +2,7 @@ package com.momo.user.docs;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
@@ -15,6 +16,7 @@ import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.user.dto.FavoriteGroupCardResponse;
+import com.momo.domain.user.dto.FavoriteGroupCountResponse;
 import com.momo.domain.user.dto.FavoriteGroupCreateRequest;
 import com.momo.domain.user.dto.UserUpdateRequest;
 import com.momo.domain.user.entity.User;
@@ -89,6 +91,16 @@ public class UserRestDocsTest extends RestDocsControllerTest {
     }
 
     @Test
+    void 관심_모임_수_조회() throws Exception {
+        FavoriteGroupCountResponse response = new FavoriteGroupCountResponse(10L);
+        when(favoriteGroupService.count(any())).thenReturn(response);
+        super.mockMvc.perform(get("/api/user/favorite-group-count"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(UserDocumentation.findFavoriteGroupCount());
+    }
+
+    @Test
     void 관심_모임_목록_조회() throws Exception {
         List<FavoriteGroupCardResponse> responses = List.of(
             FavoriteGroupCardResponse.builder()
@@ -144,5 +156,13 @@ public class UserRestDocsTest extends RestDocsControllerTest {
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(UserDocumentation.updateFavoriteCategories());
+    }
+
+    @Test
+    void 관심_모임_삭제() throws Exception {
+        super.mockMvc.perform(delete("/api/user/favorite-group/{id}", 1L))
+            .andDo(print())
+            .andExpect(status().isNoContent())
+            .andDo(UserDocumentation.deleteFavoriteGroup());
     }
 }

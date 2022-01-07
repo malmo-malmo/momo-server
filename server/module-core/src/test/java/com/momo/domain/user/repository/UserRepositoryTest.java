@@ -1,103 +1,94 @@
 package com.momo.domain.user.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.momo.common.RepositoryTest;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
-import java.util.Optional;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-@DisplayName("참가자 레포지토리 테스트")
+@DisplayName("유저 레포지토리 테스트")
 public class UserRepositoryTest extends RepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
 
+    private User user;
+
     @BeforeEach
-    public void before() {
-        userRepository.save(
+    void before() {
+        user = userRepository.save(
             User.builder()
                 .provider(SocialProvider.KAKAO)
                 .providerId("test")
-                .refreshToken("refresh Token")
-                .nickname("testMan")
-                .imageUrl("http://~~")
+                .refreshToken("refreshToken")
+                .nickname("닉네임")
+                .imageUrl("이미지 URL")
                 .city(City.SEOUL)
                 .district("마포구")
-                .university("한국대")
+                .university("서울대학교")
                 .build()
         );
     }
 
     @Test
-    public void 유저를_저장한다() {
+    void 유저를_저장한다() {
         User user = userRepository.findAll().get(0);
         Assertions.assertAll(
             () -> assertThat(user.getId()).isNotNull(),
-            () -> assertThat(user.getProvider()).isEqualTo(SocialProvider.KAKAO),
-            () -> assertThat(user.getProviderId()).isEqualTo("test"),
-            () -> assertThat(user.getRefreshToken()).isEqualTo("refresh Token"),
-            () -> assertThat(user.getNickname()).isEqualTo("testMan"),
-            () -> assertThat(user.getImageUrl()).isEqualTo("http://~~"),
-            () -> assertThat(user.getCity()).isEqualTo(City.SEOUL),
-            () -> assertThat(user.getDistrict()).isEqualTo("마포구"),
-            () -> assertThat(user.getUniversity()).isEqualTo("한국대")
+            () -> assertThat(user.getProvider()).isEqualTo(user.getProvider()),
+            () -> assertThat(user.getProviderId()).isEqualTo(user.getProviderId()),
+            () -> assertThat(user.getRefreshToken()).isEqualTo(user.getRefreshToken()),
+            () -> assertThat(user.getNickname()).isEqualTo(user.getNickname()),
+            () -> assertThat(user.getImageUrl()).isEqualTo(user.getImageUrl()),
+            () -> assertThat(user.getCity()).isEqualTo(user.getCity()),
+            () -> assertThat(user.getDistrict()).isEqualTo(user.getDistrict()),
+            () -> assertThat(user.getUniversity()).isEqualTo(user.getUniversity())
         );
     }
 
     @Test
-    public void 리프레쉬_토큰으로_유저를_조회한다() {
-        User user = getUser(userRepository.findByRefreshToken("refresh Token"));
-
+    void 리프레쉬_토큰으로_유저를_조회한다() {
+        User actual = userRepository.findByRefreshToken(user.getRefreshToken()).get();
         Assertions.assertAll(
-            () -> assertThat(user).isNotNull(),
-            () -> assertThat(user.getId()).isNotNull(),
-            () -> assertThat(user.getProvider()).isEqualTo(SocialProvider.KAKAO),
-            () -> assertThat(user.getProviderId()).isEqualTo("test"),
-            () -> assertThat(user.getRefreshToken()).isEqualTo("refresh Token"),
-            () -> assertThat(user.getNickname()).isEqualTo("testMan"),
-            () -> assertThat(user.getImageUrl()).isEqualTo("http://~~"),
-            () -> assertThat(user.getCity()).isEqualTo(City.SEOUL),
-            () -> assertThat(user.getDistrict()).isEqualTo("마포구"),
-            () -> assertThat(user.getUniversity()).isEqualTo("한국대")
+            () -> assertThat(actual).isNotNull(),
+            () -> assertThat(actual.getId()).isNotNull(),
+            () -> assertThat(actual.getProvider()).isEqualTo(user.getProvider()),
+            () -> assertThat(actual.getProviderId()).isEqualTo(user.getProviderId()),
+            () -> assertThat(actual.getRefreshToken()).isEqualTo(user.getRefreshToken()),
+            () -> assertThat(actual.getNickname()).isEqualTo(user.getNickname()),
+            () -> assertThat(actual.getImageUrl()).isEqualTo(user.getImageUrl()),
+            () -> assertThat(actual.getCity()).isEqualTo(user.getCity()),
+            () -> assertThat(actual.getDistrict()).isEqualTo(user.getDistrict()),
+            () -> assertThat(actual.getUniversity()).isEqualTo(user.getUniversity())
         );
     }
 
     @Test
-    public void 공급자ID_공급자이름으로_유저를_조회한다() {
-        String providerId = "test";
-        SocialProvider provider = SocialProvider.KAKAO;
-
-        User user = getUser(userRepository.findByProviderIdAndProvider(providerId, provider));
+    void 공급자ID_공급자이름으로_유저를_조회한다() {
+        User actual = userRepository.findByProviderIdAndProvider(user.getProviderId(), user.getProvider()).get();
         Assertions.assertAll(
-            () -> assertThat(user).isNotNull(),
-            () -> assertThat(user.getId()).isNotNull(),
-            () -> assertThat(user.getProvider()).isEqualTo(SocialProvider.KAKAO),
-            () -> assertThat(user.getProviderId()).isEqualTo("test"),
-            () -> assertThat(user.getRefreshToken()).isEqualTo("refresh Token"),
-            () -> assertThat(user.getNickname()).isEqualTo("testMan"),
-            () -> assertThat(user.getImageUrl()).isEqualTo("http://~~"),
-            () -> assertThat(user.getCity()).isEqualTo(City.SEOUL),
-            () -> assertThat(user.getDistrict()).isEqualTo("마포구"),
-            () -> assertThat(user.getUniversity()).isEqualTo("한국대")
+            () -> assertThat(actual).isNotNull(),
+            () -> assertThat(actual.getId()).isNotNull(),
+            () -> assertThat(actual.getProvider()).isEqualTo(user.getProvider()),
+            () -> assertThat(actual.getProviderId()).isEqualTo(user.getProviderId()),
+            () -> assertThat(actual.getRefreshToken()).isEqualTo(user.getRefreshToken()),
+            () -> assertThat(actual.getNickname()).isEqualTo(user.getNickname()),
+            () -> assertThat(actual.getImageUrl()).isEqualTo(user.getImageUrl()),
+            () -> assertThat(actual.getCity()).isEqualTo(user.getCity()),
+            () -> assertThat(actual.getDistrict()).isEqualTo(user.getDistrict()),
+            () -> assertThat(actual.getUniversity()).isEqualTo(user.getUniversity())
         );
     }
 
     @Test
-    public void 해당_닉네임을_가진_유저가_있는지_확인한다() {
-        boolean isExistsNickname = userRepository.existsByNickname("testMan");
-        assertThat(isExistsNickname).isTrue();
-    }
-
-    private User getUser(Optional<User> optionalUser) {
-        assertThat(optionalUser.isPresent()).isTrue();
-        return optionalUser.get();
+    void 해당_닉네임을_가진_유저가_있는지_확인한다() {
+        boolean actual = userRepository.existsByNickname(user.getNickname());
+        assertThat(actual).isTrue();
     }
 }

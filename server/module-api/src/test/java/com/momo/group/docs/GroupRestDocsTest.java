@@ -49,7 +49,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .startDate(LocalDate.now())
             .recruitmentCnt(4)
             .introduction("테스트 모임입니다.")
-            .imageUrl("http://~~")
+            .imageUrl("이미지 URL")
             .isOffline(false)
             .build();
         String content = super.objectMapper.writeValueAsString(request);
@@ -67,7 +67,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .id(1L)
             .managerId(2L)
             .name("A 모임")
-            .imageUrl("http://~~")
+            .imageUrl("이미지 URL")
             .startDate(LocalDate.now())
             .university("한국대")
             .city(City.SEOUL)
@@ -89,15 +89,16 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
 
     @Test
     public void 모임_목록_조회_검색() throws Exception {
-        when(groupService.findPageBySearchCondition(any()))
+        when(groupService.findPageBySearchCondition(any(), any()))
             .thenReturn(List.of(
                 GroupCardResponse.builder()
                     .id(1L)
                     .name("A 모임")
-                    .imageUrl("http://~~")
+                    .imageUrl("이미지 URL")
                     .startDate(LocalDate.now())
                     .isOffline(false)
                     .participantCnt(3L)
+                    .isFavoriteGroup(false)
                     .build()
             ));
         super.mockMvc.perform(get("/api/groups/search/paging")
@@ -111,6 +112,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .andExpect(status().isOk())
             .andDo(GroupDocumentation.findPageBySearchCondition());
     }
+
     @Test
     public void 모임_목록_조회_내학교더보기() throws Exception {
         when(groupService.findPageByUserUniversity(any(), anyInt(), anyInt()))
@@ -118,10 +120,11 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
                 GroupCardResponse.builder()
                     .id(1L)
                     .name("A 모임")
-                    .imageUrl("http://~~")
+                    .imageUrl("이미지 URL")
                     .startDate(LocalDate.now())
                     .isOffline(false)
                     .participantCnt(3L)
+                    .isFavoriteGroup(false)
                     .build()
             ));
         super.mockMvc.perform(get("/api/groups/user-university/paging")
@@ -131,6 +134,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .andExpect(status().isOk())
             .andDo(GroupDocumentation.findPageByUserUniversity());
     }
+
     @Test
     public void 모임_목록_조회_주변더보기() throws Exception {
         when(groupService.findPageByUserDistrict(any(), anyInt(), anyInt()))
@@ -138,10 +142,11 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
                 GroupCardResponse.builder()
                     .id(1L)
                     .name("A 모임")
-                    .imageUrl("http://~~")
+                    .imageUrl("이미지 URL")
                     .startDate(LocalDate.now())
                     .isOffline(false)
                     .participantCnt(3L)
+                    .isFavoriteGroup(false)
                     .build()
             ));
         super.mockMvc.perform(get("/api/groups/user-district/paging")
@@ -151,6 +156,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .andExpect(status().isOk())
             .andDo(GroupDocumentation.findPageByUserLocation());
     }
+
     @Test
     public void 모임_목록_조회_추천더보기() throws Exception {
         when(groupService.findPageByUserCategories(any(), anyInt(), anyInt()))
@@ -158,10 +164,11 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
                 GroupCardResponse.builder()
                     .id(1L)
                     .name("A 모임")
-                    .imageUrl("http://~~")
+                    .imageUrl("이미지 URL")
                     .startDate(LocalDate.now())
                     .isOffline(false)
                     .participantCnt(3L)
+                    .isFavoriteGroup(false)
                     .build()
             ));
         super.mockMvc.perform(get("/api/groups/user-categories/paging")
@@ -171,6 +178,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .andExpect(status().isOk())
             .andDo(GroupDocumentation.findPageByUserCategories());
     }
+
     @Test
     public void 모임_카테고리_목록_조회() throws Exception {
         super.mockMvc.perform(get("/api/group/categories"))
@@ -178,6 +186,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .andExpect(status().isOk())
             .andDo(GroupDocumentation.findGroupCategories());
     }
+
     @Test
     public void 모임장_권한_양도() throws Exception {
         super.mockMvc.perform(patch("/api/group/{id}/manager/{userId}", 1L, 2L))
@@ -185,6 +194,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .andExpect(status().isOk())
             .andDo(GroupDocumentation.updateManagerByUserId());
     }
+
     @Test
     public void 모임_종료() throws Exception {
         super.mockMvc.perform(patch("/api/group/{id}/end", 1L))

@@ -101,6 +101,7 @@ public class UserRestDocsTest extends RestDocsControllerTest {
                         .startDate(LocalDate.of(2022, 1, 6))
                         .isOffline(true)
                         .participantCnt(5L)
+                        .isFavoriteGroup(true)
                         .build()
                 )
                 .build()

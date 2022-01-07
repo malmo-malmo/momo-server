@@ -57,7 +57,8 @@ public class UserDocumentation {
             fieldWithPath("[].groupCardResponse.imageUrl").type(JsonFieldType.STRING).description("모임 대표 이미지 URL"),
             fieldWithPath("[].groupCardResponse.startDate").type(JsonFieldType.STRING).description("모임 시작 날짜"),
             fieldWithPath("[].groupCardResponse.offline").type(JsonFieldType.BOOLEAN).description("모임 오프라인 여부"),
-            fieldWithPath("[].groupCardResponse.participantCnt").type(JsonFieldType.NUMBER).description("모임 참여자 수")
+            fieldWithPath("[].groupCardResponse.participantCnt").type(JsonFieldType.NUMBER).description("모임 참여자 수"),
+            fieldWithPath("[].groupCardResponse.favoriteGroup").type(JsonFieldType.BOOLEAN).description("관심 모임 여부")
         };
         return document("user/findFavoriteGroups",
             responseFields(response)

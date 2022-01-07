@@ -134,13 +134,17 @@ public class FavoriteGroupRepositoryTest extends RepositoryTest {
             () -> assertThat(actual.get(0).getGroupCardResponse().getName()).isEqualTo(group2.getName()),
             () -> assertThat(actual.get(0).getGroupCardResponse().getImageUrl()).isEqualTo(group2.getImageUrl()),
             () -> assertThat(actual.get(0).getGroupCardResponse().getStartDate()).isEqualTo(group2.getStartDate()),
+            () -> assertThat(actual.get(0).getGroupCardResponse().isOffline()).isEqualTo(group2.isOffline()),
             () -> assertThat(actual.get(0).getGroupCardResponse().getParticipantCnt()).isEqualTo(1),
+            () -> assertThat(actual.get(0).getGroupCardResponse().isFavoriteGroup()).isEqualTo(true),
             () -> assertThat(actual.get(1).getId()).isNotNull(),
             () -> assertThat(actual.get(1).getGroupCardResponse().getId()).isEqualTo(group1.getId()),
             () -> assertThat(actual.get(1).getGroupCardResponse().getName()).isEqualTo(group1.getName()),
             () -> assertThat(actual.get(1).getGroupCardResponse().getImageUrl()).isEqualTo(group1.getImageUrl()),
             () -> assertThat(actual.get(1).getGroupCardResponse().getStartDate()).isEqualTo(group1.getStartDate()),
-            () -> assertThat(actual.get(1).getGroupCardResponse().getParticipantCnt()).isEqualTo(1)
+            () -> assertThat(actual.get(1).getGroupCardResponse().isOffline()).isEqualTo(group1.isOffline()),
+            () -> assertThat(actual.get(1).getGroupCardResponse().getParticipantCnt()).isEqualTo(1),
+            () -> assertThat(actual.get(1).getGroupCardResponse().isFavoriteGroup()).isEqualTo(true)
         );
     }
 }

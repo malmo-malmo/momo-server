@@ -96,6 +96,25 @@ public class FavoriteGroupRepositoryTest extends RepositoryTest {
     }
 
     @Test
+    void 관심_모임_수를_조회한다() {
+        List<FavoriteGroup> favoriteGroups = List.of(
+            FavoriteGroup.builder()
+                .user(user)
+                .group(group1)
+                .build(),
+            FavoriteGroup.builder()
+                .user(user)
+                .group(group2)
+                .build()
+        );
+        favoriteGroupRepository.saveAll(favoriteGroups);
+
+        Long actual = favoriteGroupRepository.countByUser(user);
+
+        assertThat(actual).isEqualTo(favoriteGroups.size());
+    }
+
+    @Test
     void 관심_모임_목록을_조회한다() {
         save(
             Participant.builder()
@@ -146,5 +165,20 @@ public class FavoriteGroupRepositoryTest extends RepositoryTest {
             () -> assertThat(actual.get(1).getGroupCardResponse().getParticipantCnt()).isEqualTo(1),
             () -> assertThat(actual.get(1).getGroupCardResponse().isFavoriteGroup()).isEqualTo(true)
         );
+    }
+
+    @Test
+    void 관심_모임을_삭제한다() {
+        FavoriteGroup favoriteGroup = favoriteGroupRepository.save(
+            FavoriteGroup.builder()
+                .user(user)
+                .group(group1)
+                .build()
+        );
+
+        favoriteGroupRepository.deleteById(favoriteGroup.getId());
+        List<FavoriteGroup> actual = favoriteGroupRepository.findAll();
+
+        assertThat(actual.size()).isEqualTo(0);
     }
 }

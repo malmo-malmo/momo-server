@@ -8,6 +8,7 @@ import com.momo.domain.group.dto.QGroupCardResponse;
 import com.momo.domain.user.dto.FavoriteGroupCardResponse;
 import com.momo.domain.user.dto.QFavoriteGroupCardResponse;
 import com.momo.domain.user.entity.User;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
@@ -32,7 +33,8 @@ public class FavoriteGroupCustomRepositoryImpl implements FavoriteGroupCustomRep
                     JPAExpressions
                         .select(participant.count())
                         .from(participant)
-                        .where(participant.group.eq(group))
+                        .where(participant.group.eq(group)),
+                    Expressions.TRUE
                 )
             ))
             .from(favoriteGroup)

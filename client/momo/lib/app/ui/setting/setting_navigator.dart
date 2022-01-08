@@ -47,10 +47,13 @@ class SettingNavigator extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _navigator = ref.watch(settingNavigatorProvider);
-    return Navigator(
-      key: _navigator.navigatorKey,
-      initialRoute: 'settings/init',
-      onGenerateRoute: _onGenerateRoute,
+    return WillPopScope(
+      onWillPop: () => Future(() => false),
+      child: Navigator(
+        key: _navigator.navigatorKey,
+        initialRoute: 'settings/init',
+        onGenerateRoute: _onGenerateRoute,
+      ),
     );
   }
 }

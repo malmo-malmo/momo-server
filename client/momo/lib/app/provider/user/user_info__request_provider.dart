@@ -1,11 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:momo/app/model/user/category_request.dart';
 import 'package:momo/app/model/user/user_info_request.dart';
 import 'package:momo/app/provider/city_result_provider.dart';
 import 'package:momo/app/provider/user/name_check_provider.dart';
 import 'package:momo/app/repository/user_repository.dart';
 
-final userInfoRequestCheckProvider = Provider<bool>((ref) {
+final userInfoRequestCheckProvider = Provider.autoDispose<bool>((ref) {
   final userInfo = ref.watch(userInfoRequestProvider);
   final validateNameCheck = ref.watch(validateNameProvider);
   if (!validateNameCheck &&
@@ -19,7 +18,8 @@ final userInfoRequestCheckProvider = Provider<bool>((ref) {
 });
 
 final userInfoRequestProvider =
-    StateNotifierProvider<UserInfoRequestState, UserInfoRequest>((ref) {
+    StateNotifierProvider.autoDispose<UserInfoRequestState, UserInfoRequest>(
+        (ref) {
   final repository = ref.watch(userRepositoryProvider);
   return UserInfoRequestState(repository: repository);
 });
@@ -69,11 +69,6 @@ class UserInfoRequestState extends StateNotifier<UserInfoRequest> {
 
   Future<dynamic> updateUserInfo(UserInfoRequest userInfoRequest) async {
     final response = await repository.updateUserInfo(userInfoRequest);
-    return response;
-  }
-
-  Future<dynamic> updateUserCategory(CategoryRequest categoryRequest) async {
-    final response = await repository.updateUserCategory(categoryRequest);
     return response;
   }
 }

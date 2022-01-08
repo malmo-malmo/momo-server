@@ -24,6 +24,7 @@ class GroupDetailPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final userId = ref.watch(userDataProvider).id;
     final response = ref.watch(groupDetailFutureProvider(group.id));
 
     return response.when(
@@ -49,7 +50,7 @@ class GroupDetailPage extends ConsumerWidget {
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(16),
                                         topRight: Radius.circular(16))),
-                                builder: (context) => userData.id ==
+                                builder: (context) => userId ==
                                         groupDetail.managerId
                                     ? AdminBottomSheet(groupId: groupDetail.id)
                                     : UserBottomSheet(group: group));

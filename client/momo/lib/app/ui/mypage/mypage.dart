@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/provider/user/user_data_provider.dart';
+import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/card/group_card.dart';
 import 'package:momo/app/ui/components/card/profile_avatar.dart';
-import 'package:momo/app/ui/components/category/category_column.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/mypage/widget/info_column.dart';
 import 'package:momo/app/ui/mypage/widget/achievemint_card.dart';
+import 'package:momo/app/ui/mypage/widget/user_category_column.dart';
+import 'package:momo/app/util/navigation_service.dart';
 
 class Mypage extends StatelessWidget {
   const Mypage({Key? key}) : super(key: key);
@@ -28,21 +31,24 @@ class Mypage extends StatelessWidget {
               child: SvgPicture.asset('assets/icon/mypage/icon_setting_28.svg'),
             ),
             const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '${userData.nickname}님의\n마이페이지',
-                  style: MomoTextStyle.mainTitle.copyWith(height: 1.2),
-                ),
-                ProfileAvatar(
-                  img: userData.image ??
-                      'https://file.mk.co.kr/meet/neds/2020/08/image_readtop_2020_864116_15980534304326707.png',
-                  rad: 34,
-                  backgroundColor: MomoColor.main,
-                ),
-              ],
-            ),
+            Consumer(builder: (context, ref, _) {
+              final userData = ref.watch(userDataProvider);
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '${userData.nickname}님의\n마이페이지',
+                    style: MomoTextStyle.mainTitle.copyWith(height: 1.2),
+                  ),
+                  ProfileAvatar(
+                    img: userData.image ??
+                        'https://file.mk.co.kr/meet/neds/2020/08/image_readtop_2020_864116_15980534304326707.png',
+                    rad: 34,
+                    backgroundColor: MomoColor.main,
+                  ),
+                ],
+              );
+            }),
             const SizedBox(height: 30),
             Container(
               height: 100,
@@ -67,35 +73,41 @@ class Mypage extends StatelessWidget {
               icon: 'assets/icon/mypage/icon_interestcategory_28.svg',
             ),
             SizedBox(
-              height: 102,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  if (index == 0) {
-                    return const Padding(
-                      padding: EdgeInsets.only(bottom: 24),
-                      child: CircleAvatar(
-                        radius: 39,
-                        backgroundColor: Color(0xffededed),
-                        child: Icon(
-                          Icons.add,
-                          color: MomoColor.unSelIcon,
+              height: 88,
+              child: Consumer(builder: (context, ref, _) {
+                final userData = ref.watch(userDataProvider);
+                return ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    if (index == 0) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 24),
+                        child: InkWell(
+                          onTap: () {
+                            ref
+                                .read(navigatorProvider)
+                                .navigateTo(routeName: AppRoutes.categoryEdit);
+                          },
+                          child: const CircleAvatar(
+                            radius: 32,
+                            backgroundColor: Color(0xffededed),
+                            child: Icon(
+                              Icons.add,
+                              color: MomoColor.unSelIcon,
+                            ),
+                          ),
                         ),
-                      ),
+                      );
+                    }
+                    return UserCategoryColumn(
+                      categoryName: userData.categories[index - 1].name,
                     );
-                  }
-                  return CategoryColumn(
-                    check: true,
-                    index: index - 1,
-                    onTabIcon: (index) {},
-                    iconSize: 78,
-                    textStyle: MomoTextStyle.normalR,
-                    spaceHeight: 8,
-                  );
-                },
-                separatorBuilder: (context, index) => const SizedBox(width: 14),
-                itemCount: 9,
-              ),
+                  },
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 14),
+                  itemCount: userData.categories.length + 1,
+                );
+              }),
             ),
             const SubTitle(
                 title: '최근 본 모임',

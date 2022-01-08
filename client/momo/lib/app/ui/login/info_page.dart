@@ -102,7 +102,7 @@ class InfoPage extends ConsumerWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 40),
+                        const SizedBox(height: 200),
                       ],
                     ),
                     ConfirmButton(

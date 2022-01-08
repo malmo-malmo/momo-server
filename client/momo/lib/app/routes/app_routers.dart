@@ -18,6 +18,7 @@ import 'package:momo/app/ui/login/login_page.dart';
 import 'package:momo/app/ui/login/terms_page.dart';
 import 'package:momo/app/ui/main_page.dart';
 import 'package:momo/app/ui/member_list/member_list_page.dart';
+import 'package:momo/app/ui/mypage/category_edit/category_edit_page.dart';
 import 'package:momo/app/ui/notice_list/notice_list_page.dart';
 import 'package:momo/app/ui/onboarding/onboarding_page.dart';
 import 'package:momo/app/ui/post_detail/post_detail_page.dart';
@@ -146,6 +147,11 @@ class AppRouter {
       case AppRoutes.chatRoom:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const ChatRoomPage(),
+        );
+
+      case AppRoutes.categoryEdit:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const CategoryEditPage(),
         );
     }
   }

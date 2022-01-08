@@ -46,20 +46,25 @@ class CityInputBox extends StatelessWidget {
           InkWell(
             onTap: () {
               Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                      opaque: false,
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          CustomDropDownList(
-                            values: _valueList,
-                            setValue: setCity,
-                            curValue: city,
-                            offset: getParentOffset(_cityInputBoxKey),
-                            defaultValue: '서울',
-                          ),
-                      transitionsBuilder: (context, animation,
-                              secondaryAnimation, child) =>
-                          FadeTransition(opacity: animation, child: child)));
+                context,
+                PageRouteBuilder(
+                  opaque: false,
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      CustomDropDownList(
+                    values: _valueList,
+                    setValue: setCity,
+                    curValue: city,
+                    offset: getParentOffset(_cityInputBoxKey),
+                    defaultValue: '서울',
+                  ),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) =>
+                          FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  ),
+                ),
+              );
             },
             child: Transform.rotate(
               angle: pi * 3 / 2,

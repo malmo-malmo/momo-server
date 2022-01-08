@@ -24,7 +24,7 @@ class _$UserResponseTearOff {
   _UserResponse call(
       {required int id,
       required String nickname,
-      required String city,
+      required CodeNamePair city,
       required String district,
       String? image,
       required String university,
@@ -52,7 +52,7 @@ const $UserResponse = _$UserResponseTearOff();
 mixin _$UserResponse {
   int get id => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
-  String get city => throw _privateConstructorUsedError;
+  CodeNamePair get city => throw _privateConstructorUsedError;
   String get district => throw _privateConstructorUsedError;
   String? get image => throw _privateConstructorUsedError;
   String get university => throw _privateConstructorUsedError;
@@ -72,11 +72,13 @@ abstract class $UserResponseCopyWith<$Res> {
   $Res call(
       {int id,
       String nickname,
-      String city,
+      CodeNamePair city,
       String district,
       String? image,
       String university,
       List<CodeNamePair> categories});
+
+  $CodeNamePairCopyWith<$Res> get city;
 }
 
 /// @nodoc
@@ -109,7 +111,7 @@ class _$UserResponseCopyWithImpl<$Res> implements $UserResponseCopyWith<$Res> {
       city: city == freezed
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
-              as String,
+              as CodeNamePair,
       district: district == freezed
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
@@ -128,6 +130,13 @@ class _$UserResponseCopyWithImpl<$Res> implements $UserResponseCopyWith<$Res> {
               as List<CodeNamePair>,
     ));
   }
+
+  @override
+  $CodeNamePairCopyWith<$Res> get city {
+    return $CodeNamePairCopyWith<$Res>(_value.city, (value) {
+      return _then(_value.copyWith(city: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -140,11 +149,14 @@ abstract class _$UserResponseCopyWith<$Res>
   $Res call(
       {int id,
       String nickname,
-      String city,
+      CodeNamePair city,
       String district,
       String? image,
       String university,
       List<CodeNamePair> categories});
+
+  @override
+  $CodeNamePairCopyWith<$Res> get city;
 }
 
 /// @nodoc
@@ -179,7 +191,7 @@ class __$UserResponseCopyWithImpl<$Res> extends _$UserResponseCopyWithImpl<$Res>
       city: city == freezed
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
-              as String,
+              as CodeNamePair,
       district: district == freezed
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
@@ -220,7 +232,7 @@ class _$_UserResponse implements _UserResponse {
   @override
   final String nickname;
   @override
-  final String city;
+  final CodeNamePair city;
   @override
   final String district;
   @override
@@ -272,7 +284,7 @@ abstract class _UserResponse implements UserResponse {
   factory _UserResponse(
       {required int id,
       required String nickname,
-      required String city,
+      required CodeNamePair city,
       required String district,
       String? image,
       required String university,
@@ -286,7 +298,7 @@ abstract class _UserResponse implements UserResponse {
   @override
   String get nickname;
   @override
-  String get city;
+  CodeNamePair get city;
   @override
   String get district;
   @override

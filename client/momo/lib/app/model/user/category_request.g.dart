@@ -8,12 +8,12 @@ part of 'category_request.dart';
 
 _$_CategoryRequest _$$_CategoryRequestFromJson(Map<String, dynamic> json) =>
     _$_CategoryRequest(
-      categories: (json['categories'] as List<dynamic>)
+      favoriteCategories: (json['favoriteCategories'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
     );
 
 Map<String, dynamic> _$$_CategoryRequestToJson(_$_CategoryRequest instance) =>
     <String, dynamic>{
-      'categories': instance.categories,
+      'favoriteCategories': instance.favoriteCategories,
     };

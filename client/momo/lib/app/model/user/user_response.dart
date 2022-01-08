@@ -9,7 +9,7 @@ class UserResponse with _$UserResponse {
   factory UserResponse({
     required int id,
     required String nickname,
-    required String city,
+    required CodeNamePair city,
     required String district,
     String? image,
     required String university,

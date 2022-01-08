@@ -23,7 +23,7 @@ abstract class UserClient {
     @Body() UserInfoRequest userInfoRequest,
   );
 
-  @PATCH('/user/categories')
+  @PATCH('/user/favorite-categories')
   Future<dynamic> updateCategory(
     @Body() CategoryRequest categoryRequest,
   );

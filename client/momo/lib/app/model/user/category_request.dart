@@ -6,7 +6,7 @@ part 'category_request.freezed.dart';
 @freezed
 class CategoryRequest with _$CategoryRequest {
   factory CategoryRequest({
-    required List<String> categories,
+    required List<String> favoriteCategories,
   }) = _CategoryRequest;
 
   factory CategoryRequest.fromJson(Map<String, dynamic> json) =>

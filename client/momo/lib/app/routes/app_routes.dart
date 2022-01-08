@@ -24,4 +24,5 @@ class AppRoutes {
   static const chatList = '/chatList';
   static const chatRoom = '/chatRoom';
   static const categoryEdit = '/categoryEdit';
+  static const wishGroup = '/wishGroup';
 }

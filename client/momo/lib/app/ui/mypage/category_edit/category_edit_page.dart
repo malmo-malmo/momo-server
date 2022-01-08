@@ -8,7 +8,6 @@ import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:momo/app/ui/components/button/confirm_action_icon.dart';
 import 'package:momo/app/ui/components/category/category_column.dart';
-import 'package:momo/app/util/navigation_service.dart';
 
 class CategoryEditPage extends ConsumerWidget {
   const CategoryEditPage({Key? key}) : super(key: key);

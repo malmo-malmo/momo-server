@@ -13,11 +13,13 @@ import 'package:momo/app/ui/mypage/widget/achievemint_card.dart';
 import 'package:momo/app/ui/mypage/widget/user_category_column.dart';
 import 'package:momo/app/util/navigation_service.dart';
 
-class Mypage extends StatelessWidget {
+class Mypage extends ConsumerWidget {
   const Mypage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userData = ref.watch(userDataProvider);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       height: double.infinity,
@@ -31,24 +33,21 @@ class Mypage extends StatelessWidget {
               child: SvgPicture.asset('assets/icon/mypage/icon_setting_28.svg'),
             ),
             const SizedBox(height: 16),
-            Consumer(builder: (context, ref, _) {
-              final userData = ref.watch(userDataProvider);
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '${userData.nickname}님의\n마이페이지',
-                    style: MomoTextStyle.mainTitle.copyWith(height: 1.2),
-                  ),
-                  ProfileAvatar(
-                    img: userData.image ??
-                        'https://file.mk.co.kr/meet/neds/2020/08/image_readtop_2020_864116_15980534304326707.png',
-                    rad: 34,
-                    backgroundColor: MomoColor.main,
-                  ),
-                ],
-              );
-            }),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '${userData.nickname}님의\n마이페이지',
+                  style: MomoTextStyle.mainTitle.copyWith(height: 1.2),
+                ),
+                ProfileAvatar(
+                  img: userData.image ??
+                      'https://file.mk.co.kr/meet/neds/2020/08/image_readtop_2020_864116_15980534304326707.png',
+                  rad: 34,
+                  backgroundColor: MomoColor.main,
+                ),
+              ],
+            ),
             const SizedBox(height: 30),
             Container(
               height: 100,
@@ -59,10 +58,22 @@ class Mypage extends StatelessWidget {
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  InfoColumn(count: 8, title: '총 모임'),
-                  InfoColumn(count: 6, title: '찜한 모임'),
-                  InfoColumn(count: 10, title: '획득뱃지'),
+                children: [
+                  InfoColumn(
+                    count: 8,
+                    title: '총 모임',
+                    onTap: () {},
+                  ),
+                  InfoColumn(
+                    count: 6,
+                    title: '찜한 모임',
+                    onTap: () {
+                      ref
+                          .read(navigatorProvider)
+                          .navigateTo(routeName: AppRoutes.wishGroup);
+                    },
+                  ),
+                  InfoColumn(count: 10, title: '획득뱃지', onTap: () {}),
                 ],
               ),
             ),
@@ -74,40 +85,36 @@ class Mypage extends StatelessWidget {
             ),
             SizedBox(
               height: 88,
-              child: Consumer(builder: (context, ref, _) {
-                final userData = ref.watch(userDataProvider);
-                return ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    if (index == 0) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 24),
-                        child: InkWell(
-                          onTap: () {
-                            ref
-                                .read(navigatorProvider)
-                                .navigateTo(routeName: AppRoutes.categoryEdit);
-                          },
-                          child: const CircleAvatar(
-                            radius: 32,
-                            backgroundColor: Color(0xffededed),
-                            child: Icon(
-                              Icons.add,
-                              color: MomoColor.unSelIcon,
-                            ),
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  if (index == 0) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 24),
+                      child: InkWell(
+                        onTap: () {
+                          ref
+                              .read(navigatorProvider)
+                              .navigateTo(routeName: AppRoutes.categoryEdit);
+                        },
+                        child: const CircleAvatar(
+                          radius: 32,
+                          backgroundColor: Color(0xffededed),
+                          child: Icon(
+                            Icons.add,
+                            color: MomoColor.unSelIcon,
                           ),
                         ),
-                      );
-                    }
-                    return UserCategoryColumn(
-                      categoryName: userData.categories[index - 1].name,
+                      ),
                     );
-                  },
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(width: 14),
-                  itemCount: userData.categories.length + 1,
-                );
-              }),
+                  }
+                  return UserCategoryColumn(
+                    categoryName: userData.categories[index - 1].name,
+                  );
+                },
+                separatorBuilder: (context, index) => const SizedBox(width: 14),
+                itemCount: userData.categories.length + 1,
+              ),
             ),
             const SubTitle(
                 title: '최근 본 모임',

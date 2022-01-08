@@ -26,6 +26,7 @@ import 'package:momo/app/ui/post_detail/post_detail_page.dart';
 import 'package:momo/app/ui/post_request/post_request_page.dart';
 import 'package:momo/app/ui/schedule_list/schedule_list_page.dart';
 import 'package:momo/app/ui/schedule_request/schedule_request_page.dart';
+import 'package:momo/app/ui/setting/setting_navigator.dart';
 import 'package:momo/splash_page.dart';
 
 part './app_routes.dart';
@@ -158,6 +159,11 @@ class AppRouter {
       case AppRoutes.wishGroup:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const WishGroupPage(),
+        );
+
+      case AppRoutes.settings:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const SettingNavigator(),
         );
     }
   }

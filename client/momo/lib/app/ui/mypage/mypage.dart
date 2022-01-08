@@ -30,7 +30,16 @@ class Mypage extends ConsumerWidget {
             const SizedBox(height: 40),
             Align(
               alignment: Alignment.centerRight,
-              child: SvgPicture.asset('assets/icon/mypage/icon_setting_28.svg'),
+              child: InkWell(
+                onTap: () {
+                  ref
+                      .read(navigatorProvider)
+                      .navigateTo(routeName: AppRoutes.settings);
+                },
+                child: SvgPicture.asset(
+                  'assets/icon/mypage/icon_setting_28.svg',
+                ),
+              ),
             ),
             const SizedBox(height: 16),
             Row(

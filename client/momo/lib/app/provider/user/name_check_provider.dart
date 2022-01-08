@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:momo/app/provider/user/user_info__request_provider.dart';
+import 'package:momo/app/provider/user/user_info_request_provider.dart';
 
 final nameCheckProvider = Provider.autoDispose<bool>((ref) {
   final userName = ref.watch(userInfoRequestProvider).nickname;

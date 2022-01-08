@@ -111,7 +111,9 @@ class GroupRequestPage extends ConsumerWidget {
                     Row(
                       children: [
                         CityInputBox(
-                          city: groupRequest.city,
+                          city: ref
+                              .watch(groupRequestStateProvider.notifier)
+                              .userCity,
                           setCity: ref
                               .watch(groupRequestStateProvider.notifier)
                               .setCity,
@@ -120,9 +122,7 @@ class GroupRequestPage extends ConsumerWidget {
                         const SizedBox(width: 24),
                         DistrictInputBox(
                           district: groupRequest.district,
-                          cityCode: ref
-                              .watch(groupRequestStateProvider.notifier)
-                              .userCity,
+                          cityCode: groupRequest.city,
                           setDistrict: ref
                               .watch(groupRequestStateProvider.notifier)
                               .setDistrict,

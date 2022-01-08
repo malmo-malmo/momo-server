@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/provider/user/name_check_provider.dart';
-import 'package:momo/app/provider/user/user_info__request_provider.dart';
+import 'package:momo/app/provider/user/user_info_request_provider.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/card/profile_avatar.dart';
 import 'package:momo/app/ui/components/dialog/confirm_dialog.dart';

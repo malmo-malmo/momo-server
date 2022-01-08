@@ -21,9 +21,9 @@ CategoryRequest _$CategoryRequestFromJson(Map<String, dynamic> json) {
 class _$CategoryRequestTearOff {
   const _$CategoryRequestTearOff();
 
-  _CategoryRequest call({required List<String> categories}) {
+  _CategoryRequest call({required List<String> favoriteCategories}) {
     return _CategoryRequest(
-      categories: categories,
+      favoriteCategories: favoriteCategories,
     );
   }
 
@@ -37,7 +37,7 @@ const $CategoryRequest = _$CategoryRequestTearOff();
 
 /// @nodoc
 mixin _$CategoryRequest {
-  List<String> get categories => throw _privateConstructorUsedError;
+  List<String> get favoriteCategories => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -50,7 +50,7 @@ abstract class $CategoryRequestCopyWith<$Res> {
   factory $CategoryRequestCopyWith(
           CategoryRequest value, $Res Function(CategoryRequest) then) =
       _$CategoryRequestCopyWithImpl<$Res>;
-  $Res call({List<String> categories});
+  $Res call({List<String> favoriteCategories});
 }
 
 /// @nodoc
@@ -64,12 +64,12 @@ class _$CategoryRequestCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? categories = freezed,
+    Object? favoriteCategories = freezed,
   }) {
     return _then(_value.copyWith(
-      categories: categories == freezed
-          ? _value.categories
-          : categories // ignore: cast_nullable_to_non_nullable
+      favoriteCategories: favoriteCategories == freezed
+          ? _value.favoriteCategories
+          : favoriteCategories // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ));
   }
@@ -82,7 +82,7 @@ abstract class _$CategoryRequestCopyWith<$Res>
           _CategoryRequest value, $Res Function(_CategoryRequest) then) =
       __$CategoryRequestCopyWithImpl<$Res>;
   @override
-  $Res call({List<String> categories});
+  $Res call({List<String> favoriteCategories});
 }
 
 /// @nodoc
@@ -98,12 +98,12 @@ class __$CategoryRequestCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? categories = freezed,
+    Object? favoriteCategories = freezed,
   }) {
     return _then(_CategoryRequest(
-      categories: categories == freezed
-          ? _value.categories
-          : categories // ignore: cast_nullable_to_non_nullable
+      favoriteCategories: favoriteCategories == freezed
+          ? _value.favoriteCategories
+          : favoriteCategories // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ));
   }
@@ -112,17 +112,17 @@ class __$CategoryRequestCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_CategoryRequest implements _CategoryRequest {
-  _$_CategoryRequest({required this.categories});
+  _$_CategoryRequest({required this.favoriteCategories});
 
   factory _$_CategoryRequest.fromJson(Map<String, dynamic> json) =>
       _$$_CategoryRequestFromJson(json);
 
   @override
-  final List<String> categories;
+  final List<String> favoriteCategories;
 
   @override
   String toString() {
-    return 'CategoryRequest(categories: $categories)';
+    return 'CategoryRequest(favoriteCategories: $favoriteCategories)';
   }
 
   @override
@@ -131,12 +131,12 @@ class _$_CategoryRequest implements _CategoryRequest {
         (other.runtimeType == runtimeType &&
             other is _CategoryRequest &&
             const DeepCollectionEquality()
-                .equals(other.categories, categories));
+                .equals(other.favoriteCategories, favoriteCategories));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(categories));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(favoriteCategories));
 
   @JsonKey(ignore: true)
   @override
@@ -150,14 +150,14 @@ class _$_CategoryRequest implements _CategoryRequest {
 }
 
 abstract class _CategoryRequest implements CategoryRequest {
-  factory _CategoryRequest({required List<String> categories}) =
+  factory _CategoryRequest({required List<String> favoriteCategories}) =
       _$_CategoryRequest;
 
   factory _CategoryRequest.fromJson(Map<String, dynamic> json) =
       _$_CategoryRequest.fromJson;
 
   @override
-  List<String> get categories;
+  List<String> get favoriteCategories;
   @override
   @JsonKey(ignore: true)
   _$CategoryRequestCopyWith<_CategoryRequest> get copyWith =>

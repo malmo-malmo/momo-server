@@ -10,7 +10,7 @@ _$_UserResponse _$$_UserResponseFromJson(Map<String, dynamic> json) =>
     _$_UserResponse(
       id: json['id'] as int,
       nickname: json['nickname'] as String,
-      city: json['city'] as String,
+      city: CodeNamePair.fromJson(json['city'] as Map<String, dynamic>),
       district: json['district'] as String,
       image: json['image'] as String?,
       university: json['university'] as String,

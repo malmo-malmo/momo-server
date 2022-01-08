@@ -20,7 +20,7 @@ class UniversityResultDialog extends ConsumerWidget {
     return Dialog(
       insetPadding: const EdgeInsets.all(0),
       child: Container(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.symmetric(vertical: 32),
         height: 272,
         width: 280,
         child: universityResult.when(
@@ -33,29 +33,47 @@ class UniversityResultDialog extends ConsumerWidget {
                   ),
                 )
               : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('검색결과(${data.length})', style: MomoTextStyle.subTitle),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 32),
+                      child: Text('검색결과(${data.length})',
+                          style: MomoTextStyle.subTitle),
+                    ),
                     const SizedBox(height: 13),
                     Expanded(
-                      child: ListView.builder(
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {
-                              ref
-                                  .read(navigatorProvider)
-                                  .pop(result: data[index]);
-                            },
-                            child: Container(
-                              height: 48,
-                              color: MomoColor.main,
-                              child: Text(
-                                data[index],
-                                style: MomoTextStyle.defaultStyleR,
+                      child: Scrollbar(
+                        isAlwaysShown: true,
+                        child: ListView.builder(
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () {
+                                FocusScope.of(context).unfocus();
+
+                                ref
+                                    .read(navigatorProvider)
+                                    .pop(result: data[index]);
+                              },
+                              child: Container(
+                                height: 48,
+                                padding: const EdgeInsets.only(
+                                    left: 32, top: 15, bottom: 15),
+                                color: universityName == data[index]
+                                    ? MomoColor.main
+                                    : MomoColor.flutterWhite,
+                                child: Text(
+                                  data[index],
+                                  style: MomoTextStyle.defaultStyleR.copyWith(
+                                    color: universityName == data[index]
+                                        ? MomoColor.white
+                                        : null,
+                                  ),
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                        itemCount: data.length,
+                            );
+                          },
+                          itemCount: data.length,
+                        ),
                       ),
                     ),
                   ],

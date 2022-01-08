@@ -35,7 +35,7 @@ class CategoryState extends StateNotifier<List<bool>> {
 
   Future<dynamic> updateUserCategories() {
     final categoryRequest = CategoryRequest(
-      categories: [
+      favoriteCategories: [
         for (int i = 0; i < state.length; i++)
           if (state[i]) categoryCodeNamePair[i].code
       ],

@@ -56,7 +56,7 @@ class _UserClient implements UserClient {
     _data.addAll(categoryRequest.toJson());
     final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'PATCH', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/user/categories',
+            .compose(_dio.options, '/user/favorite-categories',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;

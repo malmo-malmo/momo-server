@@ -18,12 +18,15 @@ import 'package:momo/app/ui/login/login_page.dart';
 import 'package:momo/app/ui/login/terms_page.dart';
 import 'package:momo/app/ui/main_page.dart';
 import 'package:momo/app/ui/member_list/member_list_page.dart';
+import 'package:momo/app/ui/mypage/category_edit/category_edit_page.dart';
+import 'package:momo/app/ui/mypage/wish_group/wish_group_page.dart';
 import 'package:momo/app/ui/notice_list/notice_list_page.dart';
 import 'package:momo/app/ui/onboarding/onboarding_page.dart';
 import 'package:momo/app/ui/post_detail/post_detail_page.dart';
 import 'package:momo/app/ui/post_request/post_request_page.dart';
 import 'package:momo/app/ui/schedule_list/schedule_list_page.dart';
 import 'package:momo/app/ui/schedule_request/schedule_request_page.dart';
+import 'package:momo/app/ui/setting/setting_navigator.dart';
 import 'package:momo/splash_page.dart';
 
 part './app_routes.dart';
@@ -146,6 +149,21 @@ class AppRouter {
       case AppRoutes.chatRoom:
         return MaterialPageRoute<dynamic>(
           builder: (_) => const ChatRoomPage(),
+        );
+
+      case AppRoutes.categoryEdit:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const CategoryEditPage(),
+        );
+
+      case AppRoutes.wishGroup:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const WishGroupPage(),
+        );
+
+      case AppRoutes.settings:
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const SettingNavigator(),
         );
     }
   }

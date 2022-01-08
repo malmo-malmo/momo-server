@@ -94,6 +94,7 @@ class DistrictInputBox extends ConsumerWidget {
                           curValue: district,
                           offset: getParentOffset(_districtInputBoxKey),
                           defaultValue: '강남구',
+                          width: 120,
                         ),
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) =>

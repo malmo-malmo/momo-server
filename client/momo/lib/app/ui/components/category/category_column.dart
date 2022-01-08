@@ -27,16 +27,18 @@ class CategoryColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Consumer(builder: (context, ref, _) {
-          return InkWell(
-            borderRadius: BorderRadius.circular(iconSize ?? 32),
-            onTap: () => onTabIcon(index),
-            child: SvgPicture.asset(
-              check ? selIcons[index] : unSelIcons[index],
-              width: iconSize,
-            ),
-          );
-        }),
+        Consumer(
+          builder: (context, ref, _) {
+            return InkWell(
+              borderRadius: BorderRadius.circular(iconSize ?? 32),
+              onTap: () => onTabIcon(index),
+              child: SvgPicture.asset(
+                check ? selIcons[index] : unSelIcons[index],
+                width: iconSize,
+              ),
+            );
+          },
+        ),
         SizedBox(height: spaceHeight ?? 10),
         Text(
           categoryCodeNamePair[index].name,

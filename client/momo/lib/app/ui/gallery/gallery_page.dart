@@ -126,20 +126,23 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
   void _showToast() {
     fToast.showToast(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+        width: 320,
+        height: 52,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25.0),
-          color: MomoColor.main,
+          borderRadius: BorderRadius.circular(20.0),
+          color: MomoColor.black.withOpacity(0.8),
         ),
-        child: Text(
-          '최대 7장만 선택 할 수 있습니다!',
-          style: MomoTextStyle.defaultStyle.copyWith(
-            color: MomoColor.white,
+        child: Center(
+          child: Text(
+            '최대 7장만 선택 할 수 있습니다!',
+            style: MomoTextStyle.smallR.copyWith(
+              color: MomoColor.white,
+            ),
           ),
         ),
       ),
       gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(microseconds: 500),
+      toastDuration: const Duration(milliseconds: 500),
     );
   }
 }

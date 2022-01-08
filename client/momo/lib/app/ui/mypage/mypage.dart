@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/provider/user/user_data_provider.dart';
+import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/card/group_card.dart';
 import 'package:momo/app/ui/components/card/profile_avatar.dart';
-import 'package:momo/app/ui/components/category/category_column.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/mypage/widget/info_column.dart';
 import 'package:momo/app/ui/mypage/widget/achievemint_card.dart';
+import 'package:momo/app/ui/mypage/widget/user_category_column.dart';
+import 'package:momo/app/util/navigation_service.dart';
 
-class Mypage extends StatelessWidget {
+class Mypage extends ConsumerWidget {
   const Mypage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userData = ref.watch(userDataProvider);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       height: double.infinity,
@@ -25,7 +30,16 @@ class Mypage extends StatelessWidget {
             const SizedBox(height: 40),
             Align(
               alignment: Alignment.centerRight,
-              child: SvgPicture.asset('assets/icon/mypage/icon_setting_28.svg'),
+              child: InkWell(
+                onTap: () {
+                  ref
+                      .read(navigatorProvider)
+                      .navigateTo(routeName: AppRoutes.settings);
+                },
+                child: SvgPicture.asset(
+                  'assets/icon/mypage/icon_setting_28.svg',
+                ),
+              ),
             ),
             const SizedBox(height: 16),
             Row(
@@ -53,10 +67,22 @@ class Mypage extends StatelessWidget {
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  InfoColumn(count: 8, title: '총 모임'),
-                  InfoColumn(count: 6, title: '찜한 모임'),
-                  InfoColumn(count: 10, title: '획득뱃지'),
+                children: [
+                  InfoColumn(
+                    count: 8,
+                    title: '총 모임',
+                    onTap: () {},
+                  ),
+                  InfoColumn(
+                    count: 6,
+                    title: '찜한 모임',
+                    onTap: () {
+                      ref
+                          .read(navigatorProvider)
+                          .navigateTo(routeName: AppRoutes.wishGroup);
+                    },
+                  ),
+                  InfoColumn(count: 10, title: '획득뱃지', onTap: () {}),
                 ],
               ),
             ),
@@ -67,34 +93,36 @@ class Mypage extends StatelessWidget {
               icon: 'assets/icon/mypage/icon_interestcategory_28.svg',
             ),
             SizedBox(
-              height: 102,
+              height: 88,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   if (index == 0) {
-                    return const Padding(
-                      padding: EdgeInsets.only(bottom: 24),
-                      child: CircleAvatar(
-                        radius: 39,
-                        backgroundColor: Color(0xffededed),
-                        child: Icon(
-                          Icons.add,
-                          color: MomoColor.unSelIcon,
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 24),
+                      child: InkWell(
+                        onTap: () {
+                          ref
+                              .read(navigatorProvider)
+                              .navigateTo(routeName: AppRoutes.categoryEdit);
+                        },
+                        child: const CircleAvatar(
+                          radius: 32,
+                          backgroundColor: Color(0xffededed),
+                          child: Icon(
+                            Icons.add,
+                            color: MomoColor.unSelIcon,
+                          ),
                         ),
                       ),
                     );
                   }
-                  return CategoryColumn(
-                    check: true,
-                    index: index - 1,
-                    onTabIcon: (index) {},
-                    iconSize: 78,
-                    textStyle: MomoTextStyle.normalR,
-                    spaceHeight: 8,
+                  return UserCategoryColumn(
+                    categoryName: userData.categories[index - 1].name,
                   );
                 },
                 separatorBuilder: (context, index) => const SizedBox(width: 14),
-                itemCount: 9,
+                itemCount: userData.categories.length + 1,
               ),
             ),
             const SubTitle(

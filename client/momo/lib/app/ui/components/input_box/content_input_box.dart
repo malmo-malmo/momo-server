@@ -28,6 +28,7 @@ class TextInputBox extends StatelessWidget {
       child: Center(
         child: TextFormField(
           onChanged: onTextChanged,
+          textInputAction: maxLines == null ? TextInputAction.done : null,
           style: MomoTextStyle.normal,
           maxLines: maxLines,
           decoration: InputDecoration(

@@ -39,11 +39,14 @@ final recommendPaigingControllerProvider =
 
 final groupCategoryCheckStateProvider =
     StateNotifierProvider.autoDispose<GroupCategoryListState, List<bool>>(
-        (ref) => GroupCategoryListState());
+        (ref) => GroupCategoryListState(read: ref.read));
 
 class GroupCategoryListState extends StateNotifier<List<bool>> {
-  GroupCategoryListState()
-      : super(List.generate(9, (index) => index == 0 ? true : false));
+  GroupCategoryListState({
+    required this.read,
+  }) : super(List.generate(9, (index) => index == 0 ? true : false));
+
+  final Reader read;
 
   void toggleCategory(int index) {
     if (index == 0) {
@@ -58,6 +61,7 @@ class GroupCategoryListState extends StateNotifier<List<bool>> {
   }
 
   List<String> makeFilter() {
+    final userData = read(userDataProvider);
     if (state.first) {
       return userData.categories.map((e) => e.code).toList();
     } else {

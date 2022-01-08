@@ -8,11 +8,13 @@ class NickNameInputBox extends StatelessWidget {
     required this.onTabIcon,
     required this.onTextChange,
     required this.userNicknameCheck,
+    this.backgroundColor,
   }) : super(key: key);
 
   final Function onTabIcon;
   final Function(String value) onTextChange;
   final bool userNicknameCheck;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class NickNameInputBox extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: MomoColor.flutterWhite),
+          color: backgroundColor ?? MomoColor.flutterWhite),
       height: 44,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

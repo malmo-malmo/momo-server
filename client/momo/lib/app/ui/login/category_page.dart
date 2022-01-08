@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/user/category_check_provder.dart';
+import 'package:momo/app/provider/user/user_data_provider.dart';
 import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/button/confirm_button.dart';
@@ -81,9 +82,12 @@ class CategoryPage extends ConsumerWidget {
                         check: isCheckCategory,
                         buttonText: '다음',
                         onPressButton: () async {
-                          await ref
+                          final _categories = ref
                               .read(categoryChecksProvider.notifier)
-                              .updateUserCategories();
+                              .makeUpdateCategories();
+                          await ref
+                              .read(userDataProvider.notifier)
+                              .updateUserCategories(_categories);
                           ref
                               .read(navigatorProvider)
                               .navigateTo(routeName: AppRoutes.info);

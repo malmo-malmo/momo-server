@@ -5,6 +5,8 @@ abstract class MomoColor {
 
   static const mainLight = Color(0xffbca9f7);
 
+  static final mainWithOpacity = const Color(0xff846eea).withOpacity(0.07);
+
   static const black = Color(0xff222222);
 
   static const flutterBlack = Color(0xff000000);

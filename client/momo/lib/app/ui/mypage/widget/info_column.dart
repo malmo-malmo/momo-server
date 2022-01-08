@@ -6,17 +6,21 @@ class InfoColumn extends StatelessWidget {
     Key? key,
     required this.count,
     required this.title,
+    required this.onTap,
   }) : super(key: key);
 
   final int count;
   final String title;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         InkWell(
-          onTap: () {},
+          onTap: () {
+            onTap();
+          },
           child: SizedBox(
             height: 44,
             width: 44,

@@ -72,7 +72,7 @@ Widget startCard() {
             child: Consumer(builder: (context, ref, _) {
               return ElevatedButton(
                 onPressed: () async {
-                  await ref.watch(userDataProvider.future);
+                  await ref.read(userDataProvider.notifier).getUserData();
                   ref
                       .read(navigatorProvider)
                       .navigateToRemove(routeName: AppRoutes.main);

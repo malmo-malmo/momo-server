@@ -33,7 +33,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
     } else {
       await ref.watch(categoryResultProvider.future);
       await ref.watch(locationResultProvider.future);
-      await ref.watch(userDataProvider.future);
+      await ref.watch(userDataProvider.notifier).getUserData();
       ref.read(navigatorProvider).navigateToRemove(routeName: AppRoutes.main);
     }
   }

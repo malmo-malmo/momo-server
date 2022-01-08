@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/user/name_check_provider.dart';
-import 'package:momo/app/provider/user/user_info__request_provider.dart';
+import 'package:momo/app/provider/user/user_info_request_provider.dart';
 import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/button/confirm_button.dart';
@@ -102,7 +102,7 @@ class InfoPage extends ConsumerWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 40),
+                        const SizedBox(height: 200),
                       ],
                     ),
                     ConfirmButton(

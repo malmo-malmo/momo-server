@@ -61,11 +61,12 @@ class _ScheduleListState extends ConsumerState<ScheduleList> {
 
   @override
   Widget build(BuildContext context) {
+    final userId = ref.watch(userDataProvider).id;
     return PagedSliverList.separated(
       pagingController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<ScheduleDetail>(
         itemBuilder: (context, item, index) {
-          return _manageId == userData.id
+          return _manageId == userId
               ? adminScheduleCard(
                   groupId: widget.groupId,
                   scheduleId: item.id,

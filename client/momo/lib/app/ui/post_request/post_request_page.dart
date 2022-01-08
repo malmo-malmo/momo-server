@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/model/enum/photo_request_type.dart';
+import 'package:momo/app/model/enum/post_type.dart';
 import 'package:momo/app/provider/post/post_request_provider.dart';
 import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/routes/custom_arg/post_request_arg.dart';
@@ -31,7 +32,7 @@ class PostRequestPage extends ConsumerWidget {
         backgroundColor: const Color(0xffffffff),
         appBar: CustomAppBar(
           leadingIcon: CupertinoIcons.xmark,
-          title: '${postRequestArg.postType.name} 작성',
+          title: '${postRequestArg.postType.postTypeToName} 작성',
           isAction: true,
           actionWidget: ConfirmActionIcon(
             check: check,

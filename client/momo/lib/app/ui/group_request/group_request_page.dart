@@ -59,7 +59,7 @@ class GroupRequestPage extends ConsumerWidget {
                           .read(groupRequestStateProvider.notifier)
                           .setGroupName,
                       height: 44,
-                      hintText: '',
+                      hintText: '모임 이름을 입력해주세요',
                     ),
                     const SubTitle(title: '활동 카테고리'),
                     Wrap(

@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:momo/app/provider/category_result_provider.dart';
 import 'package:momo/app/provider/city_result_provider.dart';
-import 'package:momo/app/provider/user/user_data_provider.dart';
 import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/navigation_service.dart';
@@ -25,22 +24,17 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   }
 
   Future<void> _pushToNextPage() async {
-    final check = hasNoToken();
+    final _tokenCheck = _hasNoToken();
 
-    if (check) {
-      await Future.delayed(const Duration(seconds: 1));
-      ref.read(navigatorProvider).navigateToRemove(routeName: AppRoutes.login);
-    } else {
+    if (!_tokenCheck) {
       await ref.watch(categoryResultProvider.future);
       await ref.watch(locationResultProvider.future);
-      await ref.watch(userDataProvider.notifier).getUserData();
       ref.read(navigatorProvider).navigateToRemove(routeName: AppRoutes.main);
+    } else {
+      ref.read(navigatorProvider).navigateToRemove(
+            routeName: AppRoutes.login,
+          );
     }
-  }
-
-  bool hasNoToken() {
-    final token = Hive.box('auth').get('tokenData') ?? 'no token';
-    return token == 'no token';
   }
 
   @override
@@ -71,5 +65,10 @@ class _SplashPageState extends ConsumerState<SplashPage> {
         ),
       ),
     );
+  }
+
+  bool _hasNoToken() {
+    final token = Hive.box('auth').get('tokenData') ?? 'no token';
+    return token == 'no token';
   }
 }

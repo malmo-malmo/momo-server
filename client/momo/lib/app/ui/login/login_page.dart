@@ -11,6 +11,7 @@ import 'package:kakao_flutter_sdk/all.dart';
 import 'package:momo/app/model/common/token_data.dart';
 import 'package:momo/app/provider/category_result_provider.dart';
 import 'package:momo/app/provider/city_result_provider.dart';
+import 'package:momo/app/provider/user/user_data_provider.dart';
 import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/constant.dart';
@@ -44,7 +45,24 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     dp.log('$tokenData');
     Hive.box('auth').put('tokenData', tokenData);
 
-    await getLocatinosAndCategories();
+    final _userDataCheck = await _isFirstLogin();
+
+    if (!_userDataCheck) {
+      await getLocatinosAndCategories();
+      ref.read(navigatorProvider).navigateToRemove(
+            routeName: AppRoutes.main,
+          );
+    } else {
+      ref.read(navigatorProvider).navigateToRemove(
+            routeName: AppRoutes.trems,
+          );
+    }
+  }
+
+  Future<bool> _isFirstLogin() async {
+    final _isFirstLogin =
+        await ref.read(userDataProvider.notifier).isFirstLogin();
+    return _isFirstLogin;
   }
 
   @override
@@ -66,9 +84,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   child: InkWell(
                     onTap: () async {
                       await _loginWithKakao();
-                      ref
-                          .read(navigatorProvider)
-                          .navigateToRemove(routeName: AppRoutes.trems);
                     },
                     child: Container(
                       height: 56,

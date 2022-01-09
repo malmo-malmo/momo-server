@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/provider/user/name_check_provider.dart';
+import 'package:momo/app/provider/user/user_data_provider.dart';
 import 'package:momo/app/provider/user/user_info_request_provider.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/card/profile_avatar.dart';
@@ -80,7 +81,7 @@ class UserInfoEditPage extends ConsumerWidget {
                       onTabIcon: userNameCheck
                           ? () async {
                               final check = await ref
-                                  .read(userInfoRequestProvider.notifier)
+                                  .read(userDataProvider.notifier)
                                   .validateName(userInfo.nickname);
                               ref.read(validateNameProvider.state).state =
                                   check;

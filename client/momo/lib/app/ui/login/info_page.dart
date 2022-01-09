@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/provider/user/name_check_provider.dart';
+import 'package:momo/app/provider/user/user_data_provider.dart';
 import 'package:momo/app/provider/user/user_info_request_provider.dart';
 import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/theme/theme.dart';
@@ -56,7 +57,7 @@ class InfoPage extends ConsumerWidget {
                           onTabIcon: userNameCheck
                               ? () async {
                                   final check = await ref
-                                      .read(userInfoRequestProvider.notifier)
+                                      .read(userDataProvider.notifier)
                                       .validateName(userInfo.nickname);
                                   ref.read(validateNameProvider.state).state =
                                       check;
@@ -110,7 +111,7 @@ class InfoPage extends ConsumerWidget {
                       buttonText: '다음',
                       onPressButton: () async {
                         await ref
-                            .read(userInfoRequestProvider.notifier)
+                            .read(userDataProvider.notifier)
                             .updateUserInfo(userInfo);
                         ref
                             .read(navigatorProvider)

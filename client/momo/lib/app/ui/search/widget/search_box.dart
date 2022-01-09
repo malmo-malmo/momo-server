@@ -27,7 +27,7 @@ class SearchBox extends ConsumerWidget {
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
-                  builder: (context) => filterBottomSheet(),
+                  builder: (context) => const FilterBottomSheet(),
                 );
               },
               child: SvgPicture.asset('assets/icon/search/icon_filter_28.svg'),

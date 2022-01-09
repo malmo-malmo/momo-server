@@ -13,14 +13,16 @@ import 'package:momo/app/ui/components/button/confirm_button.dart';
 import 'package:momo/app/ui/components/category/category_column.dart';
 import 'package:momo/app/util/navigation_service.dart';
 
-Widget filterBottomSheet() {
-  return SafeArea(
-    child: Consumer(builder: (context, ref, _) {
-      final categoryChecks = ref.watch(searchCategoryStateProvider);
-      final cityChecks = ref.watch(searchCityStateProvider);
-      final check = ref.watch(searchFilterCheckProvider);
+class FilterBottomSheet extends ConsumerWidget {
+  const FilterBottomSheet({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final categoryChecks = ref.watch(searchCategoryStateProvider);
+    final cityChecks = ref.watch(searchCityStateProvider);
+    final check = ref.watch(searchFilterCheckProvider);
 
-      return SizedBox(
+    return SafeArea(
+      child: SizedBox(
         height: double.infinity,
         width: double.infinity,
         child: SingleChildScrollView(
@@ -47,13 +49,13 @@ Widget filterBottomSheet() {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _subTitle('지역'),
+                    const _SubTitle(title: '지역'),
                     Wrap(
                       spacing: 10,
                       runSpacing: 10,
                       children: [
                         for (int i = 0; i < cityCodeNamePair.length; i++)
-                          _locationCard(
+                          _LocationCard(
                             title: cityCodeNamePair[i].name,
                             check: cityChecks[i],
                             index: i,
@@ -63,7 +65,9 @@ Widget filterBottomSheet() {
                           ),
                       ],
                     ),
-                    _subTitle('활동 카테고리'),
+                    const _SubTitle(
+                      title: '활동 카테고리',
+                    ),
                     const SizedBox(height: 16),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -106,49 +110,70 @@ Widget filterBottomSheet() {
             ],
           ),
         ),
-      );
-    }),
-  );
+      ),
+    );
+  }
 }
 
-Widget _locationCard({
-  required String title,
-  required bool check,
-  required int index,
-  required void Function(int index) toggle,
-}) {
-  return Material(
-    elevation: 2,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-    child: InkWell(
-      onTap: () => toggle(index),
-      child: Container(
-        height: 41,
-        width: title.length * 7 + 70,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: check ? MomoColor.main : MomoColor.white,
-        ),
-        child: Center(
-          child: Text(
-            title,
-            style: MomoTextStyle.defaultStyle.copyWith(
-              color: check ? MomoColor.white : MomoColor.black,
-              fontWeight: FontWeight.w400,
+class _LocationCard extends StatelessWidget {
+  const _LocationCard({
+    Key? key,
+    required this.title,
+    required this.check,
+    required this.index,
+    required this.toggle,
+  }) : super(key: key);
+
+  final String title;
+  final bool check;
+  final int index;
+  final void Function(int index) toggle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: InkWell(
+        onTap: () => toggle(index),
+        child: Container(
+          height: 41,
+          width: title.length * 7 + 70,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: check ? MomoColor.main : MomoColor.white,
+          ),
+          child: Center(
+            child: Text(
+              title,
+              style: MomoTextStyle.defaultStyle.copyWith(
+                color: check ? MomoColor.white : MomoColor.black,
+                fontWeight: FontWeight.w400,
+              ),
             ),
           ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
 
-Widget _subTitle(String title) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 40, bottom: 16),
-    child: Text(
-      title,
-      style: MomoTextStyle.subTitle,
-    ),
-  );
+class _SubTitle extends StatelessWidget {
+  const _SubTitle({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 40, bottom: 16),
+      child: Text(
+        title,
+        style: MomoTextStyle.subTitle,
+      ),
+    );
+  }
 }

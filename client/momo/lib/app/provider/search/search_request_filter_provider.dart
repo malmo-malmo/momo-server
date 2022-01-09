@@ -32,7 +32,7 @@ class SearchRequestFilterState extends StateNotifier<List<CodeCheckPair>> {
                   cityCodeNamePair.length,
                   (index) => CodeCheckPair(
                     check: false,
-                    code: cityCodeNamePair[index].name,
+                    code: cityCodeNamePair[index].code,
                   ),
                 ),
         );

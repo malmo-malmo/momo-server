@@ -9,6 +9,7 @@ import com.momo.common.ServiceTest;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.user.dto.FavoriteGroupCreateRequest;
+import com.momo.domain.user.entity.FavoriteGroup;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.FavoriteGroupRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -33,8 +34,10 @@ public class FavoriteGroupServiceTest extends ServiceTest {
         FavoriteGroupCreateRequest request = FavoriteGroupCreateRequest.builder().groupId(1L).build();
         User user = User.builder().id(1L).build();
         Group group = Group.builder().id(1L).build();
+        FavoriteGroup favoriteGroup = FavoriteGroup.builder().id(1L).build();
 
         given(groupRepository.findById(any())).willReturn(of(group));
+        given(favoriteGroupRepository.save(any())).willReturn(favoriteGroup);
 
         favoriteGroupService.create(user, request);
 

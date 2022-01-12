@@ -56,7 +56,7 @@ public class UserRestDocsTest extends RestDocsControllerTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
             )
             .andDo(print())
-            .andExpect(status().isOk())
+            .andExpect(status().isCreated())
             .andDo(UserDocumentation.createFavoriteGroup());
     }
 

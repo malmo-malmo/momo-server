@@ -30,6 +30,11 @@ operation::user/findFavoriteGroupCount[snippets='http-request,http-response,resp
 
 operation::user/findFavoriteGroups[snippets='http-request,http-response,response-fields']
 
+=== 관심 모임 목록 조회
+관심(찜) 모임 목록을 조회합니다.
+
+operation::user/findFavoriteCategories[snippets='http-request,http-response,response-fields']
+
 === 내 정보 수정
 
 operation::user/update[snippets='http-request,http-response,request-fields']

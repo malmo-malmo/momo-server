@@ -75,6 +75,16 @@ public class UserDocumentation {
         );
     }
 
+    public static RestDocumentationResultHandler findFavoriteCategories() {
+        FieldDescriptor[] response = new FieldDescriptor[]{
+            fieldWithPath("[].code").type(JsonFieldType.STRING).description("관심 카테고리 코드"),
+            fieldWithPath("[].name").type(JsonFieldType.STRING).description("관심 카테고리 이름")
+        };
+        return document("user/findFavoriteCategories",
+            responseFields(response)
+        );
+    }
+
     public static RestDocumentationResultHandler update() {
         FieldDescriptor[] requestUser = new FieldDescriptor[]{
             fieldWithPath("nickname").type(JsonFieldType.STRING).description("유저 닉네임"),

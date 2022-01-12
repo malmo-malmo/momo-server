@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.RestDocsControllerTest;
 import com.momo.api.user.UserController;
+import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.entity.Category;
@@ -125,6 +126,21 @@ public class UserRestDocsTest extends RestDocsControllerTest {
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(UserDocumentation.findFavoriteGroups());
+    }
+
+    @Test
+    void 관심_카테고리_목록_조회() throws Exception {
+        List<EnumResponse> responses = List.of(
+            EnumResponse.ofCategory(Category.LIFE),
+            EnumResponse.ofCategory(Category.HOBBY)
+        );
+
+        when(userService.findFavoriteCategoriesByUser(any())).thenReturn(responses);
+
+        super.mockMvc.perform(get("/api/user/favorite-categories"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(UserDocumentation.findFavoriteCategories());
     }
 
     @Test

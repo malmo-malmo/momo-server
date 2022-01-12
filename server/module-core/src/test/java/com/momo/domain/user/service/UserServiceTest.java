@@ -9,6 +9,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 import com.momo.common.ServiceTest;
+import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.district.entity.City;
@@ -101,6 +102,23 @@ public class UserServiceTest extends ServiceTest {
         assertThatThrownBy(() -> userService.update(user, userUpdateRequest))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.DUPLICATED_NICKNAME.getMessage());
+    }
+
+    @Test
+    void 유저_관심_카테고리_정보_조회_테스트() {
+        List<Category> expected = List.of(Category.HEALTH, Category.EMPLOYMENT);
+        user.updateFavoriteCategories(expected);
+
+        List<EnumResponse> actual = userService.findFavoriteCategoriesByUser(user);
+
+        Assertions.assertAll(
+            () -> assertThat(actual).isNotNull(),
+            () -> assertThat(actual.size()).isEqualTo(expected.size()),
+            () -> assertThat(actual.get(0).getCode()).isEqualTo(expected.get(0).getCode()),
+            () -> assertThat(actual.get(0).getName()).isEqualTo(expected.get(0).getName()),
+            () -> assertThat(actual.get(1).getCode()).isEqualTo(expected.get(1).getCode()),
+            () -> assertThat(actual.get(1).getName()).isEqualTo(expected.get(1).getName())
+        );
     }
 
     @Test

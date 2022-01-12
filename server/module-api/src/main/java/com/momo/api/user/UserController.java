@@ -1,6 +1,7 @@
 package com.momo.api.user;
 
 import com.momo.common.CurrentUser;
+import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.user.dto.FavoriteGroupCardResponse;
 import com.momo.domain.user.dto.FavoriteGroupCountResponse;
@@ -58,6 +59,12 @@ public class UserController {
     @GetMapping("/favorite-groups")
     public ResponseEntity<List<FavoriteGroupCardResponse>> findFavoriteGroups(@CurrentUser User user) {
         List<FavoriteGroupCardResponse> responses = favoriteGroupService.findAll(user);
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/favorite-categories")
+    public ResponseEntity<List<EnumResponse>> findFavoriteCategories(@CurrentUser User user) {
+        List<EnumResponse> responses = userService.findFavoriteCategoriesByUser(user);
         return ResponseEntity.ok(responses);
     }
 

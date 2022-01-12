@@ -23,10 +23,10 @@ public class FavoriteGroupService {
     private final GroupRepository groupRepository;
     private final FavoriteGroupRepository favoriteGroupRepository;
 
-    public void create(User user, FavoriteGroupCreateRequest request) {
+    public Long create(User user, FavoriteGroupCreateRequest request) {
         Group group = getGroupById(request.getGroupId());
         FavoriteGroup favoriteGroup = FavoriteGroup.create(user, group);
-        favoriteGroupRepository.save(favoriteGroup);
+        return favoriteGroupRepository.save(favoriteGroup).getId();
     }
 
     public Group getGroupById(Long groupId) {

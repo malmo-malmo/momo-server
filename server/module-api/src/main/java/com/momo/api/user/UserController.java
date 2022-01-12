@@ -11,6 +11,8 @@ import com.momo.domain.user.dto.UserUpdateRequest;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.service.FavoriteGroupService;
 import com.momo.domain.user.service.UserService;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -35,9 +37,9 @@ public class UserController {
 
     @PostMapping("/favorite-group")
     public ResponseEntity<Void> createFavoriteGroup(@CurrentUser User user,
-        @Valid @RequestBody FavoriteGroupCreateRequest request) {
-        favoriteGroupService.create(user, request);
-        return ResponseEntity.ok().build();
+        @Valid @RequestBody FavoriteGroupCreateRequest request) throws URISyntaxException {
+        Long id = favoriteGroupService.create(user, request);
+        return ResponseEntity.created(new URI("/api/user/favorite-group/" + id)).build();
     }
 
     @GetMapping

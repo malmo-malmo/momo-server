@@ -14,7 +14,7 @@ public class UserFixture {
 
     public static User getUser1() {
         User user = User.builder()
-            .nickname("UserFixture.getUser1()")
+            .nickname("user1")
             .university("대학교1")
             .city(City.SEOUL)
             .district("강동구")
@@ -27,7 +27,7 @@ public class UserFixture {
 
     public static User getUser2() {
         User user = User.builder()
-            .nickname("UserFixture.getUser2()")
+            .nickname("user2")
             .university("대학교2")
             .city(City.SEOUL)
             .district("강동구")
@@ -40,7 +40,7 @@ public class UserFixture {
 
     public static User getUser3() {
         User user = User.builder()
-            .nickname("UserFixture.getUser3()")
+            .nickname("user3")
             .university("대학교1")
             .city(City.SEOUL)
             .district("강남구")

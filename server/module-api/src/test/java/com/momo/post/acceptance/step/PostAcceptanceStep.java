@@ -25,7 +25,7 @@ public class PostAcceptanceStep {
             () -> assertThat(response.getTitle()).isEqualTo(request.getTitle()),
             () -> assertThat(response.getContents()).isEqualTo(request.getContents()),
             () -> assertThat(response.getTitle()).isEqualTo(request.getTitle()),
-            () -> assertThat(response.getImageUrls().size()).isEqualTo(request.getImageUrls().size()),
+            () -> assertThat(response.getImageUrls().size()).isEqualTo(request.getImages().size()),
             () -> assertThat(response.getId()).isEqualTo(postId),
             () -> assertThat(response.getAuthorImage()).isEqualTo(createUser.getImageUrl()),
             () -> assertThat(response.getAuthorNickname()).isEqualTo(createUser.getNickname()),

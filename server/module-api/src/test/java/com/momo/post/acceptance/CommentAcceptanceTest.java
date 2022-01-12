@@ -18,6 +18,7 @@ import com.momo.domain.post.dto.CommentsRequest;
 import com.momo.domain.post.dto.CommentsResponse;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import java.io.IOException;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ import org.junit.jupiter.api.Test;
 public class CommentAcceptanceTest extends AcceptanceTest {
 
     @Test
-    public void 모임_참여자가_게시물에_댓글을_등록한다() {
+    public void 모임_참여자가_게시물에_댓글을_등록한다() throws IOException {
         String token = getAccessToken(getUser1());
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         Long postId = extractId(requestToCreatePost(token, getNoticeCreateRequest(groupId)));
@@ -39,7 +40,7 @@ public class CommentAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 모임_참여자가_게시물_댓글_목록을_조회한다() {
+    public void 모임_참여자가_게시물_댓글_목록을_조회한다() throws IOException {
         String token = getAccessToken(getUser1());
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         Long postId = extractId(requestToCreatePost(token, getNoticeCreateRequest(groupId)));

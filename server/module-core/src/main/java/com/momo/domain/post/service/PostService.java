@@ -5,6 +5,7 @@ import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
+import com.momo.domain.image.service.ImageUploadService;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.entity.PostType;
 import com.momo.domain.post.repository.PostRepository;
@@ -13,6 +14,7 @@ import com.momo.domain.post.dto.PostCardsRequest;
 import com.momo.domain.post.dto.PostCreateRequest;
 import com.momo.domain.post.dto.PostResponse;
 import com.momo.domain.user.entity.User;
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -31,11 +33,14 @@ public class PostService {
 
     private final ParticipantRepository participantRepository;
 
-    public Long create(User user, PostCreateRequest request) {
+    private final ImageUploadService imageUploadService;
+
+    public Long create(User user, PostCreateRequest request) throws IOException {
         Group group = getGroupById(request.getGroupId());
         validatePostType(group, user, request.getTypeName());
         Post post = Post.create(user, group, request.toEntity());
-        post.updateImages(request.getImageUrls());
+        List<String> imageUrls = imageUploadService.uploadAll(request.getImages(), "post");
+        post.updateImages(imageUrls);
         return postRepository.save(post).getId();
     }
 

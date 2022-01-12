@@ -6,6 +6,8 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.momo.domain.image.util.ConvertFileUtil;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,6 +33,14 @@ public class S3UploadService implements ImageUploadService {
         String uploadImageUrl = process(uploadFile, dirName);
         uploadFile.delete();
         return uploadImageUrl;
+    }
+    public List<String> uploadAll(List<MultipartFile> multipartFiles, String dirName) throws IOException {
+        List<String> uploadUrls = new ArrayList<>();
+        for (MultipartFile multipartFile : multipartFiles) {
+            String uploadImageUrl = upload(multipartFile, dirName);
+            uploadUrls.add(uploadImageUrl);
+        }
+        return uploadUrls;
     }
     private String process(File uploadFile, String dirName) {
         String fileName = generateSaveFileName(dirName, uploadFile.getName());

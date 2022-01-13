@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<Void> create(@CurrentUser User user,
-        @Valid PostCreateRequest postCreateRequest) throws URISyntaxException, IOException {
+        @Valid @ModelAttribute PostCreateRequest postCreateRequest) throws URISyntaxException, IOException {
         Long postId = postService.create(user, postCreateRequest);
         return ResponseEntity.created(new URI("/api/post/" + postId)).build();
     }

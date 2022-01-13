@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @NoArgsConstructor
@@ -40,15 +41,15 @@ public class GroupCreateRequest {
     @NotBlank(message = "설명은 필수 입력값입니다.")
     private String introduction;
 
-    @NotBlank(message = "이미지는 필수 입력값입니다.")
-    private String imageUrl;
+    @NotNull(message = "이미지는 필수입니다.")
+    private MultipartFile image;
 
     @NotNull(message = "온 오프라인 여부는 필수 입력값입니다.")
     private Boolean isOffline;
 
     @Builder
     public GroupCreateRequest(String name, Category category, Boolean isUniversity, City city, String district,
-        LocalDate startDate, int recruitmentCnt, String introduction, String imageUrl, Boolean isOffline) {
+        LocalDate startDate, int recruitmentCnt, String introduction, MultipartFile image, Boolean isOffline) {
         this.name = name;
         this.category = category;
         this.isUniversity = isUniversity;
@@ -57,11 +58,11 @@ public class GroupCreateRequest {
         this.startDate = startDate;
         this.recruitmentCnt = recruitmentCnt;
         this.introduction = introduction;
-        this.imageUrl = imageUrl;
+        this.image = image;
         this.isOffline = isOffline;
     }
 
-    public Group toEntity() {
+    public Group toEntity(String imageUrl) {
         return Group.builder()
             .name(name)
             .category(category)

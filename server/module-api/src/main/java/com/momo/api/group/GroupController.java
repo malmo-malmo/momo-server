@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +31,7 @@ public class GroupController {
 
     @PostMapping
     public ResponseEntity<Void> create(@CurrentUser User user,
-        @Valid @RequestBody GroupCreateRequest groupCreateRequest) throws URISyntaxException, IOException {
+        @Valid @ModelAttribute GroupCreateRequest groupCreateRequest) throws URISyntaxException, IOException {
         Long groupId = groupService.create(user, groupCreateRequest);
         return ResponseEntity.created(new URI("/api/group/" + groupId)).build();
     }

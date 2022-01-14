@@ -25,7 +25,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 
 @WebMvcTest(GroupController.class)
 @DisplayName("모임 문서화 테스트")
@@ -39,6 +41,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
 
     @Test
     public void 모임_생성_테스트() throws Exception {
+        MockMultipartFile file = new MockMultipartFile("upload.png", "upload.png", null, new ClassPathResource("upload-test.png").getInputStream());
         when(groupService.create(any(), any())).thenReturn(1L);
         GroupCreateRequest request = GroupCreateRequest.builder()
             .name("A 모임")
@@ -49,7 +52,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .startDate(LocalDate.now())
             .recruitmentCnt(4)
             .introduction("테스트 모임입니다.")
-            .imageUrl("http://~~")
+            .image(file)
             .isOffline(false)
             .build();
         String content = super.objectMapper.writeValueAsString(request);

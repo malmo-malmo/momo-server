@@ -34,11 +34,11 @@ public class FavoriteGroup extends BaseEntity {
     private Group group;
 
     @Builder
-    public FavoriteGroup(Long id, User user, Group group, LocalDateTime createdDate) {
+    public FavoriteGroup(Long id, User user, Group group, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
+        super(createdDate, lastModifiedDate);
         this.id = id;
         this.user = user;
         this.group = group;
-        this.createdDate = createdDate;
     }
 
     public static FavoriteGroup create(User user, Group group) {

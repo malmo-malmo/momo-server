@@ -64,7 +64,8 @@ public class Group extends BaseEntity {
     @Builder
     public Group(Long id, User manager, String name, String imageUrl, Category category, LocalDate startDate,
         String university, City city, String district, String introduction, int recruitmentCnt, boolean isOffline,
-        boolean isEnd, LocalDateTime createdDate) {
+        boolean isEnd, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
+        super(createdDate, lastModifiedDate);
         this.id = id;
         this.manager = manager;
         this.name = name;
@@ -78,7 +79,6 @@ public class Group extends BaseEntity {
         this.recruitmentCnt = recruitmentCnt;
         this.isOffline = isOffline;
         this.isEnd = isEnd;
-        this.createdDate = createdDate;
     }
 
     public static Group create(User user, Group group, boolean isUniversity) {

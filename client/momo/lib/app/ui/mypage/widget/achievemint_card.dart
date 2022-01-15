@@ -21,7 +21,7 @@ class _AchievementCardState extends State<AchievementCard> {
       animationDuration: const Duration(milliseconds: 500),
       children: [
         ExpansionPanel(
-          backgroundColor: MomoColor.backgroundColor,
+          backgroundColor: MomoColor.scaffoldBackground,
           headerBuilder: (context, isExpanded) => Padding(
             padding: const EdgeInsets.only(top: 18, left: 24),
             child: RichText(

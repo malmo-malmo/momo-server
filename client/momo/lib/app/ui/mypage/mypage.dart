@@ -24,6 +24,7 @@ class Mypage extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       height: double.infinity,
       width: double.infinity,
+      color: MomoColor.flutterWhite,
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -63,7 +64,7 @@ class Mypage extends ConsumerWidget {
               padding: const EdgeInsets.only(top: 16, right: 45, left: 45),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: MomoColor.backgroundColor,
+                color: MomoColor.scaffoldBackground,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

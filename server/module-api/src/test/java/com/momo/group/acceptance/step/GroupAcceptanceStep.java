@@ -1,6 +1,8 @@
 package com.momo.group.acceptance.step;
 
 
+import static com.momo.CommonFileUploadSupport.uploadAssuredSupport;
+import static com.momo.CommonFileUploadSupport.uploadFile;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,20 +12,13 @@ import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.dto.GroupSearchConditionRequest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Assertions;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 public class GroupAcceptanceStep {
 
@@ -57,32 +52,13 @@ public class GroupAcceptanceStep {
 
     public static ExtractableResponse<Response> requestToCreateGroup(String token,
         GroupCreateRequest request) {
-        File file = null;
-        try {
-            file = new ClassPathResource("upload-test.png").getFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return addParam(given().log().all()
+        return uploadAssuredSupport(given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
-            .multiPart("image", file), request)
+            .multiPart("image", uploadFile), request)
             .post("/api/group")
             .then().log().all()
             .extract();
-    }
-    public static RequestSpecification addParam(RequestSpecification spec, Object obj){
-        Field[] fields = obj.getClass().getDeclaredFields();
-        for(int i = 0; i < fields.length; i++){
-            fields[i].setAccessible(true);
-            try{
-                spec = spec.param(fields[i].getName(), String.valueOf(fields[i].get(obj)));
-            }catch(Exception e){
-                System.out.println(fields[i]);
-                e.printStackTrace();
-            }
-        }
-        return spec;
     }
 
     public static ExtractableResponse<Response> requestToFindGroup(String token, Long groupId) {

@@ -22,10 +22,27 @@ class FilterBottomSheet extends ConsumerWidget {
     final check = ref.watch(searchFilterCheckProvider);
 
     return SafeArea(
-      child: SizedBox(
-        height: double.infinity,
-        width: double.infinity,
-        child: SingleChildScrollView(
+      child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 36, left: 16, right: 16),
+          child: ConfirmButton(
+            check: check,
+            onPressButton: () async {
+              ref
+                  .read(categoryFilterStateProvider.notifier)
+                  .checkFilter(categoryChecks);
+              ref
+                  .read(cityFilterStateProvider.notifier)
+                  .checkFilter(cityChecks);
+              ref.read(isShowResultStateProvider.state).state = true;
+              ref.read(navigatorProvider).pop();
+              ref.read(searchReulstPagingController).refresh();
+            },
+            buttonText: '완료',
+          ),
+        ),
+        body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -46,6 +63,7 @@ class FilterBottomSheet extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 color: const Color(0xfff7f7fd),
+                width: double.infinity,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -87,23 +105,7 @@ class FilterBottomSheet extends ConsumerWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 53),
-                    ConfirmButton(
-                      check: check,
-                      onPressButton: () async {
-                        ref
-                            .read(categoryFilterStateProvider.notifier)
-                            .checkFilter(categoryChecks);
-                        ref
-                            .read(cityFilterStateProvider.notifier)
-                            .checkFilter(cityChecks);
-                        ref.read(isShowResultStateProvider.state).state = true;
-                        ref.read(navigatorProvider).pop();
-                        ref.read(searchReulstPagingController).refresh();
-                      },
-                      buttonText: '완료',
-                    ),
-                    const SizedBox(height: 36),
+                    const SizedBox(height: 150),
                   ],
                 ),
               ),

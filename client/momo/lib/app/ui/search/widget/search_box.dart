@@ -36,10 +36,11 @@ class SearchBox extends ConsumerWidget {
           children: [
             InkWell(
               onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (context) => const FilterBottomSheet(),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const FilterBottomSheet(),
+                  ),
                 );
               },
               child: SvgPicture.asset(

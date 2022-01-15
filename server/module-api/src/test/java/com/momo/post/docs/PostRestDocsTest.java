@@ -66,29 +66,4 @@ public class PostRestDocsTest extends RestDocsControllerTest {
             .andExpect(status().isOk())
             .andDo(PostDocumentation.find());
     }
-
-    @Test
-    public void 게시글_목록_조회() throws Exception {
-        when(postService.findPageByGroupIdAndType(any(), any())).thenReturn(List.of(
-            PostCardResponse.builder()
-                .id(1L)
-                .authorImage("http://~~")
-                .authorNickname("테스트맨")
-                .title("테스트 게시글")
-                .contents("테스트 내용")
-                .createdDate(LocalDateTime.now())
-                .commentCnt(1L)
-                .build()
-        ));
-        super.mockMvc.perform(get("/api/posts/paging", 1L)
-                .param("groupId", String.valueOf(1L))
-                .param("type", "테스트 타입")
-                .param("page", String.valueOf(1))
-                .param("size", String.valueOf(10))
-            )
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andDo(PostDocumentation.findPageByCardsRequest());
-
-    }
 }

@@ -23,7 +23,11 @@ public class CommonFileUploadSupport {
         for (Field field : fields) {
             field.setAccessible(true);
             try {
-                spec = spec.queryParam(field.getName(), String.valueOf(field.get(obj)));
+                String fieldName = field.getName();
+                String fieldValue = field.get(obj) != null ? String.valueOf(field.get(obj)) : null;
+                if(fieldValue != null) {
+                    spec = spec.queryParam(fieldName, fieldValue);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

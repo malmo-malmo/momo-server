@@ -4,6 +4,7 @@ import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.entity.Category;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -11,11 +12,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.BatchSize;
 
-@Getter
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FavoriteCategories {
@@ -28,13 +27,17 @@ public class FavoriteCategories {
         return new FavoriteCategories();
     }
 
-    public void updateAll(User user, List<Category> categories) {
+    public List<FavoriteCategory> getFavoriteCategories() {
+        return Collections.unmodifiableList(favoriteCategories);
+    }
+
+    public void updateAll(User loginUser, List<Category> categories) {
         validateCategories(categories);
         if (favoriteCategories.size() > 0) {
             deleteAll();
         }
         for (Category category : categories) {
-            FavoriteCategory favoriteCategory = FavoriteCategory.create(user, category);
+            FavoriteCategory favoriteCategory = FavoriteCategory.create(loginUser, category);
             favoriteCategories.add(favoriteCategory);
         }
     }

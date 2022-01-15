@@ -11,9 +11,13 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    database-platform: org.hibernate.dialect.H2Dialect
+        jdbc:
+          batch_size: 100
+          batch_versioned_data: true
+        default_batch_fetch_size: 100
+        order_inserts: true
+        order_updates: true
 logging:
-  config: classpath:logback/logback-local.xml
   level:
     org:
       hibernate:

@@ -117,6 +117,16 @@ create table if not exists district
     primary key (id)
 ) engine = MyISAM;
 
+create table if not exists favorite_group
+(
+    id                 bigint not null auto_increment,
+    group_id           bigint not null,
+    user_id            bigint not null,
+    created_date       timestamp,
+    last_modified_date timestamp,
+    primary key (id)
+) engine = InnoDB;
+
 alter table attendance
     add constraint groups_fk_attendance
         foreign key (group_id)
@@ -192,4 +202,16 @@ alter table schedule
     add constraint groups_fk_schedule
         foreign key (group_id)
             references group_tb (id)
+            on delete cascade;
+
+alter table favorite_group
+    add constraint group_tb_fk_favorite_group
+        foreign key (group_id)
+            references group_tb (id)
+            on delete cascade;
+
+alter table favorite_group
+    add constraint user_fk_favorite_group
+        foreign key (user_id)
+            references user (id)
             on delete cascade;

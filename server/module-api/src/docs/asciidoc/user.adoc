@@ -1,5 +1,10 @@
 == 사용자 API
 
+=== 관심 모임 추가
+관심(찜) 모임을 추가합니다.
+
+operation::user/createFavoriteGroup[snippets='http-request,http-response,request-fields']
+
 === 대학교 목록 조회
 대학교 목록을 조회합니다.
 
@@ -15,6 +20,21 @@ operation::user/findMyInformation[snippets='http-request,http-response,response-
 
 operation::user/validateDuplicateNickname[snippets='http-request,http-response,request-parameters']
 
+=== 관심 모임 수 조회
+관심(찜) 모임 수를 조회합니다.
+
+operation::user/findFavoriteGroupCount[snippets='http-request,http-response,response-fields']
+
+=== 관심 모임 목록 조회
+관심(찜) 모임 목록을 조회합니다.
+
+operation::user/findFavoriteGroups[snippets='http-request,http-response,response-fields']
+
+=== 관심 모임 목록 조회
+관심(찜) 모임 목록을 조회합니다.
+
+operation::user/findFavoriteCategories[snippets='http-request,http-response,response-fields']
+
 === 내 정보 수정
 
 operation::user/update[snippets='http-request,http-response,request-fields']
@@ -22,3 +42,7 @@ operation::user/update[snippets='http-request,http-response,request-fields']
 === 관심 카테고리 수정
 
 operation::user/updateFavoriteCategories[snippets='http-request,http-response,request-fields']
+
+=== 관심 모임 삭제
+
+operation::user/deleteFavoriteGroup[snippets='http-request,http-response,path-parameters']

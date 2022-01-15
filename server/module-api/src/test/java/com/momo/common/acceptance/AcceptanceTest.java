@@ -41,7 +41,6 @@ public class AcceptanceTest {
 
     @AfterEach
     protected void tearDown() {
-        databaseCleanUp.afterPropertiesSet();
         databaseCleanUp.cleanUp();
     }
 

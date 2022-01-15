@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 public class PostAcceptanceTest extends AcceptanceTest {
 
     @Test
-    public void 모임에_게시물을_등록한다() throws IOException {
+    public void 모임에_게시물을_등록한다() {
         String token = getAccessToken(getUser1());
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         ExtractableResponse<Response> res = requestToCreatePost(token, getPostCreateRequest(groupId));
@@ -39,7 +39,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 모임에_게시물을_등록할_때_모임의_참여자가_아니면_실패한다() throws IOException {
+    public void 모임에_게시물을_등록할_때_모임의_참여자가_아니면_실패한다() {
         String token = getAccessToken(getUser1());
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         String invalidToken = getAccessToken(getUser2());
@@ -48,7 +48,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 모임에_공지사항을_등록한다() throws IOException {
+    public void 모임에_공지사항을_등록한다() {
         String token = getAccessToken(getUser1());
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         ExtractableResponse<Response> response = requestToCreatePost(token, getNoticeCreateRequest(groupId));
@@ -56,7 +56,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 모임에_공지사항을_등록할_때_모임의_관리자가_아니면_실패한다() throws IOException {
+    public void 모임에_공지사항을_등록할_때_모임의_관리자가_아니면_실패한다() {
         String token = getAccessToken(getUser1());
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         String invalidToken = getAccessToken(getUser2());
@@ -65,7 +65,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 모임_게시물_또는_공지사항을_상세_조회한다() throws IOException {
+    public void 모임_게시물_또는_공지사항을_상세_조회한다() {
         String token = getAccessToken(getUser1());
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         Long postId = extractId(requestToCreatePost(token, getPostCreateRequest(groupId)));
@@ -76,7 +76,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 모임_게시물_또는_공지사항을_상세_조회할_때_참여자가_아니면_실패한다() throws IOException {
+    public void 모임_게시물_또는_공지사항을_상세_조회할_때_참여자가_아니면_실패한다() {
         String token = getAccessToken(getUser1());
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         Long postId = extractId(requestToCreatePost(token, getPostCreateRequest(groupId)));
@@ -86,7 +86,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 게시물_목록을_조회한다() throws IOException {
+    public void 게시물_목록을_조회한다() {
         String token = getAccessToken(getUser1());
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         requestToCreatePost(token, getPostCreateRequest(groupId));
@@ -99,7 +99,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    public void 모임_참여자가_아니면_게시물_또는_공지사항_목록_조회를_실패한다() throws IOException {
+    public void 모임_참여자가_아니면_게시물_또는_공지사항_목록_조회를_실패한다() {
         String token = getAccessToken(getUser1());
         String invalidToken = getAccessToken(getUser2());
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));

@@ -1,5 +1,7 @@
 package com.momo.post.acceptance.step;
 
+import static com.momo.CommonFileUploadSupport.uploadAssuredSupport;
+import static com.momo.CommonFileUploadSupport.uploadFile;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,7 +27,7 @@ public class PostAcceptanceStep {
             () -> assertThat(response.getTitle()).isEqualTo(request.getTitle()),
             () -> assertThat(response.getContents()).isEqualTo(request.getContents()),
             () -> assertThat(response.getTitle()).isEqualTo(request.getTitle()),
-            () -> assertThat(response.getImageUrls().size()).isEqualTo(request.getImages().size()),
+            () -> assertThat(response.getImageUrls().size()).isEqualTo(1),
             () -> assertThat(response.getId()).isEqualTo(postId),
             () -> assertThat(response.getAuthorImage()).isEqualTo(createUser.getImageUrl()),
             () -> assertThat(response.getAuthorNickname()).isEqualTo(createUser.getNickname()),
@@ -49,10 +51,10 @@ public class PostAcceptanceStep {
     }
 
     public static ExtractableResponse<Response> requestToCreatePost(String token, PostCreateRequest postCreateRequest) {
-        return given().log().all()
+        return uploadAssuredSupport(given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .body(postCreateRequest)
+            .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
+            .multiPart("images", uploadFile), postCreateRequest)
             .when()
             .post("/api/post")
             .then().log().all()

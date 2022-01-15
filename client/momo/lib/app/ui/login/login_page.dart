@@ -1,4 +1,4 @@
-import 'dart:developer' as dp;
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -42,7 +42,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       refreshToken: response.data['refreshToken'],
     );
 
-    dp.log('$tokenData');
     Hive.box('auth').put('tokenData', tokenData);
 
     final _userDataCheck = await _isFirstLogin();
@@ -139,11 +138,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           ? await AuthCodeClient.instance.requestWithTalk()
           : await AuthCodeClient.instance.request();
     } on KakaoAuthException catch (e) {
-      dp.log('KakaoAuthException: ${e.toString()}');
+      log('KakaoAuthException: ${e.toString()}');
     } on KakaoClientException catch (e) {
-      dp.log('KakaoClientException: ${e.toString()}');
+      log('KakaoClientException: ${e.toString()}');
     } catch (e) {
-      dp.log('OnotherException: ${e.toString()}');
+      log('OnotherException: ${e.toString()}');
     }
     return authCode;
   }

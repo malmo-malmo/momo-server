@@ -45,22 +45,49 @@ class TermsPage extends ConsumerWidget {
                   const SizedBox(height: 32),
                   TermsRow(
                     check: termsCheck[0],
-                    onCheck: () =>
-                        ref.read(termsCheckProvider.notifier).toggleTerms(0),
+                    onCheck: () {
+                      ref.read(termsCheckProvider.notifier).toggleTerms(0);
+                      final _checks =
+                          ref.read(termsCheckProvider.notifier).isCheckAll();
+                      if (_checks) {
+                        ref.read(termsAllCheckStateProvider.state).state = true;
+                      } else {
+                        ref.read(termsAllCheckStateProvider.state).state =
+                            false;
+                      }
+                    },
                     title: '개인정보 수집 제공 동의 (필수)',
                   ),
                   const SizedBox(height: 14),
                   TermsRow(
                     check: termsCheck[1],
-                    onCheck: () =>
-                        ref.read(termsCheckProvider.notifier).toggleTerms(1),
+                    onCheck: () {
+                      ref.read(termsCheckProvider.notifier).toggleTerms(1);
+                      final _checks =
+                          ref.read(termsCheckProvider.notifier).isCheckAll();
+                      if (_checks) {
+                        ref.read(termsAllCheckStateProvider.state).state = true;
+                      } else {
+                        ref.read(termsAllCheckStateProvider.state).state =
+                            false;
+                      }
+                    },
                     title: '제 3자 정보제공 동의 (필수)',
                   ),
                   const SizedBox(height: 14),
                   TermsRow(
                     check: termsCheck[2],
-                    onCheck: () =>
-                        ref.read(termsCheckProvider.notifier).toggleTerms(2),
+                    onCheck: () {
+                      ref.read(termsCheckProvider.notifier).toggleTerms(2);
+                      final _checks =
+                          ref.read(termsCheckProvider.notifier).isCheckAll();
+                      if (_checks) {
+                        ref.read(termsAllCheckStateProvider.state).state = true;
+                      } else {
+                        ref.read(termsAllCheckStateProvider.state).state =
+                            false;
+                      }
+                    },
                     title: '이벤트 수신 동의 (선택)',
                   ),
                 ],

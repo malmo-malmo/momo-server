@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/model/enum/photo_request_type.dart';
 import 'package:momo/app/model/enum/post_type.dart';
+import 'package:momo/app/provider/gallery/permission_provider.dart';
 import 'package:momo/app/provider/post/post_request_provider.dart';
 import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/routes/custom_arg/post_request_arg.dart';
@@ -134,13 +135,16 @@ class _FloatingCameraBotton extends StatelessWidget {
           child: InkWell(
             onTap: () async {
               FocusScope.of(context).unfocus();
-              List<String>? images =
-                  await ref.read(navigatorProvider).navigateTo(
-                        routeName: AppRoutes.gallery,
-                        arguments: PhotoRequestType.many,
-                      );
-              if (images != null) {
-                addImages(images);
+              final check = await ref.read(photoPermissionProvider.future);
+              if (check) {
+                List<String>? images =
+                    await ref.read(navigatorProvider).navigateTo(
+                          routeName: AppRoutes.gallery,
+                          arguments: PhotoRequestType.many,
+                        );
+                if (images != null) {
+                  addImages(images);
+                }
               }
             },
             child: SvgPicture.asset('assets/icon/btn_camera_32.svg'),

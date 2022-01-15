@@ -33,7 +33,7 @@ class _SearchedWordCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 1,
+      elevation: 3,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -43,6 +43,15 @@ class _SearchedWordCard extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
+          boxShadow: const [
+            BoxShadow(
+              blurRadius: 6,
+              offset: Offset(0, 0),
+              color: Color(0x1aa59ad0),
+              blurStyle: BlurStyle.outer,
+              spreadRadius: 0,
+            )
+          ],
         ),
         child: Center(
           child: Row(
@@ -52,10 +61,10 @@ class _SearchedWordCard extends StatelessWidget {
                 word,
                 style: MomoTextStyle.normalR,
               ),
-              Icon(
+              const Icon(
                 CupertinoIcons.xmark,
                 color: MomoColor.unSelIcon,
-                size: 10.w,
+                size: 16,
               ),
             ],
           ),

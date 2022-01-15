@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:momo/app/model/enum/photo_request_type.dart';
+import 'package:momo/app/provider/gallery/permission_provider.dart';
 import 'package:momo/app/provider/user/name_check_provider.dart';
 import 'package:momo/app/provider/user/user_data_provider.dart';
 import 'package:momo/app/provider/user/user_info_request_provider.dart';
+import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/card/profile_avatar.dart';
 import 'package:momo/app/ui/components/dialog/confirm_dialog.dart';
@@ -14,10 +18,10 @@ import 'package:momo/app/ui/components/input_box/university_input_box.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/setting/setting_navigation_service.dart';
 import 'package:momo/app/ui/setting/widget/settings_app_bar.dart';
+import 'package:momo/app/util/navigation_service.dart';
 
 class UserInfoEditPage extends ConsumerWidget {
   const UserInfoEditPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userNameCheck = ref.watch(nameCheckProvider);
@@ -32,7 +36,11 @@ class UserInfoEditPage extends ConsumerWidget {
           isAction: true,
           title: '내 정보 관리',
           actionWidget: InkWell(
-            onTap: () {
+            onTap: () async {
+              // await ref
+              //     .read(userDataProvider.notifier)
+              //     .updateUserInfo(userInfo);
+
               ref.read(settingNavigatorProvider).pop();
             },
             child: Padding(
@@ -66,13 +74,48 @@ class UserInfoEditPage extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 60),
-                    const Align(
+                    Align(
                       alignment: Alignment.center,
-                      child: ProfileAvatar(
-                        img:
-                            'https://file.mk.co.kr/meet/neds/2020/08/image_readtop_2020_864116_15980534304326707.png',
-                        rad: 50,
-                        backgroundColor: MomoColor.main,
+                      child: SizedBox(
+                        height: 102,
+                        width: 102,
+                        child: Stack(
+                          children: [
+                            const ProfileAvatar(
+                              img:
+                                  'https://file.mk.co.kr/meet/neds/2020/08/image_readtop_2020_864116_15980534304326707.png',
+                              rad: 50,
+                              backgroundColor: MomoColor.main,
+                            ),
+                            Positioned(
+                              right: 0,
+                              bottom: 0,
+                              child: InkWell(
+                                onTap: () async {
+                                  final check = await ref
+                                      .read(photoPermissionProvider.future);
+                                  if (check) {
+                                    String? imagePath = await ref
+                                        .read(navigatorProvider)
+                                        .navigateTo(
+                                          routeName: AppRoutes.gallery,
+                                          arguments: PhotoRequestType.one,
+                                        );
+                                  }
+                                },
+                                child: CircleAvatar(
+                                  radius: 17,
+                                  backgroundColor: MomoColor.main,
+                                  child: Center(
+                                    child: SvgPicture.asset(
+                                      'assets/icon/mypage/btn_camera_2_18.svg',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 40),

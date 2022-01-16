@@ -44,6 +44,7 @@ class RecommendGroupListPage extends ConsumerWidget {
                       group: item,
                       height: 200.h,
                       width: double.infinity,
+                      setLike: () {},
                     ),
                     newPageProgressIndicatorBuilder: (context) =>
                         const LoadingCard(),

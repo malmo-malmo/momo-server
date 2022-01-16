@@ -29,7 +29,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
     final _userDataCheck = await _isFirstLogin();
 
     if (!_tokenCheck) {
-      if (_userDataCheck) {
+      if (!_userDataCheck) {
         await ref.watch(categoryResultProvider.future);
         await ref.watch(locationResultProvider.future);
         ref.read(navigatorProvider).navigateToRemove(

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:momo/app/model/group/group_info.dart';
+import 'package:momo/app/model/group/group_list_dto.dart';
+import 'package:momo/app/provider/group/group_provider.dart';
 import 'package:momo/app/provider/group/home_group_paging_controller.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/button/message_button.dart';
@@ -10,11 +14,33 @@ import 'package:momo/app/ui/home/widget/event_card.dart';
 import 'package:momo/app/ui/home/widget/home_group_list.dart';
 import 'package:momo/app/ui/home/widget/reminder_card.dart';
 
-class HomePage extends ConsumerWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
+  // final _categoryPagingController =
+  //     PagingController<int, GroupInfo>(firstPageKey: 0);
+
+  // @override
+  // void initState() {
+  //   _categoryPagingController.addPageRequestListener((pageKey) => ref
+  //       .read(categoryGroupListProvider.notifier)
+  //       .getGroupsByCategories(pageKey));
+  //   super.initState();
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    // ref.listen<GroupListDto>(categoryGroupListProvider, (previous, next) {
+    //   _categoryPagingController.value = PagingState(
+    //       itemList: next.groups,
+    //       nextPageKey: next.hasNext ? next.nextPage : null,
+    //       error: null);
+    // });
     final categoryPagingController = ref.watch(categoryController);
     final districtPagingController = ref.watch(districtController);
     final universityPagingController = ref.watch(universityController);

@@ -145,6 +145,7 @@ class Mypage extends ConsumerWidget {
                     ),
                     width: 148,
                     height: 200,
+                    setLike: () {},
                   );
                 },
                 separatorBuilder: (context, index) => const SizedBox(width: 14),

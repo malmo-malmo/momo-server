@@ -34,6 +34,7 @@ class GroupListPage extends StatelessWidget {
             children: [
               GroupListView(
                 pagingController: pagingController,
+                setLike: () {},
               ),
             ],
           ),

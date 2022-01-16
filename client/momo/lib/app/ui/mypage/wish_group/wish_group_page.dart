@@ -5,9 +5,14 @@ import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:momo/app/ui/components/card/group_card.dart';
 
-class WishGroupPage extends StatelessWidget {
+class WishGroupPage extends StatefulWidget {
   const WishGroupPage({Key? key}) : super(key: key);
 
+  @override
+  State<WishGroupPage> createState() => _WishGroupPageState();
+}
+
+class _WishGroupPageState extends State<WishGroupPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,6 +43,7 @@ class WishGroupPage extends StatelessWidget {
                   favoriteGroup: index % 2 == 1,
                 ),
                 width: double.infinity,
+                setLike: () {},
               );
             },
           ),

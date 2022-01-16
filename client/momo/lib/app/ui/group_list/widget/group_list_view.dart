@@ -5,10 +5,14 @@ import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/ui/components/card/group_card.dart';
 
 class GroupListView extends StatelessWidget {
-  const GroupListView({Key? key, required this.pagingController})
-      : super(key: key);
+  const GroupListView({
+    Key? key,
+    required this.pagingController,
+    required this.setLike,
+  }) : super(key: key);
 
   final PagingController<int, GroupInfo> pagingController;
+  final Function setLike;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +24,7 @@ class GroupListView extends StatelessWidget {
             group: item,
             height: 200.h,
             width: double.infinity,
+            setLike: setLike,
           ),
         ),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

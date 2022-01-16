@@ -34,8 +34,8 @@ public class GroupService {
     private final S3UploadService s3UploadService;
 
     public Long create(User user, GroupCreateRequest groupCreateRequest) throws IOException {
-        Group group = Group.create(user, groupCreateRequest.toEntity(), groupCreateRequest.getIsUniversity());
-        groupRepository.save(group);
+        Group group = groupRepository.save(
+            Group.create(user, groupCreateRequest.toEntity(), groupCreateRequest.getIsUniversity()));
         Long groupId = group.getId();
 
         String imageUrl = s3UploadService.upload(groupCreateRequest.getImage(), GenerateDirUtil.groupProfile(groupId));

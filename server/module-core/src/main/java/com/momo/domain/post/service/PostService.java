@@ -42,11 +42,11 @@ public class PostService {
         Group group = getGroupById(groupId);
         validatePostType(group, user, request.getTypeName());
 
-        Post post = Post.create(user, group, request.toEntity());
-        postRepository.save(post);
+        Post post = postRepository.save(Post.create(user, group, request.toEntity()));
         Long postId = post.getId();
 
-        List<String> imageUrls = imageUploadService.uploadAll(request.getImages(), GenerateDirUtil.posts(groupId, postId));
+        List<String> imageUrls = imageUploadService.uploadAll(request.getImages(),
+            GenerateDirUtil.posts(groupId, postId));
         post.updateImages(imageUrls);
         return postId;
     }

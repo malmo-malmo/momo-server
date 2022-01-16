@@ -7,6 +7,7 @@ import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.user.dto.FavoriteGroupCardResponse;
 import com.momo.domain.user.dto.FavoriteGroupCreateRequest;
+import com.momo.domain.user.dto.ParticipatingGroupCardResponse;
 import com.momo.domain.user.dto.UserResponse;
 import com.momo.domain.user.dto.UserUpdateRequest;
 import com.momo.domain.user.entity.User;
@@ -45,6 +46,20 @@ public class UserAcceptanceStep {
         );
     }
 
+    public static void assertThatFindParticipatingGroups(List<ParticipatingGroupCardResponse> responses,
+        GroupCreateRequest request) {
+        Assertions.assertAll(
+            () -> assertThat(responses.size()).isEqualTo(1),
+            () -> assertThat(responses.get(0).getId()).isNotNull(),
+            () -> assertThat(responses.get(0).getName()).isEqualTo(request.getName()),
+            () -> assertThat(responses.get(0).getImageUrl()).isEqualTo(request.getImageUrl()),
+            () -> assertThat(responses.get(0).getStartDate()).isEqualTo(request.getStartDate()),
+            () -> assertThat(responses.get(0).isOffline()).isEqualTo(request.getIsOffline()),
+            () -> assertThat(responses.get(0).isEnd()).isFalse(),
+            () -> assertThat(responses.get(0).getParticipantCnt()).isEqualTo(1)
+        );
+    }
+
     public static ExtractableResponse<Response> requestToCreateFavoriteGroup(String token,
         FavoriteGroupCreateRequest request) {
         return given().log().all()
@@ -80,6 +95,24 @@ public class UserAcceptanceStep {
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .when()
             .get("/api/user/favorite-groups")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> requestToFindParticipatingGroupCount(String token) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .when()
+            .get("/api/user/participating-group-count")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> requestToFindParticipatingGroups(String token) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .when()
+            .get("/api/user/participating-groups")
             .then().log().all()
             .extract();
     }

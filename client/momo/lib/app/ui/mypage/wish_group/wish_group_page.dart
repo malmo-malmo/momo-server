@@ -35,6 +35,7 @@ class WishGroupPage extends StatelessWidget {
                   offline: index % 2 == 1,
                   participantCnt: index,
                   startDate: '2022-01-01',
+                  favoriteGroup: index % 2 == 1,
                 ),
                 width: double.infinity,
               );

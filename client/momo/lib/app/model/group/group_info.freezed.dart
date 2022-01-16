@@ -27,7 +27,8 @@ class _$GroupInfoTearOff {
       required bool offline,
       required int participantCnt,
       required String startDate,
-      String? imageUrl}) {
+      String? imageUrl,
+      required bool favoriteGroup}) {
     return _GroupInfo(
       id: id,
       name: name,
@@ -35,6 +36,7 @@ class _$GroupInfoTearOff {
       participantCnt: participantCnt,
       startDate: startDate,
       imageUrl: imageUrl,
+      favoriteGroup: favoriteGroup,
     );
   }
 
@@ -54,6 +56,7 @@ mixin _$GroupInfo {
   int get participantCnt => throw _privateConstructorUsedError;
   String get startDate => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
+  bool get favoriteGroup => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -71,7 +74,8 @@ abstract class $GroupInfoCopyWith<$Res> {
       bool offline,
       int participantCnt,
       String startDate,
-      String? imageUrl});
+      String? imageUrl,
+      bool favoriteGroup});
 }
 
 /// @nodoc
@@ -90,6 +94,7 @@ class _$GroupInfoCopyWithImpl<$Res> implements $GroupInfoCopyWith<$Res> {
     Object? participantCnt = freezed,
     Object? startDate = freezed,
     Object? imageUrl = freezed,
+    Object? favoriteGroup = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -116,6 +121,10 @@ class _$GroupInfoCopyWithImpl<$Res> implements $GroupInfoCopyWith<$Res> {
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      favoriteGroup: favoriteGroup == freezed
+          ? _value.favoriteGroup
+          : favoriteGroup // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -132,7 +141,8 @@ abstract class _$GroupInfoCopyWith<$Res> implements $GroupInfoCopyWith<$Res> {
       bool offline,
       int participantCnt,
       String startDate,
-      String? imageUrl});
+      String? imageUrl,
+      bool favoriteGroup});
 }
 
 /// @nodoc
@@ -152,6 +162,7 @@ class __$GroupInfoCopyWithImpl<$Res> extends _$GroupInfoCopyWithImpl<$Res>
     Object? participantCnt = freezed,
     Object? startDate = freezed,
     Object? imageUrl = freezed,
+    Object? favoriteGroup = freezed,
   }) {
     return _then(_GroupInfo(
       id: id == freezed
@@ -178,6 +189,10 @@ class __$GroupInfoCopyWithImpl<$Res> extends _$GroupInfoCopyWithImpl<$Res>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      favoriteGroup: favoriteGroup == freezed
+          ? _value.favoriteGroup
+          : favoriteGroup // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -191,7 +206,8 @@ class _$_GroupInfo implements _GroupInfo {
       required this.offline,
       required this.participantCnt,
       required this.startDate,
-      this.imageUrl});
+      this.imageUrl,
+      required this.favoriteGroup});
 
   factory _$_GroupInfo.fromJson(Map<String, dynamic> json) =>
       _$$_GroupInfoFromJson(json);
@@ -208,10 +224,12 @@ class _$_GroupInfo implements _GroupInfo {
   final String startDate;
   @override
   final String? imageUrl;
+  @override
+  final bool favoriteGroup;
 
   @override
   String toString() {
-    return 'GroupInfo(id: $id, name: $name, offline: $offline, participantCnt: $participantCnt, startDate: $startDate, imageUrl: $imageUrl)';
+    return 'GroupInfo(id: $id, name: $name, offline: $offline, participantCnt: $participantCnt, startDate: $startDate, imageUrl: $imageUrl, favoriteGroup: $favoriteGroup)';
   }
 
   @override
@@ -227,12 +245,14 @@ class _$_GroupInfo implements _GroupInfo {
             (identical(other.startDate, startDate) ||
                 other.startDate == startDate) &&
             (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl));
+                other.imageUrl == imageUrl) &&
+            (identical(other.favoriteGroup, favoriteGroup) ||
+                other.favoriteGroup == favoriteGroup));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, name, offline, participantCnt, startDate, imageUrl);
+  int get hashCode => Object.hash(runtimeType, id, name, offline,
+      participantCnt, startDate, imageUrl, favoriteGroup);
 
   @JsonKey(ignore: true)
   @override
@@ -252,7 +272,8 @@ abstract class _GroupInfo implements GroupInfo {
       required bool offline,
       required int participantCnt,
       required String startDate,
-      String? imageUrl}) = _$_GroupInfo;
+      String? imageUrl,
+      required bool favoriteGroup}) = _$_GroupInfo;
 
   factory _GroupInfo.fromJson(Map<String, dynamic> json) =
       _$_GroupInfo.fromJson;
@@ -269,6 +290,8 @@ abstract class _GroupInfo implements GroupInfo {
   String get startDate;
   @override
   String? get imageUrl;
+  @override
+  bool get favoriteGroup;
   @override
   @JsonKey(ignore: true)
   _$GroupInfoCopyWith<_GroupInfo> get copyWith =>

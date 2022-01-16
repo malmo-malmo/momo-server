@@ -23,6 +23,7 @@ class RecentMeetingList extends StatelessWidget {
             offline: index % 2 == 0,
             participantCnt: 10,
             startDate: '2021-12-31',
+            favoriteGroup: index % 2 == 1,
           ),
           width: double.infinity,
           height: 200.h,

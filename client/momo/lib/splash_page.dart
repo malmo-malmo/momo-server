@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:momo/app/provider/category_result_provider.dart';
 import 'package:momo/app/provider/city_result_provider.dart';
+import 'package:momo/app/provider/user/user_data_provider.dart';
 import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/navigation_service.dart';
@@ -25,16 +26,31 @@ class _SplashPageState extends ConsumerState<SplashPage> {
 
   Future<void> _pushToNextPage() async {
     final _tokenCheck = _hasNoToken();
+    final _userDataCheck = await _isFirstLogin();
 
     if (!_tokenCheck) {
-      await ref.watch(categoryResultProvider.future);
-      await ref.watch(locationResultProvider.future);
-      ref.read(navigatorProvider).navigateToRemove(routeName: AppRoutes.main);
+      if (_userDataCheck) {
+        await ref.watch(categoryResultProvider.future);
+        await ref.watch(locationResultProvider.future);
+        ref.read(navigatorProvider).navigateToRemove(
+              routeName: AppRoutes.main,
+            );
+      } else {
+        ref.read(navigatorProvider).navigateToRemove(
+              routeName: AppRoutes.trems,
+            );
+      }
     } else {
       ref.read(navigatorProvider).navigateToRemove(
             routeName: AppRoutes.login,
           );
     }
+  }
+
+  Future<bool> _isFirstLogin() async {
+    final _isFirstLogin =
+        await ref.read(userDataProvider.notifier).isFirstLogin();
+    return _isFirstLogin;
   }
 
   @override

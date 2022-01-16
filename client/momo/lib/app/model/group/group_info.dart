@@ -12,6 +12,7 @@ class GroupInfo with _$GroupInfo {
     required int participantCnt,
     required String startDate,
     String? imageUrl,
+    required bool favoriteGroup,
   }) = _GroupInfo;
 
   factory GroupInfo.fromJson(Map<String, dynamic> json) =>

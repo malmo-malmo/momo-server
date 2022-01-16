@@ -22,22 +22,19 @@ public class ParticipantRepositoryTest extends RepositoryTest {
 
     @Autowired
     private ParticipantRepository participantRepository;
-
     private User user;
-
     private Group group;
-
     private Participant participant;
 
     @BeforeEach
-    public void before() {
+    void before() {
         user = save(
             User.builder()
                 .provider(SocialProvider.KAKAO)
                 .providerId("test")
                 .refreshToken("refresh Token")
                 .nickname("testMan")
-                .imageUrl("http://~~")
+                .imageUrl("이미지 URL")
                 .city(City.SEOUL)
                 .district("마포구")
                 .university("한국대")
@@ -46,7 +43,7 @@ public class ParticipantRepositoryTest extends RepositoryTest {
         group = save(Group.builder()
             .city(City.SEOUL)
             .district("마포")
-            .imageUrl("http://~")
+            .imageUrl("이미지 URL")
             .introduction("안녕하세요")
             .university("한국대")
             .isOffline(false)
@@ -63,7 +60,7 @@ public class ParticipantRepositoryTest extends RepositoryTest {
     }
 
     @Test
-    public void 참가자를_저장한다() {
+    void 참가자를_저장한다() {
         Participant participant = participantRepository.findAll().get(0);
         Assertions.assertAll(
             () -> assertThat(participant).isEqualTo(this.participant),
@@ -73,26 +70,22 @@ public class ParticipantRepositoryTest extends RepositoryTest {
     }
 
     @Test
-    public void 모임에_참가한_참가자_목록을_조회한다() {
+    void 모임에_참가한_참가자_목록을_조회한다() {
         List<Participant> participants = participantRepository.findAllByGroup(group);
-
         assertThat(participants.size()).isEqualTo(1);
-
         Participant participant = participants.get(0);
         assertThat(participant).isEqualTo(this.participant);
     }
 
     @Test
-    public void 유저가_해당_모임에_참여하고_있는지_조회한다() {
+    void 유저가_해당_모임에_참여하고_있는지_조회한다() {
         boolean isParticipant = participantRepository.existsByGroupAndUser(group, user);
-
         assertThat(isParticipant).isTrue();
     }
 
     @Test
-    public void 유저의_모임_참여를_취소한다() {
+    void 유저의_모임_참여를_취소한다() {
         participantRepository.deleteByGroupAndUser(group, user);
-
         List<Participant> participants = participantRepository.findAll();
         assertThat(participants.size()).isEqualTo(0);
     }

@@ -31,21 +31,27 @@ class ConfirmDialog extends StatelessWidget {
                   Consumer(
                     builder: (context, ref, _) {
                       return InkWell(
-                          onTap: () => ref.read(navigatorProvider).pop(),
-                          child: Container(
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(20),
-                                  bottomRight: Radius.circular(20),
-                                ),
-                                color: MomoColor.main,
+                        onTap: () => ref.read(navigatorProvider).pop(),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20),
+                            ),
+                            color: MomoColor.main,
+                          ),
+                          height: 56,
+                          width: double.infinity,
+                          child: Center(
+                            child: Text(
+                              '확인',
+                              style: MomoTextStyle.defaultStyle.copyWith(
+                                color: MomoColor.white,
                               ),
-                              height: 56,
-                              width: double.infinity,
-                              child: Center(
-                                  child: Text('확인',
-                                      style: MomoTextStyle.defaultStyle
-                                          .copyWith(color: MomoColor.white)))));
+                            ),
+                          ),
+                        ),
+                      );
                     },
                   )
                 ])));

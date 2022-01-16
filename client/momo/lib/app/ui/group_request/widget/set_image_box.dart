@@ -5,19 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:momo/app/model/enum/photo_request_type.dart';
+import 'package:momo/app/provider/gallery/permission_provider.dart';
 import 'package:momo/app/provider/group/group_request_provider.dart';
 import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/navigation_service.dart';
-import 'package:photo_manager/photo_manager.dart';
 
 class SetImageBox extends ConsumerWidget {
   const SetImageBox({Key? key, required this.img}) : super(key: key);
-
-  Future<bool> photoManager() async {
-    PermissionState result = await PhotoManager.requestPermissionExtend();
-    return result.isAuth ? true : false;
-  }
 
   final String img;
 
@@ -53,7 +48,8 @@ class SetImageBox extends ConsumerWidget {
                 },
                 child: InkWell(
                   onTap: () async {
-                    final check = await photoManager();
+                    final check =
+                        await ref.read(photoPermissionProvider.future);
                     if (check) {
                       String? imagePath =
                           await ref.read(navigatorProvider).navigateTo(

@@ -24,6 +24,7 @@ class Mypage extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       height: double.infinity,
       width: double.infinity,
+      color: MomoColor.flutterWhite,
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -63,7 +64,7 @@ class Mypage extends ConsumerWidget {
               padding: const EdgeInsets.only(top: 16, right: 45, left: 45),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: MomoColor.backgroundColor,
+                color: MomoColor.scaffoldBackground,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -140,9 +141,11 @@ class Mypage extends ConsumerWidget {
                       offline: index % 2 == 0,
                       participantCnt: 10,
                       startDate: '2021-12-31',
+                      favoriteGroup: index % 2 == 1,
                     ),
                     width: 148,
                     height: 200,
+                    setLike: () {},
                   );
                 },
                 separatorBuilder: (context, index) => const SizedBox(width: 14),

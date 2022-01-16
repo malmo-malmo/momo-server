@@ -81,6 +81,7 @@ class CustomExpansionPanelList extends StatelessWidget {
           child: Material(
             elevation: 0,
             borderRadius: BorderRadius.all(Radius.circular(_radiusValue)),
+            color: MomoColor.scaffoldBackground,
             child: Column(
               children: <Widget>[
                 header,

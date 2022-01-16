@@ -11,10 +11,11 @@ class RecentMeetingList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverGrid(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 14,
-          crossAxisSpacing: 14,
-          mainAxisExtent: 200.h),
+        crossAxisCount: 2,
+        mainAxisSpacing: 14,
+        crossAxisSpacing: 14,
+        mainAxisExtent: 200.h,
+      ),
       delegate: SliverChildBuilderDelegate(
         (context, index) => GroupCard(
           group: GroupInfo(
@@ -23,7 +24,9 @@ class RecentMeetingList extends StatelessWidget {
             offline: index % 2 == 0,
             participantCnt: 10,
             startDate: '2021-12-31',
+            favoriteGroup: index % 2 == 1,
           ),
+          setLike: () {},
           width: double.infinity,
           height: 200.h,
         ),

@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/model/user/user_info_request.dart';
 import 'package:momo/app/provider/city_result_provider.dart';
 import 'package:momo/app/provider/user/name_check_provider.dart';
-import 'package:momo/app/repository/user_repository.dart';
 
 final userInfoRequestCheckProvider = Provider.autoDispose<bool>((ref) {
   final userInfo = ref.watch(userInfoRequestProvider);
@@ -20,12 +19,11 @@ final userInfoRequestCheckProvider = Provider.autoDispose<bool>((ref) {
 final userInfoRequestProvider =
     StateNotifierProvider.autoDispose<UserInfoRequestState, UserInfoRequest>(
         (ref) {
-  final repository = ref.watch(userRepositoryProvider);
-  return UserInfoRequestState(repository: repository);
+  return UserInfoRequestState();
 });
 
 class UserInfoRequestState extends StateNotifier<UserInfoRequest> {
-  UserInfoRequestState({required this.repository})
+  UserInfoRequestState()
       : super(
           UserInfoRequest(
             nickname: '',
@@ -35,7 +33,7 @@ class UserInfoRequestState extends StateNotifier<UserInfoRequest> {
           ),
         );
 
-  final UserRepository repository;
+  UserInfoRequest get updateUserInfo => state;
 
   void setUserNickname(String nickname) =>
       state = state.copyWith(nickname: nickname);
@@ -57,18 +55,4 @@ class UserInfoRequestState extends StateNotifier<UserInfoRequest> {
           .where((element) => element.code == state.city)
           .first
           .name;
-
-  Future<bool> validateName(String nickname) async {
-    try {
-      await repository.validateNickname(nickname);
-      return false;
-    } catch (e) {
-      return true;
-    }
-  }
-
-  Future<dynamic> updateUserInfo(UserInfoRequest userInfoRequest) async {
-    final response = await repository.updateUserInfo(userInfoRequest);
-    return response;
-  }
 }

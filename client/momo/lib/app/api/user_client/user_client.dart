@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:momo/app/model/group/group_info.dart';
+import 'package:momo/app/model/group/group_like_request.dart';
 import 'package:momo/app/model/user/category_request.dart';
 import 'package:momo/app/model/user/university.dart';
 import 'package:momo/app/model/user/user_info_request.dart';
@@ -36,5 +38,18 @@ abstract class UserClient {
   @GET('/universities')
   Future<List<University>> getUniversities(
     @Query('universityName') String universityName,
+  );
+
+  @GET('/user/favorite-groups')
+  Future<List<GroupInfo>> getFavoriteGroups();
+
+  @POST('/user/favorite-group')
+  Future<dynamic> createGroupLike(
+    @Body() GroupLikeRequest groupLikeRequest,
+  );
+
+  @DELETE('user/favorite-group/{groupId}')
+  Future<dynamic> deleteGroupLike(
+    @Path() int groupId,
   );
 }

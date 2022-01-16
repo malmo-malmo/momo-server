@@ -26,9 +26,9 @@ class _SplashPageState extends ConsumerState<SplashPage> {
 
   Future<void> _pushToNextPage() async {
     final _tokenCheck = _hasNoToken();
-    final _userDataCheck = await _isFirstLogin();
 
     if (!_tokenCheck) {
+      final _userDataCheck = await _isFirstLogin();
       if (!_userDataCheck) {
         await ref.watch(categoryResultProvider.future);
         await ref.watch(locationResultProvider.future);

@@ -5,20 +5,21 @@ import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.district.entity.District;
 import com.momo.domain.district.repository.DistrictRepository;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
+@Profile("dev")
 @RequiredArgsConstructor
 public class DistrictDataLoader implements CommandLineRunner {
 

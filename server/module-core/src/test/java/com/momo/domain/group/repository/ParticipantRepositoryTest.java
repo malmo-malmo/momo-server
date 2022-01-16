@@ -7,6 +7,7 @@ import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
+import com.momo.domain.user.dto.ParticipatingGroupCardResponse;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDate;
@@ -33,7 +34,7 @@ public class ParticipantRepositoryTest extends RepositoryTest {
                 .provider(SocialProvider.KAKAO)
                 .providerId("test")
                 .refreshToken("refresh Token")
-                .nickname("testMan")
+                .nickname("유저1")
                 .imageUrl("이미지 URL")
                 .city(City.SEOUL)
                 .district("마포구")
@@ -53,10 +54,12 @@ public class ParticipantRepositoryTest extends RepositoryTest {
             .category(Category.LIFE)
             .manager(user)
             .build());
-        participant = save(Participant.builder()
-            .group(group)
-            .user(user)
-            .build());
+        participant = save(
+            Participant.builder()
+                .group(group)
+                .user(user)
+                .build()
+        );
     }
 
     @Test
@@ -88,5 +91,35 @@ public class ParticipantRepositoryTest extends RepositoryTest {
         participantRepository.deleteByGroupAndUser(group, user);
         List<Participant> participants = participantRepository.findAll();
         assertThat(participants.size()).isEqualTo(0);
+    }
+
+    @Test
+    void 유저가_참여한_모임_수를_조회한다() {
+        Long actual = participantRepository.countAllByUser(user);
+        assertThat(actual).isEqualTo(1);
+    }
+
+    @Test
+    void 유저가_참여_중인_모임_목록을_조회한다() {
+        save(
+            Participant.builder()
+                .group(group)
+                .user(save(User.builder().providerId("test").build()))
+                .build()
+        );
+
+        List<ParticipatingGroupCardResponse> actual = participantRepository.findParticipatingGroupsByUser(user);
+
+        Assertions.assertAll(
+            () -> assertThat(actual).isNotNull(),
+            () -> assertThat(actual.size()).isEqualTo(1),
+            () -> assertThat(actual.get(0).getId()).isEqualTo(group.getId()),
+            () -> assertThat(actual.get(0).getName()).isEqualTo(group.getName()),
+            () -> assertThat(actual.get(0).getImageUrl()).isEqualTo(group.getImageUrl()),
+            () -> assertThat(actual.get(0).getStartDate()).isEqualTo(group.getStartDate()),
+            () -> assertThat(actual.get(0).isOffline()).isEqualTo(group.isOffline()),
+            () -> assertThat(actual.get(0).isEnd()).isEqualTo(group.isEnd()),
+            () -> assertThat(actual.get(0).getParticipantCnt()).isEqualTo(2)
+        );
     }
 }

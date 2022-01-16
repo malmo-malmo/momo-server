@@ -6,10 +6,13 @@ import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.user.dto.FavoriteGroupCardResponse;
 import com.momo.domain.user.dto.FavoriteGroupCountResponse;
 import com.momo.domain.user.dto.FavoriteGroupCreateRequest;
+import com.momo.domain.user.dto.ParticipatingGroupCardResponse;
+import com.momo.domain.user.dto.ParticipatingGroupCountResponse;
 import com.momo.domain.user.dto.UserResponse;
 import com.momo.domain.user.dto.UserUpdateRequest;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.service.FavoriteGroupService;
+import com.momo.domain.user.service.GroupManagementService;
 import com.momo.domain.user.service.UserService;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -34,6 +37,7 @@ public class UserController {
 
     private final UserService userService;
     private final FavoriteGroupService favoriteGroupService;
+    private final GroupManagementService groupManagementService;
 
     @PostMapping("/favorite-group")
     public ResponseEntity<Void> createFavoriteGroup(@CurrentUser User user,
@@ -67,6 +71,18 @@ public class UserController {
     @GetMapping("/favorite-categories")
     public ResponseEntity<List<EnumResponse>> findFavoriteCategories(@CurrentUser User user) {
         List<EnumResponse> responses = userService.findFavoriteCategoriesByUser(user);
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/participating-group-count")
+    public ResponseEntity<ParticipatingGroupCountResponse> findParticipatingGroupCount(@CurrentUser User user) {
+        ParticipatingGroupCountResponse response = groupManagementService.findParticipatingGroupCountByUser(user);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/participating-groups")
+    public ResponseEntity<List<ParticipatingGroupCardResponse>> findParticipatingGroups(@CurrentUser User user) {
+        List<ParticipatingGroupCardResponse> responses = groupManagementService.findParticipatingGroupsByUser(user);
         return ResponseEntity.ok(responses);
     }
 

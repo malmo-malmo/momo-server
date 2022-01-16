@@ -6,6 +6,7 @@ import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.image.service.ImageUploadService;
+import com.momo.domain.image.util.GenerateDirUtil;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.entity.PostType;
 import com.momo.domain.post.repository.PostRepository;
@@ -36,12 +37,18 @@ public class PostService {
     private final ImageUploadService imageUploadService;
 
     public Long create(User user, PostCreateRequest request) throws IOException {
-        Group group = getGroupById(request.getGroupId());
+        Long groupId = request.getGroupId();
+
+        Group group = getGroupById(groupId);
         validatePostType(group, user, request.getTypeName());
+
         Post post = Post.create(user, group, request.toEntity());
-        List<String> imageUrls = imageUploadService.uploadAll(request.getImages(), "post");
+        postRepository.save(post);
+        Long postId = post.getId();
+
+        List<String> imageUrls = imageUploadService.uploadAll(request.getImages(), GenerateDirUtil.posts(groupId, postId));
         post.updateImages(imageUrls);
-        return postRepository.save(post).getId();
+        return postId;
     }
 
     public void validatePostType(Group group, User user, String typeName) {

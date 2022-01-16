@@ -62,7 +62,7 @@ public class GroupCreateRequest {
         this.isOffline = isOffline;
     }
 
-    public Group toEntity(String imageUrl) {
+    public Group toEntity() {
         return Group.builder()
             .name(name)
             .category(category)
@@ -71,7 +71,6 @@ public class GroupCreateRequest {
             .startDate(startDate)
             .recruitmentCnt(recruitmentCnt)
             .introduction(introduction)
-            .imageUrl(imageUrl)
             .isOffline(isOffline)
             .build();
     }

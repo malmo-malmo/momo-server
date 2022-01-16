@@ -2,6 +2,7 @@ package com.momo.group.docs;
 
 
 import static com.momo.CommonFileUploadSupport.uploadMockSupport;
+import static com.momo.CommonFileUploadSupport.uploadTestFile;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.fileUpload;
@@ -23,10 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.multipart.MultipartFile;
 
 @WebMvcTest(GroupController.class)
 @DisplayName("모임 문서화 테스트")
@@ -40,7 +38,6 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
 
     @Test
     public void 모임_생성_테스트() throws Exception {
-        MultipartFile file = new MockMultipartFile("image", "test.png", null, new ClassPathResource("upload-test.png").getInputStream());
         when(groupService.create(any(), any())).thenReturn(1L);
         GroupCreateRequest request = GroupCreateRequest.builder()
             .name("A 모임")
@@ -52,7 +49,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .recruitmentCnt(4)
             .introduction("테스트 모임입니다.")
             .isOffline(false)
-            .image(file)
+            .image(uploadTestFile)
             .build();
         super.mockMvc.perform(uploadMockSupport(fileUpload("/api/group"), request)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -86,6 +83,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .andExpect(status().isOk())
             .andDo(GroupDocumentation.findGroup());
     }
+
     @Test
     public void 모임_카테고리_목록_조회() throws Exception {
         super.mockMvc.perform(get("/api/group/categories"))
@@ -93,6 +91,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .andExpect(status().isOk())
             .andDo(GroupDocumentation.findGroupCategories());
     }
+
     @Test
     public void 모임장_권한_양도() throws Exception {
         super.mockMvc.perform(patch("/api/group/{id}/manager/{userId}", 1L, 2L))
@@ -100,6 +99,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .andExpect(status().isOk())
             .andDo(GroupDocumentation.updateManagerByUserId());
     }
+
     @Test
     public void 모임_종료() throws Exception {
         super.mockMvc.perform(patch("/api/group/{id}/end", 1L))

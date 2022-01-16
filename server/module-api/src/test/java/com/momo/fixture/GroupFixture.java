@@ -1,5 +1,7 @@
 package com.momo.fixture;
 
+import static com.momo.CommonFileUploadSupport.uploadTestFile;
+
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.group.entity.Category;
@@ -17,6 +19,7 @@ public class GroupFixture {
         .recruitmentCnt(10)
         .introduction("같이 축구하실 분 모집합니다.")
         .isOffline(true)
+        .image(uploadTestFile)
         .build();
 
     public static GroupCreateRequest GROUP_CREATE_REQUEST2 = GroupCreateRequest.builder()
@@ -29,6 +32,7 @@ public class GroupFixture {
         .recruitmentCnt(10)
         .introduction("캠키고 같이 코딩하실 분 모집합니다.")
         .isOffline(false)
+        .image(uploadTestFile)
         .build();
 
     public static GroupCreateRequest GROUP_CREATE_REQUEST3 = GroupCreateRequest.builder()
@@ -41,6 +45,7 @@ public class GroupFixture {
         .recruitmentCnt(10)
         .introduction("같이 농구하실 분 모집합니다.")
         .isOffline(true)
+        .image(uploadTestFile)
         .build();
 
     public static GroupCreateRequest GROUP_CREATE_REQUEST4 = GroupCreateRequest.builder()
@@ -53,5 +58,6 @@ public class GroupFixture {
         .recruitmentCnt(10)
         .introduction("같이 밥먹으실 분 모집합니다.")
         .isOffline(true)
+        .image(uploadTestFile)
         .build();
 }

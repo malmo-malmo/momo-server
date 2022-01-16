@@ -2,7 +2,6 @@ package com.momo.group.acceptance.step;
 
 
 import static com.momo.CommonFileUploadSupport.uploadAssuredSupport;
-import static com.momo.CommonFileUploadSupport.uploadFile;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -54,8 +53,7 @@ public class GroupAcceptanceStep {
         GroupCreateRequest request) {
         return uploadAssuredSupport(given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-            .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
-            .multiPart("image", uploadFile), request)
+            .contentType(MediaType.MULTIPART_FORM_DATA_VALUE), request)
             .post("/api/group")
             .then().log().all()
             .extract();

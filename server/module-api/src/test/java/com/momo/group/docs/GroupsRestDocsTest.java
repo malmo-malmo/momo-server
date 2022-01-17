@@ -24,6 +24,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 @WebMvcTest(GroupsController.class)
 @DisplayName("모임 목록 문서화 테스트")
 public class GroupsRestDocsTest extends RestDocsControllerTest {
+
     @InjectMocks
     public GroupsController groupsController;
 
@@ -32,7 +33,7 @@ public class GroupsRestDocsTest extends RestDocsControllerTest {
 
     @Test
     public void 모임_목록_조회_검색() throws Exception {
-        when(groupService.findPageBySearchCondition(any()))
+        when(groupService.findPageBySearchCondition(any(), any()))
             .thenReturn(List.of(
                 GroupCardResponse.builder()
                     .id(1L)
@@ -54,6 +55,7 @@ public class GroupsRestDocsTest extends RestDocsControllerTest {
             .andExpect(status().isOk())
             .andDo(GroupDocumentation.findPageBySearchCondition());
     }
+
     @Test
     public void 모임_목록_조회_내학교더보기() throws Exception {
         when(groupService.findPageByUserUniversity(any(), anyInt(), anyInt()))
@@ -74,6 +76,7 @@ public class GroupsRestDocsTest extends RestDocsControllerTest {
             .andExpect(status().isOk())
             .andDo(GroupDocumentation.findPageByUserUniversity());
     }
+
     @Test
     public void 모임_목록_조회_주변더보기() throws Exception {
         when(groupService.findPageByUserDistrict(any(), anyInt(), anyInt()))
@@ -94,6 +97,7 @@ public class GroupsRestDocsTest extends RestDocsControllerTest {
             .andExpect(status().isOk())
             .andDo(GroupDocumentation.findPageByUserLocation());
     }
+
     @Test
     public void 모임_목록_조회_추천더보기() throws Exception {
         when(groupService.findPageByUserCategories(any(), anyInt(), anyInt()))

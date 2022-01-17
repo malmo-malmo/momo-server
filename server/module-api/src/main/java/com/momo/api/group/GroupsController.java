@@ -23,9 +23,9 @@ public class GroupsController {
     private final GroupService groupService;
 
     @GetMapping("/search/paging")
-    public ResponseEntity<List<GroupCardResponse>> findPageBySearchCondition(
+    public ResponseEntity<List<GroupCardResponse>> findPageBySearchCondition(@CurrentUser User user,
         @Valid @ModelAttribute GroupSearchConditionRequest request) {
-        List<GroupCardResponse> groupCardResponses = groupService.findPageBySearchCondition(request);
+        List<GroupCardResponse> groupCardResponses = groupService.findPageBySearchCondition(user, request);
         return ResponseEntity.ok(groupCardResponses);
     }
 

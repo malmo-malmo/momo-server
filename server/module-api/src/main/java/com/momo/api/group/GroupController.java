@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,31 +28,32 @@ public class GroupController {
 
     private final GroupService groupService;
 
-    @PostMapping("/group")
+    @PostMapping
     public ResponseEntity<Void> create(@CurrentUser User user,
         @Valid @ModelAttribute GroupCreateRequest groupCreateRequest) throws URISyntaxException, IOException {
         Long groupId = groupService.create(user, groupCreateRequest);
         return ResponseEntity.created(new URI("/api/group/" + groupId)).build();
     }
 
-    @GetMapping("/group/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<GroupResponse> find(@CurrentUser User user, @PathVariable Long id) {
         GroupResponse groupResponse = groupService.findById(user, id);
         return ResponseEntity.ok(groupResponse);
     }
+
     @GetMapping("/categories")
     public ResponseEntity<List<EnumResponse>> findGroupCategories() {
         return ResponseEntity.ok(EnumResponse.listOfCategory());
     }
 
-    @PatchMapping("/group/{id}/manager/{userId}")
+    @PatchMapping("/{id}/manager/{userId}")
     public ResponseEntity<Void> updateManagerByUserId(@CurrentUser User user, @PathVariable Long id,
         @PathVariable Long userId) {
         groupService.updateManagerByUserId(user, id, userId);
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/group/{id}/end")
+    @PatchMapping("/{id}/end")
     public ResponseEntity<Void> endGroupById(@CurrentUser User user, @PathVariable Long id) {
         groupService.endGroupById(user, id);
         return ResponseEntity.ok().build();

@@ -1,16 +1,17 @@
 package com.momo.post.docs;
 
+import static com.momo.CommonFileUploadSupport.uploadMockSupport;
+import static com.momo.CommonFileUploadSupport.uploadTestFile;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.fileUpload;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.momo.RestDocsControllerTest;
 import com.momo.api.post.PostController;
-import com.momo.domain.post.dto.PostCardResponse;
 import com.momo.domain.post.dto.PostCreateRequest;
 import com.momo.domain.post.dto.PostResponse;
 import com.momo.domain.post.service.PostService;
@@ -21,7 +22,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 
 @WebMvcTest(PostController.class)
 @DisplayName("게시글 문서화 테스트")
@@ -39,13 +39,9 @@ public class PostRestDocsTest extends RestDocsControllerTest {
             .title("테스트 게시글")
             .contents("테스트 게시글 내용")
             .typeName("테스트 타입")
-            .imageUrls(List.of("http://~~"))
+            .images(List.of(uploadTestFile))
             .build();
-        String content = super.objectMapper.writeValueAsString(request);
-
-        super.mockMvc.perform(post("/api/post")
-                .content(content)
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+        super.mockMvc.perform(uploadMockSupport(fileUpload("/api/post"), request))
             .andDo(print())
             .andExpect(status().isCreated())
             .andDo(PostDocumentation.create());
@@ -69,30 +65,5 @@ public class PostRestDocsTest extends RestDocsControllerTest {
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(PostDocumentation.find());
-    }
-
-    @Test
-    public void 게시글_목록_조회() throws Exception {
-        when(postService.findPageByGroupIdAndType(any(), any())).thenReturn(List.of(
-            PostCardResponse.builder()
-                .id(1L)
-                .authorImage("http://~~")
-                .authorNickname("테스트맨")
-                .title("테스트 게시글")
-                .contents("테스트 내용")
-                .createdDate(LocalDateTime.now())
-                .commentCnt(1L)
-                .build()
-        ));
-        super.mockMvc.perform(get("/api/posts/paging", 1L)
-                .param("groupId", String.valueOf(1L))
-                .param("type", "테스트 타입")
-                .param("page", String.valueOf(1))
-                .param("size", String.valueOf(10))
-            )
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andDo(PostDocumentation.findPageByCardsRequest());
-
     }
 }

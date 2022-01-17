@@ -1,5 +1,6 @@
 package com.momo.post.acceptance.step;
 
+import static com.momo.CommonFileUploadSupport.uploadAssuredSupport;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,9 +11,7 @@ import com.momo.domain.post.dto.PostResponse;
 import com.momo.domain.user.entity.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -20,12 +19,12 @@ import org.springframework.http.MediaType;
 public class PostAcceptanceStep {
 
     public static void assertThatFindPost(PostCreateRequest request, PostResponse response, Long postId,
-                                          User createUser) {
+        User createUser) {
         Assertions.assertAll(
             () -> assertThat(response.getTitle()).isEqualTo(request.getTitle()),
             () -> assertThat(response.getContents()).isEqualTo(request.getContents()),
             () -> assertThat(response.getTitle()).isEqualTo(request.getTitle()),
-            () -> assertThat(response.getImageUrls().size()).isEqualTo(request.getImageUrls().size()),
+            () -> assertThat(response.getImageUrls().size()).isEqualTo(1),
             () -> assertThat(response.getId()).isEqualTo(postId),
             () -> assertThat(response.getAuthorImage()).isEqualTo(createUser.getImageUrl()),
             () -> assertThat(response.getAuthorNickname()).isEqualTo(createUser.getNickname()),
@@ -49,10 +48,9 @@ public class PostAcceptanceStep {
     }
 
     public static ExtractableResponse<Response> requestToCreatePost(String token, PostCreateRequest postCreateRequest) {
-        return given().log().all()
+        return uploadAssuredSupport(given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .body(postCreateRequest)
+            .contentType(MediaType.MULTIPART_FORM_DATA_VALUE), postCreateRequest)
             .when()
             .post("/api/post")
             .then().log().all()
@@ -70,16 +68,11 @@ public class PostAcceptanceStep {
     }
 
     public static ExtractableResponse<Response> requestToFindPosts(String token, PostCardsRequest postCardsRequest) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("groupId", postCardsRequest.getGroupId());
-        map.put("type", postCardsRequest.getType());
-        map.put("page", postCardsRequest.getPage());
-        map.put("size", postCardsRequest.getSize());
-        return given().log().all()
-            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .params(map)
-            .when()
+        return uploadAssuredSupport(
+            given().log().all()
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when(), postCardsRequest)
             .get("/api/posts/paging")
             .then().log().all()
             .extract();

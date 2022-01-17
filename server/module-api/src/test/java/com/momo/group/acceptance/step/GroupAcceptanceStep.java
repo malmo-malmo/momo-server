@@ -1,6 +1,7 @@
 package com.momo.group.acceptance.step;
 
 
+import static com.momo.CommonFileUploadSupport.uploadAssuredSupport;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,12 +22,12 @@ import org.springframework.util.CollectionUtils;
 public class GroupAcceptanceStep {
 
     public static void assertThatFindGroup(GroupCreateRequest request, GroupResponse response, boolean isParticipant,
-                                           String university) {
+        String university) {
         Assertions.assertAll(
             () -> assertThat(response.getId()).isNotNull(),
             () -> assertThat(response.getManagerId()).isNotNull(),
             () -> assertThat(response.getName()).isEqualTo(request.getName()),
-            () -> assertThat(response.getImageUrl()).isEqualTo(request.getImageUrl()),
+            () -> assertThat(response.getImageUrl()).isNotNull(),
             () -> assertThat(response.getStartDate()).isEqualTo(request.getStartDate()),
             () -> assertThat(response.getUniversity()).isEqualTo(university),
             () -> assertThat(response.getCity()).isEqualTo(request.getCity().getName()),
@@ -50,10 +51,9 @@ public class GroupAcceptanceStep {
 
     public static ExtractableResponse<Response> requestToCreateGroup(String token,
         GroupCreateRequest request) {
-        return given().log().all()
+        return uploadAssuredSupport(given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .body(request)
+            .contentType(MediaType.MULTIPART_FORM_DATA_VALUE), request)
             .post("/api/group")
             .then().log().all()
             .extract();

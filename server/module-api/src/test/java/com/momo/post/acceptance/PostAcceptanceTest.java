@@ -22,6 +22,7 @@ import com.momo.domain.post.dto.PostResponse;
 import com.momo.post.acceptance.step.PostAcceptanceStep;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import java.io.IOException;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

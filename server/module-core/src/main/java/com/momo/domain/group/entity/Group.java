@@ -109,4 +109,8 @@ public class Group extends BaseEntity {
     public void endGroup() {
         this.isEnd = true;
     }
+
+    public void updateImage(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }

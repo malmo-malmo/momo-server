@@ -41,6 +41,9 @@ dependencies {
 
     //excel
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
+
+    //aws
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-aws', version: '2.2.6.RELEASE'
 }
 
 def querydslDir = "$buildDir/generated/querydsl"

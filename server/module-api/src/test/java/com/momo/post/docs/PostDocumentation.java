@@ -2,29 +2,34 @@ package com.momo.post.docs;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
 
 import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.request.ParameterDescriptor;
+import org.springframework.restdocs.request.RequestPartDescriptor;
 
 public class PostDocumentation {
 
     public static RestDocumentationResultHandler create() {
-        FieldDescriptor[] requestPost = new FieldDescriptor[]{
-            fieldWithPath("groupId").type(JsonFieldType.NUMBER).description("모임 ID"),
-            fieldWithPath("title").type(JsonFieldType.STRING).description("게시물 제목"),
-            fieldWithPath("contents").type(JsonFieldType.STRING).description("게시물 내용"),
-            fieldWithPath("typeName").type(JsonFieldType.STRING).description("게시물 타입"),
-            fieldWithPath("imageUrls").type(JsonFieldType.ARRAY).description("게시물 첨부 이미지 URL")
+        ParameterDescriptor[] requestPost = new ParameterDescriptor[]{
+            parameterWithName("groupId").description("모임 ID"),
+            parameterWithName("title").description("게시물 제목"),
+            parameterWithName("contents").description("게시물 내용"),
+            parameterWithName("typeName").description("게시물 타입")
+        };
+        RequestPartDescriptor[] requestPart = new RequestPartDescriptor[] {
+            partWithName("images").description("게시물 첨부 이미지")
         };
         return document("post/create",
-            requestFields(requestPost)
+            requestParameters(requestPost),
+            requestParts(requestPart)
         );
     }
 

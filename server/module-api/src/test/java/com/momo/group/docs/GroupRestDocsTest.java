@@ -1,25 +1,24 @@
 package com.momo.group.docs;
 
 
+import static com.momo.CommonFileUploadSupport.uploadMockSupport;
+import static com.momo.CommonFileUploadSupport.uploadTestFile;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.fileUpload;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.momo.RestDocsControllerTest;
 import com.momo.api.group.GroupController;
 import com.momo.domain.district.entity.City;
-import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.service.GroupService;
 import java.time.LocalDate;
-import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -49,13 +48,11 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .startDate(LocalDate.now())
             .recruitmentCnt(4)
             .introduction("테스트 모임입니다.")
-            .imageUrl("이미지 URL")
             .isOffline(false)
+            .image(uploadTestFile)
             .build();
-        String content = super.objectMapper.writeValueAsString(request);
-        super.mockMvc.perform(post("/api/group")
-                .content(content)
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+        super.mockMvc.perform(uploadMockSupport(fileUpload("/api/group"), request)
+                .contentType(MediaType.APPLICATION_JSON))
             .andDo(print())
             .andExpect(status().isCreated())
             .andDo(GroupDocumentation.createGroup());
@@ -85,98 +82,6 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(GroupDocumentation.findGroup());
-    }
-
-    @Test
-    public void 모임_목록_조회_검색() throws Exception {
-        when(groupService.findPageBySearchCondition(any(), any()))
-            .thenReturn(List.of(
-                GroupCardResponse.builder()
-                    .id(1L)
-                    .name("A 모임")
-                    .imageUrl("이미지 URL")
-                    .startDate(LocalDate.now())
-                    .isOffline(false)
-                    .participantCnt(3L)
-                    .isFavoriteGroup(false)
-                    .build()
-            ));
-        super.mockMvc.perform(get("/api/groups/search/paging")
-                .param("cities", String.valueOf(City.SEOUL))
-                .param("cities", String.valueOf(City.GYEONGGI))
-                .param("categories", String.valueOf(Category.HOBBY))
-                .param("categories", String.valueOf(Category.LIFE))
-                .param("page", String.valueOf(1))
-                .param("size", String.valueOf(10)))
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andDo(GroupDocumentation.findPageBySearchCondition());
-    }
-
-    @Test
-    public void 모임_목록_조회_내학교더보기() throws Exception {
-        when(groupService.findPageByUserUniversity(any(), anyInt(), anyInt()))
-            .thenReturn(List.of(
-                GroupCardResponse.builder()
-                    .id(1L)
-                    .name("A 모임")
-                    .imageUrl("이미지 URL")
-                    .startDate(LocalDate.now())
-                    .isOffline(false)
-                    .participantCnt(3L)
-                    .isFavoriteGroup(false)
-                    .build()
-            ));
-        super.mockMvc.perform(get("/api/groups/user-university/paging")
-                .param("page", String.valueOf(1))
-                .param("size", String.valueOf(10)))
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andDo(GroupDocumentation.findPageByUserUniversity());
-    }
-
-    @Test
-    public void 모임_목록_조회_주변더보기() throws Exception {
-        when(groupService.findPageByUserDistrict(any(), anyInt(), anyInt()))
-            .thenReturn(List.of(
-                GroupCardResponse.builder()
-                    .id(1L)
-                    .name("A 모임")
-                    .imageUrl("이미지 URL")
-                    .startDate(LocalDate.now())
-                    .isOffline(false)
-                    .participantCnt(3L)
-                    .isFavoriteGroup(false)
-                    .build()
-            ));
-        super.mockMvc.perform(get("/api/groups/user-district/paging")
-                .param("page", String.valueOf(1))
-                .param("size", String.valueOf(10)))
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andDo(GroupDocumentation.findPageByUserLocation());
-    }
-
-    @Test
-    public void 모임_목록_조회_추천더보기() throws Exception {
-        when(groupService.findPageByUserCategories(any(), anyInt(), anyInt()))
-            .thenReturn(List.of(
-                GroupCardResponse.builder()
-                    .id(1L)
-                    .name("A 모임")
-                    .imageUrl("이미지 URL")
-                    .startDate(LocalDate.now())
-                    .isOffline(false)
-                    .participantCnt(3L)
-                    .isFavoriteGroup(false)
-                    .build()
-            ));
-        super.mockMvc.perform(get("/api/groups/user-categories/paging")
-                .param("page", String.valueOf(1))
-                .param("size", String.valueOf(10)))
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andDo(GroupDocumentation.findPageByUserCategories());
     }
 
     @Test

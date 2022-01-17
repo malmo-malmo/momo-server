@@ -14,12 +14,14 @@ import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
+import com.momo.domain.aws.service.S3UploadService;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.entity.PostType;
 import com.momo.domain.post.repository.PostRepository;
 import com.momo.domain.post.dto.PostCreateRequest;
 import com.momo.domain.post.dto.PostResponse;
 import com.momo.domain.user.entity.User;
+import java.io.IOException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -38,6 +40,9 @@ public class PostServiceTest extends ServiceTest {
 
     @Mock
     private ParticipantRepository participantRepository;
+
+    @Mock
+    private S3UploadService s3UploadService;
 
     @InjectMocks
     private PostService postService;
@@ -62,7 +67,7 @@ public class PostServiceTest extends ServiceTest {
     }
 
     @Test
-    void 모임_관리자는_일반_게시물_등록_테스트를_성공한다() {
+    void 모임_관리자는_일반_게시물_등록_테스트를_성공한다() throws IOException {
         PostCreateRequest postCreateRequest = PostCreateRequest.builder()
             .typeName(PostType.NORMAL.getCode())
             .build();
@@ -81,7 +86,7 @@ public class PostServiceTest extends ServiceTest {
     }
 
     @Test
-    void 모임_참여자는_일반_게시물_등록_테스트를_성공한다() {
+    void 모임_참여자는_일반_게시물_등록_테스트를_성공한다() throws IOException {
         PostCreateRequest postCreateRequest = PostCreateRequest.builder()
             .typeName(PostType.NORMAL.getCode())
             .build();
@@ -114,7 +119,7 @@ public class PostServiceTest extends ServiceTest {
     }
 
     @Test
-    void 모임_관리자는_공지사항_등록_테스트를_성공한다() {
+    void 모임_관리자는_공지사항_등록_테스트를_성공한다() throws IOException {
         PostCreateRequest postCreateRequest = PostCreateRequest.builder()
             .typeName(PostType.NOTICE.getCode())
             .build();

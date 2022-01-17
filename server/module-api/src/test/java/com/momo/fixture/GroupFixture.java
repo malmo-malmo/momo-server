@@ -1,9 +1,10 @@
 package com.momo.fixture;
 
-import com.momo.domain.district.entity.City;
-import com.momo.domain.group.entity.Category;
-import com.momo.domain.group.dto.GroupCreateRequest;
+import static com.momo.CommonFileUploadSupport.uploadTestFile;
 
+import com.momo.domain.district.entity.City;
+import com.momo.domain.group.dto.GroupCreateRequest;
+import com.momo.domain.group.entity.Category;
 import java.time.LocalDate;
 
 public class GroupFixture {
@@ -17,8 +18,8 @@ public class GroupFixture {
         .startDate(LocalDate.of(2021, 11, 17))
         .recruitmentCnt(10)
         .introduction("같이 축구하실 분 모집합니다.")
-        .imageUrl("이미지")
         .isOffline(true)
+        .image(uploadTestFile)
         .build();
 
     public static GroupCreateRequest GROUP_CREATE_REQUEST2 = GroupCreateRequest.builder()
@@ -30,8 +31,8 @@ public class GroupFixture {
         .startDate(LocalDate.of(2021, 9, 17))
         .recruitmentCnt(10)
         .introduction("캠키고 같이 코딩하실 분 모집합니다.")
-        .imageUrl("이미지")
         .isOffline(false)
+        .image(uploadTestFile)
         .build();
 
     public static GroupCreateRequest GROUP_CREATE_REQUEST3 = GroupCreateRequest.builder()
@@ -43,8 +44,8 @@ public class GroupFixture {
         .startDate(LocalDate.of(2021, 3, 17))
         .recruitmentCnt(10)
         .introduction("같이 농구하실 분 모집합니다.")
-        .imageUrl("이미지")
         .isOffline(true)
+        .image(uploadTestFile)
         .build();
 
     public static GroupCreateRequest GROUP_CREATE_REQUEST4 = GroupCreateRequest.builder()
@@ -56,7 +57,7 @@ public class GroupFixture {
         .startDate(LocalDate.of(2021, 3, 17))
         .recruitmentCnt(10)
         .introduction("같이 밥먹으실 분 모집합니다.")
-        .imageUrl("이미지")
         .isOffline(true)
+        .image(uploadTestFile)
         .build();
 }

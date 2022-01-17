@@ -1,5 +1,7 @@
 package com.momo.domain.group.service;
 
+import com.momo.domain.aws.service.S3UploadService;
+import com.momo.domain.aws.util.GenerateUploadPathUtil;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.dto.GroupCardResponse;
@@ -12,6 +14,7 @@ import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
+import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -26,13 +29,20 @@ public class GroupService {
     private final GroupRepository groupRepository;
     private final ParticipantRepository participantRepository;
     private final UserRepository userRepository;
+    private final S3UploadService s3UploadService;
 
-    public Long create(User user, GroupCreateRequest groupCreateRequest) {
-        Group group = Group.create(user, groupCreateRequest.toEntity(), groupCreateRequest.getIsUniversity());
-        Group savedGroup = groupRepository.save(group);
-        Participant participant = Participant.create(user, savedGroup);
+    public Long create(User user, GroupCreateRequest groupCreateRequest) throws IOException {
+        Group group = groupRepository.save(
+            Group.create(user, groupCreateRequest.toEntity(), groupCreateRequest.getIsUniversity()));
+        Long groupId = group.getId();
+
+        String imageUrl = s3UploadService
+            .upload(groupCreateRequest.getImage(), GenerateUploadPathUtil.getGroupImage(groupId));
+        group.updateImage(imageUrl);
+
+        Participant participant = Participant.create(user, group);
         participantRepository.save(participant);
-        return savedGroup.getId();
+        return groupId;
     }
 
     @Transactional(readOnly = true)

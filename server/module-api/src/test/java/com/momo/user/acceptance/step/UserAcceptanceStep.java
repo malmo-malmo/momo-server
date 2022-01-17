@@ -40,7 +40,7 @@ public class UserAcceptanceStep {
             () -> assertThat(responses.get(0).getGroupCardResponse().getId()).isNotNull(),
             () -> assertThat(responses.get(0).getGroupCardResponse().getName()).isEqualTo(request.getName()),
             () -> assertThat(responses.get(0).getGroupCardResponse().getStartDate()).isEqualTo(request.getStartDate()),
-            () -> assertThat(responses.get(0).getGroupCardResponse().getImageUrl()).isEqualTo(request.getImageUrl()),
+            () -> assertThat(responses.get(0).getGroupCardResponse().getImageUrl()).isNotNull(),
             () -> assertThat(responses.get(0).getGroupCardResponse().getParticipantCnt()).isEqualTo(1)
         );
     }

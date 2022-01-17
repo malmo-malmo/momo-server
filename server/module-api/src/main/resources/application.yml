@@ -1,7 +1,7 @@
 spring:
   profiles:
     active: local
-    include: auth, env
+    include: auth, env, aws
   jpa:
     properties:
       hibernate:

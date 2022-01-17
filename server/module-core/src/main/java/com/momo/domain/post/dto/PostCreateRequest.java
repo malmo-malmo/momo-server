@@ -6,11 +6,12 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
-@Data
-@NoArgsConstructor
+@Getter
+@ToString
 public class PostCreateRequest {
 
     @NotNull(message = "모임 ID는 필수값입니다.")
@@ -25,16 +26,16 @@ public class PostCreateRequest {
     @NotBlank(message = "게시물 타입은 필수 입력값입니다.")
     private String typeName;
 
-    private List<String> imageUrls;
+    private List<MultipartFile> images;
 
     @Builder
     public PostCreateRequest(Long groupId, String title, String contents, String typeName,
-        List<String> imageUrls) {
+        List<MultipartFile> images) {
         this.groupId = groupId;
         this.title = title;
         this.contents = contents;
         this.typeName = typeName;
-        this.imageUrls = imageUrls;
+        this.images = images;
     }
 
     public Post toEntity() {

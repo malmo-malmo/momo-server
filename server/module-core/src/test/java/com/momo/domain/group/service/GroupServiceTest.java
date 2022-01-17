@@ -17,13 +17,18 @@ import com.momo.domain.group.entity.Participant;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.group.dto.GroupCreateRequest;
+import com.momo.domain.aws.service.S3UploadService;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
+import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 @DisplayName("모임 서비스 테스트")
 public class GroupServiceTest extends ServiceTest {
@@ -36,6 +41,9 @@ public class GroupServiceTest extends ServiceTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private S3UploadService s3UploadService;
 
     @InjectMocks
     private GroupService groupService;
@@ -51,16 +59,19 @@ public class GroupServiceTest extends ServiceTest {
     }
 
     @Test
-    void 모임_생성_테스트() {
+    void 모임_생성_테스트() throws IOException {
+        MultipartFile file = new MockMultipartFile("image", "test.png", null, new ClassPathResource("upload-test.png").getInputStream());
         GroupCreateRequest groupCreateRequest = GroupCreateRequest.builder()
             .category(Category.EMPLOYMENT)
             .isUniversity(true)
             .city(City.SEOUL)
             .isOffline(true)
+            .image(file)
             .build();
 
         given(groupRepository.save(any())).willReturn(Group.builder().id(1L).build());
         given(participantRepository.save(any())).willReturn(Participant.builder().build());
+        given(s3UploadService.upload(file, "group")).willReturn("업로드된 이미지 경로");
 
         Long actual = groupService.create(manager, groupCreateRequest);
 

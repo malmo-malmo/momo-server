@@ -27,7 +27,7 @@ public class FavoriteGroupServiceTest extends ServiceTest {
     private FavoriteGroupRepository favoriteGroupRepository;
 
     @InjectMocks
-    FavoriteGroupService favoriteGroupService;
+    private FavoriteGroupService favoriteGroupService;
 
     @Test
     void 관심_모임으로_등록한다() {

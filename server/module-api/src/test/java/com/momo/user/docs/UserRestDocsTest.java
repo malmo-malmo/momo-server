@@ -19,9 +19,12 @@ import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.user.dto.FavoriteGroupCardResponse;
 import com.momo.domain.user.dto.FavoriteGroupCountResponse;
 import com.momo.domain.user.dto.FavoriteGroupCreateRequest;
+import com.momo.domain.user.dto.ParticipatingGroupCardResponse;
+import com.momo.domain.user.dto.ParticipatingGroupCountResponse;
 import com.momo.domain.user.dto.UserUpdateRequest;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.service.FavoriteGroupService;
+import com.momo.domain.user.service.GroupManagementService;
 import com.momo.domain.user.service.UserService;
 import java.time.LocalDate;
 import java.util.List;
@@ -44,6 +47,9 @@ public class UserRestDocsTest extends RestDocsControllerTest {
 
     @MockBean
     private FavoriteGroupService favoriteGroupService;
+
+    @MockBean
+    private GroupManagementService groupManagementService;
 
     @Test
     void 관심_모임_등록() throws Exception {
@@ -141,6 +147,36 @@ public class UserRestDocsTest extends RestDocsControllerTest {
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(UserDocumentation.findFavoriteCategories());
+    }
+
+    @Test
+    void 참여한_모임_수_조회() throws Exception {
+        ParticipatingGroupCountResponse response = new ParticipatingGroupCountResponse(10L);
+        when(groupManagementService.findParticipatingGroupCountByUser(any())).thenReturn(response);
+        super.mockMvc.perform(get("/api/user/participating-group-count"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(UserDocumentation.findParticipatingGroupCount());
+    }
+
+    @Test
+    void 참여한_모임_목록_조회() throws Exception {
+        List<ParticipatingGroupCardResponse> responses = List.of(
+            ParticipatingGroupCardResponse.builder()
+                .id(1L)
+                .name("모임 이름")
+                .imageUrl("이미지 URL")
+                .startDate(LocalDate.of(2022, 1, 16))
+                .isOffline(true)
+                .isEnd(false)
+                .participantCnt(10L)
+                .build()
+        );
+        when(groupManagementService.findParticipatingGroupsByUser(any())).thenReturn(responses);
+        super.mockMvc.perform(get("/api/user/participating-groups"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(UserDocumentation.findParticipatingGroups());
     }
 
     @Test

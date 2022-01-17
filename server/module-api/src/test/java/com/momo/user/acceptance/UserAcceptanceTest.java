@@ -5,15 +5,19 @@ import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsC
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsNoContent;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST1;
+import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST2;
 import static com.momo.fixture.UserFixture.getUser1;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatFindFavoriteGroups;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatFindMyInformation;
+import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatFindParticipatingGroups;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToCreateFavoriteGroup;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToDeleteFavoriteGroup;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindFavoriteGroupCount;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindFavoriteGroups;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindMyInformation;
+import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindParticipatingGroupCount;
+import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindParticipatingGroups;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdate;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdateFavoriteCategories;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,6 +29,8 @@ import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.user.dto.FavoriteGroupCardResponse;
 import com.momo.domain.user.dto.FavoriteGroupCountResponse;
 import com.momo.domain.user.dto.FavoriteGroupCreateRequest;
+import com.momo.domain.user.dto.ParticipatingGroupCardResponse;
+import com.momo.domain.user.dto.ParticipatingGroupCountResponse;
 import com.momo.domain.user.dto.UserResponse;
 import com.momo.domain.user.dto.UserUpdateRequest;
 import io.restassured.response.ExtractableResponse;
@@ -75,6 +81,27 @@ public class UserAcceptanceTest extends AcceptanceTest {
         List<FavoriteGroupCardResponse> favoriteGroupResponses = getObjects(response, FavoriteGroupCardResponse.class);
         assertThatStatusIsOk(response);
         assertThatFindFavoriteGroups(favoriteGroupResponses, GROUP_CREATE_REQUEST1);
+    }
+
+    @Test
+    void 참여한_모임_수를_조회한다() {
+        String token = getAccessToken(getUser1());
+        requestToCreateGroup(token, GROUP_CREATE_REQUEST1);
+        requestToCreateGroup(token, GROUP_CREATE_REQUEST2);
+        ExtractableResponse<Response> response = requestToFindParticipatingGroupCount(token);
+        Long participatingGroupCount = getObject(response, ParticipatingGroupCountResponse.class).getCount();
+        assertThatStatusIsOk(response);
+        assertThat(participatingGroupCount).isEqualTo(2);
+    }
+
+    @Test
+    void 참여한_모임_목록을_조회한다() {
+        String token = getAccessToken(getUser1());
+        requestToCreateGroup(token, GROUP_CREATE_REQUEST1);
+        ExtractableResponse<Response> response = requestToFindParticipatingGroups(token);
+        List<ParticipatingGroupCardResponse> cardResponses = getObjects(response, ParticipatingGroupCardResponse.class);
+        assertThatStatusIsOk(response);
+        assertThatFindParticipatingGroups(cardResponses, GROUP_CREATE_REQUEST1);
     }
 
     @Test

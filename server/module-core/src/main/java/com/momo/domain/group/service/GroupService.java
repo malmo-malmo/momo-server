@@ -27,9 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class GroupService {
 
     private final GroupRepository groupRepository;
-
     private final ParticipantRepository participantRepository;
-
     private final UserRepository userRepository;
     private final S3UploadService s3UploadService;
 
@@ -52,27 +50,27 @@ public class GroupService {
     }
 
     @Transactional(readOnly = true)
-    public List<GroupCardResponse> findPageBySearchCondition(GroupSearchConditionRequest request) {
+    public List<GroupCardResponse> findPageBySearchCondition(User user, GroupSearchConditionRequest request) {
         PageRequest page = PageRequest.of(request.getPage(), request.getSize());
-        return groupRepository
-            .findAllBySearchConditionOrderByCreatedDateDesc(request.getCities(), request.getCategories(), page);
+        return groupRepository.findAllBySearchConditionOrderByCreatedDateDesc(user, request, page);
     }
 
     @Transactional(readOnly = true)
     public List<GroupCardResponse> findPageByUserUniversity(User user, int page, int size) {
         return groupRepository
-            .findAllByUniversityOrderByCreatedDateDesc(user.getUniversity(), PageRequest.of(page, size));
+            .findAllByUniversityOrderByCreatedDateDesc(user, user.getUniversity(), PageRequest.of(page, size));
     }
 
     @Transactional(readOnly = true)
     public List<GroupCardResponse> findPageByUserDistrict(User user, int page, int size) {
         return groupRepository
-            .findAllByDistrictOrderByCreatedDateDesc(user.getDistrict(), PageRequest.of(page, size));
+            .findAllByDistrictOrderByCreatedDateDesc(user, user.getDistrict(), PageRequest.of(page, size));
     }
 
     @Transactional(readOnly = true)
     public List<GroupCardResponse> findPageByUserCategories(User user, int page, int size) {
         return groupRepository.findAllByCategoriesOrderByCreatedDateDesc(
+            user,
             user.getFavoriteCategories().toCategories(),
             PageRequest.of(page, size)
         );

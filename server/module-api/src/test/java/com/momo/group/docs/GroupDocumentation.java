@@ -81,6 +81,7 @@ public class GroupDocumentation {
             fieldWithPath("[].startDate").type(JsonFieldType.STRING).description("모임 시작일자"),
             fieldWithPath("[].offline").type(JsonFieldType.BOOLEAN).description("모임 온/오프라인 여부"),
             fieldWithPath("[].participantCnt").type(JsonFieldType.NUMBER).description("모임 참가자 수"),
+            fieldWithPath("[].favoriteGroup").type(JsonFieldType.BOOLEAN).description("관심 모임 여부")
         };
 
         return document("group/findPageBySearchCondition",
@@ -101,6 +102,7 @@ public class GroupDocumentation {
             fieldWithPath("[].startDate").type(JsonFieldType.STRING).description("모임 시작일자"),
             fieldWithPath("[].offline").type(JsonFieldType.BOOLEAN).description("모임 온/오프라인 여부"),
             fieldWithPath("[].participantCnt").type(JsonFieldType.NUMBER).description("모임 참가자 수"),
+            fieldWithPath("[].favoriteGroup").type(JsonFieldType.BOOLEAN).description("관심 모임 여부")
         };
         return document("group/findPageByUserUniversity",
             requestParameters(requestSearch),
@@ -120,6 +122,7 @@ public class GroupDocumentation {
             fieldWithPath("[].startDate").type(JsonFieldType.STRING).description("모임 시작일자"),
             fieldWithPath("[].offline").type(JsonFieldType.BOOLEAN).description("모임 온/오프라인 여부"),
             fieldWithPath("[].participantCnt").type(JsonFieldType.NUMBER).description("모임 참가자 수"),
+            fieldWithPath("[].favoriteGroup").type(JsonFieldType.BOOLEAN).description("관심 모임 여부")
         };
         return document("group/findPageByUserLocation",
             requestParameters(requestSearch),
@@ -139,6 +142,7 @@ public class GroupDocumentation {
             fieldWithPath("[].startDate").type(JsonFieldType.STRING).description("모임 시작일자"),
             fieldWithPath("[].offline").type(JsonFieldType.BOOLEAN).description("모임 온/오프라인 여부"),
             fieldWithPath("[].participantCnt").type(JsonFieldType.NUMBER).description("모임 참가자 수"),
+            fieldWithPath("[].favoriteGroup").type(JsonFieldType.BOOLEAN).description("관심 모임 여부")
         };
         return document("group/findPageByUserCategories",
             requestParameters(requestSearch),

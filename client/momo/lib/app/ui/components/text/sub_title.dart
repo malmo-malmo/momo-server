@@ -51,10 +51,12 @@ class SubTitle extends StatelessWidget {
                       onTap: () {
                         title != '추천'
                             ? ref.read(navigatorProvider).navigateTo(
-                                routeName: AppRoutes.groupList,
-                                arguments: GroupListArg(
+                                  routeName: AppRoutes.groupList,
+                                  arguments: GroupListArg(
                                     name: title,
-                                    pagingController: pagingController!))
+                                    pagingController: pagingController!,
+                                  ),
+                                )
                             : ref
                                 .read(navigatorProvider)
                                 .navigateTo(routeName: AppRoutes.recommendList);

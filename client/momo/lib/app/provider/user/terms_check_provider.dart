@@ -44,4 +44,13 @@ class TermsCheck extends StateNotifier<List<bool>> {
   }
 
   void checkAll(bool check) => state = [check, check, check];
+
+  bool isCheckAll() {
+    for (int i = 0; i < state.length; i++) {
+      if (!state[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
 }

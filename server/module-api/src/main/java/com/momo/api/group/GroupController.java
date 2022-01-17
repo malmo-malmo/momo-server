@@ -29,32 +29,31 @@ public class GroupController {
 
     private final GroupService groupService;
 
-    @PostMapping
+    @PostMapping("/group")
     public ResponseEntity<Void> create(@CurrentUser User user,
         @Valid @ModelAttribute GroupCreateRequest groupCreateRequest) throws URISyntaxException, IOException {
         Long groupId = groupService.create(user, groupCreateRequest);
         return ResponseEntity.created(new URI("/api/group/" + groupId)).build();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/group/{id}")
     public ResponseEntity<GroupResponse> find(@CurrentUser User user, @PathVariable Long id) {
         GroupResponse groupResponse = groupService.findById(user, id);
         return ResponseEntity.ok(groupResponse);
     }
-
     @GetMapping("/categories")
     public ResponseEntity<List<EnumResponse>> findGroupCategories() {
         return ResponseEntity.ok(EnumResponse.listOfCategory());
     }
 
-    @PatchMapping("/{id}/manager/{userId}")
+    @PatchMapping("/group/{id}/manager/{userId}")
     public ResponseEntity<Void> updateManagerByUserId(@CurrentUser User user, @PathVariable Long id,
         @PathVariable Long userId) {
         groupService.updateManagerByUserId(user, id, userId);
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/{id}/end")
+    @PatchMapping("/group/{id}/end")
     public ResponseEntity<Void> endGroupById(@CurrentUser User user, @PathVariable Long id) {
         groupService.endGroupById(user, id);
         return ResponseEntity.ok().build();

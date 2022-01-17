@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:momodb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          batch_size: 100
+          batch_versioned_data: true
+        default_batch_fetch_size: 100
+        order_inserts: true
+        order_updates: true
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace

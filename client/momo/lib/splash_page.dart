@@ -25,22 +25,32 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   }
 
   Future<void> _pushToNextPage() async {
-    final check = hasNoToken();
+    final _tokenCheck = _hasNoToken();
 
-    if (check) {
-      await Future.delayed(const Duration(seconds: 1));
-      ref.read(navigatorProvider).navigateToRemove(routeName: AppRoutes.login);
+    if (!_tokenCheck) {
+      final _userDataCheck = await _isFirstLogin();
+      if (!_userDataCheck) {
+        await ref.watch(categoryResultProvider.future);
+        await ref.watch(locationResultProvider.future);
+        ref.read(navigatorProvider).navigateToRemove(
+              routeName: AppRoutes.main,
+            );
+      } else {
+        ref.read(navigatorProvider).navigateToRemove(
+              routeName: AppRoutes.trems,
+            );
+      }
     } else {
-      await ref.watch(categoryResultProvider.future);
-      await ref.watch(locationResultProvider.future);
-      await ref.watch(userDataProvider.notifier).getUserData();
-      ref.read(navigatorProvider).navigateToRemove(routeName: AppRoutes.main);
+      ref.read(navigatorProvider).navigateToRemove(
+            routeName: AppRoutes.login,
+          );
     }
   }
 
-  bool hasNoToken() {
-    final token = Hive.box('auth').get('tokenData') ?? 'no token';
-    return token == 'no token';
+  Future<bool> _isFirstLogin() async {
+    final _isFirstLogin =
+        await ref.read(userDataProvider.notifier).isFirstLogin();
+    return _isFirstLogin;
   }
 
   @override
@@ -71,5 +81,10 @@ class _SplashPageState extends ConsumerState<SplashPage> {
         ),
       ),
     );
+  }
+
+  bool _hasNoToken() {
+    final token = Hive.box('auth').get('tokenData') ?? 'no token';
+    return token == 'no token';
   }
 }

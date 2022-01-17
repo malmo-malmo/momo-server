@@ -13,6 +13,7 @@ _$_GroupInfo _$$_GroupInfoFromJson(Map<String, dynamic> json) => _$_GroupInfo(
       participantCnt: json['participantCnt'] as int,
       startDate: json['startDate'] as String,
       imageUrl: json['imageUrl'] as String?,
+      favoriteGroup: json['favoriteGroup'] as bool,
     );
 
 Map<String, dynamic> _$$_GroupInfoToJson(_$_GroupInfo instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$$_GroupInfoToJson(_$_GroupInfo instance) =>
       'participantCnt': instance.participantCnt,
       'startDate': instance.startDate,
       'imageUrl': instance.imageUrl,
+      'favoriteGroup': instance.favoriteGroup,
     };

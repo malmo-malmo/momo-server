@@ -2,17 +2,12 @@ spring:
   profiles:
     active: local
     include: auth, env, aws
-  h2:
-    console:
-      enabled: true
   jpa:
-    generate-ddl: true
     properties:
       hibernate:
         jdbc:
-          batch_size: 1000
+          batch_size: 100
           batch_versioned_data: true
-        format_sql: true
         use_sql_comments: true
         default_batch_fetch_size: 100
         order_inserts: true

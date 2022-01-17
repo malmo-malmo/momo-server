@@ -17,11 +17,13 @@ class GroupCard extends ConsumerWidget {
     required this.group,
     this.width,
     this.height,
+    required this.setLike,
   }) : super(key: key);
 
   final GroupInfo group;
   final double? width;
   final double? height;
+  final Function setLike;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -61,8 +63,18 @@ class GroupCard extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     OnOffCard(onOff: group.offline),
-                    Icon(CupertinoIcons.heart,
-                        size: 24.w, color: MomoColor.white)
+                    InkWell(
+                      onTap: () {
+                        setLike();
+                      },
+                      child: Icon(
+                        group.favoriteGroup
+                            ? CupertinoIcons.heart_fill
+                            : CupertinoIcons.heart,
+                        size: 24.w,
+                        color: MomoColor.white,
+                      ),
+                    )
                   ],
                 ),
                 Column(

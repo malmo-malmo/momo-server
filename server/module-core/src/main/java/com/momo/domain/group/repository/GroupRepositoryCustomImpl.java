@@ -2,10 +2,12 @@ package com.momo.domain.group.repository;
 
 import static com.momo.domain.group.entity.QGroup.group;
 import static com.momo.domain.group.entity.QParticipant.participant;
+import static com.momo.domain.user.entity.QFavoriteGroup.favoriteGroup;
 
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupResponse;
+import com.momo.domain.group.dto.GroupSearchConditionRequest;
 import com.momo.domain.group.dto.QGroupCardResponse;
 import com.momo.domain.group.dto.QGroupResponse;
 import com.momo.domain.group.entity.Category;
@@ -57,8 +59,8 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
     }
 
     @Override
-    public List<GroupCardResponse> findAllBySearchConditionOrderByCreatedDateDesc(List<City> cities,
-        List<Category> categories, Pageable pageable) {
+    public List<GroupCardResponse> findAllBySearchConditionOrderByCreatedDateDesc(User loginUser,
+        GroupSearchConditionRequest request, Pageable pageable) {
         QueryResults<GroupCardResponse> results = queryFactory
             .select(new QGroupCardResponse(
                 group.id,
@@ -66,12 +68,13 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
                 group.imageUrl,
                 group.startDate,
                 group.isOffline,
-                countParticipantQuery()
+                countParticipantQuery(),
+                isFavoriteGroupQuery(loginUser)
             ))
             .from(group)
             .where(
-                cityIn(cities),
-                categoryIn(categories)
+                cityIn(request.getCities()),
+                categoryIn(request.getCategories())
             )
             .orderBy(group.createdDate.desc())
             .offset(pageable.getOffset())
@@ -89,7 +92,8 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
     }
 
     @Override
-    public List<GroupCardResponse> findAllByUniversityOrderByCreatedDateDesc(String university, Pageable pageable) {
+    public List<GroupCardResponse> findAllByUniversityOrderByCreatedDateDesc(User loginUser, String university,
+        Pageable pageable) {
         QueryResults<GroupCardResponse> results = queryFactory
             .select(new QGroupCardResponse(
                 group.id,
@@ -97,7 +101,8 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
                 group.imageUrl,
                 group.startDate,
                 group.isOffline,
-                countParticipantQuery()
+                countParticipantQuery(),
+                isFavoriteGroupQuery(loginUser)
             ))
             .from(group)
             .where(group.university.eq(university))
@@ -109,7 +114,8 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
     }
 
     @Override
-    public List<GroupCardResponse> findAllByDistrictOrderByCreatedDateDesc(String district, Pageable pageable) {
+    public List<GroupCardResponse> findAllByDistrictOrderByCreatedDateDesc(User loginUser, String district,
+        Pageable pageable) {
         QueryResults<GroupCardResponse> results = queryFactory
             .select(new QGroupCardResponse(
                 group.id,
@@ -117,7 +123,8 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
                 group.imageUrl,
                 group.startDate,
                 group.isOffline,
-                countParticipantQuery()
+                countParticipantQuery(),
+                isFavoriteGroupQuery(loginUser)
             ))
             .from(group)
             .where(group.district.eq(district))
@@ -129,7 +136,7 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
     }
 
     @Override
-    public List<GroupCardResponse> findAllByCategoriesOrderByCreatedDateDesc(List<Category> categories,
+    public List<GroupCardResponse> findAllByCategoriesOrderByCreatedDateDesc(User loginUser, List<Category> categories,
         Pageable pageable) {
         QueryResults<GroupCardResponse> results = queryFactory
             .select(new QGroupCardResponse(
@@ -138,7 +145,8 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
                 group.imageUrl,
                 group.startDate,
                 group.isOffline,
-                countParticipantQuery()
+                countParticipantQuery(),
+                isFavoriteGroupQuery(loginUser)
             ))
             .from(group)
             .where(group.category.in(categories))
@@ -154,5 +162,15 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
             .select(participant.count())
             .from(participant)
             .where(participant.group.eq(group));
+    }
+
+    private JPQLQuery<Boolean> isFavoriteGroupQuery(User loginUser) {
+        return JPAExpressions
+            .select(favoriteGroup.isNotNull())
+            .from(favoriteGroup)
+            .where(
+                favoriteGroup.group.eq(group),
+                favoriteGroup.user.eq(loginUser)
+            );
     }
 }

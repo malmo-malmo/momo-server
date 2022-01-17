@@ -64,7 +64,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .id(1L)
             .managerId(2L)
             .name("A 모임")
-            .imageUrl("http://~~")
+            .imageUrl("이미지 URL")
             .startDate(LocalDate.now())
             .university("한국대")
             .city(City.SEOUL)

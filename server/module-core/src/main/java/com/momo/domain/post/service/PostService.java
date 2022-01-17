@@ -5,8 +5,8 @@ import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
-import com.momo.domain.image.service.ImageUploadService;
-import com.momo.domain.image.util.GenerateDirUtil;
+import com.momo.domain.aws.service.ImageUploadService;
+import com.momo.domain.aws.util.GenerateUploadPathUtil;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.entity.PostType;
 import com.momo.domain.post.repository.PostRepository;
@@ -45,8 +45,8 @@ public class PostService {
         Post post = postRepository.save(Post.create(user, group, request.toEntity()));
         Long postId = post.getId();
 
-        List<String> imageUrls = imageUploadService.uploadAll(request.getImages(),
-            GenerateDirUtil.posts(groupId, postId));
+        List<String> imageUrls = imageUploadService
+            .uploadAll(request.getImages(), GenerateUploadPathUtil.getPostImage(groupId, postId));
         post.updateImages(imageUrls);
         return postId;
     }

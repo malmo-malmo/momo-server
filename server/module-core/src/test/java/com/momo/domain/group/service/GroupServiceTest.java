@@ -17,7 +17,7 @@ import com.momo.domain.group.entity.Participant;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.group.dto.GroupCreateRequest;
-import com.momo.domain.image.service.S3UploadService;
+import com.momo.domain.aws.service.S3UploadService;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
 import java.io.IOException;

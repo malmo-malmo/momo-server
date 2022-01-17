@@ -14,7 +14,7 @@ import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
-import com.momo.domain.image.service.S3UploadService;
+import com.momo.domain.aws.service.S3UploadService;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.entity.PostType;
 import com.momo.domain.post.repository.PostRepository;

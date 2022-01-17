@@ -1,4 +1,4 @@
-package com.momo.domain.image.service;
+package com.momo.domain.aws.service;
 
 import java.io.IOException;
 import java.util.List;

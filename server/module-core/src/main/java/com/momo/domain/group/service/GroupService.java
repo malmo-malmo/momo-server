@@ -1,5 +1,7 @@
 package com.momo.domain.group.service;
 
+import com.momo.domain.aws.service.S3UploadService;
+import com.momo.domain.aws.util.GenerateUploadPathUtil;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.dto.GroupCardResponse;
@@ -10,8 +12,6 @@ import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
-import com.momo.domain.image.service.S3UploadService;
-import com.momo.domain.image.util.GenerateDirUtil;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
 import java.io.IOException;
@@ -36,7 +36,8 @@ public class GroupService {
             Group.create(user, groupCreateRequest.toEntity(), groupCreateRequest.getIsUniversity()));
         Long groupId = group.getId();
 
-        String imageUrl = s3UploadService.upload(groupCreateRequest.getImage(), GenerateDirUtil.groupProfile(groupId));
+        String imageUrl = s3UploadService
+            .upload(groupCreateRequest.getImage(), GenerateUploadPathUtil.getGroupImage(groupId));
         group.updateImage(imageUrl);
 
         Participant participant = Participant.create(user, group);

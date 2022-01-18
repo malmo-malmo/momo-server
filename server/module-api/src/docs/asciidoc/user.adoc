@@ -45,9 +45,13 @@ operation::user/findParticipatingGroupCount[snippets='http-request,http-response
 
 operation::user/findParticipatingGroups[snippets='http-request,http-response,response-fields']
 
-=== 내 정보 수정
+=== 내 정보 수정 (이미지가 없는 경우)
 
-operation::user/updateMyInformation[snippets='http-request,http-response,request-parameters,request-parts']
+operation::user/updateMyInformation[snippets='http-request,http-response,request-parameters']
+
+=== 내 정보 수정 (이미지가 있는 경우)
+
+operation::user/updateMyInformationWithImage[snippets='http-request,http-response,request-parameters,request-parts']
 
 === 관심 카테고리 수정
 

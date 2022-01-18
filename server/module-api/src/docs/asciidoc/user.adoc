@@ -47,7 +47,7 @@ operation::user/findParticipatingGroups[snippets='http-request,http-response,res
 
 === 내 정보 수정
 
-operation::user/update[snippets='http-request,http-response,request-fields']
+operation::user/updateMyInformation[snippets='http-request,http-response,request-parameters,request-parts']
 
 === 관심 카테고리 수정
 

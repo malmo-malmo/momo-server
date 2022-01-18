@@ -1,5 +1,7 @@
 package com.momo.domain.user.service;
 
+import com.momo.domain.aws.service.S3UploadService;
+import com.momo.domain.aws.util.GenerateUploadPathUtil;
 import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
@@ -12,6 +14,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @Transactional
@@ -19,19 +22,24 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final S3UploadService s3UploadService;
 
-    public void update(User loginUser, UserUpdateRequest userUpdateRequest) {
+    public void update(User loginUser, UserUpdateRequest request) {
         User user = findByUser(loginUser);
-        if (user.isNotSameNickname(userUpdateRequest.getNickname())) {
-            validateDuplicateNickname(userUpdateRequest.getNickname());
+        if (!user.isSameNickname(request.getNickname())) {
+            validateDuplicateNickname(request.getNickname());
         }
-        user.update(userUpdateRequest.toEntity());
+        user.update(request.toEntity(), convertToImageUrl(request.getImage(), user.getId()));
     }
 
     public void validateDuplicateNickname(String nickname) {
         if (userRepository.existsByNickname(nickname)) {
             throw new CustomException(ErrorCode.DUPLICATED_NICKNAME);
         }
+    }
+
+    public String convertToImageUrl(MultipartFile multipartFile, Long userId) {
+        return s3UploadService.upload(multipartFile, GenerateUploadPathUtil.getUserImage(userId));
     }
 
     @Transactional(readOnly = true)

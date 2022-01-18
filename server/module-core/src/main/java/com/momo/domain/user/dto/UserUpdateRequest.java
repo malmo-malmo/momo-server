@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @NoArgsConstructor
@@ -26,12 +27,15 @@ public class UserUpdateRequest {
     @NotBlank(message = "사는 지역은 필수 입력값입니다.")
     private String district;
 
+    private MultipartFile image;
+
     @Builder
-    public UserUpdateRequest(String nickname, String university, City city, String district) {
+    public UserUpdateRequest(String nickname, String university, City city, String district, MultipartFile image) {
         this.nickname = nickname;
         this.university = university;
         this.city = city;
         this.district = district;
+        this.image = image;
     }
 
     public User toEntity() {

@@ -40,6 +40,13 @@ public class UserController {
     private final FavoriteGroupService favoriteGroupService;
     private final GroupManagementService groupManagementService;
 
+    @PostMapping("/update")
+    public ResponseEntity<Void> updateMyInformation(@CurrentUser User user,
+        @Valid @ModelAttribute UserUpdateRequest userUpdateRequest) {
+        userService.update(user, userUpdateRequest);
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/favorite-group")
     public ResponseEntity<Void> createFavoriteGroup(@CurrentUser User user,
         @Valid @RequestBody FavoriteGroupCreateRequest request) throws URISyntaxException {
@@ -85,13 +92,6 @@ public class UserController {
     public ResponseEntity<List<ParticipatingGroupCardResponse>> findParticipatingGroups(@CurrentUser User user) {
         List<ParticipatingGroupCardResponse> responses = groupManagementService.findParticipatingGroupsByUser(user);
         return ResponseEntity.ok(responses);
-    }
-
-    @PatchMapping
-    public ResponseEntity<Void> updateMyInformation(@CurrentUser User user,
-        @Valid @ModelAttribute UserUpdateRequest userUpdateRequest) {
-        userService.update(user, userUpdateRequest);
-        return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/favorite-categories")

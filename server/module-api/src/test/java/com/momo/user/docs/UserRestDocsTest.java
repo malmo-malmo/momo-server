@@ -1,8 +1,10 @@
 package com.momo.user.docs;
 
+import static com.momo.CommonFileUploadSupport.uploadMockSupport;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.fileUpload;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
@@ -34,6 +36,7 @@ import org.mockito.InjectMocks;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 
 @WebMvcTest(UserController.class)
 @DisplayName("사용자 문서화 테스트")
@@ -186,15 +189,12 @@ public class UserRestDocsTest extends RestDocsControllerTest {
             .university("한국대")
             .city(City.SEOUL)
             .district("마포구")
+            .image(new MockMultipartFile("image", "image".getBytes()))
             .build();
-        String content = super.objectMapper.writeValueAsString(request);
-        super.mockMvc.perform(patch("/api/user")
-                .content(content)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-            )
+        super.mockMvc.perform(uploadMockSupport(fileUpload("/api/user/update"), request))
             .andDo(print())
             .andExpect(status().isOk())
-            .andDo(UserDocumentation.update());
+            .andDo(UserDocumentation.updateMyInformation());
     }
 
     @Test

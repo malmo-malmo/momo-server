@@ -5,6 +5,7 @@ import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.user.dto.UserUpdateRequest;
+import com.momo.domain.user.entity.FavoriteCategories;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
 import java.util.List;
@@ -33,14 +34,10 @@ public class UserService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<EnumResponse> findFavoriteCategoriesByUser(User loginUser) {
-        /*
-        TODO
-        @CurrentUser 로 유저 엔티티 조회시 관심 카테고리도 함께 조회하고 있음.
-        쿼리 개선이 필요.
-        쿼리 개선을 하면 관심 카테고리 조회 로직도 변경되어야함.
-        */
-        return EnumResponse.listFromCategories(loginUser.getFavoriteCategories());
+        FavoriteCategories favoriteCategories = loginUser.getFavoriteCategories();
+        return EnumResponse.listOfFavoriteCategories(favoriteCategories);
     }
 
     public void updateFavoriteCategories(User loginUser, FavoriteCategoriesUpdateRequest request) {

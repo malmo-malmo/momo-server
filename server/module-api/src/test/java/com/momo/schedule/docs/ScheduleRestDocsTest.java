@@ -47,7 +47,7 @@ public class ScheduleRestDocsTest extends RestDocsControllerTest {
         String content = super.objectMapper.writeValueAsString(request);
         super.mockMvc.perform(post("/api/schedule")
                 .content(content)
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
             .andDo(print())
             .andExpect(status().isCreated())
             .andDo(ScheduleDocumentation.create());

@@ -3,6 +3,7 @@ package com.momo.user.acceptance.step;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.user.dto.FavoriteGroupCardResponse;
@@ -43,6 +44,17 @@ public class UserAcceptanceStep {
             () -> assertThat(responses.get(0).getGroupCardResponse().getStartDate()).isEqualTo(request.getStartDate()),
             () -> assertThat(responses.get(0).getGroupCardResponse().getImageUrl()).isNotNull(),
             () -> assertThat(responses.get(0).getGroupCardResponse().getParticipantCnt()).isEqualTo(1)
+        );
+    }
+
+    public static void assertThatFindFavoriteCategories(List<EnumResponse> responses,
+        FavoriteCategoriesUpdateRequest request) {
+        Assertions.assertAll(
+            () -> assertThat(responses.size()).isEqualTo(request.getFavoriteCategories().size()),
+            () -> assertThat(responses.get(0).getName()).isEqualTo(request.getFavoriteCategories().get(0).getName()),
+            () -> assertThat(responses.get(0).getCode()).isEqualTo(request.getFavoriteCategories().get(0).getCode()),
+            () -> assertThat(responses.get(1).getName()).isEqualTo(request.getFavoriteCategories().get(1).getName()),
+            () -> assertThat(responses.get(1).getCode()).isEqualTo(request.getFavoriteCategories().get(1).getCode())
         );
     }
 
@@ -95,6 +107,15 @@ public class UserAcceptanceStep {
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .when()
             .get("/api/user/favorite-groups")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> requestToFindFavoriteCategories(String token) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .when()
+            .get("/api/user/favorite-categories")
             .then().log().all()
             .extract();
     }

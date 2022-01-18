@@ -8,11 +8,13 @@ import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST1;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST2;
 import static com.momo.fixture.UserFixture.getUser1;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
+import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatFindFavoriteCategories;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatFindFavoriteGroups;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatFindMyInformation;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatFindParticipatingGroups;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToCreateFavoriteGroup;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToDeleteFavoriteGroup;
+import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindFavoriteCategories;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindFavoriteGroupCount;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindFavoriteGroups;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindMyInformation;
@@ -23,6 +25,7 @@ import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdateFa
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.acceptance.AcceptanceTest;
+import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
@@ -81,6 +84,18 @@ public class UserAcceptanceTest extends AcceptanceTest {
         List<FavoriteGroupCardResponse> favoriteGroupResponses = getObjects(response, FavoriteGroupCardResponse.class);
         assertThatStatusIsOk(response);
         assertThatFindFavoriteGroups(favoriteGroupResponses, GROUP_CREATE_REQUEST1);
+    }
+
+    @Test
+    void 관심_카테고리_목록을_조회한다() {
+        FavoriteCategoriesUpdateRequest request = new FavoriteCategoriesUpdateRequest(
+            List.of(Category.HEALTH, Category.EMPLOYMENT)
+        );
+        String token = getAccessToken(getUser1());
+        requestToUpdateFavoriteCategories(token, request);
+        ExtractableResponse<Response> response = requestToFindFavoriteCategories(token);
+        assertThatStatusIsOk(response);
+        assertThatFindFavoriteCategories(getObjects(response, EnumResponse.class), request);
     }
 
     @Test

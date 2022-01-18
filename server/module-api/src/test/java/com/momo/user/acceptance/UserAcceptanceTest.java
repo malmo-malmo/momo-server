@@ -25,6 +25,7 @@ import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindPart
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindParticipatingGroups;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdateFavoriteCategories;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdateMyInformation;
+import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdateMyInformationWithImage;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.acceptance.AcceptanceTest;
@@ -123,7 +124,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    void 내_정보를_수정한다_이미지_O() {
+    void 내_정보를_수정한다_이미지_포함() {
         UserUpdateRequest userUpdateRequest = UserUpdateRequest.builder()
             .nickname("모모")
             .university("한국대학교")
@@ -132,15 +133,14 @@ public class UserAcceptanceTest extends AcceptanceTest {
             .image(uploadTestFile)
             .build();
         String token = getAccessToken(getUser1());
-        ExtractableResponse<Response> response = requestToUpdateMyInformation(token, userUpdateRequest);
+        ExtractableResponse<Response> response = requestToUpdateMyInformationWithImage(token, userUpdateRequest);
         UserResponse userResponse = getObject(requestToFindMyInformation(token), UserResponse.class);
         assertThatStatusIsOk(response);
         assertThatUpdateMyInformationWithImage(userResponse, userUpdateRequest);
     }
 
     @Test
-    @Disabled
-    void 내_정보를_수정한다_이미지_X() {
+    void 내_정보를_수정한다_이미지_미포함() {
         UserUpdateRequest userUpdateRequest = UserUpdateRequest.builder()
             .nickname("모모")
             .university("한국대학교")
@@ -155,10 +155,9 @@ public class UserAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    void 내_정보를_수정할_때_입력값이_공백_또는_널이면_실패한다() {
+    void 내_정보를_수정할_때_입력값이_공백_또는_널이면_실패한다_이미지_미포함() {
         UserUpdateRequest userUpdateRequest = UserUpdateRequest.builder()
             .nickname(" ")
-            .image(uploadTestFile)
             .build();
         String token = getAccessToken(getUser1());
         ExtractableResponse<Response> response = requestToUpdateMyInformation(token, userUpdateRequest);

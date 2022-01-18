@@ -165,6 +165,16 @@ public class UserAcceptanceStep {
         UserUpdateRequest userUpdateRequest) {
         return uploadAssuredSupport(
             given().log().all()
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token), userUpdateRequest)
+            .post("/api/user/update")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> requestToUpdateMyInformationWithImage(String token,
+        UserUpdateRequest userUpdateRequest) {
+        return uploadAssuredSupport(
+            given().log().all()
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                 .contentType(MediaType.MULTIPART_FORM_DATA_VALUE), userUpdateRequest)
             .post("/api/user/update")

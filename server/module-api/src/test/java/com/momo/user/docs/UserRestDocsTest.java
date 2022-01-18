@@ -183,7 +183,26 @@ public class UserRestDocsTest extends RestDocsControllerTest {
     }
 
     @Test
-    void 내_정보_수정() throws Exception {
+    void 내_정보_수정_이미지_미포함() throws Exception {
+        UserUpdateRequest request = UserUpdateRequest.builder()
+            .nickname("테스트 이름")
+            .university("한국대")
+            .city(City.SEOUL)
+            .district("마포구")
+            .build();
+        super.mockMvc.perform(post("/api/user/update")
+                .param("nickname", request.getNickname())
+                .param("university", request.getUniversity())
+                .param("city", request.getCity().getCode())
+                .param("district", request.getDistrict())
+            )
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(UserDocumentation.updateMyInformation());
+    }
+
+    @Test
+    void 내_정보_수정_이미지_포함() throws Exception {
         UserUpdateRequest request = UserUpdateRequest.builder()
             .nickname("테스트 이름")
             .university("한국대")
@@ -194,7 +213,7 @@ public class UserRestDocsTest extends RestDocsControllerTest {
         super.mockMvc.perform(uploadMockSupport(fileUpload("/api/user/update"), request))
             .andDo(print())
             .andExpect(status().isOk())
-            .andDo(UserDocumentation.updateMyInformation());
+            .andDo(UserDocumentation.updateMyInformationWithImage());
     }
 
     @Test

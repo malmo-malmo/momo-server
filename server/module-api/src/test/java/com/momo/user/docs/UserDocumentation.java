@@ -124,10 +124,22 @@ public class UserDocumentation {
             parameterWithName("city").description("유저 거주 도시"),
             parameterWithName("district").description("유저 거주 지역")
         };
+        return document("user/updateMyInformation",
+            requestParameters(requestUser)
+        );
+    }
+
+    public static RestDocumentationResultHandler updateMyInformationWithImage() {
+        ParameterDescriptor[] requestUser = new ParameterDescriptor[]{
+            parameterWithName("nickname").description("유저 닉네임"),
+            parameterWithName("university").description("유저 학교"),
+            parameterWithName("city").description("유저 거주 도시"),
+            parameterWithName("district").description("유저 거주 지역")
+        };
         RequestPartDescriptor[] requestPart = new RequestPartDescriptor[]{
             partWithName("image").description("유저 프로필 이미지")
         };
-        return document("user/updateMyInformation",
+        return document("user/updateMyInformationWithImage",
             requestParameters(requestUser),
             requestParts(requestPart)
         );

@@ -51,8 +51,8 @@ public class UserAcceptanceStep {
         Assertions.assertAll(
             () -> assertThat(responses.size()).isEqualTo(1),
             () -> assertThat(responses.get(0).getId()).isNotNull(),
+            () -> assertThat(responses.get(0).getImageUrl()).isNotNull(),
             () -> assertThat(responses.get(0).getName()).isEqualTo(request.getName()),
-            () -> assertThat(responses.get(0).getImageUrl()).isEqualTo(request.getImageUrl()),
             () -> assertThat(responses.get(0).getStartDate()).isEqualTo(request.getStartDate()),
             () -> assertThat(responses.get(0).isOffline()).isEqualTo(request.getIsOffline()),
             () -> assertThat(responses.get(0).isEnd()).isFalse(),

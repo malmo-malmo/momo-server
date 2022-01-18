@@ -28,17 +28,17 @@ public class UserTest {
     }
 
     @Test
-    void 유저_닉네임이_널인_경우_다른_닉네임_중복_확인_테스트() {
+    void 유저_닉네임이_널인_경우_같은_닉네임_확인_테스트() {
         User user = User.builder().build();
-        boolean expected = user.isNotSameNickname("nickname");
+        boolean expected = user.isSameNickname("nickname");
         assertThat(expected).isTrue();
     }
 
     @Test
-    void 유저_닉네임이_널이_아닌_경우_닉네임_중복_확인_테스트() {
+    void 유저_닉네임이_널이_아닌_경우_같은_닉네임_확인_테스트() {
         User user = User.builder().nickname("nickname").build();
-        boolean expected = user.isNotSameNickname("nickname");
-        assertThat(expected).isFalse();
+        boolean expected = user.isSameNickname("nickname");
+        assertThat(expected).isTrue();
     }
 
     @Test

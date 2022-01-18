@@ -1,5 +1,6 @@
 package com.momo.user.acceptance.step;
 
+import static com.momo.CommonFileUploadSupport.uploadAssuredSupport;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -72,6 +73,28 @@ public class UserAcceptanceStep {
         );
     }
 
+    public static void assertThatUpdateMyInformation(UserResponse response, UserUpdateRequest request) {
+        Assertions.assertAll(
+            () -> assertThat(response.getId()).isNotNull(),
+            () -> assertThat(response.getImage()).isNull(),
+            () -> assertThat(response.getCity()).isNotNull(),
+            () -> assertThat(response.getNickname()).isEqualTo(request.getNickname()),
+            () -> assertThat(response.getUniversity()).isEqualTo(request.getUniversity()),
+            () -> assertThat(response.getDistrict()).isEqualTo(request.getDistrict())
+        );
+    }
+
+    public static void assertThatUpdateMyInformationWithImage(UserResponse response, UserUpdateRequest request) {
+        Assertions.assertAll(
+            () -> assertThat(response.getId()).isNotNull(),
+            () -> assertThat(response.getImage()).isNotNull(),
+            () -> assertThat(response.getCity()).isNotNull(),
+            () -> assertThat(response.getNickname()).isEqualTo(request.getNickname()),
+            () -> assertThat(response.getUniversity()).isEqualTo(request.getUniversity()),
+            () -> assertThat(response.getDistrict()).isEqualTo(request.getDistrict())
+        );
+    }
+
     public static ExtractableResponse<Response> requestToCreateFavoriteGroup(String token,
         FavoriteGroupCreateRequest request) {
         return given().log().all()
@@ -138,14 +161,13 @@ public class UserAcceptanceStep {
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToUpdate(String token,
+    public static ExtractableResponse<Response> requestToUpdateMyInformation(String token,
         UserUpdateRequest userUpdateRequest) {
-        return given().log().all()
-            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-            .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .body(userUpdateRequest)
-            .when()
-            .patch("/api/user")
+        return uploadAssuredSupport(
+            given().log().all()
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .contentType(MediaType.MULTIPART_FORM_DATA_VALUE), userUpdateRequest)
+            .post("/api/user/update")
             .then().log().all()
             .extract();
     }

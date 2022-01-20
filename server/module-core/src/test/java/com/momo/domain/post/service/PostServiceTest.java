@@ -9,19 +9,21 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 import com.momo.common.ServiceTest;
+import com.momo.domain.aws.service.S3UploadService;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
-import com.momo.domain.aws.service.S3UploadService;
+import com.momo.domain.post.dto.PostCreateRequest;
+import com.momo.domain.post.dto.PostModifyRequest;
+import com.momo.domain.post.dto.PostResponse;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.entity.PostType;
 import com.momo.domain.post.repository.PostRepository;
-import com.momo.domain.post.dto.PostCreateRequest;
-import com.momo.domain.post.dto.PostResponse;
 import com.momo.domain.user.entity.User;
 import java.io.IOException;
+import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -203,5 +205,45 @@ public class PostServiceTest extends ServiceTest {
         assertThatThrownBy(() -> postService.findById(manager, 1L))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED.getMessage());
+    }
+
+    @Test
+    void 게시물_수정_테스트를_성공한다() {
+        PostModifyRequest request = PostModifyRequest.builder()
+            .postId(1L)
+            .title("수정될 게시글 제목입니다.")
+            .content("수정될 게시글 내용입니다.")
+            .build();
+        Post post = Post.builder()
+            .author(User.builder()
+                .id(user.getId())
+                .build())
+            .build();
+        given(postRepository.findById(request.getPostId())).willReturn(Optional.of(post));
+        postService.updatePost(request, user);
+
+        Assertions.assertAll(
+            () -> assertThat(post.getTitle()).isEqualTo(request.getTitle()),
+            () -> assertThat(post.getContents()).isEqualTo(request.getContent())
+        );
+    }
+
+    @Test
+    void 게시물_작성자가_아니면_게시물_수정_테스트에_실패한다() {
+        PostModifyRequest request = PostModifyRequest.builder()
+            .postId(1L)
+            .title("수정될 게시글 제목입니다.")
+            .content("수정될 게시글 내용입니다.")
+            .build();
+        Post post = Post.builder()
+            .author(User.builder()
+                .id(2L)
+                .build())
+            .build();
+        given(postRepository.findById(request.getPostId())).willReturn(Optional.of(post));
+
+        assertThatThrownBy(() -> postService.updatePost(request, user))
+            .isInstanceOf(CustomException.class)
+            .hasMessage(ErrorCode.POST_CONTROL_UNAUTHORIZED.getMessage());
     }
 }

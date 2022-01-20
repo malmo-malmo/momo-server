@@ -1,27 +1,27 @@
 package com.momo.domain.post.service;
 
+import com.momo.domain.aws.service.ImageUploadService;
+import com.momo.domain.aws.util.GenerateUploadPathUtil;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
-import com.momo.domain.aws.service.ImageUploadService;
-import com.momo.domain.aws.util.GenerateUploadPathUtil;
-import com.momo.domain.post.entity.Post;
-import com.momo.domain.post.entity.PostType;
-import com.momo.domain.post.repository.PostRepository;
 import com.momo.domain.post.dto.PostCardResponse;
 import com.momo.domain.post.dto.PostCardsRequest;
 import com.momo.domain.post.dto.PostCreateRequest;
+import com.momo.domain.post.dto.PostModifyRequest;
 import com.momo.domain.post.dto.PostResponse;
+import com.momo.domain.post.entity.Post;
+import com.momo.domain.post.entity.PostType;
+import com.momo.domain.post.repository.PostRepository;
 import com.momo.domain.user.entity.User;
 import java.io.IOException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional
@@ -51,20 +51,6 @@ public class PostService {
         return postId;
     }
 
-    public void validatePostType(Group group, User user, String typeName) {
-        if (PostType.NOTICE.isSameName(typeName)) {
-            validateGroupManager(group, user);
-        }
-        if (PostType.NORMAL.isSameName(typeName)) {
-            validateParticipant(group, user);
-        }
-    }
-
-    public void validateGroupManager(Group group, User user) {
-        if (!group.isManager(user)) {
-            throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
-        }
-    }
 
     @Transactional(readOnly = true)
     public PostResponse findById(User user, Long postId) {
@@ -82,14 +68,43 @@ public class PostService {
         return postRepository.findAllByGroupAndTypeOrderByCreatedDateDesc(group, postType, page);
     }
 
-    public Group getGroupById(Long groupId) {
-        return groupRepository.findById(groupId)
+    public void updatePost(PostModifyRequest request, User user) {
+        Post post = postRepository.findById(request.getPostId())
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
+        validatePost(post.getAuthor(), user);
+        post.updateTitleAndContents(request.getTitle(), request.getContent());
     }
 
-    public void validateParticipant(Group group, User user) {
+    private void validatePost(User postUser, User updateUser) {
+        boolean isNotWritingPost = !postUser.getId().equals(updateUser.getId());
+        if (isNotWritingPost) {
+            throw new CustomException(ErrorCode.POST_CONTROL_UNAUTHORIZED);
+        }
+    }
+
+    private void validateParticipant(Group group, User user) {
         if (!participantRepository.existsByGroupAndUser(group, user)) {
             throw new CustomException(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED);
         }
+    }
+
+    private void validateGroupManager(Group group, User user) {
+        if (!group.isManager(user)) {
+            throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
+        }
+    }
+
+    public void validatePostType(Group group, User user, String typeName) {
+        if (PostType.NOTICE.isSameName(typeName)) {
+            validateGroupManager(group, user);
+        }
+        if (PostType.NORMAL.isSameName(typeName)) {
+            validateParticipant(group, user);
+        }
+    }
+
+    private Group getGroupById(Long groupId) {
+        return groupRepository.findById(groupId)
+            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 }

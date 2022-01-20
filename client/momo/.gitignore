@@ -46,3 +46,7 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 /android/keystore
+
+# Generated File
+**/*.g.dart
+**/*.freezed.dart

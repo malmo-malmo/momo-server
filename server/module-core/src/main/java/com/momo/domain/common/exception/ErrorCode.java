@@ -33,7 +33,8 @@ public enum ErrorCode {
     GROUP_CATEGORY_NOT_FOUND(400, "해당 모임 카테고리 타입은 존재하지 않습니다."),
     GROUP_MANAGER_WITHDRAW_NOT_ALLOW(400, "해당 모임의 관리자는 탈퇴할 수 없습니다."),
     GROUP_MANAGER_AUTHORIZED(401, "모임 관리자에게만 허용된 기능입니다."),
-    GROUP_PARTICIPANT_UNAUTHORIZED(401, "해당 모임의 참여자가 아닙니다.");
+    GROUP_PARTICIPANT_UNAUTHORIZED(401, "해당 모임의 참여자가 아닙니다."),
+    POST_CONTROL_UNAUTHORIZED(401, "해당 게시글의 게시자만 수정, 삭제가 가능합니다.");
 
     private final int status;
     private final String message;

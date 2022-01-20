@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/api/api_provider.dart';
 import 'package:momo/app/api/user_client/user_client.dart';
-import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/model/group/group_like_request.dart';
+import 'package:momo/app/model/group/wish_group_response.dart';
 import 'package:momo/app/model/user/category_request.dart';
 import 'package:momo/app/model/user/university.dart';
 import 'package:momo/app/model/user/user_info_request.dart';
@@ -45,7 +45,7 @@ class UserRepository {
     return response;
   }
 
-  Future<List<GroupInfo>> getFavoriteGroups() async {
+  Future<List<WishGroupResponse>> getFavoriteGroups() async {
     final response = await userClient.getFavoriteGroups();
     return response;
   }

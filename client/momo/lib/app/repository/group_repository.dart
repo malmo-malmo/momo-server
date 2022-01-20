@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/api/api_provider.dart';
+import 'package:momo/app/api/form_data_dio.dart';
 import 'package:momo/app/api/group_client/group_client.dart';
 import 'package:momo/app/model/common/code_name_pair.dart';
 import 'package:momo/app/model/group/group_detail.dart';
@@ -10,14 +11,20 @@ import 'package:momo/app/util/constant.dart';
 
 final groupRepositoryProvider = Provider<GroupRepository>((ref) {
   final groupClient = ref.watch(groupClientProvider);
-  return GroupRepository(groupClient: groupClient);
+  final formDataDio = ref.watch(formDataDioProvider);
+  return GroupRepository(
+    groupClient: groupClient,
+    formDataDio: formDataDio,
+  );
 });
 
 class GroupRepository {
   final GroupClient groupClient;
+  final FormDataDio formDataDio;
 
   GroupRepository({
     required this.groupClient,
+    required this.formDataDio,
   });
 
   Future<dynamic> participantGroup(int groupId) async {
@@ -46,7 +53,7 @@ class GroupRepository {
   }
 
   Future<dynamic> createGroup(GroupRequest groupRequest) async {
-    final response = await groupClient.createGroup(groupRequest);
+    final response = await formDataDio.createGroup(groupRequest);
     return response;
   }
 

@@ -13,10 +13,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-GroupRequest _$GroupRequestFromJson(Map<String, dynamic> json) {
-  return _GroupRequest.fromJson(json);
-}
-
 /// @nodoc
 class _$GroupRequestTearOff {
   const _$GroupRequestTearOff();
@@ -26,7 +22,7 @@ class _$GroupRequestTearOff {
       required String category,
       required String city,
       required String district,
-      required String imageUrl,
+      required String imagePath,
       required String introduction,
       required int recruitmentCnt,
       required String startDate,
@@ -37,17 +33,13 @@ class _$GroupRequestTearOff {
       category: category,
       city: city,
       district: district,
-      imageUrl: imageUrl,
+      imagePath: imagePath,
       introduction: introduction,
       recruitmentCnt: recruitmentCnt,
       startDate: startDate,
       isUniversity: isUniversity,
       isOffline: isOffline,
     );
-  }
-
-  GroupRequest fromJson(Map<String, Object?> json) {
-    return GroupRequest.fromJson(json);
   }
 }
 
@@ -60,14 +52,13 @@ mixin _$GroupRequest {
   String get category => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
   String get district => throw _privateConstructorUsedError;
-  String get imageUrl => throw _privateConstructorUsedError;
+  String get imagePath => throw _privateConstructorUsedError;
   String get introduction => throw _privateConstructorUsedError;
   int get recruitmentCnt => throw _privateConstructorUsedError;
   String get startDate => throw _privateConstructorUsedError;
   bool get isUniversity => throw _privateConstructorUsedError;
   bool get isOffline => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $GroupRequestCopyWith<GroupRequest> get copyWith =>
       throw _privateConstructorUsedError;
@@ -83,7 +74,7 @@ abstract class $GroupRequestCopyWith<$Res> {
       String category,
       String city,
       String district,
-      String imageUrl,
+      String imagePath,
       String introduction,
       int recruitmentCnt,
       String startDate,
@@ -105,7 +96,7 @@ class _$GroupRequestCopyWithImpl<$Res> implements $GroupRequestCopyWith<$Res> {
     Object? category = freezed,
     Object? city = freezed,
     Object? district = freezed,
-    Object? imageUrl = freezed,
+    Object? imagePath = freezed,
     Object? introduction = freezed,
     Object? recruitmentCnt = freezed,
     Object? startDate = freezed,
@@ -129,9 +120,9 @@ class _$GroupRequestCopyWithImpl<$Res> implements $GroupRequestCopyWith<$Res> {
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: imageUrl == freezed
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
+      imagePath: imagePath == freezed
+          ? _value.imagePath
+          : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
       introduction: introduction == freezed
           ? _value.introduction
@@ -169,7 +160,7 @@ abstract class _$GroupRequestCopyWith<$Res>
       String category,
       String city,
       String district,
-      String imageUrl,
+      String imagePath,
       String introduction,
       int recruitmentCnt,
       String startDate,
@@ -193,7 +184,7 @@ class __$GroupRequestCopyWithImpl<$Res> extends _$GroupRequestCopyWithImpl<$Res>
     Object? category = freezed,
     Object? city = freezed,
     Object? district = freezed,
-    Object? imageUrl = freezed,
+    Object? imagePath = freezed,
     Object? introduction = freezed,
     Object? recruitmentCnt = freezed,
     Object? startDate = freezed,
@@ -217,9 +208,9 @@ class __$GroupRequestCopyWithImpl<$Res> extends _$GroupRequestCopyWithImpl<$Res>
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
               as String,
-      imageUrl: imageUrl == freezed
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
+      imagePath: imagePath == freezed
+          ? _value.imagePath
+          : imagePath // ignore: cast_nullable_to_non_nullable
               as String,
       introduction: introduction == freezed
           ? _value.introduction
@@ -246,22 +237,19 @@ class __$GroupRequestCopyWithImpl<$Res> extends _$GroupRequestCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$_GroupRequest implements _GroupRequest {
   _$_GroupRequest(
       {required this.name,
       required this.category,
       required this.city,
       required this.district,
-      required this.imageUrl,
+      required this.imagePath,
       required this.introduction,
       required this.recruitmentCnt,
       required this.startDate,
       required this.isUniversity,
       required this.isOffline});
-
-  factory _$_GroupRequest.fromJson(Map<String, dynamic> json) =>
-      _$$_GroupRequestFromJson(json);
 
   @override
   final String name;
@@ -272,7 +260,7 @@ class _$_GroupRequest implements _GroupRequest {
   @override
   final String district;
   @override
-  final String imageUrl;
+  final String imagePath;
   @override
   final String introduction;
   @override
@@ -286,7 +274,7 @@ class _$_GroupRequest implements _GroupRequest {
 
   @override
   String toString() {
-    return 'GroupRequest(name: $name, category: $category, city: $city, district: $district, imageUrl: $imageUrl, introduction: $introduction, recruitmentCnt: $recruitmentCnt, startDate: $startDate, isUniversity: $isUniversity, isOffline: $isOffline)';
+    return 'GroupRequest(name: $name, category: $category, city: $city, district: $district, imagePath: $imagePath, introduction: $introduction, recruitmentCnt: $recruitmentCnt, startDate: $startDate, isUniversity: $isUniversity, isOffline: $isOffline)';
   }
 
   @override
@@ -300,8 +288,8 @@ class _$_GroupRequest implements _GroupRequest {
             (identical(other.city, city) || other.city == city) &&
             (identical(other.district, district) ||
                 other.district == district) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl) &&
+            (identical(other.imagePath, imagePath) ||
+                other.imagePath == imagePath) &&
             (identical(other.introduction, introduction) ||
                 other.introduction == introduction) &&
             (identical(other.recruitmentCnt, recruitmentCnt) ||
@@ -321,7 +309,7 @@ class _$_GroupRequest implements _GroupRequest {
       category,
       city,
       district,
-      imageUrl,
+      imagePath,
       introduction,
       recruitmentCnt,
       startDate,
@@ -332,11 +320,6 @@ class _$_GroupRequest implements _GroupRequest {
   @override
   _$GroupRequestCopyWith<_GroupRequest> get copyWith =>
       __$GroupRequestCopyWithImpl<_GroupRequest>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_GroupRequestToJson(this);
-  }
 }
 
 abstract class _GroupRequest implements GroupRequest {
@@ -345,15 +328,12 @@ abstract class _GroupRequest implements GroupRequest {
       required String category,
       required String city,
       required String district,
-      required String imageUrl,
+      required String imagePath,
       required String introduction,
       required int recruitmentCnt,
       required String startDate,
       required bool isUniversity,
       required bool isOffline}) = _$_GroupRequest;
-
-  factory _GroupRequest.fromJson(Map<String, dynamic> json) =
-      _$_GroupRequest.fromJson;
 
   @override
   String get name;
@@ -364,7 +344,7 @@ abstract class _GroupRequest implements GroupRequest {
   @override
   String get district;
   @override
-  String get imageUrl;
+  String get imagePath;
   @override
   String get introduction;
   @override

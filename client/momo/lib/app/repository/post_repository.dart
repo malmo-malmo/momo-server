@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/api/api_provider.dart';
+import 'package:momo/app/api/form_data_dio.dart';
 import 'package:momo/app/api/post_client/post_client.dart';
 import 'package:momo/app/model/enum/post_type.dart';
 import 'package:momo/app/model/post/post.dart';
@@ -9,16 +10,24 @@ import 'package:momo/app/util/constant.dart';
 
 final postRepositoryProvider = Provider<PostRepository>((ref) {
   final postClient = ref.watch(postClientProvider);
-  return PostRepository(postClient: postClient);
+  final formDataDio = ref.watch(formDataDioProvider);
+  return PostRepository(
+    postClient: postClient,
+    formDataDio: formDataDio,
+  );
 });
 
 class PostRepository {
   final PostClient postClient;
+  final FormDataDio formDataDio;
 
-  PostRepository({required this.postClient});
+  PostRepository({
+    required this.postClient,
+    required this.formDataDio,
+  });
 
   Future<dynamic> createPost(PostRequest postRequest) async {
-    final response = await postClient.createPost(postRequest);
+    final response = await formDataDio.createPost(postRequest);
     return response;
   }
 

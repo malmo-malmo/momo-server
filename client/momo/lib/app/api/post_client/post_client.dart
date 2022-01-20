@@ -14,11 +14,6 @@ abstract class PostClient {
     String baseUrl,
   }) = _PostClient;
 
-  @POST('/post')
-  Future<dynamic> createPost(
-    @Body() PostRequest postRequest,
-  );
-
   @GET('/post/{postId}')
   Future<PostDetail> getPostDetail(
     @Path() int postId,

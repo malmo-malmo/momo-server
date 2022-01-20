@@ -27,7 +27,7 @@ class ConfirmActionIcon extends ConsumerWidget {
     return InkWell(
       onTap: check
           ? () async {
-              onTapIcon();
+              await onTapIcon();
               if (isShowDialog) {
                 FocusScope.of(context).unfocus();
                 await showDialog(

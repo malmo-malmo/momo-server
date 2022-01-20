@@ -1,16 +1,20 @@
 package com.momo.domain.user.service;
 
+import com.momo.domain.aws.service.S3UploadService;
+import com.momo.domain.aws.util.GenerateUploadPathUtil;
 import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.user.dto.UserUpdateRequest;
+import com.momo.domain.user.entity.FavoriteCategories;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @Transactional
@@ -18,13 +22,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final S3UploadService s3UploadService;
 
-    public void update(User loginUser, UserUpdateRequest userUpdateRequest) {
+    public void update(User loginUser, UserUpdateRequest request) {
         User user = findByUser(loginUser);
-        if (user.isNotSameNickname(userUpdateRequest.getNickname())) {
-            validateDuplicateNickname(userUpdateRequest.getNickname());
+        if (!user.isSameNickname(request.getNickname())) {
+            validateDuplicateNickname(request.getNickname());
         }
-        user.update(userUpdateRequest.toEntity());
+        user.update(request.toEntity(), convertToImageUrl(request.getImage(), user.getId()));
     }
 
     public void validateDuplicateNickname(String nickname) {
@@ -33,14 +38,14 @@ public class UserService {
         }
     }
 
+    public String convertToImageUrl(MultipartFile multipartFile, Long userId) {
+        return s3UploadService.upload(multipartFile, GenerateUploadPathUtil.getUserImage(userId));
+    }
+
+    @Transactional(readOnly = true)
     public List<EnumResponse> findFavoriteCategoriesByUser(User loginUser) {
-        /*
-        TODO
-        @CurrentUser 로 유저 엔티티 조회시 관심 카테고리도 함께 조회하고 있음.
-        쿼리 개선이 필요.
-        쿼리 개선을 하면 관심 카테고리 조회 로직도 변경되어야함.
-        */
-        return EnumResponse.listFromCategories(loginUser.getFavoriteCategories());
+        FavoriteCategories favoriteCategories = loginUser.getFavoriteCategories();
+        return EnumResponse.listOfFavoriteCategories(favoriteCategories);
     }
 
     public void updateFavoriteCategories(User loginUser, FavoriteCategoriesUpdateRequest request) {

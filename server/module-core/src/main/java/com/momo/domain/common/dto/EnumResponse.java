@@ -40,7 +40,7 @@ public class EnumResponse {
             .collect(Collectors.toList());
     }
 
-    public static List<EnumResponse> listFromCategories(FavoriteCategories favoriteCategories) {
+    public static List<EnumResponse> listOfFavoriteCategories(FavoriteCategories favoriteCategories) {
         return favoriteCategories.toCategories()
             .stream()
             .map(EnumResponse::ofCategory)

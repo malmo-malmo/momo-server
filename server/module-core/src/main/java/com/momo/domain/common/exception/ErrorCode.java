@@ -9,8 +9,9 @@ public enum ErrorCode {
     CAREER_NET_SERVER_ERROR(500, "커리어넷 서버에 문제가 생겼습니다"),
     PARSING_DISTRICT_FILE_ERROR(500, "행정구역 파일을 읽는 과정에서 문제가 생겼습니다"),
     CITY_CATEGORY_NAME_NOT_FOUND(500, "지역(시/도) 카테고리 타입이 존재하지 않습니다."),
+    IMAGE_FILE_UPLOAD_ERROR(500, "이미지 파일을 업로드하는 과정에서 문제가 생겼습니다."),
 
-    INVALID_OAUTH_AUTHORIZATION_CODE(4001, "유효하지 않은 OAuth 인가 코드 입니다."),
+    INVALID_OAUTH_AUTHORIZATION_CODE(401, "유효하지 않은 OAuth 인가 코드 입니다."),
     INVALID_OAUTH_ACCESS_TOKEN(401, "유효하지 않은 OAuth 엑세스 토큰입니다."),
     INVALID_ACCESS_TOKEN(401, "유효하지 않은 엑세스 토큰입니다."),
     INVALID_REFRESH_TOKEN(401, "유효하지 않은 리프레쉬 토큰입니다."),

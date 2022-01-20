@@ -2,9 +2,12 @@ package com.momo.domain.aws.service;
 
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.momo.domain.aws.infra.S3Uploader;
+import com.momo.domain.common.exception.CustomException;
+import com.momo.domain.common.exception.ErrorCode;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,13 +21,21 @@ public class S3UploadService implements ImageUploadService {
 
     private final S3Uploader s3Uploader;
 
-    public String upload(MultipartFile multipartFile, String dirName) throws IOException {
+    public String upload(MultipartFile multipartFile, String dirName) {
+        if (Objects.isNull(multipartFile)) {
+            return null;
+        }
+
         String fileName = generateSaveFileName(dirName, multipartFile.getName());
         ObjectMetadata metadata = generateObjectMeta(multipartFile.getContentType(), multipartFile.getSize());
-        return s3Uploader.save(fileName, multipartFile.getInputStream(), metadata);
+        try {
+            return s3Uploader.save(fileName, multipartFile.getInputStream(), metadata);
+        } catch (IOException e) {
+            throw new CustomException(ErrorCode.IMAGE_FILE_UPLOAD_ERROR);
+        }
     }
 
-    public List<String> uploadAll(List<MultipartFile> multipartFiles, String dirName) throws IOException {
+    public List<String> uploadAll(List<MultipartFile> multipartFiles, String dirName) {
         List<String> uploadUrls = new ArrayList<>();
         for (MultipartFile multipartFile : multipartFiles) {
             String uploadImageUrl = upload(multipartFile, dirName);

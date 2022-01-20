@@ -5,13 +5,16 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
 
 import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.request.ParameterDescriptor;
+import org.springframework.restdocs.request.RequestPartDescriptor;
 
 public class UserDocumentation {
 
@@ -114,15 +117,31 @@ public class UserDocumentation {
         );
     }
 
-    public static RestDocumentationResultHandler update() {
-        FieldDescriptor[] requestUser = new FieldDescriptor[]{
-            fieldWithPath("nickname").type(JsonFieldType.STRING).description("유저 닉네임"),
-            fieldWithPath("university").type(JsonFieldType.STRING).description("유저 학교"),
-            fieldWithPath("city").type(JsonFieldType.STRING).description("유저 거주 도시"),
-            fieldWithPath("district").type(JsonFieldType.STRING).description("유저 거주 지역")
+    public static RestDocumentationResultHandler updateMyInformation() {
+        ParameterDescriptor[] requestUser = new ParameterDescriptor[]{
+            parameterWithName("nickname").description("유저 닉네임"),
+            parameterWithName("university").description("유저 학교"),
+            parameterWithName("city").description("유저 거주 도시"),
+            parameterWithName("district").description("유저 거주 지역")
         };
-        return document("user/update",
-            requestFields(requestUser)
+        return document("user/updateMyInformation",
+            requestParameters(requestUser)
+        );
+    }
+
+    public static RestDocumentationResultHandler updateMyInformationWithImage() {
+        ParameterDescriptor[] requestUser = new ParameterDescriptor[]{
+            parameterWithName("nickname").description("유저 닉네임"),
+            parameterWithName("university").description("유저 학교"),
+            parameterWithName("city").description("유저 거주 도시"),
+            parameterWithName("district").description("유저 거주 지역")
+        };
+        RequestPartDescriptor[] requestPart = new RequestPartDescriptor[]{
+            partWithName("image").description("유저 프로필 이미지")
+        };
+        return document("user/updateMyInformationWithImage",
+            requestParameters(requestUser),
+            requestParts(requestPart)
         );
     }
 

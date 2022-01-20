@@ -74,22 +74,23 @@ public class User extends BaseEntity {
         this.refreshToken = refreshToken;
     }
 
-    public boolean isNotSameNickname(String nickname) {
+    public boolean isSameNickname(String nickname) {
         if (Objects.isNull(this.nickname)) {
             return true;
         }
-        return !this.nickname.equals(nickname);
+        return this.nickname.equals(nickname);
     }
 
     public boolean isSameUser(User user) {
         return id.equals(user.getId());
     }
 
-    public void update(User user) {
+    public void update(User user, String imageUrl) {
         this.nickname = user.getNickname();
         this.city = user.getCity();
         this.district = user.getDistrict();
         this.university = user.getUniversity();
+        this.imageUrl = imageUrl;
     }
 
     public void updateFavoriteCategories(List<Category> categories) {

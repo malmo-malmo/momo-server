@@ -33,7 +33,7 @@ public class OAuthRestDocsTest extends RestDocsControllerTest {
         String content = super.objectMapper.writeValueAsString(request);
         super.mockMvc.perform(post("/api/oauth/login")
                 .content(content)
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(OAuthDocumentation.oauthLogin());
@@ -48,7 +48,7 @@ public class OAuthRestDocsTest extends RestDocsControllerTest {
         String content = super.objectMapper.writeValueAsString(request);
         super.mockMvc.perform(post("/api/oauth/login/refresh")
                 .content(content)
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(OAuthDocumentation.refreshLogin());

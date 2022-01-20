@@ -22,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +39,13 @@ public class UserController {
     private final UserService userService;
     private final FavoriteGroupService favoriteGroupService;
     private final GroupManagementService groupManagementService;
+
+    @PostMapping("/update")
+    public ResponseEntity<Void> updateMyInformation(@CurrentUser User user,
+        @Valid @ModelAttribute UserUpdateRequest userUpdateRequest) {
+        userService.update(user, userUpdateRequest);
+        return ResponseEntity.ok().build();
+    }
 
     @PostMapping("/favorite-group")
     public ResponseEntity<Void> createFavoriteGroup(@CurrentUser User user,
@@ -84,13 +92,6 @@ public class UserController {
     public ResponseEntity<List<ParticipatingGroupCardResponse>> findParticipatingGroups(@CurrentUser User user) {
         List<ParticipatingGroupCardResponse> responses = groupManagementService.findParticipatingGroupsByUser(user);
         return ResponseEntity.ok(responses);
-    }
-
-    @PatchMapping
-    public ResponseEntity<Void> update(@CurrentUser User user,
-        @Valid @RequestBody UserUpdateRequest userUpdateRequest) {
-        userService.update(user, userUpdateRequest);
-        return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/favorite-categories")

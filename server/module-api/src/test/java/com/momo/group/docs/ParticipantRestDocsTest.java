@@ -38,7 +38,7 @@ public class ParticipantRestDocsTest extends RestDocsControllerTest {
 
         super.mockMvc.perform(post("/api/group/apply-participant")
                 .content(content)
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(ParticipantDocumenttation.applyParticipantByGroup());

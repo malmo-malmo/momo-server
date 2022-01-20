@@ -99,19 +99,20 @@ class _UserClient implements UserClient {
   }
 
   @override
-  Future<List<GroupInfo>> getFavoriteGroups() async {
+  Future<List<WishGroupResponse>> getFavoriteGroups() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<GroupInfo>>(
+        _setStreamType<List<WishGroupResponse>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/user/favorite-groups',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
-        .map((dynamic i) => GroupInfo.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) =>
+            WishGroupResponse.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }

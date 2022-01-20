@@ -12,7 +12,7 @@ final groupRequestCheckProvider = Provider.autoDispose<bool>((ref) {
       groupRequest.category.isNotEmpty &&
       groupRequest.city.isNotEmpty &&
       groupRequest.district.isNotEmpty &&
-      groupRequest.imageUrl.isNotEmpty &&
+      groupRequest.imagePath.isNotEmpty &&
       groupRequest.city.isNotEmpty &&
       groupRequest.introduction.isNotEmpty &&
       groupRequest.startDate.isNotEmpty &&
@@ -36,7 +36,7 @@ class GroupRequestState extends StateNotifier<GroupRequest> {
             category: '',
             city: '',
             district: '',
-            imageUrl: '',
+            imagePath: '',
             introduction: '',
             recruitmentCnt: 0,
             startDate: '',
@@ -81,15 +81,10 @@ class GroupRequestState extends StateNotifier<GroupRequest> {
       state = state.copyWith(district: district);
 
   void setImageUrl(String imageUrl) =>
-      state = state.copyWith(imageUrl: imageUrl);
+      state = state.copyWith(imagePath: imageUrl);
 
   Future<dynamic> createGroup() async {
-    final response = await repository.createGroup(
-      state.copyWith(
-        imageUrl:
-            'http://ojsfile.ohmynews.com/CRI_T_IMG/2020/1211/A0002701462_T.jpg',
-      ),
-    );
+    final response = await repository.createGroup(state);
     return response;
   }
 }

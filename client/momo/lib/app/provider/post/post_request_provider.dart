@@ -9,7 +9,7 @@ final postRequestCheckProvider =
 
   if (postRequest.contents.isNotEmpty &&
       postRequest.title.isNotEmpty &&
-      postRequest.imageUrls.isNotEmpty) {
+      postRequest.images.isNotEmpty) {
     return true;
   }
   return false;
@@ -26,13 +26,15 @@ final postRequestStateProvider = StateNotifierProvider.family
 });
 
 class PostRequestState extends StateNotifier<PostRequest> {
-  PostRequestState(PostRequestArg postRequestArg, {required this.repository})
-      : super(
+  PostRequestState(
+    PostRequestArg postRequestArg, {
+    required this.repository,
+  }) : super(
           PostRequest(
             contents: '',
             title: '',
             groupId: postRequestArg.groupId,
-            imageUrls: [],
+            images: [],
             typeName: postRequestArg.postType.name.toUpperCase(),
           ),
         );
@@ -44,7 +46,7 @@ class PostRequestState extends StateNotifier<PostRequest> {
   }
 
   void setImages(List<String> images) {
-    state = state.copyWith(imageUrls: images);
+    state = state.copyWith(images: [...images]);
   }
 
   void setTitle(String title) {
@@ -52,20 +54,12 @@ class PostRequestState extends StateNotifier<PostRequest> {
   }
 
   void deleteImg(String img) {
-    state = state.copyWith(
-        imageUrls: state.imageUrls.where((e) => e != img).toList());
+    state =
+        state.copyWith(images: state.images.where((e) => e != img).toList());
   }
 
   Future<dynamic> createPost() async {
-    final response = await repository.createPost(
-      state.copyWith(
-        imageUrls: [
-          'https://src.hidoc.co.kr/image/lib/2021/8/27/1630049987719_0.jpg',
-          'https://static.wtable.co.kr/image-resize/production/service/recipe/655/16x9/74eb99a1-cb37-4ef0-a3a9-f7ab12e3b8fe.jpg',
-          'https://dasima.xyz/wp-content/uploads/2021/01/domino-bulgogi-pizza-1.png',
-        ],
-      ),
-    );
+    final response = await repository.createPost(state);
     return response;
   }
 }

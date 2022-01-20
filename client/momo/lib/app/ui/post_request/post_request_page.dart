@@ -79,7 +79,7 @@ class PostRequestPage extends ConsumerWidget {
                     ),
                     const SliverToBoxAdapter(child: SizedBox(height: 24)),
                     SliverToBoxAdapter(
-                      child: postRequest.imageUrls.isEmpty
+                      child: postRequest.images.isEmpty
                           ? const SizedBox(
                               child: Center(
                                 child: Text('No Image'),
@@ -89,9 +89,9 @@ class PostRequestPage extends ConsumerWidget {
                               spacing: 8,
                               runSpacing: 8,
                               children: List.generate(
-                                postRequest.imageUrls.length,
+                                postRequest.images.length,
                                 (index) => imgCard(
-                                  img: postRequest.imageUrls[index],
+                                  img: postRequest.images[index],
                                   deleteImg: ref
                                       .read(postRequestStateProvider(
                                               postRequestArg)

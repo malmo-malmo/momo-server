@@ -47,7 +47,7 @@ class GroupRequestPage extends ConsumerWidget {
           child: Column(
             children: [
               const SizedBox(height: 20),
-              SetImageBox(img: groupRequest.imageUrl),
+              SetImageBox(img: groupRequest.imagePath),
               Padding(
                 padding: const EdgeInsets.only(left: 26, right: 26, bottom: 24),
                 child: Column(

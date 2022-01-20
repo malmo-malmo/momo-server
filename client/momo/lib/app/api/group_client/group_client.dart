@@ -16,9 +16,6 @@ abstract class GroupClient {
     String baseUrl,
   }) = _GroupClient;
 
-  @POST('/group')
-  Future<dynamic> createGroup(@Body() GroupRequest groupRequest);
-
   @GET('/group/{groupId}')
   Future<GroupDetail> getGroupDetail(@Path() int groupId);
 

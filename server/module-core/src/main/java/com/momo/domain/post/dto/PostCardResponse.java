@@ -1,5 +1,6 @@
 package com.momo.domain.post.dto;
 
+import com.momo.domain.post.entity.Post;
 import com.querydsl.core.annotations.QueryProjection;
 import java.time.LocalDateTime;
 import lombok.Builder;
@@ -35,5 +36,16 @@ public class PostCardResponse {
         this.contents = contents;
         this.createdDate = createdDate;
         this.commentCnt = commentCnt;
+    }
+
+    public static PostCardResponse of(Post post) {
+        return PostCardResponse.builder()
+            .id(post.getId())
+            .authorImage(post.getAuthor().getImageUrl())
+            .authorNickname(post.getAuthor().getNickname())
+            .title(post.getTitle())
+            .contents(post.getContents())
+            .createdDate(post.getCreatedDate())
+            .build();
     }
 }

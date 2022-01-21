@@ -6,6 +6,7 @@ import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.user.dto.FavoriteGroupCardResponse;
 import com.momo.domain.user.dto.FavoriteGroupCountResponse;
 import com.momo.domain.user.dto.FavoriteGroupCreateRequest;
+import com.momo.domain.user.dto.MyPostCardResponse;
 import com.momo.domain.user.dto.ParticipatingGroupCardResponse;
 import com.momo.domain.user.dto.ParticipatingGroupCountResponse;
 import com.momo.domain.user.dto.UserResponse;
@@ -91,6 +92,13 @@ public class UserController {
     @GetMapping("/participating-groups")
     public ResponseEntity<List<ParticipatingGroupCardResponse>> findParticipatingGroups(@CurrentUser User user) {
         List<ParticipatingGroupCardResponse> responses = groupManagementService.findParticipatingGroupsByUser(user);
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/my-posts")
+    public ResponseEntity<List<MyPostCardResponse>> findMyPosts(@CurrentUser User user,
+        @RequestParam int page, @RequestParam int size) {
+        List<MyPostCardResponse> responses = userService.findMyPostsByUser(user, page, size);
         return ResponseEntity.ok(responses);
     }
 

@@ -260,4 +260,19 @@ public class PostServiceTest extends ServiceTest {
         postService.deletePost(deletePostId, user);
         verify(postRepository).delete(post);
     }
+    @Test
+    void 게시물_작성자가_아니면_삭제_테스트에_실패한다() {
+        Post post = Post.builder()
+            .author(User.builder()
+                .id(2L)
+                .build())
+            .build();
+
+        Long deletePostId = 1L;
+        given(postRepository.findById(deletePostId)).willReturn(Optional.of(post));
+
+        assertThatThrownBy(() -> postService.deletePost(deletePostId, user))
+            .isInstanceOf(CustomException.class)
+            .hasMessage(ErrorCode.POST_CONTROL_UNAUTHORIZED.getMessage());
+    }
 }

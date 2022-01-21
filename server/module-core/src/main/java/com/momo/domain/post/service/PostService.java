@@ -74,6 +74,12 @@ public class PostService {
         validatePost(post.getAuthor(), user);
         post.updateTitleAndContents(request.getTitle(), request.getContent());
     }
+    public void deletePost(Long postId, User user) {
+        Post post = postRepository.findById(postId)
+            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
+        validatePost(post.getAuthor(), user);
+        postRepository.delete(post);
+    }
 
     private void validatePost(User postUser, User updateUser) {
         boolean isNotWritingPost = !postUser.getId().equals(updateUser.getId());

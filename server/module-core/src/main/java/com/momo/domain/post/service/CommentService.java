@@ -4,14 +4,14 @@ import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.ParticipantRepository;
-import com.momo.domain.post.entity.Comment;
-import com.momo.domain.post.entity.Post;
-import com.momo.domain.post.repository.CommentRepository;
-import com.momo.domain.post.repository.PostRepository;
 import com.momo.domain.post.dto.CommentCreateRequest;
 import com.momo.domain.post.dto.CommentResponse;
 import com.momo.domain.post.dto.CommentsRequest;
 import com.momo.domain.post.dto.CommentsResponse;
+import com.momo.domain.post.entity.Comment;
+import com.momo.domain.post.entity.Post;
+import com.momo.domain.post.repository.CommentRepository;
+import com.momo.domain.post.repository.PostRepository;
 import com.momo.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -46,12 +46,18 @@ public class CommentService {
         return CommentsResponse.of(pageComments.getContent(), pageComments.getTotalElements());
     }
 
-    public Post getPostById(Long postId) {
+    public void deleteComment(Long commentId, User user) {
+        Comment comment = commentRepository.findByIdAndUser(commentId, user)
+            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INPUT_VALUE));
+        commentRepository.delete(comment);
+    }
+
+    private Post getPostById(Long postId) {
         return postRepository.findById(postId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
-    public void validateParticipant(Group group, User user) {
+    private void validateParticipant(Group group, User user) {
         if (!participantRepository.existsByGroupAndUser(group, user)) {
             throw new CustomException(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED);
         }

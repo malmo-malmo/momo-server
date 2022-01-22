@@ -8,11 +8,10 @@ import com.momo.domain.favorite.dto.FavoriteGroupCountResponse;
 import com.momo.domain.favorite.dto.FavoriteGroupCreateRequest;
 import com.momo.domain.favorite.service.FavoriteService;
 import com.momo.domain.user.entity.User;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,9 +31,9 @@ public class FavoriteController {
 
     @PostMapping("/group")
     public ResponseEntity<Void> createFavoriteGroup(@CurrentUser User user,
-        @Valid @RequestBody FavoriteGroupCreateRequest request) throws URISyntaxException {
-        Long id = favoriteService.createFavoriteGroup(user, request);
-        return ResponseEntity.created(new URI("/api/user/favorite-group/" + id)).build();
+        @Valid @RequestBody FavoriteGroupCreateRequest request) {
+        favoriteService.createFavoriteGroup(user, request);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/group/count")

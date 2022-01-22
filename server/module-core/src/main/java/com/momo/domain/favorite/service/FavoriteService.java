@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface FavoriteService {
 
-    Long createFavoriteGroup(User user, FavoriteGroupCreateRequest request);
+    void createFavoriteGroup(User user, FavoriteGroupCreateRequest request);
 
     FavoriteGroupCountResponse countFavoriteGroupsByUser(User user);
 

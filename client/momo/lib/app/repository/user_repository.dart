@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/api/api_provider.dart';
+import 'package:momo/app/api/form_data_dio.dart';
 import 'package:momo/app/api/user_client/user_client.dart';
 import 'package:momo/app/model/group/group_like_request.dart';
 import 'package:momo/app/model/group/wish_group_response.dart';
@@ -10,15 +11,21 @@ import 'package:momo/app/model/user/user_response.dart';
 
 final userRepositoryProvider = Provider<UserRepository>((ref) {
   final userClient = ref.watch(userClientProvider);
-  return UserRepository(userClient: userClient);
+  final formDataDio = ref.watch(formDataDioProvider);
+  return UserRepository(
+    userClient: userClient,
+    formDataDio: formDataDio,
+  );
 });
 
 class UserRepository {
   UserRepository({
     required this.userClient,
+    required this.formDataDio,
   });
 
   final UserClient userClient;
+  final FormDataDio formDataDio;
 
   Future<UserResponse> getUserData() async {
     final response = await userClient.getUserInfo();
@@ -26,7 +33,16 @@ class UserRepository {
   }
 
   Future<dynamic> updateUserInfo(UserInfoRequest userInfoRequest) async {
-    final response = await userClient.updateUserInfo(userInfoRequest);
+    if (userInfoRequest.imagePath.isEmpty) {
+      final response = await userClient.updateUserInfo(
+        userInfoRequest.nickname,
+        userInfoRequest.university,
+        userInfoRequest.city,
+        userInfoRequest.district,
+      );
+      return response;
+    }
+    final response = await formDataDio.updateUserInfo(userInfoRequest);
     return response;
   }
 

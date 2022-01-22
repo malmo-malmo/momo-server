@@ -76,7 +76,7 @@ class DistrictInputBox extends ConsumerWidget {
             data: (data) {
               return [
                 Text(
-                  district.isEmpty ? '강남구' : district,
+                  district.isEmpty ? data.first : district,
                   style: MomoTextStyle.defaultStyleR.copyWith(
                     color: district.isEmpty ? MomoColor.unSelIcon : null,
                   ),
@@ -93,7 +93,7 @@ class DistrictInputBox extends ConsumerWidget {
                           setValue: setDistrict,
                           curValue: district,
                           offset: getParentOffset(_districtInputBoxKey),
-                          defaultValue: '강남구',
+                          defaultValue: data.first,
                           width: 120,
                         ),
                         transitionsBuilder:

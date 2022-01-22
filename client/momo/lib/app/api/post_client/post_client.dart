@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:momo/app/model/post/post.dart';
 import 'package:momo/app/model/post/post_detail.dart';
-import 'package:momo/app/model/post/post_request.dart';
 import 'package:momo/app/util/constant.dart';
 import 'package:retrofit/retrofit.dart';
 

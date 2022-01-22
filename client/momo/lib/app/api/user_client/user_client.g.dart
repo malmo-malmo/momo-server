@@ -32,14 +32,18 @@ class _UserClient implements UserClient {
   }
 
   @override
-  Future<dynamic> updateUserInfo(userInfoRequest) async {
+  Future<dynamic> updateUserInfo(nickname, university, city, district) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'nickname': nickname,
+      r'university': university,
+      r'city': city,
+      r'district': district
+    };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(userInfoRequest.toJson());
     final _result = await _dio.fetch(_setStreamType<dynamic>(
-        Options(method: 'PATCH', headers: _headers, extra: _extra)
+        Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/user',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));

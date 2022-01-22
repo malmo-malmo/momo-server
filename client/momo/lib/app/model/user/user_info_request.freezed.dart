@@ -13,10 +13,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-UserInfoRequest _$UserInfoRequestFromJson(Map<String, dynamic> json) {
-  return _UserInfoRequest.fromJson(json);
-}
-
 /// @nodoc
 class _$UserInfoRequestTearOff {
   const _$UserInfoRequestTearOff();
@@ -25,17 +21,15 @@ class _$UserInfoRequestTearOff {
       {required String city,
       required String district,
       required String nickname,
-      required String university}) {
+      required String university,
+      required String imagePath}) {
     return _UserInfoRequest(
       city: city,
       district: district,
       nickname: nickname,
       university: university,
+      imagePath: imagePath,
     );
-  }
-
-  UserInfoRequest fromJson(Map<String, Object?> json) {
-    return UserInfoRequest.fromJson(json);
   }
 }
 
@@ -48,8 +42,8 @@ mixin _$UserInfoRequest {
   String get district => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
   String get university => throw _privateConstructorUsedError;
+  String get imagePath => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $UserInfoRequestCopyWith<UserInfoRequest> get copyWith =>
       throw _privateConstructorUsedError;
@@ -60,7 +54,12 @@ abstract class $UserInfoRequestCopyWith<$Res> {
   factory $UserInfoRequestCopyWith(
           UserInfoRequest value, $Res Function(UserInfoRequest) then) =
       _$UserInfoRequestCopyWithImpl<$Res>;
-  $Res call({String city, String district, String nickname, String university});
+  $Res call(
+      {String city,
+      String district,
+      String nickname,
+      String university,
+      String imagePath});
 }
 
 /// @nodoc
@@ -78,6 +77,7 @@ class _$UserInfoRequestCopyWithImpl<$Res>
     Object? district = freezed,
     Object? nickname = freezed,
     Object? university = freezed,
+    Object? imagePath = freezed,
   }) {
     return _then(_value.copyWith(
       city: city == freezed
@@ -96,6 +96,10 @@ class _$UserInfoRequestCopyWithImpl<$Res>
           ? _value.university
           : university // ignore: cast_nullable_to_non_nullable
               as String,
+      imagePath: imagePath == freezed
+          ? _value.imagePath
+          : imagePath // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -107,7 +111,12 @@ abstract class _$UserInfoRequestCopyWith<$Res>
           _UserInfoRequest value, $Res Function(_UserInfoRequest) then) =
       __$UserInfoRequestCopyWithImpl<$Res>;
   @override
-  $Res call({String city, String district, String nickname, String university});
+  $Res call(
+      {String city,
+      String district,
+      String nickname,
+      String university,
+      String imagePath});
 }
 
 /// @nodoc
@@ -127,6 +136,7 @@ class __$UserInfoRequestCopyWithImpl<$Res>
     Object? district = freezed,
     Object? nickname = freezed,
     Object? university = freezed,
+    Object? imagePath = freezed,
   }) {
     return _then(_UserInfoRequest(
       city: city == freezed
@@ -145,21 +155,23 @@ class __$UserInfoRequestCopyWithImpl<$Res>
           ? _value.university
           : university // ignore: cast_nullable_to_non_nullable
               as String,
+      imagePath: imagePath == freezed
+          ? _value.imagePath
+          : imagePath // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$_UserInfoRequest implements _UserInfoRequest {
   _$_UserInfoRequest(
       {required this.city,
       required this.district,
       required this.nickname,
-      required this.university});
-
-  factory _$_UserInfoRequest.fromJson(Map<String, dynamic> json) =>
-      _$$_UserInfoRequestFromJson(json);
+      required this.university,
+      required this.imagePath});
 
   @override
   final String city;
@@ -169,10 +181,12 @@ class _$_UserInfoRequest implements _UserInfoRequest {
   final String nickname;
   @override
   final String university;
+  @override
+  final String imagePath;
 
   @override
   String toString() {
-    return 'UserInfoRequest(city: $city, district: $district, nickname: $nickname, university: $university)';
+    return 'UserInfoRequest(city: $city, district: $district, nickname: $nickname, university: $university, imagePath: $imagePath)';
   }
 
   @override
@@ -186,22 +200,19 @@ class _$_UserInfoRequest implements _UserInfoRequest {
             (identical(other.nickname, nickname) ||
                 other.nickname == nickname) &&
             (identical(other.university, university) ||
-                other.university == university));
+                other.university == university) &&
+            (identical(other.imagePath, imagePath) ||
+                other.imagePath == imagePath));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, city, district, nickname, university);
+      Object.hash(runtimeType, city, district, nickname, university, imagePath);
 
   @JsonKey(ignore: true)
   @override
   _$UserInfoRequestCopyWith<_UserInfoRequest> get copyWith =>
       __$UserInfoRequestCopyWithImpl<_UserInfoRequest>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_UserInfoRequestToJson(this);
-  }
 }
 
 abstract class _UserInfoRequest implements UserInfoRequest {
@@ -209,10 +220,8 @@ abstract class _UserInfoRequest implements UserInfoRequest {
       {required String city,
       required String district,
       required String nickname,
-      required String university}) = _$_UserInfoRequest;
-
-  factory _UserInfoRequest.fromJson(Map<String, dynamic> json) =
-      _$_UserInfoRequest.fromJson;
+      required String university,
+      required String imagePath}) = _$_UserInfoRequest;
 
   @override
   String get city;
@@ -222,6 +231,8 @@ abstract class _UserInfoRequest implements UserInfoRequest {
   String get nickname;
   @override
   String get university;
+  @override
+  String get imagePath;
   @override
   @JsonKey(ignore: true)
   _$UserInfoRequestCopyWith<_UserInfoRequest> get copyWith =>

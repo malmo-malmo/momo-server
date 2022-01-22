@@ -53,12 +53,36 @@ class UserDataState extends StateNotifier<UserResponse> {
   }
 
   Future<dynamic> updateUserInfo(UserInfoRequest userInfoRequest) async {
-    final response = await userRepository.updateUserInfo(userInfoRequest);
+    final _userInfoRequest = UserInfoRequest(
+      city:
+          userInfoRequest.city.isEmpty ? state.city.code : userInfoRequest.city,
+      district: userInfoRequest.district.isEmpty
+          ? state.district
+          : userInfoRequest.district,
+      nickname: userInfoRequest.nickname.isEmpty
+          ? state.nickname
+          : userInfoRequest.nickname,
+      university: userInfoRequest.university.isEmpty
+          ? state.university
+          : userInfoRequest.university,
+      imagePath: userInfoRequest.imagePath,
+    );
+
+    final response = await userRepository.updateUserInfo(_userInfoRequest);
+
     state = state.copyWith(
-      nickname: userInfoRequest.nickname,
-      city: cityCodeNamePair.where((e) => e.code == userInfoRequest.city).first,
-      district: userInfoRequest.district,
-      university: userInfoRequest.university,
+      nickname: userInfoRequest.nickname.isEmpty
+          ? state.nickname
+          : userInfoRequest.nickname,
+      city: userInfoRequest.city.isEmpty
+          ? state.city
+          : cityCodeNamePair.where((e) => e.code == userInfoRequest.city).first,
+      district: userInfoRequest.district.isEmpty
+          ? state.district
+          : userInfoRequest.district,
+      university: userInfoRequest.university.isEmpty
+          ? state.university
+          : userInfoRequest.university,
     );
     return response;
   }

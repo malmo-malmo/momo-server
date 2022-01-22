@@ -18,9 +18,7 @@ final userInfoRequestCheckProvider = Provider.autoDispose<bool>((ref) {
 
 final userInfoRequestProvider =
     StateNotifierProvider.autoDispose<UserInfoRequestState, UserInfoRequest>(
-        (ref) {
-  return UserInfoRequestState();
-});
+        (ref) => UserInfoRequestState());
 
 class UserInfoRequestState extends StateNotifier<UserInfoRequest> {
   UserInfoRequestState()
@@ -30,10 +28,14 @@ class UserInfoRequestState extends StateNotifier<UserInfoRequest> {
             university: '',
             city: '',
             district: '',
+            imagePath: '',
           ),
         );
 
   UserInfoRequest get updateUserInfo => state;
+
+  void setImagePath(String imagePath) =>
+      state = state.copyWith(imagePath: imagePath);
 
   void setUserNickname(String nickname) =>
       state = state.copyWith(nickname: nickname);

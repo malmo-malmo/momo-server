@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:momo/app/theme/theme.dart';
 
@@ -22,6 +24,27 @@ class ProfileAvatar extends StatelessWidget {
         radius: rad,
         backgroundColor: Colors.transparent,
         backgroundImage: NetworkImage(img),
+      ),
+    );
+  }
+}
+
+class ProfileAvatarWithFile extends StatelessWidget {
+  const ProfileAvatarWithFile({
+    Key? key,
+    required this.imagePath,
+  }) : super(key: key);
+
+  final String imagePath;
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+      radius: 51,
+      backgroundColor: MomoColor.main,
+      child: CircleAvatar(
+        radius: 50,
+        backgroundColor: Colors.transparent,
+        backgroundImage: FileImage(File(imagePath)),
       ),
     );
   }

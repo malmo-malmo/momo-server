@@ -5,6 +5,7 @@ import 'package:momo/app/api/dio_provider.dart';
 import 'package:momo/app/model/common/token_data.dart';
 import 'package:momo/app/model/group/group_request.dart';
 import 'package:momo/app/model/post/post_request.dart';
+import 'package:momo/app/model/user/user_info_request.dart';
 import 'package:momo/app/util/constant.dart';
 
 final formDataDioProvider = Provider<FormDataDio>((ref) {
@@ -94,6 +95,23 @@ class FormDataDio {
     final response = await dio.post(
       baseUrl + '/post',
       data: formData,
+    );
+
+    return response;
+  }
+
+  Future<dynamic> updateUserInfo(UserInfoRequest userInfoRequest) async {
+    final response = await dio.post(
+      baseUrl + '/user/update',
+      data: FormData.fromMap(
+        {
+          'nickname': userInfoRequest.nickname,
+          'university': userInfoRequest.university,
+          'city': userInfoRequest.city,
+          'district': userInfoRequest.district,
+          'image': await MultipartFile.fromFile(userInfoRequest.imagePath),
+        },
+      ),
     );
 
     return response;

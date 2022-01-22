@@ -1,10 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/model/group/group_like_request.dart';
 import 'package:momo/app/model/group/wish_group_response.dart';
 import 'package:momo/app/model/user/category_request.dart';
 import 'package:momo/app/model/user/university.dart';
-import 'package:momo/app/model/user/user_info_request.dart';
 import 'package:momo/app/model/user/user_response.dart';
 import 'package:momo/app/util/constant.dart';
 import 'package:retrofit/retrofit.dart';
@@ -21,9 +19,12 @@ abstract class UserClient {
   @GET('/user')
   Future<UserResponse> getUserInfo();
 
-  @PATCH('/user')
+  @POST('/user')
   Future<dynamic> updateUserInfo(
-    @Body() UserInfoRequest userInfoRequest,
+    @Query('nickname') String nickname,
+    @Query('university') String university,
+    @Query('city') String city,
+    @Query('district') String district,
   );
 
   @PATCH('/user/favorite-categories')

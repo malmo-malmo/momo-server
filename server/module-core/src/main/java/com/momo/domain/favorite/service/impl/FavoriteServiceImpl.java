@@ -29,15 +29,10 @@ public class FavoriteServiceImpl implements FavoriteService {
     private final FavoriteGroupRepository favoriteGroupRepository;
     private final UserRepository userRepository;
 
-    public Long createFavoriteGroup(User user, FavoriteGroupCreateRequest request) {
+    public void createFavoriteGroup(User user, FavoriteGroupCreateRequest request) {
         Group group = getGroupById(request.getGroupId());
         FavoriteGroup favoriteGroup = FavoriteGroup.create(user, group);
-        return favoriteGroupRepository.save(favoriteGroup).getId();
-    }
-
-    public Group getGroupById(Long groupId) {
-        return groupRepository.findById(groupId)
-            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
+        favoriteGroupRepository.save(favoriteGroup);
     }
 
     @Transactional(readOnly = true)
@@ -68,6 +63,12 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     public void deleteFavoriteGroupByUserAndGroupId(User loginUser, Long groupId) {
-        favoriteGroupRepository.deleteByUserAndGroupId(loginUser, groupId);
+        Group group = getGroupById(groupId);
+        favoriteGroupRepository.deleteByUserAndGroup(loginUser, group);
+    }
+
+    public Group getGroupById(Long groupId) {
+        return groupRepository.findById(groupId)
+            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 }

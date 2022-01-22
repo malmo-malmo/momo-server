@@ -1,8 +1,8 @@
 package com.momo.domain.group.repository;
 
+import static com.momo.domain.favorite.entity.QFavoriteGroup.favoriteGroup;
 import static com.momo.domain.group.entity.QGroup.group;
 import static com.momo.domain.group.entity.QParticipant.participant;
-import static com.momo.domain.user.entity.QFavoriteGroup.favoriteGroup;
 
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.dto.GroupCardResponse;

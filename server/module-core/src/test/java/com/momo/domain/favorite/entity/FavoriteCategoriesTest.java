@@ -1,4 +1,4 @@
-package com.momo.domain.user.entity;
+package com.momo.domain.favorite.entity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -6,7 +6,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.entity.Category;
-import com.momo.domain.user.entity.FavoriteCategories;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;

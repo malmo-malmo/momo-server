@@ -1,6 +1,6 @@
-package com.momo.domain.user.repository;
+package com.momo.domain.favorite.repository;
 
-import com.momo.domain.user.dto.FavoriteGroupCardResponse;
+import com.momo.domain.favorite.dto.FavoriteGroupCardResponse;
 import com.momo.domain.user.entity.User;
 import java.util.List;
 

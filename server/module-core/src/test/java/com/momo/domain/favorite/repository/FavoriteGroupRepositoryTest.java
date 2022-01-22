@@ -1,14 +1,14 @@
-package com.momo.domain.user.repository;
+package com.momo.domain.favorite.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
 import com.momo.domain.district.entity.City;
+import com.momo.domain.favorite.dto.FavoriteGroupCardResponse;
+import com.momo.domain.favorite.entity.FavoriteGroup;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
-import com.momo.domain.user.dto.FavoriteGroupCardResponse;
-import com.momo.domain.user.entity.FavoriteGroup;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDate;

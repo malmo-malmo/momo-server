@@ -3,8 +3,8 @@ package com.momo.domain.group.repository;
 import static com.momo.domain.group.entity.QGroup.group;
 import static com.momo.domain.group.entity.QParticipant.participant;
 
-import com.momo.domain.user.dto.ParticipatingGroupCardResponse;
-import com.momo.domain.user.dto.QParticipatingGroupCardResponse;
+import com.momo.domain.management.dto.ParticipatingGroupCardResponse;
+import com.momo.domain.management.dto.QParticipatingGroupCardResponse;
 import com.momo.domain.user.entity.User;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;

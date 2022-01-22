@@ -1,8 +1,9 @@
-package com.momo.domain.user.entity;
+package com.momo.domain.favorite.entity;
 
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.entity.Category;
+import com.momo.domain.user.entity.User;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

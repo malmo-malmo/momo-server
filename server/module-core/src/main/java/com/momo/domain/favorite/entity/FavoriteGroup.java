@@ -1,7 +1,8 @@
-package com.momo.domain.user.entity;
+package com.momo.domain.favorite.entity;
 
 import com.momo.domain.common.entity.BaseEntity;
 import com.momo.domain.group.entity.Group;
+import com.momo.domain.user.entity.User;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

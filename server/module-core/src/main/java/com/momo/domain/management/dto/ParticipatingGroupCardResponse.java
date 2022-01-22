@@ -1,4 +1,4 @@
-package com.momo.domain.user.dto;
+package com.momo.domain.management.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import java.time.LocalDate;

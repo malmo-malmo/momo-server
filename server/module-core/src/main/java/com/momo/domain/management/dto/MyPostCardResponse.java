@@ -1,4 +1,4 @@
-package com.momo.domain.user.dto;
+package com.momo.domain.management.dto;
 
 import com.momo.domain.post.dto.PostCardResponse;
 import com.momo.domain.post.entity.Post;

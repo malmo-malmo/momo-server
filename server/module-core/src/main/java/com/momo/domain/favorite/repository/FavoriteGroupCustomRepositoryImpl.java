@@ -1,12 +1,12 @@
-package com.momo.domain.user.repository;
+package com.momo.domain.favorite.repository;
 
+import static com.momo.domain.favorite.entity.QFavoriteGroup.favoriteGroup;
 import static com.momo.domain.group.entity.QGroup.group;
 import static com.momo.domain.group.entity.QParticipant.participant;
-import static com.momo.domain.user.entity.QFavoriteGroup.favoriteGroup;
 
+import com.momo.domain.favorite.dto.FavoriteGroupCardResponse;
+import com.momo.domain.favorite.dto.QFavoriteGroupCardResponse;
 import com.momo.domain.group.dto.QGroupCardResponse;
-import com.momo.domain.user.dto.FavoriteGroupCardResponse;
-import com.momo.domain.user.dto.QFavoriteGroupCardResponse;
 import com.momo.domain.user.entity.User;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;

@@ -1,6 +1,6 @@
-package com.momo.domain.user.repository;
+package com.momo.domain.favorite.repository;
 
-import com.momo.domain.user.entity.FavoriteGroup;
+import com.momo.domain.favorite.entity.FavoriteGroup;
 import com.momo.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,4 +1,4 @@
-package com.momo.domain.user.dto;
+package com.momo.domain.favorite.dto;
 
 import com.momo.domain.group.entity.Category;
 import java.util.List;

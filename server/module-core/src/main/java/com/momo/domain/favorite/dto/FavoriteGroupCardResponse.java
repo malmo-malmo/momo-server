@@ -1,4 +1,4 @@
-package com.momo.domain.user.dto;
+package com.momo.domain.favorite.dto;
 
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.querydsl.core.annotations.QueryProjection;

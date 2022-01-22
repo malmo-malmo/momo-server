@@ -7,7 +7,7 @@ import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
-import com.momo.domain.user.dto.ParticipatingGroupCardResponse;
+import com.momo.domain.management.dto.ParticipatingGroupCardResponse;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDate;

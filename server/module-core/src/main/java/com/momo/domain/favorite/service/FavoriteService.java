@@ -20,5 +20,5 @@ public interface FavoriteService {
 
     void updateFavoriteCategories(User loginUser, FavoriteCategoriesUpdateRequest request);
 
-    void deleteFavoriteGroupById(Long id);
+    void deleteFavoriteGroupByUserAndGroupId(User loginUser, Long groupId);
 }

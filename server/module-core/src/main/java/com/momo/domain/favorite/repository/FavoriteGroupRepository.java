@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface FavoriteGroupRepository extends JpaRepository<FavoriteGroup, Long>, FavoriteGroupCustomRepository {
 
     Long countByUser(User user);
+
+    void deleteByUserAndGroupId(User user, Long groupId);
 }

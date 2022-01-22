@@ -67,7 +67,7 @@ public class FavoriteServiceImpl implements FavoriteService {
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
-    public void deleteFavoriteGroupById(Long id) {
-        favoriteGroupRepository.deleteById(id);
+    public void deleteFavoriteGroupByUserAndGroupId(User loginUser, Long groupId) {
+        favoriteGroupRepository.deleteByUserAndGroupId(loginUser, groupId);
     }
 }

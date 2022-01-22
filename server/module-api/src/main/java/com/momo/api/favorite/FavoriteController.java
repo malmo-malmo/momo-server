@@ -6,8 +6,8 @@ import com.momo.domain.favorite.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.favorite.dto.FavoriteGroupCardResponse;
 import com.momo.domain.favorite.dto.FavoriteGroupCountResponse;
 import com.momo.domain.favorite.dto.FavoriteGroupCreateRequest;
-import com.momo.domain.user.entity.User;
 import com.momo.domain.favorite.service.FavoriteService;
+import com.momo.domain.user.entity.User;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -61,9 +61,9 @@ public class FavoriteController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/group/{id}")
-    public ResponseEntity<Void> deleteFavoriteGroup(@CurrentUser User user, @PathVariable Long id) {
-        favoriteService.deleteFavoriteGroupById(id);
+    @DeleteMapping("/group/{groupId}")
+    public ResponseEntity<Void> deleteFavoriteGroup(@CurrentUser User user, @PathVariable Long groupId) {
+        favoriteService.deleteFavoriteGroupByUserAndGroupId(user, groupId);
         return ResponseEntity.noContent().build();
     }
 }

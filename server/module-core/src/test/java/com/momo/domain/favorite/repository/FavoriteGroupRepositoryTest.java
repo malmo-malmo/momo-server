@@ -176,7 +176,7 @@ public class FavoriteGroupRepositoryTest extends RepositoryTest {
                 .build()
         );
 
-        favoriteGroupRepository.deleteById(favoriteGroup.getId());
+        favoriteGroupRepository.deleteByUserAndGroupId(user, favoriteGroup.getId());
         List<FavoriteGroup> actual = favoriteGroupRepository.findAll();
 
         assertThat(actual.size()).isEqualTo(0);

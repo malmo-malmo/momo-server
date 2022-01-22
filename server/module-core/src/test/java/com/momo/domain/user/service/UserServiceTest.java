@@ -16,12 +16,12 @@ import com.momo.domain.district.entity.City;
 import com.momo.domain.user.dto.UserUpdateRequest;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
+import com.momo.domain.user.service.impl.UserServiceImpl;
 import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.mock.web.MockMultipartFile;
 
@@ -34,13 +34,12 @@ public class UserServiceTest extends ServiceTest {
     @Mock
     private S3UploadService s3UploadService;
 
-    @InjectMocks
     private UserService userService;
-
     private User user;
 
     @BeforeEach
     void setUp() {
+        userService = new UserServiceImpl(userRepository, s3UploadService);
         user = User.builder()
             .id(1L)
             .nickname("닉네임")

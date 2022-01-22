@@ -8,22 +8,21 @@ import static org.mockito.Mockito.verify;
 
 import com.momo.common.ServiceTest;
 import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.favorite.service.FavoriteService;
-import com.momo.domain.group.entity.Category;
-import com.momo.domain.group.entity.Group;
-import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.favorite.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.favorite.dto.FavoriteGroupCreateRequest;
 import com.momo.domain.favorite.entity.FavoriteGroup;
-import com.momo.domain.user.entity.User;
 import com.momo.domain.favorite.repository.FavoriteGroupRepository;
+import com.momo.domain.favorite.service.impl.FavoriteServiceImpl;
+import com.momo.domain.group.entity.Category;
+import com.momo.domain.group.entity.Group;
+import com.momo.domain.group.repository.GroupRepository;
+import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 @DisplayName("관심 서비스 테스트")
@@ -38,13 +37,12 @@ public class FavoriteServiceTest extends ServiceTest {
     @Mock
     private UserRepository userRepository;
 
-    @InjectMocks
     private FavoriteService favoriteService;
-
     private User user;
 
     @BeforeEach
     void setUp() {
+        favoriteService = new FavoriteServiceImpl(groupRepository, favoriteGroupRepository, userRepository);
         user = User.builder()
             .id(1L)
             .nickname("닉네임")

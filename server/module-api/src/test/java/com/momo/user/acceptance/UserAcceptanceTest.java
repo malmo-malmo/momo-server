@@ -15,6 +15,7 @@ import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.user.dto.UserResponse;
 import com.momo.domain.user.dto.UserUpdateRequest;
+import com.momo.domain.user.dto.UserUpdateResponse;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
@@ -43,9 +44,9 @@ public class UserAcceptanceTest extends AcceptanceTest {
             .build();
         String token = getAccessToken(getUser1());
         ExtractableResponse<Response> response = requestToUpdateMyInformationWithImage(token, userUpdateRequest);
-        UserResponse userResponse = getObject(requestToFindMyInformation(token), UserResponse.class);
+        UserUpdateResponse userUpdateResponse = getObject(response, UserUpdateResponse.class);
         assertThatStatusIsOk(response);
-        assertThatUpdateMyInformationWithImage(userResponse, userUpdateRequest);
+        assertThatUpdateMyInformationWithImage(userUpdateResponse, userUpdateRequest);
     }
 
     @Test
@@ -58,9 +59,9 @@ public class UserAcceptanceTest extends AcceptanceTest {
             .build();
         String token = getAccessToken(getUser1());
         ExtractableResponse<Response> response = requestToUpdateMyInformation(token, userUpdateRequest);
-        UserResponse userResponse = getObject(requestToFindMyInformation(token), UserResponse.class);
+        UserUpdateResponse userUpdateResponse = getObject(response, UserUpdateResponse.class);
         assertThatStatusIsOk(response);
-        assertThatUpdateMyInformation(userResponse, userUpdateRequest);
+        assertThatUpdateMyInformation(userUpdateResponse, userUpdateRequest);
     }
 
     @Test

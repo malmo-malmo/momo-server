@@ -14,6 +14,7 @@ import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.user.dto.UserUpdateRequest;
+import com.momo.domain.user.dto.UserUpdateResponse;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
 import com.momo.domain.user.service.impl.UserServiceImpl;
@@ -59,17 +60,17 @@ public class UserServiceTest extends ServiceTest {
         given(userRepository.existsByNickname(any())).willReturn(false);
         given(s3UploadService.upload(any(), any())).willReturn(null);
 
-        userService.update(user, userUpdateRequest);
+        UserUpdateResponse actual = userService.update(user, userUpdateRequest);
 
         verify(userRepository).findById(any());
         verify(userRepository).existsByNickname(any());
         verify(s3UploadService).upload(any(), any());
         Assertions.assertAll(
-            () -> assertThat(user.getNickname()).isEqualTo(userUpdateRequest.getNickname()),
-            () -> assertThat(user.getUniversity()).isEqualTo(userUpdateRequest.getUniversity()),
-            () -> assertThat(user.getCity()).isEqualTo(userUpdateRequest.getCity()),
-            () -> assertThat(user.getDistrict()).isEqualTo(userUpdateRequest.getDistrict()),
-            () -> assertThat(user.getImageUrl()).isNull()
+            () -> assertThat(actual.getNickname()).isEqualTo(userUpdateRequest.getNickname()),
+            () -> assertThat(actual.getUniversity()).isEqualTo(userUpdateRequest.getUniversity()),
+            () -> assertThat(actual.getCity().getCode()).isEqualTo(userUpdateRequest.getCity().getCode()),
+            () -> assertThat(actual.getDistrict()).isEqualTo(userUpdateRequest.getDistrict()),
+            () -> assertThat(actual.getImageUrl()).isNull()
         );
     }
 
@@ -87,16 +88,16 @@ public class UserServiceTest extends ServiceTest {
         given(userRepository.findById(any())).willReturn(of(user));
         given(s3UploadService.upload(any(), any())).willReturn(imageUrl);
 
-        userService.update(user, userUpdateRequest);
+        UserUpdateResponse actual = userService.update(user, userUpdateRequest);
 
         verify(userRepository).findById(any());
         verify(userRepository, never()).existsByNickname(any());
         verify(s3UploadService).upload(any(), any());
         Assertions.assertAll(
-            () -> assertThat(user.getNickname()).isEqualTo(userUpdateRequest.getNickname()),
-            () -> assertThat(user.getUniversity()).isEqualTo(userUpdateRequest.getUniversity()),
-            () -> assertThat(user.getCity()).isEqualTo(userUpdateRequest.getCity()),
-            () -> assertThat(user.getDistrict()).isEqualTo(userUpdateRequest.getDistrict()),
+            () -> assertThat(actual.getNickname()).isEqualTo(userUpdateRequest.getNickname()),
+            () -> assertThat(actual.getUniversity()).isEqualTo(userUpdateRequest.getUniversity()),
+            () -> assertThat(actual.getCity().getCode()).isEqualTo(userUpdateRequest.getCity().getCode()),
+            () -> assertThat(actual.getDistrict()).isEqualTo(userUpdateRequest.getDistrict()),
             () -> assertThat(user.getImageUrl()).isEqualTo(imageUrl)
         );
     }

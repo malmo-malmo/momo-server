@@ -11,9 +11,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.RestDocsControllerTest;
 import com.momo.api.user.UserController;
+import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.user.dto.UserUpdateRequest;
+import com.momo.domain.user.dto.UserUpdateResponse;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.service.UserService;
 import java.util.List;
@@ -67,17 +69,21 @@ public class UserRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 내_정보_수정_이미지_미포함() throws Exception {
-        UserUpdateRequest request = UserUpdateRequest.builder()
+        UserUpdateResponse response = UserUpdateResponse.builder()
             .nickname("테스트 이름")
             .university("한국대")
-            .city(City.SEOUL)
+            .city(EnumResponse.ofCity(City.SEOUL))
             .district("마포구")
+            .imageUrl("이미지 URL X")
             .build();
+
+        when(userService.update(any(), any())).thenReturn(response);
+
         super.mockMvc.perform(post("/api/user/update")
-                .param("nickname", request.getNickname())
-                .param("university", request.getUniversity())
-                .param("city", request.getCity().getCode())
-                .param("district", request.getDistrict())
+                .param("nickname", "테스트 이름")
+                .param("university", "한국대")
+                .param("city", City.SEOUL.getCode())
+                .param("district", "마포구")
             )
             .andDo(print())
             .andExpect(status().isOk())
@@ -93,6 +99,16 @@ public class UserRestDocsTest extends RestDocsControllerTest {
             .district("마포구")
             .image(new MockMultipartFile("image", "image".getBytes()))
             .build();
+        UserUpdateResponse response = UserUpdateResponse.builder()
+            .nickname("테스트 이름")
+            .university("한국대")
+            .city(EnumResponse.ofCity(City.SEOUL))
+            .district("마포구")
+            .imageUrl("이미지 URL O")
+            .build();
+
+        when(userService.update(any(), any())).thenReturn(response);
+
         super.mockMvc.perform(uploadMockSupport(fileUpload("/api/user/update"), request))
             .andDo(print())
             .andExpect(status().isOk())

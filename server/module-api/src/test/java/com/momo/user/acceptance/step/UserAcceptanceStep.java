@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.domain.user.dto.UserResponse;
 import com.momo.domain.user.dto.UserUpdateRequest;
+import com.momo.domain.user.dto.UserUpdateResponse;
 import com.momo.domain.user.entity.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -28,10 +29,9 @@ public class UserAcceptanceStep {
         );
     }
 
-    public static void assertThatUpdateMyInformation(UserResponse response, UserUpdateRequest request) {
+    public static void assertThatUpdateMyInformation(UserUpdateResponse response, UserUpdateRequest request) {
         Assertions.assertAll(
-            () -> assertThat(response.getId()).isNotNull(),
-            () -> assertThat(response.getImage()).isNull(),
+            () -> assertThat(response.getImageUrl()).isNull(),
             () -> assertThat(response.getCity()).isNotNull(),
             () -> assertThat(response.getNickname()).isEqualTo(request.getNickname()),
             () -> assertThat(response.getUniversity()).isEqualTo(request.getUniversity()),
@@ -39,10 +39,9 @@ public class UserAcceptanceStep {
         );
     }
 
-    public static void assertThatUpdateMyInformationWithImage(UserResponse response, UserUpdateRequest request) {
+    public static void assertThatUpdateMyInformationWithImage(UserUpdateResponse response, UserUpdateRequest request) {
         Assertions.assertAll(
-            () -> assertThat(response.getId()).isNotNull(),
-            () -> assertThat(response.getImage()).isNotNull(),
+            () -> assertThat(response.getImageUrl()).isNotNull(),
             () -> assertThat(response.getCity()).isNotNull(),
             () -> assertThat(response.getNickname()).isEqualTo(request.getNickname()),
             () -> assertThat(response.getUniversity()).isEqualTo(request.getUniversity()),

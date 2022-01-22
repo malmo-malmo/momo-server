@@ -1,4 +1,4 @@
-package com.momo.user.docs;
+package com.momo.favorite.docs;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -120,7 +120,7 @@ public class FavoriteRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 관심_모임_삭제() throws Exception {
-        super.mockMvc.perform(delete("/api/favorite/group/{id}", 1L))
+        super.mockMvc.perform(delete("/api/favorite/group/{groupId}", 1L))
             .andDo(print())
             .andExpect(status().isNoContent())
             .andDo(FavoriteDocumentation.deleteFavoriteGroup());

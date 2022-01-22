@@ -1,4 +1,4 @@
-package com.momo.user.docs;
+package com.momo.management.docs;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;

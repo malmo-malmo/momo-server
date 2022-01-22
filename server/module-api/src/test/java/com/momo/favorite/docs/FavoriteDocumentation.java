@@ -1,4 +1,4 @@
-package com.momo.user.docs;
+package com.momo.favorite.docs;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -69,7 +69,7 @@ public class FavoriteDocumentation {
     public static RestDocumentationResultHandler deleteFavoriteGroup() {
         return document("favorite/deleteFavoriteGroup",
             pathParameters(
-                parameterWithName("id").description("모임 ID")
+                parameterWithName("groupId").description("모임 ID")
             )
         );
     }

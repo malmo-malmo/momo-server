@@ -1,4 +1,4 @@
-package com.momo.user.docs;
+package com.momo.management.docs;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;

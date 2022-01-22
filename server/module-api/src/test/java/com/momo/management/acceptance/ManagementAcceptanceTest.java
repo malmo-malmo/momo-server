@@ -1,13 +1,13 @@
-package com.momo.user.acceptance;
+package com.momo.management.acceptance;
 
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST1;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST2;
 import static com.momo.fixture.UserFixture.getUser1;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
-import static com.momo.user.acceptance.step.ManagementAcceptanceStep.assertThatFindParticipatingGroups;
-import static com.momo.user.acceptance.step.ManagementAcceptanceStep.requestToFindParticipatingGroupCount;
-import static com.momo.user.acceptance.step.ManagementAcceptanceStep.requestToFindParticipatingGroups;
+import static com.momo.management.acceptance.step.ManagementAcceptanceStep.assertThatFindParticipatingGroups;
+import static com.momo.management.acceptance.step.ManagementAcceptanceStep.requestToFindParticipatingGroupCount;
+import static com.momo.management.acceptance.step.ManagementAcceptanceStep.requestToFindParticipatingGroups;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.acceptance.AcceptanceTest;

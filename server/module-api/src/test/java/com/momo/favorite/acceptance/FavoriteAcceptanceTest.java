@@ -1,29 +1,29 @@
-package com.momo.user.acceptance;
+package com.momo.favorite.acceptance;
 
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsBadRequest;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsCreated;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsNoContent;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
+import static com.momo.favorite.acceptance.step.FavoriteAcceptanceStep.assertThatFindFavoriteCategories;
+import static com.momo.favorite.acceptance.step.FavoriteAcceptanceStep.assertThatFindFavoriteGroups;
+import static com.momo.favorite.acceptance.step.FavoriteAcceptanceStep.requestToCreateFavoriteGroup;
+import static com.momo.favorite.acceptance.step.FavoriteAcceptanceStep.requestToDeleteFavoriteGroup;
+import static com.momo.favorite.acceptance.step.FavoriteAcceptanceStep.requestToFindFavoriteCategories;
+import static com.momo.favorite.acceptance.step.FavoriteAcceptanceStep.requestToFindFavoriteGroupCount;
+import static com.momo.favorite.acceptance.step.FavoriteAcceptanceStep.requestToFindFavoriteGroups;
+import static com.momo.favorite.acceptance.step.FavoriteAcceptanceStep.requestToUpdateFavoriteCategories;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST1;
 import static com.momo.fixture.UserFixture.getUser1;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
-import static com.momo.user.acceptance.step.FavoriteAcceptanceStep.assertThatFindFavoriteCategories;
-import static com.momo.user.acceptance.step.FavoriteAcceptanceStep.assertThatFindFavoriteGroups;
-import static com.momo.user.acceptance.step.FavoriteAcceptanceStep.requestToCreateFavoriteGroup;
-import static com.momo.user.acceptance.step.FavoriteAcceptanceStep.requestToDeleteFavoriteGroup;
-import static com.momo.user.acceptance.step.FavoriteAcceptanceStep.requestToFindFavoriteCategories;
-import static com.momo.user.acceptance.step.FavoriteAcceptanceStep.requestToFindFavoriteGroupCount;
-import static com.momo.user.acceptance.step.FavoriteAcceptanceStep.requestToFindFavoriteGroups;
-import static com.momo.user.acceptance.step.FavoriteAcceptanceStep.requestToUpdateFavoriteCategories;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.group.entity.Category;
 import com.momo.domain.favorite.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.favorite.dto.FavoriteGroupCardResponse;
 import com.momo.domain.favorite.dto.FavoriteGroupCountResponse;
 import com.momo.domain.favorite.dto.FavoriteGroupCreateRequest;
+import com.momo.domain.group.entity.Category;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;
@@ -102,10 +102,8 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
     void 관심_모임을_삭제한다() {
         String token = getAccessToken(getUser1());
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
-        Long favoriteGroupId = extractId(
-            requestToCreateFavoriteGroup(token, FavoriteGroupCreateRequest.builder().groupId(groupId).build())
-        );
-        ExtractableResponse<Response> response = requestToDeleteFavoriteGroup(token, favoriteGroupId);
+        requestToCreateFavoriteGroup(token, FavoriteGroupCreateRequest.builder().groupId(groupId).build());
+        ExtractableResponse<Response> response = requestToDeleteFavoriteGroup(token, groupId);
         List<FavoriteGroupCardResponse> favoriteGroupResponses = getObjects(
             requestToFindFavoriteGroups(token), FavoriteGroupCardResponse.class
         );

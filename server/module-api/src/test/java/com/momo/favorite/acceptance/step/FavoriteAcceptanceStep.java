@@ -1,13 +1,13 @@
-package com.momo.user.acceptance.step;
+package com.momo.favorite.acceptance.step;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.favorite.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.favorite.dto.FavoriteGroupCardResponse;
 import com.momo.domain.favorite.dto.FavoriteGroupCreateRequest;
+import com.momo.domain.group.dto.GroupCreateRequest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;
@@ -92,11 +92,11 @@ public class FavoriteAcceptanceStep {
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToDeleteFavoriteGroup(String token, Long favoriteId) {
+    public static ExtractableResponse<Response> requestToDeleteFavoriteGroup(String token, Long groupId) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .when()
-            .delete("/api/favorite/group/{id}", favoriteId)
+            .delete("/api/favorite/group/{groupId}", groupId)
             .then().log().all()
             .extract();
     }

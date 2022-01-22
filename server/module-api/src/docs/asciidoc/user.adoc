@@ -20,8 +20,8 @@ operation::user/validateDuplicateNickname[snippets='http-request,http-response,r
 
 === 내 정보 수정 (이미지가 없는 경우)
 
-operation::user/updateMyInformation[snippets='http-request,http-response,request-parameters']
+operation::user/updateMyInformation[snippets='http-request,http-response,request-parameters,response-fields']
 
 === 내 정보 수정 (이미지가 있는 경우)
 
-operation::user/updateMyInformationWithImage[snippets='http-request,http-response,request-parameters,request-parts']
+operation::user/updateMyInformationWithImage[snippets='http-request,http-response,request-parameters,request-parts,response-fields']

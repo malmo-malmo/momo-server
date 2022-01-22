@@ -5,6 +5,7 @@ import com.momo.domain.aws.util.GenerateUploadPathUtil;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.user.dto.UserUpdateRequest;
+import com.momo.domain.user.dto.UserUpdateResponse;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
 import com.momo.domain.user.service.UserService;
@@ -21,12 +22,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final S3UploadService s3UploadService;
 
-    public void update(User loginUser, UserUpdateRequest request) {
+    public UserUpdateResponse update(User loginUser, UserUpdateRequest request) {
         User user = findByUser(loginUser);
         if (!user.isSameNickname(request.getNickname())) {
             validateDuplicateNickname(request.getNickname());
         }
         user.update(request.toEntity(), convertToImageUrl(request.getImage(), user.getId()));
+        return UserUpdateResponse.of(user);
     }
 
     public User findByUser(User user) {

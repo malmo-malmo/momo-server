@@ -3,6 +3,7 @@ package com.momo.api.user;
 import com.momo.common.CurrentUser;
 import com.momo.domain.user.dto.UserResponse;
 import com.momo.domain.user.dto.UserUpdateRequest;
+import com.momo.domain.user.dto.UserUpdateResponse;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.service.UserService;
 import javax.validation.Valid;
@@ -23,10 +24,10 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/update")
-    public ResponseEntity<Void> updateMyInformation(@CurrentUser User user,
+    public ResponseEntity<UserUpdateResponse> updateMyInformation(@CurrentUser User user,
         @Valid @ModelAttribute UserUpdateRequest userUpdateRequest) {
-        userService.update(user, userUpdateRequest);
-        return ResponseEntity.ok().build();
+        UserUpdateResponse response = userService.update(user, userUpdateRequest);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping

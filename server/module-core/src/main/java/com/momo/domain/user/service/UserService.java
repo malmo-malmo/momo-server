@@ -2,20 +2,12 @@ package com.momo.domain.user.service;
 
 import com.momo.domain.aws.service.S3UploadService;
 import com.momo.domain.aws.util.GenerateUploadPathUtil;
-import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.post.entity.Post;
-import com.momo.domain.post.repository.PostRepository;
-import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
-import com.momo.domain.user.dto.MyPostCardResponse;
 import com.momo.domain.user.dto.UserUpdateRequest;
-import com.momo.domain.user.entity.FavoriteCategories;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final PostRepository postRepository;
     private final S3UploadService s3UploadService;
 
     public void update(User loginUser, UserUpdateRequest request) {
@@ -37,6 +28,11 @@ public class UserService {
         user.update(request.toEntity(), convertToImageUrl(request.getImage(), user.getId()));
     }
 
+    public User findByUser(User user) {
+        return userRepository.findById(user.getId())
+            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
+    }
+
     public void validateDuplicateNickname(String nickname) {
         if (userRepository.existsByNickname(nickname)) {
             throw new CustomException(ErrorCode.DUPLICATED_NICKNAME);
@@ -45,28 +41,5 @@ public class UserService {
 
     public String convertToImageUrl(MultipartFile multipartFile, Long userId) {
         return s3UploadService.upload(multipartFile, GenerateUploadPathUtil.getUserImage(userId));
-    }
-
-    @Transactional(readOnly = true)
-    public List<EnumResponse> findFavoriteCategoriesByUser(User loginUser) {
-        FavoriteCategories favoriteCategories = loginUser.getFavoriteCategories();
-        return EnumResponse.listOfFavoriteCategories(favoriteCategories);
-    }
-
-    public void updateFavoriteCategories(User loginUser, FavoriteCategoriesUpdateRequest request) {
-        User user = findByUser(loginUser);
-        user.updateFavoriteCategories(request.getFavoriteCategories());
-    }
-
-    public User findByUser(User user) {
-        return userRepository.findById(user.getId())
-            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
-    }
-
-    @Transactional(readOnly = true)
-    public List<MyPostCardResponse> findMyPostsByUser(User loginUser, int page, int size) {
-        List<Post> posts = postRepository
-            .findAllWithGroupAndAuthorByUserOrderByCreatedDateDesc(loginUser, PageRequest.of(page, size));
-        return MyPostCardResponse.listOf(posts);
     }
 }

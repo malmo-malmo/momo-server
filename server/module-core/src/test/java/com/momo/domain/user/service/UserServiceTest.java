@@ -10,17 +10,13 @@ import static org.mockito.Mockito.verify;
 
 import com.momo.common.ServiceTest;
 import com.momo.domain.aws.service.S3UploadService;
-import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.district.entity.City;
-import com.momo.domain.group.entity.Category;
-import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.user.dto.UserUpdateRequest;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -116,41 +112,5 @@ public class UserServiceTest extends ServiceTest {
         assertThatThrownBy(() -> userService.update(user, userUpdateRequest))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.DUPLICATED_NICKNAME.getMessage());
-    }
-
-    @Test
-    void 유저_관심_카테고리_정보_조회_테스트() {
-        List<Category> expected = List.of(Category.HEALTH, Category.EMPLOYMENT);
-        user.updateFavoriteCategories(expected);
-
-        List<EnumResponse> actual = userService.findFavoriteCategoriesByUser(user);
-
-        Assertions.assertAll(
-            () -> assertThat(actual).isNotNull(),
-            () -> assertThat(actual.size()).isEqualTo(expected.size()),
-            () -> assertThat(actual.get(0).getCode()).isEqualTo(expected.get(0).getCode()),
-            () -> assertThat(actual.get(0).getName()).isEqualTo(expected.get(0).getName()),
-            () -> assertThat(actual.get(1).getCode()).isEqualTo(expected.get(1).getCode()),
-            () -> assertThat(actual.get(1).getName()).isEqualTo(expected.get(1).getName())
-        );
-    }
-
-    @Test
-    void 유저_관심_카테고리_정보_업데이트_테스트() {
-        FavoriteCategoriesUpdateRequest categoryRequest = new FavoriteCategoriesUpdateRequest(
-            List.of(Category.HOBBY, Category.LIFE)
-        );
-
-        given(userRepository.findById(any())).willReturn(of(user));
-
-        userService.updateFavoriteCategories(user, categoryRequest);
-
-        Assertions.assertAll(
-            () -> assertThat(user.getFavoriteCategories().getFavoriteCategories().size()).isEqualTo(2),
-            () -> assertThat(user.getFavoriteCategories().getFavoriteCategories().get(0).getCategory())
-                .isEqualTo(categoryRequest.getFavoriteCategories().get(0)),
-            () -> assertThat(user.getFavoriteCategories().getFavoriteCategories().get(1).getCategory())
-                .isEqualTo(categoryRequest.getFavoriteCategories().get(1))
-        );
     }
 }

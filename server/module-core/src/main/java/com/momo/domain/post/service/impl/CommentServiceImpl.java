@@ -50,7 +50,7 @@ public class CommentServiceImpl implements CommentService {
     public void deleteComment(Long commentId, User loginUser) {
         Comment comment = getCommentById(commentId);
 
-        if(comment.isWriter(loginUser)) {
+        if(!comment.isWriter(loginUser)) {
             throw new CustomException(ErrorCode.USER_ACCESS_DENIED);
         }
         commentRepository.delete(comment);

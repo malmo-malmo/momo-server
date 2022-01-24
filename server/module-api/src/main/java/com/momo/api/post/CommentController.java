@@ -26,7 +26,6 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @ApiOperation(value = "게시물 댓글 등록")
     @PostMapping("/comment")
     public ResponseEntity<CommentResponse> create(@CurrentUser User user,
                                                   @Valid @RequestBody CommentCreateRequest commentCreateRequest) {
@@ -34,7 +33,6 @@ public class CommentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(commentResponse);
     }
 
-    @ApiOperation(value = "게시물 댓글 목록 조회")
     @GetMapping("/comments/paging")
     public ResponseEntity<CommentsResponse> findPageByPost(@CurrentUser User user,
                                                            @Valid @ModelAttribute CommentsRequest commentsRequest) {

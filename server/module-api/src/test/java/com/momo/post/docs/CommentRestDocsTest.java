@@ -54,28 +54,4 @@ public class CommentRestDocsTest extends RestDocsControllerTest {
             .andExpect(status().isCreated())
             .andDo(CommentDocumentation.create());
     }
-
-    @Test
-    public void 게시물_댓글_목록_조회() throws Exception {
-        when(commentService.findPageByPostId(any(), any())).thenReturn(CommentsResponse.of(
-            List.of(
-                Comment.builder()
-                    .id(1L)
-                    .user(User.builder().id(1L).imageUrl("http://~~").nickname("테스트맨").build())
-                    .contents("테스트 댓글")
-                    .createdDate(LocalDateTime.now())
-                    .build()
-            ),
-            1L
-        ));
-
-        super.mockMvc.perform(get("/api/comments/paging")
-                .param("postId", String.valueOf(1L))
-                .param("page", String.valueOf(1))
-                .param("size", String.valueOf(10))
-            )
-            .andDo(print())
-            .andExpect(status().isOk())
-            .andDo(CommentDocumentation.findPageByPost());
-    }
 }

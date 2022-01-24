@@ -4,27 +4,30 @@ import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import com.momo.common.ServiceTest;
+import com.momo.domain.aws.service.S3UploadService;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.district.entity.City;
+import com.momo.domain.group.dto.GroupCreateRequest;
+import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
-import com.momo.domain.group.dto.GroupCreateRequest;
-import com.momo.domain.aws.service.S3UploadService;
+import com.momo.domain.group.service.impl.GroupServiceImpl;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
 import java.io.IOException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mock.web.MockMultipartFile;
@@ -45,7 +48,6 @@ public class GroupServiceTest extends ServiceTest {
     @Mock
     private S3UploadService s3UploadService;
 
-    @InjectMocks
     private GroupService groupService;
 
     private User manager;
@@ -56,11 +58,13 @@ public class GroupServiceTest extends ServiceTest {
     void setUp() {
         manager = User.builder().id(1L).build();
         participant = User.builder().id(2L).build();
+        groupService = new GroupServiceImpl(groupRepository, participantRepository, userRepository, s3UploadService);
     }
 
     @Test
     void 모임_생성_테스트() throws IOException {
-        MultipartFile file = new MockMultipartFile("image", "test.png", null, new ClassPathResource("upload-test.png").getInputStream());
+        MultipartFile file = new MockMultipartFile("image", "test.png", null,
+            new ClassPathResource("upload-test.png").getInputStream());
         GroupCreateRequest groupCreateRequest = GroupCreateRequest.builder()
             .category(Category.EMPLOYMENT)
             .isUniversity(true)
@@ -68,16 +72,21 @@ public class GroupServiceTest extends ServiceTest {
             .isOffline(true)
             .image(file)
             .build();
-
+        Long savedGroupId = 1L;
         given(groupRepository.save(any())).willReturn(Group.builder().id(1L).build());
         given(participantRepository.save(any())).willReturn(Participant.builder().build());
         given(s3UploadService.upload(file, "group")).willReturn("업로드된 이미지 경로");
+        given(groupRepository.findGroupAndParticipantCntAndAuthorityById(any(User.class), anyLong()))
+            .willReturn(GroupResponse.builder().id(savedGroupId).city(City.BUSAN).build());
 
-        Long actual = groupService.create(manager, groupCreateRequest);
+        GroupResponse response = groupService.create(manager, groupCreateRequest);
 
         verify(groupRepository).save(any());
         verify(participantRepository).save(any());
-        assertThat(actual).isEqualTo(1L);
+        Assertions.assertAll(
+            () -> assertThat(response).isNotNull(),
+            () -> assertThat(response.getId()).isEqualTo(savedGroupId)
+        );
     }
 
     @Test

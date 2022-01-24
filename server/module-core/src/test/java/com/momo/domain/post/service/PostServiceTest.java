@@ -4,6 +4,7 @@ import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -73,18 +74,24 @@ public class PostServiceTest extends ServiceTest {
         PostCreateRequest postCreateRequest = PostCreateRequest.builder()
             .typeName(PostType.NORMAL.getCode())
             .build();
-        Post post = Post.builder().id(1L).build();
+        Long savedPostId = 1L;
+        Post post = Post.builder().id(savedPostId).build();
 
         given(groupRepository.findById(any())).willReturn(of(group));
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(true);
         given(postRepository.save(any())).willReturn(post);
+        given(postRepository.findById(anyLong())).willReturn(
+            Optional.of(Post.builder().id(savedPostId).author(User.builder().build()).build()));
 
-        Long actual = postService.create(manager, postCreateRequest);
+        PostResponse response = postService.create(manager, postCreateRequest);
 
         verify(groupRepository).findById(any());
         verify(participantRepository).existsByGroupAndUser(any(), any());
         verify(postRepository).save(any());
-        assertThat(actual).isEqualTo(post.getId());
+        Assertions.assertAll(
+            () -> assertThat(response).isNotNull(),
+            () -> assertThat(response.getId()).isEqualTo(1L)
+        );
     }
 
     @Test
@@ -97,13 +104,18 @@ public class PostServiceTest extends ServiceTest {
         given(groupRepository.findById(any())).willReturn(of(group));
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(true);
         given(postRepository.save(any())).willReturn(post);
+        given(postRepository.findById(anyLong())).willReturn(
+            Optional.of(Post.builder().id(post.getId()).author(User.builder().build()).build()));
 
-        Long actual = postService.create(participant, postCreateRequest);
+        PostResponse response = postService.create(participant, postCreateRequest);
 
         verify(groupRepository).findById(any());
         verify(participantRepository).existsByGroupAndUser(any(), any());
         verify(postRepository).save(any());
-        assertThat(actual).isEqualTo(post.getId());
+        Assertions.assertAll(
+            () -> assertThat(response).isNotNull(),
+            () -> assertThat(response.getId()).isEqualTo(1L)
+        );
     }
 
     @Test
@@ -129,13 +141,18 @@ public class PostServiceTest extends ServiceTest {
 
         given(groupRepository.findById(any())).willReturn(of(group));
         given(postRepository.save(any())).willReturn(post);
+        given(postRepository.findById(anyLong())).willReturn(
+            Optional.of(Post.builder().id(post.getId()).author(User.builder().build()).build()));
 
-        Long actual = postService.create(manager, postCreateRequest);
+        PostResponse response = postService.create(manager, postCreateRequest);
 
         verify(groupRepository).findById(any());
         verify(participantRepository, never()).existsByGroupAndUser(any(), any());
         verify(postRepository).save(any());
-        assertThat(actual).isEqualTo(post.getId());
+        Assertions.assertAll(
+            () -> assertThat(response).isNotNull(),
+            () -> assertThat(response.getId()).isEqualTo(1L)
+        );
     }
 
     @Test

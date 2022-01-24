@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface PostService {
 
-    Long create(User user, PostCreateRequest request) throws IOException;
+    PostResponse create(User user, PostCreateRequest request) throws IOException;
 
     PostResponse findById(User user, Long postId);
 

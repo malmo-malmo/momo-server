@@ -37,7 +37,7 @@ public class PostServiceImpl implements PostService {
 
     private final ImageUploadService imageUploadService;
 
-    public Long create(User user, PostCreateRequest request) throws IOException {
+    public PostResponse create(User user, PostCreateRequest request) throws IOException {
         Long groupId = request.getGroupId();
 
         Group group = getGroupById(groupId);
@@ -49,7 +49,7 @@ public class PostServiceImpl implements PostService {
         List<String> imageUrls = imageUploadService
             .uploadAll(request.getImages(), GenerateUploadPathUtil.getPostImage(groupId, postId));
         post.updateImages(imageUrls);
-        return postId;
+        return PostResponse.of(postRepository.findById(postId).get());
     }
 
 

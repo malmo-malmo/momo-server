@@ -5,9 +5,10 @@ import com.momo.domain.post.dto.CommentCreateRequest;
 import com.momo.domain.post.dto.CommentResponse;
 import com.momo.domain.post.service.CommentService;
 import com.momo.domain.user.entity.User;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,13 +26,14 @@ public class CommentController {
 
     @PostMapping
     public ResponseEntity<CommentResponse> create(@CurrentUser User user,
-        @Valid @RequestBody CommentCreateRequest commentCreateRequest) {
+        @Valid @RequestBody CommentCreateRequest commentCreateRequest) throws URISyntaxException {
         CommentResponse commentResponse = commentService.create(user, commentCreateRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(commentResponse);
+        return ResponseEntity.created(new URI("/api/comment/" + commentResponse.getId())).body(commentResponse);
     }
+
     @DeleteMapping("/{commentId}")
     public ResponseEntity<Void> delete(@CurrentUser User user, @PathVariable Long commentId) {
         commentService.deleteComment(commentId, user);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

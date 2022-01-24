@@ -9,6 +9,8 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,5 +28,10 @@ public class CommentController {
         @Valid @RequestBody CommentCreateRequest commentCreateRequest) {
         CommentResponse commentResponse = commentService.create(user, commentCreateRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(commentResponse);
+    }
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<Void> delete(@CurrentUser User user, @PathVariable Long commentId) {
+        commentService.deleteComment(commentId, user);
+        return ResponseEntity.ok().build();
     }
 }

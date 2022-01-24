@@ -21,6 +21,7 @@ import com.momo.domain.post.dto.PostResponse;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.entity.PostType;
 import com.momo.domain.post.repository.PostRepository;
+import com.momo.domain.post.service.impl.PostServiceImpl;
 import com.momo.domain.user.entity.User;
 import java.io.IOException;
 import java.util.Optional;
@@ -28,7 +29,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 @DisplayName("게시물 서비스 테스트")
@@ -46,7 +46,6 @@ public class PostServiceTest extends ServiceTest {
     @Mock
     private S3UploadService s3UploadService;
 
-    @InjectMocks
     private PostService postService;
 
     private User manager;
@@ -59,6 +58,7 @@ public class PostServiceTest extends ServiceTest {
 
     @BeforeEach
     void setUp() {
+        postService = new PostServiceImpl(postRepository, groupRepository, participantRepository, s3UploadService);
         manager = User.builder().id(1L).build();
         participant = User.builder().id(2L).build();
         user = User.builder().id(3L).build();
@@ -260,6 +260,7 @@ public class PostServiceTest extends ServiceTest {
         postService.deletePost(deletePostId, user);
         verify(postRepository).delete(post);
     }
+
     @Test
     void 게시물_작성자가_아니면_삭제_테스트에_실패한다() {
         Post post = Post.builder()

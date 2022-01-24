@@ -9,26 +9,35 @@ import static com.momo.fixture.UserFixture.getUser1;
 import static com.momo.fixture.UserFixture.getUser2;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
 import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToCreatePost;
+import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToDeletePost;
 import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToFindPost;
 import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToFindPosts;
+import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToUpdatePost;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.post.entity.PostType;
 import com.momo.domain.post.dto.PostCardResponse;
 import com.momo.domain.post.dto.PostCardsRequest;
+import com.momo.domain.post.dto.PostModifyRequest;
 import com.momo.domain.post.dto.PostResponse;
+import com.momo.domain.post.entity.Post;
+import com.momo.domain.post.entity.PostType;
+import com.momo.domain.post.repository.PostRepository;
 import com.momo.post.acceptance.step.PostAcceptanceStep;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
-import java.io.IOException;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @DisplayName("게시물 통합/인수 테스트")
 public class PostAcceptanceTest extends AcceptanceTest {
+
+    @Autowired
+    private PostRepository postRepository;
 
     @Test
     public void 모임에_게시물을_등록한다() {
@@ -53,6 +62,33 @@ public class PostAcceptanceTest extends AcceptanceTest {
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         ExtractableResponse<Response> response = requestToCreatePost(token, getNoticeCreateRequest(groupId));
         AcceptanceStep.assertThatStatusIsCreated(response);
+    }
+
+    @Test
+    public void 모임에_게시물을_수정한다() {
+        String token = getAccessToken(getUser1());
+        Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
+        Long postId = extractId(requestToCreatePost(token, getPostCreateRequest(groupId)));
+        PostModifyRequest request = PostModifyRequest.builder()
+            .postId(postId)
+            .title("수정된 게시글 제목")
+            .content("수정된 게시글 내용")
+            .build();
+        ExtractableResponse<Response> response = requestToUpdatePost(token, request);
+        AcceptanceStep.assertThatStatusIsOk(response);
+
+        Post post = postRepository.findById(postId).get();
+        PostAcceptanceStep.assertThatUpdatePost(request, post);
+    }
+
+    @Test
+    public void 모임에_게시물을_삭제한다() {
+        String token = getAccessToken(getUser1());
+        Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
+        Long postId = extractId(requestToCreatePost(token, getPostCreateRequest(groupId)));
+        ExtractableResponse<Response> response = requestToDeletePost(token, postId);
+        AcceptanceStep.assertThatStatusIsNoContent(response);
+        assertTrue(!postRepository.existsById(postId));
     }
 
     @Test

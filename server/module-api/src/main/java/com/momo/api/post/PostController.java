@@ -30,10 +30,10 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping
-    public ResponseEntity<Void> create(@CurrentUser User user,
+    public ResponseEntity<PostResponse> create(@CurrentUser User user,
         @Valid @ModelAttribute PostCreateRequest postCreateRequest) throws URISyntaxException, IOException {
-        Long postId = postService.create(user, postCreateRequest);
-        return ResponseEntity.created(new URI("/api/post/" + postId)).build();
+        PostResponse response = postService.create(user, postCreateRequest);
+        return ResponseEntity.created(new URI("/api/post/" + response.getId())).body(response);
     }
 
     @GetMapping("/{id}")

@@ -4,6 +4,7 @@ import static com.momo.CommonFileUploadSupport.uploadMockSupport;
 import static com.momo.CommonFileUploadSupport.uploadTestFile;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.fileUpload;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
@@ -14,7 +15,7 @@ import com.momo.RestDocsControllerTest;
 import com.momo.api.post.PostController;
 import com.momo.domain.post.dto.PostCreateRequest;
 import com.momo.domain.post.dto.PostResponse;
-import com.momo.domain.post.service.PostService;
+import com.momo.domain.post.service.impl.PostServiceImpl;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -30,10 +31,20 @@ public class PostRestDocsTest extends RestDocsControllerTest {
     @InjectMocks
     private PostController postController;
     @MockBean
-    private PostService postService;
+    private PostServiceImpl postService;
 
     @Test
     public void 게시글_작성() throws Exception {
+        given(postService.create(any(), any())).willReturn(PostResponse.builder()
+            .id(1L)
+            .authorId(1L)
+            .authorImage("작성자 이미지")
+            .authorNickname("작성자 닉네임")
+            .title("게시글 제목")
+            .contents("게시글 내용")
+            .imageUrls(List.of("게시글 첨부 이미지 URL"))
+            .createdDate(LocalDateTime.now())
+            .build());
         PostCreateRequest request = PostCreateRequest.builder()
             .groupId(1L)
             .title("테스트 게시글")

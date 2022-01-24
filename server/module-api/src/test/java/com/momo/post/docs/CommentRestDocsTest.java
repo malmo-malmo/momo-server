@@ -2,21 +2,16 @@ package com.momo.post.docs;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.momo.RestDocsControllerTest;
 import com.momo.api.post.CommentController;
-import com.momo.domain.post.entity.Comment;
 import com.momo.domain.post.dto.CommentCreateRequest;
 import com.momo.domain.post.dto.CommentResponse;
-import com.momo.domain.post.dto.CommentsResponse;
-import com.momo.domain.post.service.CommentService;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.post.service.impl.CommentServiceImpl;
 import java.time.LocalDateTime;
-import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -31,7 +26,7 @@ public class CommentRestDocsTest extends RestDocsControllerTest {
     @InjectMocks
     private CommentController commentController;
     @MockBean
-    private CommentService commentService;
+    private CommentServiceImpl commentService;
 
     @Test
     public void 게시물_댓글_등록() throws Exception {

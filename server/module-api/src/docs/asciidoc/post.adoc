@@ -2,7 +2,7 @@
 === 게시글 작성
 게시글을 작성합니다.
 
-operation::post/create[snippets='http-request,http-response,request-fields']
+operation::post/create[snippets='http-request,http-response,request-parameters,response-fields']
 
 === 게시글 상세 조회
 게시글 상세 내용을 조회합니다.

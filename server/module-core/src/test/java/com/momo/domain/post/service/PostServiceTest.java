@@ -17,7 +17,7 @@ import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.post.dto.PostCreateRequest;
-import com.momo.domain.post.dto.PostModifyRequest;
+import com.momo.domain.post.dto.PostUpdateRequest;
 import com.momo.domain.post.dto.PostResponse;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.entity.PostType;
@@ -226,7 +226,7 @@ public class PostServiceTest extends ServiceTest {
 
     @Test
     void 게시물_수정_테스트를_성공한다() {
-        PostModifyRequest request = PostModifyRequest.builder()
+        PostUpdateRequest request = PostUpdateRequest.builder()
             .postId(1L)
             .title("수정될 게시글 제목입니다.")
             .content("수정될 게시글 내용입니다.")
@@ -247,7 +247,7 @@ public class PostServiceTest extends ServiceTest {
 
     @Test
     void 게시물_작성자가_아니면_게시물_수정_테스트에_실패한다() {
-        PostModifyRequest request = PostModifyRequest.builder()
+        PostUpdateRequest request = PostUpdateRequest.builder()
             .postId(1L)
             .title("수정될 게시글 제목입니다.")
             .content("수정될 게시글 내용입니다.")

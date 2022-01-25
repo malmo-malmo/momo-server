@@ -10,7 +10,7 @@ import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.post.dto.PostCardResponse;
 import com.momo.domain.post.dto.PostCardsRequest;
 import com.momo.domain.post.dto.PostCreateRequest;
-import com.momo.domain.post.dto.PostModifyRequest;
+import com.momo.domain.post.dto.PostUpdateRequest;
 import com.momo.domain.post.dto.PostResponse;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.entity.PostType;
@@ -69,7 +69,7 @@ public class PostServiceImpl implements PostService {
         return postRepository.findAllByGroupAndTypeOrderByCreatedDateDesc(group, postType, page);
     }
 
-    public void updatePost(PostModifyRequest request, User user) {
+    public void updatePost(PostUpdateRequest request, User user) {
         Post post = postRepository.findById(request.getPostId())
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
         validatePost(post.getAuthor(), user);

@@ -2,7 +2,7 @@ package com.momo.api.post;
 
 import com.momo.common.CurrentUser;
 import com.momo.domain.post.dto.PostCreateRequest;
-import com.momo.domain.post.dto.PostModifyRequest;
+import com.momo.domain.post.dto.PostUpdateRequest;
 import com.momo.domain.post.dto.PostResponse;
 import com.momo.domain.post.service.PostService;
 import com.momo.domain.user.entity.User;
@@ -43,7 +43,7 @@ public class PostController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> update(@CurrentUser User user, @Valid @RequestBody PostModifyRequest request) {
+    public ResponseEntity<Void> update(@CurrentUser User user, @Valid @RequestBody PostUpdateRequest request) {
         postService.updatePost(request, user);
         return ResponseEntity.ok().build();
     }

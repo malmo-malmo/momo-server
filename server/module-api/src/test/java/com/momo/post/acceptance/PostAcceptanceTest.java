@@ -20,7 +20,7 @@ import com.momo.common.acceptance.step.AcceptanceStep;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.post.dto.PostCardResponse;
 import com.momo.domain.post.dto.PostCardsRequest;
-import com.momo.domain.post.dto.PostModifyRequest;
+import com.momo.domain.post.dto.PostUpdateRequest;
 import com.momo.domain.post.dto.PostResponse;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.entity.PostType;
@@ -69,7 +69,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
         String token = getAccessToken(getUser1());
         Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
         Long postId = extractId(requestToCreatePost(token, getPostCreateRequest(groupId)));
-        PostModifyRequest request = PostModifyRequest.builder()
+        PostUpdateRequest request = PostUpdateRequest.builder()
             .postId(postId)
             .title("수정된 게시글 제목")
             .content("수정된 게시글 내용")

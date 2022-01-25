@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.momo.domain.post.dto.PostCardResponse;
 import com.momo.domain.post.dto.PostCardsRequest;
 import com.momo.domain.post.dto.PostCreateRequest;
-import com.momo.domain.post.dto.PostModifyRequest;
+import com.momo.domain.post.dto.PostUpdateRequest;
 import com.momo.domain.post.dto.PostResponse;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.user.entity.User;
@@ -35,7 +35,7 @@ public class PostAcceptanceStep {
         );
     }
 
-    public static void assertThatUpdatePost(PostModifyRequest request, Post post) {
+    public static void assertThatUpdatePost(PostUpdateRequest request, Post post) {
         Assertions.assertAll(
             () -> assertThat(post).isNotNull(),
             () -> assertThat(post.getTitle()).isEqualTo(request.getTitle()),
@@ -67,7 +67,7 @@ public class PostAcceptanceStep {
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToUpdatePost(String token, PostModifyRequest request) {
+    public static ExtractableResponse<Response> requestToUpdatePost(String token, PostUpdateRequest request) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)

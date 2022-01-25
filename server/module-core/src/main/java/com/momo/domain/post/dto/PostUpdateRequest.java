@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class PostModifyRequest {
+public class PostUpdateRequest {
 
     @NotNull(message = "게시글 ID는 필수 입력 값입니다.")
     private Long postId;
@@ -16,7 +16,7 @@ public class PostModifyRequest {
     private String content;
 
     @Builder
-    public PostModifyRequest(Long postId, String title, String content) {
+    public PostUpdateRequest(Long postId, String title, String content) {
         this.postId = postId;
         this.title = title;
         this.content = content;

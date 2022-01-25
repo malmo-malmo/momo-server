@@ -85,4 +85,29 @@ public class PostDocumentation {
             responseFields(responsePost)
         );
     }
+
+    public static RestDocumentationResultHandler update() {
+        ParameterDescriptor[] requestParam = new ParameterDescriptor[]{
+            parameterWithName("postId").description("수정할 게시글 ID"),
+            parameterWithName("title").description("수정할 게시글 제목"),
+            parameterWithName("content").description("수정할 게시글 내용")
+        };
+        RequestPartDescriptor[] requestPart = new RequestPartDescriptor[]{
+            partWithName("images").description("수정될 게시글 첨부 이미지")
+        };
+        return document("post/update",
+            requestParameters(requestParam),
+            requestParts(requestPart)
+        );
+    }
+
+    public static RestDocumentationResultHandler delete() {
+        ParameterDescriptor[] requestParam = new ParameterDescriptor[]{
+            parameterWithName("postId").description("수정할 게시글 ID")
+        };
+
+        return document("post/delete",
+            pathParameters(requestParam)
+        );
+    }
 }

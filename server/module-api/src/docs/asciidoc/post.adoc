@@ -1,15 +1,31 @@
 == 게시글 API
+
 === 게시글 작성
+
 게시글을 작성합니다.
 
 operation::post/create[snippets='http-request,http-response,request-parameters,response-fields']
 
+=== 게시글 수정
+
+게시글을 수정합니다.
+
+operation::post/update[snippets='http-request,http-response,request-parameters,request-parts']
+
+=== 게시글 삭제
+
+게시글을 삭제합니다.
+
+operation::post/delete[snippets='http-request,http-response,path-parameters']
+
 === 게시글 상세 조회
+
 게시글 상세 내용을 조회합니다.
 
 operation::post/find[snippets='http-request,http-response,path-parameters,response-fields']
 
 === 게시글 목록 조회
+
 게시글 목록을 조회합니다.
 
 operation::post/findPageByCardsRequest[snippets='http-request,http-response,request-parameters,response-fields']

@@ -10,18 +10,18 @@ import static org.mockito.Mockito.verify;
 import com.momo.common.ServiceTest;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
+import com.momo.domain.group.dto.ParticipantResponse;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
-import com.momo.domain.group.dto.ParticipantResponse;
+import com.momo.domain.group.service.impl.ParticipantServiceImpl;
 import com.momo.domain.user.entity.User;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 @DisplayName("모임 참여자 서비스 테스트")
@@ -33,7 +33,6 @@ public class ParticipantServiceTest extends ServiceTest {
     @Mock
     private ParticipantRepository participantRepository;
 
-    @InjectMocks
     private ParticipantService participantService;
 
     private User manager;
@@ -47,6 +46,7 @@ public class ParticipantServiceTest extends ServiceTest {
         manager = User.builder().id(1L).build();
         user1 = User.builder().id(2L).build();
         user2 = User.builder().id(3L).build();
+        participantService = new ParticipantServiceImpl(participantRepository, groupRepository);
     }
 
     @Test

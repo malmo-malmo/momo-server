@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.request.MockMultipartHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.web.multipart.MultipartFile;
 
 public class CommonFileUploadSupport {
@@ -86,6 +88,18 @@ public class CommonFileUploadSupport {
                 e.printStackTrace();
             }
         }
+        return builder;
+    }
+
+    public static MockMultipartHttpServletRequestBuilder generateUploadMockPutBuilder(
+        MockMultipartHttpServletRequestBuilder builder) {
+        builder.with(new RequestPostProcessor() {
+            @Override
+            public MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
+                request.setMethod("PUT");
+                return request;
+            }
+        });
         return builder;
     }
 }

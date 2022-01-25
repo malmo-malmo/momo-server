@@ -6,9 +6,9 @@ import com.momo.common.RepositoryTest;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
+import com.momo.domain.schedule.dto.GroupScheduleResponse;
 import com.momo.domain.schedule.entity.Attendance;
 import com.momo.domain.schedule.entity.Schedule;
-import com.momo.domain.schedule.dto.GroupScheduleResponse;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDate;
@@ -68,23 +68,26 @@ public class ScheduleRepositoryTest extends RepositoryTest {
             .startDateTime(LocalDateTime.of(2022, 01, 01, 11, 05, 11))
             .build());
     }
+
     @Test
     public void 일정을_저장한다() {
         assertThat(schedule).isNotNull();
         assertThat(schedule.getId()).isNotNull();
     }
+
     @Test
     public void 모임과_유저를_조건으로_모임_일정을_조회한다() {
         save(Attendance.builder()
-                .group(group)
-                .schedule(schedule)
-                .userId(user.getId())
-                .isAttend(false)
-                .build()
+            .group(group)
+            .schedule(schedule)
+            .userId(user.getId())
+            .isAttend(false)
+            .build()
         );
 
         PageRequest pageRequest = PageRequest.of(0, 10);
-        List<GroupScheduleResponse> scheduleResponseList = scheduleRepository.findAllByGroupAndUserOrderByCreatedDateDesc(group, user.getId(), pageRequest);
+        List<GroupScheduleResponse> scheduleResponseList = scheduleRepository.findAllByGroupAndUserOrderByCreatedDateDesc(
+            group, user.getId(), pageRequest);
         assertThat(scheduleResponseList.size()).isEqualTo(1);
         GroupScheduleResponse scheduleResponse = scheduleResponseList.get(0);
         Assertions.assertAll(
@@ -99,6 +102,7 @@ public class ScheduleRepositoryTest extends RepositoryTest {
             () -> assertThat(scheduleResponse.isAttend()).isFalse()
         );
     }
+
     @Test
     @Transactional
     @Rollback(value = false)
@@ -112,5 +116,21 @@ public class ScheduleRepositoryTest extends RepositoryTest {
             .build());
         Schedule findSchedule = scheduleRepository.findAllByStartDateTimeBetween(startTime, endTime, user).get(0);
         assertThat(schedule).isEqualTo(findSchedule);
+    }
+
+    @Test
+    public void 일정_ID로_일정_정보를_조회한다() {
+        GroupScheduleResponse scheduleResponse = scheduleRepository.findGroupResponseById(schedule.getId(),
+            user.getId());
+
+        Assertions.assertAll(
+            () -> assertThat(scheduleResponse).isNotNull(),
+            () -> assertThat(scheduleResponse.getId()).isEqualTo(schedule.getId()),
+            () -> assertThat(scheduleResponse.getAuthorImage()).isEqualTo(schedule.getAuthor().getImageUrl()),
+            () -> assertThat(scheduleResponse.getTitle()).isEqualTo(schedule.getTitle()),
+            () -> assertThat(scheduleResponse.isOffline()).isEqualTo(schedule.isOffline()),
+            () -> assertThat(scheduleResponse.getStartDateTime()).isEqualTo(schedule.getStartDateTime()),
+            () -> assertThat(scheduleResponse.getContents()).isEqualTo(schedule.getContents())
+        );
     }
 }

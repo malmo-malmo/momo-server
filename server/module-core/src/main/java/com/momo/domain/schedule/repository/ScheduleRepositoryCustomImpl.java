@@ -27,7 +27,7 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
 
     @Override
     public List<GroupScheduleResponse> findAllByGroupAndUserOrderByCreatedDateDesc(Group group, Long userId,
-                                                                                   Pageable pageable) {
+        Pageable pageable) {
         List<GroupScheduleResponse> content = queryFactory
             .select(new QGroupScheduleResponse(
                 schedule.id,
@@ -60,7 +60,7 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
 
     @Override
     public List<Schedule> findAllByStartDateTimeBetween(LocalDateTime startDateTime, LocalDateTime endDateTime,
-                                                        User user) {
+        User user) {
         return queryFactory
             .selectFrom(schedule)
             .leftJoin(schedule.group, group).fetchJoin()
@@ -72,5 +72,28 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
             ).and(schedule.startDateTime.between(startDateTime, endDateTime)))
             .orderBy(schedule.startDateTime.asc())
             .fetch();
+    }
+
+    @Override
+    public GroupScheduleResponse findGroupResponseById(Long scheduleId, Long userId) {
+        return queryFactory
+            .select(new QGroupScheduleResponse(
+                schedule.id,
+                schedule.author.imageUrl,
+                schedule.author.nickname,
+                schedule.title,
+                schedule.isOffline,
+                schedule.startDateTime,
+                schedule.contents,
+                schedule.attendanceCheck,
+                JPAExpressions
+                    .select(attendance.isAttend)
+                    .from(attendance)
+                    .where(attendance.schedule.eq(schedule).and(attendance.userId.eq(userId)))
+            ))
+            .from(schedule)
+            .leftJoin(user).on(schedule.author.eq(user))
+            .where(schedule.id.eq(scheduleId))
+            .fetchOne();
     }
 }

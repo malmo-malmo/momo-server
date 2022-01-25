@@ -24,12 +24,23 @@ public class PostDocumentation {
             parameterWithName("contents").description("게시물 내용"),
             parameterWithName("typeName").description("게시물 타입")
         };
-        RequestPartDescriptor[] requestPart = new RequestPartDescriptor[] {
+        RequestPartDescriptor[] requestPart = new RequestPartDescriptor[]{
             partWithName("images").description("게시물 첨부 이미지")
+        };
+        FieldDescriptor[] responsePost = new FieldDescriptor[]{
+            fieldWithPath("id").type(JsonFieldType.NUMBER).description("게시글 ID"),
+            fieldWithPath("authorId").type(JsonFieldType.NUMBER).description("작성자 ID"),
+            fieldWithPath("authorImage").type(JsonFieldType.STRING).description("작성자 이미지"),
+            fieldWithPath("authorNickname").type(JsonFieldType.STRING).description("작성자 닉네임"),
+            fieldWithPath("title").type(JsonFieldType.STRING).description("게시글 제목"),
+            fieldWithPath("contents").type(JsonFieldType.STRING).description("게시글 내용"),
+            fieldWithPath("imageUrls").type(JsonFieldType.ARRAY).description("게시글 첨부 이미지 URL"),
+            fieldWithPath("createdDate").type(JsonFieldType.STRING).description("게시글 작성일자"),
         };
         return document("post/create",
             requestParameters(requestPost),
-            requestParts(requestPart)
+            requestParts(requestPart),
+            responseFields(responsePost)
         );
     }
 
@@ -72,6 +83,31 @@ public class PostDocumentation {
         return document("post/findPageByCardsRequest",
             requestParameters(requestParam),
             responseFields(responsePost)
+        );
+    }
+
+    public static RestDocumentationResultHandler update() {
+        ParameterDescriptor[] requestParam = new ParameterDescriptor[]{
+            parameterWithName("postId").description("수정할 게시글 ID"),
+            parameterWithName("title").description("수정할 게시글 제목"),
+            parameterWithName("content").description("수정할 게시글 내용")
+        };
+        RequestPartDescriptor[] requestPart = new RequestPartDescriptor[]{
+            partWithName("images").description("수정될 게시글 첨부 이미지")
+        };
+        return document("post/update",
+            requestParameters(requestParam),
+            requestParts(requestPart)
+        );
+    }
+
+    public static RestDocumentationResultHandler delete() {
+        ParameterDescriptor[] requestParam = new ParameterDescriptor[]{
+            parameterWithName("postId").description("수정할 게시글 ID")
+        };
+
+        return document("post/delete",
+            pathParameters(requestParam)
         );
     }
 }

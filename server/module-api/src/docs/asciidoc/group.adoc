@@ -2,7 +2,7 @@
 === 모임 생성
 모임을 생성합니다.
 
-operation::group/create[snippets='http-request,http-response,request-fields']
+operation::group/create[snippets='http-request,http-response,request-parameters,response-fields']
 
 === 모임 상세 조회
 모임 상세 정보를 조회합니다.

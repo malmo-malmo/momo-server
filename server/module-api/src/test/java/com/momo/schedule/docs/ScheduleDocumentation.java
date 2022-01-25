@@ -22,9 +22,21 @@ public class ScheduleDocumentation {
             fieldWithPath("isOffline").type(JsonFieldType.BOOLEAN).description("온/오프라인 여부"),
             fieldWithPath("startDateTime").type(JsonFieldType.STRING).description("일정 시작일자")
         };
+        FieldDescriptor[] responseSchedule = new FieldDescriptor[]{
+            fieldWithPath("id").type(JsonFieldType.NUMBER).description("일정 ID"),
+            fieldWithPath("authorImage").type(JsonFieldType.STRING).description("작성자 이미지"),
+            fieldWithPath("authorNickname").type(JsonFieldType.STRING).description("작성자 닉네임"),
+            fieldWithPath("title").type(JsonFieldType.STRING).description("일정 제목"),
+            fieldWithPath("contents").type(JsonFieldType.STRING).description("일정 내용"),
+            fieldWithPath("offline").type(JsonFieldType.BOOLEAN).description("오프라인 여부"),
+            fieldWithPath("startDateTime").type(JsonFieldType.STRING).description("일정 시작일자"),
+            fieldWithPath("attendanceCheck").type(JsonFieldType.BOOLEAN).description("출석 체크"),
+            fieldWithPath("attend").type(JsonFieldType.BOOLEAN).description("출석 여부"),
+        };
 
         return document("schedule/create",
-            requestFields(requestSchedule)
+            requestFields(requestSchedule),
+            responseFields(responseSchedule)
         );
     }
 

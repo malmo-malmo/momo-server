@@ -54,4 +54,8 @@ public class Comment extends BaseEntity {
             .contents(contents)
             .build();
     }
+
+    public boolean isWriter(User loginUser) {
+        return this.user.isSameUser(loginUser);
+    }
 }

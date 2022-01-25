@@ -8,7 +8,7 @@ import com.momo.RestDocsControllerTest;
 import com.momo.api.schedule.AttendanceController;
 import com.momo.domain.schedule.dto.AttendanceCreateRequest;
 import com.momo.domain.schedule.dto.AttendanceCreateRequests;
-import com.momo.domain.schedule.service.AttendanceService;
+import com.momo.domain.schedule.service.impl.AttendanceServiceImpl;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ public class AttendanceRestDocsTest extends RestDocsControllerTest {
     private AttendanceController attendanceController;
 
     @MockBean
-    private AttendanceService attendanceService;
+    private AttendanceServiceImpl attendanceService;
 
     @Test
     public void 출석체크() throws Exception {

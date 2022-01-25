@@ -12,7 +12,7 @@ import com.momo.api.group.GroupsController;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.entity.Category;
-import com.momo.domain.group.service.GroupService;
+import com.momo.domain.group.service.impl.GroupServiceImpl;
 import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -29,7 +29,7 @@ public class GroupsRestDocsTest extends RestDocsControllerTest {
     public GroupsController groupsController;
 
     @MockBean
-    public GroupService groupService;
+    public GroupServiceImpl groupService;
 
     @Test
     public void 모임_목록_조회_검색() throws Exception {

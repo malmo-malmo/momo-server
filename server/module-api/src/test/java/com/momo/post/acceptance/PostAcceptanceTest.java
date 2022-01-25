@@ -1,5 +1,6 @@
 package com.momo.post.acceptance;
 
+import static com.momo.CommonFileUploadSupport.uploadTestFile;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatCustomException;
 import static com.momo.domain.common.exception.ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST1;
@@ -20,8 +21,8 @@ import com.momo.common.acceptance.step.AcceptanceStep;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.post.dto.PostCardResponse;
 import com.momo.domain.post.dto.PostCardsRequest;
-import com.momo.domain.post.dto.PostUpdateRequest;
 import com.momo.domain.post.dto.PostResponse;
+import com.momo.domain.post.dto.PostUpdateRequest;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.entity.PostType;
 import com.momo.domain.post.repository.PostRepository;
@@ -73,6 +74,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
             .postId(postId)
             .title("수정된 게시글 제목")
             .content("수정된 게시글 내용")
+            .images(List.of(uploadTestFile))
             .build();
         ExtractableResponse<Response> response = requestToUpdatePost(token, request);
         AcceptanceStep.assertThatStatusIsOk(response);

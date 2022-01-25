@@ -68,7 +68,7 @@ public class PostAcceptanceStep {
     }
 
     public static ExtractableResponse<Response> requestToUpdatePost(String token, PostUpdateRequest request) {
-        return given().log().all()
+        return uploadAssuredSupport(given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .body(request)

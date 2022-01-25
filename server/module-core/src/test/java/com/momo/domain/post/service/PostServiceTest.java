@@ -17,8 +17,8 @@ import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.post.dto.PostCreateRequest;
-import com.momo.domain.post.dto.PostUpdateRequest;
 import com.momo.domain.post.dto.PostResponse;
+import com.momo.domain.post.dto.PostUpdateRequest;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.entity.PostType;
 import com.momo.domain.post.repository.PostRepository;
@@ -225,13 +225,15 @@ public class PostServiceTest extends ServiceTest {
     }
 
     @Test
-    void 게시물_수정_테스트를_성공한다() {
+    void 게시물_수정_테스트를_성공한다() throws IOException {
         PostUpdateRequest request = PostUpdateRequest.builder()
             .postId(1L)
             .title("수정될 게시글 제목입니다.")
             .content("수정될 게시글 내용입니다.")
             .build();
         Post post = Post.builder()
+            .id(request.getPostId())
+            .group(Group.builder().id(1L).build())
             .author(User.builder()
                 .id(user.getId())
                 .build())

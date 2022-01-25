@@ -3,8 +3,8 @@ package com.momo.domain.post.service;
 import com.momo.domain.post.dto.PostCardResponse;
 import com.momo.domain.post.dto.PostCardsRequest;
 import com.momo.domain.post.dto.PostCreateRequest;
-import com.momo.domain.post.dto.PostUpdateRequest;
 import com.momo.domain.post.dto.PostResponse;
+import com.momo.domain.post.dto.PostUpdateRequest;
 import com.momo.domain.user.entity.User;
 import java.io.IOException;
 import java.util.List;
@@ -17,7 +17,7 @@ public interface PostService {
 
     List<PostCardResponse> findPageByGroupIdAndType(User user, PostCardsRequest request);
 
-    void updatePost(PostUpdateRequest request, User user);
+    void updatePost(PostUpdateRequest request, User user) throws IOException;
 
     void deletePost(Long postId, User user);
 }

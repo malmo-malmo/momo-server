@@ -2,8 +2,8 @@ package com.momo.api.post;
 
 import com.momo.common.CurrentUser;
 import com.momo.domain.post.dto.PostCreateRequest;
-import com.momo.domain.post.dto.PostUpdateRequest;
 import com.momo.domain.post.dto.PostResponse;
+import com.momo.domain.post.dto.PostUpdateRequest;
 import com.momo.domain.post.service.PostService;
 import com.momo.domain.user.entity.User;
 import java.io.IOException;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,7 +42,8 @@ public class PostController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> update(@CurrentUser User user, @Valid @RequestBody PostUpdateRequest request) {
+    public ResponseEntity<Void> update(@CurrentUser User user, @Valid @ModelAttribute PostUpdateRequest request)
+        throws IOException {
         postService.updatePost(request, user);
         return ResponseEntity.ok().build();
     }

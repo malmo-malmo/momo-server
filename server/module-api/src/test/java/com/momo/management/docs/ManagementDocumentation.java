@@ -3,10 +3,13 @@ package com.momo.management.docs;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 
 import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.restdocs.request.ParameterDescriptor;
 
 public class ManagementDocumentation {
 
@@ -36,6 +39,27 @@ public class ManagementDocumentation {
         };
         return document("management/findParticipatingGroups",
             responseFields(response)
+        );
+    }
+
+    public static RestDocumentationResultHandler findMyPosts() {
+        ParameterDescriptor[] requestParam = new ParameterDescriptor[]{
+            parameterWithName("page").description("페이지 번호"),
+            parameterWithName("size").description("보여줄 게시글 수")
+        };
+        FieldDescriptor[] responsePost = new FieldDescriptor[]{
+            fieldWithPath("[].groupName").type(JsonFieldType.STRING).description("모임 이름"),
+            fieldWithPath("[].postCardResponse.id").type(JsonFieldType.NUMBER).description("게시글 ID"),
+            fieldWithPath("[].postCardResponse.authorImage").type(JsonFieldType.STRING).description("작성자 이미지"),
+            fieldWithPath("[].postCardResponse.authorNickname").type(JsonFieldType.STRING).description("작성자 닉네임"),
+            fieldWithPath("[].postCardResponse.title").type(JsonFieldType.STRING).description("게시글 제목"),
+            fieldWithPath("[].postCardResponse.contents").type(JsonFieldType.STRING).description("게시글 내용"),
+            fieldWithPath("[].postCardResponse.createdDate").type(JsonFieldType.STRING).description("게시글 작성일자"),
+            fieldWithPath("[].postCardResponse.commentCnt").type(JsonFieldType.NUMBER).description("사용되지 않음")
+        };
+        return document("management/findMyPosts",
+            requestParameters(requestParam),
+            responseFields(responsePost)
         );
     }
 }

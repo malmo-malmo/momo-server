@@ -60,21 +60,19 @@ public class UserAcceptanceStep {
 
     public static ExtractableResponse<Response> requestToUpdateMyInformation(String token,
         UserUpdateRequest userUpdateRequest) {
-        return uploadAssuredSupport(
-            given().log().all()
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token), userUpdateRequest)
-            .post("/api/user/update")
+        return uploadAssuredSupport(given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token), userUpdateRequest)
+            .put("/api/user")
             .then().log().all()
             .extract();
     }
 
     public static ExtractableResponse<Response> requestToUpdateMyInformationWithImage(String token,
         UserUpdateRequest userUpdateRequest) {
-        return uploadAssuredSupport(
-            given().log().all()
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-                .contentType(MediaType.MULTIPART_FORM_DATA_VALUE), userUpdateRequest)
-            .post("/api/user/update")
+        return uploadAssuredSupport(given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .contentType(MediaType.MULTIPART_FORM_DATA_VALUE), userUpdateRequest)
+            .put("/api/user")
             .then().log().all()
             .extract();
     }

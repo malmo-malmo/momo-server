@@ -25,6 +25,7 @@ public class PostsRestDocsTest extends RestDocsControllerTest {
 
     @InjectMocks
     private PostController postsController;
+
     @MockBean
     private PostService postService;
 
@@ -33,7 +34,7 @@ public class PostsRestDocsTest extends RestDocsControllerTest {
         when(postService.findPageByGroupIdAndType(any(), any())).thenReturn(List.of(
             PostCardResponse.builder()
                 .id(1L)
-                .authorImage("http://~~")
+                .authorImage("이미지 URL")
                 .authorNickname("테스트맨")
                 .title("테스트 게시글")
                 .contents("테스트 내용")

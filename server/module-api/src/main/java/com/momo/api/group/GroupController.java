@@ -29,10 +29,10 @@ public class GroupController {
     private final GroupService groupService;
 
     @PostMapping
-    public ResponseEntity<Void> create(@CurrentUser User user,
+    public ResponseEntity<GroupResponse> create(@CurrentUser User user,
         @Valid @ModelAttribute GroupCreateRequest groupCreateRequest) throws URISyntaxException, IOException {
-        Long groupId = groupService.create(user, groupCreateRequest);
-        return ResponseEntity.created(new URI("/api/group/" + groupId)).build();
+        GroupResponse response = groupService.create(user, groupCreateRequest);
+        return ResponseEntity.created(new URI("/api/group/" + response.getId())).body(response);
     }
 
     @GetMapping("/{id}")

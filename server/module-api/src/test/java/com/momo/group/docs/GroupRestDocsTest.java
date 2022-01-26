@@ -17,7 +17,7 @@ import com.momo.domain.district.entity.City;
 import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.entity.Category;
-import com.momo.domain.group.service.GroupService;
+import com.momo.domain.group.service.impl.GroupServiceImpl;
 import java.time.LocalDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,11 +34,26 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
     public GroupController groupController;
 
     @MockBean
-    public GroupService groupService;
+    public GroupServiceImpl groupService;
 
     @Test
     public void 모임_생성_테스트() throws Exception {
-        when(groupService.create(any(), any())).thenReturn(1L);
+        when(groupService.create(any(), any())).thenReturn(GroupResponse.builder()
+            .id(1L)
+            .managerId(1L)
+            .name("모임 이름")
+            .imageUrl("모임 이미지")
+            .startDate(LocalDate.now())
+            .university("서울대")
+            .city(City.SEOUL)
+            .district("지역")
+            .isOffline(false)
+            .introduction("모임 설명")
+            .recruitmentCnt(1)
+            .isEnd(false)
+            .participantCnt(1L)
+            .isParticipant(false)
+            .build());
         GroupCreateRequest request = GroupCreateRequest.builder()
             .name("A 모임")
             .category(Category.HOBBY)

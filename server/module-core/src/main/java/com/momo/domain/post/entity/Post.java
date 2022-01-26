@@ -72,4 +72,9 @@ public class Post extends BaseEntity {
     public void updateImages(List<String> imageUrls) {
         images.updateAll(this, imageUrls);
     }
+
+    public void updateTitleAndContents(String title, String contents) {
+        this.title = title;
+        this.contents = contents;
+    }
 }

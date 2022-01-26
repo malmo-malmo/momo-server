@@ -13,12 +13,13 @@ import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
-import com.momo.domain.schedule.entity.Schedule;
-import com.momo.domain.schedule.repository.ScheduleRepository;
 import com.momo.domain.schedule.dto.GroupScheduleResponse;
 import com.momo.domain.schedule.dto.GroupScheduleResponses;
 import com.momo.domain.schedule.dto.GroupSchedulesRequest;
 import com.momo.domain.schedule.dto.ScheduleCreateRequest;
+import com.momo.domain.schedule.entity.Schedule;
+import com.momo.domain.schedule.repository.ScheduleRepository;
+import com.momo.domain.schedule.service.impl.ScheduleServiceImpl;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,7 +42,6 @@ public class ScheduleServiceTest extends ServiceTest {
     @Mock
     private ParticipantRepository participantRepository;
 
-    @InjectMocks
     private ScheduleService scheduleService;
 
     private User manager;
@@ -58,6 +58,7 @@ public class ScheduleServiceTest extends ServiceTest {
             .id(1L)
             .manager(manager)
             .build();
+        scheduleService = new ScheduleServiceImpl(scheduleRepository, groupRepository, participantRepository);
     }
 
     @Test
@@ -69,16 +70,21 @@ public class ScheduleServiceTest extends ServiceTest {
             .startDateTime(LocalDateTime.of(2021, 12, 31, 10, 30))
             .contents("일정 내용")
             .build();
-        Schedule schedule = Schedule.builder().id(1L).build();
+        Long savedScheduleId = 1L;
+        Schedule schedule = Schedule.builder().id(savedScheduleId).build();
 
         given(groupRepository.findById(any())).willReturn(of(group));
         given(scheduleRepository.save(any())).willReturn(schedule);
+        given(scheduleRepository.findGroupResponseById(any(), any())).willReturn(
+            GroupScheduleResponse.builder().id(savedScheduleId).build());
 
-        Long actual = scheduleService.create(manager, scheduleCreateRequest);
-
+        GroupScheduleResponse response = scheduleService.create(manager, scheduleCreateRequest);
         verify(groupRepository).findById(any());
         verify(scheduleRepository).save(any());
-        assertThat(actual).isEqualTo(schedule.getId());
+        Assertions.assertAll(
+            () -> assertThat(response).isNotNull(),
+            () -> assertThat(response.getId()).isEqualTo(savedScheduleId)
+        );
     }
 
     @Test

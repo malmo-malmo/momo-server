@@ -8,6 +8,8 @@ import com.momo.domain.post.dto.PostCardResponse;
 import com.momo.domain.post.dto.PostCardsRequest;
 import com.momo.domain.post.dto.PostCreateRequest;
 import com.momo.domain.post.dto.PostResponse;
+import com.momo.domain.post.dto.PostUpdateRequest;
+import com.momo.domain.post.entity.Post;
 import com.momo.domain.user.entity.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -33,6 +35,14 @@ public class PostAcceptanceStep {
         );
     }
 
+    public static void assertThatUpdatePost(PostUpdateRequest request, Post post) {
+        Assertions.assertAll(
+            () -> assertThat(post).isNotNull(),
+            () -> assertThat(post.getTitle()).isEqualTo(request.getTitle()),
+            () -> assertThat(post.getContents()).isEqualTo(request.getContent())
+        );
+    }
+
     public static void assertThatFindPosts(PostCreateRequest request, List<PostCardResponse> responses,
         User createUser, int commentCnt) {
         Assertions.assertAll(
@@ -53,6 +63,26 @@ public class PostAcceptanceStep {
             .contentType(MediaType.MULTIPART_FORM_DATA_VALUE), postCreateRequest)
             .when()
             .post("/api/post")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> requestToUpdatePost(String token, PostUpdateRequest request) {
+        return uploadAssuredSupport(given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
+            .when(), request)
+            .put("/api/post")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> requestToDeletePost(String token, Long postId) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .pathParam("postId", postId)
+            .when()
+            .delete("/api/post/{postId}")
             .then().log().all()
             .extract();
     }

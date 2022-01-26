@@ -2,8 +2,6 @@ package com.momo.group.docs;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestPartFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
@@ -31,13 +29,30 @@ public class GroupDocumentation {
             parameterWithName("introduction").description("모임 설명"),
             parameterWithName("isOffline").description("모임 온/오프라인 여부")
         };
-        RequestPartDescriptor[] requestFiles = new RequestPartDescriptor[] {
-          partWithName("image").description("모임 이미지")
+        RequestPartDescriptor[] requestFiles = new RequestPartDescriptor[]{
+            partWithName("image").description("모임 이미지")
+        };
+        FieldDescriptor[] responseGroup = new FieldDescriptor[]{
+            fieldWithPath("id").type(JsonFieldType.NUMBER).description("모임 ID"),
+            fieldWithPath("managerId").type(JsonFieldType.NUMBER).description("모임 담당자 ID"),
+            fieldWithPath("name").type(JsonFieldType.STRING).description("모임 이름"),
+            fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("모임 이미지"),
+            fieldWithPath("startDate").type(JsonFieldType.STRING).description("모임 시작일자"),
+            fieldWithPath("university").type(JsonFieldType.STRING).description("모임 학교"),
+            fieldWithPath("city").type(JsonFieldType.STRING).description("모임 도시"),
+            fieldWithPath("district").type(JsonFieldType.STRING).description("모임 구역"),
+            fieldWithPath("offline").type(JsonFieldType.BOOLEAN).description("모임 오프라인 여부"),
+            fieldWithPath("introduction").type(JsonFieldType.STRING).description("모임 설명"),
+            fieldWithPath("recruitmentCnt").type(JsonFieldType.NUMBER).description("모임 인원"),
+            fieldWithPath("end").type(JsonFieldType.BOOLEAN).description("모임 종료 여부"),
+            fieldWithPath("participantCnt").type(JsonFieldType.NUMBER).description("모임 참가자 수"),
+            fieldWithPath("participant").type(JsonFieldType.BOOLEAN).description("모임 참가 여부"),
         };
 
         return document("group/create",
             requestParameters(requestGroup),
-            requestParts(requestFiles)
+            requestParts(requestFiles),
+            responseFields(responseGroup)
         );
     }
 

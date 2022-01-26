@@ -12,17 +12,17 @@ import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
+import com.momo.domain.schedule.dto.AttendanceCreateRequest;
+import com.momo.domain.schedule.dto.AttendanceCreateRequests;
 import com.momo.domain.schedule.entity.Schedule;
 import com.momo.domain.schedule.repository.AttendanceRepository;
 import com.momo.domain.schedule.repository.ScheduleRepository;
-import com.momo.domain.schedule.dto.AttendanceCreateRequest;
-import com.momo.domain.schedule.dto.AttendanceCreateRequests;
+import com.momo.domain.schedule.service.impl.AttendanceServiceImpl;
 import com.momo.domain.user.entity.User;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 @DisplayName("출석 서비스 테스트")
@@ -37,7 +37,6 @@ public class AttendanceServiceTest extends ServiceTest {
     @Mock
     private AttendanceRepository attendanceRepository;
 
-    @InjectMocks
     private AttendanceService attendanceService;
 
     private User manager;
@@ -61,6 +60,7 @@ public class AttendanceServiceTest extends ServiceTest {
             .group(group)
             .author(manager)
             .build();
+        attendanceService = new AttendanceServiceImpl(groupRepository, scheduleRepository, attendanceRepository);
     }
 
     @Test

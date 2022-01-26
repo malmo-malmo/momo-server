@@ -1,6 +1,7 @@
 package com.momo.schedule.docs;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
@@ -15,7 +16,7 @@ import com.momo.domain.schedule.dto.GroupScheduleResponse;
 import com.momo.domain.schedule.dto.GroupScheduleResponses;
 import com.momo.domain.schedule.dto.ScheduleCreateRequest;
 import com.momo.domain.schedule.dto.UserScheduleResponse;
-import com.momo.domain.schedule.service.ScheduleService;
+import com.momo.domain.schedule.service.impl.ScheduleServiceImpl;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -33,7 +34,7 @@ public class ScheduleRestDocsTest extends RestDocsControllerTest {
     private ScheduleController scheduleController;
 
     @MockBean
-    private ScheduleService scheduleService;
+    private ScheduleServiceImpl scheduleService;
 
     @Test
     public void 일정_등록() throws Exception {
@@ -45,6 +46,19 @@ public class ScheduleRestDocsTest extends RestDocsControllerTest {
             .startDateTime(LocalDateTime.now())
             .build();
         String content = super.objectMapper.writeValueAsString(request);
+
+        given(scheduleService.create(any(), any())).willReturn(GroupScheduleResponse.builder()
+            .id(1L)
+            .authorImage("작성자 이미지")
+            .authorNickname("작성자 이름")
+            .title("오늘의 일정")
+            .isOffline(false)
+            .startDateTime(LocalDateTime.now())
+            .contents("오늘의 일정 내용")
+            .attendanceCheck(false)
+            .isAttend(false)
+            .build());
+
         super.mockMvc.perform(post("/api/schedule")
                 .content(content)
                 .contentType(MediaType.APPLICATION_JSON_VALUE))

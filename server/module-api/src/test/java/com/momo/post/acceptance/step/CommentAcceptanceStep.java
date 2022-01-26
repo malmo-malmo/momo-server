@@ -61,4 +61,13 @@ public class CommentAcceptanceStep {
             .then().log().all()
             .extract();
     }
+
+    public static ExtractableResponse<Response> requestToDeleteComment(String token, Long commentId) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .pathParam("commentId", commentId)
+            .delete("/api/comment/{commentId}")
+            .then().log().all()
+            .extract();
+    }
 }

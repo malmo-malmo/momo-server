@@ -4,6 +4,7 @@ import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -12,21 +13,22 @@ import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.ParticipantRepository;
-import com.momo.domain.post.entity.Comment;
-import com.momo.domain.post.entity.Post;
-import com.momo.domain.post.repository.CommentRepository;
-import com.momo.domain.post.repository.PostRepository;
 import com.momo.domain.post.dto.CommentCreateRequest;
 import com.momo.domain.post.dto.CommentResponse;
 import com.momo.domain.post.dto.CommentsRequest;
 import com.momo.domain.post.dto.CommentsResponse;
+import com.momo.domain.post.entity.Comment;
+import com.momo.domain.post.entity.Post;
+import com.momo.domain.post.repository.CommentRepository;
+import com.momo.domain.post.repository.PostRepository;
+import com.momo.domain.post.service.impl.CommentServiceImpl;
 import com.momo.domain.user.entity.User;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -44,7 +46,6 @@ public class CommentServiceTest extends ServiceTest {
     @Mock
     private CommentRepository commentRepository;
 
-    @InjectMocks
     private CommentService commentService;
 
     private Post post;
@@ -53,6 +54,7 @@ public class CommentServiceTest extends ServiceTest {
 
     @BeforeEach
     void setUp() {
+        commentService = new CommentServiceImpl(postRepository, participantRepository, commentRepository);
         Group group = Group.builder().id(1L).build();
         post = Post.builder()
             .id(1L)
@@ -167,5 +169,26 @@ public class CommentServiceTest extends ServiceTest {
         assertThatThrownBy(() -> commentService.findPageByPostId(author, commentsRequest))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED.getMessage());
+    }
+
+    @Test
+    void 댓글_삭제_테스트에_성공한다() {
+        User user = User.builder().id(1L).build();
+        Comment comment = Comment.builder().id(1L).user(user).build();
+
+        given(commentRepository.findById(anyLong()))
+            .willReturn(Optional.of(comment));
+        commentService.deleteComment(comment.getId(), user);
+        verify(commentRepository).delete(comment);
+    }
+
+    @Test
+    void 댓글_작성자가_아니면_댓글_삭제에_실패한다() {
+        Comment comment = Comment.builder().id(1L).build();
+        User user = User.builder().build();
+
+        assertThatThrownBy(() -> commentService.deleteComment(comment.getId(), user))
+            .isInstanceOf(CustomException.class)
+            .hasMessage(ErrorCode.INVALID_INDEX_NUMBER.getMessage());
     }
 }

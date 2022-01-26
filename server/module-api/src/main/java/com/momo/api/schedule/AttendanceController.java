@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/attendance")
 @RequiredArgsConstructor
 public class AttendanceController {
 
     private final AttendanceService attendanceService;
 
     @ApiOperation(value = "출석 체크")
-    @PostMapping("/attendance")
+    @PostMapping
     public ResponseEntity<Void> create(@CurrentUser User user,
         @Valid @RequestBody AttendanceCreateRequests attendanceCreateRequests) {
         attendanceService.create(user, attendanceCreateRequests);

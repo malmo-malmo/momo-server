@@ -1,13 +1,14 @@
 package com.momo.domain.post.dto;
 
+import com.momo.domain.common.util.TimeFormatUtil;
 import com.momo.domain.post.entity.Post;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+@Getter
 @NoArgsConstructor
 public class PostResponse {
 
@@ -25,7 +26,7 @@ public class PostResponse {
 
     private List<String> imageUrls;
 
-    private LocalDateTime createdDate;
+    private String createdDate;
 
     @Builder
     public PostResponse(Long id, Long authorId, String authorImage, String authorNickname, String title,
@@ -37,7 +38,7 @@ public class PostResponse {
         this.title = title;
         this.contents = contents;
         this.imageUrls = imageUrls;
-        this.createdDate = createdDate;
+        this.createdDate = TimeFormatUtil.generateDateInfo(createdDate);
     }
 
     public static PostResponse of(Post post) {

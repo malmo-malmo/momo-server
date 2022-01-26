@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.momo.RestDocsControllerTest;
 import com.momo.api.group.ParticipantController;
 import com.momo.domain.group.dto.ParticipantResponse;
-import com.momo.domain.group.service.ParticipantService;
+import com.momo.domain.group.service.impl.ParticipantServiceImpl;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +30,7 @@ public class ParticipantRestDocsTest extends RestDocsControllerTest {
     @InjectMocks
     private ParticipantController participantController;
     @MockBean
-    private ParticipantService participantService;
+    private ParticipantServiceImpl participantService;
 
     @Test
     public void 모임_참여_신청() throws Exception {

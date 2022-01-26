@@ -1,14 +1,15 @@
 package com.momo.domain.post.dto;
 
+import com.momo.domain.common.util.TimeFormatUtil;
 import com.momo.domain.post.entity.Comment;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+@Getter
 @NoArgsConstructor
 public class CommentResponse {
 
@@ -22,7 +23,7 @@ public class CommentResponse {
 
     private String contents;
 
-    private LocalDateTime createdDate;
+    private String createdDate;
 
     @Builder
     public CommentResponse(Long id, Long authorId, String authorImage, String authorNickname, String contents,
@@ -32,7 +33,7 @@ public class CommentResponse {
         this.authorImage = authorImage;
         this.authorNickname = authorNickname;
         this.contents = contents;
-        this.createdDate = createdDate;
+        this.createdDate = TimeFormatUtil.generateDateInfo(createdDate);
     }
 
     public static CommentResponse of(Comment comment) {

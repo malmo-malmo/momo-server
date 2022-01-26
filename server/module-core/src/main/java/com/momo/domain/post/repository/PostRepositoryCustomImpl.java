@@ -72,7 +72,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
         JPAQuery<Post> countQuery = queryFactory
             .select(post)
             .from(post)
-            .where(post.author.eq(loginUser));
+            .where(post.author.eq(loginUser), post.type.eq(type));
 
         return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchCount).getContent();
     }

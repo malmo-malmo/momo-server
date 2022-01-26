@@ -10,7 +10,9 @@ import org.springframework.data.domain.Pageable;
 
 public interface PostRepositoryCustom {
 
-    List<PostCardResponse> findAllByGroupAndTypeOrderByCreatedDateDesc(Group group, PostType type, Pageable pageable);
+    List<PostCardResponse> findAllWithAuthorByGroupAndTypeOrderByCreatedDateDesc(Group group, PostType type,
+        Pageable pageable);
 
-    List<Post> findAllWithGroupAndAuthorByUserOrderByCreatedDateDesc(User user, Pageable pageable);
+    List<Post> findAllWithGroupAndAuthorByUserAndTypeOrderByCreatedDateDesc(User user, PostType type,
+        Pageable pageable);
 }

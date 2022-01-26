@@ -66,7 +66,8 @@ public class PostServiceImpl implements PostService {
         validateParticipant(group, user);
         PostType postType = PostType.of(request.getType());
         PageRequest page = PageRequest.of(request.getPage(), request.getSize());
-        return postRepository.findAllByGroupAndTypeOrderByCreatedDateDesc(group, postType, page);
+        return postRepository
+            .findAllWithAuthorByGroupAndTypeOrderByCreatedDateDesc(group, postType, page);
     }
 
     public void updatePost(PostUpdateRequest request, User user) throws IOException {

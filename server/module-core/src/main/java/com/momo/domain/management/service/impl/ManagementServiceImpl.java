@@ -1,5 +1,8 @@
 package com.momo.domain.management.service.impl;
 
+import static com.momo.domain.post.entity.PostType.NORMAL;
+import static org.springframework.data.domain.PageRequest.of;
+
 import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.management.dto.MyPostCardResponse;
 import com.momo.domain.management.dto.ParticipatingGroupCardResponse;
@@ -10,7 +13,6 @@ import com.momo.domain.post.repository.PostRepository;
 import com.momo.domain.user.entity.User;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +38,7 @@ public class ManagementServiceImpl implements ManagementService {
     @Transactional(readOnly = true)
     public List<MyPostCardResponse> findMyPostsByUser(User loginUser, int page, int size) {
         List<Post> posts = postRepository
-            .findAllWithGroupAndAuthorByUserOrderByCreatedDateDesc(loginUser, PageRequest.of(page, size));
+            .findAllWithGroupAndAuthorByUserAndTypeOrderByCreatedDateDesc(loginUser, NORMAL, of(page, size));
         return MyPostCardResponse.listOf(posts);
     }
 }

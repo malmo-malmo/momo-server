@@ -25,7 +25,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<PostCardResponse> findAllByGroupAndTypeOrderByCreatedDateDesc(Group group, PostType type,
+    public List<PostCardResponse> findAllWithAuthorByGroupAndTypeOrderByCreatedDateDesc(Group group, PostType type,
         Pageable pageable) {
         List<PostCardResponse> content = queryFactory.
             select(new QPostCardResponse(
@@ -57,12 +57,13 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
     }
 
     @Override
-    public List<Post> findAllWithGroupAndAuthorByUserOrderByCreatedDateDesc(User loginUser, Pageable pageable) {
+    public List<Post> findAllWithGroupAndAuthorByUserAndTypeOrderByCreatedDateDesc(User loginUser, PostType type,
+        Pageable pageable) {
         List<Post> content = queryFactory.
             selectFrom(post)
-            .leftJoin(user).on(post.author.eq(user))
-            .leftJoin(group).on(post.group.eq(group))
-            .where(post.author.eq(loginUser))
+            .leftJoin(post.author, user).fetchJoin()
+            .leftJoin(post.group, group).fetchJoin()
+            .where(post.author.eq(loginUser), post.type.eq(type))
             .orderBy(post.createdDate.desc())
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())

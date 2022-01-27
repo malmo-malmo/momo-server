@@ -2,7 +2,7 @@ package com.momo.domain.common.dto;
 
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
-import com.momo.domain.user.entity.FavoriteCategories;
+import com.momo.domain.favorite.entity.FavoriteCategories;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

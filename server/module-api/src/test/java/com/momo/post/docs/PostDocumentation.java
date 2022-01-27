@@ -22,7 +22,7 @@ public class PostDocumentation {
             parameterWithName("groupId").description("모임 ID"),
             parameterWithName("title").description("게시물 제목"),
             parameterWithName("contents").description("게시물 내용"),
-            parameterWithName("typeName").description("게시물 타입")
+            parameterWithName("typeName").description("게시물 타입 [NORMAL, NOTICE]")
         };
         RequestPartDescriptor[] requestPart = new RequestPartDescriptor[]{
             partWithName("images").description("게시물 첨부 이미지")

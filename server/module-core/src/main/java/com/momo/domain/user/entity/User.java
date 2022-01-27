@@ -2,6 +2,7 @@ package com.momo.domain.user.entity;
 
 import com.momo.domain.common.entity.BaseEntity;
 import com.momo.domain.district.entity.City;
+import com.momo.domain.favorite.entity.FavoriteCategories;
 import com.momo.domain.group.entity.Category;
 import java.util.List;
 import java.util.Objects;

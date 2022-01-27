@@ -1,6 +1,6 @@
 package com.momo.domain.group.repository;
 
-import com.momo.domain.user.dto.ParticipatingGroupCardResponse;
+import com.momo.domain.management.dto.ParticipatingGroupCardResponse;
 import com.momo.domain.user.entity.User;
 import java.util.List;
 

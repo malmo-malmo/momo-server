@@ -10,22 +10,19 @@ import static org.mockito.Mockito.verify;
 
 import com.momo.common.ServiceTest;
 import com.momo.domain.aws.service.S3UploadService;
-import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.district.entity.City;
-import com.momo.domain.group.entity.Category;
-import com.momo.domain.user.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.user.dto.UserUpdateRequest;
+import com.momo.domain.user.dto.UserUpdateResponse;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
+import com.momo.domain.user.service.impl.UserServiceImpl;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.mock.web.MockMultipartFile;
 
@@ -38,13 +35,12 @@ public class UserServiceTest extends ServiceTest {
     @Mock
     private S3UploadService s3UploadService;
 
-    @InjectMocks
     private UserService userService;
-
     private User user;
 
     @BeforeEach
     void setUp() {
+        userService = new UserServiceImpl(userRepository, s3UploadService);
         user = User.builder()
             .id(1L)
             .nickname("닉네임")
@@ -64,17 +60,17 @@ public class UserServiceTest extends ServiceTest {
         given(userRepository.existsByNickname(any())).willReturn(false);
         given(s3UploadService.upload(any(), any())).willReturn(null);
 
-        userService.update(user, userUpdateRequest);
+        UserUpdateResponse actual = userService.update(user, userUpdateRequest);
 
         verify(userRepository).findById(any());
         verify(userRepository).existsByNickname(any());
         verify(s3UploadService).upload(any(), any());
         Assertions.assertAll(
-            () -> assertThat(user.getNickname()).isEqualTo(userUpdateRequest.getNickname()),
-            () -> assertThat(user.getUniversity()).isEqualTo(userUpdateRequest.getUniversity()),
-            () -> assertThat(user.getCity()).isEqualTo(userUpdateRequest.getCity()),
-            () -> assertThat(user.getDistrict()).isEqualTo(userUpdateRequest.getDistrict()),
-            () -> assertThat(user.getImageUrl()).isNull()
+            () -> assertThat(actual.getNickname()).isEqualTo(userUpdateRequest.getNickname()),
+            () -> assertThat(actual.getUniversity()).isEqualTo(userUpdateRequest.getUniversity()),
+            () -> assertThat(actual.getCity().getCode()).isEqualTo(userUpdateRequest.getCity().getCode()),
+            () -> assertThat(actual.getDistrict()).isEqualTo(userUpdateRequest.getDistrict()),
+            () -> assertThat(actual.getImageUrl()).isNull()
         );
     }
 
@@ -92,16 +88,16 @@ public class UserServiceTest extends ServiceTest {
         given(userRepository.findById(any())).willReturn(of(user));
         given(s3UploadService.upload(any(), any())).willReturn(imageUrl);
 
-        userService.update(user, userUpdateRequest);
+        UserUpdateResponse actual = userService.update(user, userUpdateRequest);
 
         verify(userRepository).findById(any());
         verify(userRepository, never()).existsByNickname(any());
         verify(s3UploadService).upload(any(), any());
         Assertions.assertAll(
-            () -> assertThat(user.getNickname()).isEqualTo(userUpdateRequest.getNickname()),
-            () -> assertThat(user.getUniversity()).isEqualTo(userUpdateRequest.getUniversity()),
-            () -> assertThat(user.getCity()).isEqualTo(userUpdateRequest.getCity()),
-            () -> assertThat(user.getDistrict()).isEqualTo(userUpdateRequest.getDistrict()),
+            () -> assertThat(actual.getNickname()).isEqualTo(userUpdateRequest.getNickname()),
+            () -> assertThat(actual.getUniversity()).isEqualTo(userUpdateRequest.getUniversity()),
+            () -> assertThat(actual.getCity().getCode()).isEqualTo(userUpdateRequest.getCity().getCode()),
+            () -> assertThat(actual.getDistrict()).isEqualTo(userUpdateRequest.getDistrict()),
             () -> assertThat(user.getImageUrl()).isEqualTo(imageUrl)
         );
     }
@@ -116,41 +112,5 @@ public class UserServiceTest extends ServiceTest {
         assertThatThrownBy(() -> userService.update(user, userUpdateRequest))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.DUPLICATED_NICKNAME.getMessage());
-    }
-
-    @Test
-    void 유저_관심_카테고리_정보_조회_테스트() {
-        List<Category> expected = List.of(Category.HEALTH, Category.EMPLOYMENT);
-        user.updateFavoriteCategories(expected);
-
-        List<EnumResponse> actual = userService.findFavoriteCategoriesByUser(user);
-
-        Assertions.assertAll(
-            () -> assertThat(actual).isNotNull(),
-            () -> assertThat(actual.size()).isEqualTo(expected.size()),
-            () -> assertThat(actual.get(0).getCode()).isEqualTo(expected.get(0).getCode()),
-            () -> assertThat(actual.get(0).getName()).isEqualTo(expected.get(0).getName()),
-            () -> assertThat(actual.get(1).getCode()).isEqualTo(expected.get(1).getCode()),
-            () -> assertThat(actual.get(1).getName()).isEqualTo(expected.get(1).getName())
-        );
-    }
-
-    @Test
-    void 유저_관심_카테고리_정보_업데이트_테스트() {
-        FavoriteCategoriesUpdateRequest categoryRequest = new FavoriteCategoriesUpdateRequest(
-            List.of(Category.HOBBY, Category.LIFE)
-        );
-
-        given(userRepository.findById(any())).willReturn(of(user));
-
-        userService.updateFavoriteCategories(user, categoryRequest);
-
-        Assertions.assertAll(
-            () -> assertThat(user.getFavoriteCategories().getFavoriteCategories().size()).isEqualTo(2),
-            () -> assertThat(user.getFavoriteCategories().getFavoriteCategories().get(0).getCategory())
-                .isEqualTo(categoryRequest.getFavoriteCategories().get(0)),
-            () -> assertThat(user.getFavoriteCategories().getFavoriteCategories().get(1).getCategory())
-                .isEqualTo(categoryRequest.getFavoriteCategories().get(1))
-        );
     }
 }

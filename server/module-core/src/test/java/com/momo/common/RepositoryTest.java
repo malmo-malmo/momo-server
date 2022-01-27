@@ -30,7 +30,7 @@ public class RepositoryTest implements InitializingBean {
     private TestEntityManager entityManager;
 
     @PersistenceContext
-    private EntityManager em;
+    protected EntityManager em;
 
     private List<String> tables;
 

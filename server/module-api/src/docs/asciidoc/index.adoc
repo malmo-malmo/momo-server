@@ -14,10 +14,13 @@ Momo API Document
 
 [[overview]]
 == Overview
+
 모모 서버 API 문서입니다.
 
 == Common
+
 === Server
+
 |===
 | 환경 | IP | PORT | DOMAIN
 
@@ -32,7 +35,6 @@ Momo API Document
 | `미정`
 |===
 
-
 [[APIs]]
 include::{docfile}/../oauth.adoc[]
 include::{docfile}/../group.adoc[]
@@ -41,3 +43,5 @@ include::{docfile}/../comment.adoc[]
 include::{docfile}/../post.adoc[]
 include::{docfile}/../schedule.adoc[]
 include::{docfile}/../user.adoc[]
+include::{docfile}/../favorite.adoc[]
+include::{docfile}/../management.adoc[]

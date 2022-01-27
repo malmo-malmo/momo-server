@@ -1,0 +1,19 @@
+== 관리 API
+
+유저의 컨텐츠(모임, 게시물)를 관리하는 API
+
+=== 참여한 모임 수 조회
+
+관심(찜) 모임 수를 조회합니다.
+
+operation::management/findParticipatingGroupCount[snippets='http-request,http-response,response-fields']
+
+=== 참여한 모임 목록 조회
+
+관심(찜) 모임 목록을 조회합니다.
+
+operation::management/findParticipatingGroups[snippets='http-request,http-response,response-fields']
+
+=== 내 게시물 목록 조회
+
+operation::management/findMyPosts[snippets='http-request,http-response,request-parameters,response-fields']

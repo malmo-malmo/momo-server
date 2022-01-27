@@ -1,0 +1,33 @@
+== 관심 API
+
+=== 관심 모임 추가
+
+관심(찜) 모임을 추가합니다.
+
+operation::favorite/createFavoriteGroup[snippets='http-request,http-response,request-fields']
+
+=== 관심 모임 수 조회
+
+관심(찜) 모임 수를 조회합니다.
+
+operation::favorite/findFavoriteGroupCount[snippets='http-request,http-response,response-fields']
+
+=== 관심 모임 목록 조회
+
+관심(찜) 모임 목록을 조회합니다.
+
+operation::favorite/findFavoriteGroups[snippets='http-request,http-response,response-fields']
+
+=== 관심 카테고리 목록 조회
+
+관심 카테고리 목록을 조회합니다.
+
+operation::favorite/findFavoriteCategories[snippets='http-request,http-response,response-fields']
+
+=== 관심 카테고리 수정
+
+operation::favorite/updateFavoriteCategories[snippets='http-request,http-response,request-fields']
+
+=== 관심 모임 삭제
+
+operation::favorite/deleteFavoriteGroup[snippets='http-request,http-response,path-parameters']

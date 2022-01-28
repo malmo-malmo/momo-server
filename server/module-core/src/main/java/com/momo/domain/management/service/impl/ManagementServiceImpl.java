@@ -4,9 +4,11 @@ import static com.momo.domain.post.entity.PostType.NORMAL;
 import static org.springframework.data.domain.PageRequest.of;
 
 import com.momo.domain.group.repository.ParticipantRepository;
+import com.momo.domain.management.dto.ManagingGroupCardResponse;
 import com.momo.domain.management.dto.MyPostCardResponse;
 import com.momo.domain.management.dto.ParticipatingGroupCardResponse;
 import com.momo.domain.management.dto.ParticipatingGroupCountResponse;
+import com.momo.domain.management.dto.SummaryParticipationGroupResponse;
 import com.momo.domain.management.service.ManagementService;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.repository.PostRepository;
@@ -33,6 +35,16 @@ public class ManagementServiceImpl implements ManagementService {
     @Transactional(readOnly = true)
     public List<ParticipatingGroupCardResponse> findParticipatingGroupsByUser(User loginUser) {
         return participantRepository.findParticipatingGroupsByUser(loginUser);
+    }
+
+    @Override
+    public List<SummaryParticipationGroupResponse> findSummaryParticipationGroupsByUser(User loginUser) {
+        return null;
+    }
+
+    @Override
+    public List<ManagingGroupCardResponse> findManagingGroupsByUser(User loginUser) {
+        return null;
     }
 
     @Transactional(readOnly = true)

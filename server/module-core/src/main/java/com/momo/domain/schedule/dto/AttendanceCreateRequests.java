@@ -14,6 +14,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AttendanceCreateRequests {
 
+    /*
+    TODO
+    groupId 제거
+    */
+    
     @NotNull(message = "모임 ID는 필수값입니다.")
     private Long groupId;
 

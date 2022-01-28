@@ -9,22 +9,25 @@ import lombok.ToString;
 @ToString
 public class AttendanceResponse {
 
-    private Long userId;
+    private Long attendanceId;
     private String username;
     private boolean isAttend;
+    private int attainmentRate;
 
     @Builder
-    public AttendanceResponse(Long userId, String username, boolean isAttend) {
-        this.userId = userId;
+    public AttendanceResponse(Long attendanceId, String username, boolean isAttend, int attainmentRate) {
+        this.attendanceId = attendanceId;
         this.username = username;
         this.isAttend = isAttend;
+        this.attainmentRate = attainmentRate;
     }
 
     public AttendanceResponse(Attendance attendance) {
         this(
-            attendance.getUser().getId(),
+            attendance.getId(),
             attendance.getUser().getNickname(),
-            attendance.isAttend()
+            attendance.isAttend(),
+            100
         );
     }
 }

@@ -112,25 +112,29 @@ public class AttendanceServiceTest extends ServiceTest {
 
     @Test
     void 모임_관리자가_출석_수정_테스트를_성공한다() {
-        Attendance attendance = Attendance.builder().group(group).isAttend(false).build();
-        given(attendanceRepository.findByUser(any())).willReturn(Optional.of(attendance));
-        AttendanceUpdateRequest request = AttendanceUpdateRequest.builder()
-            .attendanceId(1L)
-            .isAttend(true)
-            .build();
-        attendanceService.update(manager, request);
-        verify(attendanceRepository).findByUser(manager);
+        Attendance attendance = Attendance.builder().id(1L).group(group).isAttend(false).build();
+        given(attendanceRepository.findById(any())).willReturn(Optional.of(attendance));
+        List<AttendanceUpdateRequest> requests = List.of(
+            AttendanceUpdateRequest.builder()
+                .attendanceId(attendance.getId())
+                .isAttend(true)
+                .build()
+        );
+        attendanceService.updates(manager, requests);
+        verify(attendanceRepository).findById(attendance.getId());
         assertThat(attendance.isAttend()).isTrue();
     }
     @Test
     void 모임_관리자가_아니면_출석_수정_테스트를_실패한다() {
-        given(attendanceRepository.findByUser(any())).willReturn(Optional.of(Attendance.builder().group(group).build()));
-        AttendanceUpdateRequest request = AttendanceUpdateRequest.builder()
-            .attendanceId(1L)
-            .isAttend(false)
-            .build();
+        given(attendanceRepository.findById(any())).willReturn(Optional.of(Attendance.builder().group(group).build()));
+        List<AttendanceUpdateRequest> requests = List.of(
+            AttendanceUpdateRequest.builder()
+                .attendanceId(1L)
+                .isAttend(false)
+                .build()
+        );
 
-        assertThatThrownBy(() -> attendanceService.update(user, request))
+        assertThatThrownBy(() -> attendanceService.updates(user, requests))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_MANAGER_AUTHORIZED.getMessage());
     }

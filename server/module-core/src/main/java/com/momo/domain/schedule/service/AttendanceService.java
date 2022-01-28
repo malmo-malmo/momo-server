@@ -10,7 +10,7 @@ public interface AttendanceService {
 
     void create(User user, AttendanceCreateRequests requests);
 
-    void update(User user, AttendanceUpdateRequest request);
+    void updates(User user, List<AttendanceUpdateRequest> requests);
 
     List<AttendanceResponse> findGroupAttendances(User user, Long groupId);
 }

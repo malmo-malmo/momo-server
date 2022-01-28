@@ -5,6 +5,7 @@ import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.schedule.dto.AttendanceCreateRequests;
+import com.momo.domain.schedule.dto.AttendanceUpdateRequest;
 import com.momo.domain.schedule.entity.Attendance;
 import com.momo.domain.schedule.entity.Schedule;
 import com.momo.domain.schedule.repository.AttendanceRepository;
@@ -34,6 +35,12 @@ public class AttendanceServiceImpl implements AttendanceService {
         schedule.updateAttendanceCheck(true);
         List<Attendance> attendances = Attendance.createAttendances(requests.toEntities(), group, schedule);
         attendanceRepository.saveAll(attendances);
+    }
+
+    public void update(Long userId, AttendanceUpdateRequest request) {
+        Attendance attendance = attendanceRepository.findByUserId(userId)
+            .orElseThrow();
+        attendance.updateAttend(request.isAttend());
     }
 
     public Group getGroupById(Long groupId) {

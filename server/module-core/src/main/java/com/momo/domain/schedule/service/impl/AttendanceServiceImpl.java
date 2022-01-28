@@ -4,6 +4,7 @@ import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
+import com.momo.domain.schedule.dto.AttendanceCreateRequest;
 import com.momo.domain.schedule.dto.AttendanceCreateRequests;
 import com.momo.domain.schedule.dto.AttendanceResponse;
 import com.momo.domain.schedule.dto.AttendanceUpdateRequest;
@@ -13,6 +14,8 @@ import com.momo.domain.schedule.repository.AttendanceRepository;
 import com.momo.domain.schedule.repository.ScheduleRepository;
 import com.momo.domain.schedule.service.AttendanceService;
 import com.momo.domain.user.entity.User;
+import com.momo.domain.user.repository.UserRepository;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -29,13 +32,21 @@ public class AttendanceServiceImpl implements AttendanceService {
     private final ScheduleRepository scheduleRepository;
 
     private final AttendanceRepository attendanceRepository;
+    private final UserRepository userRepository;
 
     public void create(User user, AttendanceCreateRequests requests) {
         Group group = getGroupById(requests.getGroupId());
         validateGroupManager(group, user);
         Schedule schedule = getScheduleById(requests.getScheduleId());
         schedule.updateAttendanceCheck(true);
-        List<Attendance> attendances = Attendance.createAttendances(requests.toEntities(), group, schedule);
+
+        List<Attendance> attendances = new ArrayList<>();
+        for (AttendanceCreateRequest request : requests.getAttendanceCreateRequests()) {
+            Long userId = request.getUserId();
+            User attendanceUser = userRepository.findById(userId).orElseThrow();
+            Attendance attendance = request.toEntity(attendanceUser, group, schedule);
+            attendances.add(attendance);
+        }
         attendanceRepository.saveAll(attendances);
     }
 

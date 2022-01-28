@@ -41,7 +41,7 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
                 JPAExpressions
                     .select(attendance.isAttend)
                     .from(attendance)
-                    .where(attendance.schedule.eq(schedule).and(attendance.userId.eq(userId)))
+                    .where(attendance.schedule.eq(schedule).and(attendance.user.id.eq(userId)))
             ))
             .from(schedule)
             .leftJoin(user).on(schedule.author.eq(user))
@@ -89,7 +89,7 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
                 JPAExpressions
                     .select(attendance.isAttend)
                     .from(attendance)
-                    .where(attendance.schedule.eq(schedule).and(attendance.userId.eq(userId)))
+                    .where(attendance.schedule.eq(schedule).and(attendance.user.id.eq(userId)))
             ))
             .from(schedule)
             .leftJoin(user).on(schedule.author.eq(user))

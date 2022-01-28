@@ -1,8 +1,6 @@
 package com.momo.domain.schedule.dto;
 
-import com.momo.domain.schedule.entity.Attendance;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -31,12 +29,5 @@ public class AttendanceCreateRequests {
         this.groupId = groupId;
         this.scheduleId = scheduleId;
         this.attendanceCreateRequests = attendanceCreateRequests;
-    }
-
-    public List<Attendance> toEntities() {
-        return attendanceCreateRequests
-            .stream()
-            .map(AttendanceCreateRequest::toEntity)
-            .collect(Collectors.toList());
     }
 }

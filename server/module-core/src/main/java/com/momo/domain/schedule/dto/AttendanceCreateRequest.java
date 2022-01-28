@@ -1,8 +1,10 @@
 package com.momo.domain.schedule.dto;
 
-import javax.validation.constraints.NotNull;
-
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.schedule.entity.Attendance;
+import com.momo.domain.schedule.entity.Schedule;
+import com.momo.domain.user.entity.User;
+import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,9 +25,11 @@ public class AttendanceCreateRequest {
         this.isAttend = isAttend;
     }
 
-    public Attendance toEntity() {
+    public Attendance toEntity(User user, Group group, Schedule schedule) {
         return Attendance.builder()
-            .userId(userId)
+            .group(group)
+            .schedule(schedule)
+            .user(user)
             .isAttend(isAttend)
             .build();
     }

@@ -19,7 +19,9 @@ import com.momo.domain.schedule.repository.AttendanceRepository;
 import com.momo.domain.schedule.repository.ScheduleRepository;
 import com.momo.domain.schedule.service.impl.AttendanceServiceImpl;
 import com.momo.domain.user.entity.User;
+import com.momo.domain.user.repository.UserRepository;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,6 +38,9 @@ public class AttendanceServiceTest extends ServiceTest {
 
     @Mock
     private AttendanceRepository attendanceRepository;
+
+    @Mock
+    private UserRepository userRepository;
 
     private AttendanceService attendanceService;
 
@@ -60,7 +65,8 @@ public class AttendanceServiceTest extends ServiceTest {
             .group(group)
             .author(manager)
             .build();
-        attendanceService = new AttendanceServiceImpl(groupRepository, scheduleRepository, attendanceRepository);
+        attendanceService = new AttendanceServiceImpl(groupRepository, scheduleRepository, attendanceRepository,
+            userRepository);
     }
 
     @Test
@@ -82,6 +88,7 @@ public class AttendanceServiceTest extends ServiceTest {
 
         given(groupRepository.findById(any())).willReturn(of(group));
         given(scheduleRepository.findById(any())).willReturn(of(schedule));
+        given(userRepository.findById(any())).willReturn(Optional.of(User.builder().build()));
 
         attendanceService.create(manager, attendanceCreateRequests);
 

@@ -29,7 +29,7 @@ public class AttendanceRepositoryTest extends RepositoryTest {
             .providerId("test")
             .refreshToken("refresh Token")
             .nickname("testMan")
-            .imageUrl("http://~~")
+            .imageUrl("이미지 주소")
             .city(City.SEOUL)
             .district("마포구")
             .university("한국대")
@@ -37,7 +37,7 @@ public class AttendanceRepositoryTest extends RepositoryTest {
         Group group = save(Group.builder()
             .city(City.SEOUL)
             .district("마포")
-            .imageUrl("http://~")
+            .imageUrl("이미지 주소")
             .introduction("안녕하세요")
             .university("한국대")
             .isOffline(false)
@@ -58,7 +58,7 @@ public class AttendanceRepositoryTest extends RepositoryTest {
             Attendance.builder()
                 .group(group)
                 .schedule(schedule)
-                .userId(manager.getId())
+                .user(manager)
                 .isAttend(false)
                 .build()
         );
@@ -68,7 +68,7 @@ public class AttendanceRepositoryTest extends RepositoryTest {
             () -> assertThat(attendance.getId()).isNotNull(),
             () -> assertThat(attendance.getGroup()).isEqualTo(group),
             () -> assertThat(attendance.getSchedule()).isEqualTo(schedule),
-            () -> assertThat(attendance.getUserId()).isEqualTo(manager.getId()),
+            () -> assertThat(attendance.getUser()).isEqualTo(manager),
             () -> assertThat(attendance.isAttend()).isFalse()
         );
     }

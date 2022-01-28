@@ -8,5 +8,5 @@ public interface AttendanceService {
 
     void create(User user, AttendanceCreateRequests requests);
 
-    void update(Long userId, AttendanceUpdateRequest request);
+    void update(User user, AttendanceUpdateRequest request);
 }

@@ -50,37 +50,36 @@ public class AttendanceServiceImpl implements AttendanceService {
         attendanceRepository.saveAll(attendances);
     }
 
-    public void update(Long userId, AttendanceUpdateRequest request) {
-        Attendance attendance = attendanceRepository.findByUserId(userId)
+    public void update(User user, AttendanceUpdateRequest request) {
+        Attendance attendance = attendanceRepository.findByUser(user)
             .orElseThrow();
+        validateGroupManager(attendance.getGroup(), user);
+
         attendance.updateAttend(request.isAttend());
     }
 
     public List<AttendanceResponse> findGroupAttendances(User user, Long groupId) {
         Group group = groupRepository.findById(groupId)
             .orElseThrow();
+        validateGroupManager(group, user);
 
-        boolean isNotGroupManager = !group.isManager(user);
-        if (isNotGroupManager) {
-            throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
-        }
         List<Attendance> attendances = attendanceRepository.findByGroup(group);
 
         return attendances.stream().map(AttendanceResponse::new).collect(Collectors.toList());
     }
 
-    public Group getGroupById(Long groupId) {
+    private Group getGroupById(Long groupId) {
         return groupRepository.findById(groupId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
-    public void validateGroupManager(Group group, User user) {
+    private void validateGroupManager(Group group, User user) {
         if (!group.isManager(user)) {
             throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
         }
     }
 
-    public Schedule getScheduleById(Long scheduleId) {
+    private Schedule getScheduleById(Long scheduleId) {
         return scheduleRepository.findById(scheduleId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }

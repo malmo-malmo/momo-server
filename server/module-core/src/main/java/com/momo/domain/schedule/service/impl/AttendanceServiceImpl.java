@@ -5,6 +5,7 @@ import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.schedule.dto.AttendanceCreateRequests;
+import com.momo.domain.schedule.dto.AttendanceResponse;
 import com.momo.domain.schedule.dto.AttendanceUpdateRequest;
 import com.momo.domain.schedule.entity.Attendance;
 import com.momo.domain.schedule.entity.Schedule;
@@ -13,6 +14,7 @@ import com.momo.domain.schedule.repository.ScheduleRepository;
 import com.momo.domain.schedule.service.AttendanceService;
 import com.momo.domain.user.entity.User;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +43,19 @@ public class AttendanceServiceImpl implements AttendanceService {
         Attendance attendance = attendanceRepository.findByUserId(userId)
             .orElseThrow();
         attendance.updateAttend(request.isAttend());
+    }
+
+    public List<AttendanceResponse> findGroupAttendances(User user, Long groupId) {
+        Group group = groupRepository.findById(groupId)
+            .orElseThrow();
+
+        boolean isNotGroupManager = !group.isManager(user);
+        if (isNotGroupManager) {
+            throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
+        }
+        List<Attendance> attendances = attendanceRepository.findByGroup(group);
+
+        return attendances.stream().map(AttendanceResponse::new).collect(Collectors.toList());
     }
 
     public Group getGroupById(Long groupId) {

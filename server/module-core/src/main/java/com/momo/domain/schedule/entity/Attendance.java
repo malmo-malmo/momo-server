@@ -1,9 +1,9 @@
 package com.momo.domain.schedule.entity;
 
 import com.momo.domain.group.entity.Group;
+import com.momo.domain.user.entity.User;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -34,16 +34,16 @@ public class Attendance {
     @JoinColumn(foreignKey = @ForeignKey(name = "schedule_fk_attendance"))
     private Schedule schedule;
 
-    @Column(nullable = false)
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
     private boolean isAttend;
 
     @Builder
-    public Attendance(Group group, Schedule schedule, Long userId, boolean isAttend) {
+    public Attendance(Group group, Schedule schedule, User user, boolean isAttend) {
         this.group = group;
         this.schedule = schedule;
-        this.userId = userId;
+        this.user = user;
         this.isAttend = isAttend;
     }
 
@@ -51,7 +51,7 @@ public class Attendance {
         return Attendance.builder()
             .group(group)
             .schedule(schedule)
-            .userId(attendance.getUserId())
+            .user(attendance.getUser())
             .isAttend(attendance.isAttend())
             .build();
     }
@@ -60,5 +60,9 @@ public class Attendance {
         return attendances.stream()
             .map(attendance -> Attendance.create(attendance, group, schedule))
             .collect(Collectors.toList());
+    }
+
+    public void updateAttend(boolean isAttend) {
+        this.isAttend = isAttend;
     }
 }

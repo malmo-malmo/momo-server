@@ -40,7 +40,8 @@ public class Attendance {
     private boolean isAttend;
 
     @Builder
-    public Attendance(Group group, Schedule schedule, User user, boolean isAttend) {
+    public Attendance(Long id, Group group, Schedule schedule, User user, boolean isAttend) {
+        this.id = id;
         this.group = group;
         this.schedule = schedule;
         this.user = user;

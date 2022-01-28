@@ -85,7 +85,7 @@ public class AttendanceRepositoryTest extends RepositoryTest {
     }
     @Test
     void 해당_유저의_출석_정보를_가져온다() {
-        Attendance attendance = attendanceRepository.findByUserId(manager.getId()).get();
+        Attendance attendance = attendanceRepository.findByUser(manager).get();
 
         Assertions.assertAll(
             () -> assertThat(attendance.getId()).isNotNull(),

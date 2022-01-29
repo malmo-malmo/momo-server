@@ -54,7 +54,7 @@ public class ManagementController {
         return ResponseEntity.ok(responses);
     }
 
-    @GetMapping("/posts")
+    @GetMapping("/my-posts")
     public ResponseEntity<List<MyPostCardResponse>> findMyPosts(@CurrentUser User user,
         @RequestParam int page, @RequestParam int size) {
         List<MyPostCardResponse> responses = managementService.findMyPostsByUser(user, page, size);

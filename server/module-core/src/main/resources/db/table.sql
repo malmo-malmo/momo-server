@@ -127,6 +127,26 @@ create table if not exists favorite_group
     primary key (id)
 ) engine = InnoDB;
 
+create table if not exists group_achievement_rate
+(
+    id                 bigint not null auto_increment,
+    group_id           bigint,
+    created_date       timestamp,
+    last_modified_date timestamp,
+    rate               decimal(19, 2),
+    primary key (id)
+) engine = InnoDB;
+
+create table if not exists participant_achievement_rate
+(
+    id                 bigint not null auto_increment,
+    participant_id     bigint,
+    rate               decimal(19, 2),
+    created_date       timestamp,
+    last_modified_date timestamp,
+    primary key (id)
+) engine = InnoDB;
+
 alter table attendance
     add constraint groups_fk_attendance
         foreign key (group_id)
@@ -214,4 +234,16 @@ alter table favorite_group
     add constraint user_fk_favorite_group
         foreign key (user_id)
             references user (id)
+            on delete cascade;
+
+alter table group_achievement_rate
+    add constraint group_tb_fk_group_achievement_rate
+        foreign key (group_id)
+            references group_tb (id)
+            on delete cascade;
+
+alter table participant_achievement_rate
+    add constraint participant_fk_user_achievement_rate
+        foreign key (participant_id)
+            references participant (id)
             on delete cascade;

@@ -11,6 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AttendanceCreateRequest {
 
+    /*
+    TODO
+    userId ->  participantId
+    */
+
     @NotNull(message = "유저 ID는 필수값입니다.")
     private Long userId;
 

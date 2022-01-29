@@ -12,22 +12,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ParticipatingGroupSummaryResponse {
 
-    private Long groupId;
-    private String groupName;
-    private Category groupCategory;
+    private Long id;
+    private String name;
+    private Category category;
 
     @Builder
-    public ParticipatingGroupSummaryResponse(Long groupId, String groupName, Category groupCategory) {
-        this.groupId = groupId;
-        this.groupName = groupName;
-        this.groupCategory = groupCategory;
+    public ParticipatingGroupSummaryResponse(Long id, String name, Category category) {
+        this.id = id;
+        this.name = name;
+        this.category = category;
     }
 
     private static ParticipatingGroupSummaryResponse of(Participant participant) {
         return ParticipatingGroupSummaryResponse.builder()
-            .groupId(participant.getGroup().getId())
-            .groupName(participant.getGroup().getName())
-            .groupCategory(participant.getGroup().getCategory())
+            .id(participant.getGroup().getId())
+            .name(participant.getGroup().getName())
+            .category(participant.getGroup().getCategory())
             .build();
     }
 

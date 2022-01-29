@@ -2,6 +2,7 @@ package com.momo.api.management;
 
 import com.momo.common.CurrentUser;
 import com.momo.domain.management.dto.ManagingGroupCardResponse;
+import com.momo.domain.management.dto.ManagingGroupSummaryResponse;
 import com.momo.domain.management.dto.MyPostCardResponse;
 import com.momo.domain.management.dto.ParticipatingGroupCardResponse;
 import com.momo.domain.management.dto.ParticipatingGroupCountResponse;
@@ -36,14 +37,20 @@ public class ManagementController {
     }
 
     @GetMapping("/participating-groups/summary")
-    public ResponseEntity<List<ParticipatingGroupSummaryResponse>> findSummaryParticipationGroups(
+    public ResponseEntity<List<ParticipatingGroupSummaryResponse>> findParticipatingGroupsSummary(
         @CurrentUser User user) {
-        return ResponseEntity.ok(managementService.findSummaryParticipationGroupsByUser(user));
+        return ResponseEntity.ok(managementService.findParticipatingGroupsSummaryByUser(user));
     }
 
     @GetMapping("/managing-groups/details")
     public ResponseEntity<List<ManagingGroupCardResponse>> findManagingGroups(@CurrentUser User user) {
         List<ManagingGroupCardResponse> responses = managementService.findManagingGroupsByUser(user);
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/managing-groups/summary")
+    public ResponseEntity<List<ManagingGroupSummaryResponse>> findManagingGroupsSummary(@CurrentUser User user) {
+        List<ManagingGroupSummaryResponse> responses = managementService.findManagingGroupsSummaryByUser(user);
         return ResponseEntity.ok(responses);
     }
 

@@ -6,6 +6,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import com.momo.common.ServiceTest;
+import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.management.dto.ParticipatingGroupCountResponse;
 import com.momo.domain.management.service.impl.ManagementServiceImpl;
@@ -24,13 +25,16 @@ public class ManagementServiceTest extends ServiceTest {
     private ParticipantRepository participantRepository;
 
     @Mock
+    private GroupRepository groupRepository;
+
+    @Mock
     private PostRepository postRepository;
 
     private ManagementService managementService;
 
     @BeforeEach
     void setUp() {
-        managementService = new ManagementServiceImpl(participantRepository, postRepository);
+        managementService = new ManagementServiceImpl(participantRepository, groupRepository, postRepository);
     }
 
     @Test

@@ -3,9 +3,12 @@ package com.momo.domain.management.service.impl;
 import static com.momo.domain.post.entity.PostType.NORMAL;
 import static org.springframework.data.domain.PageRequest.of;
 
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
+import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.management.dto.ManagingGroupCardResponse;
+import com.momo.domain.management.dto.ManagingGroupSummaryResponse;
 import com.momo.domain.management.dto.MyPostCardResponse;
 import com.momo.domain.management.dto.ParticipatingGroupCardResponse;
 import com.momo.domain.management.dto.ParticipatingGroupCountResponse;
@@ -25,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ManagementServiceImpl implements ManagementService {
 
     private final ParticipantRepository participantRepository;
+    private final GroupRepository groupRepository;
     private final PostRepository postRepository;
 
     @Transactional(readOnly = true)
@@ -39,15 +43,20 @@ public class ManagementServiceImpl implements ManagementService {
     }
 
     @Transactional(readOnly = true)
-    public List<ParticipatingGroupSummaryResponse> findSummaryParticipationGroupsByUser(User loginUser) {
-        List<Participant> participants = participantRepository
-            .findAllWithGroupByUserAndNotManagerOrderByCreatedDateDesc(loginUser);
+    public List<ParticipatingGroupSummaryResponse> findParticipatingGroupsSummaryByUser(User loginUser) {
+        List<Participant> participants = participantRepository.findAllWithNotManagingGroupByUser(loginUser);
         return ParticipatingGroupSummaryResponse.listOf(participants);
     }
 
     @Transactional(readOnly = true)
     public List<ManagingGroupCardResponse> findManagingGroupsByUser(User loginUser) {
         return null;
+    }
+
+    @Transactional(readOnly = true)
+    public List<ManagingGroupSummaryResponse> findManagingGroupsSummaryByUser(User loginUser) {
+        List<Group> groups = groupRepository.findAllByManager(loginUser);
+        return ManagingGroupSummaryResponse.listOf(groups);
     }
 
     @Transactional(readOnly = true)

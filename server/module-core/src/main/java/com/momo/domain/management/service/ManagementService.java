@@ -1,6 +1,7 @@
 package com.momo.domain.management.service;
 
 import com.momo.domain.management.dto.ManagingGroupCardResponse;
+import com.momo.domain.management.dto.ManagingGroupSummaryResponse;
 import com.momo.domain.management.dto.MyPostCardResponse;
 import com.momo.domain.management.dto.ParticipatingGroupCardResponse;
 import com.momo.domain.management.dto.ParticipatingGroupCountResponse;
@@ -14,9 +15,11 @@ public interface ManagementService {
 
     List<ParticipatingGroupCardResponse> findParticipatingGroupsByUser(User loginUser);
 
-    List<ParticipatingGroupSummaryResponse> findSummaryParticipationGroupsByUser(User loginUser);
+    List<ParticipatingGroupSummaryResponse> findParticipatingGroupsSummaryByUser(User loginUser);
 
     List<ManagingGroupCardResponse> findManagingGroupsByUser(User loginUser);
+
+    List<ManagingGroupSummaryResponse> findManagingGroupsSummaryByUser(User loginUser);
 
     List<MyPostCardResponse> findMyPostsByUser(User loginUser, int page, int size);
 }

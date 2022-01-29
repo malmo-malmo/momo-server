@@ -8,26 +8,24 @@ import java.util.List;
 
 public class AttendanceFixture {
 
-    public static AttendanceCreateRequest getAttendanceCreateRequest(Long userId, boolean isAttend) {
+    public static AttendanceCreateRequest getAttendanceCreateRequest(Long participantId, boolean isAttend) {
         return AttendanceCreateRequest.builder()
-            .userId(userId)
+            .participantId(participantId)
             .isAttend(isAttend)
             .build();
     }
 
-    public static AttendanceCreateRequests getAttendanceCreateRequests(Long groupId, Long scheduleId,
+    public static AttendanceCreateRequests getAttendanceCreateRequests(Long scheduleId,
         List<AttendanceCreateRequest> requests) {
         return AttendanceCreateRequests.builder()
-            .groupId(groupId)
             .scheduleId(scheduleId)
             .attendanceCreateRequests(requests)
             .build();
     }
 
-    public static AttendanceUpdateRequests getAttendanceUpdateRequests(Long groupId, Long scheduleId,
+    public static AttendanceUpdateRequests getAttendanceUpdateRequests(Long scheduleId,
         List<AttendanceUpdateRequest> requests) {
         return AttendanceUpdateRequests.builder()
-            .groupId(groupId)
             .scheduleId(scheduleId)
             .attendanceUpdateRequests(requests)
             .build();

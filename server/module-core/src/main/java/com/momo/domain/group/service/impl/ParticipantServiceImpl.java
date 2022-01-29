@@ -60,9 +60,8 @@ public class ParticipantServiceImpl implements ParticipantService {
     /*
     테스트를 위해 임시로 만든 API
     */
-    public void applyParticipantByGroup(User user, Long groupId) {
+    public Long applyParticipantByGroup(User user, Long groupId) {
         Group group = getGroupById(groupId);
-        participantRepository.save(Participant.create(user, group));
+        return participantRepository.save(Participant.create(user, group)).getId();
     }
-
 }

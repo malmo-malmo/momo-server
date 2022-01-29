@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.momo.common.RepositoryTest;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Group;
+import com.momo.domain.group.entity.Participant;
 import com.momo.domain.schedule.entity.Attendance;
 import com.momo.domain.schedule.entity.Schedule;
 import com.momo.domain.user.entity.SocialProvider;
@@ -25,6 +26,8 @@ public class AttendanceRepositoryTest extends RepositoryTest {
     private AttendanceRepository attendanceRepository;
 
     private User manager;
+
+    private Participant participant;
 
     private Group group;
 
@@ -61,11 +64,14 @@ public class AttendanceRepositoryTest extends RepositoryTest {
             .isOffline(false)
             .startDateTime(LocalDateTime.now())
             .build());
+        participant = save(Participant.builder()
+            .group(group)
+            .user(manager)
+            .build());
         attendanceRepository.save(
             Attendance.builder()
-                .group(group)
+                .participant(participant)
                 .schedule(schedule)
-                .user(manager)
                 .isAttend(false)
                 .build()
         );
@@ -77,22 +83,9 @@ public class AttendanceRepositoryTest extends RepositoryTest {
 
         Assertions.assertAll(
             () -> assertThat(attendance.getId()).isNotNull(),
-            () -> assertThat(attendance.getGroup()).isEqualTo(group),
+            () -> assertThat(attendance.getParticipant().getGroup()).isEqualTo(group),
             () -> assertThat(attendance.getSchedule()).isEqualTo(schedule),
-            () -> assertThat(attendance.getUser()).isEqualTo(manager),
-            () -> assertThat(attendance.isAttend()).isFalse()
-        );
-    }
-
-    @Test
-    void 해당_유저의_출석_정보를_가져온다() {
-        Attendance attendance = attendanceRepository.findByUser(manager).get();
-
-        Assertions.assertAll(
-            () -> assertThat(attendance.getId()).isNotNull(),
-            () -> assertThat(attendance.getGroup()).isEqualTo(group),
-            () -> assertThat(attendance.getSchedule()).isEqualTo(schedule),
-            () -> assertThat(attendance.getUser()).isEqualTo(manager),
+            () -> assertThat(attendance.getParticipant().getUser()).isEqualTo(manager),
             () -> assertThat(attendance.isAttend()).isFalse()
         );
     }
@@ -105,9 +98,9 @@ public class AttendanceRepositoryTest extends RepositoryTest {
         Attendance attendance = attendances.get(0);
         Assertions.assertAll(
             () -> assertThat(attendance.getId()).isNotNull(),
-            () -> assertThat(attendance.getGroup()).isEqualTo(group),
+            () -> assertThat(attendance.getParticipant().getGroup()).isEqualTo(group),
             () -> assertThat(attendance.getSchedule()).isEqualTo(schedule),
-            () -> assertThat(attendance.getUser()).isEqualTo(manager),
+            () -> assertThat(attendance.getParticipant().getUser()).isEqualTo(manager),
             () -> assertThat(attendance.isAttend()).isFalse()
         );
     }

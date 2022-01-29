@@ -1,7 +1,6 @@
 package com.momo.domain.schedule.entity;
 
-import com.momo.domain.group.entity.Group;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.group.entity.Participant;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.Entity;
@@ -27,39 +26,35 @@ public class Attendance {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "group_tb_fk_attendance"))
-    private Group group;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "schedule_fk_attendance"))
     private Schedule schedule;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+    @JoinColumn(foreignKey = @ForeignKey(name = "participant_fk_attendance"))
+    private Participant participant;
 
     private boolean isAttend;
 
     @Builder
-    public Attendance(Long id, Group group, Schedule schedule, User user, boolean isAttend) {
+    public Attendance(Long id, Schedule schedule, Participant participant, boolean isAttend) {
         this.id = id;
-        this.group = group;
         this.schedule = schedule;
-        this.user = user;
+        this.participant = participant;
         this.isAttend = isAttend;
     }
 
-    private static Attendance create(Attendance attendance, Group group, Schedule schedule) {
+    private static Attendance create(Attendance attendance, Schedule schedule) {
         return Attendance.builder()
-            .group(group)
+            .participant(attendance.getParticipant())
             .schedule(schedule)
-            .user(attendance.getUser())
             .isAttend(attendance.isAttend())
             .build();
     }
 
-    public static List<Attendance> createAttendances(List<Attendance> attendances, Group group, Schedule schedule) {
+    public static List<Attendance> createAttendances(List<Attendance> attendances,
+        Schedule schedule) {
         return attendances.stream()
-            .map(attendance -> Attendance.create(attendance, group, schedule))
+            .map(attendance -> Attendance.create(attendance, schedule))
             .collect(Collectors.toList());
     }
 
@@ -68,10 +63,6 @@ public class Attendance {
     }
 
     public boolean isSameSchedule(Schedule schedule) {
-        return this.schedule.getId() == schedule.getId();
-    }
-
-    public boolean isSameGroup(Group group) {
-        return this.group.getId() == group.getId();
+        return this.schedule.getId().equals(schedule.getId());
     }
 }

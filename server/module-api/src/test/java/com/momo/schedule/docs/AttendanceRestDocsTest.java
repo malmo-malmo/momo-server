@@ -33,9 +33,8 @@ public class AttendanceRestDocsTest extends RestDocsControllerTest {
     @Test
     void 출석체크() throws Exception {
         AttendanceCreateRequests requests = AttendanceCreateRequests.builder()
-            .groupId(1L)
             .scheduleId(1L)
-            .attendanceCreateRequests(List.of(AttendanceCreateRequest.builder().userId(1L).isAttend(true).build()))
+            .attendanceCreateRequests(List.of(AttendanceCreateRequest.builder().participantId(1L).isAttend(true).build()))
             .build();
         String content = super.objectMapper.writeValueAsString(requests);
         super.mockMvc.perform(post("/api/attendance")
@@ -49,7 +48,6 @@ public class AttendanceRestDocsTest extends RestDocsControllerTest {
     @Test
     void 출석체크_수정() throws Exception {
         AttendanceUpdateRequests requests = AttendanceUpdateRequests.builder()
-            .groupId(1L)
             .scheduleId(1L)
             .attendanceUpdateRequests(
                 List.of(AttendanceUpdateRequest.builder().attendanceId(1L).isAttend(true).build()))

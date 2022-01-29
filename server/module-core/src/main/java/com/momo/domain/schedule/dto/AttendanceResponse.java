@@ -25,7 +25,7 @@ public class AttendanceResponse {
     public AttendanceResponse(Attendance attendance) {
         this(
             attendance.getId(),
-            attendance.getUser().getNickname(),
+            attendance.getParticipant().getUser().getNickname(),
             attendance.isAttend(),
             100
         );

@@ -35,6 +35,8 @@ public class ScheduleRepositoryTest extends RepositoryTest {
 
     private Schedule schedule;
 
+    private Participant participant;
+
     @BeforeEach
     public void before() {
         user = save(User.builder()
@@ -59,6 +61,10 @@ public class ScheduleRepositoryTest extends RepositoryTest {
             .name("모임 이름")
             .manager(user)
             .build());
+        participant = save(Participant.builder()
+            .user(user)
+            .group(group)
+            .build());
         schedule = scheduleRepository.save(Schedule.builder()
             .author(user)
             .title("오늘의 일정 제목")
@@ -78,9 +84,8 @@ public class ScheduleRepositoryTest extends RepositoryTest {
     @Test
     public void 모임과_유저를_조건으로_모임_일정을_조회한다() {
         save(Attendance.builder()
-            .group(group)
+            .participant(participant)
             .schedule(schedule)
-            .user(user)
             .isAttend(false)
             .build()
         );

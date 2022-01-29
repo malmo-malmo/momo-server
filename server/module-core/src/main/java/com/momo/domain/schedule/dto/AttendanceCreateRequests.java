@@ -12,9 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AttendanceCreateRequests {
 
-    @NotNull(message = "모임 ID는 필수값입니다.")
-    private Long groupId;
-
     @NotNull(message = "일정 ID는 필수값입니다.")
     private Long scheduleId;
 
@@ -24,9 +21,8 @@ public class AttendanceCreateRequests {
     private List<AttendanceCreateRequest> attendanceCreateRequests;
 
     @Builder
-    public AttendanceCreateRequests(Long groupId, Long scheduleId,
+    public AttendanceCreateRequests(Long scheduleId,
         List<AttendanceCreateRequest> attendanceCreateRequests) {
-        this.groupId = groupId;
         this.scheduleId = scheduleId;
         this.attendanceCreateRequests = attendanceCreateRequests;
     }

@@ -40,7 +40,7 @@ public class ParticipantRestDocsTest extends RestDocsControllerTest {
                 .content(content)
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
             .andDo(print())
-            .andExpect(status().isOk())
+            .andExpect(status().isCreated())
             .andDo(ParticipantDocumenttation.applyParticipantByGroup());
     }
 

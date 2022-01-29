@@ -17,5 +17,5 @@ public interface ParticipantService {
 
     void validateNotGroupManager(Group group, User user);
 
-    void applyParticipantByGroup(User user, Long groupId);
+    Long applyParticipantByGroup(User user, Long groupId);
 }

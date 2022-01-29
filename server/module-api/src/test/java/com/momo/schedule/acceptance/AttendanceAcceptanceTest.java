@@ -22,6 +22,8 @@ import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindMyIn
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.acceptance.AcceptanceTest;
+import com.momo.domain.group.entity.Participant;
+import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.schedule.dto.AttendanceCreateRequests;
 import com.momo.domain.schedule.dto.AttendanceResponse;
 import com.momo.domain.schedule.dto.AttendanceUpdateRequests;
@@ -49,21 +51,19 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
 
         Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));
 
-        requestToApplyParticipant(userToken1, groupId);
-        requestToApplyParticipant(userToken2, groupId);
+        Long participantId1 = extractId(requestToApplyParticipant(userToken1, groupId));
+        Long participantId2 = extractId(requestToApplyParticipant(userToken2, groupId));
 
         Long scheduleId = extractId(requestToCreateSchedule(managerToken, getScheduleCreateRequest1(groupId)));
 
         Long managerId = getObject(requestToFindMyInformation(managerToken), UserResponse.class).getId();
-        Long userId1 = getObject(requestToFindMyInformation(userToken1), UserResponse.class).getId();
-        Long userId2 = getObject(requestToFindMyInformation(userToken2), UserResponse.class).getId();
 
         AttendanceCreateRequests attendanceCreateRequests = getAttendanceCreateRequests(
-            groupId,
             scheduleId,
-            List.of(getAttendanceCreateRequest(managerId, true),
-                getAttendanceCreateRequest(userId1, true),
-                getAttendanceCreateRequest(userId2, false)
+            List.of(
+                getAttendanceCreateRequest(managerId, true),
+                getAttendanceCreateRequest(participantId1, true),
+                getAttendanceCreateRequest(participantId2, false)
             )
         );
 
@@ -79,22 +79,18 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
 
         Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));
 
-        requestToApplyParticipant(userToken1, groupId);
-        requestToApplyParticipant(userToken2, groupId);
+        Long participantId1 = extractId(requestToApplyParticipant(userToken1, groupId));
+        Long participantId2 = extractId(requestToApplyParticipant(userToken2, groupId));
 
         Long scheduleId = extractId(requestToCreateSchedule(managerToken, getScheduleCreateRequest1(groupId)));
 
         Long managerId = getObject(requestToFindMyInformation(managerToken), UserResponse.class).getId();
-        Long userId1 = getObject(requestToFindMyInformation(userToken1), UserResponse.class).getId();
-        Long userId2 = getObject(requestToFindMyInformation(userToken2), UserResponse.class).getId();
 
         AttendanceCreateRequests attendanceCreateRequests = getAttendanceCreateRequests(
-            groupId,
             scheduleId,
             List.of(
-                getAttendanceCreateRequest(managerId, true),
-                getAttendanceCreateRequest(userId1, true),
-                getAttendanceCreateRequest(userId2, false)
+                getAttendanceCreateRequest(participantId1, true),
+                getAttendanceCreateRequest(participantId2, false)
             )
         );
 
@@ -114,22 +110,18 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
 
         Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));
 
-        requestToApplyParticipant(userToken1, groupId);
-        requestToApplyParticipant(userToken2, groupId);
+        Long participantId1 = extractId(requestToApplyParticipant(userToken1, groupId));
+        Long participantId2 = extractId(requestToApplyParticipant(userToken2, groupId));
 
         Long scheduleId = extractId(requestToCreateSchedule(managerToken, getScheduleCreateRequest1(groupId)));
 
         Long managerId = getObject(requestToFindMyInformation(managerToken), UserResponse.class).getId();
-        Long userId1 = getObject(requestToFindMyInformation(userToken1), UserResponse.class).getId();
-        Long userId2 = getObject(requestToFindMyInformation(userToken2), UserResponse.class).getId();
 
         AttendanceCreateRequests attendanceCreateRequests = getAttendanceCreateRequests(
-            groupId,
             scheduleId,
             List.of(
-                getAttendanceCreateRequest(managerId, true),
-                getAttendanceCreateRequest(userId1, true),
-                getAttendanceCreateRequest(userId2, false)
+                getAttendanceCreateRequest(participantId1, true),
+                getAttendanceCreateRequest(participantId2, false)
             )
         );
         requestToCreateAttendance(managerToken, attendanceCreateRequests);
@@ -139,7 +131,6 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
 
         Long targetAttendanceId = attendanceResponses.get(0).getAttendanceId();
         AttendanceUpdateRequests attendanceUpdateRequests = getAttendanceUpdateRequests(
-            groupId,
             scheduleId,
             List.of(
                 getAttendanceUpdateRequest(targetAttendanceId, false)

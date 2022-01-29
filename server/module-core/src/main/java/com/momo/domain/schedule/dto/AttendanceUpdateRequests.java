@@ -12,9 +12,6 @@ import lombok.ToString;
 @ToString
 public class AttendanceUpdateRequests {
 
-    @NotNull(message = "모임 ID는 필수값입니다.")
-    private Long groupId;
-
     @NotNull(message = "일정 ID는 필수값입니다.")
     private Long scheduleId;
 
@@ -24,9 +21,8 @@ public class AttendanceUpdateRequests {
     private List<AttendanceUpdateRequest> attendanceUpdateRequests;
 
     @Builder
-    public AttendanceUpdateRequests(Long groupId, Long scheduleId,
+    public AttendanceUpdateRequests(Long scheduleId,
         List<AttendanceUpdateRequest> attendanceUpdateRequests) {
-        this.groupId = groupId;
         this.scheduleId = scheduleId;
         this.attendanceUpdateRequests = attendanceUpdateRequests;
     }

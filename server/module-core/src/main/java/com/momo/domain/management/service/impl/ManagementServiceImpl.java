@@ -9,7 +9,7 @@ import com.momo.domain.management.dto.ManagingGroupCardResponse;
 import com.momo.domain.management.dto.MyPostCardResponse;
 import com.momo.domain.management.dto.ParticipatingGroupCardResponse;
 import com.momo.domain.management.dto.ParticipatingGroupCountResponse;
-import com.momo.domain.management.dto.SummaryParticipationGroupResponse;
+import com.momo.domain.management.dto.ParticipatingGroupSummaryResponse;
 import com.momo.domain.management.service.ManagementService;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.repository.PostRepository;
@@ -39,10 +39,10 @@ public class ManagementServiceImpl implements ManagementService {
     }
 
     @Transactional(readOnly = true)
-    public List<SummaryParticipationGroupResponse> findSummaryParticipationGroupsByUser(User loginUser) {
+    public List<ParticipatingGroupSummaryResponse> findSummaryParticipationGroupsByUser(User loginUser) {
         List<Participant> participants = participantRepository
             .findAllWithGroupByUserAndNotManagerOrderByCreatedDateDesc(loginUser);
-        return SummaryParticipationGroupResponse.listOf(participants);
+        return ParticipatingGroupSummaryResponse.listOf(participants);
     }
 
     @Transactional(readOnly = true)

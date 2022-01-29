@@ -4,7 +4,7 @@ import com.momo.domain.management.dto.ManagingGroupCardResponse;
 import com.momo.domain.management.dto.MyPostCardResponse;
 import com.momo.domain.management.dto.ParticipatingGroupCardResponse;
 import com.momo.domain.management.dto.ParticipatingGroupCountResponse;
-import com.momo.domain.management.dto.SummaryParticipationGroupResponse;
+import com.momo.domain.management.dto.ParticipatingGroupSummaryResponse;
 import com.momo.domain.user.entity.User;
 import java.util.List;
 
@@ -14,7 +14,7 @@ public interface ManagementService {
 
     List<ParticipatingGroupCardResponse> findParticipatingGroupsByUser(User loginUser);
 
-    List<SummaryParticipationGroupResponse> findSummaryParticipationGroupsByUser(User loginUser);
+    List<ParticipatingGroupSummaryResponse> findSummaryParticipationGroupsByUser(User loginUser);
 
     List<ManagingGroupCardResponse> findManagingGroupsByUser(User loginUser);
 

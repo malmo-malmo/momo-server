@@ -7,10 +7,9 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.RestDocsControllerTest;
+import com.momo.common.RestDocsControllerTest;
 import com.momo.api.management.ManagementController;
 import com.momo.domain.group.entity.Category;
-import com.momo.domain.management.dto.MyGroupCardResponse;
 import com.momo.domain.management.dto.MyGroupSummaryResponse;
 import com.momo.domain.management.dto.MyPostCardResponse;
 import com.momo.domain.management.dto.ParticipationGroupCardResponse;

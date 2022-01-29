@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.RestDocsControllerTest;
+import com.momo.common.RestDocsControllerTest;
 import com.momo.api.group.ParticipantController;
 import com.momo.domain.group.dto.ParticipantResponse;
 import com.momo.domain.group.service.impl.ParticipantServiceImpl;

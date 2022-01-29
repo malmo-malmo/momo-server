@@ -1,8 +1,8 @@
 package com.momo.post.docs;
 
-import static com.momo.CommonFileUploadSupport.generateUploadMockPutBuilder;
-import static com.momo.CommonFileUploadSupport.uploadMockSupport;
-import static com.momo.CommonFileUploadSupport.uploadTestFile;
+import static com.momo.common.CommonFileUploadSupport.generateUploadMockPutBuilder;
+import static com.momo.common.CommonFileUploadSupport.uploadMockSupport;
+import static com.momo.common.CommonFileUploadSupport.uploadTestFile;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
@@ -13,7 +13,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.RestDocsControllerTest;
+import com.momo.common.RestDocsControllerTest;
 import com.momo.api.post.PostController;
 import com.momo.domain.post.dto.PostCreateRequest;
 import com.momo.domain.post.dto.PostResponse;

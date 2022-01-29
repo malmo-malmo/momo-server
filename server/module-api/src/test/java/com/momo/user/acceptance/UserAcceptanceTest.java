@@ -1,6 +1,6 @@
 package com.momo.user.acceptance;
 
-import static com.momo.CommonFileUploadSupport.uploadTestFile;
+import static com.momo.common.CommonFileUploadSupport.uploadTestFile;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsBadRequest;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
 import static com.momo.fixture.UserFixture.getUser1;

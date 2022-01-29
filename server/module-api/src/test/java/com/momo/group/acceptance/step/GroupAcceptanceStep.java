@@ -1,7 +1,7 @@
 package com.momo.group.acceptance.step;
 
 
-import static com.momo.CommonFileUploadSupport.uploadAssuredSupport;
+import static com.momo.common.CommonFileUploadSupport.uploadAssuredSupport;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 

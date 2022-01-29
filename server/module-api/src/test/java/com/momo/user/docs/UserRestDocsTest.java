@@ -1,7 +1,7 @@
 package com.momo.user.docs;
 
-import static com.momo.CommonFileUploadSupport.generateUploadMockPutBuilder;
-import static com.momo.CommonFileUploadSupport.uploadMockSupport;
+import static com.momo.common.CommonFileUploadSupport.generateUploadMockPutBuilder;
+import static com.momo.common.CommonFileUploadSupport.uploadMockSupport;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.fileUpload;
@@ -10,7 +10,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.RestDocsControllerTest;
+import com.momo.common.RestDocsControllerTest;
 import com.momo.api.user.UserController;
 import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.district.entity.City;

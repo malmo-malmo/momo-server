@@ -6,13 +6,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.momo.domain.schedule.dto.AttendanceCreateRequest;
 import com.momo.domain.schedule.dto.AttendanceCreateRequests;
 import com.momo.domain.schedule.dto.AttendanceResponse;
-import com.momo.domain.schedule.dto.UserScheduleResponse;
+import com.momo.domain.schedule.dto.AttendanceUpdateRequests;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 public class AttendanceAcceptanceStep {
@@ -27,6 +26,18 @@ public class AttendanceAcceptanceStep {
             .then().log().all()
             .extract();
     }
+
+    public static ExtractableResponse<Response> requestToUpdateAttendance(String token,
+        AttendanceUpdateRequests requests) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .body(requests)
+            .put("/api/attendance")
+            .then().log().all()
+            .extract();
+    }
+
     public static ExtractableResponse<Response> requestToAttendances(String token, Long groupId) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
@@ -37,7 +48,8 @@ public class AttendanceAcceptanceStep {
             .extract();
     }
 
-    public static void assertThatFindAttendance(List<AttendanceCreateRequest> requests, List<AttendanceResponse> responses) {
+    public static void assertThatFindAttendance(List<AttendanceCreateRequest> requests,
+        List<AttendanceResponse> responses) {
         assertThat(responses.size()).isEqualTo(requests.size());
 
         int i = 0;

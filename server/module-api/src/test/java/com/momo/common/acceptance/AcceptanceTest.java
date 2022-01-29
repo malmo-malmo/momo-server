@@ -2,6 +2,7 @@ package com.momo.common.acceptance;
 
 import static org.springframework.http.HttpHeaders.LOCATION;
 
+import com.momo.common.DatabaseCleaner;
 import com.momo.domain.auth.provider.TokenProvider;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
@@ -27,7 +28,7 @@ public class AcceptanceTest {
     protected UserRepository userRepository;
 
     @Autowired
-    private DatabaseCleanUp databaseCleanUp;
+    private DatabaseCleaner databaseCleaner;
 
     @Autowired
     private TokenProvider tokenProvider;
@@ -41,7 +42,7 @@ public class AcceptanceTest {
 
     @AfterEach
     protected void tearDown() {
-        databaseCleanUp.cleanUp();
+        databaseCleaner.cleanUp();
     }
 
     protected String getAccessToken(User user) {

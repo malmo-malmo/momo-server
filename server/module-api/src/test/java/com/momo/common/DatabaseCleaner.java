@@ -1,4 +1,4 @@
-package com.momo.common.acceptance;
+package com.momo.common;
 
 import com.google.common.base.CaseFormat;
 import java.util.List;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class DatabaseCleanUp implements InitializingBean {
+public class DatabaseCleaner implements InitializingBean {
 
     @PersistenceContext
     private EntityManager em;

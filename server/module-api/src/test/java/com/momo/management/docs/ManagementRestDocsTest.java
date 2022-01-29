@@ -10,6 +10,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.momo.RestDocsControllerTest;
 import com.momo.api.management.ManagementController;
 import com.momo.domain.group.entity.Category;
+import com.momo.domain.management.dto.MyGroupCardResponse;
+import com.momo.domain.management.dto.MyGroupSummaryResponse;
 import com.momo.domain.management.dto.MyPostCardResponse;
 import com.momo.domain.management.dto.ParticipationGroupCardResponse;
 import com.momo.domain.management.dto.ParticipationGroupCountResponse;
@@ -66,7 +68,7 @@ public class ManagementRestDocsTest extends RestDocsControllerTest {
     }
 
     @Test
-    void 그_외_참여한_모임_목록_조회() throws Exception {
+    void 그_외_참여한_모임_목록_조회_요약() throws Exception {
         List<ParticipationGroupSummaryResponse> responses = List.of(
             ParticipationGroupSummaryResponse.builder()
                 .id(1L)
@@ -79,6 +81,21 @@ public class ManagementRestDocsTest extends RestDocsControllerTest {
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(ManagementDocumentation.findParticipationGroupsSummary());
+    }
+
+    @Test
+    void 내_모임_목록_조회_요약() throws Exception {
+        List<MyGroupSummaryResponse> responses = List.of(
+            MyGroupSummaryResponse.builder()
+                .id(1L)
+                .name("모임 이름")
+                .build()
+        );
+        when(managementService.findMyGroupsSummaryByUser(any())).thenReturn(responses);
+        super.mockMvc.perform(get("/api/management/my-groups/summary"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(ManagementDocumentation.findMyGroupsSummary());
     }
 
     @Test

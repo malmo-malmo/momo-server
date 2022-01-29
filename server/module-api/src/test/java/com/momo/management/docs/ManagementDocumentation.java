@@ -53,6 +53,16 @@ public class ManagementDocumentation {
         );
     }
 
+    public static RestDocumentationResultHandler findMyGroupsSummary() {
+        FieldDescriptor[] response = new FieldDescriptor[]{
+            fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("모임 ID"),
+            fieldWithPath("[].name").type(JsonFieldType.STRING).description("모임 이름"),
+        };
+        return document("management/findMyGroupsSummary",
+            responseFields(response)
+        );
+    }
+
     public static RestDocumentationResultHandler findMyPosts() {
         ParameterDescriptor[] requestParam = new ParameterDescriptor[]{
             parameterWithName("page").description("페이지 번호"),

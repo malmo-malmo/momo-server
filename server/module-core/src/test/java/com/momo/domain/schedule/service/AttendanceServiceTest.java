@@ -17,6 +17,7 @@ import com.momo.domain.schedule.dto.AttendanceCreateRequest;
 import com.momo.domain.schedule.dto.AttendanceCreateRequests;
 import com.momo.domain.schedule.dto.AttendanceResponse;
 import com.momo.domain.schedule.dto.AttendanceUpdateRequest;
+import com.momo.domain.schedule.dto.AttendanceUpdateRequests;
 import com.momo.domain.schedule.entity.Attendance;
 import com.momo.domain.schedule.entity.Schedule;
 import com.momo.domain.schedule.repository.AttendanceRepository;
@@ -112,32 +113,43 @@ public class AttendanceServiceTest extends ServiceTest {
 
     @Test
     void 모임_관리자가_출석_수정_테스트를_성공한다() {
-        Attendance attendance = Attendance.builder().id(1L).group(group).isAttend(false).build();
+        given(groupRepository.findById(anyLong())).willReturn(Optional.of(group));
+        given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
+        Attendance attendance = Attendance.builder().id(1L).group(group).schedule(schedule).isAttend(false).build();
         given(attendanceRepository.findById(any())).willReturn(Optional.of(attendance));
-        List<AttendanceUpdateRequest> requests = List.of(
-            AttendanceUpdateRequest.builder()
-                .attendanceId(attendance.getId())
-                .isAttend(true)
-                .build()
-        );
+        AttendanceUpdateRequests requests = AttendanceUpdateRequests.builder()
+            .groupId(group.getId())
+            .scheduleId(schedule.getId())
+            .attendanceUpdateRequests(List.of(
+                AttendanceUpdateRequest.builder()
+                    .attendanceId(attendance.getId())
+                    .isAttend(true)
+                    .build()
+            )).build();
         attendanceService.updates(manager, requests);
         verify(attendanceRepository).findById(attendance.getId());
         assertThat(attendance.isAttend()).isTrue();
     }
+
     @Test
     void 모임_관리자가_아니면_출석_수정_테스트를_실패한다() {
+        given(groupRepository.findById(anyLong())).willReturn(Optional.of(group));
+        given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
         given(attendanceRepository.findById(any())).willReturn(Optional.of(Attendance.builder().group(group).build()));
-        List<AttendanceUpdateRequest> requests = List.of(
-            AttendanceUpdateRequest.builder()
-                .attendanceId(1L)
-                .isAttend(false)
-                .build()
-        );
+        AttendanceUpdateRequests requests = AttendanceUpdateRequests.builder()
+            .groupId(group.getId())
+            .scheduleId(schedule.getId())
+            .attendanceUpdateRequests(List.of(
+                AttendanceUpdateRequest.builder()
+                    .isAttend(true)
+                    .build()
+            )).build();
 
         assertThatThrownBy(() -> attendanceService.updates(user, requests))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_MANAGER_AUTHORIZED.getMessage());
     }
+
     @Test
     void 모임_관리자가_출석_모임_목록을_조회_테스트를_성공한다() {
         Attendance attendance = Attendance.builder()
@@ -154,10 +166,11 @@ public class AttendanceServiceTest extends ServiceTest {
         Assertions.assertAll(
             () -> assertThat(response.getAttendanceId()).isEqualTo(attendance.getId()),
             () -> assertThat(response.getUsername()).isEqualTo(attendance.getUser().getNickname()),
-            () -> assertThat(response.isAttend()).isFalse(),
+            () -> assertThat(response.getIsAttend()).isFalse(),
             () -> assertThat(response.getAttainmentRate()).isEqualTo(100)
         );
     }
+
     @Test
     void 모임_관리자가_아니면_출석_모임_목록_조회_테스트를_실패한다() {
         given(groupRepository.findById(anyLong())).willReturn(Optional.of(group));

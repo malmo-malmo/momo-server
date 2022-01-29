@@ -8,6 +8,7 @@ import com.momo.domain.schedule.dto.AttendanceCreateRequest;
 import com.momo.domain.schedule.dto.AttendanceCreateRequests;
 import com.momo.domain.schedule.dto.AttendanceResponse;
 import com.momo.domain.schedule.dto.AttendanceUpdateRequest;
+import com.momo.domain.schedule.dto.AttendanceUpdateRequests;
 import com.momo.domain.schedule.entity.Attendance;
 import com.momo.domain.schedule.entity.Schedule;
 import com.momo.domain.schedule.repository.AttendanceRepository;
@@ -49,18 +50,23 @@ public class AttendanceServiceImpl implements AttendanceService {
         }
         attendanceRepository.saveAll(attendances);
     }
-    public void updates(User user, List<AttendanceUpdateRequest> requests) {
-        for (AttendanceUpdateRequest request : requests) {
-            this.update(user, request);
+
+    public void updates(User user, AttendanceUpdateRequests requests) {
+        Group group = getGroupById(requests.getGroupId());
+        validateGroupManager(group, user);
+
+        Schedule schedule = getScheduleById(requests.getScheduleId());
+        for (AttendanceUpdateRequest request : requests.getAttendanceUpdateRequests()) {
+            this.update(group, schedule, request);
         }
     }
 
-    private void update(User user, AttendanceUpdateRequest request) {
+    private void update(Group group, Schedule schedule, AttendanceUpdateRequest request) {
         Attendance attendance = attendanceRepository.findById(request.getAttendanceId())
             .orElseThrow();
-        validateGroupManager(attendance.getGroup(), user);
-
-        attendance.updateAttend(request.isAttend());
+        if (attendance.isSameGroup(group) && attendance.isSameSchedule(schedule)) {
+            attendance.updateAttend(request.isAttend());
+        }
     }
 
     public List<AttendanceResponse> findGroupAttendances(User user, Long groupId) {

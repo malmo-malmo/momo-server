@@ -66,4 +66,12 @@ public class Attendance {
     public void updateAttend(boolean isAttend) {
         this.isAttend = isAttend;
     }
+
+    public boolean isSameSchedule(Schedule schedule) {
+        return this.schedule.getId() == schedule.getId();
+    }
+
+    public boolean isSameGroup(Group group) {
+        return this.group.getId() == group.getId();
+    }
 }

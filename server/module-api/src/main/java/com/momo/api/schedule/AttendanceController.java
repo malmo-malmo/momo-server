@@ -4,10 +4,9 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 import com.momo.common.CurrentUser;
 import com.momo.domain.schedule.dto.AttendanceCreateRequests;
-import com.momo.domain.schedule.dto.AttendanceUpdateRequest;
+import com.momo.domain.schedule.dto.AttendanceUpdateRequests;
 import com.momo.domain.schedule.service.AttendanceService;
 import com.momo.domain.user.entity.User;
-import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +32,7 @@ public class AttendanceController {
 
     @PutMapping
     public ResponseEntity<Void> update(@CurrentUser User user,
-        @Valid @RequestBody List<AttendanceUpdateRequest> attendanceUpdateRequests) {
+        @Valid @RequestBody AttendanceUpdateRequests attendanceUpdateRequests) {
         attendanceService.updates(user, attendanceUpdateRequests);
         return ResponseEntity.ok().build();
     }

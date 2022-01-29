@@ -3,6 +3,7 @@ package com.momo.domain.management.service.impl;
 import static com.momo.domain.post.entity.PostType.NORMAL;
 import static org.springframework.data.domain.PageRequest.of;
 
+import com.momo.domain.group.entity.Participant;
 import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.management.dto.ManagingGroupCardResponse;
 import com.momo.domain.management.dto.MyPostCardResponse;
@@ -37,12 +38,14 @@ public class ManagementServiceImpl implements ManagementService {
         return participantRepository.findParticipatingGroupsByUser(loginUser);
     }
 
-    @Override
+    @Transactional(readOnly = true)
     public List<SummaryParticipationGroupResponse> findSummaryParticipationGroupsByUser(User loginUser) {
-        return null;
+        List<Participant> participants = participantRepository
+            .findAllWithGroupByUserAndNotManagerOrderByCreatedDateDesc(loginUser);
+        return SummaryParticipationGroupResponse.listOf(participants);
     }
 
-    @Override
+    @Transactional(readOnly = true)
     public List<ManagingGroupCardResponse> findManagingGroupsByUser(User loginUser) {
         return null;
     }

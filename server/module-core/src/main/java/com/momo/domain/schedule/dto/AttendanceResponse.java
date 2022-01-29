@@ -11,11 +11,11 @@ public class AttendanceResponse {
 
     private Long attendanceId;
     private String username;
-    private boolean isAttend;
+    private Boolean isAttend;
     private int attainmentRate;
 
     @Builder
-    public AttendanceResponse(Long attendanceId, String username, boolean isAttend, int attainmentRate) {
+    public AttendanceResponse(Long attendanceId, String username, Boolean isAttend, int attainmentRate) {
         this.attendanceId = attendanceId;
         this.username = username;
         this.isAttend = isAttend;

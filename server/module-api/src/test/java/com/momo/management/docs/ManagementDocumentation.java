@@ -42,6 +42,17 @@ public class ManagementDocumentation {
         );
     }
 
+    public static RestDocumentationResultHandler findParticipationGroupsSummary() {
+        FieldDescriptor[] response = new FieldDescriptor[]{
+            fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("모임 ID"),
+            fieldWithPath("[].name").type(JsonFieldType.STRING).description("모임 이름"),
+            fieldWithPath("[].category").type(JsonFieldType.STRING).description("모임 카테고리")
+        };
+        return document("management/findParticipationGroupsSummary",
+            responseFields(response)
+        );
+    }
+
     public static RestDocumentationResultHandler findMyPosts() {
         ParameterDescriptor[] requestParam = new ParameterDescriptor[]{
             parameterWithName("page").description("페이지 번호"),

@@ -9,9 +9,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.RestDocsControllerTest;
 import com.momo.api.management.ManagementController;
+import com.momo.domain.group.entity.Category;
 import com.momo.domain.management.dto.MyPostCardResponse;
-import com.momo.domain.management.dto.ParticipatingGroupCardResponse;
-import com.momo.domain.management.dto.ParticipatingGroupCountResponse;
+import com.momo.domain.management.dto.ParticipationGroupCardResponse;
+import com.momo.domain.management.dto.ParticipationGroupCountResponse;
+import com.momo.domain.management.dto.ParticipationGroupSummaryResponse;
 import com.momo.domain.management.service.ManagementService;
 import com.momo.domain.post.dto.PostCardResponse;
 import java.time.LocalDate;
@@ -35,18 +37,18 @@ public class ManagementRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 참여한_모임_수_조회() throws Exception {
-        ParticipatingGroupCountResponse response = new ParticipatingGroupCountResponse(10L);
-        when(managementService.findParticipatingGroupCountByUser(any())).thenReturn(response);
-        super.mockMvc.perform(get("/api/management/group/participation/count"))
+        ParticipationGroupCountResponse response = new ParticipationGroupCountResponse(10L);
+        when(managementService.findParticipationGroupCountByUser(any())).thenReturn(response);
+        super.mockMvc.perform(get("/api/management/participation-group/count"))
             .andDo(print())
             .andExpect(status().isOk())
-            .andDo(ManagementDocumentation.findParticipatingGroupCount());
+            .andDo(ManagementDocumentation.findParticipationGroupCount());
     }
 
     @Test
     void 참여한_모임_목록_조회() throws Exception {
-        List<ParticipatingGroupCardResponse> responses = List.of(
-            ParticipatingGroupCardResponse.builder()
+        List<ParticipationGroupCardResponse> responses = List.of(
+            ParticipationGroupCardResponse.builder()
                 .id(1L)
                 .name("모임 이름")
                 .imageUrl("이미지 URL")
@@ -56,11 +58,27 @@ public class ManagementRestDocsTest extends RestDocsControllerTest {
                 .participantCnt(10L)
                 .build()
         );
-        when(managementService.findParticipatingGroupsByUser(any())).thenReturn(responses);
-        super.mockMvc.perform(get("/api/management/groups/participation"))
+        when(managementService.findParticipationGroupsByUser(any())).thenReturn(responses);
+        super.mockMvc.perform(get("/api/management/participation-groups/details"))
             .andDo(print())
             .andExpect(status().isOk())
-            .andDo(ManagementDocumentation.findParticipatingGroups());
+            .andDo(ManagementDocumentation.findParticipationGroups());
+    }
+
+    @Test
+    void 그_외_참여한_모임_목록_조회() throws Exception {
+        List<ParticipationGroupSummaryResponse> responses = List.of(
+            ParticipationGroupSummaryResponse.builder()
+                .id(1L)
+                .name("모임 이름")
+                .category(Category.HOBBY)
+                .build()
+        );
+        when(managementService.findParticipationGroupsSummaryByUser(any())).thenReturn(responses);
+        super.mockMvc.perform(get("/api/management/participation-groups/summary"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(ManagementDocumentation.findParticipationGroupsSummary());
     }
 
     @Test
@@ -82,7 +100,7 @@ public class ManagementRestDocsTest extends RestDocsControllerTest {
                 .build()
         );
         when(managementService.findMyPostsByUser(any(), anyInt(), anyInt())).thenReturn(responses);
-        super.mockMvc.perform(get("/api/management/posts")
+        super.mockMvc.perform(get("/api/management/my-posts")
                 .param("page", String.valueOf(0))
                 .param("size", String.valueOf(10))
             )

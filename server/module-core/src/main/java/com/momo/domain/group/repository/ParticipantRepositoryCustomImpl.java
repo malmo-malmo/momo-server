@@ -4,8 +4,8 @@ import static com.momo.domain.group.entity.QGroup.group;
 import static com.momo.domain.group.entity.QParticipant.participant;
 
 import com.momo.domain.group.entity.Participant;
-import com.momo.domain.management.dto.ParticipatingGroupCardResponse;
-import com.momo.domain.management.dto.QParticipatingGroupCardResponse;
+import com.momo.domain.management.dto.ParticipationGroupCardResponse;
+import com.momo.domain.management.dto.QParticipationGroupCardResponse;
 import com.momo.domain.user.entity.User;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -18,9 +18,9 @@ public class ParticipantRepositoryCustomImpl implements ParticipantRepositoryCus
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<ParticipatingGroupCardResponse> findParticipatingGroupsByUser(User user) {
+    public List<ParticipationGroupCardResponse> findParticipationGroupsByUser(User user) {
         return queryFactory
-            .select(new QParticipatingGroupCardResponse(
+            .select(new QParticipationGroupCardResponse(
                 participant.group.id,
                 participant.group.name,
                 participant.group.imageUrl,

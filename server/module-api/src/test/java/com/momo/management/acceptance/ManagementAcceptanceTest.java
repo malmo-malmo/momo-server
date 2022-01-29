@@ -6,18 +6,18 @@ import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST2;
 import static com.momo.fixture.UserFixture.getUser1;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
 import static com.momo.management.acceptance.step.ManagementAcceptanceStep.assertThatFindMyPosts;
-import static com.momo.management.acceptance.step.ManagementAcceptanceStep.assertThatFindParticipatingGroups;
+import static com.momo.management.acceptance.step.ManagementAcceptanceStep.assertThatfindParticipationGroups;
 import static com.momo.management.acceptance.step.ManagementAcceptanceStep.requestToFindMyPosts;
-import static com.momo.management.acceptance.step.ManagementAcceptanceStep.requestToFindParticipatingGroupCount;
-import static com.momo.management.acceptance.step.ManagementAcceptanceStep.requestToFindParticipatingGroups;
+import static com.momo.management.acceptance.step.ManagementAcceptanceStep.requestTofindParticipationGroupCount;
+import static com.momo.management.acceptance.step.ManagementAcceptanceStep.requestTofindParticipationGroups;
 import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToCreatePost;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.management.dto.MyPostCardResponse;
-import com.momo.domain.management.dto.ParticipatingGroupCardResponse;
-import com.momo.domain.management.dto.ParticipatingGroupCountResponse;
+import com.momo.domain.management.dto.ParticipationGroupCardResponse;
+import com.momo.domain.management.dto.ParticipationGroupCountResponse;
 import com.momo.domain.post.dto.PostCreateRequest;
 import com.momo.fixture.PostFixture;
 import io.restassured.response.ExtractableResponse;
@@ -34,20 +34,20 @@ public class ManagementAcceptanceTest extends AcceptanceTest {
         String token = getAccessToken(getUser1());
         requestToCreateGroup(token, GROUP_CREATE_REQUEST1);
         requestToCreateGroup(token, GROUP_CREATE_REQUEST2);
-        ExtractableResponse<Response> response = requestToFindParticipatingGroupCount(token);
-        Long participatingGroupCount = getObject(response, ParticipatingGroupCountResponse.class).getCount();
+        ExtractableResponse<Response> response = requestTofindParticipationGroupCount(token);
+        Long participationGroupCount = getObject(response, ParticipationGroupCountResponse.class).getCount();
         assertThatStatusIsOk(response);
-        assertThat(participatingGroupCount).isEqualTo(2);
+        assertThat(participationGroupCount).isEqualTo(2);
     }
 
     @Test
     void 참여한_모임_목록을_조회한다() {
         String token = getAccessToken(getUser1());
         requestToCreateGroup(token, GROUP_CREATE_REQUEST1);
-        ExtractableResponse<Response> response = requestToFindParticipatingGroups(token);
-        List<ParticipatingGroupCardResponse> cardResponses = getObjects(response, ParticipatingGroupCardResponse.class);
+        ExtractableResponse<Response> response = requestTofindParticipationGroups(token);
+        List<ParticipationGroupCardResponse> cardResponses = getObjects(response, ParticipationGroupCardResponse.class);
         assertThatStatusIsOk(response);
-        assertThatFindParticipatingGroups(cardResponses, GROUP_CREATE_REQUEST1);
+        assertThatfindParticipationGroups(cardResponses, GROUP_CREATE_REQUEST1);
     }
 
     @Test

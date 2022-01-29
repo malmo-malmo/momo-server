@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class ManagingGroupCardResponse {
+public class MyGroupCardResponse {
 
     private Long id;
     private String name;

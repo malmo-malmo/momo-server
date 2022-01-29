@@ -8,7 +8,7 @@ import static org.mockito.Mockito.verify;
 import com.momo.common.ServiceTest;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
-import com.momo.domain.management.dto.ParticipatingGroupCountResponse;
+import com.momo.domain.management.dto.ParticipationGroupCountResponse;
 import com.momo.domain.management.service.impl.ManagementServiceImpl;
 import com.momo.domain.post.repository.PostRepository;
 import com.momo.domain.user.entity.User;
@@ -44,7 +44,7 @@ public class ManagementServiceTest extends ServiceTest {
 
         given(participantRepository.countAllByUser(any())).willReturn(expected);
 
-        ParticipatingGroupCountResponse actual = managementService.findParticipatingGroupCountByUser(user);
+        ParticipationGroupCountResponse actual = managementService.findParticipationGroupCountByUser(user);
 
         verify(participantRepository).countAllByUser(any());
         Assertions.assertAll(

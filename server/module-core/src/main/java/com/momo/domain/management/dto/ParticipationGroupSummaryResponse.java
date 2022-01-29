@@ -10,30 +10,30 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class ParticipatingGroupSummaryResponse {
+public class ParticipationGroupSummaryResponse {
 
     private Long id;
     private String name;
     private Category category;
 
     @Builder
-    public ParticipatingGroupSummaryResponse(Long id, String name, Category category) {
+    public ParticipationGroupSummaryResponse(Long id, String name, Category category) {
         this.id = id;
         this.name = name;
         this.category = category;
     }
 
-    private static ParticipatingGroupSummaryResponse of(Participant participant) {
-        return ParticipatingGroupSummaryResponse.builder()
+    private static ParticipationGroupSummaryResponse of(Participant participant) {
+        return ParticipationGroupSummaryResponse.builder()
             .id(participant.getGroup().getId())
             .name(participant.getGroup().getName())
             .category(participant.getGroup().getCategory())
             .build();
     }
 
-    public static List<ParticipatingGroupSummaryResponse> listOf(List<Participant> participants) {
+    public static List<ParticipationGroupSummaryResponse> listOf(List<Participant> participants) {
         return participants.stream()
-            .map(ParticipatingGroupSummaryResponse::of)
+            .map(ParticipationGroupSummaryResponse::of)
             .collect(Collectors.toList());
     }
 }

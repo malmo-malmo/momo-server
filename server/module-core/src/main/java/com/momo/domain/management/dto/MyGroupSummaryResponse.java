@@ -9,27 +9,27 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class ManagingGroupSummaryResponse {
+public class MyGroupSummaryResponse {
 
     private Long id;
     private String name;
 
     @Builder
-    public ManagingGroupSummaryResponse(Long id, String name) {
+    public MyGroupSummaryResponse(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    private static ManagingGroupSummaryResponse of(Group group) {
-        return ManagingGroupSummaryResponse.builder()
+    private static MyGroupSummaryResponse of(Group group) {
+        return MyGroupSummaryResponse.builder()
             .id(group.getId())
             .name(group.getName())
             .build();
     }
 
-    public static List<ManagingGroupSummaryResponse> listOf(List<Group> groups) {
+    public static List<MyGroupSummaryResponse> listOf(List<Group> groups) {
         return groups.stream()
-            .map(ManagingGroupSummaryResponse::of)
+            .map(MyGroupSummaryResponse::of)
             .collect(Collectors.toList());
     }
 }

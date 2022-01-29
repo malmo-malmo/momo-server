@@ -6,13 +6,13 @@
 
 관심(찜) 모임 수를 조회합니다.
 
-operation::management/findParticipatingGroupCount[snippets='http-request,http-response,response-fields']
+operation::management/findParticipationGroupCount[snippets='http-request,http-response,response-fields']
 
 === 참여한 모임 목록 조회
 
 관심(찜) 모임 목록을 조회합니다.
 
-operation::management/findParticipatingGroups[snippets='http-request,http-response,response-fields']
+operation::management/findParticipationGroups[snippets='http-request,http-response,response-fields']
 
 === 내 게시물 목록 조회
 

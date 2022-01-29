@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ParticipatingGroupCountResponse {
+public class ParticipationGroupCountResponse {
 
     private Long count;
 
-    public static ParticipatingGroupCountResponse of(Long count) {
-        return new ParticipatingGroupCountResponse(count);
+    public static ParticipationGroupCountResponse of(Long count) {
+        return new ParticipationGroupCountResponse(count);
     }
 }

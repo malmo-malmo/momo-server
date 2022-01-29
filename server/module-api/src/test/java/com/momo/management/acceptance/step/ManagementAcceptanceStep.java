@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.management.dto.MyPostCardResponse;
-import com.momo.domain.management.dto.ParticipatingGroupCardResponse;
+import com.momo.domain.management.dto.ParticipationGroupCardResponse;
 import com.momo.domain.post.dto.PostCreateRequest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -15,7 +15,7 @@ import org.springframework.http.HttpHeaders;
 
 public class ManagementAcceptanceStep {
 
-    public static void assertThatFindParticipatingGroups(List<ParticipatingGroupCardResponse> responses,
+    public static void assertThatfindParticipationGroups(List<ParticipationGroupCardResponse> responses,
         GroupCreateRequest request) {
         Assertions.assertAll(
             () -> assertThat(responses.size()).isEqualTo(1),
@@ -43,7 +43,7 @@ public class ManagementAcceptanceStep {
         );
     }
 
-    public static ExtractableResponse<Response> requestToFindParticipatingGroupCount(String token) {
+    public static ExtractableResponse<Response> requestTofindParticipationGroupCount(String token) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .when()
@@ -52,7 +52,7 @@ public class ManagementAcceptanceStep {
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToFindParticipatingGroups(String token) {
+    public static ExtractableResponse<Response> requestTofindParticipationGroups(String token) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .when()

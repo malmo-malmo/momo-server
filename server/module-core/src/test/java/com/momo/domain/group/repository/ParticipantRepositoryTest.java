@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.momo.common.RepositoryTest;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
-import com.momo.domain.management.dto.ParticipatingGroupCardResponse;
+import com.momo.domain.management.dto.ParticipationGroupCardResponse;
 import com.momo.domain.user.entity.User;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
@@ -118,7 +118,7 @@ public class ParticipantRepositoryTest extends RepositoryTest {
                 .build()
         );
 
-        List<ParticipatingGroupCardResponse> actual = participantRepository.findParticipatingGroupsByUser(user1);
+        List<ParticipationGroupCardResponse> actual = participantRepository.findParticipationGroupsByUser(user1);
 
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),

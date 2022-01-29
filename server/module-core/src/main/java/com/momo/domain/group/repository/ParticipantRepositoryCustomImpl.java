@@ -35,16 +35,17 @@ public class ParticipantRepositoryCustomImpl implements ParticipantRepositoryCus
             .from(participant)
             .leftJoin(participant.group, group)
             .where(participant.user.eq(user))
+            .orderBy(participant.group.createdDate.asc())
             .fetch();
     }
 
     @Override
-    public List<Participant> findAllWithGroupByUserAndNotManagerOrderByCreatedDateDesc(User user) {
+    public List<Participant> findAllWithNotManagingGroupByUser(User user) {
         return queryFactory
             .selectFrom(participant)
             .leftJoin(participant.group, group).fetchJoin()
             .where(participant.user.eq(user), participant.group.manager.ne(user))
-            .orderBy(participant.group.createdDate.desc())
+            .orderBy(participant.group.createdDate.asc())
             .fetch();
     }
 }

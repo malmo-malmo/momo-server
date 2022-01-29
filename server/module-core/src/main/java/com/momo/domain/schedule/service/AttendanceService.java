@@ -12,5 +12,5 @@ public interface AttendanceService {
 
     void updates(User user, AttendanceUpdateRequests requests);
 
-    List<AttendanceResponse> findGroupAttendances(User user, Long groupId);
+    List<AttendanceResponse> findGroupAttendances(User user, Long scheduleId);
 }

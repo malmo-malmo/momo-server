@@ -69,12 +69,11 @@ public class AttendanceServiceImpl implements AttendanceService {
         }
     }
 
-    public List<AttendanceResponse> findGroupAttendances(User user, Long groupId) {
-        Group group = groupRepository.findById(groupId)
-            .orElseThrow();
-        validateGroupManager(group, user);
+    public List<AttendanceResponse> findGroupAttendances(User user, Long scheduleId) {
+        Schedule schedule = getScheduleById(scheduleId);
+        validateGroupManager(schedule.getGroup(), user);
 
-        List<Attendance> attendances = attendanceRepository.findByGroup(group);
+        List<Attendance> attendances = attendanceRepository.findBySchedule(schedule);
 
         return attendances.stream().map(AttendanceResponse::new).collect(Collectors.toList());
     }

@@ -98,7 +98,7 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
 
         requestToCreateAttendance(managerToken, attendanceCreateRequests);
 
-        ExtractableResponse<Response> response = requestToAttendances(managerToken, groupId);
+        ExtractableResponse<Response> response = requestToAttendances(managerToken, scheduleId);
         List<AttendanceResponse> attendanceResponses = getObjects(response, AttendanceResponse.class);
         assertThatStatusIsOk(response);
         assertThatFindAttendance(attendanceCreateRequests.getAttendanceCreateRequests(), attendanceResponses);

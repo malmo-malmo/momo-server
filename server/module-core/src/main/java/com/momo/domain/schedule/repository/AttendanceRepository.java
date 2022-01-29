@@ -1,7 +1,7 @@
 package com.momo.domain.schedule.repository;
 
-import com.momo.domain.group.entity.Group;
 import com.momo.domain.schedule.entity.Attendance;
+import com.momo.domain.schedule.entity.Schedule;
 import com.momo.domain.user.entity.User;
 import java.util.List;
 import java.util.Optional;
@@ -11,5 +11,5 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
 
     Optional<Attendance> findByUser(User user);
 
-    List<Attendance> findByGroup(Group group);
+    List<Attendance> findBySchedule(Schedule schedule);
 }

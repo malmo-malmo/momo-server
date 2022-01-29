@@ -43,7 +43,7 @@ public class AttendanceAcceptanceStep {
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)
             .pathParam("groupId", groupId)
-            .get("/api/attendances/group/{groupId}")
+            .get("/api/attendances/schedule/{groupId}")
             .then().log().all()
             .extract();
     }

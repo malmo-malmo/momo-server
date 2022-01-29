@@ -157,9 +157,9 @@ public class AttendanceServiceTest extends ServiceTest {
             .user(User.builder().nickname("테스트 유저").build())
             .isAttend(false)
             .build();
-        given(groupRepository.findById(anyLong())).willReturn(Optional.of(group));
-        given(attendanceRepository.findByGroup(any(Group.class))).willReturn(List.of(attendance));
-        List<AttendanceResponse> responses = attendanceService.findGroupAttendances(manager, group.getId());
+        given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
+        given(attendanceRepository.findBySchedule(any(Schedule.class))).willReturn(List.of(attendance));
+        List<AttendanceResponse> responses = attendanceService.findGroupAttendances(manager, schedule.getId());
         assertThat(responses.size()).isEqualTo(1);
 
         AttendanceResponse response = responses.get(0);
@@ -173,9 +173,9 @@ public class AttendanceServiceTest extends ServiceTest {
 
     @Test
     void 모임_관리자가_아니면_출석_모임_목록_조회_테스트를_실패한다() {
-        given(groupRepository.findById(anyLong())).willReturn(Optional.of(group));
+        given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
 
-        assertThatThrownBy(() -> attendanceService.findGroupAttendances(user, group.getId()))
+        assertThatThrownBy(() -> attendanceService.findGroupAttendances(user, schedule.getId()))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_MANAGER_AUTHORIZED.getMessage());
     }

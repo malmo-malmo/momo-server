@@ -4,8 +4,10 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.domain.group.dto.GroupCreateRequest;
+import com.momo.domain.management.dto.MyGroupSummaryResponse;
 import com.momo.domain.management.dto.MyPostCardResponse;
 import com.momo.domain.management.dto.ParticipationGroupCardResponse;
+import com.momo.domain.management.dto.ParticipationGroupSummaryResponse;
 import com.momo.domain.post.dto.PostCreateRequest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -15,7 +17,7 @@ import org.springframework.http.HttpHeaders;
 
 public class ManagementAcceptanceStep {
 
-    public static void assertThatfindParticipationGroups(List<ParticipationGroupCardResponse> responses,
+    public static void assertThatFindParticipationGroups(List<ParticipationGroupCardResponse> responses,
         GroupCreateRequest request) {
         Assertions.assertAll(
             () -> assertThat(responses.size()).isEqualTo(1),
@@ -26,6 +28,25 @@ public class ManagementAcceptanceStep {
             () -> assertThat(responses.get(0).isOffline()).isEqualTo(request.getIsOffline()),
             () -> assertThat(responses.get(0).isEnd()).isFalse(),
             () -> assertThat(responses.get(0).getParticipantCnt()).isEqualTo(1)
+        );
+    }
+
+    public static void assertThatFindParticipationGroupsSummary(List<ParticipationGroupSummaryResponse> responses,
+        GroupCreateRequest request) {
+        Assertions.assertAll(
+            () -> assertThat(responses.size()).isEqualTo(1),
+            () -> assertThat(responses.get(0).getId()).isNotNull(),
+            () -> assertThat(responses.get(0).getName()).isEqualTo(request.getName()),
+            () -> assertThat(responses.get(0).getCategory()).isEqualTo(request.getCategory())
+        );
+    }
+
+    public static void assertThatFindMyGroupsSummary(List<MyGroupSummaryResponse> responses,
+        GroupCreateRequest request) {
+        Assertions.assertAll(
+            () -> assertThat(responses.size()).isEqualTo(1),
+            () -> assertThat(responses.get(0).getId()).isNotNull(),
+            () -> assertThat(responses.get(0).getName()).isEqualTo(request.getName())
         );
     }
 
@@ -43,20 +64,47 @@ public class ManagementAcceptanceStep {
         );
     }
 
-    public static ExtractableResponse<Response> requestTofindParticipationGroupCount(String token) {
+    public static ExtractableResponse<Response> requestToFindParticipationGroupCount(String token) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .when()
-            .get("/api/management/group/participation/count")
+            .get("/api/management/participation-group/count")
             .then().log().all()
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestTofindParticipationGroups(String token) {
+    public static ExtractableResponse<Response> requestToFindParticipationGroups(String token) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .when()
-            .get("/api/management/groups/participation")
+            .get("/api/management/participation-groups/details")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> requestToFindParticipationGroupsSummary(String token) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .when()
+            .get("/api/management/participation-groups/summary")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> requestToFindMyGroups(String token) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .when()
+            .get("/api/management/my-groups/details")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> requestToFindMyGroupsSummary(String token) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .when()
+            .get("/api/management/my-groups/summary")
             .then().log().all()
             .extract();
     }
@@ -67,7 +115,7 @@ public class ManagementAcceptanceStep {
             .param("page", 0)
             .param("size", 10)
             .when()
-            .get("/api/management/posts")
+            .get("/api/management/my-posts")
             .then().log().all()
             .extract();
     }

@@ -31,9 +31,11 @@ import com.momo.domain.user.dto.UserResponse;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+@DisplayName("출석 통합/인수 테스트")
 public class AttendanceAcceptanceTest extends AcceptanceTest {
 
     @Autowired
@@ -132,7 +134,7 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
         );
         requestToCreateAttendance(managerToken, attendanceCreateRequests);
 
-        ExtractableResponse<Response> attendanceResponse = requestToAttendances(managerToken, groupId);
+        ExtractableResponse<Response> attendanceResponse = requestToAttendances(managerToken, scheduleId);
         List<AttendanceResponse> attendanceResponses = getObjects(attendanceResponse, AttendanceResponse.class);
 
         Long targetAttendanceId = attendanceResponses.get(0).getAttendanceId();

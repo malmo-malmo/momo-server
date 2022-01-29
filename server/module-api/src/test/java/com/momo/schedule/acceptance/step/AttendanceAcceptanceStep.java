@@ -38,12 +38,12 @@ public class AttendanceAcceptanceStep {
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToAttendances(String token, Long groupId) {
+    public static ExtractableResponse<Response> requestToAttendances(String token, Long scheduleId) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)
-            .pathParam("groupId", groupId)
-            .get("/api/attendances/schedule/{groupId}")
+            .pathParam("scheduleId", scheduleId)
+            .get("/api/attendances/schedule/{scheduleId}")
             .then().log().all()
             .extract();
     }
@@ -55,7 +55,7 @@ public class AttendanceAcceptanceStep {
         int i = 0;
         for (AttendanceResponse attendanceResponse : responses) {
             int finalI = i;
-            boolean requestAttend = requests.get(finalI).getIsAttend();
+            boolean requestAttend = requests.get(finalI).isAttend();
             Assertions.assertAll(
                 () -> assertThat(attendanceResponse.getAttendanceId()).isNotNull(),
                 () -> assertThat(attendanceResponse.getAttainmentRate()).isEqualTo(100),

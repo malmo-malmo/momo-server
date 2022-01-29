@@ -17,10 +17,10 @@ public class AttendanceCreateRequest {
     private Long userId;
 
     @NotNull(message = "출석 여부는 필수 입력값입니다.")
-    private Boolean isAttend;
+    private boolean isAttend;
 
     @Builder
-    public AttendanceCreateRequest(Long userId, Boolean isAttend) {
+    public AttendanceCreateRequest(Long userId, boolean isAttend) {
         this.userId = userId;
         this.isAttend = isAttend;
     }

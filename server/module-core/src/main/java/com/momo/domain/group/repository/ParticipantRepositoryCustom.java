@@ -9,5 +9,5 @@ public interface ParticipantRepositoryCustom {
 
     List<ParticipatingGroupCardResponse> findParticipatingGroupsByUser(User user);
 
-    List<Participant> findAllWithGroupByUserAndNotManagerOrderByCreatedDateDesc(User user);
+    List<Participant> findAllWithNotManagingGroupByUser(User user);
 }

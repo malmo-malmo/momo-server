@@ -142,8 +142,7 @@ public class ParticipantRepositoryTest extends RepositoryTest {
                 .build()
         );
 
-        List<Participant> actual = participantRepository
-            .findAllWithGroupByUserAndNotManagerOrderByCreatedDateDesc(user1);
+        List<Participant> actual = participantRepository.findAllWithNotManagingGroupByUser(user1);
 
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),

@@ -41,7 +41,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
                     .where(comment.post.eq(post))
             ))
             .from(post)
-            .leftJoin(user).on(post.author.eq(user))
+            .leftJoin(post.author, user)
             .where(post.group.eq(group).and(post.type.eq(type)))
             .orderBy(post.createdDate.desc())
             .offset(pageable.getOffset())

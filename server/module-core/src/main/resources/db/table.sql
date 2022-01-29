@@ -12,7 +12,7 @@ create table if not exists user
     refresh_token      varchar(255),
     university         varchar(255),
     primary key (id)
-) engine = InnoDB;
+    ) engine = InnoDB;
 
 create table if not exists favorite_category
 (
@@ -20,7 +20,7 @@ create table if not exists favorite_category
     category varchar(255),
     user_id  bigint,
     primary key (id)
-) engine = InnoDB;
+    ) engine = InnoDB;
 
 create table if not exists group_tb
 (
@@ -40,7 +40,7 @@ create table if not exists group_tb
     university         varchar(255),
     manager_id         bigint,
     primary key (id)
-) engine = InnoDB;
+    ) engine = InnoDB;
 
 create table if not exists participant
 (
@@ -50,7 +50,7 @@ create table if not exists participant
     group_id           bigint,
     user_id            bigint,
     primary key (id)
-) engine = InnoDB;
+    ) engine = InnoDB;
 
 create table if not exists schedule
 (
@@ -65,17 +65,16 @@ create table if not exists schedule
     author_id          bigint,
     group_id           bigint,
     primary key (id)
-) engine = InnoDB;
+    ) engine = InnoDB;
 
 create table if not exists attendance
 (
-    id          bigint  not null auto_increment,
-    is_attend   boolean not null,
-    user_id     bigint  not null,
-    group_id    bigint,
-    schedule_id bigint,
+    id             bigint  not null auto_increment,
+    is_attend      boolean not null,
+    participant_id bigint,
+    schedule_id    bigint,
     primary key (id)
-) engine = InnoDB;
+    ) engine = InnoDB;
 
 create table if not exists post
 (
@@ -88,7 +87,7 @@ create table if not exists post
     author_id          bigint,
     group_id           bigint,
     primary key (id)
-) engine = InnoDB;
+    ) engine = InnoDB;
 
 create table if not exists image
 (
@@ -96,7 +95,7 @@ create table if not exists image
     image_url varchar(255),
     post_id   bigint,
     primary key (id)
-) engine = InnoDB;
+    ) engine = InnoDB;
 
 create table if not exists comment
 (
@@ -107,7 +106,7 @@ create table if not exists comment
     post_id            bigint,
     user_id            bigint,
     primary key (id)
-) engine = InnoDB;
+    ) engine = InnoDB;
 
 create table if not exists district
 (
@@ -115,7 +114,7 @@ create table if not exists district
     city          varchar(255) not null,
     district_name varchar(255) not null,
     primary key (id)
-) engine = MyISAM;
+    ) engine = MyISAM;
 
 create table if not exists favorite_group
 (
@@ -125,7 +124,7 @@ create table if not exists favorite_group
     created_date       timestamp,
     last_modified_date timestamp,
     primary key (id)
-) engine = InnoDB;
+    ) engine = InnoDB;
 
 create table if not exists group_achievement_rate
 (
@@ -135,7 +134,7 @@ create table if not exists group_achievement_rate
     last_modified_date timestamp,
     rate               decimal(19, 2),
     primary key (id)
-) engine = InnoDB;
+    ) engine = InnoDB;
 
 create table if not exists participant_achievement_rate
 (
@@ -145,18 +144,18 @@ create table if not exists participant_achievement_rate
     created_date       timestamp,
     last_modified_date timestamp,
     primary key (id)
-) engine = InnoDB;
-
-alter table attendance
-    add constraint groups_fk_attendance
-        foreign key (group_id)
-            references group_tb (id)
-            on delete cascade;
+    ) engine = InnoDB;
 
 alter table attendance
     add constraint schedule_fk_attendance
         foreign key (schedule_id)
             references schedule (id)
+            on delete cascade;
+
+alter table attendance
+    add constraint participant_fk_attendance
+        foreign key (participant_id)
+            references participant (id)
             on delete cascade;
 
 alter table comment

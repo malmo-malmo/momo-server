@@ -7,10 +7,12 @@ import static com.momo.fixture.UserFixture.getUser1;
 import static com.momo.fixture.UserFixture.getUser2;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToApplyParticipant;
+import static com.momo.management.acceptance.step.ManagementAcceptanceStep.assertThatFindMyGroups;
 import static com.momo.management.acceptance.step.ManagementAcceptanceStep.assertThatFindMyGroupsSummary;
 import static com.momo.management.acceptance.step.ManagementAcceptanceStep.assertThatFindMyPosts;
 import static com.momo.management.acceptance.step.ManagementAcceptanceStep.assertThatFindParticipationGroups;
 import static com.momo.management.acceptance.step.ManagementAcceptanceStep.assertThatFindParticipationGroupsSummary;
+import static com.momo.management.acceptance.step.ManagementAcceptanceStep.requestToFindMyGroups;
 import static com.momo.management.acceptance.step.ManagementAcceptanceStep.requestToFindMyGroupsSummary;
 import static com.momo.management.acceptance.step.ManagementAcceptanceStep.requestToFindMyPosts;
 import static com.momo.management.acceptance.step.ManagementAcceptanceStep.requestToFindParticipationGroupCount;
@@ -21,6 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.domain.group.dto.GroupResponse;
+import com.momo.domain.management.dto.MyGroupCardResponse;
 import com.momo.domain.management.dto.MyGroupSummaryResponse;
 import com.momo.domain.management.dto.MyPostCardResponse;
 import com.momo.domain.management.dto.ParticipationGroupCardResponse;
@@ -72,6 +75,17 @@ public class ManagementAcceptanceTest extends AcceptanceTest {
         assertThatFindParticipationGroupsSummary(
             getObjects(response, ParticipationGroupSummaryResponse.class), GROUP_CREATE_REQUEST2
         );
+    }
+
+    @Test
+    void 내_모임_목록을_조회한다() {
+        String token = getAccessToken(getUser1());
+        requestToCreateGroup(token, GROUP_CREATE_REQUEST1);
+
+        ExtractableResponse<Response> response = requestToFindMyGroups(token);
+
+        assertThatStatusIsOk(response);
+        assertThatFindMyGroups(getObjects(response, MyGroupCardResponse.class), GROUP_CREATE_REQUEST1);
     }
 
     @Test

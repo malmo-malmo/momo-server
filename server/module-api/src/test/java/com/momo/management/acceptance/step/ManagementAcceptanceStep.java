@@ -4,6 +4,7 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.domain.group.dto.GroupCreateRequest;
+import com.momo.domain.management.dto.MyGroupCardResponse;
 import com.momo.domain.management.dto.MyGroupSummaryResponse;
 import com.momo.domain.management.dto.MyPostCardResponse;
 import com.momo.domain.management.dto.ParticipationGroupCardResponse;
@@ -38,6 +39,16 @@ public class ManagementAcceptanceStep {
             () -> assertThat(responses.get(0).getId()).isNotNull(),
             () -> assertThat(responses.get(0).getName()).isEqualTo(request.getName()),
             () -> assertThat(responses.get(0).getCategory()).isEqualTo(request.getCategory())
+        );
+    }
+
+    public static void assertThatFindMyGroups(List<MyGroupCardResponse> responses, GroupCreateRequest request) {
+        Assertions.assertAll(
+            () -> assertThat(responses.size()).isEqualTo(1),
+            () -> assertThat(responses.get(0).getId()).isNotNull(),
+            () -> assertThat(responses.get(0).getName()).isEqualTo(request.getName()),
+            () -> assertThat(responses.get(0).getImageUrl()).isNotNull(),
+            () -> assertThat(responses.get(0).getAchievementRate()).isEqualTo(0)
         );
     }
 

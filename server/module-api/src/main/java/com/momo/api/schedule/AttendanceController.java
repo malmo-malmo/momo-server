@@ -26,7 +26,7 @@ public class AttendanceController {
     @PostMapping
     public ResponseEntity<Void> create(@CurrentUser User user,
         @Valid @RequestBody AttendanceCreateRequests attendanceCreateRequests) {
-        attendanceService.creates(user, attendanceCreateRequests);
+        attendanceService.createScheduleAttendances(user, attendanceCreateRequests);
         return ResponseEntity.status(CREATED).build();
     }
 

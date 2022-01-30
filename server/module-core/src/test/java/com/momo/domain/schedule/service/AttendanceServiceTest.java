@@ -93,9 +93,10 @@ public class AttendanceServiceTest extends ServiceTest {
             .build();
 
         given(scheduleRepository.findById(anyLong())).willReturn(of(schedule));
-        given(participantRepository.findById(anyLong())).willReturn(Optional.of(Participant.builder().group(group).build()));
+        given(participantRepository.findById(anyLong())).willReturn(
+            Optional.of(Participant.builder().group(group).build()));
 
-        attendanceService.creates(manager, attendanceCreateRequests);
+        attendanceService.createScheduleAttendances(manager, attendanceCreateRequests);
 
         verify(scheduleRepository).findById(any());
         assertThat(schedule.isAttendanceCheck()).isTrue();
@@ -103,20 +104,26 @@ public class AttendanceServiceTest extends ServiceTest {
 
     @Test
     void 모임_관리자가_아니면_일정_출석_체크_테스트를_실패한다() {
-        given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
         List<AttendanceCreateRequest> requests = List.of(AttendanceCreateRequest.builder().participantId(1L).build());
-        given(participantRepository.findById(anyLong())).willReturn(Optional.of(Participant.builder().group(group).build()));
-        assertThatThrownBy(() -> attendanceService.creates(user, AttendanceCreateRequests.builder().scheduleId(1L).attendanceCreateRequests(requests).build()))
+
+        given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
+        given(participantRepository.findById(anyLong())).willReturn(Optional.of(Participant
+            .builder()
+            .group(group)
+            .build()));
+        assertThatThrownBy(() -> attendanceService.createScheduleAttendances(user,
+            AttendanceCreateRequests.builder().scheduleId(1L).attendanceCreateRequests(requests).build()))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_MANAGER_AUTHORIZED.getMessage());
     }
 
     @Test
     void 모임_관리자가_출석_수정_테스트를_성공한다() {
-        given(groupRepository.findById(anyLong())).willReturn(Optional.of(group));
-        given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
-        Attendance attendance = Attendance.builder().id(1L).schedule(schedule).isAttend(false).build();
-        given(attendanceRepository.findById(any())).willReturn(Optional.of(attendance));
+        Attendance attendance = Attendance.builder()
+            .id(1L)
+            .schedule(schedule)
+            .isAttend(false)
+            .build();
         AttendanceUpdateRequests requests = AttendanceUpdateRequests.builder()
             .scheduleId(schedule.getId())
             .attendanceUpdateRequests(List.of(
@@ -125,17 +132,19 @@ public class AttendanceServiceTest extends ServiceTest {
                     .isAttend(true)
                     .build()
             )).build();
+
+        given(groupRepository.findById(anyLong())).willReturn(Optional.of(group));
+        given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
+        given(attendanceRepository.findById(any())).willReturn(Optional.of(attendance));
+
         attendanceService.updateScheduleAttendances(manager, requests);
+
         verify(attendanceRepository).findById(attendance.getId());
         assertThat(attendance.isAttend()).isTrue();
     }
 
     @Test
     void 모임_관리자가_아니면_출석_수정_테스트를_실패한다() {
-        given(groupRepository.findById(anyLong())).willReturn(Optional.of(group));
-        given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
-        given(attendanceRepository.findById(any())).willReturn(
-            Optional.of(Attendance.builder().participant(Participant.builder().group(group).build()).build()));
         AttendanceUpdateRequests requests = AttendanceUpdateRequests.builder()
             .scheduleId(schedule.getId())
             .attendanceUpdateRequests(List.of(
@@ -143,6 +152,14 @@ public class AttendanceServiceTest extends ServiceTest {
                     .isAttend(true)
                     .build()
             )).build();
+
+        given(groupRepository.findById(anyLong())).willReturn(Optional.of(group));
+        given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
+        given(attendanceRepository.findById(any())).willReturn(Optional.of(Attendance.builder()
+            .participant(Participant.builder()
+                .group(group)
+                .build())
+            .build()));
 
         assertThatThrownBy(() -> attendanceService.updateScheduleAttendances(user, requests))
             .isInstanceOf(CustomException.class)
@@ -158,11 +175,12 @@ public class AttendanceServiceTest extends ServiceTest {
             .build();
         given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
         given(attendanceRepository.findBySchedule(any(Schedule.class))).willReturn(List.of(attendance));
+
         List<AttendanceResponse> responses = attendanceService.findScheduleAttendances(manager, schedule.getId());
-        assertThat(responses.size()).isEqualTo(1);
 
         AttendanceResponse response = responses.get(0);
         Assertions.assertAll(
+            () -> assertThat(responses.size()).isEqualTo(1),
             () -> assertThat(response.getAttendanceId()).isEqualTo(attendance.getId()),
             () -> assertThat(response.getUsername()).isEqualTo(attendance.getParticipant().getUser().getNickname()),
             () -> assertThat(response.getIsAttend()).isFalse(),

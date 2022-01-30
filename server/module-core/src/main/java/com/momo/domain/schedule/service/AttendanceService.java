@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AttendanceService {
 
-    void creates(User user, AttendanceCreateRequests requests);
+    void createScheduleAttendances(User user, AttendanceCreateRequests requests);
 
     void updateScheduleAttendances(User user, AttendanceUpdateRequests requests);
 

@@ -52,11 +52,11 @@ public class AttendanceServiceImpl implements AttendanceService {
         Schedule schedule = getScheduleById(requests.getScheduleId());
         for (AttendanceUpdateRequest request : requests.getAttendanceUpdateRequests()) {
             validateGroupManager(schedule.getGroup(), user);
-            this.update(schedule, request);
+            updateScheduleAttendance(schedule, request);
         }
     }
 
-    private void update(Schedule schedule, AttendanceUpdateRequest request) {
+    private void updateScheduleAttendance(Schedule schedule, AttendanceUpdateRequest request) {
         Attendance attendance = getAttendanceById(request.getAttendanceId());
         if (schedule.isSameSchedule(attendance.getSchedule())) {
             attendance.updateAttend(request.isAttend());

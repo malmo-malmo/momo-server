@@ -39,7 +39,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
         List<Attendance> attendances = new ArrayList<>();
         for (AttendanceCreateRequest request : requests.getAttendanceCreateRequests()) {
-            Participant participant = getParticipant(request.getParticipantId());
+            Participant participant = getParticipantById(request.getParticipantId());
             validateGroupManager(participant.getGroup(), user);
 
             Attendance attendance = request.toEntity(participant, schedule);
@@ -87,7 +87,7 @@ public class AttendanceServiceImpl implements AttendanceService {
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
-    private Participant getParticipant(Long participantId) {
+    private Participant getParticipantById(Long participantId) {
         return participantRepository.findById(participantId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }

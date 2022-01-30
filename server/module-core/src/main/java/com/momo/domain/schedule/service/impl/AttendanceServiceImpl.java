@@ -66,7 +66,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         }
     }
 
-    public List<AttendanceResponse> findGroupAttendances(User user, Long scheduleId) {
+    public List<AttendanceResponse> findScheduleAttendances(User user, Long scheduleId) {
         Schedule schedule = getScheduleById(scheduleId);
         validateGroupManager(schedule.getGroup(), user);
 

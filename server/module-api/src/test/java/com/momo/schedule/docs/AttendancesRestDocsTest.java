@@ -30,7 +30,7 @@ public class AttendancesRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 출석체크_목록_조회() throws Exception {
-        given(attendanceService.findGroupAttendances(any(), any())).willReturn(List.of(
+        given(attendanceService.findScheduleAttendances(any(), any())).willReturn(List.of(
             AttendanceResponse.builder()
                 .attendanceId(1L)
                 .username("테스트 이름")

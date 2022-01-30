@@ -21,7 +21,7 @@ public class AttendancesController {
 
     @GetMapping("/schedule/{scheduleId}")
     public ResponseEntity<List<AttendanceResponse>> findGroupAttendances(@CurrentUser User user,
-        @PathVariable("scheduleId") Long scheduleId) {
+        @PathVariable Long scheduleId) {
         List<AttendanceResponse> responses = attendanceService.findScheduleAttendances(user, scheduleId);
         return ResponseEntity.ok(responses);
     }

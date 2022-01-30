@@ -50,7 +50,8 @@ public class ManagementServiceImpl implements ManagementService {
 
     @Transactional(readOnly = true)
     public List<MyGroupCardResponse> findMyGroupsByUser(User loginUser) {
-        return null;
+        List<Group> groups = groupRepository.findAllWithAchievementRateByUser(loginUser);
+        return MyGroupCardResponse.listOf(groups);
     }
 
     @Transactional(readOnly = true)

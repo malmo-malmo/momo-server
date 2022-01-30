@@ -18,7 +18,6 @@ import com.momo.domain.schedule.service.AttendanceService;
 import com.momo.domain.user.entity.User;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,8 +68,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         validateGroupManager(schedule.getGroup(), user);
 
         List<Attendance> attendances = attendanceRepository.findBySchedule(schedule);
-
-        return attendances.stream().map(AttendanceResponse::new).collect(Collectors.toList());
+        return AttendanceResponse.listOf(attendances);
     }
 
     private void validateGroupManager(Group group, User user) {

@@ -1,6 +1,8 @@
 package com.momo.domain.schedule.dto;
 
 import com.momo.domain.schedule.entity.Attendance;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -22,12 +24,16 @@ public class AttendanceResponse {
         this.attainmentRate = attainmentRate;
     }
 
-    public AttendanceResponse(Attendance attendance) {
-        this(
-            attendance.getId(),
-            attendance.getParticipant().getUser().getNickname(),
-            attendance.isAttend(),
-            100
-        );
+    public static AttendanceResponse of(Attendance attendance) {
+        return AttendanceResponse.builder()
+            .attendanceId(attendance.getId())
+            .username(attendance.getParticipant().getUser().getNickname())
+            .isAttend(attendance.isAttend())
+            .attainmentRate(100)
+            .build();
+    }
+
+    public static List<AttendanceResponse> listOf(List<Attendance> attendances) {
+        return attendances.stream().map(AttendanceResponse::of).collect(Collectors.toList());
     }
 }

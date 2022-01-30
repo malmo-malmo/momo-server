@@ -58,7 +58,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     private void update(Schedule schedule, AttendanceUpdateRequest request) {
         Attendance attendance = getAttendanceById(request.getAttendanceId());
-        if (attendance.isSameSchedule(schedule)) {
+        if (schedule.isSameSchedule(attendance.getSchedule())) {
             attendance.updateAttend(request.isAttend());
         }
     }

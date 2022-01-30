@@ -53,6 +53,18 @@ public class ManagementDocumentation {
         );
     }
 
+    public static RestDocumentationResultHandler findMyGroups() {
+        FieldDescriptor[] response = new FieldDescriptor[]{
+            fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("모임 ID"),
+            fieldWithPath("[].name").type(JsonFieldType.STRING).description("모임 이름"),
+            fieldWithPath("[].imageUrl").type(JsonFieldType.STRING).description("모임 이미지 URL"),
+            fieldWithPath("[].achievementRate").type(JsonFieldType.NUMBER).description("모임 달성률")
+        };
+        return document("management/findMyGroups",
+            responseFields(response)
+        );
+    }
+
     public static RestDocumentationResultHandler findMyGroupsSummary() {
         FieldDescriptor[] response = new FieldDescriptor[]{
             fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("모임 ID"),

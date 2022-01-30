@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.momo.common.RestDocsControllerTest;
 import com.momo.api.management.ManagementController;
 import com.momo.domain.group.entity.Category;
+import com.momo.domain.management.dto.MyGroupCardResponse;
 import com.momo.domain.management.dto.MyGroupSummaryResponse;
 import com.momo.domain.management.dto.MyPostCardResponse;
 import com.momo.domain.management.dto.ParticipationGroupCardResponse;
@@ -80,6 +81,23 @@ public class ManagementRestDocsTest extends RestDocsControllerTest {
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(ManagementDocumentation.findParticipationGroupsSummary());
+    }
+
+    @Test
+    void 내_모임_목록_조회() throws Exception {
+        List<MyGroupCardResponse> responses = List.of(
+            MyGroupCardResponse.builder()
+                .id(1L)
+                .name("모임 이름")
+                .imageUrl("이미지 URL")
+                .achievementRate(0)
+                .build()
+        );
+        when(managementService.findMyGroupsByUser(any())).thenReturn(responses);
+        super.mockMvc.perform(get("/api/management/my-groups/details"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(ManagementDocumentation.findMyGroups());
     }
 
     @Test

@@ -33,7 +33,7 @@ public class AttendanceController {
     @PutMapping
     public ResponseEntity<Void> update(@CurrentUser User user,
         @Valid @RequestBody AttendanceUpdateRequests attendanceUpdateRequests) {
-        attendanceService.updates(user, attendanceUpdateRequests);
+        attendanceService.updateScheduleAttendances(user, attendanceUpdateRequests);
         return ResponseEntity.ok().build();
     }
 }

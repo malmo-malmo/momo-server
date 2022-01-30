@@ -125,7 +125,7 @@ public class AttendanceServiceTest extends ServiceTest {
                     .isAttend(true)
                     .build()
             )).build();
-        attendanceService.updates(manager, requests);
+        attendanceService.updateScheduleAttendances(manager, requests);
         verify(attendanceRepository).findById(attendance.getId());
         assertThat(attendance.isAttend()).isTrue();
     }
@@ -144,7 +144,7 @@ public class AttendanceServiceTest extends ServiceTest {
                     .build()
             )).build();
 
-        assertThatThrownBy(() -> attendanceService.updates(user, requests))
+        assertThatThrownBy(() -> attendanceService.updateScheduleAttendances(user, requests))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_MANAGER_AUTHORIZED.getMessage());
     }

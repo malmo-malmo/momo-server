@@ -48,7 +48,7 @@ public class AttendanceServiceImpl implements AttendanceService {
         attendanceRepository.saveAll(attendances);
     }
 
-    public void updates(User user, AttendanceUpdateRequests requests) {
+    public void updateScheduleAttendances(User user, AttendanceUpdateRequests requests) {
         Schedule schedule = getScheduleById(requests.getScheduleId());
         for (AttendanceUpdateRequest request : requests.getAttendanceUpdateRequests()) {
             validateGroupManager(schedule.getGroup(), user);

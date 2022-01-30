@@ -10,7 +10,7 @@ public interface AttendanceService {
 
     void creates(User user, AttendanceCreateRequests requests);
 
-    void updates(User user, AttendanceUpdateRequests requests);
+    void updateScheduleAttendances(User user, AttendanceUpdateRequests requests);
 
     List<AttendanceResponse> findScheduleAttendances(User user, Long scheduleId);
 }

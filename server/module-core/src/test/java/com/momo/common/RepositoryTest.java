@@ -1,5 +1,6 @@
 package com.momo.common;
 
+import com.momo.domain.common.util.BeanUtil;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,7 +17,7 @@ import org.springframework.context.annotation.Import;
 @Disabled
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Import({TestConfig.class, DatabaseCleaner.class})
+@Import({TestConfig.class, DatabaseCleaner.class, BeanUtil.class})
 public class RepositoryTest {
 
     @Autowired

@@ -29,7 +29,7 @@ public class ParticipantAchievementRate extends BaseEntity {
     @JoinColumn(foreignKey = @ForeignKey(name = "participant_fk_user_achievement_rate"))
     private Participant participant;
 
-    private BigDecimal rate = BigDecimal.ZERO;
+    private BigDecimal rate;
 
     @Builder
     public ParticipantAchievementRate(Long id, Participant participant, BigDecimal rate) {
@@ -41,6 +41,7 @@ public class ParticipantAchievementRate extends BaseEntity {
     public static ParticipantAchievementRate create(Participant participant) {
         return ParticipantAchievementRate.builder()
             .participant(participant)
+            .rate(BigDecimal.ZERO)
             .build();
     }
 }

@@ -29,7 +29,7 @@ public class GroupAchievementRate extends BaseEntity {
     @JoinColumn(foreignKey = @ForeignKey(name = "group_tb_fk_group_achievement_rate"))
     private Group group;
 
-    private BigDecimal rate = BigDecimal.ZERO;
+    private BigDecimal rate;
 
     @Builder
     public GroupAchievementRate(Long id, Group group, BigDecimal rate) {
@@ -39,8 +39,11 @@ public class GroupAchievementRate extends BaseEntity {
     }
 
     public static GroupAchievementRate create(Group group) {
-        return GroupAchievementRate.builder()
+        GroupAchievementRate achievementRate = GroupAchievementRate.builder()
             .group(group)
+            .rate(BigDecimal.ZERO)
             .build();
+        group.updateAchievementRate(achievementRate);
+        return achievementRate;
     }
 }

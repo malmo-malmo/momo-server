@@ -1,10 +1,12 @@
 package com.momo.domain.group.entity;
 
+import com.momo.domain.achievementrate.entity.GroupAchievementRate;
 import com.momo.domain.common.entity.BaseEntity;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
@@ -17,12 +19,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 
 @Entity
 @Getter
@@ -38,6 +40,10 @@ public class Group extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id", foreignKey = @ForeignKey(name = "user_fk_group_tb"))
     private User manager;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey(name = "group_achievement_rate_fk_group_tb"))
+    private GroupAchievementRate achievementRate;
 
     private String name;
 
@@ -101,19 +107,36 @@ public class Group extends BaseEntity {
             .build();
     }
 
+    public void updateAchievementRate(GroupAchievementRate achievementRate) {
+        if (Objects.isNull(achievementRate)) {
+            return;
+        }
+        this.achievementRate = achievementRate;
+    }
+
     public boolean isManager(User user) {
+        if (Objects.isNull(user)) {
+            return false;
+        }
         return user.isSameUser(manager);
     }
 
     public void updateManager(User user) {
+        if (Objects.isNull(user)) {
+            return;
+        }
         this.manager = user;
+    }
+
+    public void updateImage(String imageUrl) {
+        if (Objects.isNull(imageUrl)) {
+            this.imageUrl = null;
+            return;
+        }
+        this.imageUrl = imageUrl;
     }
 
     public void endGroup() {
         this.isEnd = true;
-    }
-
-    public void updateImage(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 }

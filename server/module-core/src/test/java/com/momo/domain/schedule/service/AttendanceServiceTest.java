@@ -166,7 +166,7 @@ public class AttendanceServiceTest extends ServiceTest {
             () -> assertThat(response.getAttendanceId()).isEqualTo(attendance.getId()),
             () -> assertThat(response.getUsername()).isEqualTo(attendance.getParticipant().getUser().getNickname()),
             () -> assertThat(response.getIsAttend()).isFalse(),
-            () -> assertThat(response.getAttainmentRate()).isEqualTo(100)
+            () -> assertThat(response.getAchievementRate()).isEqualTo(100)
         );
     }
 

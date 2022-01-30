@@ -14,14 +14,14 @@ public class AttendanceResponse {
     private Long attendanceId;
     private String username;
     private Boolean isAttend;
-    private int attainmentRate;
+    private int achievementRate;
 
     @Builder
-    public AttendanceResponse(Long attendanceId, String username, Boolean isAttend, int attainmentRate) {
+    public AttendanceResponse(Long attendanceId, String username, Boolean isAttend, int achievementRate) {
         this.attendanceId = attendanceId;
         this.username = username;
         this.isAttend = isAttend;
-        this.attainmentRate = attainmentRate;
+        this.achievementRate = achievementRate;
     }
 
     public static AttendanceResponse of(Attendance attendance) {
@@ -29,7 +29,7 @@ public class AttendanceResponse {
             .attendanceId(attendance.getId())
             .username(attendance.getParticipant().getUser().getNickname())
             .isAttend(attendance.isAttend())
-            .attainmentRate(100)
+            .achievementRate(100)
             .build();
     }
 

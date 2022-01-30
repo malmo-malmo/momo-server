@@ -34,7 +34,7 @@ public class AttendancesRestDocsTest extends RestDocsControllerTest {
             AttendanceResponse.builder()
                 .attendanceId(1L)
                 .username("테스트 이름")
-                .attainmentRate(100)
+                .achievementRate(100)
                 .isAttend(false)
                 .build()
         ));

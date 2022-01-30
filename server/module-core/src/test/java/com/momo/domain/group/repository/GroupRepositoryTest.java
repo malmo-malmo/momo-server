@@ -12,6 +12,7 @@ import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -219,6 +220,20 @@ public class GroupRepositoryTest extends RepositoryTest {
             () -> assertThat(actual.size()).isEqualTo(2),
             () -> assertThat(actual.get(0).getId()).isEqualTo(group1.getId()),
             () -> assertThat(actual.get(1).getId()).isEqualTo(group2.getId())
+        );
+    }
+
+    @Test
+    void 관리하는_모임과_달성률_목록을_조회한다() {
+        List<Group> actual = groupRepository.findAllWithAchievementRateByUser(user);
+
+        Assertions.assertAll(
+            () -> assertThat(actual).isNotNull(),
+            () -> assertThat(actual.size()).isEqualTo(2),
+            () -> assertThat(actual.get(0).getId()).isEqualTo(group1.getId()),
+            () -> assertThat(actual.get(0).getAchievementRate().getRate()).isEqualTo(BigDecimal.ZERO),
+            () -> assertThat(actual.get(1).getId()).isEqualTo(group2.getId()),
+            () -> assertThat(actual.get(1).getAchievementRate().getRate()).isEqualTo(BigDecimal.ZERO)
         );
     }
 }

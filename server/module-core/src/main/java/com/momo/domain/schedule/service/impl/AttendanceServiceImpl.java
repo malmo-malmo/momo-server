@@ -50,7 +50,6 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     public void updates(User user, AttendanceUpdateRequests requests) {
-
         Schedule schedule = getScheduleById(requests.getScheduleId());
         for (AttendanceUpdateRequest request : requests.getAttendanceUpdateRequests()) {
             validateGroupManager(schedule.getGroup(), user);
@@ -59,8 +58,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     private void update(Schedule schedule, AttendanceUpdateRequest request) {
-        Attendance attendance = attendanceRepository.findById(request.getAttendanceId())
-            .orElseThrow();
+        Attendance attendance = getAttendanceById(request.getAttendanceId());
         if (attendance.isSameSchedule(schedule)) {
             attendance.updateAttend(request.isAttend());
         }
@@ -85,6 +83,12 @@ public class AttendanceServiceImpl implements AttendanceService {
         return scheduleRepository.findById(scheduleId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
+
+    private Attendance getAttendanceById(Long attendanceId) {
+        return attendanceRepository.findById(attendanceId)
+            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
+    }
+
     private Participant getParticipant(Long participantId) {
         return participantRepository.findById(participantId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));

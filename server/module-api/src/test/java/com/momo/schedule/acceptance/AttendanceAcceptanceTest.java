@@ -84,8 +84,6 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
 
         Long scheduleId = extractId(requestToCreateSchedule(managerToken, getScheduleCreateRequest1(groupId)));
 
-        Long managerId = getObject(requestToFindMyInformation(managerToken), UserResponse.class).getId();
-
         AttendanceCreateRequests attendanceCreateRequests = getAttendanceCreateRequests(
             scheduleId,
             List.of(

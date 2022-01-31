@@ -25,22 +25,16 @@ public class ParticipantAchievementRate extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "participant_fk_user_achievement_rate"))
-    private Participant participant;
-
     private BigDecimal rate;
 
     @Builder
-    public ParticipantAchievementRate(Long id, Participant participant, BigDecimal rate) {
+    public ParticipantAchievementRate(Long id, BigDecimal rate) {
         this.id = id;
-        this.participant = participant;
         this.rate = rate;
     }
 
-    public static ParticipantAchievementRate create(Participant participant) {
+    public static ParticipantAchievementRate create() {
         return ParticipantAchievementRate.builder()
-            .participant(participant)
             .rate(BigDecimal.ZERO)
             .build();
     }

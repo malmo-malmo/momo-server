@@ -34,6 +34,7 @@ public class ParticipantTest {
         );
     }
 
+    /*
     @Test
     void 참여자_출석률_계산_테스트() {
         Participant expected = Participant.builder()
@@ -62,5 +63,5 @@ public class ParticipantTest {
             .build();
         expected.calculateAttendanceRate();
         assertThat(expected.getAttendanceRate()).isEqualTo(0);
-    }
+    }*/
 }

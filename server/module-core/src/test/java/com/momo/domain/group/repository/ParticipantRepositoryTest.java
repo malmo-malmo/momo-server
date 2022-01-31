@@ -14,7 +14,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@DisplayName("참가자 레포지토리 테스트")
+@DisplayName("참여자 레포지토리 테스트")
 public class ParticipantRepositoryTest extends RepositoryTest {
 
     @Autowired
@@ -69,7 +69,7 @@ public class ParticipantRepositoryTest extends RepositoryTest {
     }
 
     @Test
-    void 참가자를_저장한다() {
+    void 참여자를_저장한다() {
         Participant actual = participantRepository.findAll().get(0);
         Assertions.assertAll(
             () -> assertThat(actual.getId()).isEqualTo(participant1.getId()),
@@ -79,14 +79,14 @@ public class ParticipantRepositoryTest extends RepositoryTest {
     }
 
     @Test
-    void 모임에_참가한_참가자_목록을_조회한다() {
+    void 모임의_참여자_목록을_조회한다() {
         List<Participant> actual = participantRepository.findAllByGroup(group1);
 
         Assertions.assertAll(
             () -> assertThat(actual.size()).isEqualTo(1),
             () -> assertThat(actual.get(0).getId()).isEqualTo(participant1.getId()),
             () -> assertThat(actual.get(0).getGroup().getId()).isEqualTo(group1.getId()),
-            () -> assertThat(actual.get(0).getId()).isEqualTo(user1.getId())
+            () -> assertThat(actual.get(0).getUser().getId()).isEqualTo(user1.getId())
         );
     }
 
@@ -97,10 +97,10 @@ public class ParticipantRepositoryTest extends RepositoryTest {
     }
 
     @Test
-    void 유저의_모임_참여를_취소한다() {
+    void 모임을_탈퇴한다() {
         participantRepository.deleteByGroupAndUser(group1, user1);
-        List<Participant> participants = participantRepository.findAll();
-        assertThat(participants.size()).isEqualTo(0);
+        boolean actual = participantRepository.findById(participant1.getId()).isPresent();
+        assertThat(actual).isFalse();
     }
 
     @Test

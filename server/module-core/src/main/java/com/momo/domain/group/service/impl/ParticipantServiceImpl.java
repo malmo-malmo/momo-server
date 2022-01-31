@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class ParticipantServiceImpl implements ParticipantService {
 
     private final ParticipantRepository participantRepository;
-
     private final GroupRepository groupRepository;
 
     @Transactional(readOnly = true)
@@ -28,9 +27,6 @@ public class ParticipantServiceImpl implements ParticipantService {
         Group group = getGroupById(groupId);
         validateGroupManager(group, user);
         List<Participant> participants = participantRepository.findAllByGroup(group);
-        for (Participant participant : participants) {
-            participant.calculateAttendanceRate();
-        }
         return ParticipantResponse.listOf(participants);
     }
 

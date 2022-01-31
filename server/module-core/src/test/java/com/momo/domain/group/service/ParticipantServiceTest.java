@@ -8,6 +8,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import com.momo.common.ServiceTest;
+import com.momo.domain.achievementrate.entity.ParticipantAchievementRate;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.dto.ParticipantResponse;
@@ -24,7 +25,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-@DisplayName("모임 참여자 서비스 테스트")
+@DisplayName("참여자 서비스 테스트")
 public class ParticipantServiceTest extends ServiceTest {
 
     @Mock
@@ -58,15 +59,13 @@ public class ParticipantServiceTest extends ServiceTest {
             .id(1L)
             .group(group)
             .user(user1)
-            .scheduleCount(50)
-            .attendanceCount(30)
+            .achievementRate(ParticipantAchievementRate.create())
             .build();
         Participant participant2 = Participant.builder()
             .id(2L)
             .group(group)
             .user(user2)
-            .scheduleCount(50)
-            .attendanceCount(15)
+            .achievementRate(ParticipantAchievementRate.create())
             .build();
         List<Participant> participants = List.of(participant1, participant2);
 

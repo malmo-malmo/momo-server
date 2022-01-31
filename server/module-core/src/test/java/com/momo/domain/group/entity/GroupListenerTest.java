@@ -7,6 +7,7 @@ import com.momo.domain.achievementrate.entity.GroupAchievementRate;
 import com.momo.domain.achievementrate.repository.GroupAchievementRateRepository;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.user.entity.User;
+import java.math.BigDecimal;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,13 +54,14 @@ public class GroupListenerTest extends RepositoryTest {
             () -> assertThat(actual).isNotNull(),
             () -> assertThat(actual.size()).isEqualTo(1),
             () -> assertThat(actual.get(0).getId()).isNotNull(),
-            () -> assertThat(actual.get(0).getGroup().getId()).isEqualTo(group.getId()),
-            () -> assertThat(actual.get(0).getRate()).isNotNull()
+            () -> assertThat(actual.get(0).getRate()).isEqualTo(BigDecimal.ZERO)
         );
     }
 
     private void verifyExistsGroupAchievementRateField() {
-        Group actual = groupRepository.findById(this.group.getId()).get();
-        assertThat(actual.getAchievementRate()).isNotNull();
+        Group actual = groupRepository.findById(group.getId()).get();
+        GroupAchievementRate expected = groupAchievementRateRepository.findAll().get(0);
+
+        assertThat(actual.getAchievementRate().getId()).isEqualTo(expected.getId());
     }
 }

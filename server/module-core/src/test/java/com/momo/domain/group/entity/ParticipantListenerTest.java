@@ -5,7 +5,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.momo.common.RepositoryTest;
 import com.momo.domain.achievementrate.entity.ParticipantAchievementRate;
 import com.momo.domain.achievementrate.repository.ParticipantAchievementRateRepository;
+import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.user.entity.User;
+import java.math.BigDecimal;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +20,9 @@ public class ParticipantListenerTest extends RepositoryTest {
 
     @Autowired
     private ParticipantAchievementRateRepository participantAchievementRateRepository;
+
+    @Autowired
+    private ParticipantRepository participantRepository;
 
     private Participant participant;
 
@@ -46,6 +51,7 @@ public class ParticipantListenerTest extends RepositoryTest {
     @Test
     void 참여자를_저장하면_저장_리스너가_실행된다() {
         verifyParticipantPersistListener();
+        verifyExistsParticipantAchievementRateField();
     }
 
     private void verifyParticipantPersistListener() {
@@ -54,8 +60,14 @@ public class ParticipantListenerTest extends RepositoryTest {
             () -> assertThat(actual).isNotNull(),
             () -> assertThat(actual.size()).isEqualTo(1),
             () -> assertThat(actual.get(0).getId()).isNotNull(),
-            () -> assertThat(actual.get(0).getParticipant().getId()).isEqualTo(participant.getId()),
-            () -> assertThat(actual.get(0).getRate()).isNotNull()
+            () -> assertThat(actual.get(0).getRate()).isEqualTo(BigDecimal.ZERO)
         );
+    }
+
+    private void verifyExistsParticipantAchievementRateField() {
+        Participant actual = participantRepository.findById(participant.getId()).get();
+        ParticipantAchievementRate expected = participantAchievementRateRepository.findAll().get(0);
+
+        assertThat(actual.getAchievementRate().getId()).isEqualTo(expected.getId());
     }
 }

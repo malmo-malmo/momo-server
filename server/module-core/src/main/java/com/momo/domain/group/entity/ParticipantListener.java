@@ -10,7 +10,11 @@ public class ParticipantListener {
     @PrePersist
     public void prePersist(Object o) {
         ParticipantAchievementRateRepository repository = BeanUtil.getBean(ParticipantAchievementRateRepository.class);
+
         Participant participant = (Participant) o;
-        repository.save(ParticipantAchievementRate.create(participant));
+        ParticipantAchievementRate achievementRate = ParticipantAchievementRate.create();
+
+        participant.updateAchievementRate(achievementRate);
+        repository.save(achievementRate);
     }
 }

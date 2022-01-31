@@ -10,7 +10,11 @@ public class GroupListener {
     @PrePersist
     public void prePersist(Object o) {
         GroupAchievementRateRepository repository = BeanUtil.getBean(GroupAchievementRateRepository.class);
+
         Group group = (Group) o;
-        repository.save(GroupAchievementRate.create(group));
+        GroupAchievementRate groupAchievementRate = GroupAchievementRate.create();
+
+        group.updateAchievementRate(groupAchievementRate);
+        repository.save(groupAchievementRate);
     }
 }

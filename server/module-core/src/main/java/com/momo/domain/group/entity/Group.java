@@ -71,12 +71,14 @@ public class Group extends BaseEntity {
     private boolean isEnd;
 
     @Builder
-    public Group(Long id, User manager, String name, String imageUrl, Category category, LocalDate startDate,
-        String university, City city, String district, String introduction, int recruitmentCnt, boolean isOffline,
-        boolean isEnd, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
+    public Group(Long id, User manager, GroupAchievementRate achievementRate, String name, String imageUrl,
+        Category category, LocalDate startDate, String university, City city, String district, String introduction,
+        int recruitmentCnt, boolean isOffline, boolean isEnd, LocalDateTime createdDate,
+        LocalDateTime lastModifiedDate) {
         super(createdDate, lastModifiedDate);
         this.id = id;
         this.manager = manager;
+        this.achievementRate = achievementRate;
         this.name = name;
         this.imageUrl = imageUrl;
         this.category = category;

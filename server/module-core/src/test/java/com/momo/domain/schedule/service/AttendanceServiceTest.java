@@ -93,11 +93,20 @@ public class AttendanceServiceTest extends ServiceTest {
             .build();
 
         given(scheduleRepository.findById(anyLong())).willReturn(of(schedule));
-        given(participantRepository.findById(anyLong())).willReturn(Optional.of(Participant.builder().group(group).build()));
+        given(participantRepository.findAllByIdsAndUser(any(), any())).willReturn(List.of(
+            Participant.builder()
+                .group(group)
+                .build(),
+            Participant.builder()
+                .group(group)
+                .build()
+        ));
 
         attendanceService.creates(manager, attendanceCreateRequests);
 
         verify(scheduleRepository).findById(any());
+        verify(participantRepository).findAllByIdsAndUser(any(List.class), any(User.class));
+        verify(attendanceRepository).saveAll(any(List.class));
         assertThat(schedule.isAttendanceCheck()).isTrue();
     }
 
@@ -105,8 +114,9 @@ public class AttendanceServiceTest extends ServiceTest {
     void 모임_관리자가_아니면_일정_출석_체크_테스트를_실패한다() {
         given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
         List<AttendanceCreateRequest> requests = List.of(AttendanceCreateRequest.builder().participantId(1L).build());
-        given(participantRepository.findById(anyLong())).willReturn(Optional.of(Participant.builder().group(group).build()));
-        assertThatThrownBy(() -> attendanceService.creates(user, AttendanceCreateRequests.builder().scheduleId(1L).attendanceCreateRequests(requests).build()))
+        given(participantRepository.findAllByIdsAndUser(any(List.class), any(User.class))).willReturn(List.of());
+        assertThatThrownBy(() -> attendanceService.creates(user,
+            AttendanceCreateRequests.builder().scheduleId(1L).attendanceCreateRequests(requests).build()))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_MANAGER_AUTHORIZED.getMessage());
     }
@@ -126,8 +136,7 @@ public class AttendanceServiceTest extends ServiceTest {
                     .build()
             )).build();
         attendanceService.updateScheduleAttendances(manager, requests);
-        verify(attendanceRepository).findById(attendance.getId());
-        assertThat(attendance.isAttend()).isTrue();
+        verify(attendanceRepository).findAllByIds(any());
     }
 
     @Test

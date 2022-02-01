@@ -104,4 +104,38 @@ public class AttendanceRepositoryTest extends RepositoryTest {
             () -> assertThat(attendance.isAttend()).isFalse()
         );
     }
+
+    @Test
+    void 참석ID로_참석_목록을_조회한다() {
+        Long id1 = attendanceRepository.save(
+            Attendance.builder()
+                .participant(participant)
+                .schedule(schedule)
+                .isAttend(false)
+                .build()
+        ).getId();
+        Long id2 = attendanceRepository.save(
+            Attendance.builder()
+                .participant(participant)
+                .schedule(schedule)
+                .isAttend(false)
+                .build()
+        ).getId();
+        Long id3 = attendanceRepository.save(
+            Attendance.builder()
+                .participant(participant)
+                .schedule(schedule)
+                .isAttend(false)
+                .build()
+        ).getId();
+        List<Long> list = List.of(id3, id2, id1);
+        List<Attendance> attendances = attendanceRepository.findAllByIds(list);
+
+        Assertions.assertAll(
+            () -> assertThat(attendances.size()).isEqualTo(3),
+            () -> assertThat(attendances.get(0).getId()).isEqualTo(id3),
+            () -> assertThat(attendances.get(1).getId()).isEqualTo(id2),
+            () -> assertThat(attendances.get(2).getId()).isEqualTo(id1)
+        );
+    }
 }

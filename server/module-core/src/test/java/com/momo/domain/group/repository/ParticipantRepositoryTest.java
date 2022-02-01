@@ -122,4 +122,36 @@ public class ParticipantRepositoryTest extends RepositoryTest {
             () -> assertThat(actual.get(0).getParticipantCnt()).isEqualTo(2)
         );
     }
+
+    @Test
+    void 참여자ID로_참여자_목록을_조회한다() {
+        Long id1 = save(
+            Participant.builder()
+                .group(group)
+                .user(user)
+                .build()
+        ).getId();
+        Long id2 = save(
+            Participant.builder()
+                .group(group)
+                .user(user)
+                .build()
+        ).getId();
+        Long id3 = save(
+            Participant.builder()
+                .group(group)
+                .user(user)
+                .build()
+        ).getId();
+
+        List<Long> list = List.of(id3, id2, id1);
+        List<Participant> attendances = participantRepository.findAllByIdsAndUser(list, user);
+
+        Assertions.assertAll(
+            () -> assertThat(attendances.size()).isEqualTo(3),
+            () -> assertThat(attendances.get(0).getId()).isEqualTo(id3),
+            () -> assertThat(attendances.get(1).getId()).isEqualTo(id2),
+            () -> assertThat(attendances.get(2).getId()).isEqualTo(id1)
+        );
+    }
 }

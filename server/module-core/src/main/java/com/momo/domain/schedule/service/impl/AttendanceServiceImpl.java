@@ -31,7 +31,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     private final ParticipantRepository participantRepository;
 
-    public void creates(User user, AttendanceCreateRequests requests) {
+    public void createScheduleAttendances(User user, AttendanceCreateRequests requests) {
         Schedule schedule = getScheduleById(requests.getScheduleId());
         schedule.updateAttendanceCheck(true);
 

@@ -102,7 +102,7 @@ public class AttendanceServiceTest extends ServiceTest {
                 .build()
         ));
 
-        attendanceService.creates(manager, attendanceCreateRequests);
+        attendanceService.createScheduleAttendances(manager, attendanceCreateRequests);
 
         verify(scheduleRepository).findById(any());
         verify(participantRepository).findAllByIdsAndUser(any(List.class), any(User.class));
@@ -115,7 +115,7 @@ public class AttendanceServiceTest extends ServiceTest {
         given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
         List<AttendanceCreateRequest> requests = List.of(AttendanceCreateRequest.builder().participantId(1L).build());
         given(participantRepository.findAllByIdsAndUser(any(List.class), any(User.class))).willReturn(List.of());
-        assertThatThrownBy(() -> attendanceService.creates(user,
+        assertThatThrownBy(() -> attendanceService.createScheduleAttendances(user,
             AttendanceCreateRequests.builder().scheduleId(1L).attendanceCreateRequests(requests).build()))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_MANAGER_AUTHORIZED.getMessage());

@@ -1,6 +1,7 @@
 package com.momo.domain.schedule.dto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -25,5 +26,11 @@ public class AttendanceUpdateRequests {
         List<AttendanceUpdateRequest> attendanceUpdateRequests) {
         this.scheduleId = scheduleId;
         this.attendanceUpdateRequests = attendanceUpdateRequests;
+    }
+
+    public List<Long> toAttendanceIds() {
+        return attendanceUpdateRequests.stream()
+            .map(AttendanceUpdateRequest::getAttendanceId)
+            .collect(Collectors.toList());
     }
 }

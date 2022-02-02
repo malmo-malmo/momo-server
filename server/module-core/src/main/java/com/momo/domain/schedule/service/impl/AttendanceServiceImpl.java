@@ -5,10 +5,8 @@ import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
 import com.momo.domain.group.repository.ParticipantRepository;
-import com.momo.domain.schedule.dto.AttendanceCreateRequest;
 import com.momo.domain.schedule.dto.AttendanceCreateRequests;
 import com.momo.domain.schedule.dto.AttendanceResponse;
-import com.momo.domain.schedule.dto.AttendanceUpdateRequest;
 import com.momo.domain.schedule.dto.AttendanceUpdateRequests;
 import com.momo.domain.schedule.entity.Attendance;
 import com.momo.domain.schedule.entity.Schedule;
@@ -37,12 +35,15 @@ public class AttendanceServiceImpl implements AttendanceService {
         Schedule schedule = getScheduleById(requests.getScheduleId());
         schedule.updateAttendanceCheck(true);
 
-        List<Attendance> attendances = new ArrayList<>();
-        for (AttendanceCreateRequest request : requests.getAttendanceCreateRequests()) {
-            Participant participant = getParticipantById(request.getParticipantId());
-            validateGroupManager(participant.getGroup(), user);
+        List<Participant> participants = participantRepository.findAllByIdsAndUser(requests.toParticipantIds(), user);
+        if (requests.getAttendanceCreateRequests().size() != participants.size()) {
+            throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
+        }
 
-            Attendance attendance = request.toEntity(participant, schedule);
+        int i = 0;
+        List<Attendance> attendances = new ArrayList<>();
+        for (Participant participant : participants) {
+            Attendance attendance = requests.getAttendanceCreateRequests().get(i++).toEntity(participant, schedule);
             attendances.add(attendance);
         }
         attendanceRepository.saveAll(attendances);
@@ -50,16 +51,13 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     public void updateScheduleAttendances(User user, AttendanceUpdateRequests requests) {
         Schedule schedule = getScheduleById(requests.getScheduleId());
-        for (AttendanceUpdateRequest request : requests.getAttendanceUpdateRequests()) {
-            validateGroupManager(schedule.getGroup(), user);
-            updateScheduleAttendance(schedule, request);
-        }
-    }
+        validateGroupManager(schedule.getGroup(), user);
 
-    private void updateScheduleAttendance(Schedule schedule, AttendanceUpdateRequest request) {
-        Attendance attendance = getAttendanceById(request.getAttendanceId());
-        if (schedule.isSameSchedule(attendance.getSchedule())) {
-            attendance.updateAttend(request.isAttend());
+        List<Attendance> attendances = attendanceRepository.findAllByIds(requests.toAttendanceIds());
+        for (int i = 0; i < attendances.size(); i++) {
+            Attendance attendance = attendances.get(i);
+            boolean isAttend = requests.getAttendanceUpdateRequests().get(i).isAttend();
+            attendance.updateAttend(isAttend);
         }
     }
 
@@ -79,11 +77,6 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     private Schedule getScheduleById(Long scheduleId) {
         return scheduleRepository.findById(scheduleId)
-            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
-    }
-
-    private Attendance getAttendanceById(Long attendanceId) {
-        return attendanceRepository.findById(attendanceId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 

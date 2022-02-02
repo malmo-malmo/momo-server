@@ -12,6 +12,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actionWidget,
     this.backgroundColor,
     this.leadingIconColor,
+    this.result,
   }) : super(key: key);
 
   final IconData leadingIcon;
@@ -20,13 +21,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? actionWidget;
   final Color? backgroundColor;
   final Color? leadingIconColor;
+  final Object? result;
   @override
   Widget build(BuildContext context) {
     return AppBar(
         backgroundColor: backgroundColor,
         leading: Consumer(
             builder: (context, ref, _) => InkWell(
-                onTap: () => ref.read(navigatorProvider).pop(),
+                onTap: () => ref.read(navigatorProvider).pop(result: result),
                 child: Icon(leadingIcon,
                     color: leadingIconColor ?? MomoColor.black))),
         title: Text(title ?? '', style: MomoTextStyle.defaultStyle),

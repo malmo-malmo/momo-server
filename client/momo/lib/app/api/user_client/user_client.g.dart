@@ -32,34 +32,24 @@ class _UserClient implements UserClient {
   }
 
   @override
-  Future<dynamic> updateUserInfo(userInfoRequest) async {
+  Future<UserUpdateResponse> updateUserInfo(
+      nickname, university, city, district) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'nickname': nickname,
+      r'university': university,
+      r'city': city,
+      r'district': district
+    };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(userInfoRequest.toJson());
-    final _result = await _dio.fetch(_setStreamType<dynamic>(
-        Options(method: 'PATCH', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/user',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data;
-    return value;
-  }
-
-  @override
-  Future<dynamic> updateCategory(categoryRequest) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(categoryRequest.toJson());
-    final _result = await _dio.fetch(_setStreamType<dynamic>(
-        Options(method: 'PATCH', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/user/favorite-categories',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UserUpdateResponse>(
+            Options(method: 'PUT', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/user',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UserUpdateResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -99,6 +89,22 @@ class _UserClient implements UserClient {
   }
 
   @override
+  Future<dynamic> updateCategory(categoryRequest) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(categoryRequest.toJson());
+    final _result = await _dio.fetch(_setStreamType<dynamic>(
+        Options(method: 'PATCH', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/favorite/categories',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data;
+    return value;
+  }
+
+  @override
   Future<List<WishGroupResponse>> getFavoriteGroups() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -107,7 +113,7 @@ class _UserClient implements UserClient {
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<WishGroupResponse>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/user/favorite-groups',
+                .compose(_dio.options, '/favorite/groups',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
@@ -126,10 +132,26 @@ class _UserClient implements UserClient {
     _data.addAll(groupLikeRequest.toJson());
     final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'POST', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/user/favorite-group',
+            .compose(_dio.options, '/favorite/group',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;
+    return value;
+  }
+
+  @override
+  Future<CountResponse> getFavoriteGroupCount() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CountResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/favorite/group/count',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CountResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -141,7 +163,7 @@ class _UserClient implements UserClient {
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'DELETE', headers: _headers, extra: _extra)
-            .compose(_dio.options, 'user/favorite-group/$groupId',
+            .compose(_dio.options, '/favorite/group/$groupId',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;

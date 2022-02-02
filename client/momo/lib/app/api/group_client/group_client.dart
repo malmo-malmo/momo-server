@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:momo/app/model/common/code_name_pair.dart';
 import 'package:momo/app/model/group/group_detail.dart';
 import 'package:momo/app/model/group/group_info.dart';
-import 'package:momo/app/model/group/group_request.dart';
 import 'package:momo/app/model/user/participant_user.dart';
 import 'package:momo/app/util/constant.dart';
 import 'package:retrofit/retrofit.dart';

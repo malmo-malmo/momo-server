@@ -4,7 +4,7 @@ import 'package:momo/app/model/group/wish_group_dto.dart';
 import 'package:momo/app/repository/user_repository.dart';
 
 final wishGroupListProvider =
-    StateNotifierProvider<WishGroupListState, WishGroupDto>((ref) {
+    StateNotifierProvider.autoDispose<WishGroupListState, WishGroupDto>((ref) {
   final userRepository = ref.watch(userRepositoryProvider);
   return WishGroupListState(userRepository: userRepository);
 });
@@ -22,7 +22,7 @@ class WishGroupListState extends StateNotifier<WishGroupDto> {
       state = state.copyWith(
         groups: [
           ...state.groups,
-          ...response.map((e) => e.groupCardResponse).toList(),
+          ...response,
         ],
         isLoading: false,
       );
@@ -35,23 +35,31 @@ class WishGroupListState extends StateNotifier<WishGroupDto> {
   }
 
   Future<dynamic> createLike(int groupId) async {
-    state = state.copyWith(
-      groups: [
-        ...state.groups
-            .map(
-              (e) => e.id == groupId ? e.copyWith(favoriteGroup: true) : e,
-            )
-            .toList()
-      ],
-    );
     try {
       await userRepository.createGroupLike(GroupLikeRequest(groupId: groupId));
+      state = state.copyWith(
+        groups: [
+          ...state.groups
+              .map(
+                (e) => e.groupCardResponse.id == groupId
+                    ? e.copyWith(
+                        groupCardResponse:
+                            e.groupCardResponse.copyWith(favoriteGroup: true))
+                    : e,
+              )
+              .toList()
+        ],
+      );
     } catch (e) {
       state = state.copyWith(
         groups: [
           ...state.groups
               .map(
-                (e) => e.id == groupId ? e.copyWith(favoriteGroup: false) : e,
+                (e) => e.groupCardResponse.id == groupId
+                    ? e.copyWith(
+                        groupCardResponse:
+                            e.groupCardResponse.copyWith(favoriteGroup: false))
+                    : e,
               )
               .toList()
         ],
@@ -59,24 +67,36 @@ class WishGroupListState extends StateNotifier<WishGroupDto> {
     }
   }
 
-  Future<dynamic> deleteLike(int groupId) async {
-    state = state.copyWith(
-      groups: [
-        ...state.groups
-            .map(
-              (e) => e.id == groupId ? e.copyWith(favoriteGroup: false) : e,
-            )
-            .toList()
-      ],
-    );
+  Future<dynamic> deleteLike(int groupWishId) async {
     try {
-      await userRepository.createGroupLike(GroupLikeRequest(groupId: groupId));
+      await userRepository.deleteGroupLike(groupWishId);
+      state = state.copyWith(
+        groups: [
+          ...state.groups
+              .map(
+                (e) => e.id == groupWishId
+                    ? e.copyWith(
+                        groupCardResponse: e.groupCardResponse.copyWith(
+                          favoriteGroup: false,
+                        ),
+                      )
+                    : e,
+              )
+              .toList()
+        ],
+      );
     } catch (e) {
       state = state.copyWith(
         groups: [
           ...state.groups
               .map(
-                (e) => e.id == groupId ? e.copyWith(favoriteGroup: true) : e,
+                (e) => e.id == groupWishId
+                    ? e.copyWith(
+                        groupCardResponse: e.groupCardResponse.copyWith(
+                          favoriteGroup: true,
+                        ),
+                      )
+                    : e,
               )
               .toList()
         ],

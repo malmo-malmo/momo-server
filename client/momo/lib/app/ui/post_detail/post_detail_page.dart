@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:momo/app/model/post/post.dart';
 import 'package:momo/app/provider/comment/comment_list_provider.dart';
 import 'package:momo/app/provider/post/post_detail_provider.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
@@ -14,13 +13,13 @@ import 'package:momo/app/ui/post_detail/widget/post_detail_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
 
 class PostDetailPage extends ConsumerWidget {
-  const PostDetailPage({Key? key, required this.post}) : super(key: key);
+  const PostDetailPage({Key? key, required this.postId}) : super(key: key);
 
-  final Post post;
+  final int postId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final postDetailResponse = ref.watch(postDetailFutureProvider(post.id));
+    final postDetailResponse = ref.watch(postDetailFutureProvider(postId));
 
     return WillPopScope(
       onWillPop: () => ref
@@ -33,6 +32,7 @@ class PostDetailPage extends ConsumerWidget {
             leadingIcon: CupertinoIcons.back,
             isAction: true,
             actionWidget: SvgPicture.asset('assets/icon/icon_msg_28.svg'),
+            result: ref.read(postDetailCommentCntStateProvider),
           ),
           body: postDetailResponse.when(
             error: (error, stackTrace) => const ErrorCard(),

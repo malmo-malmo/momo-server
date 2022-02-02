@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:momo/app/model/group/group_info.dart';
-import 'package:momo/app/model/post/post.dart';
 import 'package:momo/app/routes/custom_arg/group_list_arg.dart';
 import 'package:momo/app/routes/custom_arg/post_request_arg.dart';
 import 'package:momo/app/ui/attendance_list/attendance_list_page.dart';
@@ -106,9 +105,9 @@ class AppRouter {
         );
 
       case AppRoutes.noticeList:
-        final arg = settings.arguments;
+        final int arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => NoticeListPage(pagingController: arg),
+          builder: (_) => NoticeListPage(groupId: arg),
         );
 
       case AppRoutes.memberList:
@@ -130,9 +129,9 @@ class AppRouter {
         );
 
       case AppRoutes.postDetail:
-        final Post arg = settings.arguments;
+        final int arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => PostDetailPage(post: arg),
+          builder: (_) => PostDetailPage(postId: arg),
         );
 
       case AppRoutes.fullImage:

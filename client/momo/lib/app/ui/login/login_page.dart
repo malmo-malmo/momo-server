@@ -46,8 +46,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
     final _userDataCheck = await _isFirstLogin();
 
+    await getLocatinosAndCategories();
     if (!_userDataCheck) {
-      await getLocatinosAndCategories();
       ref.read(navigatorProvider).navigateToRemove(
             routeName: AppRoutes.main,
           );

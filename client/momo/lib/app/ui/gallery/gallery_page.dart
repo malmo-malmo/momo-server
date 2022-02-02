@@ -11,6 +11,7 @@ import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:momo/app/ui/components/button/confirm_action_icon.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
+import 'package:momo/app/util/navigation_service.dart';
 
 class GalleryPage extends ConsumerStatefulWidget {
   const GalleryPage({Key? key, required this.requestType}) : super(key: key);
@@ -56,10 +57,12 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
                 actionWidget: ConfirmActionIcon(
                   check: checkPhoto,
                   title: '추가',
-                  onTapIcon: () {},
-                  result: widget.requestType == PhotoRequestType.one
-                      ? image
-                      : images,
+                  onTapIcon: () {
+                    ref.read(navigatorProvider).pop(
+                        result: widget.requestType == PhotoRequestType.one
+                            ? image
+                            : images);
+                  },
                   isShowDialog: false,
                 ),
               ),

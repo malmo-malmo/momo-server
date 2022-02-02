@@ -9,6 +9,7 @@ import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:momo/app/ui/components/button/confirm_action_icon.dart';
 import 'package:momo/app/ui/components/status/error_card.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
+import 'package:momo/app/util/navigation_service.dart';
 
 class AttendanceListPage extends ConsumerWidget {
   const AttendanceListPage({Key? key, required this.groupId}) : super(key: key);
@@ -35,7 +36,9 @@ class AttendanceListPage extends ConsumerWidget {
               actionWidget: ConfirmActionIcon(
                   check: check,
                   title: '완료',
-                  onTapIcon: () {},
+                  onTapIcon: () {
+                    ref.read(navigatorProvider).pop();
+                  },
                   isShowDialog: true,
                   dialogText: '출석체크를 완료했어요!'),
             ),

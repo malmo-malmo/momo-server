@@ -54,7 +54,8 @@ class GroupRequestState extends StateNotifier<GroupRequest> {
 
   void setCity(String city) => state = state.copyWith(
       city:
-          cityCodeNamePair.where((element) => element.name == city).first.code);
+          cityCodeNamePair.where((element) => element.name == city).first.code,
+      district: '');
 
   String get userCity => state.city.isEmpty
       ? ''

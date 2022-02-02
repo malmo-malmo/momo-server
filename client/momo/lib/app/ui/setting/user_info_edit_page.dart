@@ -37,9 +37,9 @@ class UserInfoEditPage extends ConsumerWidget {
           title: '내 정보 관리',
           actionWidget: InkWell(
             onTap: () async {
-              // await ref
-              //     .read(userDataProvider.notifier)
-              //     .updateUserInfo(userInfo);
+              await ref
+                  .read(userDataProvider.notifier)
+                  .updateUserInfo(userInfo);
 
               ref.read(settingNavigatorProvider).pop();
             },
@@ -81,12 +81,16 @@ class UserInfoEditPage extends ConsumerWidget {
                         width: 102,
                         child: Stack(
                           children: [
-                            const ProfileAvatar(
-                              img:
-                                  'https://file.mk.co.kr/meet/neds/2020/08/image_readtop_2020_864116_15980534304326707.png',
-                              rad: 50,
-                              backgroundColor: MomoColor.main,
-                            ),
+                            userInfo.imagePath.isEmpty
+                                ? const ProfileAvatar(
+                                    img:
+                                        'https://file.mk.co.kr/meet/neds/2020/08/image_readtop_2020_864116_15980534304326707.png',
+                                    rad: 50,
+                                    backgroundColor: MomoColor.main,
+                                  )
+                                : ProfileAvatarWithFile(
+                                    imagePath: userInfo.imagePath,
+                                  ),
                             Positioned(
                               right: 0,
                               bottom: 0,
@@ -101,6 +105,12 @@ class UserInfoEditPage extends ConsumerWidget {
                                           routeName: AppRoutes.gallery,
                                           arguments: PhotoRequestType.one,
                                         );
+                                    if (imagePath != null) {
+                                      ref
+                                          .read(
+                                              userInfoRequestProvider.notifier)
+                                          .setImagePath(imagePath);
+                                    }
                                   }
                                 },
                                 child: CircleAvatar(

@@ -62,10 +62,11 @@ class _WishGroupPageState extends ConsumerState<WishGroupPage> {
                 itemCount: wishGroupState.groups.length,
                 itemBuilder: (context, index) {
                   return GroupCard(
-                    group: wishGroupState.groups[index],
+                    group: wishGroupState.groups[index].groupCardResponse,
                     width: double.infinity,
                     setLike: () {
-                      if (wishGroupState.groups[index].favoriteGroup) {
+                      if (wishGroupState
+                          .groups[index].groupCardResponse.favoriteGroup) {
                         ref
                             .read(wishGroupListProvider.notifier)
                             .createLike(wishGroupState.groups[index].id);

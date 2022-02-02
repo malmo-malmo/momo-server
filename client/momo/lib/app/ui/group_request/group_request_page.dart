@@ -16,6 +16,7 @@ import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/group_request/widget/head_num_input_box.dart';
 import 'package:momo/app/ui/group_request/widget/set_image_box.dart';
 import 'package:momo/app/ui/group_request/widget/university_toggle_button.dart';
+import 'package:momo/app/util/navigation_service.dart';
 
 class GroupRequestPage extends ConsumerWidget {
   const GroupRequestPage({Key? key}) : super(key: key);
@@ -38,6 +39,7 @@ class GroupRequestPage extends ConsumerWidget {
             title: '완료',
             onTapIcon: () async {
               await ref.read(groupRequestStateProvider.notifier).createGroup();
+              ref.read(navigatorProvider).pop();
             },
             isShowDialog: true,
             dialogText: '${groupRequest.name}\n모임을 추가했어요!',

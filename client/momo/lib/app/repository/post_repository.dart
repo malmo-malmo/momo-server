@@ -26,7 +26,7 @@ class PostRepository {
     required this.formDataDio,
   });
 
-  Future<dynamic> createPost(PostRequest postRequest) async {
+  Future<PostDetail> createPost(PostRequest postRequest) async {
     final response = await formDataDio.createPost(postRequest);
     return response;
   }

@@ -18,7 +18,7 @@ class _$WishGroupDtoTearOff {
   const _$WishGroupDtoTearOff();
 
   _WishGroupDto call(
-      {required List<GroupInfo> groups,
+      {required List<WishGroupResponse> groups,
       required bool isLoading,
       String? error}) {
     return _WishGroupDto(
@@ -34,7 +34,7 @@ const $WishGroupDto = _$WishGroupDtoTearOff();
 
 /// @nodoc
 mixin _$WishGroupDto {
-  List<GroupInfo> get groups => throw _privateConstructorUsedError;
+  List<WishGroupResponse> get groups => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
@@ -48,7 +48,7 @@ abstract class $WishGroupDtoCopyWith<$Res> {
   factory $WishGroupDtoCopyWith(
           WishGroupDto value, $Res Function(WishGroupDto) then) =
       _$WishGroupDtoCopyWithImpl<$Res>;
-  $Res call({List<GroupInfo> groups, bool isLoading, String? error});
+  $Res call({List<WishGroupResponse> groups, bool isLoading, String? error});
 }
 
 /// @nodoc
@@ -69,7 +69,7 @@ class _$WishGroupDtoCopyWithImpl<$Res> implements $WishGroupDtoCopyWith<$Res> {
       groups: groups == freezed
           ? _value.groups
           : groups // ignore: cast_nullable_to_non_nullable
-              as List<GroupInfo>,
+              as List<WishGroupResponse>,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -89,7 +89,7 @@ abstract class _$WishGroupDtoCopyWith<$Res>
           _WishGroupDto value, $Res Function(_WishGroupDto) then) =
       __$WishGroupDtoCopyWithImpl<$Res>;
   @override
-  $Res call({List<GroupInfo> groups, bool isLoading, String? error});
+  $Res call({List<WishGroupResponse> groups, bool isLoading, String? error});
 }
 
 /// @nodoc
@@ -112,7 +112,7 @@ class __$WishGroupDtoCopyWithImpl<$Res> extends _$WishGroupDtoCopyWithImpl<$Res>
       groups: groups == freezed
           ? _value.groups
           : groups // ignore: cast_nullable_to_non_nullable
-              as List<GroupInfo>,
+              as List<WishGroupResponse>,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -131,7 +131,7 @@ class _$_WishGroupDto implements _WishGroupDto {
   _$_WishGroupDto({required this.groups, required this.isLoading, this.error});
 
   @override
-  final List<GroupInfo> groups;
+  final List<WishGroupResponse> groups;
   @override
   final bool isLoading;
   @override
@@ -165,12 +165,12 @@ class _$_WishGroupDto implements _WishGroupDto {
 
 abstract class _WishGroupDto implements WishGroupDto {
   factory _WishGroupDto(
-      {required List<GroupInfo> groups,
+      {required List<WishGroupResponse> groups,
       required bool isLoading,
       String? error}) = _$_WishGroupDto;
 
   @override
-  List<GroupInfo> get groups;
+  List<WishGroupResponse> get groups;
   @override
   bool get isLoading;
   @override

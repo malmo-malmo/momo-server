@@ -1,5 +1,6 @@
 package com.momo.domain.group.repository;
 
+import static com.momo.domain.achievementrate.entity.QGroupAchievementRate.groupAchievementRate;
 import static com.momo.domain.favorite.entity.QFavoriteGroup.favoriteGroup;
 import static com.momo.domain.group.entity.QGroup.group;
 import static com.momo.domain.group.entity.QParticipant.participant;
@@ -11,6 +12,7 @@ import com.momo.domain.group.dto.GroupSearchConditionRequest;
 import com.momo.domain.group.dto.QGroupCardResponse;
 import com.momo.domain.group.dto.QGroupResponse;
 import com.momo.domain.group.entity.Category;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.user.entity.User;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -27,6 +29,15 @@ import org.springframework.util.CollectionUtils;
 public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
+
+    @Override
+    public List<Group> findAllWithAchievementRateByUser(User loginUser) {
+        return queryFactory
+            .selectFrom(group)
+            .leftJoin(group.achievementRate, groupAchievementRate).fetchJoin()
+            .where(group.manager.eq(loginUser))
+            .fetch();
+    }
 
     @Override
     public GroupResponse findGroupAndParticipantCntAndAuthorityById(User loginUser, Long groupId) {

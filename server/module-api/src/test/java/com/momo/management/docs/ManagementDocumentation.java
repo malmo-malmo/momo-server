@@ -13,16 +13,16 @@ import org.springframework.restdocs.request.ParameterDescriptor;
 
 public class ManagementDocumentation {
 
-    public static RestDocumentationResultHandler findParticipatingGroupCount() {
+    public static RestDocumentationResultHandler findParticipationGroupCount() {
         FieldDescriptor[] response = new FieldDescriptor[]{
             fieldWithPath("count").type(JsonFieldType.NUMBER).description("참여한 모임 수"),
         };
-        return document("management/findParticipatingGroupCount",
+        return document("management/findParticipationGroupCount",
             responseFields(response)
         );
     }
 
-    public static RestDocumentationResultHandler findParticipatingGroups() {
+    public static RestDocumentationResultHandler findParticipationGroups() {
         FieldDescriptor[] response = new FieldDescriptor[]{
             fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("모임 ID"),
             fieldWithPath("[].name").type(JsonFieldType.STRING).description("모임 이름"),
@@ -37,7 +37,40 @@ public class ManagementDocumentation {
             fieldWithPath("[].participantCnt").type(JsonFieldType.NUMBER)
                 .description("모임 참여자 수"),
         };
-        return document("management/findParticipatingGroups",
+        return document("management/findParticipationGroups",
+            responseFields(response)
+        );
+    }
+
+    public static RestDocumentationResultHandler findParticipationGroupsSummary() {
+        FieldDescriptor[] response = new FieldDescriptor[]{
+            fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("모임 ID"),
+            fieldWithPath("[].name").type(JsonFieldType.STRING).description("모임 이름"),
+            fieldWithPath("[].category").type(JsonFieldType.STRING).description("모임 카테고리")
+        };
+        return document("management/findParticipationGroupsSummary",
+            responseFields(response)
+        );
+    }
+
+    public static RestDocumentationResultHandler findMyGroups() {
+        FieldDescriptor[] response = new FieldDescriptor[]{
+            fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("모임 ID"),
+            fieldWithPath("[].name").type(JsonFieldType.STRING).description("모임 이름"),
+            fieldWithPath("[].imageUrl").type(JsonFieldType.STRING).description("모임 이미지 URL"),
+            fieldWithPath("[].achievementRate").type(JsonFieldType.NUMBER).description("모임 달성률")
+        };
+        return document("management/findMyGroups",
+            responseFields(response)
+        );
+    }
+
+    public static RestDocumentationResultHandler findMyGroupsSummary() {
+        FieldDescriptor[] response = new FieldDescriptor[]{
+            fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("모임 ID"),
+            fieldWithPath("[].name").type(JsonFieldType.STRING).description("모임 이름"),
+        };
+        return document("management/findMyGroupsSummary",
             responseFields(response)
         );
     }

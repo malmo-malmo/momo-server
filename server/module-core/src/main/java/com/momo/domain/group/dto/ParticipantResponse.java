@@ -12,11 +12,8 @@ import lombok.NoArgsConstructor;
 public class ParticipantResponse {
 
     private Long userId;
-
     private String imageUrl;
-
     private String nickname;
-
     private int attendanceRate;
 
     @Builder
@@ -32,7 +29,7 @@ public class ParticipantResponse {
             .userId(participant.getUser().getId())
             .imageUrl(participant.getUser().getImageUrl())
             .nickname(participant.getUser().getNickname())
-            .attendanceRate(participant.getAttendanceRate())
+            .attendanceRate(participant.getAchievementRate().getRate().intValue())
             .build();
     }
 

@@ -38,7 +38,7 @@ public class FavoriteGroupCustomRepositoryImpl implements FavoriteGroupCustomRep
                 )
             ))
             .from(favoriteGroup)
-            .leftJoin(group).on(favoriteGroup.group.eq(group))
+            .leftJoin(favoriteGroup.group, group)
             .where(favoriteGroup.user.eq(user))
             .orderBy(favoriteGroup.createdDate.desc())
             .fetch();

@@ -24,31 +24,33 @@ create table if not exists favorite_category
 
 create table if not exists group_tb
 (
-    id                 bigint  not null auto_increment,
-    created_date       timestamp,
-    last_modified_date timestamp,
-    category           varchar(255),
-    city               varchar(255),
-    district           varchar(255),
-    image_url          varchar(255),
-    introduction       longtext,
-    is_end             boolean not null,
-    is_offline         boolean not null,
-    name               varchar(255),
-    recruitment_cnt    integer not null,
-    start_date         date,
-    university         varchar(255),
-    manager_id         bigint,
+    id                  bigint  not null auto_increment,
+    created_date        timestamp,
+    last_modified_date  timestamp,
+    category            varchar(255),
+    city                varchar(255),
+    district            varchar(255),
+    image_url           varchar(255),
+    introduction        longtext,
+    is_end              boolean not null,
+    is_offline          boolean not null,
+    name                varchar(255),
+    recruitment_cnt     integer not null,
+    start_date          date,
+    university          varchar(255),
+    manager_id          bigint,
+    achievement_rate_id bigint,
     primary key (id)
 ) engine = InnoDB;
 
 create table if not exists participant
 (
-    id                 bigint not null auto_increment,
-    created_date       timestamp,
-    last_modified_date timestamp,
-    group_id           bigint,
-    user_id            bigint,
+    id                  bigint not null auto_increment,
+    created_date        timestamp,
+    last_modified_date  timestamp,
+    group_id            bigint,
+    user_id             bigint,
+    achievement_rate_id bigint,
     primary key (id)
 ) engine = InnoDB;
 
@@ -69,11 +71,12 @@ create table if not exists schedule
 
 create table if not exists attendance
 (
-    id          bigint  not null auto_increment,
-    is_attend   boolean not null,
-    user_id     bigint  not null,
-    group_id    bigint,
-    schedule_id bigint,
+    id                 bigint  not null auto_increment,
+    is_attend          boolean not null,
+    participant_id     bigint,
+    schedule_id        bigint,
+    created_date       timestamp,
+    last_modified_date timestamp,
     primary key (id)
 ) engine = InnoDB;
 
@@ -127,16 +130,34 @@ create table if not exists favorite_group
     primary key (id)
 ) engine = InnoDB;
 
-alter table attendance
-    add constraint groups_fk_attendance
-        foreign key (group_id)
-            references group_tb (id)
-            on delete cascade;
+create table if not exists group_achievement_rate
+(
+    id                 bigint not null auto_increment,
+    rate               decimal(19, 2),
+    created_date       timestamp,
+    last_modified_date timestamp,
+    primary key (id)
+) engine = InnoDB;
+
+create table if not exists participant_achievement_rate
+(
+    id                 bigint not null auto_increment,
+    rate               decimal(19, 2),
+    created_date       timestamp,
+    last_modified_date timestamp,
+    primary key (id)
+) engine = InnoDB;
 
 alter table attendance
     add constraint schedule_fk_attendance
         foreign key (schedule_id)
             references schedule (id)
+            on delete cascade;
+
+alter table attendance
+    add constraint participant_fk_attendance
+        foreign key (participant_id)
+            references participant (id)
             on delete cascade;
 
 alter table comment
@@ -162,6 +183,12 @@ alter table group_tb
         foreign key (manager_id)
             references user (id);
 
+alter table group_tb
+    add constraint group_achievement_rate_fk_group_tb
+        foreign key (achievement_rate_id)
+            references group_achievement_rate (id)
+            on delete cascade;
+
 alter table image
     add constraint post_fk_image
         foreign key (post_id)
@@ -178,6 +205,12 @@ alter table participant
     add constraint user_fk_participant
         foreign key (user_id)
             references user (id)
+            on delete cascade;
+
+alter table participant
+    add constraint participant_achievement_rate_fk_participant
+        foreign key (achievement_rate_id)
+            references participant_achievement_rate (id)
             on delete cascade;
 
 alter table post

@@ -1,4 +1,4 @@
-package com.momo.common.acceptance;
+package com.momo.common;
 
 import com.google.common.base.CaseFormat;
 import java.util.List;
@@ -9,11 +9,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Table;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
-public class DatabaseCleanUp implements InitializingBean {
+@Repository
+public class DatabaseCleaner implements InitializingBean {
 
     @PersistenceContext
     private EntityManager em;

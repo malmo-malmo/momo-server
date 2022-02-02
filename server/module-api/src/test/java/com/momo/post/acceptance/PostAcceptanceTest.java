@@ -1,6 +1,6 @@
 package com.momo.post.acceptance;
 
-import static com.momo.CommonFileUploadSupport.uploadTestFile;
+import static com.momo.common.CommonFileUploadSupport.uploadTestFile;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatCustomException;
 import static com.momo.domain.common.exception.ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED;
 import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST1;

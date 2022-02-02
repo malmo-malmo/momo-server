@@ -1,4 +1,4 @@
-package com.momo;
+package com.momo.common;
 
 import io.restassured.specification.RequestSpecification;
 import java.io.IOException;

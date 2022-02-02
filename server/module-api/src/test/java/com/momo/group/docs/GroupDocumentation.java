@@ -45,7 +45,7 @@ public class GroupDocumentation {
             fieldWithPath("introduction").type(JsonFieldType.STRING).description("모임 설명"),
             fieldWithPath("recruitmentCnt").type(JsonFieldType.NUMBER).description("모임 인원"),
             fieldWithPath("end").type(JsonFieldType.BOOLEAN).description("모임 종료 여부"),
-            fieldWithPath("participantCnt").type(JsonFieldType.NUMBER).description("모임 참가자 수"),
+            fieldWithPath("participantCnt").type(JsonFieldType.NUMBER).description("모임 참여자 수"),
             fieldWithPath("participant").type(JsonFieldType.BOOLEAN).description("모임 참가 여부"),
         };
 
@@ -70,7 +70,7 @@ public class GroupDocumentation {
             fieldWithPath("introduction").type(JsonFieldType.STRING).description("모임 설명"),
             fieldWithPath("recruitmentCnt").type(JsonFieldType.NUMBER).description("모임 인원수"),
             fieldWithPath("end").type(JsonFieldType.BOOLEAN).description("모임 종료 여부"),
-            fieldWithPath("participantCnt").type(JsonFieldType.NUMBER).description("모임 참가자 수"),
+            fieldWithPath("participantCnt").type(JsonFieldType.NUMBER).description("모임 참여자 수"),
             fieldWithPath("participant").type(JsonFieldType.BOOLEAN).description("모임 참가 여부")
         };
 
@@ -95,7 +95,7 @@ public class GroupDocumentation {
             fieldWithPath("[].imageUrl").type(JsonFieldType.STRING).description("모임 이미지 URL"),
             fieldWithPath("[].startDate").type(JsonFieldType.STRING).description("모임 시작일자"),
             fieldWithPath("[].offline").type(JsonFieldType.BOOLEAN).description("모임 온/오프라인 여부"),
-            fieldWithPath("[].participantCnt").type(JsonFieldType.NUMBER).description("모임 참가자 수"),
+            fieldWithPath("[].participantCnt").type(JsonFieldType.NUMBER).description("모임 참여자 수"),
             fieldWithPath("[].favoriteGroup").type(JsonFieldType.BOOLEAN).description("관심 모임 여부")
         };
 
@@ -116,7 +116,7 @@ public class GroupDocumentation {
             fieldWithPath("[].imageUrl").type(JsonFieldType.STRING).description("모임 이미지 URL"),
             fieldWithPath("[].startDate").type(JsonFieldType.STRING).description("모임 시작일자"),
             fieldWithPath("[].offline").type(JsonFieldType.BOOLEAN).description("모임 온/오프라인 여부"),
-            fieldWithPath("[].participantCnt").type(JsonFieldType.NUMBER).description("모임 참가자 수"),
+            fieldWithPath("[].participantCnt").type(JsonFieldType.NUMBER).description("모임 참여자 수"),
             fieldWithPath("[].favoriteGroup").type(JsonFieldType.BOOLEAN).description("관심 모임 여부")
         };
         return document("group/findPageByUserUniversity",
@@ -136,7 +136,7 @@ public class GroupDocumentation {
             fieldWithPath("[].imageUrl").type(JsonFieldType.STRING).description("모임 이미지 URL"),
             fieldWithPath("[].startDate").type(JsonFieldType.STRING).description("모임 시작일자"),
             fieldWithPath("[].offline").type(JsonFieldType.BOOLEAN).description("모임 온/오프라인 여부"),
-            fieldWithPath("[].participantCnt").type(JsonFieldType.NUMBER).description("모임 참가자 수"),
+            fieldWithPath("[].participantCnt").type(JsonFieldType.NUMBER).description("모임 참여자 수"),
             fieldWithPath("[].favoriteGroup").type(JsonFieldType.BOOLEAN).description("관심 모임 여부")
         };
         return document("group/findPageByUserLocation",
@@ -156,7 +156,7 @@ public class GroupDocumentation {
             fieldWithPath("[].imageUrl").type(JsonFieldType.STRING).description("모임 이미지 URL"),
             fieldWithPath("[].startDate").type(JsonFieldType.STRING).description("모임 시작일자"),
             fieldWithPath("[].offline").type(JsonFieldType.BOOLEAN).description("모임 온/오프라인 여부"),
-            fieldWithPath("[].participantCnt").type(JsonFieldType.NUMBER).description("모임 참가자 수"),
+            fieldWithPath("[].participantCnt").type(JsonFieldType.NUMBER).description("모임 참여자 수"),
             fieldWithPath("[].favoriteGroup").type(JsonFieldType.BOOLEAN).description("관심 모임 여부")
         };
         return document("group/findPageByUserCategories",

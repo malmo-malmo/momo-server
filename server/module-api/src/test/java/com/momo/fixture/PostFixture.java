@@ -1,6 +1,6 @@
 package com.momo.fixture;
 
-import static com.momo.CommonFileUploadSupport.uploadTestFile;
+import static com.momo.common.CommonFileUploadSupport.uploadTestFile;
 
 import com.momo.domain.post.dto.PostCreateRequest;
 import com.momo.domain.post.entity.PostType;

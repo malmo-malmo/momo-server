@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ParticipatingGroupCardResponse {
+public class ParticipationGroupCardResponse {
 
     private Long id;
     private String name;
@@ -20,7 +20,7 @@ public class ParticipatingGroupCardResponse {
 
     @Builder
     @QueryProjection
-    public ParticipatingGroupCardResponse(Long id, String name, String imageUrl, LocalDate startDate, boolean isOffline,
+    public ParticipationGroupCardResponse(Long id, String name, String imageUrl, LocalDate startDate, boolean isOffline,
         boolean isEnd, Long participantCnt) {
         this.id = id;
         this.name = name;

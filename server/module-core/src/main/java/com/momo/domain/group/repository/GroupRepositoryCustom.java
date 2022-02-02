@@ -4,11 +4,14 @@ import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.dto.GroupSearchConditionRequest;
 import com.momo.domain.group.entity.Category;
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.user.entity.User;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 public interface GroupRepositoryCustom {
+
+    List<Group> findAllWithAchievementRateByUser(User loginUser);
 
     GroupResponse findGroupAndParticipantCntAndAuthorityById(User loginUser, Long groupId);
 

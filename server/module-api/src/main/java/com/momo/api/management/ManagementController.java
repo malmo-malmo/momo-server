@@ -1,11 +1,14 @@
 package com.momo.api.management;
 
 import com.momo.common.CurrentUser;
+import com.momo.domain.management.dto.MyGroupCardResponse;
+import com.momo.domain.management.dto.MyGroupSummaryResponse;
 import com.momo.domain.management.dto.MyPostCardResponse;
-import com.momo.domain.management.dto.ParticipatingGroupCardResponse;
-import com.momo.domain.management.dto.ParticipatingGroupCountResponse;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.management.dto.ParticipationGroupCardResponse;
+import com.momo.domain.management.dto.ParticipationGroupCountResponse;
+import com.momo.domain.management.dto.ParticipationGroupSummaryResponse;
 import com.momo.domain.management.service.ManagementService;
+import com.momo.domain.user.entity.User;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,19 +24,37 @@ public class ManagementController {
 
     private final ManagementService managementService;
 
-    @GetMapping("/group/participation/count")
-    public ResponseEntity<ParticipatingGroupCountResponse> findParticipatingGroupCount(@CurrentUser User user) {
-        ParticipatingGroupCountResponse response = managementService.findParticipatingGroupCountByUser(user);
+    @GetMapping("/participation-group/count")
+    public ResponseEntity<ParticipationGroupCountResponse> findParticipationGroupCount(@CurrentUser User user) {
+        ParticipationGroupCountResponse response = managementService.findParticipationGroupCountByUser(user);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/groups/participation")
-    public ResponseEntity<List<ParticipatingGroupCardResponse>> findParticipatingGroups(@CurrentUser User user) {
-        List<ParticipatingGroupCardResponse> responses = managementService.findParticipatingGroupsByUser(user);
+    @GetMapping("/participation-groups/details")
+    public ResponseEntity<List<ParticipationGroupCardResponse>> findParticipationGroups(@CurrentUser User user) {
+        List<ParticipationGroupCardResponse> responses = managementService.findParticipationGroupsByUser(user);
         return ResponseEntity.ok(responses);
     }
 
-    @GetMapping("/posts")
+    @GetMapping("/participation-groups/summary")
+    public ResponseEntity<List<ParticipationGroupSummaryResponse>> findParticipationGroupsSummary(
+        @CurrentUser User user) {
+        return ResponseEntity.ok(managementService.findParticipationGroupsSummaryByUser(user));
+    }
+
+    @GetMapping("/my-groups/details")
+    public ResponseEntity<List<MyGroupCardResponse>> findMyGroups(@CurrentUser User user) {
+        List<MyGroupCardResponse> responses = managementService.findMyGroupsByUser(user);
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/my-groups/summary")
+    public ResponseEntity<List<MyGroupSummaryResponse>> findMyGroupsSummary(@CurrentUser User user) {
+        List<MyGroupSummaryResponse> responses = managementService.findMyGroupsSummaryByUser(user);
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/my-posts")
     public ResponseEntity<List<MyPostCardResponse>> findMyPosts(@CurrentUser User user,
         @RequestParam int page, @RequestParam int size) {
         List<MyPostCardResponse> responses = managementService.findMyPostsByUser(user, page, size);

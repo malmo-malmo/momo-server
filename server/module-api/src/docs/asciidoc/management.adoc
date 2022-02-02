@@ -4,16 +4,39 @@
 
 === 참여한 모임 수 조회
 
-관심(찜) 모임 수를 조회합니다.
+참여한 모임 수를 조회합니다.
+(로그인한 유저가 만든 모임 + 참여한 모임)
 
-operation::management/findParticipatingGroupCount[snippets='http-request,http-response,response-fields']
+operation::management/findParticipationGroupCount[snippets='http-request,http-response,response-fields']
 
 === 참여한 모임 목록 조회
 
-관심(찜) 모임 목록을 조회합니다.
+참여한 모임 목록을 조회합니다.
+(로그인한 유저가 만든 모임 + 참여한 모임)
 
-operation::management/findParticipatingGroups[snippets='http-request,http-response,response-fields']
+operation::management/findParticipationGroups[snippets='http-request,http-response,response-fields']
+
+=== 그 외 참여한 모임 목록 조회
+
+그 외 참여한 모임 목록을 조회합니다(요약).
+(로그인한 유저가 참여한 모임)
+
+operation::management/findParticipationGroupsSummary[snippets='http-request,http-response,response-fields']
+
+=== 내 모임 목록 조회
+
+로그인한 유저가 만든 모임 목록을 조회합니다.
+
+operation::management/findMyGroups[snippets='http-request,http-response,response-fields']
+
+=== 내 모임 목록 조회 (요약)
+
+로그인한 유저가 만든 모임 목록을 조회합니다(요약).
+
+operation::management/findMyGroupsSummary[snippets='http-request,http-response,response-fields']
 
 === 내 게시물 목록 조회
+
+로그인한 유저가 작성한 게시물 목록을 조회합니다(요약).
 
 operation::management/findMyPosts[snippets='http-request,http-response,request-parameters,response-fields']

@@ -4,14 +4,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
 import com.momo.domain.district.entity.City;
+import com.momo.domain.favorite.entity.FavoriteGroup;
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.dto.GroupSearchConditionRequest;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Group;
-import com.momo.domain.favorite.entity.FavoriteGroup;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,9 +30,7 @@ public class GroupRepositoryTest extends RepositoryTest {
     private GroupRepository groupRepository;
 
     private User user;
-
     private Group group1;
-
     private Group group2;
 
     @BeforeEach
@@ -83,7 +82,7 @@ public class GroupRepositoryTest extends RepositoryTest {
     }
 
     @Test
-    public void 모임을_저장한다() {
+    void 모임을_저장한다() {
         Group actual = groupRepository.findAll().get(0);
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
@@ -102,7 +101,7 @@ public class GroupRepositoryTest extends RepositoryTest {
     }
 
     @Test
-    public void 사용자ID와_모임ID로_모임을_조회한다() {
+    void 사용자ID와_모임ID로_모임을_조회한다() {
         GroupResponse response = groupRepository.findGroupAndParticipantCntAndAuthorityById(user, group1.getId());
         Assertions.assertAll(
             () -> assertThat(response).isNotNull(),
@@ -122,7 +121,7 @@ public class GroupRepositoryTest extends RepositoryTest {
     }
 
     @Test
-    public void 도시_목록과_카테고리_목록으로_모임_목록을_조회한다() {
+    void 도시_목록과_카테고리_목록으로_모임_목록을_조회한다() {
         save(
             FavoriteGroup.builder()
                 .user(user)
@@ -159,7 +158,7 @@ public class GroupRepositoryTest extends RepositoryTest {
     }
 
     @Test
-    public void 학교로_모임_목록을_조회한다() {
+    void 학교로_모임_목록을_조회한다() {
         List<GroupCardResponse> actual = groupRepository
             .findAllByUniversityOrderByCreatedDateDesc(user, group1.getUniversity(), PageRequest.of(0, 10));
 
@@ -177,7 +176,7 @@ public class GroupRepositoryTest extends RepositoryTest {
     }
 
     @Test
-    public void 구역으로_모임_목록을_조회한다() {
+    void 구역으로_모임_목록을_조회한다() {
         List<GroupCardResponse> actual = groupRepository
             .findAllByDistrictOrderByCreatedDateDesc(user, group1.getDistrict(), PageRequest.of(0, 10));
 
@@ -195,7 +194,7 @@ public class GroupRepositoryTest extends RepositoryTest {
     }
 
     @Test
-    public void 카테고리_목록으로_모임_목록을_조회한다() {
+    void 카테고리_목록으로_모임_목록을_조회한다() {
         List<GroupCardResponse> actual = groupRepository
             .findAllByCategoriesOrderByCreatedDateDesc(user, List.of(Category.LIFE), PageRequest.of(0, 10));
 
@@ -209,6 +208,32 @@ public class GroupRepositoryTest extends RepositoryTest {
             () -> assertThat(actual.get(0).getStartDate()).isEqualTo(group1.getStartDate()),
             () -> assertThat(actual.get(0).getParticipantCnt()).isEqualTo(0),
             () -> assertThat(actual.get(0).isFavoriteGroup()).isEqualTo(false)
+        );
+    }
+
+    @Test
+    void 관리하는_모임_목록을_조회한다() {
+        List<Group> actual = groupRepository.findAllByManager(user);
+
+        Assertions.assertAll(
+            () -> assertThat(actual).isNotNull(),
+            () -> assertThat(actual.size()).isEqualTo(2),
+            () -> assertThat(actual.get(0).getId()).isEqualTo(group1.getId()),
+            () -> assertThat(actual.get(1).getId()).isEqualTo(group2.getId())
+        );
+    }
+
+    @Test
+    void 관리하는_모임과_달성률_목록을_조회한다() {
+        List<Group> actual = groupRepository.findAllWithAchievementRateByUser(user);
+
+        Assertions.assertAll(
+            () -> assertThat(actual).isNotNull(),
+            () -> assertThat(actual.size()).isEqualTo(2),
+            () -> assertThat(actual.get(0).getId()).isEqualTo(group1.getId()),
+            () -> assertThat(actual.get(0).getAchievementRate().getRate()).isEqualTo(BigDecimal.ZERO),
+            () -> assertThat(actual.get(1).getId()).isEqualTo(group2.getId()),
+            () -> assertThat(actual.get(1).getAchievementRate().getRate()).isEqualTo(BigDecimal.ZERO)
         );
     }
 }

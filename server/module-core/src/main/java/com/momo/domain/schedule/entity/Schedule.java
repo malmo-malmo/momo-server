@@ -72,4 +72,8 @@ public class Schedule extends BaseEntity {
     public void updateAttendanceCheck(boolean attendanceCheck) {
         this.attendanceCheck = attendanceCheck;
     }
+
+    public boolean isSameSchedule(Schedule schedule) {
+        return this.id.equals(schedule.getId());
+    }
 }

@@ -2,6 +2,7 @@ package com.momo.common.acceptance;
 
 import static org.springframework.http.HttpHeaders.LOCATION;
 
+import com.momo.common.DatabaseCleaner;
 import com.momo.domain.auth.provider.TokenProvider;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
@@ -12,12 +13,15 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureTestDatabase(replace = Replace.NONE)
 public class AcceptanceTest {
 
     @LocalServerPort
@@ -27,7 +31,7 @@ public class AcceptanceTest {
     protected UserRepository userRepository;
 
     @Autowired
-    private DatabaseCleanUp databaseCleanUp;
+    private DatabaseCleaner databaseCleaner;
 
     @Autowired
     private TokenProvider tokenProvider;
@@ -41,7 +45,7 @@ public class AcceptanceTest {
 
     @AfterEach
     protected void tearDown() {
-        databaseCleanUp.cleanUp();
+        databaseCleaner.cleanUp();
     }
 
     protected String getAccessToken(User user) {

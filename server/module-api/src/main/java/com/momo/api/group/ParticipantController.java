@@ -6,7 +6,10 @@ import com.momo.domain.group.dto.ParticipantResponse;
 import com.momo.domain.group.service.ParticipantService;
 import com.momo.domain.user.entity.User;
 import io.swagger.annotations.ApiOperation;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,9 +34,9 @@ public class ParticipantController {
     @ApiOperation(value = "참여 신청")
     @PostMapping("/group/apply-participant")
     public ResponseEntity<Void> applyParticipantByGroup(@CurrentUser User user,
-        @RequestBody ParticipantRequest request) {
-        participantService.applyParticipantByGroup(user, request.getGroupId());
-        return ResponseEntity.ok().build();
+        @RequestBody ParticipantRequest request) throws URISyntaxException {
+        Long participantId = participantService.applyParticipantByGroup(user, request.getGroupId());
+        return ResponseEntity.created(new URI("/api/group/apply-participant/" + participantId)).build();
     }
 
     @ApiOperation(value = "모임 참여자 목록 조회")

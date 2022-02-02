@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class ParticipantServiceImpl implements ParticipantService {
 
     private final ParticipantRepository participantRepository;
-
     private final GroupRepository groupRepository;
 
     @Transactional(readOnly = true)
@@ -28,9 +27,6 @@ public class ParticipantServiceImpl implements ParticipantService {
         Group group = getGroupById(groupId);
         validateGroupManager(group, user);
         List<Participant> participants = participantRepository.findAllByGroup(group);
-        for (Participant participant : participants) {
-            participant.calculateAttendanceRate();
-        }
         return ParticipantResponse.listOf(participants);
     }
 
@@ -60,9 +56,8 @@ public class ParticipantServiceImpl implements ParticipantService {
     /*
     테스트를 위해 임시로 만든 API
     */
-    public void applyParticipantByGroup(User user, Long groupId) {
+    public Long applyParticipantByGroup(User user, Long groupId) {
         Group group = getGroupById(groupId);
-        participantRepository.save(Participant.create(user, group));
+        return participantRepository.save(Participant.create(user, group)).getId();
     }
-
 }

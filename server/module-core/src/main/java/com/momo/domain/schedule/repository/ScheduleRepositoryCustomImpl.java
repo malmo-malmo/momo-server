@@ -28,21 +28,7 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
     @Override
     public List<GroupScheduleResponse> findAllByGroupAndUserOrderByCreatedDateDesc(Group group, Long userId,
         Pageable pageable) {
-        List<GroupScheduleResponse> content = queryFactory
-            .select(new QGroupScheduleResponse(
-                schedule.id,
-                schedule.author.imageUrl,
-                schedule.author.nickname,
-                schedule.title,
-                schedule.isOffline,
-                schedule.startDateTime,
-                schedule.contents,
-                schedule.attendanceCheck,
-                JPAExpressions
-                    .select(attendance.isAttend)
-                    .from(attendance)
-                    .where(attendance.schedule.eq(schedule).and(attendance.userId.eq(userId)))
-            ))
+        List<GroupScheduleResponse> content = selectGroupScheduleClause(userId)
             .from(schedule)
             .leftJoin(user).on(schedule.author.eq(user))
             .where(schedule.group.eq(group))
@@ -76,6 +62,14 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
 
     @Override
     public GroupScheduleResponse findGroupResponseById(Long scheduleId, Long userId) {
+        return selectGroupScheduleClause(userId)
+            .from(schedule)
+            .leftJoin(user).on(schedule.author.eq(user))
+            .where(schedule.id.eq(scheduleId))
+            .fetchOne();
+    }
+
+    private JPAQuery<GroupScheduleResponse> selectGroupScheduleClause(Long userId) {
         return queryFactory
             .select(new QGroupScheduleResponse(
                 schedule.id,
@@ -89,11 +83,7 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
                 JPAExpressions
                     .select(attendance.isAttend)
                     .from(attendance)
-                    .where(attendance.schedule.eq(schedule).and(attendance.userId.eq(userId)))
-            ))
-            .from(schedule)
-            .leftJoin(user).on(schedule.author.eq(user))
-            .where(schedule.id.eq(scheduleId))
-            .fetchOne();
+                    .where(attendance.schedule.eq(schedule).and(attendance.participant.user.id.eq(userId)))
+            ));
     }
 }

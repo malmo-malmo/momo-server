@@ -1,9 +1,9 @@
 package com.momo.domain.schedule.entity;
 
-import com.momo.domain.group.entity.Group;
+import com.momo.domain.common.entity.BaseEntity;
+import com.momo.domain.group.entity.Participant;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -20,45 +20,46 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Attendance {
+public class Attendance extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "group_tb_fk_attendance"))
-    private Group group;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "schedule_fk_attendance"))
     private Schedule schedule;
 
-    @Column(nullable = false)
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey(name = "participant_fk_attendance"))
+    private Participant participant;
 
     private boolean isAttend;
 
     @Builder
-    public Attendance(Group group, Schedule schedule, Long userId, boolean isAttend) {
-        this.group = group;
+    public Attendance(Long id, Schedule schedule, Participant participant, boolean isAttend) {
+        this.id = id;
         this.schedule = schedule;
-        this.userId = userId;
+        this.participant = participant;
         this.isAttend = isAttend;
     }
 
-    private static Attendance create(Attendance attendance, Group group, Schedule schedule) {
+    private static Attendance create(Attendance attendance, Schedule schedule) {
         return Attendance.builder()
-            .group(group)
+            .participant(attendance.getParticipant())
             .schedule(schedule)
-            .userId(attendance.getUserId())
             .isAttend(attendance.isAttend())
             .build();
     }
 
-    public static List<Attendance> createAttendances(List<Attendance> attendances, Group group, Schedule schedule) {
+    public static List<Attendance> createAttendances(List<Attendance> attendances,
+        Schedule schedule) {
         return attendances.stream()
-            .map(attendance -> Attendance.create(attendance, group, schedule))
+            .map(attendance -> Attendance.create(attendance, schedule))
             .collect(Collectors.toList());
+    }
+
+    public void updateAttend(boolean isAttend) {
+        this.isAttend = isAttend;
     }
 }

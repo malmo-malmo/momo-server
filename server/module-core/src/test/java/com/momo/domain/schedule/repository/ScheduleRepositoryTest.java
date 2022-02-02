@@ -35,6 +35,8 @@ public class ScheduleRepositoryTest extends RepositoryTest {
 
     private Schedule schedule;
 
+    private Participant participant;
+
     @BeforeEach
     public void before() {
         user = save(User.builder()
@@ -42,7 +44,7 @@ public class ScheduleRepositoryTest extends RepositoryTest {
             .providerId("test")
             .refreshToken("refresh Token")
             .nickname("testMan")
-            .imageUrl("http://~~")
+            .imageUrl("이미지 주소")
             .city(City.SEOUL)
             .district("마포구")
             .university("한국대")
@@ -50,7 +52,7 @@ public class ScheduleRepositoryTest extends RepositoryTest {
         group = save(Group.builder()
             .city(City.SEOUL)
             .district("마포")
-            .imageUrl("http://~")
+            .imageUrl("이미지 주소")
             .introduction("안녕하세요")
             .university("한국대")
             .isOffline(false)
@@ -58,6 +60,10 @@ public class ScheduleRepositoryTest extends RepositoryTest {
             .startDate(LocalDate.now())
             .name("모임 이름")
             .manager(user)
+            .build());
+        participant = save(Participant.builder()
+            .user(user)
+            .group(group)
             .build());
         schedule = scheduleRepository.save(Schedule.builder()
             .author(user)
@@ -78,9 +84,8 @@ public class ScheduleRepositoryTest extends RepositoryTest {
     @Test
     public void 모임과_유저를_조건으로_모임_일정을_조회한다() {
         save(Attendance.builder()
-            .group(group)
+            .participant(participant)
             .schedule(schedule)
-            .userId(user.getId())
             .isAttend(false)
             .build()
         );
@@ -92,12 +97,12 @@ public class ScheduleRepositoryTest extends RepositoryTest {
         GroupScheduleResponse scheduleResponse = scheduleResponseList.get(0);
         Assertions.assertAll(
             () -> assertThat(scheduleResponse.getId()).isEqualTo(schedule.getId()),
-            () -> assertThat(scheduleResponse.getAuthorImage()).isEqualTo("http://~~"),
-            () -> assertThat(scheduleResponse.getAuthorNickname()).isEqualTo("testMan"),
-            () -> assertThat(scheduleResponse.getTitle()).isEqualTo("오늘의 일정 제목"),
+            () -> assertThat(scheduleResponse.getAuthorImage()).isEqualTo(user.getImageUrl()),
+            () -> assertThat(scheduleResponse.getAuthorNickname()).isEqualTo(user.getNickname()),
+            () -> assertThat(scheduleResponse.getTitle()).isEqualTo(schedule.getTitle()),
             () -> assertThat(scheduleResponse.isOffline()).isFalse(),
             () -> assertThat(scheduleResponse.getStartDateTime()).isNotNull(),
-            () -> assertThat(scheduleResponse.getContents()).isEqualTo("오늘의 일정"),
+            () -> assertThat(scheduleResponse.getContents()).isEqualTo(schedule.getContents()),
             () -> assertThat(scheduleResponse.isAttendanceCheck()).isFalse(),
             () -> assertThat(scheduleResponse.isAttend()).isFalse()
         );

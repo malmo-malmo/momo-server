@@ -1,10 +1,5 @@
 == 일정 API
 
-=== 출석체크
-출석체크합니다.
-
-operation::schedule/attendance[snippets='http-request,http-response,request-fields']
-
 === 일정 등록
 일정을 등록합니다.
 

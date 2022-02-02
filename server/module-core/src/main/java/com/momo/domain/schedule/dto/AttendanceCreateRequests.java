@@ -1,6 +1,5 @@
 package com.momo.domain.schedule.dto;
 
-import com.momo.domain.schedule.entity.Attendance;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
@@ -14,14 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AttendanceCreateRequests {
 
-    /*
-    TODO
-    groupId 제거
-    */
-    
-    @NotNull(message = "모임 ID는 필수값입니다.")
-    private Long groupId;
-
     @NotNull(message = "일정 ID는 필수값입니다.")
     private Long scheduleId;
 
@@ -31,17 +22,15 @@ public class AttendanceCreateRequests {
     private List<AttendanceCreateRequest> attendanceCreateRequests;
 
     @Builder
-    public AttendanceCreateRequests(Long groupId, Long scheduleId,
+    public AttendanceCreateRequests(Long scheduleId,
         List<AttendanceCreateRequest> attendanceCreateRequests) {
-        this.groupId = groupId;
         this.scheduleId = scheduleId;
         this.attendanceCreateRequests = attendanceCreateRequests;
     }
 
-    public List<Attendance> toEntities() {
-        return attendanceCreateRequests
-            .stream()
-            .map(AttendanceCreateRequest::toEntity)
+    public List<Long> toParticipantIds() {
+        return this.getAttendanceCreateRequests().stream()
+            .map(AttendanceCreateRequest::getParticipantId)
             .collect(Collectors.toList());
     }
 }

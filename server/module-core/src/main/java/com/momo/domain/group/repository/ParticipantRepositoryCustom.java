@@ -10,4 +10,6 @@ public interface ParticipantRepositoryCustom {
     List<ParticipationGroupCardResponse> findParticipationGroupsByUser(User user);
 
     List<Participant> findAllWithNotManagingGroupByUser(User user);
+
+    List<Participant> findAllByIdsAndUser(List<Long> participantIds, User manager);
 }

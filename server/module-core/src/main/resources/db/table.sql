@@ -71,11 +71,10 @@ create table if not exists schedule
 
 create table if not exists attendance
 (
-    id          bigint  not null auto_increment,
-    is_attend   boolean not null,
-    user_id     bigint  not null,
-    group_id    bigint,
-    schedule_id bigint,
+    id             bigint  not null auto_increment,
+    is_attend      boolean not null,
+    participant_id bigint,
+    schedule_id    bigint,
     primary key (id)
 ) engine = InnoDB;
 
@@ -148,15 +147,15 @@ create table if not exists participant_achievement_rate
 ) engine = InnoDB;
 
 alter table attendance
-    add constraint groups_fk_attendance
-        foreign key (group_id)
-            references group_tb (id)
-            on delete cascade;
-
-alter table attendance
     add constraint schedule_fk_attendance
         foreign key (schedule_id)
             references schedule (id)
+            on delete cascade;
+
+alter table attendance
+    add constraint participant_fk_attendance
+        foreign key (participant_id)
+            references participant (id)
             on delete cascade;
 
 alter table comment

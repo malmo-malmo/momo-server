@@ -1,0 +1,19 @@
+== 출석 API
+
+=== 출석체크
+
+출석체크합니다.
+
+operation::attendance/create[snippets='http-request,http-response,request-fields']
+
+=== 출석체크 수정
+
+출석체크 정보를 수정합니다.
+
+operation::attendance/update[snippets='http-request,http-response,request-fields']
+
+=== 출석체크 목록 조회
+
+해당 일정의 출석 체크 목록을 조회합니다.
+
+operation::attendance/findGroupAttendances[snippets='http-request,http-response,path-parameters']

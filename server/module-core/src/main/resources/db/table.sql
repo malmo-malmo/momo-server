@@ -71,10 +71,12 @@ create table if not exists schedule
 
 create table if not exists attendance
 (
-    id             bigint  not null auto_increment,
-    is_attend      boolean not null,
-    participant_id bigint,
-    schedule_id    bigint,
+    id                 bigint  not null auto_increment,
+    is_attend          boolean not null,
+    participant_id     bigint,
+    schedule_id        bigint,
+    created_date       timestamp,
+    last_modified_date timestamp,
     primary key (id)
 ) engine = InnoDB;
 

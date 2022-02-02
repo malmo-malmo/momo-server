@@ -1,5 +1,6 @@
 package com.momo.domain.schedule.entity;
 
+import com.momo.domain.common.entity.BaseEntity;
 import com.momo.domain.group.entity.Participant;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Attendance {
+public class Attendance extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

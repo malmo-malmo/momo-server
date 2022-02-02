@@ -30,7 +30,7 @@ class _PostCardState extends State<PostCard> {
           onTap: () async {
             final commentCnt = await ref.read(navigatorProvider).navigateTo(
                   routeName: AppRoutes.postDetail,
-                  arguments: widget.post,
+                  arguments: widget.post.id,
                 );
             _commentCnt = commentCnt;
             setState(() {});

@@ -29,9 +29,9 @@ class _SplashPageState extends ConsumerState<SplashPage> {
 
     if (!_tokenCheck) {
       final _userDataCheck = await _isFirstLogin();
+      await ref.watch(categoryResultProvider.future);
+      await ref.watch(locationResultProvider.future);
       if (!_userDataCheck) {
-        await ref.watch(categoryResultProvider.future);
-        await ref.watch(locationResultProvider.future);
         ref.read(navigatorProvider).navigateToRemove(
               routeName: AppRoutes.main,
             );

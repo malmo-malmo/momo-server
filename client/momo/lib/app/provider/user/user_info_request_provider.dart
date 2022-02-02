@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:momo/app/model/user/user_info_request.dart';
+import 'package:momo/app/model/user/user_update_request.dart';
 import 'package:momo/app/provider/city_result_provider.dart';
 import 'package:momo/app/provider/user/name_check_provider.dart';
 
@@ -17,13 +17,13 @@ final userInfoRequestCheckProvider = Provider.autoDispose<bool>((ref) {
 });
 
 final userInfoRequestProvider =
-    StateNotifierProvider.autoDispose<UserInfoRequestState, UserInfoRequest>(
+    StateNotifierProvider.autoDispose<UserInfoRequestState, UserUpdateRequest>(
         (ref) => UserInfoRequestState());
 
-class UserInfoRequestState extends StateNotifier<UserInfoRequest> {
+class UserInfoRequestState extends StateNotifier<UserUpdateRequest> {
   UserInfoRequestState()
       : super(
-          UserInfoRequest(
+          UserUpdateRequest(
             nickname: '',
             university: '',
             city: '',
@@ -32,7 +32,7 @@ class UserInfoRequestState extends StateNotifier<UserInfoRequest> {
           ),
         );
 
-  UserInfoRequest get updateUserInfo => state;
+  UserUpdateRequest get updateUserInfo => state;
 
   void setImagePath(String imagePath) =>
       state = state.copyWith(imagePath: imagePath);

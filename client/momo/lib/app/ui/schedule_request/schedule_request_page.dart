@@ -9,6 +9,7 @@ import 'package:momo/app/ui/components/input_box/content_input_box.dart';
 import 'package:momo/app/ui/components/input_box/date_input_box.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
 import 'package:momo/app/ui/schedule_request/widget/time_input_card.dart';
+import 'package:momo/app/util/navigation_service.dart';
 
 class ScheduleRequestPage extends ConsumerWidget {
   const ScheduleRequestPage({Key? key, this.groupId}) : super(key: key);
@@ -33,6 +34,7 @@ class ScheduleRequestPage extends ConsumerWidget {
             title: '완료',
             onTapIcon: () async {
               await scheduleRequestState.createSchedule();
+              ref.read(navigatorProvider).pop();
             },
             isShowDialog: true,
             dialogText: '해당 일정을 추가했어요!',

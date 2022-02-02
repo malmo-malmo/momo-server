@@ -6,8 +6,9 @@ import 'package:momo/app/model/group/group_like_request.dart';
 import 'package:momo/app/model/group/wish_group_response.dart';
 import 'package:momo/app/model/user/category_request.dart';
 import 'package:momo/app/model/user/university.dart';
-import 'package:momo/app/model/user/user_info_request.dart';
+import 'package:momo/app/model/user/user_update_request.dart';
 import 'package:momo/app/model/user/user_response.dart';
+import 'package:momo/app/model/user/user_update_response.dart';
 
 final userRepositoryProvider = Provider<UserRepository>((ref) {
   final userClient = ref.watch(userClientProvider);
@@ -32,7 +33,8 @@ class UserRepository {
     return response;
   }
 
-  Future<dynamic> updateUserInfo(UserInfoRequest userInfoRequest) async {
+  Future<UserUpdateResponse> updateUserInfo(
+      UserUpdateRequest userInfoRequest) async {
     if (userInfoRequest.imagePath.isEmpty) {
       final response = await userClient.updateUserInfo(
         userInfoRequest.nickname,

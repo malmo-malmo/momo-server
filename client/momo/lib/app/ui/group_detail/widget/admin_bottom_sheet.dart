@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:momo/app/model/enum/post_type.dart';
-import 'package:momo/app/provider/post/post_paging_controller_provider.dart';
+import 'package:momo/app/provider/post/post_list_provider.dart';
 import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/routes/custom_arg/post_request_arg.dart';
 import 'package:momo/app/theme/theme.dart';
@@ -11,7 +11,10 @@ import 'package:momo/app/ui/group_detail/widget/user_bottom_sheet.dart';
 import 'package:momo/app/util/navigation_service.dart';
 
 class AdminBottomSheet extends ConsumerStatefulWidget {
-  const AdminBottomSheet({Key? key, required this.groupId}) : super(key: key);
+  const AdminBottomSheet({
+    Key? key,
+    required this.groupId,
+  }) : super(key: key);
 
   final int groupId;
 
@@ -47,15 +50,17 @@ class _AdminBottomSheetState extends ConsumerState<AdminBottomSheet> {
           const SizedBox(height: 18),
           InkWell(
             onTap: () async {
-              await ref.read(navigatorProvider).navigateTo(
+              final result = await ref.read(navigatorProvider).navigateTo(
                     routeName: AppRoutes.postRequest,
                     arguments: PostRequestArg(
                       postType: PostType.normal,
                       groupId: widget.groupId,
                     ),
                   );
+              ref
+                  .read(postListProvider(widget.groupId).notifier)
+                  .addPost(result);
               ref.read(navigatorProvider).pop();
-              ref.read(postPaigingControllerProvider(widget.groupId)).refresh();
             },
             child: sheetTabButtob(
               title: '게시물 작성',
@@ -64,17 +69,17 @@ class _AdminBottomSheetState extends ConsumerState<AdminBottomSheet> {
           ),
           InkWell(
             onTap: () async {
-              await ref.read(navigatorProvider).navigateTo(
+              final result = await ref.read(navigatorProvider).navigateTo(
                     routeName: AppRoutes.postRequest,
                     arguments: PostRequestArg(
                       postType: PostType.notice,
                       groupId: widget.groupId,
                     ),
                   );
-              ref.read(navigatorProvider).pop();
               ref
-                  .read(noticePaigingControllerProvider(widget.groupId))
-                  .refresh();
+                  .read(noticeListProvider(widget.groupId).notifier)
+                  .addPost(result);
+              ref.read(navigatorProvider).pop();
             },
             child: sheetTabButtob(
               title: '공지사항 작성',

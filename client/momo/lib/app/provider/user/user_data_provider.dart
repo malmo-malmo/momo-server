@@ -1,10 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/model/common/code_name_pair.dart';
 import 'package:momo/app/model/user/category_request.dart';
-import 'package:momo/app/model/user/user_info_request.dart';
+import 'package:momo/app/model/user/user_update_request.dart';
 import 'package:momo/app/model/user/user_response.dart';
 import 'package:momo/app/provider/category_result_provider.dart';
-import 'package:momo/app/provider/city_result_provider.dart';
 import 'package:momo/app/repository/user_repository.dart';
 
 final userDataProvider =
@@ -44,16 +43,20 @@ class UserDataState extends StateNotifier<UserResponse> {
   }
 
   Future<bool> isFirstLogin() async {
-    final userResponse = await userRepository.getUserData();
-    if (userResponse.nickname.isNotEmpty) {
-      state = userResponse;
-      return false;
+    try {
+      final userResponse = await userRepository.getUserData();
+      if (userResponse.nickname.isNotEmpty) {
+        state = userResponse;
+        return false;
+      }
+      return true;
+    } catch (e) {
+      return true;
     }
-    return true;
   }
 
-  Future<dynamic> updateUserInfo(UserInfoRequest userInfoRequest) async {
-    final _userInfoRequest = UserInfoRequest(
+  Future<dynamic> updateUserInfo(UserUpdateRequest userInfoRequest) async {
+    final _userInfoRequest = UserUpdateRequest(
       city:
           userInfoRequest.city.isEmpty ? state.city.code : userInfoRequest.city,
       district: userInfoRequest.district.isEmpty
@@ -71,18 +74,11 @@ class UserDataState extends StateNotifier<UserResponse> {
     final response = await userRepository.updateUserInfo(_userInfoRequest);
 
     state = state.copyWith(
-      nickname: userInfoRequest.nickname.isEmpty
-          ? state.nickname
-          : userInfoRequest.nickname,
-      city: userInfoRequest.city.isEmpty
-          ? state.city
-          : cityCodeNamePair.where((e) => e.code == userInfoRequest.city).first,
-      district: userInfoRequest.district.isEmpty
-          ? state.district
-          : userInfoRequest.district,
-      university: userInfoRequest.university.isEmpty
-          ? state.university
-          : userInfoRequest.university,
+      nickname: response.nickname,
+      city: response.city,
+      district: response.district,
+      university: response.university,
+      image: response.imageUrl,
     );
     return response;
   }

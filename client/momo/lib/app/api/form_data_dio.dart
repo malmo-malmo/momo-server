@@ -3,9 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:momo/app/api/dio_provider.dart';
 import 'package:momo/app/model/common/token_data.dart';
+import 'package:momo/app/model/group/group_detail.dart';
 import 'package:momo/app/model/group/group_request.dart';
+import 'package:momo/app/model/post/post_detail.dart';
 import 'package:momo/app/model/post/post_request.dart';
-import 'package:momo/app/model/user/user_info_request.dart';
+import 'package:momo/app/model/user/user_update_request.dart';
+import 'package:momo/app/model/user/user_update_response.dart';
 import 'package:momo/app/util/constant.dart';
 
 final formDataDioProvider = Provider<FormDataDio>((ref) {
@@ -51,7 +54,7 @@ class FormDataDio {
 
   FormDataDio(this.dio);
 
-  Future<dynamic> createGroup(GroupRequest groupRequest) async {
+  Future<GroupDetail> createGroup(GroupRequest groupRequest) async {
     final response = await dio.post(
       baseUrl + '/group',
       data: FormData.fromMap(
@@ -70,10 +73,10 @@ class FormDataDio {
       ),
     );
 
-    return response;
+    return GroupDetail.fromJson(response.data);
   }
 
-  Future<dynamic> createPost(PostRequest postRequest) async {
+  Future<PostDetail> createPost(PostRequest postRequest) async {
     final formData = FormData.fromMap({
       'groupId': postRequest.groupId,
       'title': postRequest.title,
@@ -97,23 +100,24 @@ class FormDataDio {
       data: formData,
     );
 
-    return response;
+    return PostDetail.fromJson(response.data);
   }
 
-  Future<dynamic> updateUserInfo(UserInfoRequest userInfoRequest) async {
+  Future<UserUpdateResponse> updateUserInfo(
+      UserUpdateRequest updateInfo) async {
     final response = await dio.post(
       baseUrl + '/user/update',
       data: FormData.fromMap(
         {
-          'nickname': userInfoRequest.nickname,
-          'university': userInfoRequest.university,
-          'city': userInfoRequest.city,
-          'district': userInfoRequest.district,
-          'image': await MultipartFile.fromFile(userInfoRequest.imagePath),
+          'nickname': updateInfo.nickname,
+          'university': updateInfo.university,
+          'city': updateInfo.city,
+          'district': updateInfo.district,
+          'image': await MultipartFile.fromFile(updateInfo.imagePath),
         },
       ),
     );
 
-    return response;
+    return UserUpdateResponse.fromJson(response.data);
   }
 }

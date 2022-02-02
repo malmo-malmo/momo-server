@@ -85,9 +85,7 @@ class GroupListState extends StateNotifier<GroupListDto> {
     state = state.copyWith(
       groups: [
         ...state.groups
-            .map(
-              (e) => e.id == groupId ? e.copyWith(favoriteGroup: true) : e,
-            )
+            .map((e) => e.id == groupId ? e.copyWith(favoriteGroup: true) : e)
             .toList()
       ],
     );
@@ -99,8 +97,7 @@ class GroupListState extends StateNotifier<GroupListDto> {
         groups: [
           ...state.groups
               .map(
-                (e) => e.id == groupId ? e.copyWith(favoriteGroup: false) : e,
-              )
+                  (e) => e.id == groupId ? e.copyWith(favoriteGroup: false) : e)
               .toList()
         ],
       );
@@ -112,9 +109,7 @@ class GroupListState extends StateNotifier<GroupListDto> {
     state = state.copyWith(
       groups: [
         ...state.groups
-            .map(
-              (e) => e.id == groupId ? e.copyWith(favoriteGroup: false) : e,
-            )
+            .map((e) => e.id == groupId ? e.copyWith(favoriteGroup: false) : e)
             .toList()
       ],
     );
@@ -125,9 +120,7 @@ class GroupListState extends StateNotifier<GroupListDto> {
       state = state.copyWith(
         groups: [
           ...state.groups
-              .map(
-                (e) => e.id == groupId ? e.copyWith(favoriteGroup: true) : e,
-              )
+              .map((e) => e.id == groupId ? e.copyWith(favoriteGroup: true) : e)
               .toList()
         ],
       );

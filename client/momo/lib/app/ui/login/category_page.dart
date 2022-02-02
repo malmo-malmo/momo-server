@@ -48,8 +48,8 @@ class CategoryPage extends ConsumerWidget {
                         subTitleText('참여하고 싶은 활동 모임을 선택해주세요.'),
                         const SizedBox(height: 40),
                         Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 48, vertical: 35.w),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 48, vertical: 35),
                           height: 442,
                           width: double.infinity,
                           decoration: BoxDecoration(

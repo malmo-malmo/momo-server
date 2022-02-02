@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/dialog/confirm_dialog.dart';
-import 'package:momo/app/util/navigation_service.dart';
 
 class ConfirmActionIcon extends ConsumerWidget {
   const ConfirmActionIcon({
@@ -12,7 +11,6 @@ class ConfirmActionIcon extends ConsumerWidget {
     required this.onTapIcon,
     required this.isShowDialog,
     this.dialogText,
-    this.result,
   }) : super(key: key);
 
   final bool check;
@@ -20,7 +18,6 @@ class ConfirmActionIcon extends ConsumerWidget {
   final Function onTapIcon;
   final bool isShowDialog;
   final String? dialogText;
-  final Object? result;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,7 +34,6 @@ class ConfirmActionIcon extends ConsumerWidget {
                   ),
                 );
               }
-              ref.read(navigatorProvider).pop(result: result);
             }
           : null,
       child: Padding(

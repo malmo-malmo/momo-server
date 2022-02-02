@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:momo/app/model/enum/post_type.dart';
 import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/provider/group/group_provider.dart';
-import 'package:momo/app/provider/post/post_paging_controller_provider.dart';
+import 'package:momo/app/provider/post/post_list_provider.dart';
 import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/routes/custom_arg/post_request_arg.dart';
 import 'package:momo/app/theme/theme.dart';
@@ -50,17 +50,17 @@ class _UserBottomSheetState extends ConsumerState<UserBottomSheet> {
           const SizedBox(height: 18),
           InkWell(
             onTap: () async {
-              await ref.read(navigatorProvider).navigateTo(
+              final result = await ref.read(navigatorProvider).navigateTo(
                     routeName: AppRoutes.postRequest,
                     arguments: PostRequestArg(
                       postType: PostType.normal,
                       groupId: widget.group.id,
                     ),
                   );
-              ref.read(navigatorProvider).pop();
               ref
-                  .read(postPaigingControllerProvider(widget.group.id))
-                  .refresh();
+                  .read(postListProvider(widget.group.id).notifier)
+                  .addPost(result);
+              ref.read(navigatorProvider).pop();
             },
             child: sheetTabButtob(
               title: '게시물 작성',

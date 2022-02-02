@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/button/message_button.dart';
@@ -40,19 +39,19 @@ class HomePage extends StatelessWidget {
                 icon: 'assets/icon/home/icon_recommend_28.svg',
                 actionIcon: Icons.add,
               ),
-              HomeMeetingList(),
-              SubTitle(
+              const HomeMeetingList(),
+              const SubTitle(
                 title: '내 학교',
                 icon: 'assets/icon/home/icon_myschool_28.svg',
                 actionIcon: Icons.add,
               ),
-              HomeMeetingList(),
-              SubTitle(
+              const HomeMeetingList(),
+              const SubTitle(
                 title: '주변',
                 icon: 'assets/icon/home/icon_location_28.svg',
                 actionIcon: Icons.add,
               ),
-              HomeMeetingList(),
+              const HomeMeetingList(),
               const SubTitle(
                 title: '주간 달성률 Top4',
                 icon: 'assets/icon/home/icon_topfour_28.svg',

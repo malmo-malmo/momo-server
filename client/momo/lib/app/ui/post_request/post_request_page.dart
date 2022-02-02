@@ -39,9 +39,10 @@ class PostRequestPage extends ConsumerWidget {
             check: check,
             title: '완료',
             onTapIcon: () async {
-              await ref
+              final result = await ref
                   .read(postRequestStateProvider(postRequestArg).notifier)
                   .createPost();
+              ref.read(navigatorProvider).pop(result: result);
             },
             isShowDialog: true,
           ),

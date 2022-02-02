@@ -5,9 +5,9 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.RestDocsControllerTest;
 import com.momo.api.schedule.AttendanceController;
 import com.momo.api.schedule.AttendancesController;
+import com.momo.common.RestDocsControllerTest;
 import com.momo.domain.schedule.dto.AttendanceResponse;
 import com.momo.domain.schedule.service.impl.AttendanceServiceImpl;
 import java.util.List;

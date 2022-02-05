@@ -1,6 +1,7 @@
 plugins {
     id "org.asciidoctor.jvm.convert" version "3.3.2"
 }
+
 ext {
     snippetsDir = file('build/generated-snippets')
 }
@@ -16,25 +17,31 @@ bootJar {
 configurations {
     asciidoctorExtensions
 }
+
 dependencies {
+    //module
     implementation project(":module-core")
+    testImplementation(testFixtures(project(":module-core")))
     implementation project(":module-common")
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    //spring
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.3.3'
-    implementation "io.springfox:springfox-boot-starter:3.0.0"
-    implementation 'org.springframework.boot:spring-boot-starter-websocket'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'com.google.guava:guava:31.0.1-jre'
+
+    //auth
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3'
-    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.27'
+
+    //logging
     implementation group: 'com.github.maricn', name: 'logback-slack-appender', version: '1.4.0'
     implementation group: 'org.codehaus.janino', name: 'janino', version: '3.1.6'
+
+    //docs
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-    testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: '5.6.1'
     asciidoctorExtensions "org.springframework.restdocs:spring-restdocs-asciidoctor"
+
+    //test
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.3.3'
 }
+
 test {
     useJUnitPlatform()
     outputs.dir snippetsDir

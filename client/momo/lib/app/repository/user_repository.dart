@@ -1,21 +1,27 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:momo/app/api/api_provider.dart';
 import 'package:momo/app/api/form_data_dio.dart';
+import 'package:momo/app/api/management_client/management_client.dart';
 import 'package:momo/app/api/user_client/user_client.dart';
 import 'package:momo/app/model/group/group_like_request.dart';
 import 'package:momo/app/model/group/wish_group_response.dart';
+import 'package:momo/app/model/post/management_post_response.dart';
 import 'package:momo/app/model/user/category_request.dart';
 import 'package:momo/app/model/user/university.dart';
 import 'package:momo/app/model/user/user_update_request.dart';
 import 'package:momo/app/model/user/user_response.dart';
 import 'package:momo/app/model/user/user_update_response.dart';
+import 'package:momo/app/util/constant.dart';
 
 final userRepositoryProvider = Provider<UserRepository>((ref) {
   final userClient = ref.watch(userClientProvider);
   final formDataDio = ref.watch(formDataDioProvider);
+  final managementClient = ref.watch(managementClientProvider);
+
   return UserRepository(
     userClient: userClient,
     formDataDio: formDataDio,
+    managementClient: managementClient,
   );
 });
 
@@ -23,10 +29,12 @@ class UserRepository {
   UserRepository({
     required this.userClient,
     required this.formDataDio,
+    required this.managementClient,
   });
 
   final UserClient userClient;
   final FormDataDio formDataDio;
+  final ManagementClient managementClient;
 
   Future<UserResponse> getUserData() async {
     final response = await userClient.getUserInfo();
@@ -75,6 +83,11 @@ class UserRepository {
 
   Future<dynamic> deleteGroupLike(int groupId) async {
     final response = await userClient.deleteGroupLike(groupId);
+    return response;
+  }
+
+  Future<List<ManagementPostResponse>> getMyPosts(int page) async {
+    final response = await managementClient.getManagementPosts(page, pageSize);
     return response;
   }
 }

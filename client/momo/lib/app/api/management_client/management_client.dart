@@ -23,7 +23,7 @@ abstract class ManagementClient {
   @GET('/management/groups/participation')
   Future<List<GroupInfo>> getParticipationGroupDetail();
 
-  @GET('/management/posts')
+  @GET('/management/my-posts')
   Future<List<ManagementPostResponse>> getManagementPosts(
     @Query('page') int page,
     @Query('size') int size,

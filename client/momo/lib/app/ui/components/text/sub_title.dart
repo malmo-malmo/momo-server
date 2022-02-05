@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/routes/custom_arg/group_list_arg.dart';
 import 'package:momo/app/theme/theme.dart';
@@ -15,13 +13,16 @@ class SubTitle extends StatelessWidget {
     required this.title,
     this.icon,
     this.actionIcon,
-    this.pagingController,
+    this.favoriteCallBack,
   }) : super(key: key);
 
   final String title;
   final String? icon;
   final IconData? actionIcon;
-  final PagingController<int, GroupInfo>? pagingController;
+  final void Function({
+    required int groupId,
+    required bool favorite,
+  })? favoriteCallBack;
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +55,13 @@ class SubTitle extends StatelessWidget {
                                   routeName: AppRoutes.groupList,
                                   arguments: GroupListArg(
                                     name: title,
-                                    pagingController: pagingController!,
+                                    likeCallback: favoriteCallBack!,
                                   ),
                                 )
-                            : ref
-                                .read(navigatorProvider)
-                                .navigateTo(routeName: AppRoutes.recommendList);
+                            : ref.read(navigatorProvider).navigateTo(
+                                  routeName: AppRoutes.recommendList,
+                                  arguments: favoriteCallBack,
+                                );
                       },
                       child: Icon(actionIcon, size: 30));
                 })

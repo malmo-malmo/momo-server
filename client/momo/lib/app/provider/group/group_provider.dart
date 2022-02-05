@@ -31,6 +31,16 @@ final categoryGroupListProvider =
   );
 });
 
+final groupListProvider =
+    StateNotifierProvider.autoDispose<GroupListState, GroupListDto>((ref) {
+  final userRepository = ref.watch(userRepositoryProvider);
+  final groupRepository = ref.watch(groupRepositoryProvider);
+  return GroupListState(
+    userRepository: userRepository,
+    groupRepository: groupRepository,
+  );
+});
+
 class GroupListState extends StateNotifier<GroupListDto> {
   GroupListState({
     required this.userRepository,

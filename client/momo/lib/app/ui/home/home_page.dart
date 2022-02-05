@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/button/message_button.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
+import 'package:momo/app/ui/home/widget/home_group_column.dart';
 import 'package:momo/app/ui/home/widget/top_rate_card.dart';
 import 'package:momo/app/ui/home/widget/event_card.dart';
-import 'package:momo/app/ui/home/widget/home_group_list.dart';
 import 'package:momo/app/ui/home/widget/reminder_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -34,24 +34,7 @@ class HomePage extends StatelessWidget {
                 icon: 'assets/icon/home/icon_recommend_28.svg',
               ),
               ReminderCard(),
-              const SubTitle(
-                title: '추천',
-                icon: 'assets/icon/home/icon_recommend_28.svg',
-                actionIcon: Icons.add,
-              ),
-              const HomeMeetingList(),
-              const SubTitle(
-                title: '내 학교',
-                icon: 'assets/icon/home/icon_myschool_28.svg',
-                actionIcon: Icons.add,
-              ),
-              const HomeMeetingList(),
-              const SubTitle(
-                title: '주변',
-                icon: 'assets/icon/home/icon_location_28.svg',
-                actionIcon: Icons.add,
-              ),
-              const HomeMeetingList(),
+              const HomeGroupColumn(),
               const SubTitle(
                 title: '주간 달성률 Top4',
                 icon: 'assets/icon/home/icon_topfour_28.svg',

@@ -62,17 +62,20 @@ class AppRouter {
             builder: (_) => const OnboardingPage(), settings: settings);
 
       case AppRoutes.groupList:
-        GroupListArg arg = settings.arguments;
+        final GroupListArg arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
           builder: (_) => GroupListPage(
             name: arg.name,
-            pagingController: arg.pagingController,
+            likeCallback: arg.likeCallback,
           ),
           settings: settings,
         );
       case AppRoutes.recommendList:
+        final arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => const RecommendGroupListPage(),
+          builder: (_) => RecommendGroupListPage(
+            favoriteCallBack: arg,
+          ),
           settings: settings,
         );
 

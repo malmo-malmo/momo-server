@@ -37,17 +37,20 @@ class GroupRepository {
     return response;
   }
 
-  Future<List<GroupInfo>> getGroupsByCategories(int page) async {
+  Future<List<GroupInfo>> getGroupsByCategories(int page,
+      {int pageSize = 20}) async {
     final response = await groupClient.getGroupsByCategories(page, pageSize);
     return response;
   }
 
-  Future<List<GroupInfo>> getGroupsByDistrict(int page) async {
+  Future<List<GroupInfo>> getGroupsByDistrict(int page,
+      {int pageSize = 20}) async {
     final response = await groupClient.getGroupsByDistrict(page, pageSize);
     return response;
   }
 
-  Future<List<GroupInfo>> getGroupsByUniversity(int page) async {
+  Future<List<GroupInfo>> getGroupsByUniversity(int page,
+      {int pageSize = 20}) async {
     final response = await groupClient.getGroupsByUniversity(page, pageSize);
     return response;
   }

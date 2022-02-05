@@ -12,11 +12,26 @@ import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/ui/components/status/no_item_card.dart';
 import 'package:momo/app/ui/group_list/widget/category_list.dart';
 
-class RecommendGroupListPage extends ConsumerWidget {
-  const RecommendGroupListPage({Key? key}) : super(key: key);
+class RecommendGroupListPage extends ConsumerStatefulWidget {
+  const RecommendGroupListPage({
+    Key? key,
+    required this.favoriteCallBack,
+  }) : super(key: key);
+
+  final void Function({
+    required int groupId,
+    required bool favorite,
+  }) favoriteCallBack;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<RecommendGroupListPage> createState() =>
+      _RecommendGroupListPageState();
+}
+
+class _RecommendGroupListPageState
+    extends ConsumerState<RecommendGroupListPage> {
+  @override
+  Widget build(BuildContext context) {
     final _pagingController = ref.watch(recommendPaigingControllerProvider);
 
     return SafeArea(
@@ -44,7 +59,20 @@ class RecommendGroupListPage extends ConsumerWidget {
                       group: item,
                       height: 200.h,
                       width: double.infinity,
-                      setLike: () {},
+                      setLike: () {
+                        if (item.favoriteGroup) {
+                          _pagingController.itemList![index]
+                              .copyWith(favoriteGroup: false);
+                          widget.favoriteCallBack(
+                              groupId: item.id, favorite: false);
+                        } else {
+                          _pagingController.itemList![index]
+                              .copyWith(favoriteGroup: true);
+                          widget.favoriteCallBack(
+                              groupId: item.id, favorite: true);
+                        }
+                        setState(() {});
+                      },
                     ),
                     newPageProgressIndicatorBuilder: (context) =>
                         const LoadingCard(),

@@ -11,6 +11,8 @@ import 'package:momo/app/model/user/user_update_request.dart';
 import 'package:momo/app/model/user/user_update_response.dart';
 import 'package:momo/app/util/constant.dart';
 
+import 'dart:developer';
+
 final formDataDioProvider = Provider<FormDataDio>((ref) {
   TokenData tokenData = Hive.box('auth').get('tokenData');
   final dio = Dio(
@@ -105,8 +107,10 @@ class FormDataDio {
 
   Future<UserUpdateResponse> updateUserInfo(
       UserUpdateRequest updateInfo) async {
-    final response = await dio.post(
-      baseUrl + '/user/update',
+    log(updateInfo.toString());
+
+    final response = await dio.put(
+      baseUrl + '/user',
       data: FormData.fromMap(
         {
           'nickname': updateInfo.nickname,

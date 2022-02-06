@@ -85,10 +85,6 @@ class GroupDetailPage extends ConsumerWidget {
                           ref
                               .read(groupDetailStateProvider(data).notifier)
                               .participantGroup();
-
-                          // ref
-                          //     .read(groupStateProvider(group).notifier)
-                          //     .addParticipantCnt();
                         },
                       ),
                 groupDetail.participant

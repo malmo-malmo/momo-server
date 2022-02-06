@@ -59,6 +59,7 @@ class _UserBottomSheetState extends ConsumerState<UserBottomSheet> {
                   .read(postListProvider(widget.groupId).notifier)
                   .addPost(result);
               ref.read(navigatorProvider).pop();
+              ref.read(navigatorProvider).pop();
             },
             child: sheetTabButtob(
               title: '게시물 작성',
@@ -72,9 +73,6 @@ class _UserBottomSheetState extends ConsumerState<UserBottomSheet> {
                 builder: (context) => withdrawDialog(widget.groupId),
               );
               if (isWithdraw != null && isWithdraw) {
-                // ref
-                //     .read(groupStateProvider(widget.group).notifier)
-                //     .subParticipantCnt();
                 _showToast('탈퇴되었어요');
                 ref.read(navigatorProvider).pop();
                 ref.read(navigatorProvider).pop();

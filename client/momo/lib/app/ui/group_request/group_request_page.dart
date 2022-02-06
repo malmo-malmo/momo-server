@@ -38,8 +38,10 @@ class GroupRequestPage extends ConsumerWidget {
             check: check,
             title: '완료',
             onTapIcon: () async {
-              await ref.read(groupRequestStateProvider.notifier).createGroup();
-              ref.read(navigatorProvider).pop();
+              final result = await ref
+                  .read(groupRequestStateProvider.notifier)
+                  .createGroup();
+              ref.read(navigatorProvider).pop(result: result);
             },
             isShowDialog: true,
             dialogText: '${groupRequest.name}\n모임을 추가했어요!',

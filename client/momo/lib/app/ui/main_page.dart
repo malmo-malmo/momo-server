@@ -102,16 +102,6 @@ class MainPage extends ConsumerWidget {
               child: SvgPicture.asset(
                   'assets/icon/calendar/floatingbtn_addschedule_84.svg'));
         });
-      case 3:
-        return Consumer(builder: (context, ref, _) {
-          return InkWell(
-            onTap: () => ref
-                .read(navigatorProvider)
-                .navigateTo(routeName: AppRoutes.groupRequest),
-            child:
-                SvgPicture.asset('assets/icon/meet/floatingbtn_addmoim_64.svg'),
-          );
-        });
       default:
         return null;
     }

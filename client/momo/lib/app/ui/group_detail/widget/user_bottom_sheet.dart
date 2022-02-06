@@ -3,8 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:momo/app/model/enum/post_type.dart';
-import 'package:momo/app/model/group/group_info.dart';
-import 'package:momo/app/provider/group/group_provider.dart';
 import 'package:momo/app/provider/post/post_list_provider.dart';
 import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/routes/custom_arg/post_request_arg.dart';
@@ -13,9 +11,9 @@ import 'package:momo/app/ui/group_detail/widget/withdraw_dialog.dart';
 import 'package:momo/app/util/navigation_service.dart';
 
 class UserBottomSheet extends ConsumerStatefulWidget {
-  const UserBottomSheet({Key? key, required this.group}) : super(key: key);
+  const UserBottomSheet({Key? key, required this.groupId}) : super(key: key);
 
-  final GroupInfo group;
+  final int groupId;
 
   @override
   _UserBottomSheetState createState() => _UserBottomSheetState();
@@ -54,11 +52,11 @@ class _UserBottomSheetState extends ConsumerState<UserBottomSheet> {
                     routeName: AppRoutes.postRequest,
                     arguments: PostRequestArg(
                       postType: PostType.normal,
-                      groupId: widget.group.id,
+                      groupId: widget.groupId,
                     ),
                   );
               ref
-                  .read(postListProvider(widget.group.id).notifier)
+                  .read(postListProvider(widget.groupId).notifier)
                   .addPost(result);
               ref.read(navigatorProvider).pop();
             },
@@ -71,12 +69,12 @@ class _UserBottomSheetState extends ConsumerState<UserBottomSheet> {
             onTap: () async {
               final isWithdraw = await showDialog(
                 context: context,
-                builder: (context) => withdrawDialog(widget.group.id),
+                builder: (context) => withdrawDialog(widget.groupId),
               );
               if (isWithdraw != null && isWithdraw) {
-                ref
-                    .read(groupStateProvider(widget.group).notifier)
-                    .subParticipantCnt();
+                // ref
+                //     .read(groupStateProvider(widget.group).notifier)
+                //     .subParticipantCnt();
                 _showToast('탈퇴되었어요');
                 ref.read(navigatorProvider).pop();
                 ref.read(navigatorProvider).pop();

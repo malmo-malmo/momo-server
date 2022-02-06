@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:momo/app/model/group/group_detail.dart';
 import 'package:momo/app/model/group/group_request.dart';
 import 'package:momo/app/provider/category_result_provider.dart';
 import 'package:momo/app/provider/city_result_provider.dart';
@@ -84,7 +85,7 @@ class GroupRequestState extends StateNotifier<GroupRequest> {
   void setImageUrl(String imageUrl) =>
       state = state.copyWith(imagePath: imageUrl);
 
-  Future<dynamic> createGroup() async {
+  Future<GroupDetail> createGroup() async {
     final response = await repository.createGroup(state);
     return response;
   }

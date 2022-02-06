@@ -55,7 +55,7 @@ class GroupRepository {
     return response;
   }
 
-  Future<dynamic> createGroup(GroupRequest groupRequest) async {
+  Future<GroupDetail> createGroup(GroupRequest groupRequest) async {
     final response = await formDataDio.createGroup(groupRequest);
     return response;
   }

@@ -1,26 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/card/profile_avatar.dart';
+import 'package:momo/app/util/navigation_service.dart';
 
-class ManageMeetingCard extends StatelessWidget {
+class ManageMeetingCard extends ConsumerWidget {
   const ManageMeetingCard({
     Key? key,
+    required this.id,
     required this.title,
     required this.rate,
     required this.headNum,
     required this.img,
   }) : super(key: key);
 
+  final int id;
   final String title;
   final int headNum;
   final int rate;
   final String img;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        ref.read(navigatorProvider).navigateTo(
+              routeName: AppRoutes.groupDetail,
+              arguments: id,
+            );
+      },
       child: Stack(
         children: [
           ClipRRect(

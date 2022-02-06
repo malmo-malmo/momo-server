@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/routes/custom_arg/group_list_arg.dart';
 import 'package:momo/app/routes/custom_arg/post_request_arg.dart';
 import 'package:momo/app/ui/attendance_list/attendance_list_page.dart';
@@ -80,9 +79,9 @@ class AppRouter {
         );
 
       case AppRoutes.groupDetail:
-        final GroupInfo arg = settings.arguments;
+        final int arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => GroupDetailPage(group: arg),
+          builder: (_) => GroupDetailPage(groupId: arg),
         );
 
       case AppRoutes.groupRequest:

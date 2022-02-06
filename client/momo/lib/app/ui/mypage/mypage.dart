@@ -8,7 +8,7 @@ import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/card/group_card.dart';
 import 'package:momo/app/ui/components/card/profile_avatar.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
-import 'package:momo/app/ui/mypage/widget/info_column.dart';
+import 'package:momo/app/ui/mypage/widget/group_count_card.dart';
 import 'package:momo/app/ui/mypage/widget/achievemint_card.dart';
 import 'package:momo/app/ui/mypage/widget/user_category_column.dart';
 import 'package:momo/app/util/navigation_service.dart';
@@ -59,34 +59,7 @@ class Mypage extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: 30),
-            Container(
-              height: 100,
-              padding: const EdgeInsets.only(top: 16, right: 45, left: 45),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: MomoColor.scaffoldBackground,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  InfoColumn(
-                    count: 8,
-                    title: '총 모임',
-                    onTap: () {},
-                  ),
-                  InfoColumn(
-                    count: 6,
-                    title: '찜한 모임',
-                    onTap: () {
-                      ref
-                          .read(navigatorProvider)
-                          .navigateTo(routeName: AppRoutes.wishGroup);
-                    },
-                  ),
-                  InfoColumn(count: 10, title: '획득뱃지', onTap: () {}),
-                ],
-              ),
-            ),
+            const GroupCountCard(),
             const SizedBox(height: 14),
             const AchievementCard(),
             const SubTitle(

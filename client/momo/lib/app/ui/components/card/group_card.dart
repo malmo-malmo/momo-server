@@ -34,7 +34,7 @@ class GroupCard extends ConsumerWidget {
       onTap: () {
         ref.read(navigatorProvider).navigateTo(
               routeName: AppRoutes.groupDetail,
-              arguments: group,
+              arguments: group.id,
             );
       },
       child: Stack(

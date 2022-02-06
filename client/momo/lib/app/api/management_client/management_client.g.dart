@@ -24,7 +24,7 @@ class _ManagementClient implements ManagementClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CountResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/management/group/participation/count',
+                .compose(_dio.options, '/management/participation-group/count',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CountResponse.fromJson(_result.data!);
@@ -32,19 +32,20 @@ class _ManagementClient implements ManagementClient {
   }
 
   @override
-  Future<List<GroupInfo>> getParticipationGroupDetail() async {
+  Future<List<TotalGroupInfo>> getParticipationGroupDetail() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<GroupInfo>>(
+        _setStreamType<List<TotalGroupInfo>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/management/groups/participation',
+                .compose(
+                    _dio.options, '/management/participation-groups/details',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
-        .map((dynamic i) => GroupInfo.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) => TotalGroupInfo.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
@@ -77,7 +78,8 @@ class _ManagementClient implements ManagementClient {
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<GroupSummaryReseponse>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/management/groups/participation',
+                .compose(
+                    _dio.options, '/management/participation-groups/summary',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!

@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/provider/group/group_detail_provider.dart';
-import 'package:momo/app/provider/group/group_provider.dart';
 import 'package:momo/app/provider/user/user_data_provider.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
@@ -18,14 +16,17 @@ import 'package:momo/app/ui/group_detail/widget/request_info_card.dart';
 import 'package:momo/app/ui/group_detail/widget/user_bottom_sheet.dart';
 
 class GroupDetailPage extends ConsumerWidget {
-  const GroupDetailPage({Key? key, required this.group}) : super(key: key);
+  const GroupDetailPage({
+    Key? key,
+    required this.groupId,
+  }) : super(key: key);
 
-  final GroupInfo group;
+  final int groupId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userId = ref.watch(userDataProvider).id;
-    final response = ref.watch(groupDetailFutureProvider(group.id));
+    final response = ref.watch(groupDetailFutureProvider(groupId));
 
     return response.when(
       error: (error, stackTrace) => const Scaffold(body: ErrorCard()),
@@ -53,7 +54,7 @@ class GroupDetailPage extends ConsumerWidget {
                                 builder: (context) => userId ==
                                         groupDetail.managerId
                                     ? AdminBottomSheet(groupId: groupDetail.id)
-                                    : UserBottomSheet(group: group));
+                                    : UserBottomSheet(groupId: groupDetail.id));
                           },
                           child: SvgPicture.asset(
                               'assets/icon/icon_ooowhite_28.svg')))
@@ -85,9 +86,9 @@ class GroupDetailPage extends ConsumerWidget {
                               .read(groupDetailStateProvider(data).notifier)
                               .participantGroup();
 
-                          ref
-                              .read(groupStateProvider(group).notifier)
-                              .addParticipantCnt();
+                          // ref
+                          //     .read(groupStateProvider(group).notifier)
+                          //     .addParticipantCnt();
                         },
                       ),
                 groupDetail.participant

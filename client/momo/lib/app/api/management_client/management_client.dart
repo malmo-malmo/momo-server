@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:momo/app/model/group/group_info.dart';
 import 'package:momo/app/model/group/group_summary_response.dart';
 import 'package:momo/app/model/group/my_group.dart';
+import 'package:momo/app/model/group/total_group_info.dart';
 import 'package:momo/app/model/post/management_post_response.dart';
 import 'package:momo/app/model/user/count_response.dart';
 import 'package:momo/app/util/constant.dart';
@@ -16,12 +16,12 @@ abstract class ManagementClient {
     String baseUrl,
   }) = _ManagementClient;
 
-  @GET('/management/group/participation/count')
+  @GET('/management/participation-group/count')
   Future<CountResponse> getParticipationGroupCount();
 
   //  만든모임 + 참여한 모임
-  @GET('/management/groups/participation')
-  Future<List<GroupInfo>> getParticipationGroupDetail();
+  @GET('/management/participation-groups/details')
+  Future<List<TotalGroupInfo>> getParticipationGroupDetail();
 
   @GET('/management/my-posts')
   Future<List<ManagementPostResponse>> getManagementPosts(
@@ -30,7 +30,7 @@ abstract class ManagementClient {
   );
 
   //  참여한 모임
-  @GET('/management/groups/participation')
+  @GET('/management/participation-groups/summary')
   Future<List<GroupSummaryReseponse>> getParticipationGroupSummary();
 
   //  만든 모임

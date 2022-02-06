@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:momo/app/model/schedule/schedule_detail.dart';
 import 'package:momo/app/model/schedule/schedule_request.dart';
 import 'package:momo/app/model/schedule/schedule_request_dto.dart';
 import 'package:momo/app/repository/schedule_repository.dart';
@@ -13,7 +14,7 @@ final scheduleRequestCheckProvider =
       scheduleRequest.day != -1 &&
       scheduleRequest.hour != -1 &&
       scheduleRequest.minute != -1 &&
-      scheduleRequest.groupId != 0 &&
+      scheduleRequest.groupId != -1 &&
       scheduleRequest.contents.isNotEmpty) {
     return true;
   }
@@ -44,7 +45,7 @@ class ScheduleRequestState extends StateNotifier<ScheduleRequestDTO> {
   }) : super(
           ScheduleRequestDTO(
             contents: '',
-            groupId: groupId ?? 0,
+            groupId: groupId ?? -1,
             isOffline: false,
             title: '',
             day: -1,
@@ -75,7 +76,7 @@ class ScheduleRequestState extends StateNotifier<ScheduleRequestDTO> {
   void setContents(String contents) =>
       state = state.copyWith(contents: contents);
 
-  Future<void> createSchedule() async {
+  Future<ScheduleDetail> createSchedule() async {
     final response = await scheduleRepository.createSchedule(
       ScheduleRequest(
         groupId: state.groupId,

@@ -3,6 +3,7 @@ package com.momo.domain.group.dto;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Group;
+import com.momo.domain.user.entity.Location;
 import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -66,8 +67,10 @@ public class GroupCreateRequest {
         return Group.builder()
             .name(name)
             .category(category)
-            .city(city)
-            .district(district)
+            .location(Location.builder()
+                .city(city)
+                .district(district)
+                .build())
             .startDate(startDate)
             .recruitmentCnt(recruitmentCnt)
             .introduction(introduction)

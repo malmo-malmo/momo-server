@@ -1,6 +1,7 @@
 package com.momo.domain.user.dto;
 
 import com.momo.domain.district.entity.City;
+import com.momo.domain.user.entity.Location;
 import com.momo.domain.user.entity.User;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -41,9 +42,11 @@ public class UserUpdateRequest {
     public User toEntity() {
         return User.builder()
             .nickname(nickname)
-            .university(university)
-            .city(city)
-            .district(district)
+            .location(Location.builder()
+                .university(university)
+                .city(city)
+                .district(district)
+                .build())
             .build();
     }
 }

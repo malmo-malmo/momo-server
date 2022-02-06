@@ -10,6 +10,7 @@ import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.dto.GroupSearchConditionRequest;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Group;
+import com.momo.domain.user.entity.Location;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import java.math.BigDecimal;
@@ -42,18 +43,22 @@ public class GroupRepositoryTest extends RepositoryTest {
                 .refreshToken("refresh Token")
                 .nickname("testMan")
                 .imageUrl("이미지 URL")
-                .city(City.SEOUL)
-                .district("마포구")
-                .university("서울대학교")
+                .location(Location.builder()
+                    .city(City.SEOUL)
+                    .district("마포구")
+                    .university("서울대학교")
+                    .build())
                 .build()
         );
         group1 = save(
             Group.builder()
-                .city(City.SEOUL)
-                .district("마포구")
+                .location(Location.builder()
+                    .university("서울대학교")
+                    .city(City.SEOUL)
+                    .district("마포구")
+                    .build())
                 .imageUrl("이미지 URL")
                 .introduction("안녕하세요")
-                .university("서울대학교")
                 .isOffline(false)
                 .isEnd(false)
                 .startDate(LocalDate.now())
@@ -65,11 +70,13 @@ public class GroupRepositoryTest extends RepositoryTest {
         );
         group2 = save(
             Group.builder()
-                .city(City.GYEONGGI)
-                .district("분당")
+                .location(Location.builder()
+                    .university("연세대학교")
+                    .city(City.GYEONGGI)
+                    .district("분당")
+                    .build())
                 .imageUrl("이미지 URL")
                 .introduction("안녕하세요")
-                .university("연세대학교")
                 .isOffline(false)
                 .isEnd(false)
                 .startDate(LocalDate.now())
@@ -87,11 +94,11 @@ public class GroupRepositoryTest extends RepositoryTest {
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
             () -> assertThat(actual.getId()).isEqualTo(group1.getId()),
-            () -> assertThat(actual.getCity()).isEqualTo(group1.getCity()),
-            () -> assertThat(actual.getDistrict()).isEqualTo(group1.getDistrict()),
+            () -> assertThat(actual.getLocation().getCity()).isEqualTo(group1.getLocation().getCity()),
+            () -> assertThat(actual.getLocation().getDistrict()).isEqualTo(group1.getLocation().getDistrict()),
             () -> assertThat(actual.getImageUrl()).isEqualTo(group1.getImageUrl()),
             () -> assertThat(actual.getIntroduction()).isEqualTo(group1.getIntroduction()),
-            () -> assertThat(actual.getUniversity()).isEqualTo(group1.getUniversity()),
+            () -> assertThat(actual.getLocation().getUniversity()).isEqualTo(group1.getLocation().getUniversity()),
             () -> assertThat(actual.isOffline()).isEqualTo(group1.isOffline()),
             () -> assertThat(actual.isEnd()).isEqualTo(group1.isEnd()),
             () -> assertThat(actual.getStartDate()).isEqualTo(group1.getStartDate()),
@@ -110,9 +117,9 @@ public class GroupRepositoryTest extends RepositoryTest {
             () -> assertThat(response.getName()).isEqualTo(group1.getName()),
             () -> assertThat(response.getImageUrl()).isEqualTo(group1.getImageUrl()),
             () -> assertThat(response.getStartDate()).isEqualTo(group1.getStartDate()),
-            () -> assertThat(response.getUniversity()).isEqualTo(group1.getUniversity()),
-            () -> assertThat(response.getCity()).isEqualTo(group1.getCity().getName()),
-            () -> assertThat(response.getDistrict()).isEqualTo(group1.getDistrict()),
+            () -> assertThat(response.getUniversity()).isEqualTo(group1.getLocation().getUniversity()),
+            () -> assertThat(response.getCity()).isEqualTo(group1.getLocation().getCity().getName()),
+            () -> assertThat(response.getDistrict()).isEqualTo(group1.getLocation().getDistrict()),
             () -> assertThat(response.isOffline()).isEqualTo(group1.isOffline()),
             () -> assertThat(response.getIntroduction()).isEqualTo(group1.getIntroduction()),
             () -> assertThat(response.getRecruitmentCnt()).isEqualTo(group1.getRecruitmentCnt()),
@@ -130,7 +137,7 @@ public class GroupRepositoryTest extends RepositoryTest {
         );
 
         GroupSearchConditionRequest request = GroupSearchConditionRequest.builder()
-            .cities(List.of(group1.getCity(), group2.getCity()))
+            .cities(List.of(group1.getLocation().getCity(), group2.getLocation().getCity()))
             .categories(List.of(group1.getCategory(), group2.getCategory()))
             .build();
 
@@ -160,7 +167,7 @@ public class GroupRepositoryTest extends RepositoryTest {
     @Test
     void 학교로_모임_목록을_조회한다() {
         List<GroupCardResponse> actual = groupRepository
-            .findAllByUniversityOrderByCreatedDateDesc(user, group1.getUniversity(), PageRequest.of(0, 10));
+            .findAllByUniversityOrderByCreatedDateDesc(user, group1.getLocation().getUniversity(), PageRequest.of(0, 10));
 
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
@@ -178,7 +185,7 @@ public class GroupRepositoryTest extends RepositoryTest {
     @Test
     void 구역으로_모임_목록을_조회한다() {
         List<GroupCardResponse> actual = groupRepository
-            .findAllByDistrictOrderByCreatedDateDesc(user, group1.getDistrict(), PageRequest.of(0, 10));
+            .findAllByDistrictOrderByCreatedDateDesc(user, group1.getLocation().getDistrict(), PageRequest.of(0, 10));
 
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),

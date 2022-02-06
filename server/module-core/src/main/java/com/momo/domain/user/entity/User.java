@@ -1,7 +1,6 @@
 package com.momo.domain.user.entity;
 
 import com.momo.domain.common.entity.BaseEntity;
-import com.momo.domain.district.entity.City;
 import com.momo.domain.favorite.entity.FavoriteCategories;
 import com.momo.domain.group.entity.Category;
 import java.util.List;
@@ -40,28 +39,22 @@ public class User extends BaseEntity {
 
     private String imageUrl;
 
-    @Enumerated(EnumType.STRING)
-    private City city;
-
-    private String district;
-
-    private String university;
+    @Embedded
+    private Location location;
 
     @Embedded
     private final FavoriteCategories favoriteCategories = FavoriteCategories.empty();
 
     @Builder
     public User(Long id, SocialProvider provider, String providerId, String refreshToken, String nickname,
-        String imageUrl, City city, String district, String university) {
+        String imageUrl, Location location) {
         this.id = id;
         this.provider = provider;
         this.providerId = providerId;
         this.refreshToken = refreshToken;
         this.nickname = nickname;
         this.imageUrl = imageUrl;
-        this.city = city;
-        this.district = district;
-        this.university = university;
+        this.location = location;
     }
 
     public static User createSocialLoginUser(String providerId, SocialProvider socialProvider) {
@@ -88,9 +81,7 @@ public class User extends BaseEntity {
 
     public void update(User user, String imageUrl) {
         this.nickname = user.getNickname();
-        this.city = user.getCity();
-        this.district = user.getDistrict();
-        this.university = user.getUniversity();
+        this.location = user.getLocation();
         this.imageUrl = imageUrl;
     }
 

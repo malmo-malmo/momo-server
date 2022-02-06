@@ -9,6 +9,7 @@ import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.post.dto.PostCardResponse;
 import com.momo.domain.post.entity.Post;
+import com.momo.domain.user.entity.Location;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDate;
@@ -38,17 +39,21 @@ public class PostRepositoryTest extends RepositoryTest {
                 .refreshToken("refresh Token")
                 .nickname("testMan")
                 .imageUrl("이미지 URL")
-                .city(City.SEOUL)
-                .district("마포구")
-                .university("한국대")
+                .location(Location.builder()
+                    .city(City.SEOUL)
+                    .district("마포구")
+                    .university("한국대")
+                    .build())
                 .build()
         );
         group = save(Group.builder()
-            .city(City.SEOUL)
-            .district("마포")
+            .location(Location.builder()
+                .university("한국대")
+                .city(City.SEOUL)
+                .district("마포")
+                .build())
             .imageUrl("이미지 URL")
             .introduction("안녕하세요")
-            .university("한국대")
             .isOffline(false)
             .isEnd(false)
             .startDate(LocalDate.now())

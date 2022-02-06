@@ -8,6 +8,7 @@ import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
 import com.momo.domain.schedule.entity.Attendance;
 import com.momo.domain.schedule.entity.Schedule;
+import com.momo.domain.user.entity.Location;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDate;
@@ -41,16 +42,20 @@ public class AttendanceRepositoryTest extends RepositoryTest {
             .refreshToken("refresh Token")
             .nickname("testMan")
             .imageUrl("이미지 주소")
-            .city(City.SEOUL)
-            .district("마포구")
-            .university("한국대")
+            .location(Location.builder()
+                .city(City.SEOUL)
+                .district("마포구")
+                .university("한국대")
+                .build())
             .build());
         group = save(Group.builder()
-            .city(City.SEOUL)
-            .district("마포")
+            .location(Location.builder()
+                .university("한국대")
+                .city(City.SEOUL)
+                .district("마포")
+                .build())
             .imageUrl("이미지 주소")
             .introduction("안녕하세요")
-            .university("한국대")
             .isOffline(false)
             .isEnd(false)
             .startDate(LocalDate.now())

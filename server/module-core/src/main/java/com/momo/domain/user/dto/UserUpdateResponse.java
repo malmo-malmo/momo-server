@@ -28,9 +28,9 @@ public class UserUpdateResponse {
     public static UserUpdateResponse of(User user) {
         return UserUpdateResponse.builder()
             .nickname(user.getNickname())
-            .university(user.getUniversity())
-            .city(EnumResponse.ofCity(user.getCity()))
-            .district(user.getDistrict())
+            .university(user.getLocation().getUniversity())
+            .city(EnumResponse.ofCity(user.getLocation().getCity()))
+            .district(user.getLocation().getDistrict())
             .imageUrl(user.getImageUrl())
             .build();
     }

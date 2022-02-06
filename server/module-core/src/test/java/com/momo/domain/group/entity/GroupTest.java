@@ -1,5 +1,7 @@
 package com.momo.domain.group.entity;
 
+import static com.momo.GroupFixture.getGroupWithId;
+import static com.momo.UserFixture.getUserWithId;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.domain.user.entity.User;
@@ -12,12 +14,11 @@ public class GroupTest {
 
     @Test
     void 모임_생성_테스트() {
-        User user = User.builder()
-            .id(1L)
-            .university("대학교")
-            .build();
-        Group group = Group.builder().id(1L).build();
+        User user = getUserWithId();
+        Group group = getGroupWithId(user);
+
         Group expected = Group.create(user, group, true);
+
         Assertions.assertAll(
             () -> assertThat(expected).isNotNull(),
             () -> assertThat(expected.getUniversity()).isEqualTo(user.getUniversity())
@@ -26,33 +27,31 @@ public class GroupTest {
 
     @Test
     void 모임_담당자_여부_확인_테스트() {
-        User user = User.builder().id(1L).build();
-        Group group = Group.builder()
-            .id(1L)
-            .manager(user)
-            .build();
+        User user = getUserWithId();
+        Group group = getGroupWithId(user);
 
         boolean expected = group.isManager(user);
+
         assertThat(expected).isTrue();
     }
 
     @Test
     void 모임_담당자_변경_테스트() {
-        Group expected = Group.builder()
-            .id(1L)
-            .manager(User.builder().id(1L).build())
-            .build();
+        User user1 = getUserWithId();
+        User user2 = getUserWithId();
+        Group group = getGroupWithId(user1);
 
-        User actual = User.builder().id(2L).build();
-        expected.updateManager(actual);
+        group.updateManager(user2);
 
-        assertThat(expected.getManager().getId().equals(actual.getId()));
+        assertThat(group.getManager().getId()).isEqualTo(user2.getId());
     }
 
     @Test
     void 모임_종료_테스트() {
-        Group expected = Group.builder().id(1L).build();
+        Group expected = getGroupWithId(getUserWithId());
+
         expected.endGroup();
+
         assertThat(expected.isEnd()).isTrue();
     }
 }

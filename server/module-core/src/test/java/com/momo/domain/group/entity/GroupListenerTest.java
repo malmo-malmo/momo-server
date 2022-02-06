@@ -1,5 +1,7 @@
 package com.momo.domain.group.entity;
 
+import static com.momo.GroupFixture.getGroup;
+import static com.momo.UserFixture.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
@@ -28,18 +30,8 @@ public class GroupListenerTest extends RepositoryTest {
 
     @BeforeEach
     void before() {
-        User user = save(
-            User.builder()
-                .providerId("test")
-                .nickname("유저")
-                .build()
-        );
-        group = save(
-            Group.builder()
-                .name("모임 이름")
-                .manager(user)
-                .build()
-        );
+        User user = save(getUser());
+        group = save(getGroup(user));
     }
 
     @Test

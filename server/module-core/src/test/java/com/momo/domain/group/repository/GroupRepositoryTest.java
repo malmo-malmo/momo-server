@@ -1,20 +1,17 @@
 package com.momo.domain.group.repository;
 
+import static com.momo.GroupFixture.getGroup;
+import static com.momo.UserFixture.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
-import com.momo.domain.district.entity.City;
-import com.momo.domain.favorite.entity.FavoriteGroup;
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.dto.GroupSearchConditionRequest;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Group;
-import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,50 +32,9 @@ public class GroupRepositoryTest extends RepositoryTest {
 
     @BeforeEach
     void before() {
-        user = save(
-            User.builder()
-                .provider(SocialProvider.KAKAO)
-                .providerId("test")
-                .refreshToken("refresh Token")
-                .nickname("testMan")
-                .imageUrl("이미지 URL")
-                .city(City.SEOUL)
-                .district("마포구")
-                .university("서울대학교")
-                .build()
-        );
-        group1 = save(
-            Group.builder()
-                .city(City.SEOUL)
-                .district("마포구")
-                .imageUrl("이미지 URL")
-                .introduction("안녕하세요")
-                .university("서울대학교")
-                .isOffline(false)
-                .isEnd(false)
-                .startDate(LocalDate.now())
-                .name("모임 이름")
-                .category(Category.LIFE)
-                .manager(user)
-                .createdDate(LocalDateTime.of(2021, 1, 7, 1, 10))
-                .build()
-        );
-        group2 = save(
-            Group.builder()
-                .city(City.GYEONGGI)
-                .district("분당")
-                .imageUrl("이미지 URL")
-                .introduction("안녕하세요")
-                .university("연세대학교")
-                .isOffline(false)
-                .isEnd(false)
-                .startDate(LocalDate.now())
-                .name("모임 이름")
-                .category(Category.HOBBY)
-                .manager(user)
-                .createdDate(LocalDateTime.of(2021, 1, 7, 1, 20))
-                .build()
-        );
+        user = save(getUser());
+        group1 = save(getGroup(user));
+        group2 = save(getGroup(user));
     }
 
     @Test
@@ -122,13 +78,6 @@ public class GroupRepositoryTest extends RepositoryTest {
 
     @Test
     void 도시_목록과_카테고리_목록으로_모임_목록을_조회한다() {
-        save(
-            FavoriteGroup.builder()
-                .user(user)
-                .group(group1)
-                .build()
-        );
-
         GroupSearchConditionRequest request = GroupSearchConditionRequest.builder()
             .cities(List.of(group1.getCity(), group2.getCity()))
             .categories(List.of(group1.getCategory(), group2.getCategory()))
@@ -153,7 +102,7 @@ public class GroupRepositoryTest extends RepositoryTest {
             () -> assertThat(actual.get(1).isOffline()).isEqualTo(group1.isOffline()),
             () -> assertThat(actual.get(1).getStartDate()).isEqualTo(group1.getStartDate()),
             () -> assertThat(actual.get(1).getParticipantCnt()).isEqualTo(0),
-            () -> assertThat(actual.get(1).isFavoriteGroup()).isEqualTo(true)
+            () -> assertThat(actual.get(1).isFavoriteGroup()).isEqualTo(false)
         );
     }
 
@@ -182,32 +131,18 @@ public class GroupRepositoryTest extends RepositoryTest {
 
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
-            () -> assertThat(actual.size()).isEqualTo(1),
-            () -> assertThat(actual.get(0).getId()).isEqualTo(group1.getId()),
-            () -> assertThat(actual.get(0).getName()).isEqualTo(group1.getName()),
-            () -> assertThat(actual.get(0).getImageUrl()).isEqualTo(group1.getImageUrl()),
-            () -> assertThat(actual.get(0).isOffline()).isEqualTo(group1.isOffline()),
-            () -> assertThat(actual.get(0).getStartDate()).isEqualTo(group1.getStartDate()),
-            () -> assertThat(actual.get(0).getParticipantCnt()).isEqualTo(0),
-            () -> assertThat(actual.get(0).isFavoriteGroup()).isEqualTo(false)
+            () -> assertThat(actual.size()).isEqualTo(2)
         );
     }
 
     @Test
     void 카테고리_목록으로_모임_목록을_조회한다() {
         List<GroupCardResponse> actual = groupRepository
-            .findAllByCategoriesOrderByCreatedDateDesc(user, List.of(Category.LIFE), PageRequest.of(0, 10));
+            .findAllByCategoriesOrderByCreatedDateDesc(user, List.of(Category.HEALTH), PageRequest.of(0, 10));
 
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
-            () -> assertThat(actual.size()).isEqualTo(1),
-            () -> assertThat(actual.get(0).getId()).isEqualTo(group1.getId()),
-            () -> assertThat(actual.get(0).getName()).isEqualTo(group1.getName()),
-            () -> assertThat(actual.get(0).getImageUrl()).isEqualTo(group1.getImageUrl()),
-            () -> assertThat(actual.get(0).isOffline()).isEqualTo(group1.isOffline()),
-            () -> assertThat(actual.get(0).getStartDate()).isEqualTo(group1.getStartDate()),
-            () -> assertThat(actual.get(0).getParticipantCnt()).isEqualTo(0),
-            () -> assertThat(actual.get(0).isFavoriteGroup()).isEqualTo(false)
+            () -> assertThat(actual.size()).isEqualTo(2)
         );
     }
 

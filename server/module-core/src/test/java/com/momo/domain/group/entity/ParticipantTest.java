@@ -1,5 +1,7 @@
 package com.momo.domain.group.entity;
 
+import static com.momo.GroupFixture.getGroupWithId;
+import static com.momo.UserFixture.getUserWithId;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.domain.user.entity.User;
@@ -12,16 +14,12 @@ import org.junit.jupiter.api.Test;
 public class ParticipantTest {
 
     private User user;
-
     private Group group;
 
     @BeforeEach
     void setUp() {
-        user = User.builder().id(1L).build();
-        group = Group.builder()
-            .id(1L)
-            .manager(user)
-            .build();
+        user = getUserWithId();
+        group = getGroupWithId(user);
     }
 
     @Test
@@ -33,35 +31,4 @@ public class ParticipantTest {
             () -> assertThat(expected.getGroup().getId()).isEqualTo(group.getId())
         );
     }
-
-    /*
-    @Test
-    void 참여자_출석률_계산_테스트() {
-        Participant expected = Participant.builder()
-            .scheduleCount(10)
-            .attendanceCount(5)
-            .build();
-        expected.calculateAttendanceRate();
-        assertThat(expected.getAttendanceRate()).isEqualTo(50);
-    }
-
-    @Test
-    void 출석_수가_0일_경우_참여자_출석률_계산_테스트() {
-        Participant expected = Participant.builder()
-            .scheduleCount(10)
-            .attendanceCount(0)
-            .build();
-        expected.calculateAttendanceRate();
-        assertThat(expected.getAttendanceRate()).isEqualTo(0);
-    }
-
-    @Test
-    void 일정_수가_0일_경우_참여자_출석률_계산_테스트() {
-        Participant expected = Participant.builder()
-            .scheduleCount(0)
-            .attendanceCount(5)
-            .build();
-        expected.calculateAttendanceRate();
-        assertThat(expected.getAttendanceRate()).isEqualTo(0);
-    }*/
 }

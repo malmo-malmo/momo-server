@@ -1,5 +1,10 @@
 package com.momo.domain.group.service;
 
+import static com.momo.AchievementRateFixture.getParticipantAchievementRateWithId;
+import static com.momo.GroupFixture.getGroup;
+import static com.momo.ParticipantFixture.getParticipantWithId;
+import static com.momo.UserFixture.getUserWithId;
+import static java.math.BigDecimal.ZERO;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -8,7 +13,6 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import com.momo.common.ServiceTest;
-import com.momo.domain.achievementrate.entity.ParticipantAchievementRate;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.dto.ParticipantResponse;
@@ -37,36 +41,22 @@ public class ParticipantServiceTest extends ServiceTest {
     private ParticipantService participantService;
 
     private User manager;
-
     private User user1;
-
     private User user2;
 
     @BeforeEach
     void setUp() {
-        manager = User.builder().id(1L).build();
-        user1 = User.builder().id(2L).build();
-        user2 = User.builder().id(3L).build();
+        manager = getUserWithId();
+        user1 = getUserWithId();
+        user2 = getUserWithId();
         participantService = new ParticipantServiceImpl(participantRepository, groupRepository);
     }
 
     @Test
     void 모임_참여자_목록_조회_테스트() {
-        Group group = Group.builder()
-            .manager(manager)
-            .build();
-        Participant participant1 = Participant.builder()
-            .id(1L)
-            .group(group)
-            .user(user1)
-            .achievementRate(ParticipantAchievementRate.create())
-            .build();
-        Participant participant2 = Participant.builder()
-            .id(2L)
-            .group(group)
-            .user(user2)
-            .achievementRate(ParticipantAchievementRate.create())
-            .build();
+        Group group = getGroup(manager);
+        Participant participant1 = getParticipantWithId(group, user1, getParticipantAchievementRateWithId(ZERO));
+        Participant participant2 = getParticipantWithId(group, user2, getParticipantAchievementRateWithId(ZERO));
         List<Participant> participants = List.of(participant1, participant2);
 
         given(groupRepository.findById(any())).willReturn(of(group));
@@ -92,9 +82,7 @@ public class ParticipantServiceTest extends ServiceTest {
 
     @Test
     void 모임_관리자가_아니면_참여자_목록_조회_테스트가_실패한다() {
-        Group group = Group.builder()
-            .manager(manager)
-            .build();
+        Group group = getGroup(manager);
 
         given(groupRepository.findById(any())).willReturn(of(group));
 
@@ -105,19 +93,17 @@ public class ParticipantServiceTest extends ServiceTest {
 
     @Test
     void 모임_탈퇴_테스트() {
-        Group group = Group.builder()
-            .manager(manager)
-            .build();
+        Group group = getGroup(manager);
+
         given(groupRepository.findById(any())).willReturn(of(group));
+
         participantService.withdrawByGroupId(user1, 1L);
         verify(groupRepository).findById(any());
     }
 
     @Test
     void 모임_관리자가_탈퇴를_시도하면_테스트가_실패한다() {
-        Group group = Group.builder()
-            .manager(manager)
-            .build();
+        Group group = getGroup(manager);
 
         given(groupRepository.findById(any())).willReturn(of(group));
 

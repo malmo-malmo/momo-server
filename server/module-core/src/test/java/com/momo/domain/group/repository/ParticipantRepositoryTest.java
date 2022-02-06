@@ -1,5 +1,8 @@
 package com.momo.domain.group.repository;
 
+import static com.momo.GroupFixture.getGroup;
+import static com.momo.ParticipantFixture.getParticipant;
+import static com.momo.UserFixture.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
@@ -23,49 +26,18 @@ public class ParticipantRepositoryTest extends RepositoryTest {
     private User user1;
     private Group group1;
     private Participant participant1;
-
     private User user2;
     private Group group2;
     private Participant participant2;
 
     @BeforeEach
     void before() {
-        user1 = save(
-            User.builder()
-                .providerId("test")
-                .nickname("유저1")
-                .build()
-        );
-        group1 = save(
-            Group.builder()
-                .name("모임 이름1")
-                .manager(user1)
-                .build()
-        );
-        participant1 = save(
-            Participant.builder()
-                .group(group1)
-                .user(user1)
-                .build()
-        );
-        user2 = save(
-            User.builder()
-                .providerId("test")
-                .nickname("유저2")
-                .build()
-        );
-        group2 = save(
-            Group.builder()
-                .name("모임 이름2")
-                .manager(user2)
-                .build()
-        );
-        participant2 = save(
-            Participant.builder()
-                .group(group2)
-                .user(user2)
-                .build()
-        );
+        user1 = save(getUser());
+        group1 = save(getGroup(user1));
+        participant1 = save(getParticipant(group1, user1));
+        user2 = save(getUser());
+        group2 = save(getGroup(user2));
+        participant2 = save(getParticipant(group2, user2));
     }
 
     @Test
@@ -111,13 +83,6 @@ public class ParticipantRepositoryTest extends RepositoryTest {
 
     @Test
     void 유저가_참여_중인_모임_목록을_조회한다() {
-        save(
-            Participant.builder()
-                .group(group1)
-                .user(save(User.builder().providerId("test").build()))
-                .build()
-        );
-
         List<ParticipationGroupCardResponse> actual = participantRepository.findParticipationGroupsByUser(user1);
 
         Assertions.assertAll(
@@ -129,18 +94,13 @@ public class ParticipantRepositoryTest extends RepositoryTest {
             () -> assertThat(actual.get(0).getStartDate()).isEqualTo(group1.getStartDate()),
             () -> assertThat(actual.get(0).isOffline()).isEqualTo(group1.isOffline()),
             () -> assertThat(actual.get(0).isEnd()).isEqualTo(group1.isEnd()),
-            () -> assertThat(actual.get(0).getParticipantCnt()).isEqualTo(2)
+            () -> assertThat(actual.get(0).getParticipantCnt()).isEqualTo(1)
         );
     }
 
     @Test
     void 유저가_모임_관리자가_아닌_참여_중인_모임_목록을_조회한다() {
-        save(
-            Participant.builder()
-                .group(group2)
-                .user(user1)
-                .build()
-        );
+        save(getParticipant(group2, user1));
 
         List<Participant> actual = participantRepository.findAllWithNotManagingGroupByUser(user1);
 
@@ -153,24 +113,9 @@ public class ParticipantRepositoryTest extends RepositoryTest {
 
     @Test
     void 참여자ID로_참여자_목록을_조회한다() {
-        Long id1 = save(
-            Participant.builder()
-                .group(group1)
-                .user(user1)
-                .build()
-        ).getId();
-        Long id2 = save(
-            Participant.builder()
-                .group(group1)
-                .user(user1)
-                .build()
-        ).getId();
-        Long id3 = save(
-            Participant.builder()
-                .group(group1)
-                .user(user1)
-                .build()
-        ).getId();
+        Long id1 = save(getParticipant(group1, user1)).getId();
+        Long id2 = save(getParticipant(group1, user1)).getId();
+        Long id3 = save(getParticipant(group1, user1)).getId();
 
         List<Long> list = List.of(id3, id2, id1);
         List<Participant> attendances = participantRepository.findAllByIdsAndUser(list, user1);

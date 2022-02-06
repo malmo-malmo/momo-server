@@ -24,6 +24,15 @@ public class ParticipantFixture {
             .build();
     }
 
+    public static Participant getParticipantWithId(Group group, User user) {
+        INCREASE_ID++;
+        return Participant.builder()
+            .id(INCREASE_ID)
+            .group(group)
+            .user(user)
+            .build();
+    }
+
     public static Participant getParticipantWithId(Group group, User user, ParticipantAchievementRate rate) {
         INCREASE_ID++;
         return Participant.builder()

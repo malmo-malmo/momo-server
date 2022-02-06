@@ -58,7 +58,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
         ExtractableResponse<Response> response = requestToFindGroup(token, groupId);
         GroupResponse groupResponse = getObject(response, GroupResponse.class);
         assertThatStatusIsOk(response);
-        assertThatFindGroup(GROUP_CREATE_REQUEST1, groupResponse, true, getUser1().getUniversity());
+        assertThatFindGroup(GROUP_CREATE_REQUEST1, groupResponse, true, getUser1().getLocation().getUniversity());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
         ExtractableResponse<Response> response = requestToFindGroup(getAccessToken(getUser2()), groupId);
         GroupResponse groupResponse = getObject(response, GroupResponse.class);
         assertThatStatusIsOk(response);
-        assertThatFindGroup(GROUP_CREATE_REQUEST1, groupResponse, false, getUser1().getUniversity());
+        assertThatFindGroup(GROUP_CREATE_REQUEST1, groupResponse, false, getUser1().getLocation().getUniversity());
     }
 
     @Test

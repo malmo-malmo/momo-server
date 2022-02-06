@@ -11,13 +11,14 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.common.RestDocsControllerTest;
 import com.momo.api.group.GroupController;
+import com.momo.common.RestDocsControllerTest;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.service.impl.GroupServiceImpl;
+import com.momo.domain.user.entity.Location;
 import java.time.LocalDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,9 +45,11 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .name("모임 이름")
             .imageUrl("모임 이미지")
             .startDate(LocalDate.now())
-            .university("서울대")
-            .city(City.SEOUL)
-            .district("지역")
+            .location(Location.builder()
+                .university("서울대")
+                .city(City.SEOUL)
+                .district("지역")
+                .build())
             .isOffline(false)
             .introduction("모임 설명")
             .recruitmentCnt(1)
@@ -81,9 +84,11 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
             .name("A 모임")
             .imageUrl("이미지 URL")
             .startDate(LocalDate.now())
-            .university("한국대")
-            .city(City.SEOUL)
-            .district("마포구")
+            .location(Location.builder()
+                .university("한국대")
+                .city(City.SEOUL)
+                .district("마포구")
+                .build())
             .isOffline(true)
             .introduction("테스트 모임입니다.")
             .recruitmentCnt(4)

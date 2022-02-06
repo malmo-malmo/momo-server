@@ -30,7 +30,7 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
         Pageable pageable) {
         List<GroupScheduleResponse> content = selectGroupScheduleClause(userId)
             .from(schedule)
-            .leftJoin(user).on(schedule.author.eq(user))
+            .leftJoin(schedule.author, user)
             .where(schedule.group.eq(group))
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
@@ -50,9 +50,9 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
         return queryFactory
             .selectFrom(schedule)
             .leftJoin(schedule.group, group).fetchJoin()
-            .where(schedule.group.in(
+            .where(schedule.group.id.in(
                 JPAExpressions
-                    .select(participant.group)
+                    .select(participant.group.id)
                     .from(participant)
                     .where(participant.user.eq(user))
             ).and(schedule.startDateTime.between(startDateTime, endDateTime)))
@@ -64,7 +64,7 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
     public GroupScheduleResponse findGroupResponseById(Long scheduleId, Long userId) {
         return selectGroupScheduleClause(userId)
             .from(schedule)
-            .leftJoin(user).on(schedule.author.eq(user))
+            .leftJoin(schedule.author, user)
             .where(schedule.id.eq(scheduleId))
             .fetchOne();
     }
@@ -81,9 +81,10 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
                 schedule.contents,
                 schedule.attendanceCheck,
                 JPAExpressions
-                    .select(attendance.isAttend)
+                    .select(attendance.isAttend.nullif(false))
                     .from(attendance)
-                    .where(attendance.schedule.eq(schedule).and(attendance.participant.user.id.eq(userId)))
+                    .leftJoin(attendance.participant, participant)
+                    .where(attendance.schedule.eq(schedule), attendance.participant.user.id.eq(userId))
             ));
     }
 }

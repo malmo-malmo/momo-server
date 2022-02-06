@@ -1,5 +1,10 @@
 package com.momo.domain.schedule.service;
 
+import static com.momo.GroupFixture.getGroupWithId;
+import static com.momo.ScheduleFixture.getGroupSchedulesRequest;
+import static com.momo.ScheduleFixture.getScheduleCreateRequest;
+import static com.momo.ScheduleFixture.getScheduleWithId;
+import static com.momo.UserFixture.getUserWithId;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -27,10 +32,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-@DisplayName("댓글 서비스 테스트")
+@DisplayName("일정 서비스 테스트")
 public class ScheduleServiceTest extends ServiceTest {
 
     @Mock
@@ -45,72 +49,52 @@ public class ScheduleServiceTest extends ServiceTest {
     private ScheduleService scheduleService;
 
     private User manager;
-
     private User user;
-
     private Group group;
 
     @BeforeEach
     void setUp() {
-        manager = User.builder().id(1L).build();
-        user = User.builder().id(2L).build();
-        group = Group.builder()
-            .id(1L)
-            .manager(manager)
-            .build();
+        manager = getUserWithId();
+        user = getUserWithId();
+        group = getGroupWithId(manager);
         scheduleService = new ScheduleServiceImpl(scheduleRepository, groupRepository, participantRepository);
     }
 
     @Test
     void 일정_생성_테스트() {
-        ScheduleCreateRequest scheduleCreateRequest = ScheduleCreateRequest.builder()
-            .groupId(group.getId())
-            .title("일정 제목")
-            .isOffline(false)
-            .startDateTime(LocalDateTime.of(2021, 12, 31, 10, 30))
-            .contents("일정 내용")
-            .build();
-        Long savedScheduleId = 1L;
-        Schedule schedule = Schedule.builder().id(savedScheduleId).build();
+        ScheduleCreateRequest request = getScheduleCreateRequest(group.getId(), true, LocalDateTime.now());
+        Schedule schedule = getScheduleWithId(manager, group);
 
         given(groupRepository.findById(any())).willReturn(of(group));
         given(scheduleRepository.save(any())).willReturn(schedule);
-        given(scheduleRepository.findGroupResponseById(any(), any())).willReturn(
-            GroupScheduleResponse.builder().id(savedScheduleId).build());
+        given(scheduleRepository.findGroupResponseById(any(), any()))
+            .willReturn(GroupScheduleResponse.builder().id(schedule.getId()).build());
 
-        GroupScheduleResponse response = scheduleService.create(manager, scheduleCreateRequest);
+        GroupScheduleResponse actual = scheduleService.create(manager, request);
+
         verify(groupRepository).findById(any());
         verify(scheduleRepository).save(any());
         Assertions.assertAll(
-            () -> assertThat(response).isNotNull(),
-            () -> assertThat(response.getId()).isEqualTo(savedScheduleId)
+            () -> assertThat(actual).isNotNull(),
+            () -> assertThat(actual.getId()).isEqualTo(schedule.getId())
         );
     }
 
     @Test
     void 모임_관리자가_아니면_일정_생성_테스트를_실패한다() {
-        ScheduleCreateRequest scheduleCreateRequest = ScheduleCreateRequest.builder()
-            .groupId(group.getId())
-            .title("일정 제목")
-            .isOffline(false)
-            .startDateTime(LocalDateTime.of(2021, 12, 31, 10, 30))
-            .contents("일정 내용")
-            .build();
+        ScheduleCreateRequest request = getScheduleCreateRequest(group.getId(), true, LocalDateTime.now());
 
         given(groupRepository.findById(any())).willReturn(of(group));
 
-        assertThatThrownBy(() -> scheduleService.create(user, scheduleCreateRequest))
+        assertThatThrownBy(() -> scheduleService.create(user, request))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_MANAGER_AUTHORIZED.getMessage());
     }
 
     @Test
     void 모임_일정_목록_조회_테스트() {
-        GroupSchedulesRequest groupSchedulesRequest = GroupSchedulesRequest.builder()
-            .groupId(group.getId())
-            .page(0)
-            .size(10)
-            .build();
+        GroupSchedulesRequest request = getGroupSchedulesRequest(group.getId());
+
         List<GroupScheduleResponse> response = List.of(
             GroupScheduleResponse.builder().id(1L).build(),
             GroupScheduleResponse.builder().id(2L).build()
@@ -120,7 +104,7 @@ public class ScheduleServiceTest extends ServiceTest {
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(true);
         given(scheduleRepository.findAllByGroupAndUserOrderByCreatedDateDesc(any(), any(), any())).willReturn(response);
 
-        GroupScheduleResponses actual = scheduleService.findPageByUserAndGroupId(manager, groupSchedulesRequest);
+        GroupScheduleResponses actual = scheduleService.findPageByUserAndGroupId(manager, request);
 
         verify(groupRepository).findById(any());
         verify(participantRepository).existsByGroupAndUser(any(), any());
@@ -134,16 +118,12 @@ public class ScheduleServiceTest extends ServiceTest {
 
     @Test
     void 모임_참여자가_아니면_일정_목록_조회_테스트를_실패한다() {
-        GroupSchedulesRequest groupSchedulesRequest = GroupSchedulesRequest.builder()
-            .groupId(group.getId())
-            .page(0)
-            .size(10)
-            .build();
+        GroupSchedulesRequest request = getGroupSchedulesRequest(group.getId());
 
         given(groupRepository.findById(any())).willReturn(of(group));
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(false);
 
-        assertThatThrownBy(() -> scheduleService.findPageByUserAndGroupId(manager, groupSchedulesRequest))
+        assertThatThrownBy(() -> scheduleService.findPageByUserAndGroupId(manager, request))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED.getMessage());
     }

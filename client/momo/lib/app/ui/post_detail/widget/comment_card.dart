@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momo/app/model/comment/comment.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/card/profile_avatar.dart';
+import 'package:momo/app/util/format/post_date_format.dart';
 
 class CommentCard extends StatelessWidget {
   const CommentCard({Key? key, required this.comment}) : super(key: key);
@@ -33,9 +34,24 @@ class CommentCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    comment.authorNickname,
-                    style: MomoTextStyle.defaultStyle,
+                  Row(
+                    children: [
+                      Text(
+                        comment.authorNickname,
+                        style: MomoTextStyle.defaultStyle,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        !comment.createdDate.contains('-')
+                            ? comment.createdDate
+                            : postDateFormat(comment.createdDate),
+                        style: MomoTextStyle.smallR.copyWith(
+                          color: MomoColor.unSelIcon,
+                        ),
+                      ),
+                    ],
                   ),
                   Text(
                     comment.contents,

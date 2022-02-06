@@ -61,6 +61,7 @@ class _AdminBottomSheetState extends ConsumerState<AdminBottomSheet> {
                   .read(postListProvider(widget.groupId).notifier)
                   .addPost(result);
               ref.read(navigatorProvider).pop();
+              ref.read(navigatorProvider).pop();
             },
             child: sheetTabButtob(
               title: '게시물 작성',
@@ -80,6 +81,7 @@ class _AdminBottomSheetState extends ConsumerState<AdminBottomSheet> {
                   .read(noticeListProvider(widget.groupId).notifier)
                   .addPost(result);
               ref.read(navigatorProvider).pop();
+              ref.read(navigatorProvider).pop();
             },
             child: sheetTabButtob(
               title: '공지사항 작성',
@@ -92,6 +94,7 @@ class _AdminBottomSheetState extends ConsumerState<AdminBottomSheet> {
                     routeName: AppRoutes.scheduleRequest,
                     arguments: widget.groupId,
                   );
+              ref.read(navigatorProvider).pop();
               ref.read(navigatorProvider).pop();
             },
             child: sheetTabButtob(

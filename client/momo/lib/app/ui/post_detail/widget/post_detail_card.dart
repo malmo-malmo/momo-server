@@ -44,7 +44,9 @@ class PostDetailCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 6),
                           Text(
-                            postDateFormat(postDetail.createdDate),
+                            postDetail.createdDate.contains('-')
+                                ? postDateFormat(postDetail.createdDate)
+                                : postDetail.createdDate,
                             style: MomoTextStyle.smallR.copyWith(
                               color: MomoColor.unSelIcon,
                             ),

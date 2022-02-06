@@ -1,5 +1,10 @@
 package com.momo.domain.schedule.entity;
 
+import static com.momo.AttendanceFixture.getAttendance;
+import static com.momo.GroupFixture.getGroupWithId;
+import static com.momo.ParticipantFixture.getParticipantWithId;
+import static com.momo.ScheduleFixture.getScheduleWithId;
+import static com.momo.UserFixture.getUserWithId;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.domain.group.entity.Group;
@@ -15,34 +20,20 @@ import org.junit.jupiter.api.Test;
 public class AttendanceTest {
 
     private Group group;
-
     private Schedule schedule;
-
-    private Participant participant1;
-
-    private Participant participant2;
+    private Participant participant;
 
     @BeforeEach
     void setUp() {
-        group = Group.builder().id(1L).build();
-        schedule = Schedule.builder().id(1L).build();
-        User user = User.builder().id(1L).build();
-        participant1 = Participant.builder().id(1L).group(group).user(user).build();
-        participant2 = Participant.builder().id(2L).group(group).user(user).build();
+        User user = getUserWithId();
+        group = getGroupWithId(user);
+        schedule = getScheduleWithId(user, group);
+        participant = getParticipantWithId(group, user);
     }
 
     @Test
     void 출석_리스트_생성_테스트() {
-        List<Attendance> actual = List.of(
-            Attendance.builder()
-                .participant(participant1)
-                .isAttend(true)
-                .build(),
-            Attendance.builder()
-                .participant(participant2)
-                .isAttend(false)
-                .build()
-        );
+        List<Attendance> actual = List.of(getAttendance(schedule, participant, true));
 
         List<Attendance> expected = Attendance.createAttendances(actual, schedule);
 
@@ -51,14 +42,9 @@ public class AttendanceTest {
             () -> assertThat(expected.size()).isEqualTo(actual.size()),
             () -> assertThat(expected.get(0).getParticipant().getGroup().getId()).isEqualTo(group.getId()),
             () -> assertThat(expected.get(0).getSchedule().getId()).isEqualTo(schedule.getId()),
-            () -> assertThat(expected.get(0).getParticipant().getUser().getId()).isEqualTo(
-                actual.get(0).getParticipant().getUser().getId()),
             () -> assertThat(expected.get(0).isAttend()).isTrue(),
-            () -> assertThat(expected.get(1).getParticipant().getGroup().getId()).isEqualTo(group.getId()),
-            () -> assertThat(expected.get(1).getSchedule().getId()).isEqualTo(schedule.getId()),
-            () -> assertThat(expected.get(1).getParticipant().getUser().getId()).isEqualTo(
-                actual.get(1).getParticipant().getUser().getId()),
-            () -> assertThat(expected.get(1).isAttend()).isFalse()
+            () -> assertThat(expected.get(0).getParticipant().getUser().getId())
+                .isEqualTo(actual.get(0).getParticipant().getUser().getId())
         );
     }
 }

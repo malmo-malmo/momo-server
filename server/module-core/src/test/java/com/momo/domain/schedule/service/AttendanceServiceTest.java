@@ -1,5 +1,14 @@
 package com.momo.domain.schedule.service;
 
+import static com.momo.AttendanceFixture.getAttendanceCreateRequest;
+import static com.momo.AttendanceFixture.getAttendanceCreateRequests;
+import static com.momo.AttendanceFixture.getAttendanceUpdateRequest;
+import static com.momo.AttendanceFixture.getAttendanceUpdateRequests;
+import static com.momo.AttendanceFixture.getAttendanceWithId;
+import static com.momo.GroupFixture.getGroupWithId;
+import static com.momo.ParticipantFixture.getParticipantWithId;
+import static com.momo.ScheduleFixture.getScheduleWithId;
+import static com.momo.UserFixture.getUserWithId;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -15,10 +24,8 @@ import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
-import com.momo.domain.schedule.dto.AttendanceCreateRequest;
 import com.momo.domain.schedule.dto.AttendanceCreateRequests;
 import com.momo.domain.schedule.dto.AttendanceResponse;
-import com.momo.domain.schedule.dto.AttendanceUpdateRequest;
 import com.momo.domain.schedule.dto.AttendanceUpdateRequests;
 import com.momo.domain.schedule.entity.Attendance;
 import com.momo.domain.schedule.entity.Schedule;
@@ -26,6 +33,7 @@ import com.momo.domain.schedule.repository.AttendanceRepository;
 import com.momo.domain.schedule.repository.ScheduleRepository;
 import com.momo.domain.schedule.service.impl.AttendanceServiceImpl;
 import com.momo.domain.user.entity.User;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
@@ -52,106 +60,80 @@ public class AttendanceServiceTest extends ServiceTest {
     private AttendanceService attendanceService;
 
     private User manager;
-
     private User user;
-
     private Group group;
-
+    private Participant participant;
     private Schedule schedule;
 
     @BeforeEach
     void setUp() {
-        manager = User.builder().id(1L).build();
-        user = User.builder().id(2L).build();
-        group = Group.builder()
-            .id(1L)
-            .manager(manager)
-            .build();
-        schedule = Schedule.builder()
-            .id(1L)
-            .group(group)
-            .author(manager)
-            .build();
-        attendanceService = new AttendanceServiceImpl(scheduleRepository, attendanceRepository,
-            participantRepository);
+        manager = getUserWithId();
+        user = getUserWithId();
+        group = getGroupWithId(manager);
+        participant = getParticipantWithId(group, user);
+        schedule = getScheduleWithId(manager, group);
+        attendanceService = new AttendanceServiceImpl(scheduleRepository, attendanceRepository, participantRepository);
     }
 
     @Test
     void 일정_출석_체크_테스트() {
-        AttendanceCreateRequests attendanceCreateRequests = AttendanceCreateRequests.builder()
-            .scheduleId(schedule.getId())
-            .attendanceCreateRequests(List.of(
-                AttendanceCreateRequest.builder()
-                    .participantId(1L)
-                    .isAttend(true)
-                    .build(),
-                AttendanceCreateRequest.builder()
-                    .participantId(2L)
-                    .isAttend(true)
-                    .build()
-            ))
-            .build();
+        AttendanceCreateRequests requests = getAttendanceCreateRequests(
+            schedule.getId(),
+            List.of(getAttendanceCreateRequest(participant.getId(), true))
+        );
 
         given(scheduleRepository.findById(anyLong())).willReturn(of(schedule));
-        given(participantRepository.findAllByIdsAndUser(any(), any())).willReturn(List.of(
-            Participant.builder()
-                .group(group)
-                .build(),
-            Participant.builder()
-                .group(group)
-                .build()
-        ));
+        given(participantRepository.findAllByIdsAndUser(any(), any())).willReturn(List.of(participant));
 
-        attendanceService.createScheduleAttendances(manager, attendanceCreateRequests);
+        attendanceService.createScheduleAttendances(manager, requests);
 
         verify(scheduleRepository).findById(any());
-        verify(participantRepository).findAllByIdsAndUser(any(List.class), any(User.class));
-        verify(attendanceRepository).saveAll(any(List.class));
+        verify(participantRepository).findAllByIdsAndUser(any(), any());
+        verify(attendanceRepository).saveAll(any());
         assertThat(schedule.isAttendanceCheck()).isTrue();
     }
 
     @Test
     void 모임_관리자가_아니면_일정_출석_체크_테스트를_실패한다() {
+        AttendanceCreateRequests requests = getAttendanceCreateRequests(
+            schedule.getId(),
+            List.of(getAttendanceCreateRequest(participant.getId(), true))
+        );
+
         given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
-        List<AttendanceCreateRequest> requests = List.of(AttendanceCreateRequest.builder().participantId(1L).build());
-        given(participantRepository.findAllByIdsAndUser(any(List.class), any(User.class))).willReturn(List.of());
-        assertThatThrownBy(() -> attendanceService.createScheduleAttendances(user,
-            AttendanceCreateRequests.builder().scheduleId(1L).attendanceCreateRequests(requests).build()))
+        given(participantRepository.findAllByIdsAndUser(any(), any())).willReturn(Collections.emptyList());
+
+        assertThatThrownBy(() -> attendanceService.createScheduleAttendances(user, requests))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_MANAGER_AUTHORIZED.getMessage());
     }
 
     @Test
     void 모임_관리자가_출석_수정_테스트를_성공한다() {
+        Attendance attendance = getAttendanceWithId(schedule, participant, false);
+        AttendanceUpdateRequests requests = getAttendanceUpdateRequests(
+            schedule.getId(),
+            List.of(getAttendanceUpdateRequest(attendance.getId(), true))
+        );
+
         given(groupRepository.findById(anyLong())).willReturn(Optional.of(group));
         given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
-        Attendance attendance = Attendance.builder().id(1L).schedule(schedule).isAttend(false).build();
-        given(attendanceRepository.findById(any())).willReturn(Optional.of(attendance));
-        AttendanceUpdateRequests requests = AttendanceUpdateRequests.builder()
-            .scheduleId(schedule.getId())
-            .attendanceUpdateRequests(List.of(
-                AttendanceUpdateRequest.builder()
-                    .attendanceId(attendance.getId())
-                    .isAttend(true)
-                    .build()
-            )).build();
+
         attendanceService.updateScheduleAttendances(manager, requests);
+
         verify(attendanceRepository).findAllByIds(any());
     }
 
     @Test
     void 모임_관리자가_아니면_출석_수정_테스트를_실패한다() {
+        Attendance attendance = getAttendanceWithId(schedule, participant, false);
+        AttendanceUpdateRequests requests = getAttendanceUpdateRequests(
+            schedule.getId(),
+            List.of(getAttendanceUpdateRequest(attendance.getId(), true))
+        );
+
         given(groupRepository.findById(anyLong())).willReturn(Optional.of(group));
         given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
-        given(attendanceRepository.findById(any())).willReturn(
-            Optional.of(Attendance.builder().participant(Participant.builder().group(group).build()).build()));
-        AttendanceUpdateRequests requests = AttendanceUpdateRequests.builder()
-            .scheduleId(schedule.getId())
-            .attendanceUpdateRequests(List.of(
-                AttendanceUpdateRequest.builder()
-                    .isAttend(true)
-                    .build()
-            )).build();
 
         assertThatThrownBy(() -> attendanceService.updateScheduleAttendances(user, requests))
             .isInstanceOf(CustomException.class)
@@ -160,22 +142,20 @@ public class AttendanceServiceTest extends ServiceTest {
 
     @Test
     void 모임_관리자가_출석_모임_목록을_조회_테스트를_성공한다() {
-        Attendance attendance = Attendance.builder()
-            .id(1L)
-            .participant(Participant.builder().user(User.builder().nickname("테스트 유저").build()).build())
-            .isAttend(false)
-            .build();
-        given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
-        given(attendanceRepository.findBySchedule(any(Schedule.class))).willReturn(List.of(attendance));
-        List<AttendanceResponse> responses = attendanceService.findScheduleAttendances(manager, schedule.getId());
-        assertThat(responses.size()).isEqualTo(1);
+        Attendance attendance = getAttendanceWithId(schedule, participant, false);
 
-        AttendanceResponse response = responses.get(0);
+        given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
+        given(attendanceRepository.findBySchedule(any())).willReturn(List.of(attendance));
+
+        List<AttendanceResponse> responses = attendanceService.findScheduleAttendances(manager, schedule.getId());
+
         Assertions.assertAll(
-            () -> assertThat(response.getAttendanceId()).isEqualTo(attendance.getId()),
-            () -> assertThat(response.getUsername()).isEqualTo(attendance.getParticipant().getUser().getNickname()),
-            () -> assertThat(response.getIsAttend()).isFalse(),
-            () -> assertThat(response.getAchievementRate()).isEqualTo(100)
+            () -> assertThat(responses.size()).isEqualTo(1),
+            () -> assertThat(responses.get(0).getAttendanceId()).isEqualTo(attendance.getId()),
+            () -> assertThat(responses.get(0).getIsAttend()).isFalse(),
+            () -> assertThat(responses.get(0).getAchievementRate()).isEqualTo(100),
+            () -> assertThat(responses.get(0).getUsername())
+                .isEqualTo(attendance.getParticipant().getUser().getNickname())
         );
     }
 

@@ -1,17 +1,18 @@
 package com.momo.domain.schedule.repository;
 
+import static com.momo.AttendanceFixture.getAttendance;
+import static com.momo.GroupFixture.getGroup;
+import static com.momo.ParticipantFixture.getParticipant;
+import static com.momo.ScheduleFixture.getSchedule;
+import static com.momo.UserFixture.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
-import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
 import com.momo.domain.schedule.entity.Attendance;
 import com.momo.domain.schedule.entity.Schedule;
-import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,55 +27,18 @@ public class AttendanceRepositoryTest extends RepositoryTest {
     private AttendanceRepository attendanceRepository;
 
     private User manager;
-
-    private Participant participant;
-
     private Group group;
-
+    private Participant participant;
     private Schedule schedule;
+    private Attendance attendance;
 
     @BeforeEach
     void setup() {
-        manager = save(User.builder()
-            .provider(SocialProvider.KAKAO)
-            .providerId("test")
-            .refreshToken("refresh Token")
-            .nickname("testMan")
-            .imageUrl("이미지 주소")
-            .city(City.SEOUL)
-            .district("마포구")
-            .university("한국대")
-            .build());
-        group = save(Group.builder()
-            .city(City.SEOUL)
-            .district("마포")
-            .imageUrl("이미지 주소")
-            .introduction("안녕하세요")
-            .university("한국대")
-            .isOffline(false)
-            .isEnd(false)
-            .startDate(LocalDate.now())
-            .name("모임 이름")
-            .manager(manager)
-            .build());
-        schedule = save(Schedule.builder()
-            .author(manager)
-            .title("오늘의 일정 제목")
-            .contents("오늘의 일정")
-            .isOffline(false)
-            .startDateTime(LocalDateTime.now())
-            .build());
-        participant = save(Participant.builder()
-            .group(group)
-            .user(manager)
-            .build());
-        attendanceRepository.save(
-            Attendance.builder()
-                .participant(participant)
-                .schedule(schedule)
-                .isAttend(false)
-                .build()
-        );
+        manager = save(getUser());
+        group = save(getGroup(manager));
+        schedule = save(getSchedule(manager, group));
+        participant = save(getParticipant(group, manager));
+        attendance = save(getAttendance(schedule, participant, false));
     }
 
     @Test
@@ -92,43 +56,25 @@ public class AttendanceRepositoryTest extends RepositoryTest {
 
     @Test
     void 해당_일정의_출석_목록을_가져온다() {
-        List<Attendance> attendances = attendanceRepository.findBySchedule(schedule);
-        assertThat(attendances.size()).isEqualTo(1);
+        List<Attendance> expected = attendanceRepository.findBySchedule(schedule);
 
-        Attendance attendance = attendances.get(0);
         Assertions.assertAll(
-            () -> assertThat(attendance.getId()).isNotNull(),
-            () -> assertThat(attendance.getParticipant().getGroup()).isEqualTo(group),
-            () -> assertThat(attendance.getSchedule()).isEqualTo(schedule),
-            () -> assertThat(attendance.getParticipant().getUser()).isEqualTo(manager),
-            () -> assertThat(attendance.isAttend()).isFalse()
+            () -> assertThat(expected.size()).isEqualTo(1),
+            () -> assertThat(expected.get(0).getId()).isEqualTo(attendance.getId()),
+            () -> assertThat(expected.get(0).getParticipant().getGroup().getId()).isEqualTo(group.getId()),
+            () -> assertThat(expected.get(0).getSchedule().getId()).isEqualTo(schedule.getId()),
+            () -> assertThat(expected.get(0).getParticipant().getUser().getId()).isEqualTo(manager.getId()),
+            () -> assertThat(expected.get(0).isAttend()).isFalse()
         );
     }
 
     @Test
-    void 참석ID로_참석_목록을_조회한다() {
-        Long id1 = attendanceRepository.save(
-            Attendance.builder()
-                .participant(participant)
-                .schedule(schedule)
-                .isAttend(false)
-                .build()
-        ).getId();
-        Long id2 = attendanceRepository.save(
-            Attendance.builder()
-                .participant(participant)
-                .schedule(schedule)
-                .isAttend(false)
-                .build()
-        ).getId();
-        Long id3 = attendanceRepository.save(
-            Attendance.builder()
-                .participant(participant)
-                .schedule(schedule)
-                .isAttend(false)
-                .build()
-        ).getId();
+    void 출석_ID로_출석_목록을_조회한다() {
+        Long id1 = save(getAttendance(schedule, participant, false)).getId();
+        Long id2 = save(getAttendance(schedule, participant, false)).getId();
+        Long id3 = save(getAttendance(schedule, participant, false)).getId();
         List<Long> list = List.of(id3, id2, id1);
+
         List<Attendance> attendances = attendanceRepository.findAllByIds(list);
 
         Assertions.assertAll(

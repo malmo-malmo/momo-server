@@ -1,5 +1,6 @@
 package com.momo.domain.user.service;
 
+import static com.momo.UserFixture.getUserWithId;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -41,10 +42,7 @@ public class UserServiceTest extends ServiceTest {
     @BeforeEach
     void setUp() {
         userService = new UserServiceImpl(userRepository, s3UploadService);
-        user = User.builder()
-            .id(1L)
-            .nickname("닉네임")
-            .build();
+        user = getUserWithId();
     }
 
     @Test
@@ -104,7 +102,9 @@ public class UserServiceTest extends ServiceTest {
 
     @Test
     void 중복된_닉네임인_경우_유저_정보_업데이트_테스트를_실패한다() {
-        UserUpdateRequest userUpdateRequest = UserUpdateRequest.builder().nickname("중복된 닉네임").build();
+        UserUpdateRequest userUpdateRequest = UserUpdateRequest.builder()
+            .nickname("중복된 닉네임")
+            .build();
 
         given(userRepository.findById(any())).willReturn(of(user));
         given(userRepository.existsByNickname(any())).willReturn(true);

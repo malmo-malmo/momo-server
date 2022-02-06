@@ -1,10 +1,9 @@
 package com.momo.domain.user.repository;
 
+import static com.momo.UserFixture.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
-import com.momo.domain.district.entity.City;
-import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,18 +21,7 @@ public class UserRepositoryTest extends RepositoryTest {
 
     @BeforeEach
     void before() {
-        user = userRepository.save(
-            User.builder()
-                .provider(SocialProvider.KAKAO)
-                .providerId("test")
-                .refreshToken("refreshToken")
-                .nickname("닉네임")
-                .imageUrl("이미지 URL")
-                .city(City.SEOUL)
-                .district("마포구")
-                .university("서울대학교")
-                .build()
-        );
+        user = userRepository.save(getUser());
     }
 
     @Test

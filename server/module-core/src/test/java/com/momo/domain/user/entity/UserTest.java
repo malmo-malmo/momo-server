@@ -2,8 +2,6 @@ package com.momo.domain.user.entity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.domain.user.entity.SocialProvider;
-import com.momo.domain.user.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,18 +11,18 @@ public class UserTest {
 
     @Test
     void 소셜_로그인_유저_생성_테스트() {
-        User actual = User.createSocialLoginUser("1", SocialProvider.KAKAO);
+        User actual = User.createSocialLoginUser(LoginInfo.from(SocialProvider.KAKAO, "1"));
         Assertions.assertAll(
-            () -> assertThat(actual.getProviderId()).isEqualTo("1"),
-            () -> assertThat(actual.getProvider()).isEqualTo(SocialProvider.KAKAO)
+            () -> assertThat(actual.getLoginInfo().getProviderId()).isEqualTo("1"),
+            () -> assertThat(actual.getLoginInfo().getProvider()).isEqualTo(SocialProvider.KAKAO)
         );
     }
 
     @Test
     void 리프레쉬_토큰_수정_테스트() {
-        User user = User.builder().build();
+        User user = User.builder().loginInfo(LoginInfo.builder().build()).build();
         user.updateRefreshToken("refreshToken");
-        assertThat(user.getRefreshToken()).isEqualTo("refreshToken");
+        assertThat(user.getLoginInfo().getRefreshToken()).isEqualTo("refreshToken");
     }
 
     @Test

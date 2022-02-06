@@ -10,6 +10,7 @@ import com.momo.domain.group.entity.Group;
 import com.momo.domain.post.dto.PostCardResponse;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.user.entity.Location;
+import com.momo.domain.user.entity.LoginInfo;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDate;
@@ -34,9 +35,7 @@ public class PostRepositoryTest extends RepositoryTest {
     void before() {
         user = save(
             User.builder()
-                .provider(SocialProvider.KAKAO)
-                .providerId("test")
-                .refreshToken("refresh Token")
+                .loginInfo(LoginInfo.from(SocialProvider.KAKAO, "test", "refresh Token"))
                 .nickname("testMan")
                 .imageUrl("이미지 URL")
                 .location(Location.builder()

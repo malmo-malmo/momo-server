@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.momo.common.RepositoryTest;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.user.entity.Location;
+import com.momo.domain.user.entity.LoginInfo;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import org.junit.jupiter.api.Assertions;
@@ -25,9 +26,7 @@ public class UserRepositoryTest extends RepositoryTest {
     void before() {
         user = userRepository.save(
             User.builder()
-                .provider(SocialProvider.KAKAO)
-                .providerId("test")
-                .refreshToken("refreshToken")
+                .loginInfo(LoginInfo.from(SocialProvider.KAKAO, "test", "refresh Token"))
                 .nickname("닉네임")
                 .imageUrl("이미지 URL")
                 .location(Location.builder()
@@ -44,9 +43,9 @@ public class UserRepositoryTest extends RepositoryTest {
         User user = userRepository.findAll().get(0);
         Assertions.assertAll(
             () -> assertThat(user.getId()).isNotNull(),
-            () -> assertThat(user.getProvider()).isEqualTo(this.user.getProvider()),
-            () -> assertThat(user.getProviderId()).isEqualTo(this.user.getProviderId()),
-            () -> assertThat(user.getRefreshToken()).isEqualTo(this.user.getRefreshToken()),
+            () -> assertThat(user.getLoginInfo().getProvider()).isEqualTo(this.user.getLoginInfo().getProvider()),
+            () -> assertThat(user.getLoginInfo().getProviderId()).isEqualTo(this.user.getLoginInfo().getProviderId()),
+            () -> assertThat(user.getLoginInfo().getRefreshToken()).isEqualTo(this.user.getLoginInfo().getRefreshToken()),
             () -> assertThat(user.getNickname()).isEqualTo(this.user.getNickname()),
             () -> assertThat(user.getImageUrl()).isEqualTo(this.user.getImageUrl()),
             () -> assertThat(user.getLocation().getCity()).isEqualTo(this.user.getLocation().getCity()),
@@ -57,13 +56,13 @@ public class UserRepositoryTest extends RepositoryTest {
 
     @Test
     void 리프레쉬_토큰으로_유저를_조회한다() {
-        User actual = userRepository.findByRefreshToken(user.getRefreshToken()).get();
+        User actual = userRepository.findByLoginInfoRefreshToken(user.getLoginInfo().getRefreshToken()).get();
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
             () -> assertThat(actual.getId()).isNotNull(),
-            () -> assertThat(actual.getProvider()).isEqualTo(user.getProvider()),
-            () -> assertThat(actual.getProviderId()).isEqualTo(user.getProviderId()),
-            () -> assertThat(actual.getRefreshToken()).isEqualTo(user.getRefreshToken()),
+            () -> assertThat(actual.getLoginInfo().getProvider()).isEqualTo(user.getLoginInfo().getProvider()),
+            () -> assertThat(actual.getLoginInfo().getProviderId()).isEqualTo(user.getLoginInfo().getProviderId()),
+            () -> assertThat(actual.getLoginInfo().getRefreshToken()).isEqualTo(user.getLoginInfo().getRefreshToken()),
             () -> assertThat(actual.getNickname()).isEqualTo(user.getNickname()),
             () -> assertThat(actual.getImageUrl()).isEqualTo(user.getImageUrl()),
             () -> assertThat(actual.getLocation().getCity()).isEqualTo(user.getLocation().getCity()),
@@ -74,13 +73,13 @@ public class UserRepositoryTest extends RepositoryTest {
 
     @Test
     void 공급자ID_공급자이름으로_유저를_조회한다() {
-        User actual = userRepository.findByProviderIdAndProvider(user.getProviderId(), user.getProvider()).get();
+        User actual = userRepository.findByLoginInfoProviderIdAndLoginInfoProvider(user.getLoginInfo().getProviderId(), user.getLoginInfo().getProvider()).get();
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
             () -> assertThat(actual.getId()).isNotNull(),
-            () -> assertThat(actual.getProvider()).isEqualTo(user.getProvider()),
-            () -> assertThat(actual.getProviderId()).isEqualTo(user.getProviderId()),
-            () -> assertThat(actual.getRefreshToken()).isEqualTo(user.getRefreshToken()),
+            () -> assertThat(actual.getLoginInfo().getProvider()).isEqualTo(user.getLoginInfo().getProvider()),
+            () -> assertThat(actual.getLoginInfo().getProviderId()).isEqualTo(user.getLoginInfo().getProviderId()),
+            () -> assertThat(actual.getLoginInfo().getRefreshToken()).isEqualTo(user.getLoginInfo().getRefreshToken()),
             () -> assertThat(actual.getNickname()).isEqualTo(user.getNickname()),
             () -> assertThat(actual.getImageUrl()).isEqualTo(user.getImageUrl()),
             () -> assertThat(actual.getLocation().getCity()).isEqualTo(user.getLocation().getCity()),

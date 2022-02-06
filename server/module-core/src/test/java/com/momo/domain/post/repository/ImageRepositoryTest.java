@@ -9,6 +9,7 @@ import com.momo.domain.post.entity.Image;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.entity.PostType;
 import com.momo.domain.user.entity.Location;
+import com.momo.domain.user.entity.LoginInfo;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDate;
@@ -34,9 +35,7 @@ public class ImageRepositoryTest extends RepositoryTest {
     public void before() {
         user = save(
             User.builder()
-                .provider(SocialProvider.KAKAO)
-                .providerId("test")
-                .refreshToken("refresh Token")
+                .loginInfo(LoginInfo.from(SocialProvider.KAKAO, "test", "refresh Token"))
                 .nickname("testMan")
                 .imageUrl("http://~~")
                 .location(Location.builder()

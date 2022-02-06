@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findByRefreshToken(String refreshToken);
+    Optional<User> findByLoginInfoRefreshToken(String refreshToken);
 
-    Optional<User> findByProviderIdAndProvider(String providerId, SocialProvider provider);
+    Optional<User> findByLoginInfoProviderIdAndLoginInfoProvider(String providerId, SocialProvider provider);
 
     boolean existsByNickname(String nickname);
 }

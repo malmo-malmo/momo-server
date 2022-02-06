@@ -5,11 +5,8 @@ import com.momo.domain.favorite.entity.FavoriteCategories;
 import com.momo.domain.group.entity.Category;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,17 +24,12 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private SocialProvider provider;
-
-    @Column(nullable = false)
-    private String providerId;
-
-    private String refreshToken;
-
     private String nickname;
 
     private String imageUrl;
+
+    @Embedded
+    private LoginInfo loginInfo;
 
     @Embedded
     private Location location;
@@ -46,26 +38,25 @@ public class User extends BaseEntity {
     private final FavoriteCategories favoriteCategories = FavoriteCategories.empty();
 
     @Builder
-    public User(Long id, SocialProvider provider, String providerId, String refreshToken, String nickname,
-        String imageUrl, Location location) {
+    public User(Long id, LoginInfo loginInfo, String nickname, String imageUrl, Location location) {
         this.id = id;
-        this.provider = provider;
-        this.providerId = providerId;
-        this.refreshToken = refreshToken;
+        this.loginInfo = loginInfo;
         this.nickname = nickname;
         this.imageUrl = imageUrl;
         this.location = location;
     }
 
-    public static User createSocialLoginUser(String providerId, SocialProvider socialProvider) {
+    public static User createSocialLoginUser(LoginInfo loginInfo) {
         return User.builder()
-            .providerId(providerId)
-            .provider(socialProvider)
+            .loginInfo(loginInfo)
             .build();
     }
 
     public void updateRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
+        if(Objects.isNull(this.loginInfo)) {
+            return;
+        }
+        this.loginInfo.updateRefreshToken(refreshToken);
     }
 
     public boolean isSameNickname(String nickname) {

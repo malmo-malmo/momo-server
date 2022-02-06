@@ -119,4 +119,9 @@ class UserRepository {
     final response = await managementClient.getParticipationGroupSummary();
     return response;
   }
+
+  Future<List<MyGroup>> getMyGroupSummary() async {
+    final response = await managementClient.getMyGroupSummary();
+    return response;
+  }
 }

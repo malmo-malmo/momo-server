@@ -12,6 +12,7 @@ class CustomDropDownList extends StatelessWidget {
     required this.offset,
     required this.curValue,
     required this.defaultValue,
+    this.backgroundColor,
     this.width,
   }) : super(key: key);
 
@@ -21,6 +22,7 @@ class CustomDropDownList extends StatelessWidget {
   final double? width;
   final Offset offset;
   final String defaultValue;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +50,12 @@ class CustomDropDownList extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 height: 184,
                 width: width ?? 156,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(16),
                     bottomRight: Radius.circular(16),
                   ),
-                  color: Colors.white,
+                  color: backgroundColor ?? Colors.white,
                 ),
                 child: Scrollbar(
                   isAlwaysShown: true,
@@ -68,7 +70,7 @@ class CustomDropDownList extends StatelessWidget {
                         child: Container(
                           color: values[index] == curValue
                               ? MomoColor.main
-                              : MomoColor.flutterWhite,
+                              : backgroundColor ?? Colors.white,
                           height: 42,
                           child: Center(
                             child: Text(
@@ -105,7 +107,7 @@ class CustomDropDownList extends StatelessWidget {
                     width: width == null ? 154 : width! - 2,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: MomoColor.flutterWhite,
+                      color: backgroundColor ?? Colors.white,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

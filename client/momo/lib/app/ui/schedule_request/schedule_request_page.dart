@@ -8,6 +8,7 @@ import 'package:momo/app/ui/components/button/on_off_toggle_button.dart';
 import 'package:momo/app/ui/components/input_box/content_input_box.dart';
 import 'package:momo/app/ui/components/input_box/date_input_box.dart';
 import 'package:momo/app/ui/components/text/sub_title.dart';
+import 'package:momo/app/ui/schedule_request/widget/meet_name_drop_down.dart';
 import 'package:momo/app/ui/schedule_request/widget/time_input_card.dart';
 import 'package:momo/app/util/navigation_service.dart';
 
@@ -48,6 +49,9 @@ class ScheduleRequestPage extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    groupId == null
+                        ? const GroupNameDropDown()
+                        : const SizedBox(),
                     const SubTitle(title: '일정명'),
                     TextInputBox(
                       onTextChanged: scheduleRequestState.setTitle,

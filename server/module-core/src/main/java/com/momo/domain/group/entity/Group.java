@@ -88,13 +88,19 @@ public class Group extends BaseEntity {
     }
 
     public static Group create(User user, Group group, boolean isUniversity) {
+        Location location;
+        if(isUniversity) {
+            location = user.getLocation();
+        } else {
+            location = Location.fromEmptyUniversity(user.getLocation());
+        }
         return Group.builder()
             .manager(user)
             .name(group.getName())
             .imageUrl(group.getImageUrl())
             .category(group.getCategory())
             .startDate(group.getStartDate())
-            .location(isUniversity ? user.getLocation() : Location.fromEmptyUniversity(user.getLocation()))
+            .location(location)
             .introduction(group.getIntroduction())
             .recruitmentCnt(group.getRecruitmentCnt())
             .isOffline(group.isOffline())

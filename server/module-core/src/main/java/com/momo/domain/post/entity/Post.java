@@ -4,6 +4,7 @@ import com.momo.domain.common.entity.BaseEntity;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.user.entity.User;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -76,5 +77,12 @@ public class Post extends BaseEntity {
     public void updateTitleAndContents(String title, String contents) {
         this.title = title;
         this.contents = contents;
+    }
+
+    public boolean isAuthor(User loginUser) {
+        if (Objects.isNull(loginUser)) {
+            return false;
+        }
+        return this.author.isSameUser(loginUser);
     }
 }

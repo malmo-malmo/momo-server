@@ -2,7 +2,6 @@ package com.momo.domain.post.entity;
 
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-
 import java.util.Arrays;
 
 public enum PostType {
@@ -28,9 +27,5 @@ public enum PostType {
             .filter(v -> v.getCode().equals(type))
             .findFirst()
             .orElseThrow(() -> new CustomException(ErrorCode.GROUP_CATEGORY_NOT_FOUND));
-    }
-
-    public boolean isSameName(String typeName) {
-        return this.name().equals(typeName);
     }
 }

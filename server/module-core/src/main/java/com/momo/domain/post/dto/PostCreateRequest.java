@@ -7,11 +7,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @ToString
+@NoArgsConstructor
 public class PostCreateRequest {
 
     @NotNull(message = "모임 ID는 필수값입니다.")
@@ -23,18 +25,18 @@ public class PostCreateRequest {
     @NotBlank(message = "게시물 내용은 필수 입력값입니다.")
     private String contents;
 
-    @NotBlank(message = "게시물 타입은 필수 입력값입니다.")
-    private String typeName;
+    @NotNull(message = "게시물 타입은 필수 입력값입니다.")
+    private PostType postType;
 
     private List<MultipartFile> images;
 
     @Builder
-    public PostCreateRequest(Long groupId, String title, String contents, String typeName,
+    public PostCreateRequest(Long groupId, String title, String contents, PostType postType,
         List<MultipartFile> images) {
         this.groupId = groupId;
         this.title = title;
         this.contents = contents;
-        this.typeName = typeName;
+        this.postType = postType;
         this.images = images;
     }
 
@@ -42,7 +44,7 @@ public class PostCreateRequest {
         return Post.builder()
             .title(title)
             .contents(contents)
-            .type(PostType.of(typeName))
+            .type(postType)
             .build();
     }
 }

@@ -11,7 +11,7 @@ import com.momo.domain.group.dto.GroupSearchConditionRequest;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.user.entity.Location;
-import com.momo.domain.user.entity.LoginInfo;
+import com.momo.domain.user.entity.Social;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import java.math.BigDecimal;
@@ -39,7 +39,7 @@ public class GroupRepositoryTest extends RepositoryTest {
     void before() {
         user = save(
             User.builder()
-                .loginInfo(LoginInfo.from(SocialProvider.KAKAO, "test", "refresh Token"))
+                .loginInfo(Social.from(SocialProvider.KAKAO, "test", "refresh Token"))
                 .nickname("testMan")
                 .imageUrl("이미지 URL")
                 .location(Location.builder()

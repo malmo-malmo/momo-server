@@ -9,7 +9,7 @@ import com.momo.domain.group.entity.Participant;
 import com.momo.domain.schedule.entity.Attendance;
 import com.momo.domain.schedule.entity.Schedule;
 import com.momo.domain.user.entity.Location;
-import com.momo.domain.user.entity.LoginInfo;
+import com.momo.domain.user.entity.Social;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDate;
@@ -38,7 +38,7 @@ public class AttendanceRepositoryTest extends RepositoryTest {
     @BeforeEach
     void setup() {
         manager = save(User.builder()
-            .loginInfo(LoginInfo.from(SocialProvider.KAKAO, "test", "refresh Token"))
+            .loginInfo(Social.from(SocialProvider.KAKAO, "test", "refresh Token"))
             .nickname("testMan")
             .imageUrl("이미지 주소")
             .location(Location.builder()

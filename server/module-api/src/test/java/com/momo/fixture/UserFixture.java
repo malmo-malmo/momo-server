@@ -7,7 +7,7 @@ import static com.momo.domain.group.entity.Category.STOCK;
 
 import com.momo.domain.district.entity.City;
 import com.momo.domain.user.entity.Location;
-import com.momo.domain.user.entity.LoginInfo;
+import com.momo.domain.user.entity.Social;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import java.util.List;
@@ -22,7 +22,7 @@ public class UserFixture {
                 .city(City.SEOUL)
                 .district("강동구")
                 .build())
-            .loginInfo(LoginInfo.from(SocialProvider.KAKAO, "1"))
+            .loginInfo(Social.from(SocialProvider.KAKAO, "1"))
             .build();
         user.updateFavoriteCategories(List.of(HEALTH, SELF_DEVELOPMENT));
         return user;
@@ -36,7 +36,7 @@ public class UserFixture {
                 .city(City.SEOUL)
                 .district("강동구")
                 .build())
-            .loginInfo(LoginInfo.from(SocialProvider.KAKAO, "2"))
+            .loginInfo(Social.from(SocialProvider.KAKAO, "2"))
             .build();
         user.updateFavoriteCategories(List.of(HOBBY));
         return user;
@@ -50,7 +50,7 @@ public class UserFixture {
                 .city(City.SEOUL)
                 .district("강남구")
                 .build())
-            .loginInfo(LoginInfo.builder()
+            .loginInfo(Social.builder()
                 .providerId("3")
                 .provider(SocialProvider.KAKAO)
                 .build())

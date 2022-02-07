@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
-public class LoginInfo {
+public class Social {
 
     @Enumerated(EnumType.STRING)
     private SocialProvider provider;
@@ -23,20 +23,20 @@ public class LoginInfo {
     private String refreshToken;
 
     @Builder
-    public LoginInfo(SocialProvider provider, String providerId, String refreshToken) {
+    public Social(SocialProvider provider, String providerId, String refreshToken) {
         this.provider = provider;
         this.providerId = providerId;
         this.refreshToken = refreshToken;
     }
 
-    public static LoginInfo from(SocialProvider provider, String providerId) {
-        return LoginInfo.builder()
+    public static Social from(SocialProvider provider, String providerId) {
+        return Social.builder()
             .provider(provider)
             .providerId(providerId)
             .build();
     }
-    public static LoginInfo from(SocialProvider provider, String providerId, String refreshToken) {
-        return LoginInfo.builder()
+    public static Social from(SocialProvider provider, String providerId, String refreshToken) {
+        return Social.builder()
             .provider(provider)
             .providerId(providerId)
             .refreshToken(refreshToken)

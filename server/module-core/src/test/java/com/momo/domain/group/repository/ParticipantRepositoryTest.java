@@ -6,7 +6,7 @@ import com.momo.common.RepositoryTest;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
 import com.momo.domain.management.dto.ParticipationGroupCardResponse;
-import com.momo.domain.user.entity.LoginInfo;
+import com.momo.domain.user.entity.Social;
 import com.momo.domain.user.entity.User;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
@@ -33,7 +33,7 @@ public class ParticipantRepositoryTest extends RepositoryTest {
     void before() {
         user1 = save(
             User.builder()
-                .loginInfo(LoginInfo.builder().providerId("test").build())
+                .loginInfo(Social.builder().providerId("test").build())
                 .nickname("유저1")
                 .build()
         );
@@ -51,7 +51,7 @@ public class ParticipantRepositoryTest extends RepositoryTest {
         );
         user2 = save(
             User.builder()
-                .loginInfo(LoginInfo.builder().providerId("test").build())
+                .loginInfo(Social.builder().providerId("test").build())
                 .nickname("유저2")
                 .build()
         );
@@ -115,7 +115,7 @@ public class ParticipantRepositoryTest extends RepositoryTest {
         save(
             Participant.builder()
                 .group(group1)
-                .user(save(User.builder().loginInfo(LoginInfo.builder().providerId("test").build()).build()))
+                .user(save(User.builder().loginInfo(Social.builder().providerId("test").build()).build()))
                 .build()
         );
 

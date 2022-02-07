@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.momo.common.RepositoryTest;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.user.entity.Location;
-import com.momo.domain.user.entity.LoginInfo;
+import com.momo.domain.user.entity.Social;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import org.junit.jupiter.api.Assertions;
@@ -26,7 +26,7 @@ public class UserRepositoryTest extends RepositoryTest {
     void before() {
         user = userRepository.save(
             User.builder()
-                .loginInfo(LoginInfo.from(SocialProvider.KAKAO, "test", "refresh Token"))
+                .loginInfo(Social.from(SocialProvider.KAKAO, "test", "refresh Token"))
                 .nickname("닉네임")
                 .imageUrl("이미지 URL")
                 .location(Location.builder()

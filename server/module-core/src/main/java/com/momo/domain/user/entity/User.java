@@ -29,7 +29,7 @@ public class User extends BaseEntity {
     private String imageUrl;
 
     @Embedded
-    private LoginInfo loginInfo;
+    private Social loginInfo;
 
     @Embedded
     private Location location;
@@ -38,7 +38,7 @@ public class User extends BaseEntity {
     private final FavoriteCategories favoriteCategories = FavoriteCategories.empty();
 
     @Builder
-    public User(Long id, LoginInfo loginInfo, String nickname, String imageUrl, Location location) {
+    public User(Long id, Social loginInfo, String nickname, String imageUrl, Location location) {
         this.id = id;
         this.loginInfo = loginInfo;
         this.nickname = nickname;
@@ -46,7 +46,7 @@ public class User extends BaseEntity {
         this.location = location;
     }
 
-    public static User createSocialLoginUser(LoginInfo loginInfo) {
+    public static User createSocialLoginUser(Social loginInfo) {
         return User.builder()
             .loginInfo(loginInfo)
             .build();

@@ -1,6 +1,6 @@
 package com.momo.domain.auth.provider;
 
-import com.momo.domain.user.entity.LoginInfo;
+import com.momo.domain.user.entity.Social;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import lombok.Getter;
@@ -48,6 +48,6 @@ public class KakaoOAuthProvider extends OAuthProvider {
     protected User parseSocialLoginUser(ResponseEntity<String> response) {
         JSONObject jsonObject = new JSONObject(response.getBody());
         String providerId = String.valueOf(jsonObject.get("id"));
-        return User.createSocialLoginUser(LoginInfo.from(SocialProvider.KAKAO, providerId));
+        return User.createSocialLoginUser(Social.from(SocialProvider.KAKAO, providerId));
     }
 }

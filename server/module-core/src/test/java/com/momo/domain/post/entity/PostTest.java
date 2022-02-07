@@ -1,5 +1,10 @@
 package com.momo.domain.post.entity;
 
+import static com.momo.GroupFixture.getGroupWithId;
+import static com.momo.PostFixture.getPost;
+import static com.momo.UserFixture.getUserWithId;
+import static com.momo.domain.post.entity.PostType.NORMAL;
+import static com.momo.domain.post.entity.PostType.NOTICE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.domain.group.entity.Group;
@@ -13,18 +18,17 @@ import org.junit.jupiter.api.Test;
 public class PostTest {
 
     private User user;
-
     private Group group;
 
     @BeforeEach
     void setUp() {
-        user = User.builder().id(1L).build();
-        group = Group.builder().id(1L).build();
+        user = getUserWithId();
+        group = getGroupWithId(user);
     }
 
     @Test
     void 게시물_생성_테스트() {
-        Post post = Post.builder().type(PostType.NORMAL).build();
+        Post post = getPost(user, group, NORMAL);
         Post expected = Post.create(user, group, post);
         Assertions.assertAll(
             () -> assertThat(expected).isNotNull(),
@@ -36,7 +40,7 @@ public class PostTest {
 
     @Test
     void 공지사항_생성_테스트() {
-        Post post = Post.builder().type(PostType.NOTICE).build();
+        Post post = getPost(user, group, NOTICE);
         Post expected = Post.create(user, group, post);
         Assertions.assertAll(
             () -> assertThat(expected).isNotNull(),

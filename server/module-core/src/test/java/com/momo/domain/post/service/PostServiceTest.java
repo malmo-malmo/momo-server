@@ -1,10 +1,16 @@
 package com.momo.domain.post.service;
 
+import static com.momo.GroupFixture.getGroupWithId;
+import static com.momo.PostFixture.getPostCreateRequest;
+import static com.momo.PostFixture.getPostUpdateRequest;
+import static com.momo.PostFixture.getPostWithId;
+import static com.momo.UserFixture.getUserWithId;
+import static com.momo.domain.post.entity.PostType.NORMAL;
+import static com.momo.domain.post.entity.PostType.NOTICE;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -20,11 +26,9 @@ import com.momo.domain.post.dto.PostCreateRequest;
 import com.momo.domain.post.dto.PostResponse;
 import com.momo.domain.post.dto.PostUpdateRequest;
 import com.momo.domain.post.entity.Post;
-import com.momo.domain.post.entity.PostType;
 import com.momo.domain.post.repository.PostRepository;
 import com.momo.domain.post.service.impl.PostServiceImpl;
 import com.momo.domain.user.entity.User;
-import java.io.IOException;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,171 +54,112 @@ public class PostServiceTest extends ServiceTest {
     private PostService postService;
 
     private User manager;
-
     private User participant;
-
     private User user;
-
     private Group group;
 
     @BeforeEach
     void setUp() {
         postService = new PostServiceImpl(postRepository, groupRepository, participantRepository, s3UploadService);
-        manager = User.builder().id(1L).build();
-        participant = User.builder().id(2L).build();
-        user = User.builder().id(3L).build();
-        group = Group.builder()
-            .id(1L)
-            .manager(manager)
-            .build();
+        manager = getUserWithId();
+        participant = getUserWithId();
+        user = getUserWithId();
+        group = getGroupWithId(manager);
     }
 
     @Test
-    void 모임_관리자는_일반_게시물_등록_테스트를_성공한다() throws IOException {
-        PostCreateRequest postCreateRequest = PostCreateRequest.builder()
-            .typeName(PostType.NORMAL.getCode())
-            .build();
-        Long savedPostId = 1L;
-        Post post = Post.builder().id(savedPostId).build();
+    void 모임_관리자는_일반_게시물_등록_테스트를_성공한다() {
+        PostCreateRequest request = getPostCreateRequest(group.getId(), NORMAL);
+        Post post = getPostWithId(manager, group, NORMAL);
 
         given(groupRepository.findById(any())).willReturn(of(group));
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(true);
         given(postRepository.save(any())).willReturn(post);
-        given(postRepository.findById(anyLong())).willReturn(
-            Optional.of(Post.builder().id(savedPostId).author(User.builder().build()).build()));
 
-        PostResponse response = postService.create(manager, postCreateRequest);
+        PostResponse response = postService.create(manager, request);
 
         verify(groupRepository).findById(any());
         verify(participantRepository).existsByGroupAndUser(any(), any());
         verify(postRepository).save(any());
-        Assertions.assertAll(
-            () -> assertThat(response).isNotNull(),
-            () -> assertThat(response.getId()).isEqualTo(1L)
-        );
+        verifyPostResponse(response, post);
     }
 
     @Test
-    void 모임_참여자는_일반_게시물_등록_테스트를_성공한다() throws IOException {
-        PostCreateRequest postCreateRequest = PostCreateRequest.builder()
-            .typeName(PostType.NORMAL.getCode())
-            .build();
-        Post post = Post.builder().id(1L).build();
+    void 모임_참여자는_일반_게시물_등록_테스트를_성공한다() {
+        PostCreateRequest request = getPostCreateRequest(group.getId(), NORMAL);
+        Post post = getPostWithId(manager, group, NORMAL);
 
         given(groupRepository.findById(any())).willReturn(of(group));
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(true);
         given(postRepository.save(any())).willReturn(post);
-        given(postRepository.findById(anyLong())).willReturn(
-            Optional.of(Post.builder().id(post.getId()).author(User.builder().build()).build()));
 
-        PostResponse response = postService.create(participant, postCreateRequest);
+        PostResponse response = postService.create(participant, request);
 
         verify(groupRepository).findById(any());
         verify(participantRepository).existsByGroupAndUser(any(), any());
         verify(postRepository).save(any());
-        Assertions.assertAll(
-            () -> assertThat(response).isNotNull(),
-            () -> assertThat(response.getId()).isEqualTo(1L)
-        );
+        verifyPostResponse(response, post);
     }
 
     @Test
     void 모임_참여자가_아니면_일반_게시물_등록_테스트를_실패한다() {
-        PostCreateRequest postCreateRequest = PostCreateRequest.builder()
-            .typeName(PostType.NORMAL.getCode())
-            .build();
+        PostCreateRequest request = getPostCreateRequest(group.getId(), NORMAL);
 
         given(groupRepository.findById(any())).willReturn(of(group));
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(false);
 
-        assertThatThrownBy(() -> postService.create(participant, postCreateRequest))
+        assertThatThrownBy(() -> postService.create(participant, request))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED.getMessage());
     }
 
     @Test
-    void 모임_관리자는_공지사항_등록_테스트를_성공한다() throws IOException {
-        PostCreateRequest postCreateRequest = PostCreateRequest.builder()
-            .typeName(PostType.NOTICE.getCode())
-            .build();
-        Post post = Post.builder().id(1L).build();
+    void 모임_관리자는_공지사항_등록_테스트를_성공한다() {
+        PostCreateRequest request = getPostCreateRequest(group.getId(), NOTICE);
+        Post post = getPostWithId(manager, group, NOTICE);
 
         given(groupRepository.findById(any())).willReturn(of(group));
         given(postRepository.save(any())).willReturn(post);
-        given(postRepository.findById(anyLong())).willReturn(
-            Optional.of(Post.builder().id(post.getId()).author(User.builder().build()).build()));
 
-        PostResponse response = postService.create(manager, postCreateRequest);
+        PostResponse response = postService.create(manager, request);
 
         verify(groupRepository).findById(any());
         verify(participantRepository, never()).existsByGroupAndUser(any(), any());
         verify(postRepository).save(any());
-        Assertions.assertAll(
-            () -> assertThat(response).isNotNull(),
-            () -> assertThat(response.getId()).isEqualTo(1L)
-        );
+        verifyPostResponse(response, post);
     }
 
     @Test
     void 모임_참여자는_공지사항_등록_테스트를_실패한다() {
-        PostCreateRequest postCreateRequest = PostCreateRequest.builder()
-            .typeName(PostType.NOTICE.getCode())
-            .build();
-
+        PostCreateRequest request = getPostCreateRequest(group.getId(), NOTICE);
         given(groupRepository.findById(any())).willReturn(of(group));
-
-        assertThatThrownBy(() -> postService.create(participant, postCreateRequest))
-            .isInstanceOf(CustomException.class)
-            .hasMessage(ErrorCode.GROUP_MANAGER_AUTHORIZED.getMessage());
+        verifyGroupManagerAuthorized(request);
     }
 
     @Test
     void 모임에_관련없는_유저는_공지사항_등록_테스트를_실패한다() {
-        PostCreateRequest postCreateRequest = PostCreateRequest.builder()
-            .typeName(PostType.NOTICE.getCode())
-            .build();
-
+        PostCreateRequest request = getPostCreateRequest(group.getId(), NOTICE);
         given(groupRepository.findById(any())).willReturn(of(group));
-
-        assertThatThrownBy(() -> postService.create(user, postCreateRequest))
-            .isInstanceOf(CustomException.class)
-            .hasMessage(ErrorCode.GROUP_MANAGER_AUTHORIZED.getMessage());
+        verifyGroupManagerAuthorized(request);
     }
 
     @Test
     void 게시물_상세조회_테스트를_성공한다() {
-        Post post = Post.builder()
-            .id(1L)
-            .author(manager)
-            .group(group)
-            .build();
+        Post post = getPostWithId(manager, group, NOTICE);
 
         given(postRepository.findPostAndAuthorById(any())).willReturn(post);
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(true);
 
-        PostResponse actual = postService.findById(manager, 1L);
+        PostResponse response = postService.findById(manager, 1L);
 
         verify(postRepository).findPostAndAuthorById(any());
         verify(participantRepository).existsByGroupAndUser(any(), any());
-        Assertions.assertAll(
-            () -> assertThat(actual).isNotNull(),
-            () -> assertThat(actual.getId()).isNotNull(),
-            () -> assertThat(actual.getAuthorId()).isEqualTo(manager.getId()),
-            () -> assertThat(actual.getAuthorImage()).isEqualTo(manager.getImageUrl()),
-            () -> assertThat(actual.getAuthorNickname()).isEqualTo(manager.getNickname()),
-            () -> assertThat(actual.getTitle()).isEqualTo(post.getTitle()),
-            () -> assertThat(actual.getContents()).isEqualTo(post.getContents()),
-            () -> assertThat(actual.getImageUrls().size()).isEqualTo(0)
-        );
+        verifyPostResponse(response, post);
     }
 
     @Test
     void 모임_참여자가_아니면_게시물_상세조회_테스트를_실패한다() {
-        Post post = Post.builder()
-            .id(1L)
-            .author(manager)
-            .group(group)
-            .build();
+        Post post = getPostWithId(manager, group, NOTICE);
 
         given(postRepository.findPostAndAuthorById(any())).willReturn(post);
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(false);
@@ -225,40 +170,24 @@ public class PostServiceTest extends ServiceTest {
     }
 
     @Test
-    void 게시물_수정_테스트를_성공한다() throws IOException {
-        PostUpdateRequest request = PostUpdateRequest.builder()
-            .postId(1L)
-            .title("수정될 게시글 제목입니다.")
-            .content("수정될 게시글 내용입니다.")
-            .build();
-        Post post = Post.builder()
-            .id(request.getPostId())
-            .group(Group.builder().id(1L).build())
-            .author(User.builder()
-                .id(user.getId())
-                .build())
-            .build();
+    void 게시물_수정_테스트를_성공한다() {
+        Post post = getPostWithId(manager, group, NOTICE);
+        PostUpdateRequest request = getPostUpdateRequest(post.getId());
+
         given(postRepository.findById(request.getPostId())).willReturn(Optional.of(post));
-        postService.updatePost(request, user);
+        postService.updatePost(request, manager);
 
         Assertions.assertAll(
             () -> assertThat(post.getTitle()).isEqualTo(request.getTitle()),
-            () -> assertThat(post.getContents()).isEqualTo(request.getContent())
+            () -> assertThat(post.getContents()).isEqualTo(request.getContents())
         );
     }
 
     @Test
     void 게시물_작성자가_아니면_게시물_수정_테스트에_실패한다() {
-        PostUpdateRequest request = PostUpdateRequest.builder()
-            .postId(1L)
-            .title("수정될 게시글 제목입니다.")
-            .content("수정될 게시글 내용입니다.")
-            .build();
-        Post post = Post.builder()
-            .author(User.builder()
-                .id(2L)
-                .build())
-            .build();
+        Post post = getPostWithId(manager, group, NOTICE);
+        PostUpdateRequest request = getPostUpdateRequest(post.getId());
+
         given(postRepository.findById(request.getPostId())).willReturn(Optional.of(post));
 
         assertThatThrownBy(() -> postService.updatePost(request, user))
@@ -268,31 +197,39 @@ public class PostServiceTest extends ServiceTest {
 
     @Test
     void 게시물_삭제_테스트에_성공한다() {
-        Post post = Post.builder()
-            .author(User.builder()
-                .id(3L)
-                .build())
-            .build();
-
-        Long deletePostId = 1L;
-        given(postRepository.findById(deletePostId)).willReturn(Optional.of(post));
-        postService.deletePost(deletePostId, user);
+        Post post = getPostWithId(manager, group, NOTICE);
+        given(postRepository.findById(post.getId())).willReturn(Optional.of(post));
+        postService.deletePost(post.getId(), manager);
         verify(postRepository).delete(post);
     }
 
     @Test
     void 게시물_작성자가_아니면_삭제_테스트에_실패한다() {
-        Post post = Post.builder()
-            .author(User.builder()
-                .id(2L)
-                .build())
-            .build();
+        Post post = getPostWithId(manager, group, NOTICE);
 
-        Long deletePostId = 1L;
-        given(postRepository.findById(deletePostId)).willReturn(Optional.of(post));
+        given(postRepository.findById(post.getId())).willReturn(Optional.of(post));
 
-        assertThatThrownBy(() -> postService.deletePost(deletePostId, user))
+        assertThatThrownBy(() -> postService.deletePost(post.getId(), user))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.POST_CONTROL_UNAUTHORIZED.getMessage());
+    }
+
+    private void verifyPostResponse(PostResponse response, Post post) {
+        Assertions.assertAll(
+            () -> assertThat(response).isNotNull(),
+            () -> assertThat(response.getId()).isEqualTo(post.getId()),
+            () -> assertThat(response.getAuthorId()).isEqualTo(manager.getId()),
+            () -> assertThat(response.getAuthorImage()).isEqualTo(manager.getImageUrl()),
+            () -> assertThat(response.getAuthorNickname()).isEqualTo(manager.getNickname()),
+            () -> assertThat(response.getTitle()).isEqualTo(post.getTitle()),
+            () -> assertThat(response.getContents()).isEqualTo(post.getContents()),
+            () -> assertThat(response.getImageUrls().size()).isEqualTo(0)
+        );
+    }
+
+    private void verifyGroupManagerAuthorized(PostCreateRequest request) {
+        assertThatThrownBy(() -> postService.create(user, request))
+            .isInstanceOf(CustomException.class)
+            .hasMessage(ErrorCode.GROUP_MANAGER_AUTHORIZED.getMessage());
     }
 }

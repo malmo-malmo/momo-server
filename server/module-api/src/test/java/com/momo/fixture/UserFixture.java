@@ -22,7 +22,7 @@ public class UserFixture {
                 .city(City.SEOUL)
                 .district("강동구")
                 .build())
-            .loginInfo(Social.from(SocialProvider.KAKAO, "1"))
+            .loginInfo(Social.createEmptyRefreshToken(SocialProvider.KAKAO, "1"))
             .build();
         user.updateFavoriteCategories(List.of(HEALTH, SELF_DEVELOPMENT));
         return user;
@@ -36,7 +36,7 @@ public class UserFixture {
                 .city(City.SEOUL)
                 .district("강동구")
                 .build())
-            .loginInfo(Social.from(SocialProvider.KAKAO, "2"))
+            .loginInfo(Social.createEmptyRefreshToken(SocialProvider.KAKAO, "2"))
             .build();
         user.updateFavoriteCategories(List.of(HOBBY));
         return user;

@@ -30,13 +30,13 @@ public class Social {
         this.refreshToken = refreshToken;
     }
 
-    public static Social from(SocialProvider provider, String providerId) {
+    public static Social createEmptyRefreshToken(SocialProvider provider, String providerId) {
         return Social.builder()
             .provider(provider)
             .providerId(providerId)
             .build();
     }
-    public static Social from(SocialProvider provider, String providerId, String refreshToken) {
+    public static Social create(SocialProvider provider, String providerId, String refreshToken) {
         return Social.builder()
             .provider(provider)
             .providerId(providerId)

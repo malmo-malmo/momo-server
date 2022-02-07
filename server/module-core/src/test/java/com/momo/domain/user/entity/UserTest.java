@@ -11,7 +11,7 @@ public class UserTest {
 
     @Test
     void 소셜_로그인_유저_생성_테스트() {
-        User actual = User.createSocialLoginUser(Social.from(SocialProvider.KAKAO, "1"));
+        User actual = User.createSocialLoginUser(Social.createEmptyRefreshToken(SocialProvider.KAKAO, "1"));
         Assertions.assertAll(
             () -> assertThat(actual.getLoginInfo().getProviderId()).isEqualTo("1"),
             () -> assertThat(actual.getLoginInfo().getProvider()).isEqualTo(SocialProvider.KAKAO)

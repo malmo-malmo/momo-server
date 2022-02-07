@@ -38,7 +38,7 @@ public class AttendanceRepositoryTest extends RepositoryTest {
     @BeforeEach
     void setup() {
         manager = save(User.builder()
-            .loginInfo(Social.from(SocialProvider.KAKAO, "test", "refresh Token"))
+            .loginInfo(Social.create(SocialProvider.KAKAO, "test", "refresh Token"))
             .nickname("testMan")
             .imageUrl("이미지 주소")
             .location(Location.builder()

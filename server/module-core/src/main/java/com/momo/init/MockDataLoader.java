@@ -77,7 +77,7 @@ public class MockDataLoader implements CommandLineRunner {
             Collections.shuffle(UNIVERSITIES);
             Collections.shuffle(DISTRICTS);
             User manager = User.builder()
-                .loginInfo(Social.from(SocialProvider.KAKAO, String.valueOf(count)))
+                .loginInfo(Social.createEmptyRefreshToken(SocialProvider.KAKAO, String.valueOf(count)))
                 .nickname("모임장" + count)
                 .location(Location.builder()
                     .university(UNIVERSITIES.get(0))
@@ -131,7 +131,7 @@ public class MockDataLoader implements CommandLineRunner {
             Collections.shuffle(UNIVERSITIES);
             Collections.shuffle(DISTRICTS);
             User user = User.builder()
-                .loginInfo(Social.from(SocialProvider.KAKAO, String.valueOf(MAX_GROUP_COUNT + count)))
+                .loginInfo(Social.createEmptyRefreshToken(SocialProvider.KAKAO, String.valueOf(MAX_GROUP_COUNT + count)))
                 .nickname("참여자" + count)
                 .location(Location.builder()
                     .university(UNIVERSITIES.get(0))

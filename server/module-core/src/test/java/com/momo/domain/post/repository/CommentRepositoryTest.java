@@ -37,7 +37,7 @@ public class CommentRepositoryTest extends RepositoryTest {
     public void before() {
         user = save(
             User.builder()
-                .loginInfo(Social.from(SocialProvider.KAKAO, "test", "refresh Token"))
+                .loginInfo(Social.create(SocialProvider.KAKAO, "test", "refresh Token"))
                 .nickname("testMan")
                 .imageUrl("http://~~")
                 .location(Location.builder()

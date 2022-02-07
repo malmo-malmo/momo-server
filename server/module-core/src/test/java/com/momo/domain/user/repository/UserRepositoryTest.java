@@ -26,7 +26,7 @@ public class UserRepositoryTest extends RepositoryTest {
     void before() {
         user = userRepository.save(
             User.builder()
-                .loginInfo(Social.from(SocialProvider.KAKAO, "test", "refresh Token"))
+                .loginInfo(Social.create(SocialProvider.KAKAO, "test", "refresh Token"))
                 .nickname("닉네임")
                 .imageUrl("이미지 URL")
                 .location(Location.builder()

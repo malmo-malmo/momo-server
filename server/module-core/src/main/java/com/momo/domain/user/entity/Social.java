@@ -1,5 +1,6 @@
 package com.momo.domain.user.entity;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
@@ -44,6 +45,9 @@ public class Social {
     }
 
     void updateRefreshToken(String refreshToken) {
+        if(Objects.isNull(refreshToken)) {
+            return;
+        }
         this.refreshToken = refreshToken;
     }
 }

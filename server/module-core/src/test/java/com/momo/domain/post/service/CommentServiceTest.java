@@ -1,5 +1,13 @@
 package com.momo.domain.post.service;
 
+import static com.momo.CommentFixture.getComment;
+import static com.momo.CommentFixture.getCommentCreateRequest;
+import static com.momo.CommentFixture.getCommentWithId;
+import static com.momo.CommentFixture.getCommentsRequest;
+import static com.momo.GroupFixture.getGroupWithId;
+import static com.momo.PostFixture.getPostWithId;
+import static com.momo.UserFixture.getUserWithId;
+import static com.momo.domain.post.entity.PostType.NORMAL;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -32,7 +40,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 @DisplayName("댓글 서비스 테스트")
 public class CommentServiceTest extends ServiceTest {
@@ -49,36 +56,26 @@ public class CommentServiceTest extends ServiceTest {
     private CommentService commentService;
 
     private Post post;
-
     private User author;
 
     @BeforeEach
     void setUp() {
         commentService = new CommentServiceImpl(postRepository, participantRepository, commentRepository);
-        Group group = Group.builder().id(1L).build();
-        post = Post.builder()
-            .id(1L)
-            .group(group)
-            .build();
-        author = User.builder()
-            .id(1L)
-            .nickname("닉네임")
-            .build();
+        author = getUserWithId();
+        Group group = getGroupWithId(author);
+        post = getPostWithId(author, group, NORMAL);
     }
 
     @Test
     void 댓글_등록_테스트() {
-        CommentCreateRequest commentCreateRequest = CommentCreateRequest.builder()
-            .postId(1L)
-            .contents("댓글 내용")
-            .build();
-        Comment comment = Comment.create(post, author, commentCreateRequest.getContents());
+        CommentCreateRequest request = getCommentCreateRequest(post.getId());
+        Comment comment = getComment(post, author);
 
         given(postRepository.findById(any())).willReturn(of(post));
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(true);
         given(commentRepository.save(any())).willReturn(comment);
 
-        CommentResponse actual = commentService.create(author, commentCreateRequest);
+        CommentResponse actual = commentService.create(author, request);
 
         verify(postRepository).findById(any());
         verify(participantRepository).existsByGroupAndUser(any(), any());
@@ -94,40 +91,28 @@ public class CommentServiceTest extends ServiceTest {
 
     @Test
     void 모임_참여자가_아니면_댓글_등록_테스트를_실패한다() {
-        CommentCreateRequest commentCreateRequest = CommentCreateRequest.builder()
-            .postId(1L)
-            .contents("댓글 내용")
-            .build();
+        CommentCreateRequest request = getCommentCreateRequest(post.getId());
 
         given(postRepository.findById(any())).willReturn(of(post));
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(false);
 
-        assertThatThrownBy(() -> commentService.create(author, commentCreateRequest))
+        assertThatThrownBy(() -> commentService.create(author, request))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED.getMessage());
     }
 
     @Test
     void 댓글_목록_조회_테스트() {
-        CommentsRequest commentsRequest = CommentsRequest.builder()
-            .postId(1L)
-            .page(0)
-            .size(10)
-            .build();
-        List<Comment> comments = List.of(
-            Comment.create(post, author, "댓글 내용1"),
-            Comment.create(post, author, "댓글 내용2")
-        );
-        Pageable pageable = PageRequest.of(0, 10);
+        CommentsRequest request = getCommentsRequest(post.getId());
+        List<Comment> comments = List.of(getComment(post, author), getComment(post, author));
         long total = 100L;
 
         given(postRepository.findById(any())).willReturn(of(post));
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(true);
-        given(commentRepository.findAllByPostOrderByCreatedDateAsc(any(), any())).willReturn(
-            new PageImpl<>(comments, pageable, total)
-        );
+        given(commentRepository.findAllByPostOrderByCreatedDateAsc(any(), any()))
+            .willReturn(new PageImpl<>(comments, PageRequest.of(0, 10), total));
 
-        CommentsResponse actual = commentService.findPageByPostId(author, commentsRequest);
+        CommentsResponse actual = commentService.findPageByPostId(author, request);
 
         verify(postRepository).findById(any());
         verify(participantRepository).existsByGroupAndUser(any(), any());
@@ -157,37 +142,29 @@ public class CommentServiceTest extends ServiceTest {
 
     @Test
     void 모임_참여자가_아니면_댓글_목록_조회_테스트를_실패한다() {
-        CommentsRequest commentsRequest = CommentsRequest.builder()
-            .postId(1L)
-            .page(0)
-            .size(10)
-            .build();
+        CommentsRequest request = getCommentsRequest(post.getId());
 
         given(postRepository.findById(any())).willReturn(of(post));
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(false);
 
-        assertThatThrownBy(() -> commentService.findPageByPostId(author, commentsRequest))
+        assertThatThrownBy(() -> commentService.findPageByPostId(author, request))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED.getMessage());
     }
 
     @Test
     void 댓글_삭제_테스트에_성공한다() {
-        User user = User.builder().id(1L).build();
-        Comment comment = Comment.builder().id(1L).user(user).build();
-
-        given(commentRepository.findById(anyLong()))
-            .willReturn(Optional.of(comment));
-        commentService.deleteComment(comment.getId(), user);
+        Comment comment = getCommentWithId(post, author);
+        given(commentRepository.findById(anyLong())).willReturn(Optional.of(comment));
+        commentService.deleteComment(comment.getId(), author);
         verify(commentRepository).delete(comment);
     }
 
     @Test
     void 댓글_작성자가_아니면_댓글_삭제에_실패한다() {
-        Comment comment = Comment.builder().id(1L).build();
-        User user = User.builder().build();
+        Comment comment = getComment(post, author);
 
-        assertThatThrownBy(() -> commentService.deleteComment(comment.getId(), user))
+        assertThatThrownBy(() -> commentService.deleteComment(comment.getId(), getUserWithId()))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.INVALID_INDEX_NUMBER.getMessage());
     }

@@ -1,9 +1,11 @@
 package com.momo.domain.post.entity;
 
+import static com.momo.GroupFixture.getGroupWithId;
+import static com.momo.PostFixture.getPostWithId;
+import static com.momo.UserFixture.getUserWithId;
+import static com.momo.domain.post.entity.PostType.NORMAL;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.domain.post.entity.Comment;
-import com.momo.domain.post.entity.Post;
 import com.momo.domain.user.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,13 +16,12 @@ import org.junit.jupiter.api.Test;
 public class CommentTest {
 
     private Post post;
-
     private User user;
 
     @BeforeEach
     void setUp() {
-        post = Post.builder().id(1L).build();
-        user = User.builder().id(1L).build();
+        user = getUserWithId();
+        post = getPostWithId(user, getGroupWithId(user), NORMAL);
     }
 
     @Test

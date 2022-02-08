@@ -1,23 +1,24 @@
 package com.momo.domain.post.repository;
 
+import static com.momo.CommentFixture.getComment;
+import static com.momo.GroupFixture.getGroup;
+import static com.momo.PostFixture.getPost;
+import static com.momo.UserFixture.getUser;
+import static com.momo.domain.post.entity.PostType.NORMAL;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.data.domain.PageRequest.of;
 
 import com.momo.common.RepositoryTest;
-import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.post.entity.Comment;
 import com.momo.domain.post.entity.Post;
-import com.momo.domain.post.entity.PostType;
-import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
-import java.time.LocalDate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 @DisplayName("댓글 레포지토리 테스트")
 public class CommentRepositoryTest extends RepositoryTest {
@@ -25,72 +26,33 @@ public class CommentRepositoryTest extends RepositoryTest {
     @Autowired
     private CommentRepository commentRepository;
 
+    private User user;
+    private Post post;
     private Comment comment;
 
-    private User user;
-
-    private Post post;
-
     @BeforeEach
-    public void before() {
-        user = save(
-            User.builder()
-                .provider(SocialProvider.KAKAO)
-                .providerId("test")
-                .refreshToken("refresh Token")
-                .nickname("testMan")
-                .imageUrl("http://~~")
-                .city(City.SEOUL)
-                .district("마포구")
-                .university("한국대")
-                .build()
-        );
-        Group group = save(Group.builder()
-            .city(City.SEOUL)
-            .district("마포")
-            .imageUrl("http://~")
-            .introduction("안녕하세요")
-            .university("한국대")
-            .isOffline(false)
-            .isEnd(false)
-            .startDate(LocalDate.now())
-            .name("모임 이름")
-            .manager(user)
-            .build());
-        post = save(
-            Post.builder()
-                .author(user)
-                .group(group)
-                .title("테스트 게시글")
-                .contents("테스트 내용")
-                .type(PostType.NORMAL)
-                .build()
-        );
-        this.comment = commentRepository.save(
-            Comment.builder()
-                .post(post)
-                .user(user)
-                .contents("테스트 댓글 내용")
-                .build()
-        );
+    void before() {
+        user = save(getUser());
+        Group group = save(getGroup(user));
+        post = save(getPost(user, group, NORMAL));
+        comment = save(getComment(post, user));
     }
 
     @Test
-    public void 댓글을_저장한다() {
-        Comment findComment = commentRepository.findAll().get(0);
+    void 댓글을_저장한다() {
+        Comment expected = commentRepository.findAll().get(0);
         Assertions.assertAll(
-            () -> assertThat(findComment).isEqualTo(comment),
-            () -> assertThat(findComment.getId()).isEqualTo(comment.getId()),
-            () -> assertThat(findComment.getPost()).isEqualTo(post),
-            () -> assertThat(findComment.getUser()).isEqualTo(user),
-            () -> assertThat(findComment.getContents()).isEqualTo("테스트 댓글 내용")
+            () -> assertThat(expected).isEqualTo(comment),
+            () -> assertThat(expected.getId()).isEqualTo(comment.getId()),
+            () -> assertThat(expected.getPost().getId()).isEqualTo(post.getId()),
+            () -> assertThat(expected.getUser().getId()).isEqualTo(user.getId()),
+            () -> assertThat(expected.getContents()).isEqualTo(comment.getContents())
         );
     }
 
     @Test
-    public void 게시글에_해당하는_댓글_목록_조회한다() {
-        PageRequest pageRequest = PageRequest.of(0, 10);
-        Page<Comment> comments = commentRepository.findAllByPostOrderByCreatedDateAsc(post, pageRequest);
+    void 게시글에_해당하는_댓글_목록_조회한다() {
+        Page<Comment> comments = commentRepository.findAllByPostOrderByCreatedDateAsc(post, of(0, 10));
         assertThat(comments.getTotalElements()).isEqualTo(1L);
     }
 }

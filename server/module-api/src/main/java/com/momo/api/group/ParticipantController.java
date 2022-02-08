@@ -5,11 +5,9 @@ import com.momo.domain.group.dto.ParticipantRequest;
 import com.momo.domain.group.dto.ParticipantResponse;
 import com.momo.domain.group.service.ParticipantService;
 import com.momo.domain.user.entity.User;
-import io.swagger.annotations.ApiOperation;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,7 +29,6 @@ public class ParticipantController {
     /*
     테스트를 위해 임시로 만든 API
     */
-    @ApiOperation(value = "참여 신청")
     @PostMapping("/group/apply-participant")
     public ResponseEntity<Void> applyParticipantByGroup(@CurrentUser User user,
         @RequestBody ParticipantRequest request) throws URISyntaxException {
@@ -39,7 +36,6 @@ public class ParticipantController {
         return ResponseEntity.created(new URI("/api/group/apply-participant/" + participantId)).build();
     }
 
-    @ApiOperation(value = "모임 참여자 목록 조회")
     @GetMapping("/group/participants")
     public ResponseEntity<List<ParticipantResponse>> findByGroup(@CurrentUser User user,
         @RequestParam Long groupId) {
@@ -47,7 +43,6 @@ public class ParticipantController {
         return ResponseEntity.ok(responses);
     }
 
-    @ApiOperation(value = "모임 탈퇴")
     @DeleteMapping("/group/{groupId}/participant")
     public ResponseEntity<Void> withdraw(@CurrentUser User user, @PathVariable Long groupId) {
         participantService.withdrawByGroupId(user, groupId);

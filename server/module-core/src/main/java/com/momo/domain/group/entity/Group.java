@@ -5,7 +5,6 @@ import com.momo.domain.common.entity.BaseEntity;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -73,9 +72,7 @@ public class Group extends BaseEntity {
     @Builder
     public Group(Long id, User manager, GroupAchievementRate achievementRate, String name, String imageUrl,
         Category category, LocalDate startDate, String university, City city, String district, String introduction,
-        int recruitmentCnt, boolean isOffline, boolean isEnd, LocalDateTime createdDate,
-        LocalDateTime lastModifiedDate) {
-        super(createdDate, lastModifiedDate);
+        int recruitmentCnt, boolean isOffline, boolean isEnd) {
         this.id = id;
         this.manager = manager;
         this.achievementRate = achievementRate;

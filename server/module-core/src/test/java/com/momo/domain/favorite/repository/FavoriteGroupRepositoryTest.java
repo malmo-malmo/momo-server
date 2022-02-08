@@ -1,18 +1,16 @@
 package com.momo.domain.favorite.repository;
 
+import static com.momo.FavoriteFixture.getFavoriteGroup;
+import static com.momo.GroupFixture.getGroup;
+import static com.momo.ParticipantFixture.getParticipant;
+import static com.momo.UserFixture.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
-import com.momo.domain.district.entity.City;
 import com.momo.domain.favorite.dto.FavoriteGroupCardResponse;
 import com.momo.domain.favorite.entity.FavoriteGroup;
-import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Group;
-import com.momo.domain.group.entity.Participant;
-import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,63 +25,19 @@ public class FavoriteGroupRepositoryTest extends RepositoryTest {
     private FavoriteGroupRepository favoriteGroupRepository;
 
     private User user;
-
     private Group group1;
-
     private Group group2;
 
     @BeforeEach
     void setUp() {
-        user = save(
-            User.builder()
-                .provider(SocialProvider.KAKAO)
-                .providerId("test")
-                .refreshToken("refresh Token")
-                .nickname("testMan")
-                .imageUrl("imageUrl")
-                .city(City.SEOUL)
-                .district("마포구")
-                .university("서울대학교")
-                .build()
-        );
-        group1 = save(
-            Group.builder()
-                .city(City.SEOUL)
-                .district("마포구")
-                .imageUrl("imageUrl")
-                .introduction("안녕하세요")
-                .university("한국대")
-                .isOffline(false)
-                .isEnd(false)
-                .startDate(LocalDate.now())
-                .name("모임 이름")
-                .category(Category.LIFE)
-                .manager(user)
-                .build()
-        );
-        group2 = save(
-            Group.builder()
-                .city(City.SEOUL)
-                .district("은평구")
-                .imageUrl("imageUrl")
-                .introduction("안녕하세요")
-                .university("서울대학교")
-                .isOffline(true)
-                .isEnd(false)
-                .startDate(LocalDate.now())
-                .name("모임 이름")
-                .category(Category.HEALTH)
-                .manager(user)
-                .build()
-        );
+        user = save(getUser());
+        group1 = save(getGroup(user));
+        group2 = save(getGroup(user));
     }
 
     @Test
     void 관심_모임으로_등록한다() {
-        FavoriteGroup favoriteGroup = FavoriteGroup.builder()
-            .user(user)
-            .group(group1)
-            .build();
+        FavoriteGroup favoriteGroup = getFavoriteGroup(user, group1);
 
         FavoriteGroup actual = favoriteGroupRepository.save(favoriteGroup);
 
@@ -97,16 +51,7 @@ public class FavoriteGroupRepositoryTest extends RepositoryTest {
 
     @Test
     void 관심_모임_수를_조회한다() {
-        List<FavoriteGroup> favoriteGroups = List.of(
-            FavoriteGroup.builder()
-                .user(user)
-                .group(group1)
-                .build(),
-            FavoriteGroup.builder()
-                .user(user)
-                .group(group2)
-                .build()
-        );
+        List<FavoriteGroup> favoriteGroups = List.of(getFavoriteGroup(user, group1), getFavoriteGroup(user, group2));
         favoriteGroupRepository.saveAll(favoriteGroups);
 
         Long actual = favoriteGroupRepository.countByUser(user);
@@ -116,32 +61,9 @@ public class FavoriteGroupRepositoryTest extends RepositoryTest {
 
     @Test
     void 관심_모임_목록을_조회한다() {
-        save(
-            Participant.builder()
-                .user(user)
-                .group(group1)
-                .build()
-        );
-        save(
-            Participant.builder()
-                .user(user)
-                .group(group2)
-                .build()
-        );
-        favoriteGroupRepository.saveAll(
-            List.of(
-                FavoriteGroup.builder()
-                    .user(user)
-                    .group(group1)
-                    .createdDate(LocalDateTime.of(2022, 1, 1, 1, 1))
-                    .build(),
-                FavoriteGroup.builder()
-                    .user(user)
-                    .group(group2)
-                    .createdDate(LocalDateTime.of(2022, 1, 1, 1, 2))
-                    .build()
-            )
-        );
+        save(getParticipant(group1, user));
+        save(getParticipant(group2, user));
+        saveAll(List.of(getFavoriteGroup(user, group1), getFavoriteGroup(user, group2)));
 
         List<FavoriteGroupCardResponse> actual = favoriteGroupRepository.findAllByUserOrderByCreatedDateDesc(user);
 
@@ -169,14 +91,9 @@ public class FavoriteGroupRepositoryTest extends RepositoryTest {
 
     @Test
     void 관심_모임을_삭제한다() {
-        FavoriteGroup favoriteGroup = favoriteGroupRepository.save(
-            FavoriteGroup.builder()
-                .user(user)
-                .group(group1)
-                .build()
-        );
-
+        FavoriteGroup favoriteGroup = getFavoriteGroup(user, group1);
         favoriteGroupRepository.deleteByUserAndGroup(user, favoriteGroup.getGroup());
+
         List<FavoriteGroup> actual = favoriteGroupRepository.findAll();
 
         assertThat(actual.size()).isEqualTo(0);

@@ -1,5 +1,11 @@
 package com.momo.domain.favorite.service;
 
+import static com.momo.FavoriteFixture.getFavoriteGroup;
+import static com.momo.FavoriteFixture.getFavoriteGroupCreateRequest;
+import static com.momo.GroupFixture.getGroupWithId;
+import static com.momo.UserFixture.getUserWithId;
+import static com.momo.domain.group.entity.Category.HOBBY;
+import static com.momo.domain.group.entity.Category.LIFE;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -38,23 +44,20 @@ public class FavoriteServiceTest extends ServiceTest {
     private UserRepository userRepository;
 
     private FavoriteService favoriteService;
+
     private User user;
 
     @BeforeEach
     void setUp() {
         favoriteService = new FavoriteServiceImpl(groupRepository, favoriteGroupRepository, userRepository);
-        user = User.builder()
-            .id(1L)
-            .nickname("닉네임")
-            .build();
+        user = getUserWithId();
     }
 
     @Test
     void 관심_모임으로_등록한다() {
-        FavoriteGroupCreateRequest request = FavoriteGroupCreateRequest.builder().groupId(1L).build();
-        User user = User.builder().id(1L).build();
-        Group group = Group.builder().id(1L).build();
-        FavoriteGroup favoriteGroup = FavoriteGroup.builder().id(1L).build();
+        Group group = getGroupWithId(user);
+        FavoriteGroupCreateRequest request = getFavoriteGroupCreateRequest(group.getId());
+        FavoriteGroup favoriteGroup = getFavoriteGroup(user, group);
 
         given(groupRepository.findById(any())).willReturn(of(group));
         given(favoriteGroupRepository.save(any())).willReturn(favoriteGroup);
@@ -84,20 +87,19 @@ public class FavoriteServiceTest extends ServiceTest {
 
     @Test
     void 유저_관심_카테고리_정보_업데이트_테스트() {
-        FavoriteCategoriesUpdateRequest categoryRequest = new FavoriteCategoriesUpdateRequest(
-            List.of(Category.HOBBY, Category.LIFE)
-        );
+        List<Category> categories = List.of(HOBBY, LIFE);
+        FavoriteCategoriesUpdateRequest request = new FavoriteCategoriesUpdateRequest(categories);
 
         given(userRepository.findById(any())).willReturn(of(user));
 
-        favoriteService.updateFavoriteCategories(user, categoryRequest);
+        favoriteService.updateFavoriteCategories(user, request);
 
         Assertions.assertAll(
             () -> assertThat(user.getFavoriteCategories().getFavoriteCategories().size()).isEqualTo(2),
             () -> assertThat(user.getFavoriteCategories().getFavoriteCategories().get(0).getCategory())
-                .isEqualTo(categoryRequest.getFavoriteCategories().get(0)),
+                .isEqualTo(request.getFavoriteCategories().get(0)),
             () -> assertThat(user.getFavoriteCategories().getFavoriteCategories().get(1).getCategory())
-                .isEqualTo(categoryRequest.getFavoriteCategories().get(1))
+                .isEqualTo(request.getFavoriteCategories().get(1))
         );
     }
 }

@@ -1,5 +1,6 @@
 package com.momo.domain.management.service;
 
+import static com.momo.UserFixture.getUserWithId;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -40,7 +41,7 @@ public class ManagementServiceTest extends ServiceTest {
     @Test
     void 유저가_참여한_모임_수를_조회한다() {
         Long expected = 1L;
-        User user = User.builder().id(1L).build();
+        User user = getUserWithId();
 
         given(participantRepository.countAllByUser(any())).willReturn(expected);
 

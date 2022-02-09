@@ -62,8 +62,9 @@ public class FavoriteGroupRepositoryTest extends RepositoryTest {
     @Test
     void 관심_모임_목록을_조회한다() {
         save(getParticipant(group1, user));
+        save(getFavoriteGroup(user, group1));
         save(getParticipant(group2, user));
-        saveAll(List.of(getFavoriteGroup(user, group1), getFavoriteGroup(user, group2)));
+        save(getFavoriteGroup(user, group2));
 
         List<FavoriteGroupCardResponse> actual = favoriteGroupRepository.findAllByUserOrderByCreatedDateDesc(user);
 

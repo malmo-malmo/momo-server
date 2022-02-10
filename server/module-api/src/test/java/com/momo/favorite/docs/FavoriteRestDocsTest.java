@@ -1,5 +1,10 @@
 package com.momo.favorite.docs;
 
+import static com.momo.FavoriteFixture.getFavoriteGroupCardResponse;
+import static com.momo.FavoriteFixture.getFavoriteGroupCreateRequest;
+import static com.momo.GroupFixture.getGroupCardResponse;
+import static com.momo.domain.group.entity.Category.HOBBY;
+import static com.momo.domain.group.entity.Category.LIFE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
@@ -9,17 +14,14 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.common.RestDocsControllerTest;
 import com.momo.api.favorite.FavoriteController;
+import com.momo.common.RestDocsControllerTest;
 import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.group.dto.GroupCardResponse;
-import com.momo.domain.group.entity.Category;
 import com.momo.domain.favorite.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.favorite.dto.FavoriteGroupCardResponse;
 import com.momo.domain.favorite.dto.FavoriteGroupCountResponse;
 import com.momo.domain.favorite.dto.FavoriteGroupCreateRequest;
 import com.momo.domain.favorite.service.FavoriteService;
-import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,9 +42,8 @@ public class FavoriteRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 관심_모임_등록() throws Exception {
-        FavoriteGroupCreateRequest request = FavoriteGroupCreateRequest.builder()
-            .groupId(1L)
-            .build();
+        FavoriteGroupCreateRequest request = getFavoriteGroupCreateRequest(1L);
+
         String content = super.objectMapper.writeValueAsString(request);
         super.mockMvc.perform(post("/api/favorite/group")
                 .content(content)
@@ -56,7 +57,9 @@ public class FavoriteRestDocsTest extends RestDocsControllerTest {
     @Test
     void 관심_모임_수_조회() throws Exception {
         FavoriteGroupCountResponse response = new FavoriteGroupCountResponse(10L);
+
         when(favoriteService.countFavoriteGroupsByUser(any())).thenReturn(response);
+
         super.mockMvc.perform(get("/api/favorite/group/count"))
             .andDo(print())
             .andExpect(status().isOk())
@@ -65,22 +68,7 @@ public class FavoriteRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 관심_모임_목록_조회() throws Exception {
-        List<FavoriteGroupCardResponse> responses = List.of(
-            FavoriteGroupCardResponse.builder()
-                .id(1L)
-                .groupCardResponse(
-                    GroupCardResponse.builder()
-                        .id(1L)
-                        .name("모임 이름")
-                        .imageUrl("이미지 URL")
-                        .startDate(LocalDate.of(2022, 1, 6))
-                        .isOffline(true)
-                        .participantCnt(5L)
-                        .isFavoriteGroup(true)
-                        .build()
-                )
-                .build()
-        );
+        List<FavoriteGroupCardResponse> responses = List.of(getFavoriteGroupCardResponse(getGroupCardResponse()));
 
         when(favoriteService.findFavoriteGroupsByUser(any())).thenReturn(responses);
 
@@ -92,10 +80,7 @@ public class FavoriteRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 관심_카테고리_목록_조회() throws Exception {
-        List<EnumResponse> responses = List.of(
-            EnumResponse.ofCategory(Category.LIFE),
-            EnumResponse.ofCategory(Category.HOBBY)
-        );
+        List<EnumResponse> responses = List.of(EnumResponse.ofCategory(LIFE), EnumResponse.ofCategory(HOBBY));
 
         when(favoriteService.findFavoriteCategoriesByUser(any())).thenReturn(responses);
 
@@ -107,7 +92,8 @@ public class FavoriteRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 관심_카테고리_수정() throws Exception {
-        FavoriteCategoriesUpdateRequest request = new FavoriteCategoriesUpdateRequest(List.of(Category.LIFE));
+        FavoriteCategoriesUpdateRequest request = new FavoriteCategoriesUpdateRequest(List.of(LIFE));
+
         String content = super.objectMapper.writeValueAsString(request);
         super.mockMvc.perform(patch("/api/favorite/categories")
                 .content(content)

@@ -85,13 +85,14 @@ public class Group extends BaseEntity {
     }
 
     public static Group create(User user, Group group, boolean isUniversity) {
+        Location location = getGroupLocation(isUniversity, user.getLocation().getUniversity(), group.getLocation());
         return Group.builder()
             .manager(user)
             .name(group.getName())
             .imageUrl(group.getImageUrl())
             .category(group.getCategory())
             .startDate(group.getStartDate())
-            .location(hasUniversityLocation(!isUniversity, user.getLocation()))
+            .location(location)
             .introduction(group.getIntroduction())
             .recruitmentCnt(group.getRecruitmentCnt())
             .isOffline(group.isOffline())
@@ -99,9 +100,9 @@ public class Group extends BaseEntity {
             .build();
     }
 
-    private static Location hasUniversityLocation(boolean isNotUniversity, Location location) {
-        if(isNotUniversity) {
-            return location;
+    private static Location getGroupLocation(boolean isUniversity, String university, Location location) {
+        if (isUniversity) {
+            return Location.fromUniversity(university, location);
         }
         return Location.fromEmptyUniversity(location);
     }

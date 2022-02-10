@@ -1,5 +1,7 @@
 package com.momo.domain.group.service.impl;
 
+import static org.springframework.data.domain.PageRequest.of;
+
 import com.momo.domain.aws.service.S3UploadService;
 import com.momo.domain.aws.util.GenerateUploadPathUtil;
 import com.momo.domain.common.exception.CustomException;
@@ -53,20 +55,20 @@ public class GroupServiceImpl implements GroupService {
 
     @Transactional(readOnly = true)
     public List<GroupCardResponse> findPageBySearchCondition(User user, GroupSearchConditionRequest request) {
-        PageRequest page = PageRequest.of(request.getPage(), request.getSize());
+        PageRequest page = of(request.getPage(), request.getSize());
         return groupRepository.findAllBySearchConditionOrderByCreatedDateDesc(user, request, page);
     }
 
     @Transactional(readOnly = true)
     public List<GroupCardResponse> findPageByUserUniversity(User user, int page, int size) {
         return groupRepository
-            .findAllByUniversityOrderByCreatedDateDesc(user, user.getLocation().getUniversity(), PageRequest.of(page, size));
+            .findAllByUniversityOrderByCreatedDateDesc(user, user.getLocation().getUniversity(), of(page, size));
     }
 
     @Transactional(readOnly = true)
     public List<GroupCardResponse> findPageByUserDistrict(User user, int page, int size) {
         return groupRepository
-            .findAllByDistrictOrderByCreatedDateDesc(user, user.getLocation().getDistrict(), PageRequest.of(page, size));
+            .findAllByDistrictOrderByCreatedDateDesc(user, user.getLocation().getDistrict(), of(page, size));
     }
 
     @Transactional(readOnly = true)
@@ -74,7 +76,7 @@ public class GroupServiceImpl implements GroupService {
         return groupRepository.findAllByCategoriesOrderByCreatedDateDesc(
             user,
             user.getFavoriteCategories().toCategories(),
-            PageRequest.of(page, size)
+            of(page, size)
         );
     }
 

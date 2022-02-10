@@ -9,14 +9,16 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Embeddable
 @Getter
+@Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Location {
 
     @Enumerated(EnumType.STRING)
     private City city;
+
     private String district;
+
     private String university;
 
     @Builder
@@ -29,6 +31,22 @@ public class Location {
     public static Location fromEmptyUniversity(Location location) {
         return Location.builder()
             .university(null)
+            .district(location.getDistrict())
+            .city(location.getCity())
+            .build();
+    }
+
+    public static Location fromEmptyUniversity(City city, String district) {
+        return Location.builder()
+            .university(null)
+            .district(district)
+            .city(city)
+            .build();
+    }
+
+    public static Location fromUniversity(String university, Location location) {
+        return Location.builder()
+            .university(university)
             .district(location.getDistrict())
             .city(location.getCity())
             .build();

@@ -15,8 +15,10 @@ public class UserFixture {
 
     private static final String NICKNAME = "닉네임";
     private static final String UNIVERSITY = "대학교";
-    private static final City CITY = SEOUL;
     private static final String DISTRICT = "강동구";
+    private static final String IMAGE_URL = "이미지 URL";
+
+    private static final City CITY = SEOUL;
     private static final SocialProvider PROVIDER = KAKAO;
     private static final List<Category> CATEGORIES = List.of(HEALTH, SELF_DEVELOPMENT);
 
@@ -36,11 +38,26 @@ public class UserFixture {
         return user;
     }
 
+    public static User getUser(String district, String university, List<Category> categories) {
+        INCREASE_ID++;
+        User user = User.builder()
+            .nickname(NICKNAME + INCREASE_ID)
+            .university(university)
+            .city(CITY)
+            .district(district)
+            .provider(PROVIDER)
+            .providerId(String.valueOf(INCREASE_ID))
+            .build();
+        user.updateFavoriteCategories(categories);
+        return user;
+    }
+
     public static User getUserWithId() {
         INCREASE_ID++;
         User user = User.builder()
             .id(INCREASE_ID)
             .nickname(NICKNAME + INCREASE_ID)
+            .imageUrl(IMAGE_URL)
             .university(UNIVERSITY)
             .city(CITY)
             .district(DISTRICT)
@@ -48,20 +65,6 @@ public class UserFixture {
             .providerId(String.valueOf(INCREASE_ID))
             .build();
         user.updateFavoriteCategories(CATEGORIES);
-        return user;
-    }
-
-    public static User getCustomUser(String university, City city, String district, List<Category> categories) {
-        INCREASE_ID++;
-        User user = User.builder()
-            .nickname(NICKNAME + INCREASE_ID)
-            .university(university)
-            .city(city)
-            .district(district)
-            .provider(PROVIDER)
-            .providerId(String.valueOf(INCREASE_ID))
-            .build();
-        user.updateFavoriteCategories(categories);
         return user;
     }
 }

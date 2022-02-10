@@ -1,7 +1,10 @@
 package com.momo.user.docs;
 
+import static com.momo.UserFixture.getUserWithId;
 import static com.momo.common.CommonFileUploadSupport.generateUploadMockPutBuilder;
 import static com.momo.common.CommonFileUploadSupport.uploadMockSupport;
+import static com.momo.common.CommonFixtures.UPLOAD_TEST_FILE;
+import static com.momo.domain.district.entity.City.SEOUL;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.fileUpload;
@@ -10,22 +13,18 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.common.RestDocsControllerTest;
 import com.momo.api.user.UserController;
+import com.momo.common.RestDocsControllerTest;
 import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.district.entity.City;
-import com.momo.domain.group.entity.Category;
 import com.momo.domain.user.dto.UserUpdateRequest;
 import com.momo.domain.user.dto.UserUpdateResponse;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.service.UserService;
-import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.mock.web.MockMultipartFile;
 
 @WebMvcTest(UserController.class)
 @DisplayName("사용자 문서화 테스트")
@@ -39,18 +38,9 @@ public class UserRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 내_정보_조회() throws Exception {
-        User user = User.builder()
-            .id(1L)
-            .nickname("테스트맨")
-            .imageUrl("이미지 URL")
-            .city(City.SEOUL)
-            .district("마포구")
-            .university("한국대")
-            .build();
-        user.updateFavoriteCategories(List.of(Category.LIFE));
+        User user = getUserWithId();
 
-        when(oAuthService.findLoginUserByAccessToken(any()))
-            .thenReturn(user);
+        when(oAuthService.findLoginUserByAccessToken(any())).thenReturn(user);
 
         super.mockMvc.perform(get("/api/user"))
             .andDo(print())
@@ -73,7 +63,7 @@ public class UserRestDocsTest extends RestDocsControllerTest {
         UserUpdateResponse response = UserUpdateResponse.builder()
             .nickname("테스트 이름")
             .university("한국대")
-            .city(EnumResponse.ofCity(City.SEOUL))
+            .city(EnumResponse.ofCity(SEOUL))
             .district("마포구")
             .imageUrl("이미지 URL X")
             .build();
@@ -83,7 +73,7 @@ public class UserRestDocsTest extends RestDocsControllerTest {
         super.mockMvc.perform(put("/api/user")
                 .param("nickname", "테스트 이름")
                 .param("university", "한국대")
-                .param("city", City.SEOUL.getCode())
+                .param("city", SEOUL.getCode())
                 .param("district", "마포구")
             )
             .andDo(print())
@@ -96,14 +86,14 @@ public class UserRestDocsTest extends RestDocsControllerTest {
         UserUpdateRequest request = UserUpdateRequest.builder()
             .nickname("테스트 이름")
             .university("한국대")
-            .city(City.SEOUL)
+            .city(SEOUL)
             .district("마포구")
-            .image(new MockMultipartFile("image", "image".getBytes()))
+            .image(UPLOAD_TEST_FILE)
             .build();
         UserUpdateResponse response = UserUpdateResponse.builder()
             .nickname("테스트 이름")
             .university("한국대")
-            .city(EnumResponse.ofCity(City.SEOUL))
+            .city(EnumResponse.ofCity(SEOUL))
             .district("마포구")
             .imageUrl("이미지 URL O")
             .build();

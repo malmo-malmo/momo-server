@@ -21,10 +21,10 @@ public class UserAcceptanceStep {
             () -> assertThat(response.getId()).isNotNull(),
             () -> assertThat(response.getNickname()).isEqualTo(user.getNickname()),
             () -> assertThat(response.getImage()).isEqualTo(user.getImageUrl()),
-            () -> assertThat(response.getCity().getCode()).isEqualTo(user.getCity().getCode()),
-            () -> assertThat(response.getCity().getName()).isEqualTo(user.getCity().getName()),
-            () -> assertThat(response.getDistrict()).isEqualTo(user.getDistrict()),
-            () -> assertThat(response.getUniversity()).isEqualTo(user.getUniversity()),
+            () -> assertThat(response.getCity().getCode()).isEqualTo(user.getLocation().getCity().getCode()),
+            () -> assertThat(response.getCity().getName()).isEqualTo(user.getLocation().getCity().getName()),
+            () -> assertThat(response.getDistrict()).isEqualTo(user.getLocation().getDistrict()),
+            () -> assertThat(response.getUniversity()).isEqualTo(user.getLocation().getUniversity()),
             () -> assertThat(response.getCategories().size()).isEqualTo(2)
         );
     }

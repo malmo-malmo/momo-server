@@ -3,18 +3,21 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/provider/category_result_provider.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/category/category_icon.dart';
 
 class ParticipationMeetingCard extends StatelessWidget {
   const ParticipationMeetingCard({
     Key? key,
+    required this.id,
     required this.title,
-    required this.time,
+    required this.category,
   }) : super(key: key);
 
+  final int id;
   final String title;
-  final String time;
+  final String category;
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +25,7 @@ class ParticipationMeetingCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 7),
       child: Material(
         elevation: 1,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           height: 72.h,
@@ -37,7 +38,10 @@ class ParticipationMeetingCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  categoryIcon('건강'),
+                  categoryIcon(categoryCodeNamePair
+                      .where((element) => element.code == category)
+                      .first
+                      .name),
                   const SizedBox(width: 16),
                   Text(
                     title,
@@ -47,9 +51,12 @@ class ParticipationMeetingCard extends StatelessWidget {
               ),
               Transform.rotate(
                 angle: pi,
-                child: Icon(
-                  CupertinoIcons.back,
-                  size: 18.w,
+                child: InkWell(
+                  onTap: () {},
+                  child: Icon(
+                    CupertinoIcons.back,
+                    size: 18.w,
+                  ),
                 ),
               ),
             ],

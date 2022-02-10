@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:momo/app/model/schedule/calendar_schedule.dart';
+import 'package:momo/app/model/schedule/schedule_detail.dart';
 import 'package:momo/app/model/schedule/schedule_request.dart';
 import 'package:momo/app/model/schedule/schedule_response.dart';
 import 'package:momo/app/util/constant.dart';
@@ -15,7 +16,7 @@ abstract class ScheduleClient {
   }) = _ScheduleClient;
 
   @POST('/schedule')
-  Future<dynamic> createSchedule(
+  Future<ScheduleDetail> createSchedule(
     @Body() ScheduleRequest scheduleRequest,
   );
 

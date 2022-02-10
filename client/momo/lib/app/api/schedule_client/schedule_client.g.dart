@@ -16,18 +16,19 @@ class _ScheduleClient implements ScheduleClient {
   String? baseUrl;
 
   @override
-  Future<dynamic> createSchedule(scheduleRequest) async {
+  Future<ScheduleDetail> createSchedule(scheduleRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(scheduleRequest.toJson());
-    final _result = await _dio.fetch(_setStreamType<dynamic>(
-        Options(method: 'POST', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/schedule',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ScheduleDetail>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/schedule',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ScheduleDetail.fromJson(_result.data!);
     return value;
   }
 

@@ -26,6 +26,7 @@ class UserInfoEditPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userNameCheck = ref.watch(nameCheckProvider);
     final userInfo = ref.watch(userInfoRequestProvider);
+    final userData = ref.watch(userDataProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -82,8 +83,8 @@ class UserInfoEditPage extends ConsumerWidget {
                         child: Stack(
                           children: [
                             userInfo.imagePath.isEmpty
-                                ? const ProfileAvatar(
-                                    img:
+                                ? ProfileAvatar(
+                                    img: userData.image ??
                                         'https://file.mk.co.kr/meet/neds/2020/08/image_readtop_2020_864116_15980534304326707.png',
                                     rad: 50,
                                     backgroundColor: MomoColor.main,

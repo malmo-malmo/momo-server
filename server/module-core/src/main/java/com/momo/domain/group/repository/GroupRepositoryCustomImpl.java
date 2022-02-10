@@ -48,9 +48,7 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
                 group.name,
                 group.imageUrl,
                 group.startDate,
-                group.university,
-                group.city,
-                group.district,
+                group.location,
                 group.isOffline,
                 group.introduction,
                 group.recruitmentCnt,
@@ -95,7 +93,7 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
     }
 
     private BooleanExpression cityIn(List<City> cities) {
-        return CollectionUtils.isEmpty(cities) ? null : group.city.in(cities);
+        return CollectionUtils.isEmpty(cities) ? null : group.location.city.in(cities);
     }
 
     private BooleanExpression categoryIn(List<Category> categories) {
@@ -116,7 +114,7 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
                 isFavoriteGroupQuery(loginUser)
             ))
             .from(group)
-            .where(group.university.eq(university))
+            .where(group.location.university.eq(university))
             .orderBy(group.createdDate.desc())
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
@@ -138,7 +136,7 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
                 isFavoriteGroupQuery(loginUser)
             ))
             .from(group)
-            .where(group.district.eq(district))
+            .where(group.location.district.eq(district))
             .orderBy(group.createdDate.desc())
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())

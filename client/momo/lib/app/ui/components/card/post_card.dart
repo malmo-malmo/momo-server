@@ -70,7 +70,9 @@ class _PostCardState extends State<PostCard> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            postDateFormat(widget.post.createdDate),
+                            widget.post.createdDate.contains('-')
+                                ? postDateFormat(widget.post.createdDate)
+                                : widget.post.createdDate,
                             style: MomoTextStyle.small.copyWith(
                               color: MomoColor.unSelIcon,
                             ),

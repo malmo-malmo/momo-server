@@ -1,16 +1,12 @@
 package com.momo.domain.user.entity;
 
 import com.momo.domain.common.entity.BaseEntity;
-import com.momo.domain.district.entity.City;
 import com.momo.domain.favorite.entity.FavoriteCategories;
 import com.momo.domain.group.entity.Category;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,51 +24,39 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private SocialProvider provider;
-
-    @Column(nullable = false)
-    private String providerId;
-
-    private String refreshToken;
-
     private String nickname;
 
     private String imageUrl;
 
-    @Enumerated(EnumType.STRING)
-    private City city;
+    @Embedded
+    private Social loginInfo;
 
-    private String district;
-
-    private String university;
+    @Embedded
+    private Location location;
 
     @Embedded
     private final FavoriteCategories favoriteCategories = FavoriteCategories.empty();
 
     @Builder
-    public User(Long id, SocialProvider provider, String providerId, String refreshToken, String nickname,
-        String imageUrl, City city, String district, String university) {
+    public User(Long id, Social loginInfo, String nickname, String imageUrl, Location location) {
         this.id = id;
-        this.provider = provider;
-        this.providerId = providerId;
-        this.refreshToken = refreshToken;
+        this.loginInfo = loginInfo;
         this.nickname = nickname;
         this.imageUrl = imageUrl;
-        this.city = city;
-        this.district = district;
-        this.university = university;
+        this.location = location;
     }
 
-    public static User createSocialLoginUser(String providerId, SocialProvider socialProvider) {
+    public static User createSocialLoginUser(Social loginInfo) {
         return User.builder()
-            .providerId(providerId)
-            .provider(socialProvider)
+            .loginInfo(loginInfo)
             .build();
     }
 
     public void updateRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
+        if(Objects.isNull(this.loginInfo)) {
+            return;
+        }
+        this.loginInfo.updateRefreshToken(refreshToken);
     }
 
     public boolean isSameNickname(String nickname) {
@@ -88,9 +72,7 @@ public class User extends BaseEntity {
 
     public void update(User user, String imageUrl) {
         this.nickname = user.getNickname();
-        this.city = user.getCity();
-        this.district = user.getDistrict();
-        this.university = user.getUniversity();
+        this.location = user.getLocation();
         this.imageUrl = imageUrl;
     }
 

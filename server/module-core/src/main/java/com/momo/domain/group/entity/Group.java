@@ -87,20 +87,20 @@ public class Group extends BaseEntity {
         this.isEnd = isEnd;
     }
 
-    public static Group create(User user, Group group, boolean isUniversity) {
-        Location location;
-        if(isUniversity) {
-            location = user.getLocation();
-        } else {
-            location = Location.fromEmptyUniversity(user.getLocation());
+    private static Location hasUniversityLocation(boolean isNotUniversity, Location location) {
+        if(isNotUniversity) {
+            return location;
         }
+        return Location.fromEmptyUniversity(location);
+    }
+    public static Group create(User user, Group group, boolean isUniversity) {
         return Group.builder()
             .manager(user)
             .name(group.getName())
             .imageUrl(group.getImageUrl())
             .category(group.getCategory())
             .startDate(group.getStartDate())
-            .location(location)
+            .location(hasUniversityLocation(!isUniversity, user.getLocation()))
             .introduction(group.getIntroduction())
             .recruitmentCnt(group.getRecruitmentCnt())
             .isOffline(group.isOffline())

@@ -39,21 +39,19 @@ public class PostAcceptanceStep {
         Assertions.assertAll(
             () -> assertThat(post).isNotNull(),
             () -> assertThat(post.getTitle()).isEqualTo(request.getTitle()),
-            () -> assertThat(post.getContents()).isEqualTo(request.getContent())
+            () -> assertThat(post.getContents()).isEqualTo(request.getContents())
         );
     }
 
-    public static void assertThatFindPosts(PostCreateRequest request, List<PostCardResponse> responses,
-        User createUser, int commentCnt) {
+    public static void assertThatFindPosts(List<PostCardResponse> responses, User author, int commentCnt) {
         Assertions.assertAll(
-            () -> assertThat(responses.size()).isEqualTo(1),
-            () -> assertThat(responses.get(0).getTitle()).isEqualTo(request.getTitle()),
-            () -> assertThat(responses.get(0).getContents()).isEqualTo(request.getContents()),
-            () -> assertThat(responses.get(0).getTitle()).isEqualTo(request.getTitle()),
-            () -> assertThat(responses.get(0).getAuthorImage()).isEqualTo(createUser.getImageUrl()),
-            () -> assertThat(responses.get(0).getAuthorNickname()).isEqualTo(createUser.getNickname()),
+            () -> assertThat(responses.size()).isEqualTo(2),
+            () -> assertThat(responses.get(0).getId()).isNotNull(),
+            () -> assertThat(responses.get(0).getAuthorNickname()).isEqualTo(author.getNickname()),
             () -> assertThat(responses.get(0).getCommentCnt()).isEqualTo(commentCnt),
-            () -> assertThat(responses.get(0).getCreatedDate()).isNotNull()
+            () -> assertThat(responses.get(1).getId()).isNotNull(),
+            () -> assertThat(responses.get(1).getAuthorNickname()).isEqualTo(author.getNickname()),
+            () -> assertThat(responses.get(1).getCommentCnt()).isEqualTo(commentCnt)
         );
     }
 

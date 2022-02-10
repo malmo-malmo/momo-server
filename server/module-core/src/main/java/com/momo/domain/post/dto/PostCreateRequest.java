@@ -6,13 +6,11 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
-@Getter
-@ToString
+@Data
 @NoArgsConstructor
 public class PostCreateRequest {
 

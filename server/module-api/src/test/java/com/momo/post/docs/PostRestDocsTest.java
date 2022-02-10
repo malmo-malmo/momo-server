@@ -1,8 +1,11 @@
 package com.momo.post.docs;
 
+import static com.momo.PostFixture.getPostCreateRequest;
+import static com.momo.PostFixture.getPostResponse;
+import static com.momo.PostFixture.getPostUpdateRequest;
 import static com.momo.common.CommonFileUploadSupport.generateUploadMockPutBuilder;
 import static com.momo.common.CommonFileUploadSupport.uploadMockSupport;
-import static com.momo.common.CommonFileUploadSupport.uploadTestFile;
+import static com.momo.domain.post.entity.PostType.NORMAL;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
@@ -13,14 +16,11 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.common.RestDocsControllerTest;
 import com.momo.api.post.PostController;
+import com.momo.common.RestDocsControllerTest;
 import com.momo.domain.post.dto.PostCreateRequest;
-import com.momo.domain.post.dto.PostResponse;
 import com.momo.domain.post.dto.PostUpdateRequest;
 import com.momo.domain.post.service.impl.PostServiceImpl;
-import java.time.LocalDateTime;
-import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -33,28 +33,16 @@ public class PostRestDocsTest extends RestDocsControllerTest {
 
     @InjectMocks
     private PostController postController;
+
     @MockBean
     private PostServiceImpl postService;
 
     @Test
     void 게시글_작성() throws Exception {
-        given(postService.create(any(), any())).willReturn(PostResponse.builder()
-            .id(1L)
-            .authorId(1L)
-            .authorImage("작성자 이미지")
-            .authorNickname("작성자 닉네임")
-            .title("게시글 제목")
-            .contents("게시글 내용")
-            .imageUrls(List.of("게시글 첨부 이미지 URL"))
-            .createdDate(LocalDateTime.now())
-            .build());
-        PostCreateRequest request = PostCreateRequest.builder()
-            .groupId(1L)
-            .title("테스트 게시글")
-            .contents("테스트 게시글 내용")
-            .typeName("테스트 타입")
-            .images(List.of(uploadTestFile))
-            .build();
+        PostCreateRequest request = getPostCreateRequest(1L, NORMAL);
+
+        given(postService.create(any(), any())).willReturn(getPostResponse());
+
         super.mockMvc.perform(uploadMockSupport(fileUpload("/api/post"), request))
             .andDo(print())
             .andExpect(status().isCreated())
@@ -63,17 +51,7 @@ public class PostRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 게시글_상세_조회() throws Exception {
-        when(postService.findById(any(), anyLong())).thenReturn(PostResponse.builder()
-            .id(1L)
-            .authorId(1L)
-            .authorImage("http://~~")
-            .authorNickname("테스트맨")
-            .title("테스트 게시글 제목")
-            .contents("테스트 게시글 내용")
-            .imageUrls(List.of("http://~~"))
-            .createdDate(LocalDateTime.now())
-            .build()
-        );
+        when(postService.findById(any(), anyLong())).thenReturn(getPostResponse());
 
         super.mockMvc.perform(get("/api/post/{id}", 1L))
             .andDo(print())
@@ -83,12 +61,8 @@ public class PostRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 게시글_수정() throws Exception {
-        PostUpdateRequest request = PostUpdateRequest.builder()
-            .postId(1L)
-            .title("수정할 게시글 내용")
-            .content("수정할 게시글 내용")
-            .images(List.of(uploadTestFile))
-            .build();
+        PostUpdateRequest request = getPostUpdateRequest(1L);
+
         super.mockMvc.perform(uploadMockSupport(generateUploadMockPutBuilder(fileUpload("/api/post")), request))
             .andDo(print())
             .andExpect(status().isOk())

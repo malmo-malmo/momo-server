@@ -1,9 +1,9 @@
 package com.momo.domain.group.service;
 
 import static com.momo.GroupFixture.getGroupCreateRequest;
+import static com.momo.GroupFixture.getGroupResponse;
 import static com.momo.GroupFixture.getGroupWithId;
 import static com.momo.UserFixture.getUserWithId;
-import static com.momo.domain.district.entity.City.ULSAN;
 import static com.momo.domain.group.entity.Category.EMPLOYMENT;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -63,7 +63,7 @@ public class GroupServiceTest extends ServiceTest {
     @Test
     void 모임_생성_테스트() throws IOException {
         GroupCreateRequest groupCreateRequest = getGroupCreateRequest(EMPLOYMENT, true);
-        GroupResponse groupResponse = GroupResponse.builder().id(1L).city(ULSAN).build();
+        GroupResponse groupResponse = getGroupResponse();
 
         given(groupRepository.save(any())).willReturn(Group.builder().id(1L).build());
         given(participantRepository.save(any())).willReturn(Participant.builder().build());

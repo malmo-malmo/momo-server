@@ -1,5 +1,6 @@
 package com.momo;
 
+import static com.momo.common.LocationFixture.getLocation;
 import static com.momo.common.FixtureComponents.CATEGORY;
 import static com.momo.common.FixtureComponents.CITY;
 import static com.momo.common.FixtureComponents.DATE;
@@ -12,7 +13,6 @@ import static com.momo.common.FixtureComponents.IS_END;
 import static com.momo.common.FixtureComponents.IS_OFFLINE;
 import static com.momo.common.FixtureComponents.NAME;
 import static com.momo.common.FixtureComponents.RECRUITMENT_CNT;
-import static com.momo.common.FixtureComponents.UNIVERSITY;
 
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupCreateRequest;
@@ -29,11 +29,9 @@ public class GroupFixture {
             .manager(user)
             .name(NAME + INCREASE_ID)
             .category(CATEGORY)
-            .city(CITY)
-            .district(DISTRICT)
+            .location(getLocation())
             .imageUrl(IMAGE_URL)
             .introduction(INTRODUCTION + INCREASE_ID)
-            .university(UNIVERSITY + INCREASE_ID)
             .recruitmentCnt(RECRUITMENT_CNT)
             .isOffline(IS_OFFLINE)
             .isEnd(IS_END)
@@ -48,11 +46,9 @@ public class GroupFixture {
             .manager(user)
             .name(NAME + INCREASE_ID)
             .category(CATEGORY)
-            .city(CITY)
-            .district(DISTRICT)
             .imageUrl(IMAGE_URL)
+            .location(getLocation())
             .introduction(INTRODUCTION + INCREASE_ID)
-            .university(UNIVERSITY + INCREASE_ID)
             .recruitmentCnt(RECRUITMENT_CNT)
             .isOffline(IS_OFFLINE)
             .isEnd(IS_END)
@@ -99,9 +95,7 @@ public class GroupFixture {
             .name(NAME)
             .imageUrl(IMAGE_URL)
             .startDate(DATE)
-            .university(UNIVERSITY)
-            .city(CITY)
-            .district(DISTRICT)
+            .location(getLocation())
             .isOffline(IS_OFFLINE)
             .introduction(INTRODUCTION)
             .recruitmentCnt(RECRUITMENT_CNT)

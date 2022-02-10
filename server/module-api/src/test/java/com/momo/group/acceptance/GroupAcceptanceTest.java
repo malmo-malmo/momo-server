@@ -67,7 +67,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
         GroupResponse groupResponse = getObject(response, GroupResponse.class);
 
         assertThatStatusIsOk(response);
-        assertThatFindGroup(groupCreateRequest, groupResponse, true, user.getUniversity());
+        assertThatFindGroup(groupCreateRequest, groupResponse, true, user.getLocation().getUniversity());
     }
 
     @Test
@@ -81,7 +81,7 @@ public class GroupAcceptanceTest extends AcceptanceTest {
         GroupResponse groupResponse = getObject(response, GroupResponse.class);
 
         assertThatStatusIsOk(response);
-        assertThatFindGroup(groupCreateRequest, groupResponse, false, user.getUniversity());
+        assertThatFindGroup(groupCreateRequest, groupResponse, false, user.getLocation().getUniversity());
     }
 
     /*
@@ -125,8 +125,8 @@ public class GroupAcceptanceTest extends AcceptanceTest {
         User user1 = getUser("강동구", "대학교1", List.of(LIFE));
         User user2 = getUser("강동구", "대학교1", List.of(LIFE));
         User user3 = getUser("강동구", "대학교2", List.of(LIFE));
-        requestToCreateGroup(getAccessToken(user2), getGroupCreateRequest(LIFE, true)); //같은 학교 모임
-        requestToCreateGroup(getAccessToken(user3), getGroupCreateRequest(LIFE, true)); //다른 학교 모임
+        requestToCreateGroup(getAccessToken(user2), getGroupCreateRequest(LIFE, true));
+        requestToCreateGroup(getAccessToken(user3), getGroupCreateRequest(LIFE, true));
 
         ExtractableResponse<Response> response = requestToFindGroupsByUserUniversity(getAccessToken(user1));
 
@@ -136,11 +136,11 @@ public class GroupAcceptanceTest extends AcceptanceTest {
 
     @Test
     void 로그인한_유저의_지역으로_모임_목록을_조회한다() {
-        user = getUser("강동구", "대학교1", List.of(LIFE));
-        requestToCreateGroup(getAccessToken(getUser()), getGroupCreateRequest(LIFE, true, "강동구")); //같은 지역 모임
-        requestToCreateGroup(getAccessToken(getUser()), getGroupCreateRequest(LIFE, true, "강남구")); //다른 지역 모임
+        String token = getAccessToken(getUser("강동구", "대학교1", List.of(LIFE)));
+        requestToCreateGroup(getAccessToken(getUser()), getGroupCreateRequest(LIFE, true, "강동구"));
+        requestToCreateGroup(getAccessToken(getUser()), getGroupCreateRequest(LIFE, true, "강남구"));
 
-        ExtractableResponse<Response> response = requestToFindGroupsByDistrict(getAccessToken(user));
+        ExtractableResponse<Response> response = requestToFindGroupsByDistrict(token);
 
         assertThatStatusIsOk(response);
         assertThat(getObjects(response, GroupCardResponse.class).size()).isEqualTo(1);
@@ -149,9 +149,9 @@ public class GroupAcceptanceTest extends AcceptanceTest {
     @Test
     void 로그인한_유저의_관심_카테고리로_모임_목록을_조회한다() {
         user = getUser("강동구", "대학교1", List.of(LIFE, STOCK));
-        requestToCreateGroup(getAccessToken(getUser()), getGroupCreateRequest(LIFE, true)); //관심 카테고리 모임 O
-        requestToCreateGroup(getAccessToken(getUser()), getGroupCreateRequest(STOCK, true)); //관심 카테고리 모임 O
-        requestToCreateGroup(getAccessToken(getUser()), getGroupCreateRequest(HOBBY, true)); //관심 카테고리 모임 X
+        requestToCreateGroup(getAccessToken(getUser()), getGroupCreateRequest(LIFE, true));
+        requestToCreateGroup(getAccessToken(getUser()), getGroupCreateRequest(STOCK, true));
+        requestToCreateGroup(getAccessToken(getUser()), getGroupCreateRequest(HOBBY, true));
 
         ExtractableResponse<Response> response = requestToFindGroupsByCategories(getAccessToken(user));
 

@@ -21,7 +21,7 @@ public class GroupTest {
 
         Assertions.assertAll(
             () -> assertThat(expected).isNotNull(),
-            () -> assertThat(expected.getUniversity()).isEqualTo(user.getUniversity())
+            () -> assertThat(expected.getLocation().getUniversity()).isEqualTo(user.getLocation().getUniversity())
         );
     }
 

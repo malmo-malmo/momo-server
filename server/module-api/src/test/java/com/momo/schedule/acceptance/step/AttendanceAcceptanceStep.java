@@ -38,7 +38,7 @@ public class AttendanceAcceptanceStep {
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToAttendances(String token, Long scheduleId) {
+    public static ExtractableResponse<Response> requestToFindAttendances(String token, Long scheduleId) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)

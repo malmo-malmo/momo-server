@@ -1,16 +1,16 @@
 package com.momo.auth.acceptance;
 
+import static com.momo.UserFixture.getUser;
 import static com.momo.auth.acceptance.step.AuthAcceptanceStep.assertThatRefreshLogin;
 import static com.momo.auth.acceptance.step.AuthAcceptanceStep.requestToRefreshLogin;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatCustomException;
 import static com.momo.domain.common.exception.ErrorCode.INVALID_REFRESH_TOKEN;
-import static com.momo.fixture.UserFixture.getUser1;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
-import com.momo.domain.auth.provider.TokenProvider;
 import com.momo.domain.auth.dto.OAuthLoginResponse;
 import com.momo.domain.auth.dto.RefreshLoginRequest;
+import com.momo.domain.auth.provider.TokenProvider;
 import com.momo.domain.user.entity.User;
 import com.momo.user.acceptance.step.UserAcceptanceStep;
 import io.restassured.response.ExtractableResponse;
@@ -32,10 +32,10 @@ public class AuthAcceptanceTest extends AcceptanceTest {
     @BeforeEach
     public void setUp() {
         super.setUp();
-        User savedUser = userRepository.save(getUser1());
-        refreshToken = tokenProvider.createRefreshToken(savedUser);
-        savedUser.updateRefreshToken(refreshToken);
-        userRepository.save(savedUser);
+        User user = userRepository.save(getUser());
+        refreshToken = tokenProvider.createRefreshToken(user);
+        user.updateRefreshToken(refreshToken);
+        userRepository.save(user);
     }
 
     @Test

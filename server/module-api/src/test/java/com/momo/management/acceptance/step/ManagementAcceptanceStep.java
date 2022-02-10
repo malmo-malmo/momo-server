@@ -61,11 +61,10 @@ public class ManagementAcceptanceStep {
         );
     }
 
-    public static void assertThatFindMyPosts(List<MyPostCardResponse> responses, PostCreateRequest request,
-        String groupName) {
+    public static void assertThatFindMyPosts(List<MyPostCardResponse> responses, PostCreateRequest request) {
         Assertions.assertAll(
             () -> assertThat(responses.size()).isEqualTo(1),
-            () -> assertThat(responses.get(0).getGroupName()).isEqualTo(groupName),
+            () -> assertThat(responses.get(0).getGroupName()).isNotNull(),
             () -> assertThat(responses.get(0).getPostCardResponse().getId()).isNotNull(),
             () -> assertThat(responses.get(0).getPostCardResponse().getAuthorImage()).isNull(),
             () -> assertThat(responses.get(0).getPostCardResponse().getAuthorNickname()).isNotNull(),

@@ -7,8 +7,8 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.common.RestDocsControllerTest;
 import com.momo.api.management.ManagementController;
+import com.momo.common.RestDocsControllerTest;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.management.dto.MyGroupCardResponse;
 import com.momo.domain.management.dto.MyGroupSummaryResponse;
@@ -40,7 +40,9 @@ public class ManagementRestDocsTest extends RestDocsControllerTest {
     @Test
     void 참여한_모임_수_조회() throws Exception {
         ParticipationGroupCountResponse response = new ParticipationGroupCountResponse(10L);
+
         when(managementService.findParticipationGroupCountByUser(any())).thenReturn(response);
+
         super.mockMvc.perform(get("/api/management/participation-group/count"))
             .andDo(print())
             .andExpect(status().isOk())
@@ -60,7 +62,9 @@ public class ManagementRestDocsTest extends RestDocsControllerTest {
                 .participantCnt(10L)
                 .build()
         );
+
         when(managementService.findParticipationGroupsByUser(any())).thenReturn(responses);
+
         super.mockMvc.perform(get("/api/management/participation-groups/details"))
             .andDo(print())
             .andExpect(status().isOk())
@@ -76,7 +80,9 @@ public class ManagementRestDocsTest extends RestDocsControllerTest {
                 .category(Category.HOBBY)
                 .build()
         );
+
         when(managementService.findParticipationGroupsSummaryByUser(any())).thenReturn(responses);
+
         super.mockMvc.perform(get("/api/management/participation-groups/summary"))
             .andDo(print())
             .andExpect(status().isOk())
@@ -93,7 +99,9 @@ public class ManagementRestDocsTest extends RestDocsControllerTest {
                 .achievementRate(0)
                 .build()
         );
+
         when(managementService.findMyGroupsByUser(any())).thenReturn(responses);
+
         super.mockMvc.perform(get("/api/management/my-groups/details"))
             .andDo(print())
             .andExpect(status().isOk())
@@ -108,7 +116,9 @@ public class ManagementRestDocsTest extends RestDocsControllerTest {
                 .name("모임 이름")
                 .build()
         );
+
         when(managementService.findMyGroupsSummaryByUser(any())).thenReturn(responses);
+
         super.mockMvc.perform(get("/api/management/my-groups/summary"))
             .andDo(print())
             .andExpect(status().isOk())
@@ -133,7 +143,9 @@ public class ManagementRestDocsTest extends RestDocsControllerTest {
                 )
                 .build()
         );
+
         when(managementService.findMyPostsByUser(any(), anyInt(), anyInt())).thenReturn(responses);
+
         super.mockMvc.perform(get("/api/management/my-posts")
                 .param("page", String.valueOf(0))
                 .param("size", String.valueOf(10))

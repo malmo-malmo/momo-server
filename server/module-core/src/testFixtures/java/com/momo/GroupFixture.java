@@ -1,7 +1,9 @@
 package com.momo;
 
 import com.momo.domain.district.entity.City;
+import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupCreateRequest;
+import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.user.entity.User;
@@ -80,6 +82,53 @@ public class GroupFixture {
             .recruitmentCnt(RECRUITMENT_CNT)
             .introduction(INTRODUCTION + INCREASE_ID)
             .image(IMAGE_FILE)
+            .build();
+    }
+
+    public static GroupCreateRequest getGroupCreateRequest(Category category, boolean isUniversity, String district) {
+        INCREASE_ID++;
+        return GroupCreateRequest.builder()
+            .name(NAME + INCREASE_ID)
+            .category(category)
+            .city(CITY)
+            .district(district)
+            .isUniversity(isUniversity)
+            .isOffline(IS_OFFLINE)
+            .startDate(DATE)
+            .recruitmentCnt(RECRUITMENT_CNT)
+            .introduction(INTRODUCTION + INCREASE_ID)
+            .image(IMAGE_FILE)
+            .build();
+    }
+
+    public static GroupResponse getGroupResponse() {
+        return GroupResponse.builder()
+            .id(1L)
+            .managerId(1L)
+            .name(NAME)
+            .imageUrl(IMAGE_URL)
+            .startDate(DATE)
+            .university(UNIVERSITY)
+            .city(CITY)
+            .district(DISTRICT)
+            .isOffline(IS_OFFLINE)
+            .introduction(INTRODUCTION)
+            .recruitmentCnt(RECRUITMENT_CNT)
+            .isEnd(IS_END)
+            .participantCnt(1L)
+            .isParticipant(false)
+            .build();
+    }
+
+    public static GroupCardResponse getGroupCardResponse() {
+        return GroupCardResponse.builder()
+            .id(1L)
+            .name(NAME)
+            .imageUrl(IMAGE_URL)
+            .startDate(DATE)
+            .isOffline(IS_OFFLINE)
+            .participantCnt(1L)
+            .isFavoriteGroup(true)
             .build();
     }
 }

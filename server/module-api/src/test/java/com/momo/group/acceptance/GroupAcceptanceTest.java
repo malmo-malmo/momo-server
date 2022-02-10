@@ -1,16 +1,14 @@
 package com.momo.group.acceptance;
 
+import static com.momo.GroupFixture.getGroupCreateRequest;
+import static com.momo.UserFixture.getUser;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatCustomException;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsCreated;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
 import static com.momo.domain.common.exception.ErrorCode.GROUP_MANAGER_AUTHORIZED;
-import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST1;
-import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST2;
-import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST3;
-import static com.momo.fixture.GroupFixture.GROUP_CREATE_REQUEST4;
-import static com.momo.fixture.UserFixture.getUser1;
-import static com.momo.fixture.UserFixture.getUser2;
-import static com.momo.fixture.UserFixture.getUser3;
+import static com.momo.domain.group.entity.Category.HOBBY;
+import static com.momo.domain.group.entity.Category.LIFE;
+import static com.momo.domain.group.entity.Category.STOCK;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.assertThatEndGroup;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.assertThatFindCategory;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.assertThatFindGroup;
@@ -20,7 +18,6 @@ import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindCa
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroup;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsByCategories;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsByDistrict;
-import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsBySearchCondition;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToFindGroupsByUserUniversity;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToUpdateManager;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToApplyParticipant;
@@ -29,47 +26,66 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.district.entity.City;
 import com.momo.domain.group.dto.GroupCardResponse;
+import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.group.dto.GroupResponse;
-import com.momo.domain.group.dto.GroupSearchConditionRequest;
-import com.momo.domain.group.entity.Category;
 import com.momo.domain.user.dto.UserResponse;
+import com.momo.domain.user.entity.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("모임 통합/인수 테스트")
 public class GroupAcceptanceTest extends AcceptanceTest {
 
+    private User user;
+
+    @Override
+    @BeforeEach
+    protected void setUp() {
+        super.setUp();
+        user = getUser();
+    }
+
     @Test
     void 모임을_생성한다() {
-        String token = getAccessToken(getUser1());
-        ExtractableResponse<Response> response = requestToCreateGroup(token, GROUP_CREATE_REQUEST1);
+        String token = getAccessToken(user);
+        ExtractableResponse<Response> response = requestToCreateGroup(token, getGroupCreateRequest(LIFE, true));
         assertThatStatusIsCreated(response);
     }
 
     @Test
     void 관리자가_모임을_상세_조회한다() {
-        String token = getAccessToken(getUser1());
-        Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
+        String token = getAccessToken(user);
+        GroupCreateRequest groupCreateRequest = getGroupCreateRequest(LIFE, true);
+        Long groupId = extractId(requestToCreateGroup(token, groupCreateRequest));
+
         ExtractableResponse<Response> response = requestToFindGroup(token, groupId);
         GroupResponse groupResponse = getObject(response, GroupResponse.class);
+
         assertThatStatusIsOk(response);
-        assertThatFindGroup(GROUP_CREATE_REQUEST1, groupResponse, true, getUser1().getUniversity());
+        assertThatFindGroup(groupCreateRequest, groupResponse, true, user.getUniversity());
     }
 
     @Test
     void 모임에_참여하지_않은_유저가_모임을_상세_조회한다() {
-        Long groupId = extractId(requestToCreateGroup(getAccessToken(getUser1()), GROUP_CREATE_REQUEST1));
-        ExtractableResponse<Response> response = requestToFindGroup(getAccessToken(getUser2()), groupId);
+        String token1 = getAccessToken(user);
+        String token2 = getAccessToken(getUser());
+        GroupCreateRequest groupCreateRequest = getGroupCreateRequest(LIFE, true);
+        Long groupId = extractId(requestToCreateGroup(token1, groupCreateRequest));
+
+        ExtractableResponse<Response> response = requestToFindGroup(token2, groupId);
         GroupResponse groupResponse = getObject(response, GroupResponse.class);
+
         assertThatStatusIsOk(response);
-        assertThatFindGroup(GROUP_CREATE_REQUEST1, groupResponse, false, getUser1().getUniversity());
+        assertThatFindGroup(groupCreateRequest, groupResponse, false, user.getUniversity());
     }
 
+    /*
+    TODO : 통합검색 구현 후 리팩토링
     @Test
     void 유저가_검색_조건으로_모임_목록을_조회한다() {
         requestToCreateGroup(getAccessToken(getUser1()), GROUP_CREATE_REQUEST1); //서울 건강
@@ -102,86 +118,102 @@ public class GroupAcceptanceTest extends AcceptanceTest {
         List<GroupCardResponse> groupCardResponses = getObjects(response, GroupCardResponse.class);
         assertThatStatusIsOk(response);
         assertThat(groupCardResponses.size()).isEqualTo(2);
-    }
+    }*/
 
     @Test
     void 로그인한_유저의_학교로_모임_목록을_조회한다() {
-        requestToCreateGroup(getAccessToken(getUser1()), GROUP_CREATE_REQUEST1); //같은 학교 모임
-        requestToCreateGroup(getAccessToken(getUser2()), GROUP_CREATE_REQUEST2); //다른 학교 모임
-        requestToCreateGroup(getAccessToken(getUser3()), GROUP_CREATE_REQUEST3); //다른 학교 모임
-        ExtractableResponse<Response> response = requestToFindGroupsByUserUniversity(getAccessToken(getUser1()));
-        List<GroupCardResponse> groupCardResponses = getObjects(response, GroupCardResponse.class);
+        User user1 = getUser("강동구", "대학교1", List.of(LIFE));
+        User user2 = getUser("강동구", "대학교1", List.of(LIFE));
+        User user3 = getUser("강동구", "대학교2", List.of(LIFE));
+        requestToCreateGroup(getAccessToken(user2), getGroupCreateRequest(LIFE, true)); //같은 학교 모임
+        requestToCreateGroup(getAccessToken(user3), getGroupCreateRequest(LIFE, true)); //다른 학교 모임
+
+        ExtractableResponse<Response> response = requestToFindGroupsByUserUniversity(getAccessToken(user1));
+
         assertThatStatusIsOk(response);
-        assertThat(groupCardResponses.size()).isEqualTo(1);
+        assertThat(getObjects(response, GroupCardResponse.class).size()).isEqualTo(1);
     }
 
     @Test
     void 로그인한_유저의_지역으로_모임_목록을_조회한다() {
-        requestToCreateGroup(getAccessToken(getUser1()), GROUP_CREATE_REQUEST1); //같은 지역 모임
-        requestToCreateGroup(getAccessToken(getUser2()), GROUP_CREATE_REQUEST2); //같은 지역 모임
-        requestToCreateGroup(getAccessToken(getUser3()), GROUP_CREATE_REQUEST3); //다른 지역 모임
-        ExtractableResponse<Response> response = requestToFindGroupsByDistrict(getAccessToken(getUser1()));
-        List<GroupCardResponse> groupCardResponses = getObjects(response, GroupCardResponse.class);
+        user = getUser("강동구", "대학교1", List.of(LIFE));
+        requestToCreateGroup(getAccessToken(getUser()), getGroupCreateRequest(LIFE, true, "강동구")); //같은 지역 모임
+        requestToCreateGroup(getAccessToken(getUser()), getGroupCreateRequest(LIFE, true, "강남구")); //다른 지역 모임
+
+        ExtractableResponse<Response> response = requestToFindGroupsByDistrict(getAccessToken(user));
+
         assertThatStatusIsOk(response);
-        assertThat(groupCardResponses.size()).isEqualTo(2);
+        assertThat(getObjects(response, GroupCardResponse.class).size()).isEqualTo(1);
     }
 
     @Test
     void 로그인한_유저의_관심_카테고리로_모임_목록을_조회한다() {
-        requestToCreateGroup(getAccessToken(getUser1()), GROUP_CREATE_REQUEST1); //관심 카테고리 모임 O
-        requestToCreateGroup(getAccessToken(getUser2()), GROUP_CREATE_REQUEST2); //관심 카테고리 모임 O
-        requestToCreateGroup(getAccessToken(getUser3()), GROUP_CREATE_REQUEST3); //관심 카테고리 모임 O
-        ExtractableResponse<Response> response = requestToFindGroupsByCategories(getAccessToken(getUser1()));
-        List<GroupCardResponse> groupCardResponses = getObjects(response, GroupCardResponse.class);
+        user = getUser("강동구", "대학교1", List.of(LIFE, STOCK));
+        requestToCreateGroup(getAccessToken(getUser()), getGroupCreateRequest(LIFE, true)); //관심 카테고리 모임 O
+        requestToCreateGroup(getAccessToken(getUser()), getGroupCreateRequest(STOCK, true)); //관심 카테고리 모임 O
+        requestToCreateGroup(getAccessToken(getUser()), getGroupCreateRequest(HOBBY, true)); //관심 카테고리 모임 X
+
+        ExtractableResponse<Response> response = requestToFindGroupsByCategories(getAccessToken(user));
+
         assertThatStatusIsOk(response);
-        assertThat(groupCardResponses.size()).isEqualTo(3);
+        assertThat(getObjects(response, GroupCardResponse.class).size()).isEqualTo(2);
     }
 
     @Test
     void 모임_카테고리_목록을_조회한다() {
-        String token = getAccessToken(getUser1());
+        String token = getAccessToken(user);
+
         ExtractableResponse<Response> response = requestToFindCategories(token);
+
         assertThatStatusIsOk(response);
         assertThatFindCategory(getObjects(response, EnumResponse.class));
     }
 
     @Test
     void 모임장이_권한을_양도한다() {
-        String managerToken = getAccessToken(getUser1());
-        String participantToken = getAccessToken(getUser2());
+        String managerToken = getAccessToken(user);
+        String participantToken = getAccessToken(getUser());
         Long participantId = getObject(requestToFindMyInformation(participantToken), UserResponse.class).getId();
-        Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));
+        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, true)));
         requestToApplyParticipant(participantToken, groupId);
+
         ExtractableResponse<Response> response = requestToUpdateManager(managerToken, groupId, participantId);
+
         assertThatStatusIsOk(response);
     }
 
     @Test
     void 모임장이_아닌_유저가_권한을_양도하면_실패한다() {
-        String managerToken = getAccessToken(getUser1());
-        String participantToken = getAccessToken(getUser2());
-        Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));
+        String managerToken = getAccessToken(user);
+        String participantToken = getAccessToken(getUser());
+        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, true)));
         requestToApplyParticipant(participantToken, groupId);
+
         ExtractableResponse<Response> response = requestToUpdateManager(participantToken, groupId, 1L);
+
         assertThatCustomException(response, GROUP_MANAGER_AUTHORIZED);
     }
 
     @Test
     void 모임장이_모임을_종료한다() {
-        String token = getAccessToken(getUser1());
-        Long groupId = extractId(requestToCreateGroup(token, GROUP_CREATE_REQUEST1));
+        String token = getAccessToken(user);
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+
         ExtractableResponse<Response> response = requestToEndGroup(token, groupId);
-        assertThatStatusIsOk(response);
         GroupResponse groupResponse = getObject(requestToFindGroup(token, groupId), GroupResponse.class);
+
+        assertThatStatusIsOk(response);
         assertThatEndGroup(groupResponse);
     }
 
     @Test
     void 모임장이_아닌_유저가_모임을_종료하면_실패한다() {
-        String managerToken = getAccessToken(getUser1());
-        String participantToken = getAccessToken(getUser2());
-        Long groupId = extractId(requestToCreateGroup(managerToken, GROUP_CREATE_REQUEST1));
+        String managerToken = getAccessToken(user);
+        String participantToken = getAccessToken(getUser());
+        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, true)));
+
         ExtractableResponse<Response> response = requestToEndGroup(participantToken, groupId);
+
         assertThatCustomException(response, GROUP_MANAGER_AUTHORIZED);
     }
 }

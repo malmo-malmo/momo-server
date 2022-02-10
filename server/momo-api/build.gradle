@@ -20,9 +20,9 @@ configurations {
 
 dependencies {
     //module
-    implementation project(":module-core")
-    testImplementation(testFixtures(project(":module-core")))
-    implementation project(":module-common")
+    implementation project(":momo-core")
+    testImplementation(testFixtures(project(":momo-core")))
+    implementation project(":momo-common")
 
     //spring
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -44,7 +44,6 @@ dependencies {
     //logging
     implementation group: 'com.github.maricn', name: 'logback-slack-appender', version: '1.4.0'
     implementation group: 'org.codehaus.janino', name: 'janino', version: '3.1.6'
-
 
     //test
     testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.3.3'

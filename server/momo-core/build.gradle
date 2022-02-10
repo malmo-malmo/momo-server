@@ -17,7 +17,7 @@ configurations {
 
 dependencies {
     //module
-    implementation project(":module-common")
+    implementation project(":momo-common")
 
     //spring
     implementation 'org.springframework.boot:spring-boot-starter-web'

@@ -1,20 +1,24 @@
 package com.momo.domain.post.dto;
 
-import java.util.List;
-
 import com.momo.domain.post.entity.Comment;
-import lombok.AllArgsConstructor;
+import java.util.List;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class CommentsResponse {
 
     private List<CommentResponse> commentResponses;
 
     private Long commentCnt;
+
+    @Builder
+    public CommentsResponse(List<CommentResponse> commentResponses, Long commentCnt) {
+        this.commentResponses = commentResponses;
+        this.commentCnt = commentCnt;
+    }
 
     public static CommentsResponse of(List<Comment> comments, Long commentCnt) {
         return new CommentsResponse(CommentResponse.listOf(comments), commentCnt);

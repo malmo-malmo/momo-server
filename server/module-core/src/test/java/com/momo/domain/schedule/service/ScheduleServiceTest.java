@@ -62,7 +62,7 @@ public class ScheduleServiceTest extends ServiceTest {
 
     @Test
     void 일정_생성_테스트() {
-        ScheduleCreateRequest request = getScheduleCreateRequest(group.getId(), true, LocalDateTime.now());
+        ScheduleCreateRequest request = getScheduleCreateRequest(group.getId(), LocalDateTime.now());
         Schedule schedule = getScheduleWithId(manager, group);
 
         given(groupRepository.findById(any())).willReturn(of(group));
@@ -82,7 +82,7 @@ public class ScheduleServiceTest extends ServiceTest {
 
     @Test
     void 모임_관리자가_아니면_일정_생성_테스트를_실패한다() {
-        ScheduleCreateRequest request = getScheduleCreateRequest(group.getId(), true, LocalDateTime.now());
+        ScheduleCreateRequest request = getScheduleCreateRequest(group.getId(), LocalDateTime.now());
 
         given(groupRepository.findById(any())).willReturn(of(group));
 

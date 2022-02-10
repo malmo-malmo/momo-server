@@ -43,13 +43,12 @@ public class ScheduleFixture {
             .build();
     }
 
-    public static ScheduleCreateRequest getScheduleCreateRequest(Long groupId, boolean isOffline,
-        LocalDateTime startDateTime) {
+    public static ScheduleCreateRequest getScheduleCreateRequest(Long groupId, LocalDateTime startDateTime) {
         return ScheduleCreateRequest.builder()
             .groupId(groupId)
             .title(TITLE + INCREASE_ID)
             .contents(CONTENTS + INCREASE_ID)
-            .isOffline(isOffline)
+            .isOffline(IS_OFFLINE)
             .startDateTime(startDateTime)
             .build();
     }

@@ -9,16 +9,15 @@ import com.momo.domain.schedule.dto.UserScheduleResponse;
 import com.momo.domain.user.entity.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
-import java.util.List;
-
 public class ScheduleAcceptanceStep {
 
     public static void assertThatFindGroupSchedule(ScheduleCreateRequest request, GroupScheduleResponses response,
-                                                   User author, boolean isAttend, boolean attendanceCheck) {
+        User author, boolean isAttend, boolean attendanceCheck) {
         Assertions.assertAll(
             () -> assertThat(response.getGroupScheduleResponses().size()).isEqualTo(1),
             () -> assertThat(response.getManagerId()).isNotNull(),
@@ -38,7 +37,7 @@ public class ScheduleAcceptanceStep {
     }
 
     public static void assertThatFindUserSchedules(List<UserScheduleResponse> response) {
-        assertThat(response.size()).isEqualTo(2);
+        assertThat(response.size()).isEqualTo(1);
     }
 
     public static ExtractableResponse<Response> requestToCreateSchedule(String token, ScheduleCreateRequest request) {

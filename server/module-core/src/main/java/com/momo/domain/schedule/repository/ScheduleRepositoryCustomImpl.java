@@ -49,7 +49,6 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
         User user) {
         return queryFactory
             .selectFrom(schedule)
-            .leftJoin(schedule.group, group).fetchJoin()
             .where(schedule.group.id.in(
                 JPAExpressions
                     .select(participant.group.id)

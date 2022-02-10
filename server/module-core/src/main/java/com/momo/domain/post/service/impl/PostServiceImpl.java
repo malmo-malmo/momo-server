@@ -53,10 +53,9 @@ public class PostServiceImpl implements PostService {
     public List<PostCardResponse> findPageByGroupIdAndType(User loginUser, PostCardsRequest request) {
         Group group = getGroupById(request.getGroupId());
         validateParticipant(group, loginUser);
-        PostType postType = PostType.of(request.getType());
         PageRequest page = PageRequest.of(request.getPage(), request.getSize());
         return postRepository
-            .findAllWithAuthorByGroupAndTypeOrderByCreatedDateDesc(group, postType, page);
+            .findAllWithAuthorByGroupAndTypeOrderByCreatedDateDesc(group, request.getPostType(), page);
     }
 
     public void updatePost(PostUpdateRequest request, User loginUser) {

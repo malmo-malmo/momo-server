@@ -22,7 +22,7 @@ public class PostDocumentation {
             parameterWithName("groupId").description("모임 ID"),
             parameterWithName("title").description("게시물 제목"),
             parameterWithName("contents").description("게시물 내용"),
-            parameterWithName("typeName").description("게시물 타입 [NORMAL, NOTICE]")
+            parameterWithName("postType").description("게시물 타입 [NORMAL, NOTICE]")
         };
         RequestPartDescriptor[] requestPart = new RequestPartDescriptor[]{
             partWithName("images").description("게시물 첨부 이미지")
@@ -67,7 +67,7 @@ public class PostDocumentation {
     public static RestDocumentationResultHandler findPageByCardsRequest() {
         ParameterDescriptor[] requestParam = new ParameterDescriptor[]{
             parameterWithName("groupId").description("모임 ID"),
-            parameterWithName("type").description("게시글 타입"),
+            parameterWithName("postType").description("게시글 타입"),
             parameterWithName("page").description("페이지 번호"),
             parameterWithName("size").description("보여줄 게시글 수")
         };
@@ -90,7 +90,7 @@ public class PostDocumentation {
         ParameterDescriptor[] requestParam = new ParameterDescriptor[]{
             parameterWithName("postId").description("수정할 게시글 ID"),
             parameterWithName("title").description("수정할 게시글 제목"),
-            parameterWithName("content").description("수정할 게시글 내용")
+            parameterWithName("contents").description("수정할 게시글 내용")
         };
         RequestPartDescriptor[] requestPart = new RequestPartDescriptor[]{
             partWithName("images").description("수정될 게시글 첨부 이미지")

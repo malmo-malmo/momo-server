@@ -35,7 +35,7 @@ public class OAuthService {
     }
 
     public User getUserByOAuthUser(User OAuthUser) {
-        return userRepository.findByProviderIdAndProvider(OAuthUser.getProviderId(), OAuthUser.getProvider())
+        return userRepository.findByLoginInfoProviderIdAndLoginInfoProvider(OAuthUser.getLoginInfo().getProviderId(), OAuthUser.getLoginInfo().getProvider())
             .orElseGet(() -> userRepository.save(OAuthUser));
     }
 
@@ -48,7 +48,7 @@ public class OAuthService {
 
     public OAuthLoginResponse refreshLogin(RefreshLoginRequest refreshLoginRequest) {
         tokenProvider.validateRefreshToken(refreshLoginRequest.getRefreshToken());
-        User user = userRepository.findByRefreshToken(refreshLoginRequest.getRefreshToken())
+        User user = userRepository.findByLoginInfoRefreshToken(refreshLoginRequest.getRefreshToken())
             .orElseThrow(() -> new CustomException(ErrorCode.TOKEN_NOT_FOUND_USER));
         return new OAuthLoginResponse(tokenProvider.createAccessToken(user), tokenProvider.createRefreshToken(user));
     }

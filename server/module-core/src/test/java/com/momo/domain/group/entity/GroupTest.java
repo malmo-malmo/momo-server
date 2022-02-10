@@ -2,6 +2,7 @@ package com.momo.domain.group.entity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.momo.domain.user.entity.Location;
 import com.momo.domain.user.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -14,13 +15,13 @@ public class GroupTest {
     void 모임_생성_테스트() {
         User user = User.builder()
             .id(1L)
-            .university("대학교")
+            .location(Location.builder().university("대학교").build())
             .build();
         Group group = Group.builder().id(1L).build();
         Group expected = Group.create(user, group, true);
         Assertions.assertAll(
             () -> assertThat(expected).isNotNull(),
-            () -> assertThat(expected.getUniversity()).isEqualTo(user.getUniversity())
+            () -> assertThat(expected.getLocation().getUniversity()).isEqualTo(user.getLocation().getUniversity())
         );
     }
 

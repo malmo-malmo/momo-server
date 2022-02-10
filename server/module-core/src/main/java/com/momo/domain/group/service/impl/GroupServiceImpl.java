@@ -60,13 +60,13 @@ public class GroupServiceImpl implements GroupService {
     @Transactional(readOnly = true)
     public List<GroupCardResponse> findPageByUserUniversity(User user, int page, int size) {
         return groupRepository
-            .findAllByUniversityOrderByCreatedDateDesc(user, user.getUniversity(), PageRequest.of(page, size));
+            .findAllByUniversityOrderByCreatedDateDesc(user, user.getLocation().getUniversity(), PageRequest.of(page, size));
     }
 
     @Transactional(readOnly = true)
     public List<GroupCardResponse> findPageByUserDistrict(User user, int page, int size) {
         return groupRepository
-            .findAllByDistrictOrderByCreatedDateDesc(user, user.getDistrict(), PageRequest.of(page, size));
+            .findAllByDistrictOrderByCreatedDateDesc(user, user.getLocation().getDistrict(), PageRequest.of(page, size));
     }
 
     @Transactional(readOnly = true)

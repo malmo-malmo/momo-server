@@ -21,6 +21,7 @@ import com.momo.domain.group.entity.Participant;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.group.service.impl.GroupServiceImpl;
+import com.momo.domain.user.entity.Location;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
 import java.io.IOException;
@@ -56,7 +57,7 @@ public class GroupServiceTest extends ServiceTest {
 
     @BeforeEach
     void setUp() {
-        manager = User.builder().id(1L).build();
+        manager = User.builder().id(1L).location(Location.builder().university("서울대학교").build()).build();
         participant = User.builder().id(2L).build();
         groupService = new GroupServiceImpl(groupRepository, participantRepository, userRepository, s3UploadService);
     }
@@ -77,7 +78,7 @@ public class GroupServiceTest extends ServiceTest {
         given(participantRepository.save(any())).willReturn(Participant.builder().build());
         given(s3UploadService.upload(file, "group")).willReturn("업로드된 이미지 경로");
         given(groupRepository.findGroupAndParticipantCntAndAuthorityById(any(User.class), anyLong()))
-            .willReturn(GroupResponse.builder().id(savedGroupId).city(City.BUSAN).build());
+            .willReturn(GroupResponse.builder().id(savedGroupId).location(Location.builder().city(City.BUSAN).build()).build());
 
         GroupResponse response = groupService.create(manager, groupCreateRequest);
 

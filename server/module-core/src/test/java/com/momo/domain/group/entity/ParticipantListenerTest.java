@@ -6,6 +6,7 @@ import com.momo.common.RepositoryTest;
 import com.momo.domain.achievementrate.entity.ParticipantAchievementRate;
 import com.momo.domain.achievementrate.repository.ParticipantAchievementRateRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
+import com.momo.domain.user.entity.Social;
 import com.momo.domain.user.entity.User;
 import java.math.BigDecimal;
 import java.util.List;
@@ -30,7 +31,7 @@ public class ParticipantListenerTest extends RepositoryTest {
     void before() {
         User user = save(
             User.builder()
-                .providerId("test")
+                .loginInfo(Social.builder().providerId("test").build())
                 .nickname("유저")
                 .build()
         );

@@ -36,9 +36,9 @@ public class UserResponse {
             .id(user.getId())
             .nickname(user.getNickname())
             .image(user.getImageUrl())
-            .city(EnumResponse.ofCity(user.getCity()))
-            .district(user.getDistrict())
-            .university(user.getUniversity())
+            .city(EnumResponse.ofCity(user.getLocation().getCity()))
+            .district(user.getLocation().getDistrict())
+            .university(user.getLocation().getUniversity())
             .categories(EnumResponse.listOfFavoriteCategories(user.getFavoriteCategories()))
             .build();
     }

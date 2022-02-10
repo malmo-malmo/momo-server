@@ -17,6 +17,7 @@ import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.user.dto.UserUpdateRequest;
 import com.momo.domain.user.dto.UserUpdateResponse;
+import com.momo.domain.user.entity.Location;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.service.UserService;
 import java.util.List;
@@ -43,9 +44,11 @@ public class UserRestDocsTest extends RestDocsControllerTest {
             .id(1L)
             .nickname("테스트맨")
             .imageUrl("이미지 URL")
-            .city(City.SEOUL)
-            .district("마포구")
-            .university("한국대")
+            .location(Location.builder()
+                .city(City.SEOUL)
+                .district("마포구")
+                .university("한국대")
+                .build())
             .build();
         user.updateFavoriteCategories(List.of(Category.LIFE));
 

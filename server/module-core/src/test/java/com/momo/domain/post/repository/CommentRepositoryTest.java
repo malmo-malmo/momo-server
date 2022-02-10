@@ -8,6 +8,8 @@ import com.momo.domain.group.entity.Group;
 import com.momo.domain.post.entity.Comment;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.entity.PostType;
+import com.momo.domain.user.entity.Location;
+import com.momo.domain.user.entity.Social;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDate;
@@ -35,22 +37,24 @@ public class CommentRepositoryTest extends RepositoryTest {
     public void before() {
         user = save(
             User.builder()
-                .provider(SocialProvider.KAKAO)
-                .providerId("test")
-                .refreshToken("refresh Token")
+                .loginInfo(Social.create(SocialProvider.KAKAO, "test", "refresh Token"))
                 .nickname("testMan")
                 .imageUrl("http://~~")
-                .city(City.SEOUL)
-                .district("마포구")
-                .university("한국대")
+                .location(Location.builder()
+                    .city(City.SEOUL)
+                    .district("마포구")
+                    .university("한국대")
+                    .build())
                 .build()
         );
         Group group = save(Group.builder()
-            .city(City.SEOUL)
-            .district("마포")
+            .location(Location.builder()
+                .university("한국대")
+                .city(City.SEOUL)
+                .district("마포")
+                .build())
             .imageUrl("http://~")
             .introduction("안녕하세요")
-            .university("한국대")
             .isOffline(false)
             .isEnd(false)
             .startDate(LocalDate.now())

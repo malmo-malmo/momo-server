@@ -9,6 +9,8 @@ import com.momo.domain.favorite.entity.FavoriteGroup;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
+import com.momo.domain.user.entity.Location;
+import com.momo.domain.user.entity.Social;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDate;
@@ -36,23 +38,25 @@ public class FavoriteGroupRepositoryTest extends RepositoryTest {
     void setUp() {
         user = save(
             User.builder()
-                .provider(SocialProvider.KAKAO)
-                .providerId("test")
-                .refreshToken("refresh Token")
+                .loginInfo(Social.create(SocialProvider.KAKAO, "test", "refresh Token"))
                 .nickname("testMan")
                 .imageUrl("imageUrl")
-                .city(City.SEOUL)
-                .district("마포구")
-                .university("서울대학교")
+                .location(Location.builder()
+                    .city(City.SEOUL)
+                    .district("마포구")
+                    .university("서울대학교")
+                    .build())
                 .build()
         );
         group1 = save(
             Group.builder()
-                .city(City.SEOUL)
-                .district("마포구")
+                .location(Location.builder()
+                    .university("한국대")
+                    .city(City.SEOUL)
+                    .district("마포구")
+                    .build())
                 .imageUrl("imageUrl")
                 .introduction("안녕하세요")
-                .university("한국대")
                 .isOffline(false)
                 .isEnd(false)
                 .startDate(LocalDate.now())
@@ -63,11 +67,13 @@ public class FavoriteGroupRepositoryTest extends RepositoryTest {
         );
         group2 = save(
             Group.builder()
-                .city(City.SEOUL)
-                .district("은평구")
+                .location(Location.builder()
+                    .university("서울대학교")
+                    .city(City.SEOUL)
+                    .district("은평구")
+                    .build())
                 .imageUrl("imageUrl")
                 .introduction("안녕하세요")
-                .university("서울대학교")
                 .isOffline(true)
                 .isEnd(false)
                 .startDate(LocalDate.now())

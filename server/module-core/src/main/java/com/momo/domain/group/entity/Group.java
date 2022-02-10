@@ -2,11 +2,12 @@ package com.momo.domain.group.entity;
 
 import com.momo.domain.achievementrate.entity.GroupAchievementRate;
 import com.momo.domain.common.entity.BaseEntity;
-import com.momo.domain.district.entity.City;
+import com.momo.domain.user.entity.Location;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
@@ -54,12 +55,8 @@ public class Group extends BaseEntity {
 
     private LocalDate startDate;
 
-    private String university;
-
-    @Enumerated(EnumType.STRING)
-    private City city;
-
-    private String district;
+    @Embedded
+    private Location location;
 
     @Lob
     private String introduction;
@@ -72,7 +69,7 @@ public class Group extends BaseEntity {
 
     @Builder
     public Group(Long id, User manager, GroupAchievementRate achievementRate, String name, String imageUrl,
-        Category category, LocalDate startDate, String university, City city, String district, String introduction,
+        Category category, LocalDate startDate, Location location, String introduction,
         int recruitmentCnt, boolean isOffline, boolean isEnd, LocalDateTime createdDate,
         LocalDateTime lastModifiedDate) {
         super(createdDate, lastModifiedDate);
@@ -83,15 +80,19 @@ public class Group extends BaseEntity {
         this.imageUrl = imageUrl;
         this.category = category;
         this.startDate = startDate;
-        this.university = university;
-        this.city = city;
-        this.district = district;
+        this.location = location;
         this.introduction = introduction;
         this.recruitmentCnt = recruitmentCnt;
         this.isOffline = isOffline;
         this.isEnd = isEnd;
     }
 
+    private static Location hasUniversityLocation(boolean isNotUniversity, Location location) {
+        if(isNotUniversity) {
+            return location;
+        }
+        return Location.fromEmptyUniversity(location);
+    }
     public static Group create(User user, Group group, boolean isUniversity) {
         return Group.builder()
             .manager(user)
@@ -99,9 +100,7 @@ public class Group extends BaseEntity {
             .imageUrl(group.getImageUrl())
             .category(group.getCategory())
             .startDate(group.getStartDate())
-            .university(isUniversity ? user.getUniversity() : null)
-            .city(group.getCity())
-            .district(group.getDistrict())
+            .location(hasUniversityLocation(!isUniversity, user.getLocation()))
             .introduction(group.getIntroduction())
             .recruitmentCnt(group.getRecruitmentCnt())
             .isOffline(group.isOffline())

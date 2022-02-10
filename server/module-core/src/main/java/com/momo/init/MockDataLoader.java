@@ -11,6 +11,8 @@ import com.momo.domain.post.entity.PostType;
 import com.momo.domain.post.repository.PostRepository;
 import com.momo.domain.schedule.entity.Schedule;
 import com.momo.domain.schedule.repository.ScheduleRepository;
+import com.momo.domain.user.entity.Location;
+import com.momo.domain.user.entity.Social;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
@@ -75,12 +77,13 @@ public class MockDataLoader implements CommandLineRunner {
             Collections.shuffle(UNIVERSITIES);
             Collections.shuffle(DISTRICTS);
             User manager = User.builder()
-                .providerId(String.valueOf(count))
-                .provider(SocialProvider.KAKAO)
+                .loginInfo(Social.createEmptyRefreshToken(SocialProvider.KAKAO, String.valueOf(count)))
                 .nickname("모임장" + count)
-                .university(UNIVERSITIES.get(0))
-                .city(CITIES.get(0))
-                .district(DISTRICTS.get(0))
+                .location(Location.builder()
+                    .university(UNIVERSITIES.get(0))
+                    .city(CITIES.get(0))
+                    .district(DISTRICTS.get(0))
+                    .build())
                 .build();
             managers.add(manager);
         }
@@ -100,9 +103,11 @@ public class MockDataLoader implements CommandLineRunner {
                 .name("모임" + count)
                 .category(categories.get(0))
                 .startDate(createRandomDate())
-                .university(UNIVERSITIES.get(0))
-                .city(CITIES.get(0))
-                .district(DISTRICTS.get(0))
+                .location(Location.builder()
+                    .university(UNIVERSITIES.get(0))
+                    .city(CITIES.get(0))
+                    .district(DISTRICTS.get(0))
+                    .build())
                 .introduction("모임 설명")
                 .recruitmentCnt(random.nextInt(100) + 10)
                 .isOffline(count % 2 == 0)
@@ -126,12 +131,13 @@ public class MockDataLoader implements CommandLineRunner {
             Collections.shuffle(UNIVERSITIES);
             Collections.shuffle(DISTRICTS);
             User user = User.builder()
-                .providerId(String.valueOf(MAX_GROUP_COUNT + count))
-                .provider(SocialProvider.KAKAO)
+                .loginInfo(Social.createEmptyRefreshToken(SocialProvider.KAKAO, String.valueOf(MAX_GROUP_COUNT + count)))
                 .nickname("참여자" + count)
-                .university(UNIVERSITIES.get(0))
-                .city(CITIES.get(0))
-                .district(DISTRICTS.get(0))
+                .location(Location.builder()
+                    .university(UNIVERSITIES.get(0))
+                    .city(CITIES.get(0))
+                    .district(DISTRICTS.get(0))
+                    .build())
                 .build();
             users.add(user);
         }

@@ -1,36 +1,27 @@
 package com.momo;
 
-import com.momo.domain.district.entity.City;
+import static com.momo.common.FixtureComponents.CATEGORY;
+import static com.momo.common.FixtureComponents.CITY;
+import static com.momo.common.FixtureComponents.DATE;
+import static com.momo.common.FixtureComponents.DISTRICT;
+import static com.momo.common.FixtureComponents.IMAGE;
+import static com.momo.common.FixtureComponents.IMAGE_URL;
+import static com.momo.common.FixtureComponents.INCREASE_ID;
+import static com.momo.common.FixtureComponents.INTRODUCTION;
+import static com.momo.common.FixtureComponents.IS_END;
+import static com.momo.common.FixtureComponents.IS_OFFLINE;
+import static com.momo.common.FixtureComponents.NAME;
+import static com.momo.common.FixtureComponents.RECRUITMENT_CNT;
+import static com.momo.common.FixtureComponents.UNIVERSITY;
+
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.user.entity.User;
-import java.time.LocalDate;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.multipart.MultipartFile;
 
 public class GroupFixture {
-
-    private static final String NAME = "이름";
-    private static final String DISTRICT = "강동구";
-    private static final String UNIVERSITY = "대학교";
-    private static final String INTRODUCTION = "소개";
-    private static final String IMAGE_URL = "이미지 URL";
-
-    private static final Category CATEGORY = Category.HEALTH;
-    private static final City CITY = City.SEOUL;
-
-    private static final boolean IS_OFFLINE = true;
-    private static final boolean IS_END = false;
-
-    private static final LocalDate DATE = LocalDate.of(2022, 1, 1);
-
-    public static final MultipartFile IMAGE_FILE = new MockMultipartFile("image", "image".getBytes());
-
-    private static final int RECRUITMENT_CNT = 10;
-    private static Long INCREASE_ID = 0L;
 
     public static Group getGroup(User user) {
         INCREASE_ID++;
@@ -81,7 +72,7 @@ public class GroupFixture {
             .startDate(DATE)
             .recruitmentCnt(RECRUITMENT_CNT)
             .introduction(INTRODUCTION + INCREASE_ID)
-            .image(IMAGE_FILE)
+            .image(IMAGE)
             .build();
     }
 
@@ -97,7 +88,7 @@ public class GroupFixture {
             .startDate(DATE)
             .recruitmentCnt(RECRUITMENT_CNT)
             .introduction(INTRODUCTION + INCREASE_ID)
-            .image(IMAGE_FILE)
+            .image(IMAGE)
             .build();
     }
 

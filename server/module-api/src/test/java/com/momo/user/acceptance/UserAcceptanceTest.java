@@ -1,7 +1,7 @@
 package com.momo.user.acceptance;
 
 import static com.momo.UserFixture.getUser;
-import static com.momo.common.CommonFixtures.UPLOAD_TEST_FILE;
+import static com.momo.common.FixtureComponents.IMAGE;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsBadRequest;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
 import static com.momo.domain.district.entity.City.SEOUL;
@@ -54,7 +54,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
             .university("한국대학교")
             .city(SEOUL)
             .district("강동구")
-            .image(UPLOAD_TEST_FILE)
+            .image(IMAGE)
             .build();
 
         ExtractableResponse<Response> response = requestToUpdateMyInformationWithImage(token, actual);

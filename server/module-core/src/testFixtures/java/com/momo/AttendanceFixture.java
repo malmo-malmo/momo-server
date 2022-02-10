@@ -1,5 +1,7 @@
 package com.momo;
 
+import static com.momo.common.FixtureComponents.INCREASE_ID;
+
 import com.momo.domain.group.entity.Participant;
 import com.momo.domain.schedule.dto.AttendanceCreateRequest;
 import com.momo.domain.schedule.dto.AttendanceCreateRequests;
@@ -10,8 +12,6 @@ import com.momo.domain.schedule.entity.Schedule;
 import java.util.List;
 
 public class AttendanceFixture {
-
-    private static Long INCREASE_ID = 0L;
 
     public static Attendance getAttendance(Schedule schedule, Participant participant, boolean isAttend) {
         return Attendance.builder()

@@ -1,5 +1,12 @@
 package com.momo;
 
+import static com.momo.common.FixtureComponents.AUTHOR_IMAGE;
+import static com.momo.common.FixtureComponents.AUTHOR_NICKNAME;
+import static com.momo.common.FixtureComponents.CONTENTS;
+import static com.momo.common.FixtureComponents.INCREASE_ID;
+import static com.momo.common.FixtureComponents.PAGE;
+import static com.momo.common.FixtureComponents.PAGE_SIZE;
+
 import com.momo.domain.post.dto.CommentCreateRequest;
 import com.momo.domain.post.dto.CommentResponse;
 import com.momo.domain.post.dto.CommentsRequest;
@@ -11,15 +18,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class CommentFixture {
-
-    private static final String CONTENTS = "내용";
-    private static final String AUTHOR_IMAGE = "이미지";
-    private static final String AUTHOR_NICKNAME = "닉네임";
-
-    private static final int PAGE = 0;
-    private static final int PAGE_SIZE = 10;
-
-    private static Long INCREASE_ID = 0L;
 
     public static Comment getComment(Post post, User user) {
         INCREASE_ID++;

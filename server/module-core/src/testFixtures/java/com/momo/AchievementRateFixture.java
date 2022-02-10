@@ -1,12 +1,12 @@
 package com.momo;
 
+import static com.momo.common.FixtureComponents.INCREASE_ID;
+
 import com.momo.domain.achievementrate.entity.GroupAchievementRate;
 import com.momo.domain.achievementrate.entity.ParticipantAchievementRate;
 import java.math.BigDecimal;
 
 public class AchievementRateFixture {
-
-    private static Long INCREASE_ID = 0L;
 
     public static ParticipantAchievementRate getParticipantAchievementRate(BigDecimal rate) {
         return ParticipantAchievementRate.builder()

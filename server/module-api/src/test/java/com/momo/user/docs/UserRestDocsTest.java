@@ -3,7 +3,7 @@ package com.momo.user.docs;
 import static com.momo.UserFixture.getUserWithId;
 import static com.momo.common.CommonFileUploadSupport.generateUploadMockPutBuilder;
 import static com.momo.common.CommonFileUploadSupport.uploadMockSupport;
-import static com.momo.common.CommonFixtures.UPLOAD_TEST_FILE;
+import static com.momo.common.FixtureComponents.IMAGE;
 import static com.momo.domain.district.entity.City.SEOUL;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -88,7 +88,7 @@ public class UserRestDocsTest extends RestDocsControllerTest {
             .university("한국대")
             .city(SEOUL)
             .district("마포구")
-            .image(UPLOAD_TEST_FILE)
+            .image(IMAGE)
             .build();
         UserUpdateResponse response = UserUpdateResponse.builder()
             .nickname("테스트 이름")

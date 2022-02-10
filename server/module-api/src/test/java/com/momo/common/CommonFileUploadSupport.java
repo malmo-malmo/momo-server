@@ -1,30 +1,16 @@
 package com.momo.common;
 
 import io.restassured.specification.RequestSpecification;
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.request.MockMultipartHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
-import org.springframework.web.multipart.MultipartFile;
 
 public class CommonFileUploadSupport {
-
-    public static MultipartFile uploadTestFile;
-
-    static {
-        try {
-            uploadTestFile = new MockMultipartFile("image", "test.png", null,
-                new ClassPathResource("upload-test.png").getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static RequestSpecification uploadAssuredSupport(RequestSpecification spec, Object obj) {
         Field[] fields = obj.getClass().getDeclaredFields();

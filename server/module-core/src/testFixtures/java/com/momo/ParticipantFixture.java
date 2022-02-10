@@ -1,5 +1,9 @@
 package com.momo;
 
+import static com.momo.common.FixtureComponents.IMAGE_URL;
+import static com.momo.common.FixtureComponents.INCREASE_ID;
+import static com.momo.common.FixtureComponents.NICKNAME;
+
 import com.momo.domain.achievementrate.entity.ParticipantAchievementRate;
 import com.momo.domain.group.dto.ParticipantResponse;
 import com.momo.domain.group.entity.Group;
@@ -7,11 +11,6 @@ import com.momo.domain.group.entity.Participant;
 import com.momo.domain.user.entity.User;
 
 public class ParticipantFixture {
-
-    private static final String NICKNAME = "닉네임";
-    private static final String IMAGE_URL = "이미지 URL";
-
-    private static Long INCREASE_ID = 0L;
 
     public static Participant getParticipant(Group group, User user) {
         return Participant.builder()

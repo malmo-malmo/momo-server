@@ -1,5 +1,13 @@
 package com.momo;
 
+import static com.momo.common.FixtureComponents.CONTENTS;
+import static com.momo.common.FixtureComponents.DATE_TIME;
+import static com.momo.common.FixtureComponents.INCREASE_ID;
+import static com.momo.common.FixtureComponents.IS_OFFLINE;
+import static com.momo.common.FixtureComponents.PAGE;
+import static com.momo.common.FixtureComponents.PAGE_SIZE;
+import static com.momo.common.FixtureComponents.TITLE;
+
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.schedule.dto.GroupSchedulesRequest;
 import com.momo.domain.schedule.dto.ScheduleCreateRequest;
@@ -8,15 +16,6 @@ import com.momo.domain.user.entity.User;
 import java.time.LocalDateTime;
 
 public class ScheduleFixture {
-
-    private static final String TITLE = "제목";
-    private static final String CONTENTS = "내용";
-    private static final Boolean IS_OFFLINE = false;
-    private static final LocalDateTime DATE_TIME = LocalDateTime.of(2022, 1, 1, 0, 0);
-
-    private static final int PAGE = 0;
-    private static final int PAGE_SIZE = 10;
-    private static Long INCREASE_ID = 0L;
 
     public static Schedule getSchedule(User author, Group group) {
         INCREASE_ID++;
@@ -44,6 +43,7 @@ public class ScheduleFixture {
     }
 
     public static ScheduleCreateRequest getScheduleCreateRequest(Long groupId, LocalDateTime startDateTime) {
+        INCREASE_ID++;
         return ScheduleCreateRequest.builder()
             .groupId(groupId)
             .title(TITLE + INCREASE_ID)

@@ -1,6 +1,7 @@
 package com.momo.group.docs;
 
 
+import static com.momo.ParticipantFixture.getParticipantResponse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
@@ -10,9 +11,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.common.RestDocsControllerTest;
 import com.momo.api.group.ParticipantController;
-import com.momo.domain.group.dto.ParticipantResponse;
+import com.momo.common.RestDocsControllerTest;
 import com.momo.domain.group.service.impl.ParticipantServiceImpl;
 import java.util.List;
 import java.util.Map;
@@ -29,12 +29,13 @@ public class ParticipantRestDocsTest extends RestDocsControllerTest {
 
     @InjectMocks
     private ParticipantController participantController;
+
     @MockBean
     private ParticipantServiceImpl participantService;
 
     @Test
     public void 모임_참여_신청() throws Exception {
-        String content = super.objectMapper.writeValueAsString(Map.of("groupId", Long.valueOf(1)));
+        String content = super.objectMapper.writeValueAsString(Map.of("groupId", 1L));
 
         super.mockMvc.perform(post("/api/group/apply-participant")
                 .content(content)
@@ -46,14 +47,9 @@ public class ParticipantRestDocsTest extends RestDocsControllerTest {
 
     @Test
     public void 모임_참여자_목록_조회() throws Exception {
-        when(participantService.findByGroupId(any(), anyLong())).thenReturn(List.of(
-            ParticipantResponse.builder()
-                .userId(1L)
-                .imageUrl("http://~~")
-                .nickname("A사람")
-                .attendanceRate(10)
-                .build()
-        ));
+        when(participantService.findByGroupId(any(), anyLong()))
+            .thenReturn(List.of(getParticipantResponse()));
+
         super.mockMvc.perform(get("/api/group/participants")
                 .param("groupId", String.valueOf(1L)))
             .andDo(print())

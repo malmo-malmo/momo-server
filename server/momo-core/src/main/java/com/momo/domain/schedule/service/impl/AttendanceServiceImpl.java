@@ -26,19 +26,17 @@ import org.springframework.transaction.annotation.Transactional;
 public class AttendanceServiceImpl implements AttendanceService {
 
     private final ScheduleRepository scheduleRepository;
-
     private final AttendanceRepository attendanceRepository;
-
     private final ParticipantRepository participantRepository;
 
     public void createScheduleAttendances(User user, AttendanceCreateRequests requests) {
         Schedule schedule = getScheduleById(requests.getScheduleId());
+        validateGroupManager(schedule.getGroup(), user);
         schedule.updateAttendanceCheck(true);
 
-        List<Participant> participants = participantRepository.findAllByIdsAndUser(requests.toParticipantIds(), user);
-        if (requests.getAttendanceCreateRequests().size() != participants.size()) {
-            throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
-        }
+        List<Participant> participants = participantRepository
+            .findAllByIdsAndUser(requests.toParticipantIds(), schedule.getGroup());
+        validateArraySize(requests.getAttendanceCreateRequests().size(), participants.size());
 
         int i = 0;
         List<Attendance> attendances = new ArrayList<>();
@@ -46,6 +44,7 @@ public class AttendanceServiceImpl implements AttendanceService {
             Attendance attendance = requests.getAttendanceCreateRequests().get(i++).toEntity(participant, schedule);
             attendances.add(attendance);
         }
+
         attendanceRepository.saveAll(attendances);
     }
 
@@ -54,6 +53,8 @@ public class AttendanceServiceImpl implements AttendanceService {
         validateGroupManager(schedule.getGroup(), user);
 
         List<Attendance> attendances = attendanceRepository.findAllByIds(requests.toAttendanceIds());
+        validateArraySize(requests.getAttendanceUpdateRequests().size(), attendances.size());
+
         for (int i = 0; i < attendances.size(); i++) {
             Attendance attendance = attendances.get(i);
             boolean isAttend = requests.getAttendanceUpdateRequests().get(i).isAttend();
@@ -61,10 +62,16 @@ public class AttendanceServiceImpl implements AttendanceService {
         }
     }
 
+    private void validateArraySize(int reqSize, int resSize) {
+        if (reqSize != resSize) {
+            throw new CustomException(ErrorCode.INVALID_INDEX_NUMBER);
+        }
+    }
+
+    @Transactional(readOnly = true)
     public List<AttendanceResponse> findScheduleAttendances(User user, Long scheduleId) {
         Schedule schedule = getScheduleById(scheduleId);
         validateGroupManager(schedule.getGroup(), user);
-
         List<Attendance> attendances = attendanceRepository.findBySchedule(schedule);
         return AttendanceResponse.listOf(attendances);
     }
@@ -76,12 +83,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     private Schedule getScheduleById(Long scheduleId) {
-        return scheduleRepository.findById(scheduleId)
-            .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
-    }
-
-    private Participant getParticipantById(Long participantId) {
-        return participantRepository.findById(participantId)
+        return scheduleRepository.findScheduleWithGroupById(scheduleId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 }

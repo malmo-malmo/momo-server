@@ -63,30 +63,20 @@ public class FavoriteGroupRepositoryTest extends RepositoryTest {
     void 관심_모임_목록을_조회한다() {
         save(getParticipant(group1, user));
         save(getFavoriteGroup(user, group1));
-        save(getParticipant(group2, user));
-        save(getFavoriteGroup(user, group2));
 
         List<FavoriteGroupCardResponse> actual = favoriteGroupRepository.findAllByUserOrderByCreatedDateDesc(user);
 
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
-            () -> assertThat(actual.size()).isEqualTo(2),
+            () -> assertThat(actual.size()).isEqualTo(1),
             () -> assertThat(actual.get(0).getId()).isNotNull(),
-            () -> assertThat(actual.get(0).getGroupCardResponse().getId()).isEqualTo(group2.getId()),
-            () -> assertThat(actual.get(0).getGroupCardResponse().getName()).isEqualTo(group2.getName()),
-            () -> assertThat(actual.get(0).getGroupCardResponse().getImageUrl()).isEqualTo(group2.getImageUrl()),
-            () -> assertThat(actual.get(0).getGroupCardResponse().getStartDate()).isEqualTo(group2.getStartDate()),
-            () -> assertThat(actual.get(0).getGroupCardResponse().isOffline()).isEqualTo(group2.isOffline()),
+            () -> assertThat(actual.get(0).getGroupCardResponse().getId()).isEqualTo(group1.getId()),
+            () -> assertThat(actual.get(0).getGroupCardResponse().getName()).isEqualTo(group1.getName()),
+            () -> assertThat(actual.get(0).getGroupCardResponse().getImageUrl()).isEqualTo(group1.getImageUrl()),
+            () -> assertThat(actual.get(0).getGroupCardResponse().getStartDate()).isEqualTo(group1.getStartDate()),
+            () -> assertThat(actual.get(0).getGroupCardResponse().isOffline()).isEqualTo(group1.isOffline()),
             () -> assertThat(actual.get(0).getGroupCardResponse().getParticipantCnt()).isEqualTo(1),
-            () -> assertThat(actual.get(0).getGroupCardResponse().isFavoriteGroup()).isEqualTo(true),
-            () -> assertThat(actual.get(1).getId()).isNotNull(),
-            () -> assertThat(actual.get(1).getGroupCardResponse().getId()).isEqualTo(group1.getId()),
-            () -> assertThat(actual.get(1).getGroupCardResponse().getName()).isEqualTo(group1.getName()),
-            () -> assertThat(actual.get(1).getGroupCardResponse().getImageUrl()).isEqualTo(group1.getImageUrl()),
-            () -> assertThat(actual.get(1).getGroupCardResponse().getStartDate()).isEqualTo(group1.getStartDate()),
-            () -> assertThat(actual.get(1).getGroupCardResponse().isOffline()).isEqualTo(group1.isOffline()),
-            () -> assertThat(actual.get(1).getGroupCardResponse().getParticipantCnt()).isEqualTo(1),
-            () -> assertThat(actual.get(1).getGroupCardResponse().isFavoriteGroup()).isEqualTo(true)
+            () -> assertThat(actual.get(0).getGroupCardResponse().isFavoriteGroup()).isEqualTo(true)
         );
     }
 

@@ -13,6 +13,7 @@ import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -33,7 +34,6 @@ import com.momo.domain.schedule.repository.AttendanceRepository;
 import com.momo.domain.schedule.repository.ScheduleRepository;
 import com.momo.domain.schedule.service.impl.AttendanceServiceImpl;
 import com.momo.domain.user.entity.User;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
@@ -82,12 +82,12 @@ public class AttendanceServiceTest extends ServiceTest {
             List.of(getAttendanceCreateRequest(participant.getId(), true))
         );
 
-        given(scheduleRepository.findById(anyLong())).willReturn(of(schedule));
+        given(scheduleRepository.findScheduleWithGroupById(anyLong())).willReturn(of(schedule));
         given(participantRepository.findAllByIdsAndUser(any(), any())).willReturn(List.of(participant));
 
         attendanceService.createScheduleAttendances(manager, requests);
 
-        verify(scheduleRepository).findById(any());
+        verify(scheduleRepository).findScheduleWithGroupById(any());
         verify(participantRepository).findAllByIdsAndUser(any(), any());
         verify(attendanceRepository).saveAll(any());
         assertThat(schedule.isAttendanceCheck()).isTrue();
@@ -100,8 +100,7 @@ public class AttendanceServiceTest extends ServiceTest {
             List.of(getAttendanceCreateRequest(participant.getId(), true))
         );
 
-        given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
-        given(participantRepository.findAllByIdsAndUser(any(), any())).willReturn(Collections.emptyList());
+        given(scheduleRepository.findScheduleWithGroupById(anyLong())).willReturn(Optional.of(schedule));
 
         assertThatThrownBy(() -> attendanceService.createScheduleAttendances(user, requests))
             .isInstanceOf(CustomException.class)
@@ -116,12 +115,15 @@ public class AttendanceServiceTest extends ServiceTest {
             List.of(getAttendanceUpdateRequest(attendance.getId(), true))
         );
 
-        given(groupRepository.findById(anyLong())).willReturn(Optional.of(group));
-        given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
+        given(scheduleRepository.findScheduleWithGroupById(anyLong())).willReturn(Optional.of(schedule));
+        given(attendanceRepository.findAllByIds(anyList())).willReturn(List.of(attendance));
 
         attendanceService.updateScheduleAttendances(manager, requests);
 
         verify(attendanceRepository).findAllByIds(any());
+        Assertions.assertAll(
+            () -> assertThat(attendance.isAttend()).isTrue()
+        );
     }
 
     @Test
@@ -132,8 +134,7 @@ public class AttendanceServiceTest extends ServiceTest {
             List.of(getAttendanceUpdateRequest(attendance.getId(), true))
         );
 
-        given(groupRepository.findById(anyLong())).willReturn(Optional.of(group));
-        given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
+        given(scheduleRepository.findScheduleWithGroupById(anyLong())).willReturn(Optional.of(schedule));
 
         assertThatThrownBy(() -> attendanceService.updateScheduleAttendances(user, requests))
             .isInstanceOf(CustomException.class)
@@ -144,7 +145,7 @@ public class AttendanceServiceTest extends ServiceTest {
     void 모임_관리자가_출석_모임_목록을_조회_테스트를_성공한다() {
         Attendance attendance = getAttendanceWithId(schedule, participant, false);
 
-        given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
+        given(scheduleRepository.findScheduleWithGroupById(anyLong())).willReturn(Optional.of(schedule));
         given(attendanceRepository.findBySchedule(any())).willReturn(List.of(attendance));
 
         List<AttendanceResponse> responses = attendanceService.findScheduleAttendances(manager, schedule.getId());
@@ -153,15 +154,15 @@ public class AttendanceServiceTest extends ServiceTest {
             () -> assertThat(responses.size()).isEqualTo(1),
             () -> assertThat(responses.get(0).getAttendanceId()).isEqualTo(attendance.getId()),
             () -> assertThat(responses.get(0).getIsAttend()).isFalse(),
-            () -> assertThat(responses.get(0).getAchievementRate()).isEqualTo(100),
-            () -> assertThat(responses.get(0).getUsername())
+            () -> assertThat(responses.get(0).getAttendanceRate()).isEqualTo(100),
+            () -> assertThat(responses.get(0).getNickname())
                 .isEqualTo(attendance.getParticipant().getUser().getNickname())
         );
     }
 
     @Test
     void 모임_관리자가_아니면_출석_모임_목록_조회_테스트를_실패한다() {
-        given(scheduleRepository.findById(anyLong())).willReturn(Optional.of(schedule));
+        given(scheduleRepository.findScheduleWithGroupById(anyLong())).willReturn(Optional.of(schedule));
 
         assertThatThrownBy(() -> attendanceService.findScheduleAttendances(user, schedule.getId()))
             .isInstanceOf(CustomException.class)

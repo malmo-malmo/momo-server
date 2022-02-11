@@ -3,6 +3,7 @@ package com.momo.domain.group.repository;
 import static com.momo.domain.group.entity.QGroup.group;
 import static com.momo.domain.group.entity.QParticipant.participant;
 
+import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
 import com.momo.domain.management.dto.ParticipationGroupCardResponse;
 import com.momo.domain.management.dto.QParticipationGroupCardResponse;
@@ -57,15 +58,13 @@ public class ParticipantRepositoryCustomImpl implements ParticipantRepositoryCus
     }
 
     @Override
-    public List<Participant> findAllByIdsAndUser(List<Long> participantIds, User manager) {
+    public List<Participant> findAllByIdsAndUser(List<Long> participantIds, Group group) {
         if (Objects.isNull(participantIds) || participantIds.isEmpty()) {
             return new ArrayList<>();
         }
         return queryFactory
             .selectFrom(participant)
-            .where(participant.id.in(participantIds)
-                .and(participant.group.manager.eq(manager)))
-            .innerJoin(participant.group, group)
+            .where(participant.id.in(participantIds), participant.group.eq(group))
             .orderBy(provideIdOrder(new ArrayList<>(participantIds)))
             .fetch();
     }

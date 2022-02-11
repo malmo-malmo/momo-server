@@ -33,12 +33,11 @@ public class AttendanceRepositoryCustomImpl implements AttendanceRepositoryCusto
 
     private OrderSpecifier<Integer> provideIdOrder(List<Long> attendanceIds) {
         Long firstId = attendanceIds.remove(0);
-        Cases<Integer, NumberExpression<Integer>> expression = Expressions.cases().when(attendance.id.eq(firstId))
-            .then(1);
+        Cases<Integer, NumberExpression<Integer>> exp = Expressions.cases().when(attendance.id.eq(firstId)).then(1);
         int i = 2;
         for (Long attendanceId : attendanceIds) {
-            expression.when(attendance.id.eq(attendanceId)).then(i++);
+            exp.when(attendance.id.eq(attendanceId)).then(i++);
         }
-        return new OrderSpecifier<>(Order.ASC, expression.otherwise(1000));
+        return new OrderSpecifier<>(Order.ASC, exp.otherwise(1000));
     }
 }

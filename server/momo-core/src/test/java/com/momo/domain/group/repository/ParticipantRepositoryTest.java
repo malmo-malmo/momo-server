@@ -118,7 +118,7 @@ public class ParticipantRepositoryTest extends RepositoryTest {
         Long id3 = save(getParticipant(group1, user1)).getId();
 
         List<Long> list = List.of(id3, id2, id1);
-        List<Participant> attendances = participantRepository.findAllByIdsAndUser(list, user1);
+        List<Participant> attendances = participantRepository.findAllByIdsAndUser(list, group1);
 
         Assertions.assertAll(
             () -> assertThat(attendances.size()).isEqualTo(3),

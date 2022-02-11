@@ -31,7 +31,7 @@ public class ParticipantDocumenttation {
         };
 
         FieldDescriptor[] responseGroup = new FieldDescriptor[]{
-            fieldWithPath("[].userId").type(JsonFieldType.NUMBER).description("사용자 ID"),
+            fieldWithPath("[].participantId").type(JsonFieldType.NUMBER).description("참여자 ID"),
             fieldWithPath("[].imageUrl").type(JsonFieldType.STRING).description("이미지 URL"),
             fieldWithPath("[].nickname").type(JsonFieldType.STRING).description("사용자 닉네임"),
             fieldWithPath("[].attendanceRate").type(JsonFieldType.NUMBER).description("사용자 출석률"),

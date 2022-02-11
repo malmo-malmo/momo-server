@@ -69,11 +69,11 @@ public class ParticipantServiceTest extends ServiceTest {
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
             () -> assertThat(actual.size()).isEqualTo(2),
-            () -> assertThat(actual.get(0).getUserId()).isEqualTo(user1.getId()),
+            () -> assertThat(actual.get(0).getParticipantId()).isEqualTo(participant1.getId()),
             () -> assertThat(actual.get(0).getNickname()).isEqualTo(user1.getNickname()),
             () -> assertThat(actual.get(0).getImageUrl()).isEqualTo(user1.getImageUrl()),
             () -> assertThat(actual.get(0).getAttendanceRate()).isNotNull(),
-            () -> assertThat(actual.get(1).getUserId()).isEqualTo(user2.getId()),
+            () -> assertThat(actual.get(1).getParticipantId()).isEqualTo(participant2.getId()),
             () -> assertThat(actual.get(1).getNickname()).isEqualTo(user2.getNickname()),
             () -> assertThat(actual.get(1).getImageUrl()).isEqualTo(user2.getImageUrl()),
             () -> assertThat(actual.get(1).getAttendanceRate()).isNotNull()

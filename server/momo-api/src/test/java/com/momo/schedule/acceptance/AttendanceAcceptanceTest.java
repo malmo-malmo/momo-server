@@ -12,28 +12,24 @@ import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsO
 import static com.momo.domain.group.entity.Category.LIFE;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToApplyParticipant;
+import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToFindParticipants;
 import static com.momo.schedule.acceptance.step.AttendanceAcceptanceStep.assertThatFindAttendance;
 import static com.momo.schedule.acceptance.step.AttendanceAcceptanceStep.requestToCreateAttendance;
 import static com.momo.schedule.acceptance.step.AttendanceAcceptanceStep.requestToFindAttendances;
 import static com.momo.schedule.acceptance.step.AttendanceAcceptanceStep.requestToUpdateAttendance;
 import static com.momo.schedule.acceptance.step.ScheduleAcceptanceStep.requestToCreateSchedule;
-import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindMyInformation;
 import static java.time.LocalDateTime.of;
 
 import com.momo.common.acceptance.AcceptanceTest;
+import com.momo.domain.group.dto.ParticipantResponse;
 import com.momo.domain.schedule.dto.AttendanceCreateRequests;
 import com.momo.domain.schedule.dto.AttendanceResponse;
 import com.momo.domain.schedule.dto.AttendanceUpdateRequests;
-import com.momo.domain.user.dto.UserResponse;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-/**
- * 코드 정리 필요
- */
 
 @DisplayName("출석 통합/인수 테스트")
 public class AttendanceAcceptanceTest extends AcceptanceTest {
@@ -42,18 +38,19 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
     void 모임_관리자가_일정_출석_체크를_한다() {
         String managerToken = getAccessToken(getUser());
         String userToken = getAccessToken(getUser());
-
-        Long managerId = getObject(requestToFindMyInformation(managerToken), UserResponse.class).getId();
         Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, true)));
-        Long participantId = extractId(requestToApplyParticipant(userToken, groupId));
         Long scheduleId = extractId(
             requestToCreateSchedule(managerToken, getScheduleCreateRequest(groupId, of(2022, 1, 1, 1, 0)))
+        );
+        requestToApplyParticipant(userToken, groupId);
+        List<ParticipantResponse> participantResponses = getObjects(
+            requestToFindParticipants(managerToken, groupId), ParticipantResponse.class
         );
         AttendanceCreateRequests requests = getAttendanceCreateRequests(
             scheduleId,
             List.of(
-                getAttendanceCreateRequest(managerId, true),
-                getAttendanceCreateRequest(participantId, true)
+                getAttendanceCreateRequest(participantResponses.get(0).getParticipantId(), true),
+                getAttendanceCreateRequest(participantResponses.get(1).getParticipantId(), true)
             )
         );
 
@@ -66,18 +63,19 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
     void 모임_관리자가_일정_출석체크_목록을_조회한다() {
         String managerToken = getAccessToken(getUser());
         String userToken = getAccessToken(getUser());
-
-        Long managerId = getObject(requestToFindMyInformation(managerToken), UserResponse.class).getId();
         Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, true)));
-        Long participantId = extractId(requestToApplyParticipant(userToken, groupId));
         Long scheduleId = extractId(
             requestToCreateSchedule(managerToken, getScheduleCreateRequest(groupId, of(2022, 1, 1, 1, 0)))
+        );
+        requestToApplyParticipant(userToken, groupId);
+        List<ParticipantResponse> participantResponses = getObjects(
+            requestToFindParticipants(managerToken, groupId), ParticipantResponse.class
         );
         AttendanceCreateRequests requests = getAttendanceCreateRequests(
             scheduleId,
             List.of(
-                getAttendanceCreateRequest(managerId, true),
-                getAttendanceCreateRequest(participantId, true)
+                getAttendanceCreateRequest(participantResponses.get(0).getParticipantId(), true),
+                getAttendanceCreateRequest(participantResponses.get(1).getParticipantId(), true)
             )
         );
         requestToCreateAttendance(managerToken, requests);
@@ -93,18 +91,19 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
     void 모임_관리자가_출석_체크를_수정한다() {
         String managerToken = getAccessToken(getUser());
         String userToken = getAccessToken(getUser());
-
-        Long managerId = getObject(requestToFindMyInformation(managerToken), UserResponse.class).getId();
         Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, true)));
-        Long participantId = extractId(requestToApplyParticipant(userToken, groupId));
         Long scheduleId = extractId(
             requestToCreateSchedule(managerToken, getScheduleCreateRequest(groupId, of(2022, 1, 1, 1, 0)))
+        );
+        requestToApplyParticipant(userToken, groupId);
+        List<ParticipantResponse> participantResponses = getObjects(
+            requestToFindParticipants(managerToken, groupId), ParticipantResponse.class
         );
         AttendanceCreateRequests requests = getAttendanceCreateRequests(
             scheduleId,
             List.of(
-                getAttendanceCreateRequest(managerId, true),
-                getAttendanceCreateRequest(participantId, true)
+                getAttendanceCreateRequest(participantResponses.get(0).getParticipantId(), true),
+                getAttendanceCreateRequest(participantResponses.get(1).getParticipantId(), true)
             )
         );
         requestToCreateAttendance(managerToken, requests);

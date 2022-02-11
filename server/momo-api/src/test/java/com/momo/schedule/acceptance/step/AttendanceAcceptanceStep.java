@@ -58,8 +58,8 @@ public class AttendanceAcceptanceStep {
             boolean requestAttend = requests.get(finalI).isAttend();
             Assertions.assertAll(
                 () -> assertThat(attendanceResponse.getAttendanceId()).isNotNull(),
-                () -> assertThat(attendanceResponse.getAchievementRate()).isEqualTo(100),
-                () -> assertThat(attendanceResponse.getUsername()).isNotNull(),
+                () -> assertThat(attendanceResponse.getAttendanceRate()).isEqualTo(100),
+                () -> assertThat(attendanceResponse.getNickname()).isNotNull(),
                 () -> assertThat(attendanceResponse.getIsAttend()).isEqualTo(requestAttend)
             );
             i++;

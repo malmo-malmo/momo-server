@@ -14,28 +14,34 @@ import lombok.ToString;
 public class AttendanceResponse {
 
     private Long attendanceId;
-    private String username;
+    private String nickname;
+    private String imageUrl;
     private Boolean isAttend;
-    private int achievementRate;
+    private int attendanceRate;
 
     @Builder
-    public AttendanceResponse(Long attendanceId, String username, Boolean isAttend, int achievementRate) {
+    public AttendanceResponse(Long attendanceId, String nickname, String imageUrl, Boolean isAttend,
+        int attendanceRate) {
         this.attendanceId = attendanceId;
-        this.username = username;
+        this.nickname = nickname;
+        this.imageUrl = imageUrl;
         this.isAttend = isAttend;
-        this.achievementRate = achievementRate;
+        this.attendanceRate = attendanceRate;
     }
 
     public static AttendanceResponse of(Attendance attendance) {
         return AttendanceResponse.builder()
             .attendanceId(attendance.getId())
-            .username(attendance.getParticipant().getUser().getNickname())
+            .nickname(attendance.getParticipant().getUser().getNickname())
+            .imageUrl(attendance.getParticipant().getUser().getImageUrl())
             .isAttend(attendance.isAttend())
-            .achievementRate(100)
+            .attendanceRate(100)
             .build();
     }
 
     public static List<AttendanceResponse> listOf(List<Attendance> attendances) {
-        return attendances.stream().map(AttendanceResponse::of).collect(Collectors.toList());
+        return attendances.stream()
+            .map(AttendanceResponse::of)
+            .collect(Collectors.toList());
     }
 }

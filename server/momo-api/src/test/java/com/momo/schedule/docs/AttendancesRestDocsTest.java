@@ -33,8 +33,9 @@ public class AttendancesRestDocsTest extends RestDocsControllerTest {
         given(attendanceService.findScheduleAttendances(any(), any())).willReturn(List.of(
             AttendanceResponse.builder()
                 .attendanceId(1L)
-                .username("테스트 이름")
-                .achievementRate(100)
+                .nickname("테스트 이름")
+                .imageUrl("이미지 URL")
+                .attendanceRate(100)
                 .isAttend(false)
                 .build()
         ));

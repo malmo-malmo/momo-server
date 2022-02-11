@@ -23,7 +23,7 @@ public class ScheduleDocumentation {
             fieldWithPath("startDateTime").type(JsonFieldType.STRING).description("일정 시작일자")
         };
         FieldDescriptor[] responseSchedule = new FieldDescriptor[]{
-            fieldWithPath("id").type(JsonFieldType.NUMBER).description("일정 ID"),
+            fieldWithPath("scheduleId").type(JsonFieldType.NUMBER).description("일정 ID"),
             fieldWithPath("authorImage").type(JsonFieldType.STRING).description("작성자 이미지"),
             fieldWithPath("authorNickname").type(JsonFieldType.STRING).description("작성자 닉네임"),
             fieldWithPath("title").type(JsonFieldType.STRING).description("일정 제목"),
@@ -47,7 +47,7 @@ public class ScheduleDocumentation {
             parameterWithName("size").description("사이즈")
         };
         FieldDescriptor[] responseSchedule = new FieldDescriptor[]{
-            fieldWithPath("groupScheduleResponses[].id").type(JsonFieldType.NUMBER).description("일정 ID"),
+            fieldWithPath("groupScheduleResponses[].scheduleId").type(JsonFieldType.NUMBER).description("일정 ID"),
             fieldWithPath("groupScheduleResponses[].authorImage").type(JsonFieldType.STRING).description("일정 작성자 이미지"),
             fieldWithPath("groupScheduleResponses[].authorNickname").type(JsonFieldType.STRING).description(
                 "일정 작성자 닉네임"),

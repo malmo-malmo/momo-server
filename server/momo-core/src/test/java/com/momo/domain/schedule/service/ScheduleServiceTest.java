@@ -68,7 +68,7 @@ public class ScheduleServiceTest extends ServiceTest {
         given(groupRepository.findById(any())).willReturn(of(group));
         given(scheduleRepository.save(any())).willReturn(schedule);
         given(scheduleRepository.findGroupResponseById(any(), any()))
-            .willReturn(GroupScheduleResponse.builder().id(schedule.getId()).build());
+            .willReturn(GroupScheduleResponse.builder().scheduleId(schedule.getId()).build());
 
         GroupScheduleResponse actual = scheduleService.create(manager, request);
 
@@ -76,7 +76,7 @@ public class ScheduleServiceTest extends ServiceTest {
         verify(scheduleRepository).save(any());
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
-            () -> assertThat(actual.getId()).isEqualTo(schedule.getId())
+            () -> assertThat(actual.getScheduleId()).isEqualTo(schedule.getId())
         );
     }
 
@@ -96,8 +96,8 @@ public class ScheduleServiceTest extends ServiceTest {
         GroupSchedulesRequest request = getGroupSchedulesRequest(group.getId());
 
         List<GroupScheduleResponse> response = List.of(
-            GroupScheduleResponse.builder().id(1L).build(),
-            GroupScheduleResponse.builder().id(2L).build()
+            GroupScheduleResponse.builder().scheduleId(1L).build(),
+            GroupScheduleResponse.builder().scheduleId(2L).build()
         );
 
         given(groupRepository.findById(any())).willReturn(of(group));

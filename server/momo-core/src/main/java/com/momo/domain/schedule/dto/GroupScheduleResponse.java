@@ -10,29 +10,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GroupScheduleResponse {
 
-    private Long id;
-
+    private Long scheduleId;
     private String authorImage;
-
     private String authorNickname;
-
     private String title;
-
-    private boolean isOffline;
-
     private LocalDateTime startDateTime;
-
     private String contents;
-
+    private boolean isOffline;
     private boolean attendanceCheck;
-
     private boolean isAttend;
 
     @Builder
     @QueryProjection
-    public GroupScheduleResponse(Long id, String authorImage, String authorNickname, String title, boolean isOffline,
-        LocalDateTime startDateTime, String contents, boolean attendanceCheck, boolean isAttend) {
-        this.id = id;
+    public GroupScheduleResponse(Long scheduleId, String authorImage, String authorNickname, String title,
+        boolean isOffline, LocalDateTime startDateTime, String contents, boolean attendanceCheck, boolean isAttend) {
+        this.scheduleId = scheduleId;
         this.authorImage = authorImage;
         this.authorNickname = authorNickname;
         this.title = title;

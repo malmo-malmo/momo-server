@@ -48,7 +48,7 @@ public class ScheduleRestDocsTest extends RestDocsControllerTest {
         String content = super.objectMapper.writeValueAsString(request);
 
         given(scheduleService.create(any(), any())).willReturn(GroupScheduleResponse.builder()
-            .id(1L)
+            .scheduleId(1L)
             .authorImage("작성자 이미지")
             .authorNickname("작성자 이름")
             .title("오늘의 일정")
@@ -72,7 +72,7 @@ public class ScheduleRestDocsTest extends RestDocsControllerTest {
         when(scheduleService.findPageByUserAndGroupId(any(), any())).thenReturn(GroupScheduleResponses.of(
             List.of(
                 GroupScheduleResponse.builder()
-                    .id(1L)
+                    .scheduleId(1L)
                     .authorImage("http://~~")
                     .authorNickname("일정 작성자 닉네임")
                     .title("일정 이름")

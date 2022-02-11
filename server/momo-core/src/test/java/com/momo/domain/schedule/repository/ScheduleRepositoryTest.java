@@ -53,7 +53,7 @@ public class ScheduleRepositoryTest extends RepositoryTest {
 
         Assertions.assertAll(
             () -> assertThat(expected.size()).isEqualTo(1),
-            () -> assertThat(expected.get(0).getId()).isEqualTo(schedule.getId()),
+            () -> assertThat(expected.get(0).getScheduleId()).isEqualTo(schedule.getId()),
             () -> assertThat(expected.get(0).getAuthorImage()).isEqualTo(user.getImageUrl()),
             () -> assertThat(expected.get(0).getAuthorNickname()).isEqualTo(user.getNickname()),
             () -> assertThat(expected.get(0).getTitle()).isEqualTo(schedule.getTitle()),
@@ -81,7 +81,7 @@ public class ScheduleRepositoryTest extends RepositoryTest {
 
         Assertions.assertAll(
             () -> assertThat(expected).isNotNull(),
-            () -> assertThat(expected.getId()).isEqualTo(schedule.getId()),
+            () -> assertThat(expected.getScheduleId()).isEqualTo(schedule.getId()),
             () -> assertThat(expected.getAuthorImage()).isEqualTo(schedule.getAuthor().getImageUrl()),
             () -> assertThat(expected.getTitle()).isEqualTo(schedule.getTitle()),
             () -> assertThat(expected.isOffline()).isEqualTo(schedule.isOffline()),

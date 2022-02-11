@@ -33,7 +33,7 @@ public class ScheduleController {
     public ResponseEntity<GroupScheduleResponse> create(@CurrentUser User user,
         @Valid @RequestBody ScheduleCreateRequest scheduleCreateRequest) throws URISyntaxException {
         GroupScheduleResponse response = scheduleService.create(user, scheduleCreateRequest);
-        return ResponseEntity.created(new URI("/api/schedule/" + response.getId())).body(response);
+        return ResponseEntity.created(new URI("/api/schedule/" + response.getScheduleId())).body(response);
     }
 
     @GetMapping("/group-schedules")

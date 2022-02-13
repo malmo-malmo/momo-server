@@ -23,7 +23,7 @@ class CachedImageCard extends StatelessWidget {
       imageUrl: imageUrl,
       placeholder: (context, url) => const LoadingCard(),
       errorWidget: (context, url, error) => const ErrorCard(),
-      fit: fit ?? BoxFit.fill,
+      fit: fit ?? BoxFit.cover,
       width: width,
       height: height,
     );

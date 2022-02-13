@@ -1,5 +1,5 @@
 rootProject.name = 'server'
-include 'module-api'
-include 'module-core'
-include 'module-common'
+include 'momo-api'
+include 'momo-core'
+include 'momo-common'
 

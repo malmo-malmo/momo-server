@@ -1,0 +1,70 @@
+plugins {
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+    id "java-library"
+    id 'java-test-fixtures'
+    id 'maven-publish'
+}
+
+bootJar { enabled = false }
+jar { enabled = true }
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    querydsl.extendsFrom compileClasspath
+}
+
+dependencies {
+    //module
+    implementation project(":momo-common")
+
+    //spring
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    //logging
+    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+
+    //jpa
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.querydsl:querydsl-jpa'
+
+    //util
+    implementation group: 'org.json', name: 'json', version: '20180813'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'com.google.guava:guava:31.0.1-jre'
+
+    //db
+    runtimeOnly 'mysql:mysql-connector-java'
+    runtimeOnly 'com.h2database:h2'
+
+    //auth
+    implementation 'io.jsonwebtoken:jjwt:0.5.1'
+
+    //excel
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
+
+    //aws
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-aws', version: '2.2.6.RELEASE'
+
+    //fixtures
+    testFixturesImplementation 'org.springframework.boot:spring-boot-starter-web'
+    testFixturesImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+    main.java.srcDir querydslDir
+}
+
+compileQuerydsl {
+    delete file('build/generated')
+    options.annotationProcessorPath = configurations.querydsl
+}

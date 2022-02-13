@@ -1,0 +1,79 @@
+plugins {
+    id "org.asciidoctor.jvm.convert" version "3.3.2"
+}
+
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+bootJar {
+    dependsOn asciidoctor
+    copy {
+        from "${asciidoctor.outputDir}"
+        into 'src/main/resources/static/docs'
+    }
+}
+
+configurations {
+    asciidoctorExtensions
+}
+
+dependencies {
+    //module
+    implementation project(":momo-core")
+    testImplementation(testFixtures(project(":momo-core")))
+    implementation project(":momo-common")
+
+    //spring
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    //jpa
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    //util
+    implementation 'com.google.guava:guava:31.0.1-jre'
+
+    //auth
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3'
+
+    //db
+    runtimeOnly 'mysql:mysql-connector-java'
+
+    //logging
+    implementation group: 'com.github.maricn', name: 'logback-slack-appender', version: '1.4.0'
+    implementation group: 'org.codehaus.janino', name: 'janino', version: '3.1.6'
+
+    //test
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.3.3'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
+    //docs
+    asciidoctorExtensions "org.springframework.restdocs:spring-restdocs-asciidoctor"
+}
+
+test {
+    useJUnitPlatform()
+    outputs.dir snippetsDir
+}
+
+asciidoctor {
+    configurations "asciidoctorExtensions"
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+asciidoctor.doFirst {
+    delete file('src/main/resources/static/docs')
+}
+
+task copyDocument(type: Copy) {
+    dependsOn asciidoctor
+    from file("build/docs/asciidoc")
+    into file("src/main/resources/static/docs")
+}
+
+build {
+    dependsOn copyDocument
+}

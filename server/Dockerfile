@@ -13,8 +13,8 @@ ENV TZ Asia/Seoul
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN mkdir /opt/app
-COPY module-api/build/libs/module-api-1.0.jar /opt/app
+COPY module-api/build/libs/momo-api-1.0.jar /opt/app
 
 CMD ["java","-jar", \
 "-Dspring.profiles.active=dev", \
-"/opt/app/module-api-1.0.jar"]
+"/opt/app/momo-api-1.0.jar"]

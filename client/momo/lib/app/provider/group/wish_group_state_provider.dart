@@ -67,14 +67,14 @@ class WishGroupListState extends StateNotifier<WishGroupDto> {
     }
   }
 
-  Future<dynamic> deleteLike(int groupWishId) async {
+  Future<dynamic> deleteLike(int groupId) async {
     try {
-      await userRepository.deleteGroupLike(groupWishId);
+      await userRepository.deleteGroupLike(groupId);
       state = state.copyWith(
         groups: [
           ...state.groups
               .map(
-                (e) => e.id == groupWishId
+                (e) => e.groupCardResponse.id == groupId
                     ? e.copyWith(
                         groupCardResponse: e.groupCardResponse.copyWith(
                           favoriteGroup: false,
@@ -90,7 +90,7 @@ class WishGroupListState extends StateNotifier<WishGroupDto> {
         groups: [
           ...state.groups
               .map(
-                (e) => e.id == groupWishId
+                (e) => e.groupCardResponse.id == groupId
                     ? e.copyWith(
                         groupCardResponse: e.groupCardResponse.copyWith(
                           favoriteGroup: true,

@@ -1,6 +1,6 @@
 package com.momo.api.schedule;
 
-import com.momo.common.CurrentUser;
+import com.momo.api.auth.CurrentUser;
 import com.momo.domain.schedule.dto.AttendanceResponse;
 import com.momo.domain.schedule.service.AttendanceService;
 import com.momo.domain.user.entity.User;

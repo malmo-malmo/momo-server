@@ -1,6 +1,6 @@
 package com.momo.api.favorite;
 
-import com.momo.common.CurrentUser;
+import com.momo.api.auth.CurrentUser;
 import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.favorite.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.domain.favorite.dto.FavoriteGroupCardResponse;

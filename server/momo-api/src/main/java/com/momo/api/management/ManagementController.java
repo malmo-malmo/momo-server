@@ -1,6 +1,6 @@
 package com.momo.api.management;
 
-import com.momo.common.CurrentUser;
+import com.momo.api.auth.CurrentUser;
 import com.momo.domain.management.dto.MyGroupCardResponse;
 import com.momo.domain.management.dto.MyGroupSummaryResponse;
 import com.momo.domain.management.dto.MyPostCardResponse;

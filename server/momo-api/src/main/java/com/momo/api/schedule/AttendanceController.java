@@ -2,7 +2,7 @@ package com.momo.api.schedule;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
-import com.momo.common.CurrentUser;
+import com.momo.api.auth.CurrentUser;
 import com.momo.domain.schedule.dto.AttendanceCreateRequests;
 import com.momo.domain.schedule.dto.AttendanceUpdateRequests;
 import com.momo.domain.schedule.service.AttendanceService;

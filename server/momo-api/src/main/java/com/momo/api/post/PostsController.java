@@ -1,6 +1,6 @@
 package com.momo.api.post;
 
-import com.momo.common.CurrentUser;
+import com.momo.api.auth.CurrentUser;
 import com.momo.domain.post.dto.PostCardResponse;
 import com.momo.domain.post.dto.PostCardsRequest;
 import com.momo.domain.post.service.PostService;

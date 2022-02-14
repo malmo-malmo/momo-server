@@ -1,6 +1,6 @@
 package com.momo.api.schedule;
 
-import com.momo.common.CurrentUser;
+import com.momo.api.auth.CurrentUser;
 import com.momo.domain.schedule.dto.GroupScheduleResponse;
 import com.momo.domain.schedule.dto.GroupScheduleResponses;
 import com.momo.domain.schedule.dto.GroupSchedulesRequest;

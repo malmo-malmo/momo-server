@@ -1,4 +1,4 @@
-package com.momo.common;
+package com.momo.api.auth;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

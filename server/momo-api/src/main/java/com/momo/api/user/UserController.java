@@ -1,6 +1,6 @@
 package com.momo.api.user;
 
-import com.momo.common.CurrentUser;
+import com.momo.api.auth.CurrentUser;
 import com.momo.domain.user.dto.UserResponse;
 import com.momo.domain.user.dto.UserUpdateRequest;
 import com.momo.domain.user.dto.UserUpdateResponse;

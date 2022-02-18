@@ -11,7 +11,7 @@ public class UserTest {
 
     @Test
     void 소셜_로그인_유저_생성_테스트() {
-        User actual = User.createSocialLoginUser(Social.createEmptyRefreshToken(SocialProvider.KAKAO, "1"));
+        User actual = User.createSocialLoginUser(LoginInfo.createEmptyRefreshToken(SocialProvider.KAKAO, "1"));
         Assertions.assertAll(
             () -> assertThat(actual.getLoginInfo().getProviderId()).isEqualTo("1"),
             () -> assertThat(actual.getLoginInfo().getProvider()).isEqualTo(SocialProvider.KAKAO)
@@ -20,7 +20,7 @@ public class UserTest {
 
     @Test
     void 리프레쉬_토큰_수정_테스트() {
-        User user = User.builder().loginInfo(Social.builder().build()).build();
+        User user = User.builder().loginInfo(LoginInfo.builder().build()).build();
         user.updateRefreshToken("refreshToken");
         assertThat(user.getLoginInfo().getRefreshToken()).isEqualTo("refreshToken");
     }

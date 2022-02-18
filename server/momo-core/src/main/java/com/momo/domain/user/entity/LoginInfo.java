@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
-public class Social {
+public class LoginInfo {
 
     @Enumerated(EnumType.STRING)
     private SocialProvider provider;
@@ -24,20 +24,20 @@ public class Social {
     private String refreshToken;
 
     @Builder
-    public Social(SocialProvider provider, String providerId, String refreshToken) {
+    public LoginInfo(SocialProvider provider, String providerId, String refreshToken) {
         this.provider = provider;
         this.providerId = providerId;
         this.refreshToken = refreshToken;
     }
 
-    public static Social createEmptyRefreshToken(SocialProvider provider, String providerId) {
-        return Social.builder()
+    public static LoginInfo createEmptyRefreshToken(SocialProvider provider, String providerId) {
+        return LoginInfo.builder()
             .provider(provider)
             .providerId(providerId)
             .build();
     }
-    public static Social create(SocialProvider provider, String providerId, String refreshToken) {
-        return Social.builder()
+    public static LoginInfo create(SocialProvider provider, String providerId, String refreshToken) {
+        return LoginInfo.builder()
             .provider(provider)
             .providerId(providerId)
             .refreshToken(refreshToken)

@@ -7,7 +7,7 @@ import com.momo.domain.user.entity.LoginInfo;
 
 public class SocialFixture {
 
-    public static LoginInfo getSocial() {
+    public static LoginInfo getLoginInfo() {
         return LoginInfo.builder()
             .provider(PROVIDER)
             .providerId("1")

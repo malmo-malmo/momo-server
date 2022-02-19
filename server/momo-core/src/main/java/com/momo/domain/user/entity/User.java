@@ -52,13 +52,6 @@ public class User extends BaseEntity {
             .build();
     }
 
-    public void updateRefreshToken(String refreshToken) {
-        if(Objects.isNull(this.loginInfo)) {
-            return;
-        }
-        this.loginInfo.updateRefreshToken(refreshToken);
-    }
-
     public boolean isSameNickname(String nickname) {
         if (Objects.isNull(this.nickname)) {
             return true;
@@ -72,8 +65,8 @@ public class User extends BaseEntity {
 
     public void update(User user, String imageUrl) {
         this.nickname = user.getNickname();
-        this.location = user.getLocation();
         this.imageUrl = imageUrl;
+        this.location.update(user.getLocation());
     }
 
     public void updateFavoriteCategories(List<Category> categories) {

@@ -9,6 +9,7 @@ import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.domain.user.dto.UniversityResponse;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,8 @@ import org.junit.jupiter.api.Test;
 public class UniversityAcceptanceTest extends AcceptanceTest {
 
     @Test
-    public void 커리어넷_오픈_API로_대학교_이름을_조회한다() {
+    @Disabled
+    void 커리어넷_오픈_API로_대학교_이름을_조회한다() {
         String universityName = "한국";
         String token = getAccessToken(getUser());
 

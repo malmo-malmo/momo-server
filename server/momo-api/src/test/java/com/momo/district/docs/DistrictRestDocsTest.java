@@ -6,8 +6,8 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.common.RestDocsControllerTest;
 import com.momo.api.district.DistrictController;
+import com.momo.common.RestDocsControllerTest;
 import com.momo.domain.district.entity.District;
 import com.momo.domain.district.repository.DistrictRepository;
 import java.util.List;
@@ -23,11 +23,12 @@ public class DistrictRestDocsTest extends RestDocsControllerTest {
 
     @InjectMocks
     private DistrictController districtController;
+
     @MockBean
     private DistrictRepository districtRepository;
 
     @Test
-    public void 시_도_목록_조회() throws Exception {
+    void 시_도_목록_조회() throws Exception {
         super.mockMvc.perform(get("/api/district/cities"))
             .andDo(print())
             .andExpect(status().isOk())
@@ -35,7 +36,7 @@ public class DistrictRestDocsTest extends RestDocsControllerTest {
     }
 
     @Test
-    public void 구_군_목록_조회() throws Exception {
+    void 구_군_목록_조회() throws Exception {
         when(districtRepository.findAllByCity(any())).thenReturn(List.of(
             District.builder().districtName("경상도").build()
         ));

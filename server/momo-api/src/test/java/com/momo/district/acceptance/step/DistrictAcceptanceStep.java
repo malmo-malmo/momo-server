@@ -11,6 +11,7 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.List;
+import org.springframework.http.HttpHeaders;
 
 public class DistrictAcceptanceStep {
 
@@ -26,16 +27,18 @@ public class DistrictAcceptanceStep {
         );
     }
 
-    public static ExtractableResponse<Response> requestToFindCities() {
+    public static ExtractableResponse<Response> requestToFindCities(String token) {
         return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .when()
             .get("/api/district/cities")
             .then().log().all()
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToFindDistricts(String cityCode) {
+    public static ExtractableResponse<Response> requestToFindDistricts(String token, String cityCode) {
         return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .queryParam("cityCode", cityCode)
             .when()
             .get("/api/district/districts")

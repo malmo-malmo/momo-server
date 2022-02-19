@@ -1,4 +1,4 @@
-package com.momo.api.auth;
+package com.momo.common;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;

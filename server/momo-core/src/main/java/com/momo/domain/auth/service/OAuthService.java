@@ -45,7 +45,6 @@ public class OAuthService {
 
     @Transactional(readOnly = true)
     public User findLoginUserByAccessToken(String accessToken) {
-        tokenProvider.validateAccessToken(accessToken);
         String userId = tokenProvider.getIdFromAccessToken(accessToken);
 
         return userRepository.findById(Long.parseLong(userId))

@@ -19,7 +19,7 @@ Widget adminDialog({required ParticipantUser participantUser}) {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ProfileAvatar(
-                img: participantUser.image ??
+                img: participantUser.imageUrl ??
                     'https://www.nemopan.com/files/attach/images/6294/004/387/013/63dac7acb2889fd9d34b68a338f9af8c.jpg',
                 rad: 24),
             Text(participantUser.nickname, style: MomoTextStyle.normal),

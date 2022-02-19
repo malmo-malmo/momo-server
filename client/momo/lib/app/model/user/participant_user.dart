@@ -6,9 +6,9 @@ part 'participant_user.freezed.dart';
 @freezed
 class ParticipantUser with _$ParticipantUser {
   factory ParticipantUser({
-    required int userId,
+    required int participantId,
     required String nickname,
-    String? image,
+    String? imageUrl,
     required int attendanceRate,
   }) = _ParticipantUser;
 

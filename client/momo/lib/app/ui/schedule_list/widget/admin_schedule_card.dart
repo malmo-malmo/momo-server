@@ -31,7 +31,9 @@ Widget adminScheduleCard({
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Container(
           height: 204,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
             child: Column(
@@ -93,7 +95,7 @@ Widget adminScheduleCard({
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              attendance ? '출석' : '불참',
+                              attendance ? '출석' : '결석',
                               style: MomoTextStyle.small.copyWith(
                                 color: attendance
                                     ? const Color(0xff8da8fa)

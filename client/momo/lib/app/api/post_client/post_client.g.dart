@@ -38,7 +38,7 @@ class _PostClient implements PostClient {
       r'groupId': groupId,
       r'page': page,
       r'size': size,
-      r'type': type
+      r'postType': type
     };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};

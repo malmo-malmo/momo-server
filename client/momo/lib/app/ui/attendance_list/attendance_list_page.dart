@@ -82,7 +82,7 @@ class AttendanceListPage extends ConsumerWidget {
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) => attendanceCard(
                             name: data[index].nickname,
-                            profile: data[index].image ??
+                            profile: data[index].imageUrl ??
                                 'https://img.insight.co.kr/static/2019/04/20/700/mev0r133kiy3hx0u4c48.jpg',
                             rate: data[index].attendanceRate,
                             index: index,

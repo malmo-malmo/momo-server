@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:momo/app/api/attendance_client/attendance_client.dart';
 import 'package:momo/app/api/comment_client/comment_client.dart';
 import 'package:momo/app/api/dio_provider.dart';
 import 'package:momo/app/api/district_client/district_client.dart';
@@ -41,4 +42,9 @@ final districtClientProvider = Provider<DistrictClient>((ref) {
 final managementClientProvider = Provider<ManagementClient>((ref) {
   final dio = ref.watch(dioProvider);
   return ManagementClient(dio);
+});
+
+final attendanceClientProvider = Provider<AttendanceClient>((ref) {
+  final dio = ref.watch(dioProvider);
+  return AttendanceClient(dio);
 });

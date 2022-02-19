@@ -10,6 +10,8 @@ import 'package:momo/app/ui/schedule_list/widget/admin_schedule_card.dart';
 import 'package:momo/app/ui/schedule_list/widget/schedule_card.dart';
 import 'package:momo/app/util/constant.dart';
 
+import 'dart:developer';
+
 class ScheduleList extends ConsumerStatefulWidget {
   const ScheduleList({
     Key? key,
@@ -55,6 +57,7 @@ class _ScheduleListState extends ConsumerState<ScheduleList> {
         _pagingController.appendPage(newItems, pageKey);
       }
     } catch (error) {
+      log(error.toString());
       _pagingController.error = error;
     }
   }
@@ -69,7 +72,7 @@ class _ScheduleListState extends ConsumerState<ScheduleList> {
           return _manageId == userId
               ? adminScheduleCard(
                   groupId: widget.groupId,
-                  scheduleId: item.id,
+                  scheduleId: item.scheduleId,
                   profile: item.authorImage ??
                       'https://photo.hankooki.com/newsphoto/v001/2021/09/13/kha20210913180225_O_01_C_1.jpg',
                   nickname: item.authorNickname,
@@ -80,7 +83,7 @@ class _ScheduleListState extends ConsumerState<ScheduleList> {
                   isCheck: item.attendanceCheck,
                 )
               : scheduleCard(
-                  scheduleId: item.id,
+                  scheduleId: item.scheduleId,
                   profile: item.authorImage ??
                       'https://photo.hankooki.com/newsphoto/v001/2021/09/13/kha20210913180225_O_01_C_1.jpg',
                   nickname: item.authorNickname,

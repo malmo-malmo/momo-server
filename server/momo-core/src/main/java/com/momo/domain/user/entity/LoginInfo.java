@@ -1,7 +1,6 @@
 package com.momo.domain.user.entity;
 
 import java.util.Objects;
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,16 +17,18 @@ public class LoginInfo {
     @Enumerated(EnumType.STRING)
     private SocialProvider provider;
 
-    @Column(nullable = false)
     private String providerId;
 
     private String refreshToken;
 
+    private String deviceCode;
+
     @Builder
-    public LoginInfo(SocialProvider provider, String providerId, String refreshToken) {
+    public LoginInfo(SocialProvider provider, String providerId, String refreshToken, String deviceCode) {
         this.provider = provider;
         this.providerId = providerId;
         this.refreshToken = refreshToken;
+        this.deviceCode = deviceCode;
     }
 
     public static LoginInfo createEmptyRefreshToken(SocialProvider provider, String providerId) {
@@ -36,18 +37,20 @@ public class LoginInfo {
             .providerId(providerId)
             .build();
     }
-    public static LoginInfo create(SocialProvider provider, String providerId, String refreshToken) {
-        return LoginInfo.builder()
-            .provider(provider)
-            .providerId(providerId)
-            .refreshToken(refreshToken)
-            .build();
+
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
-    void updateRefreshToken(String refreshToken) {
-        if(Objects.isNull(refreshToken)) {
-            return;
-        }
+    public void updateAuthInfo(String refreshToken, String deviceCode) {
         this.refreshToken = refreshToken;
+        this.deviceCode = deviceCode;
+    }
+
+    public boolean isSameDeviceCode(String deviceCode) {
+        if (Objects.isNull(deviceCode)) {
+            return false;
+        }
+        return this.deviceCode.equals(deviceCode);
     }
 }

@@ -25,11 +25,11 @@ public class OAuthRestDocsTest extends RestDocsControllerTest {
     private OAuthController oAuthController;
 
     @Test
-    public void 로그인() throws Exception {
+    void 로그인() throws Exception {
         when(oAuthService.oauthLogin(any())).thenReturn(
             new OAuthLoginResponse("액세스 토큰", "리프레쉬 토큰")
         );
-        OAuthLoginRequest request = new OAuthLoginRequest("google", "인가코드");
+        OAuthLoginRequest request = new OAuthLoginRequest("google", "인가코드", "deviceCode");
         String content = super.objectMapper.writeValueAsString(request);
         super.mockMvc.perform(post("/api/oauth/login")
                 .content(content)
@@ -40,11 +40,11 @@ public class OAuthRestDocsTest extends RestDocsControllerTest {
     }
 
     @Test
-    public void 재발급_로그인() throws Exception {
+    void 재발급_로그인() throws Exception {
         when(oAuthService.refreshLogin(any())).thenReturn(
             new OAuthLoginResponse("액세스 토큰", "리프레쉬 토큰")
         );
-        RefreshLoginRequest request = new RefreshLoginRequest("리프레쉬 토큰");
+        RefreshLoginRequest request = new RefreshLoginRequest("리프레쉬 토큰", "deviceCode");
         String content = super.objectMapper.writeValueAsString(request);
         super.mockMvc.perform(post("/api/oauth/login/refresh")
                 .content(content)

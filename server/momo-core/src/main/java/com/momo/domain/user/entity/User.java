@@ -20,6 +20,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseEntity {
 
+    public static int REFRESH_TOKEN_RENEWAL_TIME = 24;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -15,6 +15,7 @@ public enum ErrorCode {
     INVALID_OAUTH_ACCESS_TOKEN(401, "유효하지 않은 OAuth 엑세스 토큰입니다."),
     INVALID_ACCESS_TOKEN(401, "유효하지 않은 엑세스 토큰입니다."),
     INVALID_REFRESH_TOKEN(401, "유효하지 않은 리프레쉬 토큰입니다."),
+    INVALID_DEVICE_CODE(401, "등록된 기기 고유번호와 다릅니다."),
     TOKEN_NOT_FOUND_USER(401, "토큰에서 유저 정보를 찾을 수 없습니다."),
     SOCIAL_LOGIN_NOT_SUPPORT(400, "해당 소셜 로그인은 지원하지 않습니다"),
 

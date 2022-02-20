@@ -13,7 +13,7 @@ _$_AttendanceResponse _$$_AttendanceResponseFromJson(
       nickname: json['nickname'] as String,
       imageUrl: json['imageUrl'] as String?,
       isAttend: json['isAttend'] as bool,
-      attendanceRate: json['attendanceRate'] as int,
+      attendanceRate: json['attendanceRate'] as int?,
     );
 
 Map<String, dynamic> _$$_AttendanceResponseToJson(

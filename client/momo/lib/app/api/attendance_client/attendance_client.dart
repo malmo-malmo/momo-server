@@ -14,7 +14,7 @@ abstract class AttendanceClient {
     String baseUrl,
   }) = _AttendanceClient;
 
-  @POST('/attendace')
+  @POST('/attendance')
   Future<dynamic> createAttendance(
     @Body() AttendanceCheckCreateRequest attendanceCheckCreateRequest,
   );
@@ -24,8 +24,8 @@ abstract class AttendanceClient {
     @Body() AttendanceCheckUpdateRequest attendanceCheckUpdateRequest,
   );
 
-  @GET('/attendance/schedule/{id}')
+  @GET('/attendances/schedule/{scheduleId}')
   Future<List<AttendanceResponse>> getAttendances(
-    @Path() int id,
+    @Path() int scheduleId,
   );
 }

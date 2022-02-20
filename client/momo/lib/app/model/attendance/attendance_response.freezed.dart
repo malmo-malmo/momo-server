@@ -26,7 +26,7 @@ class _$AttendanceResponseTearOff {
       required String nickname,
       String? imageUrl,
       required bool isAttend,
-      required int attendanceRate}) {
+      int? attendanceRate}) {
     return _AttendanceResponse(
       attendanceId: attendanceId,
       nickname: nickname,
@@ -50,7 +50,7 @@ mixin _$AttendanceResponse {
   String get nickname => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   bool get isAttend => throw _privateConstructorUsedError;
-  int get attendanceRate => throw _privateConstructorUsedError;
+  int? get attendanceRate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -68,7 +68,7 @@ abstract class $AttendanceResponseCopyWith<$Res> {
       String nickname,
       String? imageUrl,
       bool isAttend,
-      int attendanceRate});
+      int? attendanceRate});
 }
 
 /// @nodoc
@@ -108,7 +108,7 @@ class _$AttendanceResponseCopyWithImpl<$Res>
       attendanceRate: attendanceRate == freezed
           ? _value.attendanceRate
           : attendanceRate // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }
@@ -125,7 +125,7 @@ abstract class _$AttendanceResponseCopyWith<$Res>
       String nickname,
       String? imageUrl,
       bool isAttend,
-      int attendanceRate});
+      int? attendanceRate});
 }
 
 /// @nodoc
@@ -167,7 +167,7 @@ class __$AttendanceResponseCopyWithImpl<$Res>
       attendanceRate: attendanceRate == freezed
           ? _value.attendanceRate
           : attendanceRate // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }
@@ -180,7 +180,7 @@ class _$_AttendanceResponse implements _AttendanceResponse {
       required this.nickname,
       this.imageUrl,
       required this.isAttend,
-      required this.attendanceRate});
+      this.attendanceRate});
 
   factory _$_AttendanceResponse.fromJson(Map<String, dynamic> json) =>
       _$$_AttendanceResponseFromJson(json);
@@ -194,7 +194,7 @@ class _$_AttendanceResponse implements _AttendanceResponse {
   @override
   final bool isAttend;
   @override
-  final int attendanceRate;
+  final int? attendanceRate;
 
   @override
   String toString() {
@@ -239,7 +239,7 @@ abstract class _AttendanceResponse implements AttendanceResponse {
       required String nickname,
       String? imageUrl,
       required bool isAttend,
-      required int attendanceRate}) = _$_AttendanceResponse;
+      int? attendanceRate}) = _$_AttendanceResponse;
 
   factory _AttendanceResponse.fromJson(Map<String, dynamic> json) =
       _$_AttendanceResponse.fromJson;
@@ -253,7 +253,7 @@ abstract class _AttendanceResponse implements AttendanceResponse {
   @override
   bool get isAttend;
   @override
-  int get attendanceRate;
+  int? get attendanceRate;
   @override
   @JsonKey(ignore: true)
   _$AttendanceResponseCopyWith<_AttendanceResponse> get copyWith =>

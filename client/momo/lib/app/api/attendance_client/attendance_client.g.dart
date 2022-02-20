@@ -24,7 +24,7 @@ class _AttendanceClient implements AttendanceClient {
     _data.addAll(attendanceCheckCreateRequest.toJson());
     final _result = await _dio.fetch(_setStreamType<dynamic>(
         Options(method: 'POST', headers: _headers, extra: _extra)
-            .compose(_dio.options, '/attendace',
+            .compose(_dio.options, '/attendance',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data;
@@ -48,7 +48,7 @@ class _AttendanceClient implements AttendanceClient {
   }
 
   @override
-  Future<List<AttendanceResponse>> getAttendances(id) async {
+  Future<List<AttendanceResponse>> getAttendances(scheduleId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -56,7 +56,7 @@ class _AttendanceClient implements AttendanceClient {
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<AttendanceResponse>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/attendance/schedule/$id',
+                .compose(_dio.options, '/attendances/schedule/$scheduleId',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!

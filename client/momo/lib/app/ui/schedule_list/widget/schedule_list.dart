@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/schedule/schedule_detail.dart';
+import 'package:momo/app/provider/schedule/group_schedule_list_dto.dart';
+import 'package:momo/app/provider/schedule/group_schedule_list_provider.dart';
 import 'package:momo/app/provider/user/user_data_provider.dart';
-import 'package:momo/app/repository/schedule_repository.dart';
 import 'package:momo/app/ui/components/status/loading_card.dart';
 import 'package:momo/app/ui/components/status/no_item_card.dart';
 import 'package:momo/app/ui/schedule_list/widget/admin_schedule_card.dart';
 import 'package:momo/app/ui/schedule_list/widget/schedule_card.dart';
-import 'package:momo/app/util/constant.dart';
-
-import 'dart:developer';
 
 class ScheduleList extends ConsumerStatefulWidget {
   const ScheduleList({
@@ -25,14 +23,14 @@ class ScheduleList extends ConsumerStatefulWidget {
 }
 
 class _ScheduleListState extends ConsumerState<ScheduleList> {
-  late int _manageId;
-
   final PagingController<int, ScheduleDetail> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
   void initState() {
-    _pagingController.addPageRequestListener((pageKey) => _fetchPage(pageKey));
+    _pagingController.addPageRequestListener((pageKey) => ref
+        .read(groupScheduleListStateProvider(widget.groupId).notifier)
+        .getSchedules(pageKey));
     super.initState();
   }
 
@@ -42,34 +40,27 @@ class _ScheduleListState extends ConsumerState<ScheduleList> {
     super.dispose();
   }
 
-  Future<void> _fetchPage(int pageKey) async {
-    final repository = ref.watch(scheduleRepositoryProvider);
-    try {
-      final response =
-          await repository.getSchedules(pageKey++, groupId: widget.groupId);
-      _manageId = response.managerId;
-      final newItems = response.groupScheduleResponses;
-
-      final isLastPage = newItems.length < pageSize;
-      if (isLastPage) {
-        _pagingController.appendLastPage(newItems);
-      } else {
-        _pagingController.appendPage(newItems, pageKey);
-      }
-    } catch (error) {
-      log(error.toString());
-      _pagingController.error = error;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    ref.listen<GroupScheduleListDto>(
+      groupScheduleListStateProvider(widget.groupId),
+      (previous, next) {
+        _pagingController.value = PagingState(
+          itemList: next.schedules,
+          nextPageKey: next.hasNext ? next.nextPage : null,
+          error: next.error,
+        );
+      },
+    );
+
     final userId = ref.watch(userDataProvider).id;
+    final groupScheduleState =
+        ref.watch(groupScheduleListStateProvider(widget.groupId));
     return PagedSliverList.separated(
       pagingController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<ScheduleDetail>(
         itemBuilder: (context, item, index) {
-          return _manageId == userId
+          return groupScheduleState.managerId == userId
               ? adminScheduleCard(
                   groupId: widget.groupId,
                   scheduleId: item.scheduleId,

@@ -10,7 +10,7 @@ class AttendanceResponse with _$AttendanceResponse {
     required String nickname,
     String? imageUrl,
     required bool isAttend,
-    required int attendanceRate,
+    int? attendanceRate,
   }) = _AttendanceResponse;
 
   factory AttendanceResponse.fromJson(Map<String, dynamic> json) =>

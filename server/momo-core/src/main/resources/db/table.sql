@@ -11,6 +11,7 @@ create table if not exists user
     provider_id        varchar(255) not null,
     refresh_token      varchar(255),
     university         varchar(255),
+    device_code        varchar(255),
     primary key (id)
 ) engine = InnoDB;
 

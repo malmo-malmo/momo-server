@@ -40,7 +40,9 @@ class MemberListPage extends ConsumerWidget {
                               adminDialog(participantUser: data[checkIndex]),
                         );
                         if (check) {
-                          ref.read(navigatorProvider).pop(result: true);
+                          ref.read(navigatorProvider).pop(
+                            result: [true, data[checkIndex].participantId],
+                          );
                         }
                       }
                     : null,

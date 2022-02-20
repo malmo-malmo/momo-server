@@ -11,7 +11,7 @@ class Post with _$Post {
     String? authorImage,
     required String title,
     required String contents,
-    required int commentCnt,
+    int? commentCnt,
     required String createdDate,
   }) = _Post;
 

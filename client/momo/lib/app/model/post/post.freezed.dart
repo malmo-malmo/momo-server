@@ -27,7 +27,7 @@ class _$PostTearOff {
       String? authorImage,
       required String title,
       required String contents,
-      required int commentCnt,
+      int? commentCnt,
       required String createdDate}) {
     return _Post(
       id: id,
@@ -55,7 +55,7 @@ mixin _$Post {
   String? get authorImage => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get contents => throw _privateConstructorUsedError;
-  int get commentCnt => throw _privateConstructorUsedError;
+  int? get commentCnt => throw _privateConstructorUsedError;
   String get createdDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -73,7 +73,7 @@ abstract class $PostCopyWith<$Res> {
       String? authorImage,
       String title,
       String contents,
-      int commentCnt,
+      int? commentCnt,
       String createdDate});
 }
 
@@ -119,7 +119,7 @@ class _$PostCopyWithImpl<$Res> implements $PostCopyWith<$Res> {
       commentCnt: commentCnt == freezed
           ? _value.commentCnt
           : commentCnt // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       createdDate: createdDate == freezed
           ? _value.createdDate
           : createdDate // ignore: cast_nullable_to_non_nullable
@@ -139,7 +139,7 @@ abstract class _$PostCopyWith<$Res> implements $PostCopyWith<$Res> {
       String? authorImage,
       String title,
       String contents,
-      int commentCnt,
+      int? commentCnt,
       String createdDate});
 }
 
@@ -186,7 +186,7 @@ class __$PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res>
       commentCnt: commentCnt == freezed
           ? _value.commentCnt
           : commentCnt // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       createdDate: createdDate == freezed
           ? _value.createdDate
           : createdDate // ignore: cast_nullable_to_non_nullable
@@ -204,7 +204,7 @@ class _$_Post implements _Post {
       this.authorImage,
       required this.title,
       required this.contents,
-      required this.commentCnt,
+      this.commentCnt,
       required this.createdDate});
 
   factory _$_Post.fromJson(Map<String, dynamic> json) => _$$_PostFromJson(json);
@@ -220,7 +220,7 @@ class _$_Post implements _Post {
   @override
   final String contents;
   @override
-  final int commentCnt;
+  final int? commentCnt;
   @override
   final String createdDate;
 
@@ -270,7 +270,7 @@ abstract class _Post implements Post {
       String? authorImage,
       required String title,
       required String contents,
-      required int commentCnt,
+      int? commentCnt,
       required String createdDate}) = _$_Post;
 
   factory _Post.fromJson(Map<String, dynamic> json) = _$_Post.fromJson;
@@ -286,7 +286,7 @@ abstract class _Post implements Post {
   @override
   String get contents;
   @override
-  int get commentCnt;
+  int? get commentCnt;
   @override
   String get createdDate;
   @override

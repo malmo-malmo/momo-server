@@ -35,4 +35,16 @@ class GroupDetailState extends StateNotifier<GroupDetail> {
     );
     return response;
   }
+
+  Future<dynamic> endGroup() async {
+    final response = await groupRepository.endGroup(state.id);
+    state = state.copyWith(end: true);
+    return response;
+  }
+
+  Future<dynamic> manageGroup({required int id, required int userId}) async {
+    final response = await groupRepository.manageGroup(id: id, userId: userId);
+    state = state.copyWith(managerId: userId);
+    return response;
+  }
 }

@@ -14,13 +14,14 @@ final dioProvider = Provider<Dio>((ref) {
       headers: {
         'Authorization': '${tokenData.accessTokenType} ${tokenData.accessToken}'
       },
-      connectTimeout: 5000,
+      connectTimeout: 10000,
     ),
   );
 
   final authDio = Dio();
 
   dio.interceptors.add(CustomLogInterceptor());
+  authDio.interceptors.add(CustomLogInterceptor());
 
   //  QueuedInterceptorsWrapper: 요청이 순차적으로 들어간다
   dio.interceptors.add(QueuedInterceptorsWrapper(

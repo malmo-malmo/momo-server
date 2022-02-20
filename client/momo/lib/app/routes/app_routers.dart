@@ -127,7 +127,11 @@ class AppRouter {
       case AppRoutes.attendanceList:
         final arg = settings.arguments;
         return MaterialPageRoute<dynamic>(
-          builder: (_) => AttendanceListPage(groupId: arg),
+          builder: (_) => AttendanceListPage(
+            groupId: arg[0],
+            scheduleId: arg[1],
+            isCheck: arg[2],
+          ),
         );
 
       case AppRoutes.postDetail:

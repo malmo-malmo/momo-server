@@ -23,6 +23,6 @@ abstract class PostClient {
     @Query('groupId') int groupId,
     @Query('page') int page,
     @Query('size') int size,
-    @Query('type') String type,
+    @Query('postType') String type,
   );
 }

@@ -22,14 +22,14 @@ class _$ParticipantUserTearOff {
   const _$ParticipantUserTearOff();
 
   _ParticipantUser call(
-      {required int userId,
+      {required int participantId,
       required String nickname,
-      String? image,
+      String? imageUrl,
       required int attendanceRate}) {
     return _ParticipantUser(
-      userId: userId,
+      participantId: participantId,
       nickname: nickname,
-      image: image,
+      imageUrl: imageUrl,
       attendanceRate: attendanceRate,
     );
   }
@@ -44,9 +44,9 @@ const $ParticipantUser = _$ParticipantUserTearOff();
 
 /// @nodoc
 mixin _$ParticipantUser {
-  int get userId => throw _privateConstructorUsedError;
+  int get participantId => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
-  String? get image => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
   int get attendanceRate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -60,7 +60,11 @@ abstract class $ParticipantUserCopyWith<$Res> {
   factory $ParticipantUserCopyWith(
           ParticipantUser value, $Res Function(ParticipantUser) then) =
       _$ParticipantUserCopyWithImpl<$Res>;
-  $Res call({int userId, String nickname, String? image, int attendanceRate});
+  $Res call(
+      {int participantId,
+      String nickname,
+      String? imageUrl,
+      int attendanceRate});
 }
 
 /// @nodoc
@@ -74,23 +78,23 @@ class _$ParticipantUserCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? userId = freezed,
+    Object? participantId = freezed,
     Object? nickname = freezed,
-    Object? image = freezed,
+    Object? imageUrl = freezed,
     Object? attendanceRate = freezed,
   }) {
     return _then(_value.copyWith(
-      userId: userId == freezed
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
+      participantId: participantId == freezed
+          ? _value.participantId
+          : participantId // ignore: cast_nullable_to_non_nullable
               as int,
       nickname: nickname == freezed
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
               as String,
-      image: image == freezed
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       attendanceRate: attendanceRate == freezed
           ? _value.attendanceRate
@@ -107,7 +111,11 @@ abstract class _$ParticipantUserCopyWith<$Res>
           _ParticipantUser value, $Res Function(_ParticipantUser) then) =
       __$ParticipantUserCopyWithImpl<$Res>;
   @override
-  $Res call({int userId, String nickname, String? image, int attendanceRate});
+  $Res call(
+      {int participantId,
+      String nickname,
+      String? imageUrl,
+      int attendanceRate});
 }
 
 /// @nodoc
@@ -123,23 +131,23 @@ class __$ParticipantUserCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? userId = freezed,
+    Object? participantId = freezed,
     Object? nickname = freezed,
-    Object? image = freezed,
+    Object? imageUrl = freezed,
     Object? attendanceRate = freezed,
   }) {
     return _then(_ParticipantUser(
-      userId: userId == freezed
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
+      participantId: participantId == freezed
+          ? _value.participantId
+          : participantId // ignore: cast_nullable_to_non_nullable
               as int,
       nickname: nickname == freezed
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
               as String,
-      image: image == freezed
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       attendanceRate: attendanceRate == freezed
           ? _value.attendanceRate
@@ -153,26 +161,26 @@ class __$ParticipantUserCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ParticipantUser implements _ParticipantUser {
   _$_ParticipantUser(
-      {required this.userId,
+      {required this.participantId,
       required this.nickname,
-      this.image,
+      this.imageUrl,
       required this.attendanceRate});
 
   factory _$_ParticipantUser.fromJson(Map<String, dynamic> json) =>
       _$$_ParticipantUserFromJson(json);
 
   @override
-  final int userId;
+  final int participantId;
   @override
   final String nickname;
   @override
-  final String? image;
+  final String? imageUrl;
   @override
   final int attendanceRate;
 
   @override
   String toString() {
-    return 'ParticipantUser(userId: $userId, nickname: $nickname, image: $image, attendanceRate: $attendanceRate)';
+    return 'ParticipantUser(participantId: $participantId, nickname: $nickname, imageUrl: $imageUrl, attendanceRate: $attendanceRate)';
   }
 
   @override
@@ -180,17 +188,19 @@ class _$_ParticipantUser implements _ParticipantUser {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ParticipantUser &&
-            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.participantId, participantId) ||
+                other.participantId == participantId) &&
             (identical(other.nickname, nickname) ||
                 other.nickname == nickname) &&
-            (identical(other.image, image) || other.image == image) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.attendanceRate, attendanceRate) ||
                 other.attendanceRate == attendanceRate));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, userId, nickname, image, attendanceRate);
+  int get hashCode => Object.hash(
+      runtimeType, participantId, nickname, imageUrl, attendanceRate);
 
   @JsonKey(ignore: true)
   @override
@@ -205,20 +215,20 @@ class _$_ParticipantUser implements _ParticipantUser {
 
 abstract class _ParticipantUser implements ParticipantUser {
   factory _ParticipantUser(
-      {required int userId,
+      {required int participantId,
       required String nickname,
-      String? image,
+      String? imageUrl,
       required int attendanceRate}) = _$_ParticipantUser;
 
   factory _ParticipantUser.fromJson(Map<String, dynamic> json) =
       _$_ParticipantUser.fromJson;
 
   @override
-  int get userId;
+  int get participantId;
   @override
   String get nickname;
   @override
-  String? get image;
+  String? get imageUrl;
   @override
   int get attendanceRate;
   @override

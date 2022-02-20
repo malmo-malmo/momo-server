@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momo/app/provider/schedule/group_schedule_list_provider.dart';
 import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/format/post_date_format.dart';
@@ -20,18 +21,26 @@ Widget adminScheduleCard({
 }) {
   return Consumer(builder: (context, ref, _) {
     return InkWell(
-      onTap: () {
-        ref.read(navigatorProvider).navigateTo(
-              routeName: AppRoutes.attendanceList,
-              arguments: groupId,
-            );
+      onTap: () async {
+        final result = await ref.read(navigatorProvider).navigateTo(
+          routeName: AppRoutes.attendanceList,
+          arguments: [groupId, scheduleId, isCheck],
+        );
+
+        if (result != null && result) {
+          ref
+              .read(groupScheduleListStateProvider(groupId).notifier)
+              .attendanceCallback(scheduleId);
+        }
       },
       child: Material(
         elevation: 1,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Container(
           height: 204,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
             child: Column(
@@ -93,7 +102,7 @@ Widget adminScheduleCard({
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              attendance ? '출석' : '불참',
+                              attendance ? '출석' : '결석',
                               style: MomoTextStyle.small.copyWith(
                                 color: attendance
                                     ? const Color(0xff8da8fa)
@@ -129,16 +138,24 @@ Widget adminScheduleCard({
                       width: 72,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: isCheck
-                            ? MomoColor.checkBackground
-                            : MomoColor.main,
+                        color: isCheck ? MomoColor.main : MomoColor.main,
                       ),
                       child: Center(
-                        child: Text(
-                          isCheck ? '확인완료' : '출석체크',
-                          style: MomoTextStyle.card.copyWith(
-                            color:
-                                isCheck ? MomoColor.unSelIcon : MomoColor.white,
+                        child: Container(
+                          height: 30,
+                          width: 70,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            color: isCheck ? MomoColor.white : MomoColor.main,
+                          ),
+                          child: Center(
+                            child: Text(
+                              isCheck ? '수정하기' : '출석체크',
+                              style: MomoTextStyle.card.copyWith(
+                                color:
+                                    isCheck ? MomoColor.main : MomoColor.white,
+                              ),
+                            ),
                           ),
                         ),
                       ),

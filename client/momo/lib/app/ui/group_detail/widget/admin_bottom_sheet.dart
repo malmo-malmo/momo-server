@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:momo/app/model/enum/post_type.dart';
+import 'package:momo/app/model/group/group_detail.dart';
+import 'package:momo/app/provider/group/group_detail_provider.dart';
 import 'package:momo/app/provider/post/post_list_provider.dart';
 import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/routes/custom_arg/post_request_arg.dart';
@@ -14,9 +16,11 @@ class AdminBottomSheet extends ConsumerStatefulWidget {
   const AdminBottomSheet({
     Key? key,
     required this.groupId,
+    required this.groupDetail,
   }) : super(key: key);
 
   final int groupId;
+  final GroupDetail groupDetail;
 
   @override
   _AdminBottomSheetState createState() => _AdminBottomSheetState();
@@ -108,7 +112,13 @@ class _AdminBottomSheetState extends ConsumerState<AdminBottomSheet> {
                     routeName: AppRoutes.memberList,
                     arguments: widget.groupId,
                   );
-              if (isTransfer != null && isTransfer) {
+              if (isTransfer != null && isTransfer[0]) {
+                await ref
+                    .read(groupDetailStateProvider(widget.groupDetail).notifier)
+                    .manageGroup(
+                      id: widget.groupDetail.id,
+                      userId: isTransfer[1],
+                    );
                 ref.read(navigatorProvider).pop();
                 _showToast('권한을 넘겼어요');
               }
@@ -127,6 +137,9 @@ class _AdminBottomSheetState extends ConsumerState<AdminBottomSheet> {
                 },
               );
               if (isClose) {
+                await ref
+                    .read(groupDetailStateProvider(widget.groupDetail).notifier)
+                    .endGroup();
                 _showToast('모임이 종료되었어요.');
                 ref.read(navigatorProvider).pop();
               }

@@ -12,7 +12,7 @@ _$_Post _$$_PostFromJson(Map<String, dynamic> json) => _$_Post(
       authorImage: json['authorImage'] as String?,
       title: json['title'] as String,
       contents: json['contents'] as String,
-      commentCnt: json['commentCnt'] as int,
+      commentCnt: json['commentCnt'] as int?,
       createdDate: json['createdDate'] as String,
     );
 

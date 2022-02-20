@@ -4,14 +4,14 @@ import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/ui/components/card/profile_avatar.dart';
 
 Widget attendanceCard({
+  required int userId,
   required String name,
   required String profile,
   required int rate,
-  required int index,
-  required int checkIndex,
+  required bool attend,
   required void Function({
-    required int index,
-    required int checkIndex,
+    required int userId,
+    required bool isAttend,
   })
       onSelect,
 }) {
@@ -49,14 +49,16 @@ Widget attendanceCard({
           children: [
             InkWell(
               onTap: () {
-                onSelect(index: index, checkIndex: 0);
+                onSelect(
+                  userId: userId,
+                  isAttend: true,
+                );
               },
               child: CircleAvatar(
                 radius: 12,
-                backgroundColor: checkIndex == 0
-                    ? MomoColor.main
-                    : MomoColor.checkBackground,
-                child: checkIndex == 0
+                backgroundColor:
+                    attend ? MomoColor.main : MomoColor.checkBackground,
+                child: attend
                     ? const Icon(
                         Icons.check,
                         size: 16,
@@ -68,14 +70,16 @@ Widget attendanceCard({
             const SizedBox(width: 32),
             InkWell(
               onTap: () {
-                onSelect(index: index, checkIndex: 1);
+                onSelect(
+                  userId: userId,
+                  isAttend: false,
+                );
               },
               child: CircleAvatar(
                 radius: 12,
-                backgroundColor: checkIndex == 1
-                    ? MomoColor.main
-                    : MomoColor.checkBackground,
-                child: checkIndex == 1
+                backgroundColor:
+                    !attend ? MomoColor.main : MomoColor.checkBackground,
+                child: !attend
                     ? const Icon(
                         Icons.check,
                         size: 16,

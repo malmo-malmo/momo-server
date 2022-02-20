@@ -60,4 +60,6 @@ class SearchedDataState extends StateNotifier<SearchedCustomData> {
       ),
     );
   }
+
+  void getRecentGroups() async {}
 }

@@ -24,10 +24,13 @@ Widget requestInfoCard({
           ),
         ),
         const SizedBox(height: 275),
-        ConfirmButton(
-          onPressButton: onTapButton,
-          buttonText: '신청가능',
-          check: true,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: ConfirmButton(
+            onPressButton: onTapButton,
+            buttonText: '신청가능',
+            check: true,
+          ),
         ),
         const SizedBox(height: 36),
       ],

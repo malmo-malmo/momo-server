@@ -84,4 +84,17 @@ class GroupRepository {
     final response = await groupClient.withdrawalGroup(groupId);
     return response;
   }
+
+  Future<dynamic> endGroup(int groupId) async {
+    final response = await groupClient.endGroup(groupId);
+    return response;
+  }
+
+  Future<dynamic> manageGroup({
+    required int id,
+    required int userId,
+  }) async {
+    final response = await groupClient.managerGroup(id, userId);
+    return response;
+  }
 }

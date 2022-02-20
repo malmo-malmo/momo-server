@@ -8,7 +8,7 @@ part of 'schedule_detail.dart';
 
 _$_ScheduleDetail _$$_ScheduleDetailFromJson(Map<String, dynamic> json) =>
     _$_ScheduleDetail(
-      id: json['id'] as int,
+      scheduleId: json['scheduleId'] as int,
       title: json['title'] as String,
       contents: json['contents'] as String,
       authorNickname: json['authorNickname'] as String,
@@ -21,7 +21,7 @@ _$_ScheduleDetail _$$_ScheduleDetailFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_ScheduleDetailToJson(_$_ScheduleDetail instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'scheduleId': instance.scheduleId,
       'title': instance.title,
       'contents': instance.contents,
       'authorNickname': instance.authorNickname,

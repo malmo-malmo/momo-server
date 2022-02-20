@@ -1,23 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'participant_user.dart';
+part of 'attendance_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ParticipantUser _$$_ParticipantUserFromJson(Map<String, dynamic> json) =>
-    _$_ParticipantUser(
-      participantId: json['participantId'] as int,
+_$_AttendanceResponse _$$_AttendanceResponseFromJson(
+        Map<String, dynamic> json) =>
+    _$_AttendanceResponse(
+      attendanceId: json['attendanceId'] as int,
       nickname: json['nickname'] as String,
       imageUrl: json['imageUrl'] as String?,
-      attendanceRate: json['attendanceRate'] as int,
+      isAttend: json['isAttend'] as bool,
+      attendanceRate: json['attendanceRate'] as int?,
     );
 
-Map<String, dynamic> _$$_ParticipantUserToJson(_$_ParticipantUser instance) =>
+Map<String, dynamic> _$$_AttendanceResponseToJson(
+        _$_AttendanceResponse instance) =>
     <String, dynamic>{
-      'participantId': instance.participantId,
+      'attendanceId': instance.attendanceId,
       'nickname': instance.nickname,
       'imageUrl': instance.imageUrl,
+      'isAttend': instance.isAttend,
       'attendanceRate': instance.attendanceRate,
     };

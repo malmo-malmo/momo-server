@@ -6,7 +6,7 @@ part 'schedule_detail.freezed.dart';
 @freezed
 class ScheduleDetail with _$ScheduleDetail {
   factory ScheduleDetail({
-    required int id,
+    required int scheduleId,
     required String title,
     required String contents,
     required String authorNickname,

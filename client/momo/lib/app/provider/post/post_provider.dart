@@ -9,5 +9,6 @@ final postStateProvider = StateNotifierProvider.family
 class PostState extends StateNotifier<Post> {
   PostState(Post state) : super(state);
 
-  void addComment() => state = state.copyWith(commentCnt: state.commentCnt + 1);
+  void addComment() => state = state.copyWith(
+      commentCnt: state.commentCnt == null ? 1 : state.commentCnt! + 1);
 }

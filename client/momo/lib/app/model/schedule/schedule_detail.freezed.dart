@@ -22,7 +22,7 @@ class _$ScheduleDetailTearOff {
   const _$ScheduleDetailTearOff();
 
   _ScheduleDetail call(
-      {required int id,
+      {required int scheduleId,
       required String title,
       required String contents,
       required String authorNickname,
@@ -32,7 +32,7 @@ class _$ScheduleDetailTearOff {
       required bool attend,
       required bool attendanceCheck}) {
     return _ScheduleDetail(
-      id: id,
+      scheduleId: scheduleId,
       title: title,
       contents: contents,
       authorNickname: authorNickname,
@@ -54,7 +54,7 @@ const $ScheduleDetail = _$ScheduleDetailTearOff();
 
 /// @nodoc
 mixin _$ScheduleDetail {
-  int get id => throw _privateConstructorUsedError;
+  int get scheduleId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get contents => throw _privateConstructorUsedError;
   String get authorNickname => throw _privateConstructorUsedError;
@@ -76,7 +76,7 @@ abstract class $ScheduleDetailCopyWith<$Res> {
           ScheduleDetail value, $Res Function(ScheduleDetail) then) =
       _$ScheduleDetailCopyWithImpl<$Res>;
   $Res call(
-      {int id,
+      {int scheduleId,
       String title,
       String contents,
       String authorNickname,
@@ -98,7 +98,7 @@ class _$ScheduleDetailCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? id = freezed,
+    Object? scheduleId = freezed,
     Object? title = freezed,
     Object? contents = freezed,
     Object? authorNickname = freezed,
@@ -109,9 +109,9 @@ class _$ScheduleDetailCopyWithImpl<$Res>
     Object? attendanceCheck = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      scheduleId: scheduleId == freezed
+          ? _value.scheduleId
+          : scheduleId // ignore: cast_nullable_to_non_nullable
               as int,
       title: title == freezed
           ? _value.title
@@ -157,7 +157,7 @@ abstract class _$ScheduleDetailCopyWith<$Res>
       __$ScheduleDetailCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int id,
+      {int scheduleId,
       String title,
       String contents,
       String authorNickname,
@@ -181,7 +181,7 @@ class __$ScheduleDetailCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? id = freezed,
+    Object? scheduleId = freezed,
     Object? title = freezed,
     Object? contents = freezed,
     Object? authorNickname = freezed,
@@ -192,9 +192,9 @@ class __$ScheduleDetailCopyWithImpl<$Res>
     Object? attendanceCheck = freezed,
   }) {
     return _then(_ScheduleDetail(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      scheduleId: scheduleId == freezed
+          ? _value.scheduleId
+          : scheduleId // ignore: cast_nullable_to_non_nullable
               as int,
       title: title == freezed
           ? _value.title
@@ -236,7 +236,7 @@ class __$ScheduleDetailCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ScheduleDetail implements _ScheduleDetail {
   _$_ScheduleDetail(
-      {required this.id,
+      {required this.scheduleId,
       required this.title,
       required this.contents,
       required this.authorNickname,
@@ -250,7 +250,7 @@ class _$_ScheduleDetail implements _ScheduleDetail {
       _$$_ScheduleDetailFromJson(json);
 
   @override
-  final int id;
+  final int scheduleId;
   @override
   final String title;
   @override
@@ -270,7 +270,7 @@ class _$_ScheduleDetail implements _ScheduleDetail {
 
   @override
   String toString() {
-    return 'ScheduleDetail(id: $id, title: $title, contents: $contents, authorNickname: $authorNickname, authorImage: $authorImage, startDateTime: $startDateTime, offline: $offline, attend: $attend, attendanceCheck: $attendanceCheck)';
+    return 'ScheduleDetail(scheduleId: $scheduleId, title: $title, contents: $contents, authorNickname: $authorNickname, authorImage: $authorImage, startDateTime: $startDateTime, offline: $offline, attend: $attend, attendanceCheck: $attendanceCheck)';
   }
 
   @override
@@ -278,7 +278,8 @@ class _$_ScheduleDetail implements _ScheduleDetail {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ScheduleDetail &&
-            (identical(other.id, id) || other.id == id) &&
+            (identical(other.scheduleId, scheduleId) ||
+                other.scheduleId == scheduleId) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.contents, contents) ||
                 other.contents == contents) &&
@@ -297,7 +298,7 @@ class _$_ScheduleDetail implements _ScheduleDetail {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      id,
+      scheduleId,
       title,
       contents,
       authorNickname,
@@ -320,7 +321,7 @@ class _$_ScheduleDetail implements _ScheduleDetail {
 
 abstract class _ScheduleDetail implements ScheduleDetail {
   factory _ScheduleDetail(
-      {required int id,
+      {required int scheduleId,
       required String title,
       required String contents,
       required String authorNickname,
@@ -334,7 +335,7 @@ abstract class _ScheduleDetail implements ScheduleDetail {
       _$_ScheduleDetail.fromJson;
 
   @override
-  int get id;
+  int get scheduleId;
   @override
   String get title;
   @override

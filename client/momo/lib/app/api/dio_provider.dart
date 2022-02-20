@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:momo/app/model/common/token_data.dart';
 import 'package:momo/app/util/constant.dart';
+import 'package:momo/splash_page.dart';
 
 final dioProvider = Provider<Dio>((ref) {
   TokenData tokenData = Hive.box('auth').get('tokenData');
@@ -33,8 +34,10 @@ final dioProvider = Provider<Dio>((ref) {
         RequestOptions options = error.response!.requestOptions;
 
         dp.log('>>>>>>>>>> 토큰재발급 <<<<<<<<<<');
-        authDio.post(baseUrl + '/oauth/login/refresh',
-            data: {'refreshToken': tokenData.refreshToken}).then((response) {
+        await authDio.post(baseUrl + '/oauth/login/refresh', data: {
+          'refreshToken': tokenData.refreshToken,
+          'deviceCode': androidId,
+        }).then((response) {
           //  Hive에 tokenData 갱신
           Hive.box('auth').put(
             'tokenData',
@@ -44,6 +47,8 @@ final dioProvider = Provider<Dio>((ref) {
               refreshToken: response.data['refreshToken'],
             ),
           );
+          options.headers['Authorization'] =
+              '${response.data['accessTokenType']} ${response.data['accessToken']}';
         }).then((e) => dio.fetch(options).then((r) => handler.resolve(r)));
         return;
       }

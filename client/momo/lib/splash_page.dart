@@ -1,3 +1,4 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +11,8 @@ import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/navigation_service.dart';
 
+late String androidId;
+
 class SplashPage extends ConsumerStatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
 
@@ -21,7 +24,12 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   @override
   initState() {
     super.initState();
-    Future.delayed(Duration.zero).then((value) => _pushToNextPage());
+    Future.microtask(() async {
+      final deviceInfo = DeviceInfoPlugin();
+      final android = await deviceInfo.androidInfo;
+      androidId = android.androidId!;
+      _pushToNextPage();
+    });
   }
 
   Future<void> _pushToNextPage() async {

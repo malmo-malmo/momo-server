@@ -39,7 +39,11 @@ class _MyMeetPageState extends ConsumerState<MyMeetPage> {
             final result = await ref.read(navigatorProvider).navigateTo(
                   routeName: AppRoutes.groupRequest,
                 );
-            ref.read(myGroupStateProvider.notifier).createGroupCallback(result);
+            if (result != null) {
+              ref
+                  .read(myGroupStateProvider.notifier)
+                  .createGroupCallback(result);
+            }
           },
           child:
               SvgPicture.asset('assets/icon/meet/floatingbtn_addmoim_64.svg'),

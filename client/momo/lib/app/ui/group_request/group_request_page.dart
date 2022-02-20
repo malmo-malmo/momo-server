@@ -28,126 +28,132 @@ class GroupRequestPage extends ConsumerWidget {
     final checks = ref.watch(groupRequestCategoryStateProvider);
 
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: MomoColor.flutterWhite,
-        appBar: CustomAppBar(
-          leadingIcon: CupertinoIcons.xmark,
-          isAction: true,
-          title: '모임만들기',
-          actionWidget: ConfirmActionIcon(
-            check: check,
-            title: '완료',
-            onTapIcon: () async {
-              final result = await ref
-                  .read(groupRequestStateProvider.notifier)
-                  .createGroup();
-              ref.read(navigatorProvider).pop(result: result);
-            },
-            isShowDialog: true,
-            dialogText: '${groupRequest.name}\n모임을 추가했어요!',
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Scaffold(
+          backgroundColor: MomoColor.flutterWhite,
+          appBar: CustomAppBar(
+            leadingIcon: CupertinoIcons.xmark,
+            isAction: true,
+            title: '모임만들기',
+            actionWidget: ConfirmActionIcon(
+              check: check,
+              title: '완료',
+              onTapIcon: () async {
+                final result = await ref
+                    .read(groupRequestStateProvider.notifier)
+                    .createGroup();
+                ref.read(navigatorProvider).pop(result: result);
+              },
+              isShowDialog: true,
+              dialogText: '${groupRequest.name}\n모임을 추가했어요!',
+            ),
           ),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              SetImageBox(img: groupRequest.imagePath),
-              Padding(
-                padding: const EdgeInsets.only(left: 26, right: 26, bottom: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SubTitle(title: '모임명'),
-                    TextInputBox(
-                      onTextChanged: ref
-                          .read(groupRequestStateProvider.notifier)
-                          .setGroupName,
-                      height: 44,
-                      hintText: '모임 이름을 입력해주세요',
-                    ),
-                    const SubTitle(title: '활동 카테고리'),
-                    Wrap(
-                      spacing: 20,
-                      runSpacing: 20,
-                      children: [
-                        for (int i = 0; i < checks.length; i++)
-                          CategoryColumn(
-                            check: checks[i],
-                            index: i,
-                            onTabIcon: (index) {
-                              ref
-                                  .read(groupRequestCategoryStateProvider
-                                      .notifier)
-                                  .checkCategory(index);
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                SetImageBox(img: groupRequest.imagePath),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 26, right: 26, bottom: 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SubTitle(title: '모임명'),
+                      TextInputBox(
+                        onTextChanged: ref
+                            .read(groupRequestStateProvider.notifier)
+                            .setGroupName,
+                        height: 44,
+                        hintText: '모임 이름을 입력해주세요',
+                      ),
+                      const SubTitle(title: '활동 카테고리'),
+                      Wrap(
+                        spacing: 20,
+                        runSpacing: 20,
+                        children: [
+                          for (int i = 0; i < checks.length; i++)
+                            CategoryColumn(
+                              check: checks[i],
+                              index: i,
+                              onTabIcon: (index) {
+                                ref
+                                    .read(groupRequestCategoryStateProvider
+                                        .notifier)
+                                    .checkCategory(index);
 
-                              ref
-                                  .read(groupRequestStateProvider.notifier)
-                                  .setGroupCategory(index);
-                            },
-                            spaceHeight: 14,
-                          ),
-                      ],
-                    ),
-                    const SubTitle(title: '모임 유형'),
-                    OnOffToggleButton(
+                                ref
+                                    .read(groupRequestStateProvider.notifier)
+                                    .setGroupCategory(index);
+                              },
+                              spaceHeight: 14,
+                            ),
+                        ],
+                      ),
+                      const SubTitle(title: '모임 유형'),
+                      OnOffToggleButton(
+                          tabButton: ref
+                              .read(groupRequestStateProvider.notifier)
+                              .setOnOff),
+                      const SubTitle(title: '모임 시작일'),
+                      DateInputBox(
+                        selcetDate: ref
+                            .read(groupRequestStateProvider.notifier)
+                            .setStartDate,
+                      ),
+                      const SubTitle(title: '모집 인원'),
+                      headNumInputBox(
+                        onTextChanged: ref
+                            .read(groupRequestStateProvider.notifier)
+                            .setRecruitmentCnt,
+                      ),
+                      const SubTitle(title: '내 학교'),
+                      UniversityToggleButton(
                         tabButton: ref
                             .read(groupRequestStateProvider.notifier)
-                            .setOnOff),
-                    const SubTitle(title: '모임 시작일'),
-                    DateInputBox(
-                      selcetDate: ref
-                          .read(groupRequestStateProvider.notifier)
-                          .setStartDate,
-                    ),
-                    const SubTitle(title: '모집 인원'),
-                    headNumInputBox(
-                      onTextChanged: ref
-                          .read(groupRequestStateProvider.notifier)
-                          .setRecruitmentCnt,
-                    ),
-                    const SubTitle(title: '내 학교'),
-                    UniversityToggleButton(
-                      tabButton: ref
-                          .read(groupRequestStateProvider.notifier)
-                          .setUniversity,
-                    ),
-                    const SubTitle(title: '지역'),
-                    Row(
-                      children: [
-                        CityInputBox(
-                          city: ref
-                              .watch(groupRequestStateProvider.notifier)
-                              .userCity,
-                          setCity: ref
-                              .watch(groupRequestStateProvider.notifier)
-                              .setCity,
-                          backgroundColor: MomoColor.backgroundColor,
-                        ),
-                        const SizedBox(width: 24),
-                        DistrictInputBox(
-                          district: groupRequest.district,
-                          cityCode: groupRequest.city,
-                          setDistrict: ref
-                              .watch(groupRequestStateProvider.notifier)
-                              .setDistrict,
-                          backgroundColor: MomoColor.backgroundColor,
-                        ),
-                      ],
-                    ),
-                    const SubTitle(title: '메모'),
-                    TextInputBox(
-                      onTextChanged: ref
-                          .read(groupRequestStateProvider.notifier)
-                          .setIntroduction,
-                      height: 82,
-                      maxLines: 6,
-                      hintText: '모임에 대한 간단한 메모를 남겨주세요',
-                    ),
-                    const SizedBox(height: 24),
-                  ],
+                            .setUniversity,
+                      ),
+                      const SubTitle(title: '지역'),
+                      Row(
+                        children: [
+                          CityInputBox(
+                            city: ref
+                                .watch(groupRequestStateProvider.notifier)
+                                .userCity,
+                            setCity: ref
+                                .watch(groupRequestStateProvider.notifier)
+                                .setCity,
+                            backgroundColor: MomoColor.backgroundColor,
+                          ),
+                          const SizedBox(width: 24),
+                          DistrictInputBox(
+                            district: groupRequest.district,
+                            cityCode: groupRequest.city,
+                            setDistrict: ref
+                                .watch(groupRequestStateProvider.notifier)
+                                .setDistrict,
+                            backgroundColor: MomoColor.backgroundColor,
+                          ),
+                        ],
+                      ),
+                      const SubTitle(title: '메모'),
+                      TextInputBox(
+                        onTextChanged: ref
+                            .read(groupRequestStateProvider.notifier)
+                            .setIntroduction,
+                        height: 82,
+                        maxLines: 6,
+                        hintText: '모임에 대한 간단한 메모를 남겨주세요',
+                      ),
+                      const SizedBox(height: 24),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

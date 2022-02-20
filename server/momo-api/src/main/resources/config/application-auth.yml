@@ -1,9 +1,9 @@
 app:
   auth:
     access-token-secret-key: ENC(O4vakUdharL6NOlEcEdRn10XN5yNu/HvSYRz7Xgitbg=)
-    access-token-expiration-msec: ENC(ehIy9SYQSTu4AvnlAEIBs7SySMQMp/Mh)
+    access-token-expiration-msec: 180000
     refresh-token-secretKey: ENC(48ntJIAL8AMwYe6smjbZApTFVmltL5MwvMIqHr73DEE=)
-    refresh-token-expiration-msec: ENC(JAudK4sDsTS9nluPxPbXBw5E+ifMdx8Y)
+    refresh-token-expiration-msec: 604800000
   oauth2:
     kakao:
       client-id: ENC(8kCNxoiABgNb/GbSLh6pG7ZKCF1BsVYXKohLOLIzL/LIdXpGogx+5goBuehE0jP4)

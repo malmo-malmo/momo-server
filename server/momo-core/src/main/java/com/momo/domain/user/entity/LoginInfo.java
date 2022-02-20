@@ -1,7 +1,6 @@
 package com.momo.domain.user.entity;
 
 import java.util.Objects;
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,41 +12,45 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
-public class Social {
+public class LoginInfo {
 
     @Enumerated(EnumType.STRING)
     private SocialProvider provider;
 
-    @Column(nullable = false)
     private String providerId;
 
     private String refreshToken;
 
+    private String deviceCode;
+
     @Builder
-    public Social(SocialProvider provider, String providerId, String refreshToken) {
+    public LoginInfo(SocialProvider provider, String providerId, String refreshToken, String deviceCode) {
         this.provider = provider;
         this.providerId = providerId;
         this.refreshToken = refreshToken;
+        this.deviceCode = deviceCode;
     }
 
-    public static Social createEmptyRefreshToken(SocialProvider provider, String providerId) {
-        return Social.builder()
+    public static LoginInfo createEmptyRefreshToken(SocialProvider provider, String providerId) {
+        return LoginInfo.builder()
             .provider(provider)
             .providerId(providerId)
             .build();
     }
-    public static Social create(SocialProvider provider, String providerId, String refreshToken) {
-        return Social.builder()
-            .provider(provider)
-            .providerId(providerId)
-            .refreshToken(refreshToken)
-            .build();
-    }
 
-    void updateRefreshToken(String refreshToken) {
-        if(Objects.isNull(refreshToken)) {
-            return;
-        }
+    public void updateRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public void updateAuthInfo(String refreshToken, String deviceCode) {
+        this.refreshToken = refreshToken;
+        this.deviceCode = deviceCode;
+    }
+
+    public boolean isSameDeviceCode(String deviceCode) {
+        if (Objects.isNull(deviceCode)) {
+            return false;
+        }
+        return this.deviceCode.equals(deviceCode);
     }
 }

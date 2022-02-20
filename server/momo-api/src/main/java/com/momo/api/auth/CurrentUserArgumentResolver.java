@@ -1,5 +1,6 @@
 package com.momo.api.auth;
 
+import com.momo.common.AuthorizationExtractor;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 

@@ -12,7 +12,7 @@ import com.momo.domain.post.repository.PostRepository;
 import com.momo.domain.schedule.entity.Schedule;
 import com.momo.domain.schedule.repository.ScheduleRepository;
 import com.momo.domain.user.entity.Location;
-import com.momo.domain.user.entity.Social;
+import com.momo.domain.user.entity.LoginInfo;
 import com.momo.domain.user.entity.SocialProvider;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
@@ -77,7 +77,7 @@ public class MockDataLoader implements CommandLineRunner {
             Collections.shuffle(UNIVERSITIES);
             Collections.shuffle(DISTRICTS);
             User manager = User.builder()
-                .loginInfo(Social.createEmptyRefreshToken(SocialProvider.KAKAO, String.valueOf(count)))
+                .loginInfo(LoginInfo.createEmptyRefreshToken(SocialProvider.KAKAO, String.valueOf(count)))
                 .nickname("모임장" + count)
                 .location(Location.builder()
                     .university(UNIVERSITIES.get(0))
@@ -131,7 +131,7 @@ public class MockDataLoader implements CommandLineRunner {
             Collections.shuffle(UNIVERSITIES);
             Collections.shuffle(DISTRICTS);
             User user = User.builder()
-                .loginInfo(Social.createEmptyRefreshToken(SocialProvider.KAKAO, String.valueOf(MAX_GROUP_COUNT + count)))
+                .loginInfo(LoginInfo.createEmptyRefreshToken(SocialProvider.KAKAO, String.valueOf(MAX_GROUP_COUNT + count)))
                 .nickname("참여자" + count)
                 .location(Location.builder()
                     .university(UNIVERSITIES.get(0))

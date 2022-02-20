@@ -20,6 +20,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseEntity {
 
+    public static int REFRESH_TOKEN_RENEWAL_TIME = 24;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,7 +31,7 @@ public class User extends BaseEntity {
     private String imageUrl;
 
     @Embedded
-    private Social loginInfo;
+    private LoginInfo loginInfo;
 
     @Embedded
     private Location location;
@@ -38,7 +40,7 @@ public class User extends BaseEntity {
     private final FavoriteCategories favoriteCategories = FavoriteCategories.empty();
 
     @Builder
-    public User(Long id, Social loginInfo, String nickname, String imageUrl, Location location) {
+    public User(Long id, LoginInfo loginInfo, String nickname, String imageUrl, Location location) {
         this.id = id;
         this.loginInfo = loginInfo;
         this.nickname = nickname;
@@ -46,17 +48,10 @@ public class User extends BaseEntity {
         this.location = location;
     }
 
-    public static User createSocialLoginUser(Social loginInfo) {
+    public static User createSocialLoginUser(LoginInfo loginInfo) {
         return User.builder()
             .loginInfo(loginInfo)
             .build();
-    }
-
-    public void updateRefreshToken(String refreshToken) {
-        if(Objects.isNull(this.loginInfo)) {
-            return;
-        }
-        this.loginInfo.updateRefreshToken(refreshToken);
     }
 
     public boolean isSameNickname(String nickname) {
@@ -72,8 +67,8 @@ public class User extends BaseEntity {
 
     public void update(User user, String imageUrl) {
         this.nickname = user.getNickname();
-        this.location = user.getLocation();
         this.imageUrl = imageUrl;
+        this.location.update(user.getLocation());
     }
 
     public void updateFavoriteCategories(List<Category> categories) {

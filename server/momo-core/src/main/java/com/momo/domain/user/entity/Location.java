@@ -51,4 +51,10 @@ public class Location {
             .city(location.getCity())
             .build();
     }
+
+    public void update(Location location) {
+        this.city = location.getCity();
+        this.district = location.getDistrict();
+        this.university = location.getUniversity();
+    }
 }

@@ -1,13 +1,12 @@
 package com.momo.domain.auth.dto;
 
 import javax.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class OAuthLoginRequest {
 
     @NotBlank(message = "OAuth 공급자는 필수값입니다.")
@@ -15,4 +14,14 @@ public class OAuthLoginRequest {
 
     @NotBlank(message = "인가 코드는 필수값입니다.")
     private String authorizationCode;
+
+    @NotBlank(message = "기기 고유번호는 필수값입니다.")
+    private String deviceCode;
+
+    @Builder
+    public OAuthLoginRequest(String provider, String authorizationCode, String deviceCode) {
+        this.provider = provider;
+        this.authorizationCode = authorizationCode;
+        this.deviceCode = deviceCode;
+    }
 }

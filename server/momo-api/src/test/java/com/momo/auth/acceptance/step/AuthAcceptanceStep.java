@@ -12,11 +12,11 @@ import org.springframework.http.MediaType;
 
 public class AuthAcceptanceStep {
 
-    public static void assertThatRefreshLogin(OAuthLoginResponse response) {
+    public static void assertThatRefreshLogin(OAuthLoginResponse response, String refreshToken) {
         Assertions.assertAll(
             () -> assertThat(response.getAccessTokenType()).isEqualTo("Bearer"),
             () -> assertThat(response.getAccessToken()).isNotNull(),
-            () -> assertThat(response.getRefreshToken()).isNotNull()
+            () -> assertThat(response.getRefreshToken()).isEqualTo(refreshToken)
         );
     }
 

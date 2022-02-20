@@ -7,12 +7,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 @Slf4j
 @Service
@@ -47,15 +46,25 @@ public class TokenProvider {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + refreshTokenExpirationMsec);
 
-        String refreshToken = Jwts.builder()
+        return Jwts.builder()
             .setSubject(user.getId().toString())
             .setIssuedAt(new Date())
             .setExpiration(expiryDate)
             .signWith(SignatureAlgorithm.HS512, refreshTokenSecretKey)
             .compact();
+    }
 
-        user.updateRefreshToken(refreshToken);
-        return refreshToken;
+    //테스트용 리프레쉬 토큰 생성
+    public String createRefreshTokenForTest(User user, long expirationMsec) {
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + expirationMsec);
+
+        return Jwts.builder()
+            .setSubject(user.getId().toString())
+            .setIssuedAt(new Date())
+            .setExpiration(expiryDate)
+            .signWith(SignatureAlgorithm.HS512, refreshTokenSecretKey)
+            .compact();
     }
 
     public String getIdFromAccessToken(String accessToken) {
@@ -81,5 +90,12 @@ public class TokenProvider {
         } catch (JwtException | IllegalArgumentException e) {
             throw new CustomException(errorCode);
         }
+    }
+
+    public long getRefreshTokenExpHourInterval(String refreshToken) {
+        Claims claims = Jwts.parser().setSigningKey(refreshTokenSecretKey).parseClaimsJws(refreshToken).getBody();
+        long exp = claims.getExpiration().getTime();
+        long now = new Date().getTime();
+        return (exp - now) / 3600000;
     }
 }

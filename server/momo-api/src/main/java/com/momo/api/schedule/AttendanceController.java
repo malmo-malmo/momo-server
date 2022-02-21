@@ -17,23 +17,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/attendance")
 @RequiredArgsConstructor
+@RequestMapping("/api/attendance")
 public class AttendanceController {
 
     private final AttendanceService attendanceService;
 
     @PostMapping
-    public ResponseEntity<Void> create(@CurrentUser User user,
-        @Valid @RequestBody AttendanceCreateRequests attendanceCreateRequests) {
-        attendanceService.createScheduleAttendances(user, attendanceCreateRequests);
+    public ResponseEntity<Void> create(@CurrentUser User user, @Valid @RequestBody AttendanceCreateRequests requests) {
+        attendanceService.createScheduleAttendances(user, requests);
         return ResponseEntity.status(CREATED).build();
     }
 
     @PutMapping
-    public ResponseEntity<Void> update(@CurrentUser User user,
-        @Valid @RequestBody AttendanceUpdateRequests attendanceUpdateRequests) {
-        attendanceService.updateScheduleAttendances(user, attendanceUpdateRequests);
+    public ResponseEntity<Void> update(@CurrentUser User user, @Valid @RequestBody AttendanceUpdateRequests requests) {
+        attendanceService.updateScheduleAttendances(user, requests);
         return ResponseEntity.ok().build();
     }
 }

@@ -14,6 +14,7 @@ import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreate
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToApplyParticipant;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToFindParticipants;
 import static com.momo.schedule.acceptance.step.AttendanceAcceptanceStep.assertThatFindAttendance;
+import static com.momo.schedule.acceptance.step.AttendanceAcceptanceStep.assertThatUpdateAttendance;
 import static com.momo.schedule.acceptance.step.AttendanceAcceptanceStep.requestToCreateAttendance;
 import static com.momo.schedule.acceptance.step.AttendanceAcceptanceStep.requestToFindAttendances;
 import static com.momo.schedule.acceptance.step.AttendanceAcceptanceStep.requestToUpdateAttendance;
@@ -102,8 +103,8 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
         AttendanceCreateRequests requests = getAttendanceCreateRequests(
             scheduleId,
             List.of(
-                getAttendanceCreateRequest(participantResponses.get(0).getParticipantId(), true),
-                getAttendanceCreateRequest(participantResponses.get(1).getParticipantId(), true)
+                getAttendanceCreateRequest(participantResponses.get(0).getParticipantId(), false),
+                getAttendanceCreateRequest(participantResponses.get(1).getParticipantId(), false)
             )
         );
         requestToCreateAttendance(managerToken, requests);
@@ -113,13 +114,17 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
         AttendanceUpdateRequests attendanceUpdateRequests = getAttendanceUpdateRequests(
             scheduleId,
             List.of(
-                getAttendanceUpdateRequest(attendanceResponses.get(0).getAttendanceId(), false),
-                getAttendanceUpdateRequest(attendanceResponses.get(1).getAttendanceId(), false)
+                getAttendanceUpdateRequest(attendanceResponses.get(0).getAttendanceId(), true),
+                getAttendanceUpdateRequest(attendanceResponses.get(1).getAttendanceId(), true)
             )
         );
 
         ExtractableResponse<Response> response = requestToUpdateAttendance(managerToken, attendanceUpdateRequests);
 
+        assertThatUpdateAttendance(
+            getObjects(requestToFindAttendances(managerToken, scheduleId), AttendanceResponse.class),
+            attendanceUpdateRequests.getAttendanceUpdateRequests()
+        );
         assertThatStatusIsOk(response);
     }
 }

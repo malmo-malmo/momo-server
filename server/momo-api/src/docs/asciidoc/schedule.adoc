@@ -14,3 +14,8 @@ operation::schedule/findPageByGroup[snippets='http-request,http-response,request
 캘린더 일정을 조회합니다.
 
 operation::schedule/findPageByUser[snippets='http-request,http-response,request-parameters,response-fields']
+
+=== 다가오는 일정 조회
+다가오는 일정을 조회합니다.
+
+operation::schedule/findUpcomingSchedule[snippets='http-request,http-response,request-parameters,response-fields']

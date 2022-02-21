@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.domain.schedule.dto.GroupScheduleResponses;
 import com.momo.domain.schedule.dto.ScheduleCreateRequest;
+import com.momo.domain.schedule.dto.UpcomingScheduleResponse;
 import com.momo.domain.schedule.dto.UserScheduleResponse;
 import com.momo.domain.user.entity.User;
 import io.restassured.response.ExtractableResponse;
@@ -40,6 +41,18 @@ public class ScheduleAcceptanceStep {
         assertThat(response.size()).isEqualTo(1);
     }
 
+    public static void assertThatFindUpcomingSchedule(UpcomingScheduleResponse response,
+        ScheduleCreateRequest request) {
+        Assertions.assertAll(
+            () -> assertThat(response.getTitle()).isEqualTo(request.getTitle()),
+            () -> assertThat(response.getStartDateTime().getMonth()).isEqualTo(request.getStartDateTime().getMonth()),
+            () -> assertThat(response.getStartDateTime().getHour()).isEqualTo(request.getStartDateTime().getHour()),
+            () -> assertThat(response.getStartDateTime().getMinute()).isEqualTo(request.getStartDateTime().getMinute()),
+            () -> assertThat(response.getStartDateTime().getDayOfMonth())
+                .isEqualTo(request.getStartDateTime().getDayOfMonth())
+        );
+    }
+
     public static ExtractableResponse<Response> requestToCreateSchedule(String token, ScheduleCreateRequest request) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
@@ -68,6 +81,15 @@ public class ScheduleAcceptanceStep {
             .param("searchStartDate", searchStartDate)
             .param("searchEndDate", searchEndDate)
             .get("/api/schedule/user-schedules")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> requestToFindUpcomingSchedule(String token, Long groupId) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .param("groupId", groupId)
+            .get("/api/schedule/upcoming")
             .then().log().all()
             .extract();
     }

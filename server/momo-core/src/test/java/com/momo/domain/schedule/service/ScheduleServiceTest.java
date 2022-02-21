@@ -22,6 +22,7 @@ import com.momo.domain.schedule.dto.GroupScheduleResponse;
 import com.momo.domain.schedule.dto.GroupScheduleResponses;
 import com.momo.domain.schedule.dto.GroupSchedulesRequest;
 import com.momo.domain.schedule.dto.ScheduleCreateRequest;
+import com.momo.domain.schedule.dto.UpcomingScheduleResponse;
 import com.momo.domain.schedule.entity.Schedule;
 import com.momo.domain.schedule.repository.ScheduleRepository;
 import com.momo.domain.schedule.service.impl.ScheduleServiceImpl;
@@ -104,15 +105,15 @@ public class ScheduleServiceTest extends ServiceTest {
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(true);
         given(scheduleRepository.findAllByGroupAndUserOrderByCreatedDateDesc(any(), any(), any())).willReturn(response);
 
-        GroupScheduleResponses actual = scheduleService.findPageByUserAndGroupId(manager, request);
+        GroupScheduleResponses expected = scheduleService.findPageByUserAndGroupId(manager, request);
 
         verify(groupRepository).findById(any());
         verify(participantRepository).existsByGroupAndUser(any(), any());
         verify(scheduleRepository).findAllByGroupAndUserOrderByCreatedDateDesc(any(), any(), any());
         Assertions.assertAll(
-            () -> assertThat(actual).isNotNull(),
-            () -> assertThat(actual.getManagerId()).isEqualTo(manager.getId()),
-            () -> assertThat(actual.getGroupScheduleResponses().size()).isEqualTo(response.size())
+            () -> assertThat(expected).isNotNull(),
+            () -> assertThat(expected.getManagerId()).isEqualTo(manager.getId()),
+            () -> assertThat(expected.getGroupScheduleResponses().size()).isEqualTo(response.size())
         );
     }
 
@@ -124,6 +125,48 @@ public class ScheduleServiceTest extends ServiceTest {
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(false);
 
         assertThatThrownBy(() -> scheduleService.findPageByUserAndGroupId(manager, request))
+            .isInstanceOf(CustomException.class)
+            .hasMessage(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED.getMessage());
+    }
+
+    @Test
+    void 다가오는_일정을_조회한다() {
+        Schedule actual = getScheduleWithId(user, group);
+
+        given(groupRepository.findById(any())).willReturn(of(group));
+        given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(true);
+        given(scheduleRepository.findFirstByGroupAndStartDateTimeAfter(any(), any())).willReturn(actual);
+
+        UpcomingScheduleResponse expected = scheduleService.findUpcomingScheduleByGroupId(user, group.getId());
+
+        Assertions.assertAll(
+            () -> assertThat(expected).isNotNull(),
+            () -> assertThat(expected.getTitle()).isEqualTo(actual.getTitle()),
+            () -> assertThat(expected.getStartDateTime()).isEqualTo(actual.getStartDateTime())
+        );
+    }
+
+    @Test
+    void 다가오는_일정을_조회한다_일정이_존재하지_않을_경우() {
+        given(groupRepository.findById(any())).willReturn(of(group));
+        given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(true);
+        given(scheduleRepository.findFirstByGroupAndStartDateTimeAfter(any(), any())).willReturn(null);
+
+        UpcomingScheduleResponse expected = scheduleService.findUpcomingScheduleByGroupId(user, group.getId());
+
+        Assertions.assertAll(
+            () -> assertThat(expected).isNotNull(),
+            () -> assertThat(expected.getTitle()).isNull(),
+            () -> assertThat(expected.getStartDateTime()).isNull()
+        );
+    }
+
+    @Test
+    void 모임_참여자가_아니면_다가오는_일정을_조회를_실패한다() {
+        given(groupRepository.findById(any())).willReturn(of(group));
+        given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(false);
+        
+        assertThatThrownBy(() -> scheduleService.findUpcomingScheduleByGroupId(user, group.getId()))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED.getMessage());
     }

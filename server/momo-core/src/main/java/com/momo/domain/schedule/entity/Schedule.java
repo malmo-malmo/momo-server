@@ -32,7 +32,7 @@ public class Schedule extends BaseEntity {
     private Group group;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_id", foreignKey = @ForeignKey(name = "user_fk_schedule"))
+    @JoinColumn(foreignKey = @ForeignKey(name = "user_fk_schedule"))
     private User author;
 
     private String title;

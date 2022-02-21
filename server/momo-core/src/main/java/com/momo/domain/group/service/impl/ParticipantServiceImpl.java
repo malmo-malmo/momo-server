@@ -2,11 +2,11 @@ package com.momo.domain.group.service.impl;
 
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
+import com.momo.domain.group.dto.ParticipantResponse;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
-import com.momo.domain.group.dto.ParticipantResponse;
 import com.momo.domain.group.service.ParticipantService;
 import com.momo.domain.user.entity.User;
 import java.util.List;
@@ -30,7 +30,7 @@ public class ParticipantServiceImpl implements ParticipantService {
         return ParticipantResponse.listOf(participants);
     }
 
-    public void validateGroupManager(Group group, User user) {
+    private void validateGroupManager(Group group, User user) {
         if (!group.isManager(user)) {
             throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
         }
@@ -42,12 +42,12 @@ public class ParticipantServiceImpl implements ParticipantService {
         participantRepository.deleteByGroupAndUser(group, user);
     }
 
-    public Group getGroupById(Long groupId) {
+    private Group getGroupById(Long groupId) {
         return groupRepository.findById(groupId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
-    public void validateNotGroupManager(Group group, User user) {
+    private void validateNotGroupManager(Group group, User user) {
         if (group.isManager(user)) {
             throw new CustomException(ErrorCode.GROUP_MANAGER_WITHDRAW_NOT_ALLOW);
         }

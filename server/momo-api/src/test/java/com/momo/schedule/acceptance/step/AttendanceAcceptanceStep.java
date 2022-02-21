@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.momo.domain.schedule.dto.AttendanceCreateRequest;
 import com.momo.domain.schedule.dto.AttendanceCreateRequests;
 import com.momo.domain.schedule.dto.AttendanceResponse;
+import com.momo.domain.schedule.dto.AttendanceUpdateRequest;
 import com.momo.domain.schedule.dto.AttendanceUpdateRequests;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -15,6 +16,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
 public class AttendanceAcceptanceStep {
+
+    public static void assertThatUpdateAttendance(List<AttendanceResponse> responses,
+        List<AttendanceUpdateRequest> requests) {
+        Assertions.assertAll(
+            () -> assertThat(responses.size()).isEqualTo(2),
+            () -> assertThat(responses.get(0).getIsAttend()).isEqualTo(requests.get(0).isAttend()),
+            () -> assertThat(responses.get(1).getIsAttend()).isEqualTo(requests.get(1).isAttend())
+        );
+    }
 
     public static ExtractableResponse<Response> requestToCreateAttendance(String token,
         AttendanceCreateRequests requests) {

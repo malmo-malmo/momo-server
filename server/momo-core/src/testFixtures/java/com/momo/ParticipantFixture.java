@@ -48,6 +48,7 @@ public class ParticipantFixture {
 
     public static ParticipantResponse getParticipantResponse() {
         return ParticipantResponse.builder()
+            .userId(1L)
             .participantId(1L)
             .imageUrl(IMAGE_URL)
             .nickname(NICKNAME)

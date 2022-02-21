@@ -34,7 +34,7 @@ public class ParticipantRestDocsTest extends RestDocsControllerTest {
     private ParticipantServiceImpl participantService;
 
     @Test
-    public void 모임_참여_신청() throws Exception {
+    void 모임_참여_신청() throws Exception {
         String content = super.objectMapper.writeValueAsString(Map.of("groupId", 1L));
 
         super.mockMvc.perform(post("/api/group/apply-participant")
@@ -46,7 +46,7 @@ public class ParticipantRestDocsTest extends RestDocsControllerTest {
     }
 
     @Test
-    public void 모임_참여자_목록_조회() throws Exception {
+    void 모임_참여자_목록_조회() throws Exception {
         when(participantService.findByGroupId(any(), anyLong()))
             .thenReturn(List.of(getParticipantResponse()));
 
@@ -58,7 +58,7 @@ public class ParticipantRestDocsTest extends RestDocsControllerTest {
     }
 
     @Test
-    public void 모임_탈퇴() throws Exception {
+    void 모임_탈퇴() throws Exception {
         super.mockMvc.perform(delete("/api/group/{groupId}/participant", 1L))
             .andDo(print())
             .andExpect(status().isNoContent())

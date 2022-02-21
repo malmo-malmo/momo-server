@@ -55,6 +55,28 @@ class GroupListState extends StateNotifier<GroupListDto> {
   final UserRepository userRepository;
   final GroupRepository groupRepository;
 
+  Future<void> getGroupsByCategoriesDetail(
+      int page, List<String> categories) async {
+    final response = await groupRepository
+        .getGroupBySearch(page, categories: categories, cities: []);
+    state = state.copyWith(
+      groups: [
+        ...state.groups,
+        ...response,
+      ],
+      hasNext: response.length == pageSize,
+      nextPage: page,
+    );
+  }
+
+  void resetGroups() {
+    state = state.copyWith(
+      groups: [],
+      hasNext: true,
+      nextPage: 0,
+    );
+  }
+
   Future<void> getGroupsByDistrict(int page) async {
     final response = await groupRepository.getGroupsByDistrict(page++);
     state = state.copyWith(
@@ -91,7 +113,9 @@ class GroupListState extends StateNotifier<GroupListDto> {
     );
   }
 
-  Future<bool> createLike(int groupId) async {
+  Future<void> createLike(int groupId) async {
+    await userRepository.createGroupLike(GroupLikeRequest(groupId: groupId));
+
     state = state.copyWith(
       groups: [
         ...state.groups
@@ -99,23 +123,11 @@ class GroupListState extends StateNotifier<GroupListDto> {
             .toList()
       ],
     );
-    try {
-      await userRepository.createGroupLike(GroupLikeRequest(groupId: groupId));
-      return true;
-    } catch (e) {
-      state = state.copyWith(
-        groups: [
-          ...state.groups
-              .map(
-                  (e) => e.id == groupId ? e.copyWith(favoriteGroup: false) : e)
-              .toList()
-        ],
-      );
-      return false;
-    }
   }
 
-  Future<bool> deleteLike(int groupId) async {
+  Future<void> deleteLike(int groupId) async {
+    await userRepository.createGroupLike(GroupLikeRequest(groupId: groupId));
+
     state = state.copyWith(
       groups: [
         ...state.groups
@@ -123,18 +135,5 @@ class GroupListState extends StateNotifier<GroupListDto> {
             .toList()
       ],
     );
-    try {
-      await userRepository.createGroupLike(GroupLikeRequest(groupId: groupId));
-      return true;
-    } catch (e) {
-      state = state.copyWith(
-        groups: [
-          ...state.groups
-              .map((e) => e.id == groupId ? e.copyWith(favoriteGroup: true) : e)
-              .toList()
-        ],
-      );
-      return false;
-    }
   }
 }

@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:momo/app/model/group/group_info.dart';
+import 'package:momo/app/model/group/group_list_dto.dart';
+import 'package:momo/app/provider/group/group_provider.dart';
 import 'package:momo/app/provider/group/recommend_group_provider.dart';
 import 'package:momo/app/ui/components/app_bar/custom_app_bar.dart';
 import 'package:momo/app/ui/components/card/group_card.dart';
@@ -30,10 +32,30 @@ class RecommendGroupListPage extends ConsumerStatefulWidget {
 
 class _RecommendGroupListPageState
     extends ConsumerState<RecommendGroupListPage> {
+  final _pagingController = PagingController<int, GroupInfo>(firstPageKey: 0);
+
+  @override
+  void initState() {
+    super.initState();
+    _pagingController.addPageRequestListener(
+      (pageKey) => ref
+          .read(categoryGroupListProvider.notifier)
+          .getGroupsByCategoriesDetail(
+            pageKey,
+            ref.read(groupCategoryCheckStateProvider.notifier).makeFilter(),
+          ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final _pagingController = ref.watch(recommendPaigingControllerProvider);
-
+    ref.listen<GroupListDto>(categoryGroupListProvider, (previous, next) {
+      _pagingController.value = PagingState(
+        itemList: next.groups,
+        nextPageKey: next.hasNext ? next.nextPage : null,
+        error: null,
+      );
+    });
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffffffff),
@@ -49,7 +71,10 @@ class _RecommendGroupListPageState
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CategoryList(
-                refresh: _pagingController.refresh,
+                refresh: () {
+                  ref.read(categoryGroupListProvider.notifier).resetGroups();
+                  _pagingController.refresh();
+                },
               ),
               Expanded(
                 child: PagedGridView(
@@ -59,19 +84,20 @@ class _RecommendGroupListPageState
                       group: item,
                       height: 200.h,
                       width: double.infinity,
-                      setLike: () {
+                      setLike: () async {
                         if (item.favoriteGroup) {
-                          _pagingController.itemList![index]
-                              .copyWith(favoriteGroup: false);
+                          await ref
+                              .read(categoryGroupListProvider.notifier)
+                              .deleteLike(item.id);
                           widget.favoriteCallBack(
                               groupId: item.id, favorite: false);
                         } else {
-                          _pagingController.itemList![index]
-                              .copyWith(favoriteGroup: true);
+                          await ref
+                              .read(categoryGroupListProvider.notifier)
+                              .createLike(item.id);
                           widget.favoriteCallBack(
                               groupId: item.id, favorite: true);
                         }
-                        setState(() {});
                       },
                     ),
                     newPageProgressIndicatorBuilder: (context) =>

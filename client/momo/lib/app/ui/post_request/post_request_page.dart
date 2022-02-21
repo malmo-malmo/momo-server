@@ -29,88 +29,93 @@ class PostRequestPage extends ConsumerWidget {
     final check = ref.watch(postRequestCheckProvider(postRequestArg));
 
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: const Color(0xffffffff),
-        appBar: CustomAppBar(
-          leadingIcon: CupertinoIcons.xmark,
-          title: '${postRequestArg.postType.postTypeToName} 작성',
-          isAction: true,
-          actionWidget: ConfirmActionIcon(
-            check: check,
-            title: '완료',
-            onTapIcon: () async {
-              final result = await ref
-                  .read(postRequestStateProvider(postRequestArg).notifier)
-                  .createPost();
-              ref.read(navigatorProvider).pop(result: result);
-            },
-            isShowDialog: true,
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Scaffold(
+          backgroundColor: const Color(0xffffffff),
+          appBar: CustomAppBar(
+            leadingIcon: CupertinoIcons.xmark,
+            title: '${postRequestArg.postType.postTypeToName} 작성',
+            isAction: true,
+            actionWidget: ConfirmActionIcon(
+              check: check,
+              title: '완료',
+              onTapIcon: () async {
+                final result = await ref
+                    .read(postRequestStateProvider(postRequestArg).notifier)
+                    .createPost();
+                ref.read(navigatorProvider).pop(result: result);
+              },
+              isShowDialog: true,
+            ),
           ),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.only(right: 16, left: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: CustomScrollView(
-                  slivers: [
-                    const SliverToBoxAdapter(child: SizedBox(height: 24)),
-                    SliverToBoxAdapter(
-                      child: TextInputBox(
-                        onTextChanged: ref
-                            .read(postRequestStateProvider(postRequestArg)
-                                .notifier)
-                            .setTitle,
-                        hintText: '제목',
-                        height: 44,
+          body: Padding(
+            padding: const EdgeInsets.only(right: 16, left: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: CustomScrollView(
+                    slivers: [
+                      const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                      SliverToBoxAdapter(
+                        child: TextInputBox(
+                          onTextChanged: ref
+                              .read(postRequestStateProvider(postRequestArg)
+                                  .notifier)
+                              .setTitle,
+                          hintText: '제목',
+                          height: 44,
+                        ),
                       ),
-                    ),
-                    const SliverToBoxAdapter(child: SizedBox(height: 14)),
-                    SliverToBoxAdapter(
-                      child: TextInputBox(
-                        onTextChanged: ref
-                            .read(postRequestStateProvider(postRequestArg)
-                                .notifier)
-                            .setContents,
-                        maxLines: 24,
-                        height: 400,
-                        hintText: '내용을 작성해주세요',
+                      const SliverToBoxAdapter(child: SizedBox(height: 14)),
+                      SliverToBoxAdapter(
+                        child: TextInputBox(
+                          onTextChanged: ref
+                              .read(postRequestStateProvider(postRequestArg)
+                                  .notifier)
+                              .setContents,
+                          maxLines: 24,
+                          height: 400,
+                          hintText: '내용을 작성해주세요',
+                        ),
                       ),
-                    ),
-                    const SliverToBoxAdapter(child: SizedBox(height: 24)),
-                    SliverToBoxAdapter(
-                      child: postRequest.images.isEmpty
-                          ? const SizedBox(
-                              child: Center(
-                                child: Text('No Image'),
-                              ),
-                            )
-                          : Wrap(
-                              spacing: 8,
-                              runSpacing: 8,
-                              children: List.generate(
-                                postRequest.images.length,
-                                (index) => imgCard(
-                                  img: postRequest.images[index],
-                                  deleteImg: ref
-                                      .read(postRequestStateProvider(
-                                              postRequestArg)
-                                          .notifier)
-                                      .deleteImg,
+                      const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                      SliverToBoxAdapter(
+                        child: postRequest.images.isEmpty
+                            ? const SizedBox(
+                                child: Center(
+                                  child: Text('No Image'),
+                                ),
+                              )
+                            : Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children: List.generate(
+                                  postRequest.images.length,
+                                  (index) => imgCard(
+                                    img: postRequest.images[index],
+                                    deleteImg: ref
+                                        .read(postRequestStateProvider(
+                                                postRequestArg)
+                                            .notifier)
+                                        .deleteImg,
+                                  ),
                                 ),
                               ),
-                            ),
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              _FloatingCameraBotton(
-                addImages: ref
-                    .read(postRequestStateProvider(postRequestArg).notifier)
-                    .setImages,
-              ),
-            ],
+                _FloatingCameraBotton(
+                  addImages: ref
+                      .read(postRequestStateProvider(postRequestArg).notifier)
+                      .setImages,
+                ),
+              ],
+            ),
           ),
         ),
       ),

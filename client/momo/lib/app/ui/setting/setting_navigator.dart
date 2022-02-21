@@ -5,6 +5,7 @@ import 'package:momo/app/ui/setting/setting_init_page.dart';
 import 'package:momo/app/ui/setting/setting_navigation_service.dart';
 import 'package:momo/app/ui/setting/user_info_edit_page.dart';
 import 'package:momo/app/ui/setting/user_manage_page.dart';
+import 'package:momo/app/util/navigation_service.dart';
 
 class SettingNavigator extends ConsumerWidget {
   const SettingNavigator({Key? key}) : super(key: key);
@@ -48,7 +49,14 @@ class SettingNavigator extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final _navigator = ref.watch(settingNavigatorProvider);
     return WillPopScope(
-      onWillPop: () => Future(() => false),
+      onWillPop: () {
+        if (_navigator.navigatorKey.currentState!.canPop()) {
+          _navigator.navigatorKey.currentState!.pop();
+        } else {
+          ref.read(navigatorProvider).pop();
+        }
+        return Future.value(false);
+      },
       child: Navigator(
         key: _navigator.navigatorKey,
         initialRoute: 'settings/init',

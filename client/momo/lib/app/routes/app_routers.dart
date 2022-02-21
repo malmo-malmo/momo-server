@@ -34,7 +34,7 @@ class AppRouter {
     switch (settings.name) {
       case AppRoutes.main:
         return MaterialPageRoute<dynamic>(
-            builder: (_) => const MainPage(), settings: settings);
+            builder: (_) => MainPage(), settings: settings);
 
       case AppRoutes.splash:
         return MaterialPageRoute<dynamic>(

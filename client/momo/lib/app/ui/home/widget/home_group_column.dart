@@ -29,7 +29,11 @@ class _HomeGroupColumnState extends ConsumerState<HomeGroupColumn> {
     final homeGroup = ref.watch(homeGroupStateProvider);
 
     if (homeGroup.isLoading) {
-      return const LoadingCard();
+      return const SizedBox(
+        height: 300,
+        width: double.infinity,
+        child: LoadingCard(),
+      );
     }
     return Column(
       children: [

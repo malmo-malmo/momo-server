@@ -16,6 +16,7 @@ import 'package:momo/app/routes/app_routers.dart';
 import 'package:momo/app/theme/theme.dart';
 import 'package:momo/app/util/constant.dart';
 import 'package:momo/app/util/navigation_service.dart';
+import 'package:momo/splash_page.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -34,6 +35,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       data: {
         'authorizationCode': '$authCode',
         'provider': 'kakao',
+        'deviceCode': androidId,
       },
     );
     final tokenData = TokenData(

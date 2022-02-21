@@ -2,8 +2,10 @@ package com.momo.domain.schedule.repository;
 
 import static com.momo.GroupFixture.getGroup;
 import static com.momo.ParticipantFixture.getParticipant;
+import static com.momo.ScheduleFixture.getCustomDateSchedule;
 import static com.momo.ScheduleFixture.getSchedule;
 import static com.momo.UserFixture.getUser;
+import static java.time.LocalDateTime.of;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
@@ -67,8 +69,8 @@ public class ScheduleRepositoryTest extends RepositoryTest {
 
     @Test
     void 시작일자와_종료일자_사이에_해당하는_모임_일정을_조회한다() {
-        LocalDateTime startTime = LocalDateTime.of(2022, 1, 1, 0, 0);
-        LocalDateTime endTime = LocalDateTime.of(2022, 1, 2, 23, 59);
+        LocalDateTime startTime = of(2022, 1, 1, 0, 0);
+        LocalDateTime endTime = of(2022, 1, 2, 23, 59);
 
         Schedule expected = scheduleRepository.findAllByStartDateTimeBetween(startTime, endTime, user).get(0);
 
@@ -88,5 +90,16 @@ public class ScheduleRepositoryTest extends RepositoryTest {
             () -> assertThat(expected.getStartDateTime()).isEqualTo(schedule.getStartDateTime()),
             () -> assertThat(expected.getContents()).isEqualTo(schedule.getContents())
         );
+    }
+
+    @Test
+    void 다가오는_일정을_조회한다() {
+        Schedule actual = save(getCustomDateSchedule(user, group, of(2022, 2, 21, 10, 30)));
+        save(getCustomDateSchedule(user, group, of(2022, 2, 21, 10, 32)));
+
+        Schedule expected = scheduleRepository
+            .findFirstByGroupAndStartDateTimeAfter(group, of(2022, 2, 21, 10, 29));
+
+        assertThat(expected.getId()).isEqualTo(actual.getId());
     }
 }

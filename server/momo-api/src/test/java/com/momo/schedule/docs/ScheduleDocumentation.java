@@ -84,4 +84,19 @@ public class ScheduleDocumentation {
             responseFields(responseSchedule)
         );
     }
+
+    public static RestDocumentationResultHandler findUpcomingSchedule() {
+        ParameterDescriptor[] requestSchedule = new ParameterDescriptor[]{
+            parameterWithName("groupId").description("모임 ID")
+        };
+        FieldDescriptor[] responseSchedule = new FieldDescriptor[]{
+            fieldWithPath("title").type(JsonFieldType.STRING).description("일정 이름"),
+            fieldWithPath("startDateTime").type(JsonFieldType.STRING).description("일정 시작일자")
+        };
+
+        return document("schedule/findUpcomingSchedule",
+            requestParameters(requestSchedule),
+            responseFields(responseSchedule)
+        );
+    }
 }

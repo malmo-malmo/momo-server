@@ -1,5 +1,6 @@
 package com.momo.schedule.docs;
 
+import static com.momo.ScheduleFixture.getUpcomingScheduleResponse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
@@ -8,8 +9,8 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.common.RestDocsControllerTest;
 import com.momo.api.schedule.ScheduleController;
+import com.momo.common.RestDocsControllerTest;
 import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.schedule.dto.GroupScheduleResponse;
@@ -37,7 +38,7 @@ public class ScheduleRestDocsTest extends RestDocsControllerTest {
     private ScheduleServiceImpl scheduleService;
 
     @Test
-    public void 일정_등록() throws Exception {
+    void 일정_등록() throws Exception {
         ScheduleCreateRequest request = ScheduleCreateRequest.builder()
             .groupId(1L)
             .title("일정 이름")
@@ -68,7 +69,7 @@ public class ScheduleRestDocsTest extends RestDocsControllerTest {
     }
 
     @Test
-    public void 모임_일정_조회() throws Exception {
+    void 모임_일정_조회() throws Exception {
         when(scheduleService.findPageByUserAndGroupId(any(), any())).thenReturn(GroupScheduleResponses.of(
             List.of(
                 GroupScheduleResponse.builder()
@@ -96,7 +97,7 @@ public class ScheduleRestDocsTest extends RestDocsControllerTest {
     }
 
     @Test
-    public void 캘린더_일정_조회() throws Exception {
+    void 캘린더_일정_조회() throws Exception {
         when(scheduleService.findPageByUserAndSearchDate(any(), any())).thenReturn(List.of(
             UserScheduleResponse.builder()
                 .groupId(1L)
@@ -112,5 +113,17 @@ public class ScheduleRestDocsTest extends RestDocsControllerTest {
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(ScheduleDocumentation.findPageByUser());
+    }
+
+    @Test
+    void 다가오는_일정_조회() throws Exception {
+        when(scheduleService.findUpcomingScheduleByGroupId(any(), any())).thenReturn(getUpcomingScheduleResponse());
+
+        super.mockMvc.perform(get("/api/schedule/upcoming")
+                .param("groupId", String.valueOf(1L))
+            )
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(ScheduleDocumentation.findUpcomingSchedule());
     }
 }

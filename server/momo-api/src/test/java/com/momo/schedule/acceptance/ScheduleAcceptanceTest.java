@@ -9,9 +9,11 @@ import static com.momo.domain.common.exception.ErrorCode.GROUP_MANAGER_AUTHORIZE
 import static com.momo.domain.group.entity.Category.LIFE;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
 import static com.momo.schedule.acceptance.step.ScheduleAcceptanceStep.assertThatFindGroupSchedule;
+import static com.momo.schedule.acceptance.step.ScheduleAcceptanceStep.assertThatFindUpcomingSchedule;
 import static com.momo.schedule.acceptance.step.ScheduleAcceptanceStep.assertThatFindUserSchedules;
 import static com.momo.schedule.acceptance.step.ScheduleAcceptanceStep.requestToCreateSchedule;
 import static com.momo.schedule.acceptance.step.ScheduleAcceptanceStep.requestToFindGroupSchedules;
+import static com.momo.schedule.acceptance.step.ScheduleAcceptanceStep.requestToFindUpcomingSchedule;
 import static com.momo.schedule.acceptance.step.ScheduleAcceptanceStep.requestToFindUserSchedules;
 import static java.time.LocalDateTime.of;
 
@@ -19,10 +21,12 @@ import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
 import com.momo.domain.schedule.dto.GroupScheduleResponses;
 import com.momo.domain.schedule.dto.ScheduleCreateRequest;
+import com.momo.domain.schedule.dto.UpcomingScheduleResponse;
 import com.momo.domain.schedule.dto.UserScheduleResponse;
 import com.momo.domain.user.entity.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -80,5 +84,20 @@ public class ScheduleAcceptanceTest extends AcceptanceTest {
 
         assertThatStatusIsOk(response);
         assertThatFindUserSchedules(expected);
+    }
+
+    @Test
+    void 다가오는_일정을_조회한다() {
+        String token = getAccessToken(getUser());
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        ScheduleCreateRequest request = getScheduleCreateRequest(groupId, LocalDateTime.now().plusHours(1));
+
+        requestToCreateSchedule(token, request);
+        requestToCreateSchedule(token, getScheduleCreateRequest(groupId, LocalDateTime.now().plusHours(2)));
+
+        ExtractableResponse<Response> response = requestToFindUpcomingSchedule(token, groupId);
+
+        assertThatStatusIsOk(response);
+        assertThatFindUpcomingSchedule(getObject(response, UpcomingScheduleResponse.class), request);
     }
 }

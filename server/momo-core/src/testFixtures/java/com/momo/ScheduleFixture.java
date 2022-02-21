@@ -11,6 +11,7 @@ import static com.momo.common.FixtureComponents.TITLE;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.schedule.dto.GroupSchedulesRequest;
 import com.momo.domain.schedule.dto.ScheduleCreateRequest;
+import com.momo.domain.schedule.dto.UpcomingScheduleResponse;
 import com.momo.domain.schedule.entity.Schedule;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDateTime;
@@ -26,6 +27,18 @@ public class ScheduleFixture {
             .isOffline(IS_OFFLINE)
             .group(group)
             .startDateTime(DATE_TIME)
+            .build();
+    }
+
+    public static Schedule getCustomDateSchedule(User author, Group group, LocalDateTime startDate) {
+        INCREASE_ID++;
+        return Schedule.builder()
+            .author(author)
+            .title(TITLE + INCREASE_ID)
+            .contents(CONTENTS + INCREASE_ID)
+            .isOffline(IS_OFFLINE)
+            .group(group)
+            .startDateTime(startDate)
             .build();
     }
 
@@ -58,6 +71,13 @@ public class ScheduleFixture {
             .groupId(groupId)
             .page(PAGE)
             .size(PAGE_SIZE)
+            .build();
+    }
+
+    public static UpcomingScheduleResponse getUpcomingScheduleResponse() {
+        return UpcomingScheduleResponse.builder()
+            .title(TITLE)
+            .startDateTime(DATE_TIME)
             .build();
     }
 }

@@ -67,13 +67,13 @@ class _WishGroupPageState extends ConsumerState<WishGroupPage> {
                     setLike: () {
                       if (wishGroupState
                           .groups[index].groupCardResponse.favoriteGroup) {
-                        ref
-                            .read(wishGroupListProvider.notifier)
-                            .deleteLike(wishGroupState.groups[index].id);
+                        ref.read(wishGroupListProvider.notifier).deleteLike(
+                              wishGroupState.groups[index].groupCardResponse.id,
+                            );
                       } else {
-                        ref
-                            .read(wishGroupListProvider.notifier)
-                            .createLike(wishGroupState.groups[index].id);
+                        ref.read(wishGroupListProvider.notifier).createLike(
+                              wishGroupState.groups[index].groupCardResponse.id,
+                            );
                       }
                     },
                   );

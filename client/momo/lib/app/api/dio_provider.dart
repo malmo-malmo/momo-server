@@ -25,36 +25,49 @@ final dioProvider = Provider<Dio>((ref) {
   authDio.interceptors.add(CustomLogInterceptor());
 
   //  QueuedInterceptorsWrapper: 요청이 순차적으로 들어간다
-  dio.interceptors.add(QueuedInterceptorsWrapper(
-    onError: (error, handler) async {
-      dp.log('>>>>>>>>>> onError <<<<<<<<<<');
+  dio.interceptors.add(
+    QueuedInterceptorsWrapper(
+      onError: (error, handler) async {
+        dp.log('>>>>>>>>>> onError <<<<<<<<<<');
 
-      // accessToken 만료
-      if (error.response?.statusCode == 401) {
-        RequestOptions options = error.response!.requestOptions;
+        // accessToken 만료
+        if (error.response?.statusCode == 401) {
+          RequestOptions options = error.response!.requestOptions;
 
-        dp.log('>>>>>>>>>> 토큰재발급 <<<<<<<<<<');
-        await authDio.post(baseUrl + '/oauth/login/refresh', data: {
-          'refreshToken': tokenData.refreshToken,
-          'deviceCode': androidId,
-        }).then((response) {
-          //  Hive에 tokenData 갱신
-          Hive.box('auth').put(
-            'tokenData',
-            TokenData(
-              accessToken: response.data['accessToken'],
-              accessTokenType: response.data['accessTokenType'],
-              refreshToken: response.data['refreshToken'],
-            ),
+          dp.log('>>>>>>>>>> 토큰재발급 <<<<<<<<<<');
+          await authDio.post(
+            baseUrl + '/oauth/login/refresh',
+            data: {
+              'refreshToken': tokenData.refreshToken,
+              'deviceCode': androidId,
+            },
+          ).then(
+            (response) async {
+              //  Hive에 tokenData 갱신
+              await Hive.box('auth').put(
+                'tokenData',
+                TokenData(
+                  accessToken: response.data['accessToken'],
+                  accessTokenType: response.data['accessTokenType'],
+                  refreshToken: response.data['refreshToken'],
+                ),
+              );
+              options.headers['Authorization'] =
+                  '${response.data['accessTokenType']} ${response.data['accessToken']}';
+            },
+          ).then(
+            (e) => dio.fetch(options).then(
+                  (r) => handler.resolve(
+                    r,
+                  ),
+                ),
           );
-          options.headers['Authorization'] =
-              '${response.data['accessTokenType']} ${response.data['accessToken']}';
-        }).then((e) => dio.fetch(options).then((r) => handler.resolve(r)));
-        return;
-      }
-      return handler.next(error);
-    },
-  ));
+          return;
+        }
+        return handler.next(error);
+      },
+    ),
+  );
   return dio;
 });
 

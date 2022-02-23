@@ -36,7 +36,7 @@ public class TokenAuthInterceptor implements ChannelInterceptor {
         boolean isStompConnect = stompCommand.equals(StompCommand.CONNECT);
         if (isStompConnect) {
             String bearerToken = getAccessToken(accessor);
-            registAccessUserInfo(accessor, bearerToken);
+            registerAccessUserInfo(accessor, bearerToken);
         }
         return message;
     }
@@ -50,7 +50,7 @@ public class TokenAuthInterceptor implements ChannelInterceptor {
         return MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
     }
 
-    private void registAccessUserInfo(StompHeaderAccessor accessor, String bearerToken) {
+    private void registerAccessUserInfo(StompHeaderAccessor accessor, String bearerToken) {
         User user = authService.findLoginUserByAccessToken(bearerToken);
         Principal principal = new SocketPrincipal(user);
         accessor.setUser(new SocketPrincipal(User.builder().nickname("유저 이름").build()));

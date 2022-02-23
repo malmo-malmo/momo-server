@@ -2,4 +2,5 @@ rootProject.name = 'server'
 include 'momo-api'
 include 'momo-core'
 include 'momo-common'
+include 'momo-socket'
 

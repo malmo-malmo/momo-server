@@ -1,19 +1,24 @@
 package com.momo;
 
 import com.momo.config.JasyptConfig;
+import com.momo.domain.group.repository.GroupSearchRepository;
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import com.ulisesbocchio.jasyptspringboot.environment.StandardEncryptableEnvironment;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.jasypt.encryption.StringEncryptor;
-import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
-import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableEncryptableProperties
 @RequiredArgsConstructor
+@EnableJpaRepositories(excludeFilters = @ComponentScan.Filter(
+    type = FilterType.ASSIGNABLE_TYPE,
+    classes = GroupSearchRepository.class)
+)
 public class MomoApplication {
 
     public static void main(String[] args) {

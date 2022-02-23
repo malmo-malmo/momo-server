@@ -1,5 +1,6 @@
 package com.momo.common;
 
+import com.momo.config.SocketConfig;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -25,7 +26,7 @@ public class SocketTest {
     @LocalServerPort
     private Integer port;
 
-    private static final String BASE_URL = "ws://localhost:%d/ws";
+    private static final String BASE_URL = "ws://localhost:%d/" + SocketConfig.END_POINT;
 
     private String testUrl;
 

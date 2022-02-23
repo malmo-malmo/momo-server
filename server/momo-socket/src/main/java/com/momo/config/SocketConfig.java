@@ -17,17 +17,21 @@ public class SocketConfig implements WebSocketMessageBrokerConfigurer {
 
     private final TokenAuthInterceptor tokenAuthInterceptor;
 
+    public static final String END_POINT = "/ws";
+    public static final String SUBSCRIBE_PREFIX = "/sub";
+    public static final String PUBLISH_PREFIX = "/pub";
+
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws")
+        registry.addEndpoint(END_POINT)
             .setAllowedOrigins("*")
             .withSockJS();
     }
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/sub");
-        registry.setApplicationDestinationPrefixes("/pub");
+        registry.enableSimpleBroker(SUBSCRIBE_PREFIX);
+        registry.setApplicationDestinationPrefixes(PUBLISH_PREFIX);
     }
 
     @Override

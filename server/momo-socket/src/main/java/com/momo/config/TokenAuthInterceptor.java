@@ -17,6 +17,7 @@ import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.WebSocketHttpHeaders;
 
 @Slf4j
 @Component
@@ -24,7 +25,6 @@ import org.springframework.stereotype.Component;
 public class TokenAuthInterceptor implements ChannelInterceptor {
 
     private final OAuthService authService;
-    private static final String TOKEN_HEADER_NAME = "Authorization";
 
     @Override
     public Message<?> preSend(@NonNull Message<?> message, @NonNull MessageChannel channel) {
@@ -42,7 +42,7 @@ public class TokenAuthInterceptor implements ChannelInterceptor {
     }
 
     private String getAccessToken(StompHeaderAccessor accessor) {
-        return Optional.ofNullable(accessor.getNativeHeader(TOKEN_HEADER_NAME))
+        return Optional.ofNullable(accessor.getNativeHeader(WebSocketHttpHeaders.AUTHORIZATION))
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_OAUTH_ACCESS_TOKEN)).get(0);
     }
 

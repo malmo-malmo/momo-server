@@ -21,7 +21,6 @@ configurations {
 dependencies {
     //module
     implementation project(":momo-core")
-    implementation project(":momo-socket")
     testImplementation(testFixtures(project(":momo-core")))
     implementation project(":momo-common")
 

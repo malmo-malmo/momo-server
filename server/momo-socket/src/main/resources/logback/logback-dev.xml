@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="false">
+  <property resource="application-dev.yml"/>
+  <springProperty name="SLACK_WEBHOOK_URI" source="logging.slack.webhook-uri"/>
+  <springProperty name="LOG_PATH" source="logging.save-path"/>
+  <springProperty name="LOG_FILE_NAME" source="logging.file-name"/>
+  <springProperty name="BOT_NAME" source="logging.bot-name"/>
+  <!-- pattern -->
+  <property name="LOG_PATTERN"
+    value="%-5level %d{yy-MM-dd HH:mm:ss} [%logger{0}:%line] - %msg%n"/>
+  <!-- console log -->
+  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <pattern>${LOG_PATTERN}</pattern>
+    </encoder>
+  </appender>
+
+  <!-- 슬랙 로그 템플릿 -->
+  <appender name="SLACK" class="com.github.maricn.logback.SlackAppender">
+    <webhookUri>${SLACK_WEBHOOK_URI}</webhookUri>
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %msg %n</pattern>
+    </layout>
+    <username>${BOT_NAME}</username>
+    <iconEmoji>:stuck_out_tongue_winking_eye:</iconEmoji>
+    <colorCoding>true</colorCoding>
+  </appender>
+
+  <!-- 슬랙 로그 -->
+  <appender name="ASYNC_SLACK" class="ch.qos.logback.classic.AsyncAppender">
+    <appender-ref ref="SLACK"/>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>ERROR</level>
+    </filter>
+  </appender>
+
+  <!-- 로그 파일 생성 -->
+  <appender name="FILE"
+    class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_PATH}/${LOG_FILE_NAME}.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- 생성되는 로그 파일 정보 -->
+      <fileNamePattern>${LOG_PATH}/${LOG_FILE_NAME}.%d{yyyy-MM-dd}.log
+      </fileNamePattern>
+    </rollingPolicy>
+    <!-- 로그 패턴 -->
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <pattern>${LOG_PATTERN}</pattern>
+    </encoder>
+  </appender>
+
+  <!-- jdbc or spring logging -->
+  <logger name="jdbc.resultset" additivity="false">
+    <level value="INFO"/>
+    <appender-ref ref="console"/>
+  </logger>
+  <logger name="org.springframework" additivity="false">
+    <level value="INFO"/>
+    <appender-ref ref="console"/>
+  </logger>
+
+  <root level="INFO">
+    <!-- 콘솔 로그 출력 -->
+    <appender-ref ref="console"/>
+    <!-- 슬랙 로그 전송 -->
+    <appender-ref ref="ASYNC_SLACK"/>
+  </root>
+</configuration>

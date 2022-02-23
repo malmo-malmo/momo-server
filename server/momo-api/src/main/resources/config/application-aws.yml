@@ -9,3 +9,7 @@ cloud:
       static: ap-northeast-2
     stack:
       auto: false
+    elasticsearch:
+      endpoint: ENC(+7VrSol4of46pDJtdtqu/ypr6OTHJwyMeHKH+GURehSo51A8R7YUU9MeBJ5ZIhhpf5fionGGg+xkiC+Q0/xyH4ziSmLH4f8Jw70cJJ9cnGlfUpfdtU69VZw6vFsC/pZYDsCajc11ZpU=)
+      username: ENC(uKH9eLWahVpD1pyJCfRKlDLkwt5I2ntI)
+      password: ENC(6gYFGu5lFh6fDF3P1+JT2dja+wtpvYf4)

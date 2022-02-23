@@ -16,6 +16,11 @@ logging:
   config: classpath:logback/logback-local.xml
   level:
     org:
+      springframework:
+        data:
+          elasticsearch:
+            client:
+              WIRE: TRACE # elasticsearch 쿼리 로그
       hibernate:
         type:
           descriptor:

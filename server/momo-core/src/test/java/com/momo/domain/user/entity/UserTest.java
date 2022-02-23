@@ -2,6 +2,7 @@ package com.momo.domain.user.entity;
 
 import static com.momo.UserFixture.getUser;
 import static com.momo.UserFixture.getUserWithId;
+import static com.momo.common.LocationFixture.getLocation;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Assertions;
@@ -66,15 +67,16 @@ public class UserTest {
 
     @Test
     void 유저_업데이트_테스트() {
-        User expected = getUser();
-        user.update(expected, expected.getImageUrl());
+        User expectedUser = getUser();
+        Location expectedLocation = getLocation();
+        user.update(expectedUser, expectedLocation, expectedUser.getImageUrl());
 
         Assertions.assertAll(
-            () -> assertThat(user.getNickname()).isEqualTo(expected.getNickname()),
-            () -> assertThat(user.getImageUrl()).isEqualTo(expected.getImageUrl()),
-            () -> assertThat(user.getLocation().getCity()).isEqualTo(expected.getLocation().getCity()),
-            () -> assertThat(user.getLocation().getDistrict()).isEqualTo(expected.getLocation().getDistrict()),
-            () -> assertThat(user.getLocation().getUniversity()).isEqualTo(expected.getLocation().getUniversity())
+            () -> assertThat(user.getNickname()).isEqualTo(expectedUser.getNickname()),
+            () -> assertThat(user.getImageUrl()).isEqualTo(expectedUser.getImageUrl()),
+            () -> assertThat(user.getLocation().getCity()).isEqualTo(expectedUser.getLocation().getCity()),
+            () -> assertThat(user.getLocation().getDistrict()).isEqualTo(expectedLocation.getDistrict()),
+            () -> assertThat(user.getLocation().getUniversity()).isEqualTo(expectedLocation.getUniversity())
         );
     }
 }

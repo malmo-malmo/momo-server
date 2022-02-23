@@ -39,14 +39,17 @@ public class UserUpdateRequest {
         this.image = image;
     }
 
-    public User toEntity() {
+    public User toUser() {
         return User.builder()
             .nickname(nickname)
-            .location(Location.builder()
-                .university(university)
-                .city(city)
-                .district(district)
-                .build())
+            .build();
+    }
+
+    public Location toLocation() {
+        return Location.builder()
+            .university(university)
+            .district(district)
+            .city(city)
             .build();
     }
 }

@@ -27,11 +27,11 @@ public class UserServiceImpl implements UserService {
         if (!user.isSameNickname(request.getNickname())) {
             validateDuplicateNickname(request.getNickname());
         }
-        user.update(request.toEntity(), convertToImageUrl(request.getImage(), user.getId()));
+        user.update(request.toUser(), request.toLocation(), toImageUrl(request.getImage(), user.getId()));
         return UserUpdateResponse.of(user);
     }
 
-    public User findByUser(User user) {
+    private User findByUser(User user) {
         return userRepository.findById(user.getId())
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public String convertToImageUrl(MultipartFile multipartFile, Long userId) {
+    private String toImageUrl(MultipartFile multipartFile, Long userId) {
         return s3UploadService.upload(multipartFile, GenerateUploadPathUtil.getUserImage(userId));
     }
 }

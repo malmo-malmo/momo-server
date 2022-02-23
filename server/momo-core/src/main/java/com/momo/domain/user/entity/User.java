@@ -65,10 +65,10 @@ public class User extends BaseEntity {
         return id.equals(user.getId());
     }
 
-    public void update(User user, String imageUrl) {
+    public void update(User user, Location location, String imageUrl) {
         this.nickname = user.getNickname();
         this.imageUrl = imageUrl;
-        this.location.update(user.getLocation());
+        this.location.update(location);
     }
 
     public void updateFavoriteCategories(List<Category> categories) {

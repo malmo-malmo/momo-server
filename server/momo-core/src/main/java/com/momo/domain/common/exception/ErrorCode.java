@@ -1,5 +1,6 @@
 package com.momo.domain.common.exception;
 
+import java.util.Arrays;
 import lombok.Getter;
 
 @Getter
@@ -43,5 +44,12 @@ public enum ErrorCode {
     ErrorCode(int status, String message) {
         this.status = status;
         this.message = message;
+    }
+
+    public static ErrorCode fromMessage(String message) {
+        return Arrays.stream(ErrorCode.values())
+            .filter(errorCode -> errorCode.getMessage().equals(message))
+            .findFirst()
+            .orElse(null);
     }
 }

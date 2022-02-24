@@ -51,8 +51,8 @@ public class TokenAuthInterceptor implements ChannelInterceptor {
     }
 
     private void registerAccessUserInfo(StompHeaderAccessor accessor, String bearerToken) {
-        User user = authService.findLoginUserByAccessToken(bearerToken);
-        Principal principal = new SocketPrincipal(user);
+//        User user = authService.findLoginUserByAccessToken(bearerToken);
+//        Principal principal = new SocketPrincipal(user);
         accessor.setUser(new SocketPrincipal(User.builder().nickname("유저 이름").build()));
     }
 }

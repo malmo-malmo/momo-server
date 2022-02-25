@@ -28,6 +28,14 @@ public class Location {
         this.university = university;
     }
 
+    public static Location create(Location location) {
+        return Location.builder()
+            .university(location.getUniversity())
+            .district(location.getDistrict())
+            .city(location.getCity())
+            .build();
+    }
+
     public static Location fromEmptyUniversity(Location location) {
         return Location.builder()
             .university(null)

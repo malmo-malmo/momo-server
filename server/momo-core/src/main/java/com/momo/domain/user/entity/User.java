@@ -1,10 +1,11 @@
 package com.momo.domain.user.entity;
 
+import static java.util.Objects.isNull;
+
 import com.momo.domain.common.entity.BaseEntity;
 import com.momo.domain.favorite.entity.FavoriteCategories;
 import com.momo.domain.group.entity.Category;
 import java.util.List;
-import java.util.Objects;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -55,7 +56,7 @@ public class User extends BaseEntity {
     }
 
     public boolean isSameNickname(String nickname) {
-        if (Objects.isNull(this.nickname)) {
+        if (isNull(this.nickname)) {
             return true;
         }
         return this.nickname.equals(nickname);
@@ -68,6 +69,14 @@ public class User extends BaseEntity {
     public void update(User user, Location location, String imageUrl) {
         this.nickname = user.getNickname();
         this.imageUrl = imageUrl;
+        updateLocation(location);
+    }
+
+    private void updateLocation(Location location) {
+        if (isNull(this.location)) {
+            this.location = Location.create(location);
+            return;
+        }
         this.location.update(location);
     }
 

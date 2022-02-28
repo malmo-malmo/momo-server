@@ -1,5 +1,7 @@
 package com.momo.init;
 
+import static com.momo.Profile.DEVELOP;
+
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.district.entity.City;
@@ -19,7 +21,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("dev")
+@Profile(DEVELOP)
 @RequiredArgsConstructor
 public class DistrictDataLoader implements CommandLineRunner {
 

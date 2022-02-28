@@ -1,5 +1,6 @@
 package com.momo.common.acceptance;
 
+import static com.momo.Profile.TEST;
 import static org.springframework.http.HttpHeaders.LOCATION;
 
 import com.momo.common.DatabaseCleaner;
@@ -19,7 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 
-@ActiveProfiles("test")
+@ActiveProfiles(TEST)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class AcceptanceTest {

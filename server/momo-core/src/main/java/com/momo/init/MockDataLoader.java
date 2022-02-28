@@ -1,5 +1,7 @@
 package com.momo.init;
 
+import static com.momo.Profile.DEVELOP;
+
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Group;
@@ -32,7 +34,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-@Profile("dev")
+@Profile(DEVELOP)
 @RequiredArgsConstructor
 public class MockDataLoader implements CommandLineRunner {
 

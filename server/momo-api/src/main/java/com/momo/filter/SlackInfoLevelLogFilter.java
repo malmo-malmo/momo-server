@@ -7,8 +7,8 @@ import static ch.qos.logback.core.spi.FilterReply.NEUTRAL;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.filter.Filter;
 import ch.qos.logback.core.spi.FilterReply;
-import com.momo.common.ApiLogAspect;
-import com.momo.common.ElapsedTimeLogAspect;
+import com.momo.common.aop.LoggingAspect;
+import com.momo.common.aop.PerformanceAspect;
 import java.util.List;
 
 public class SlackInfoLevelLogFilter extends Filter<ILoggingEvent> {
@@ -18,7 +18,7 @@ public class SlackInfoLevelLogFilter extends Filter<ILoggingEvent> {
 
     public SlackInfoLevelLogFilter() {
         this.level = INFO_INT;
-        this.accept = List.of(ApiLogAspect.class.getName(), ElapsedTimeLogAspect.class.getName());
+        this.accept = List.of(LoggingAspect.class.getName(), PerformanceAspect.class.getName());
     }
 
     @Override

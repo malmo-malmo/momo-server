@@ -1,4 +1,4 @@
-package com.momo.common;
+package com.momo.common.aop;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -26,7 +26,7 @@ import org.springframework.web.util.ContentCachingRequestWrapper;
 @Order(2)
 @Component
 @RequiredArgsConstructor
-public class ApiLogAspect {
+public class LoggingAspect {
 
     private final ObjectMapper objectMapper;
 
@@ -59,22 +59,21 @@ public class ApiLogAspect {
     }
 
     private String getClientIp(HttpServletRequest request) {
-        String unknown = "unknown";
         String ip = request.getHeader("X-Forwarded-For");
 
-        if (!StringUtils.hasText(ip) || ip.equalsIgnoreCase(unknown)) {
+        if (!StringUtils.hasText(ip) || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
         }
-        if (!StringUtils.hasText(ip) || ip.equalsIgnoreCase(unknown)) {
+        if (!StringUtils.hasText(ip) || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("WL-Proxy-Client-IP");
         }
-        if (!StringUtils.hasText(ip) || ip.equalsIgnoreCase(unknown)) {
+        if (!StringUtils.hasText(ip) || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("HTTP_CLIENT_IP");
         }
-        if (!StringUtils.hasText(ip) || ip.equalsIgnoreCase(unknown)) {
+        if (!StringUtils.hasText(ip) || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("HTTP_X_FORWARDED_FOR");
         }
-        if (!StringUtils.hasText(ip) || ip.equalsIgnoreCase(unknown)) {
+        if (!StringUtils.hasText(ip) || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
 

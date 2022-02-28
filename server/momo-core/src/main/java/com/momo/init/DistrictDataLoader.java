@@ -1,6 +1,6 @@
 package com.momo.init;
 
-import static com.momo.TestProfile.DEVELOP;
+import static com.momo.Profile.DEVELOP;
 
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;

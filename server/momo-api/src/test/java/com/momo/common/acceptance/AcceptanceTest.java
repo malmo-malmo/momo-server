@@ -1,6 +1,6 @@
 package com.momo.common.acceptance;
 
-import static com.momo.TestProfile.TEST;
+import static com.momo.Profile.TEST;
 import static org.springframework.http.HttpHeaders.LOCATION;
 
 import com.momo.common.DatabaseCleaner;

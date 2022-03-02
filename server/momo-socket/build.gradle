@@ -1,0 +1,12 @@
+bootJar { enabled = false }
+jar { enabled = true }
+
+dependencies {
+    implementation project(":momo-common")
+    implementation project(":momo-core")
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
+    runtimeOnly group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo'
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3'
+}

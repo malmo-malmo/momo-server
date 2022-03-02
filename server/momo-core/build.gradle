@@ -32,7 +32,7 @@ dependencies {
     implementation 'com.querydsl:querydsl-jpa'
 
     //util
-    implementation group: 'org.json', name: 'json', version: '20180813'
+    implementation group: 'org.json', name: 'json', version: '20211205'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'com.google.guava:guava:31.0.1-jre'
 

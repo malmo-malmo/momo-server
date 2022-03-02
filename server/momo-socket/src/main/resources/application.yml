@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: local
+    include: auth, env, aws
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: test
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 100
+          batch_versioned_data: true
+        use_sql_comments: true
+        default_batch_fetch_size: 100
+        order_inserts: true
+        order_updates: true

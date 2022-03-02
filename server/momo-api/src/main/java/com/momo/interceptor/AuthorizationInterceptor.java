@@ -1,6 +1,6 @@
 package com.momo.interceptor;
 
-import static com.momo.TestProfile.TEST;
+import static com.momo.Profile.TEST;
 
 import com.momo.common.AuthorizationExtractor;
 import com.momo.domain.auth.provider.TokenProvider;

@@ -2,7 +2,9 @@
 
 <configuration scan="false">
   <property resource="application-dev.yml"/>
-  <springProperty name="SLACK_WEBHOOK_URI" source="logging.slack.webhook-uri"/>
+  <springProperty name="SLACK_INFO_WEBHOOK_URI" source="logging.slack.info-webhook-uri"/>
+  <springProperty name="SLACK_WARN_WEBHOOK_URI" source="logging.slack.warn-webhook-uri"/>
+  <springProperty name="SLACK_ERROR_WEBHOOK_URI" source="logging.slack.error-webhook-uri"/>
   <springProperty name="LOG_PATH" source="logging.save-path"/>
   <springProperty name="LOG_FILE_NAME" source="logging.file-name"/>
   <springProperty name="BOT_NAME" source="logging.bot-name"/>
@@ -17,8 +19,26 @@
   </appender>
 
   <!-- 슬랙 로그 템플릿 -->
-  <appender name="SLACK" class="com.github.maricn.logback.SlackAppender">
-    <webhookUri>${SLACK_WEBHOOK_URI}</webhookUri>
+  <appender name="SLACK_INFO" class="com.github.maricn.logback.SlackAppender">
+    <webhookUri>${SLACK_INFO_WEBHOOK_URI}</webhookUri>
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %msg %n</pattern>
+    </layout>
+    <username>${BOT_NAME}</username>
+    <iconEmoji>:stuck_out_tongue_winking_eye:</iconEmoji>
+    <colorCoding>true</colorCoding>
+  </appender>
+  <appender name="SLACK_WARN" class="com.github.maricn.logback.SlackAppender">
+    <webhookUri>${SLACK_WARN_WEBHOOK_URI}</webhookUri>
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %msg %n</pattern>
+    </layout>
+    <username>${BOT_NAME}</username>
+    <iconEmoji>:stuck_out_tongue_winking_eye:</iconEmoji>
+    <colorCoding>true</colorCoding>
+  </appender>
+  <appender name="SLACK_ERROR" class="com.github.maricn.logback.SlackAppender">
+    <webhookUri>${SLACK_ERROR_WEBHOOK_URI}</webhookUri>
     <layout class="ch.qos.logback.classic.PatternLayout">
       <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %msg %n</pattern>
     </layout>
@@ -28,16 +48,21 @@
   </appender>
 
   <!-- 슬랙 로그 -->
-  <appender name="ASYNC_SLACK" class="ch.qos.logback.classic.AsyncAppender">
-    <appender-ref ref="SLACK"/>
-    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-      <level>ERROR</level>
-    </filter>
+  <appender name="ASYNC_INFO_SLACK" class="ch.qos.logback.classic.AsyncAppender">
+    <appender-ref ref="SLACK_INFO"/>
+    <filter class="com.momo.filter.SlackInfoLevelLogFilter"/>
+  </appender>
+  <appender name="ASYNC_WARN_SLACK" class="ch.qos.logback.classic.AsyncAppender">
+    <appender-ref ref="SLACK_WARN"/>
+    <filter class="com.momo.filter.SlackWarnLevelLogFilter"/>
+  </appender>
+  <appender name="ASYNC_ERROR_SLACK" class="ch.qos.logback.classic.AsyncAppender">
+    <appender-ref ref="SLACK_ERROR"/>
+    <filter class="com.momo.filter.SlackErrorLevelLogFilter"/>
   </appender>
 
   <!-- 로그 파일 생성 -->
-  <appender name="FILE"
-    class="ch.qos.logback.core.rolling.RollingFileAppender">
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <file>${LOG_PATH}/${LOG_FILE_NAME}.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
       <!-- 생성되는 로그 파일 정보 -->
@@ -64,6 +89,8 @@
     <!-- 콘솔 로그 출력 -->
     <appender-ref ref="console"/>
     <!-- 슬랙 로그 전송 -->
-    <appender-ref ref="ASYNC_SLACK"/>
+    <appender-ref ref="ASYNC_INFO_SLACK"/>
+    <appender-ref ref="ASYNC_WARN_SLACK"/>
+    <appender-ref ref="ASYNC_ERROR_SLACK"/>
   </root>
 </configuration>

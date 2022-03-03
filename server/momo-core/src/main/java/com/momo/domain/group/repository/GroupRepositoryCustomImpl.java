@@ -82,6 +82,7 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
             ))
             .from(group)
             .where(
+                group.name.contains(request.getGroupName()),
                 cityIn(request.getCities()),
                 categoryIn(request.getCategories())
             )

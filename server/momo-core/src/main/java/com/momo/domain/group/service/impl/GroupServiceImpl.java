@@ -14,6 +14,7 @@ import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
+import com.momo.domain.group.search.GroupSearchEngine;
 import com.momo.domain.group.service.GroupService;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
@@ -30,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class GroupServiceImpl implements GroupService {
 
     private final GroupRepository groupRepository;
+    private final GroupSearchEngine groupSearchEngine;
     private final ParticipantRepository participantRepository;
     private final UserRepository userRepository;
     private final S3UploadService s3UploadService;
@@ -54,63 +56,71 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Transactional(readOnly = true)
-    public List<GroupCardResponse> findPageBySearchCondition(User user, GroupSearchConditionRequest request) {
+    public List<GroupCardResponse> findPageBySearchConditionV1(User loginUser, GroupSearchConditionRequest request) {
         PageRequest page = of(request.getPage(), request.getSize());
-        return groupRepository.findAllBySearchConditionOrderByCreatedDateDesc(user, request, page);
+        return groupRepository.findAllBySearchConditionOrderByCreatedDateDesc(loginUser, request, page);
+    }
+
+    public List<GroupCardResponse> findPageBySearchConditionV2(User loginUser, GroupSearchConditionRequest request) {
+        PageRequest page = of(request.getPage(), request.getSize());
+        return groupSearchEngine.searchByNameLikeAndCitiesAndCategories(
+            request.getGroupName(), request.getCities(), request.getCategories(), loginUser, page
+        );
     }
 
     @Transactional(readOnly = true)
-    public List<GroupCardResponse> findPageByUserUniversity(User user, int page, int size) {
+    public List<GroupCardResponse> findPageByUserUniversity(User loginUser, int page, int size) {
+        return groupRepository.findAllByUniversityOrderByCreatedDateDesc(
+            loginUser, loginUser.getLocation().getUniversity(), of(page, size)
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public List<GroupCardResponse> findPageByUserDistrict(User loginUser, int page, int size) {
         return groupRepository
-            .findAllByUniversityOrderByCreatedDateDesc(user, user.getLocation().getUniversity(), of(page, size));
+            .findAllByDistrictOrderByCreatedDateDesc(loginUser, loginUser.getLocation().getDistrict(), of(page, size));
     }
 
     @Transactional(readOnly = true)
-    public List<GroupCardResponse> findPageByUserDistrict(User user, int page, int size) {
-        return groupRepository
-            .findAllByDistrictOrderByCreatedDateDesc(user, user.getLocation().getDistrict(), of(page, size));
-    }
-
-    @Transactional(readOnly = true)
-    public List<GroupCardResponse> findPageByUserCategories(User user, int page, int size) {
+    public List<GroupCardResponse> findPageByUserCategories(User loginUser, int page, int size) {
         return groupRepository.findAllByCategoriesOrderByCreatedDateDesc(
-            user,
-            user.getFavoriteCategories().toCategories(),
+            loginUser,
+            loginUser.getFavoriteCategories().toCategories(),
             of(page, size)
         );
     }
 
-    public void updateManagerByUserId(User user, Long groupId, Long userId) {
+    public void updateManagerByUserId(User loginUser, Long groupId, Long userId) {
         Group group = getGroupById(groupId);
-        validateGroupManager(group, user);
+        validateGroupManager(group, loginUser);
         User participant = getUserById(userId);
         validateParticipant(group, participant);
         group.updateManager(participant);
     }
 
-    public void endGroupById(User user, Long groupId) {
+    public void endGroupById(User loginUser, Long groupId) {
         Group group = getGroupById(groupId);
-        validateGroupManager(group, user);
+        validateGroupManager(group, loginUser);
         group.endGroup();
     }
 
-    public Group getGroupById(Long groupId) {
+    private Group getGroupById(Long groupId) {
         return groupRepository.findById(groupId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
-    public User getUserById(Long userId) {
+    private User getUserById(Long userId) {
         return userRepository.findById(userId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
-    public void validateGroupManager(Group group, User user) {
+    private void validateGroupManager(Group group, User user) {
         if (!group.isManager(user)) {
             throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
         }
     }
 
-    public void validateParticipant(Group group, User user) {
+    private void validateParticipant(Group group, User user) {
         if (!participantRepository.existsByGroupAndUser(group, user)) {
             throw new CustomException(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED);
         }

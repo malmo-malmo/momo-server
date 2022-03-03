@@ -4,7 +4,6 @@ import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.dto.GroupSearchConditionRequest;
-import com.momo.domain.group.entity.Group;
 import com.momo.domain.user.entity.User;
 import java.io.IOException;
 import java.util.List;
@@ -15,7 +14,9 @@ public interface GroupService {
 
     GroupResponse findById(User user, Long groupId);
 
-    List<GroupCardResponse> findPageBySearchCondition(User user, GroupSearchConditionRequest request);
+    List<GroupCardResponse> findPageBySearchConditionV1(User user, GroupSearchConditionRequest request);
+
+    List<GroupCardResponse> findPageBySearchConditionV2(User user, GroupSearchConditionRequest request);
 
     List<GroupCardResponse> findPageByUserUniversity(User user, int page, int size);
 

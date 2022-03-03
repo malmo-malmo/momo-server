@@ -1,6 +1,6 @@
 package com.momo.config;
 
-import com.momo.domain.group.repository.GroupSearchRepository;
+import com.momo.domain.group.search.GroupSearchEngine;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,7 @@ import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfig
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 @Configuration
-@EnableElasticsearchRepositories(basePackageClasses = GroupSearchRepository.class)
+@EnableElasticsearchRepositories(basePackageClasses = GroupSearchEngine.class)
 public class ElasticSearchConfig extends AbstractElasticsearchConfiguration {
 
     @Value("${cloud.aws.elasticsearch.endpoint}")

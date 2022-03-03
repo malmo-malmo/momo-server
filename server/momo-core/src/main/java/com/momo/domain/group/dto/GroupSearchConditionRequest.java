@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GroupSearchConditionRequest {
 
+    @NotNull(message = "모임 이름(검색어)은 필수값입니다.")
+    private String groupName;
+
     private List<City> cities;
 
     private List<Category> categories;
@@ -23,7 +26,9 @@ public class GroupSearchConditionRequest {
     private Integer size;
 
     @Builder
-    public GroupSearchConditionRequest(List<City> cities, List<Category> categories, int page, int size) {
+    public GroupSearchConditionRequest(String groupName, List<City> cities, List<Category> categories, int page,
+        int size) {
+        this.groupName = groupName;
         this.cities = cities;
         this.categories = categories;
         this.page = page;

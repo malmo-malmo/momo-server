@@ -1,7 +1,7 @@
 package com.momo;
 
 import com.momo.config.JasyptConfig;
-import com.momo.domain.group.repository.GroupSearchRepository;
+import com.momo.domain.group.search.GroupSearchEngine;
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import com.ulisesbocchio.jasyptspringboot.environment.StandardEncryptableEnvironment;
 import java.util.Optional;
@@ -12,13 +12,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication
-@EnableEncryptableProperties
-@RequiredArgsConstructor
 @EnableJpaRepositories(excludeFilters = @ComponentScan.Filter(
     type = FilterType.ASSIGNABLE_TYPE,
-    classes = GroupSearchRepository.class)
+    classes = GroupSearchEngine.class)
 )
+@SpringBootApplication
+@RequiredArgsConstructor
+@EnableEncryptableProperties
 public class MomoApplication {
 
     public static void main(String[] args) {

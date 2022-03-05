@@ -9,10 +9,10 @@ operation::group/create[snippets='http-request,http-response,request-parameters,
 
 operation::group/find[snippets='http-request,http-response,path-parameters,response-fields']
 
-=== 모임 목록 검색
+=== 모임 검색
 모임 목록을 조회합니다.
 
-operation::group/findPageBySearchCondition[snippets='http-request,http-response,request-parameters,response-fields']
+operation::group/findPageBySearchConditionV2[snippets='http-request,http-response,request-parameters,response-fields']
 
 === 모임 목록 조회(내 학교 더보기)
 모임 목록을 조회합니다.

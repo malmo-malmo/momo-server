@@ -77,14 +77,39 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
                 group.imageUrl,
                 group.startDate,
                 group.isOffline,
-                countParticipantQuery(),
-                isFavoriteGroupQuery(loginUser)
+                countParticipant(),
+                isFavoriteGroupByUser(loginUser)
             ))
             .from(group)
             .where(
                 group.name.contains(request.getGroupName()),
                 cityIn(request.getCities()),
                 categoryIn(request.getCategories())
+            )
+            .orderBy(group.createdDate.desc())
+            .offset(pageable.getOffset())
+            .limit(pageable.getPageSize())
+            .fetchResults();
+        return new PageImpl<>(results.getResults(), pageable, results.getTotal()).getContent();
+    }
+
+    @Override
+    public List<GroupCardResponse> findAllByCitiesAndCategoriesOrderByCreatedDateDesc(User loginUser, List<City> cities,
+        List<Category> categories, Pageable pageable) {
+        QueryResults<GroupCardResponse> results = queryFactory
+            .select(new QGroupCardResponse(
+                group.id,
+                group.name,
+                group.imageUrl,
+                group.startDate,
+                group.isOffline,
+                countParticipant(),
+                isFavoriteGroupByUser(loginUser)
+            ))
+            .from(group)
+            .where(
+                cityIn(cities),
+                categoryIn(categories)
             )
             .orderBy(group.createdDate.desc())
             .offset(pageable.getOffset())
@@ -111,8 +136,8 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
                 group.imageUrl,
                 group.startDate,
                 group.isOffline,
-                countParticipantQuery(),
-                isFavoriteGroupQuery(loginUser)
+                countParticipant(),
+                isFavoriteGroupByUser(loginUser)
             ))
             .from(group)
             .where(group.location.university.eq(university))
@@ -133,8 +158,8 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
                 group.imageUrl,
                 group.startDate,
                 group.isOffline,
-                countParticipantQuery(),
-                isFavoriteGroupQuery(loginUser)
+                countParticipant(),
+                isFavoriteGroupByUser(loginUser)
             ))
             .from(group)
             .where(group.location.district.eq(district))
@@ -155,8 +180,8 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
                 group.imageUrl,
                 group.startDate,
                 group.isOffline,
-                countParticipantQuery(),
-                isFavoriteGroupQuery(loginUser)
+                countParticipant(),
+                isFavoriteGroupByUser(loginUser)
             ))
             .from(group)
             .where(group.category.in(categories))
@@ -167,20 +192,20 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
         return new PageImpl<>(results.getResults(), pageable, results.getTotal()).getContent();
     }
 
-    private JPQLQuery<Long> countParticipantQuery() {
+    private JPQLQuery<Long> countParticipant() {
         return JPAExpressions
             .select(participant.count())
             .from(participant)
             .where(participant.group.eq(group));
     }
 
-    private JPQLQuery<Boolean> isFavoriteGroupQuery(User loginUser) {
+    private JPQLQuery<Boolean> isFavoriteGroupByUser(User user) {
         return JPAExpressions
             .select(favoriteGroup.isNotNull())
             .from(favoriteGroup)
             .where(
                 favoriteGroup.group.eq(group),
-                favoriteGroup.user.eq(loginUser)
+                favoriteGroup.user.eq(user)
             );
     }
 }

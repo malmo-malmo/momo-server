@@ -1,7 +1,8 @@
 package com.momo;
 
-import static com.momo.common.LocationFixture.getLocation;
+import static com.momo.common.FixtureComponents.CATEGORIES;
 import static com.momo.common.FixtureComponents.CATEGORY;
+import static com.momo.common.FixtureComponents.CITIES;
 import static com.momo.common.FixtureComponents.CITY;
 import static com.momo.common.FixtureComponents.DATE;
 import static com.momo.common.FixtureComponents.DISTRICT;
@@ -12,11 +13,15 @@ import static com.momo.common.FixtureComponents.INTRODUCTION;
 import static com.momo.common.FixtureComponents.IS_END;
 import static com.momo.common.FixtureComponents.IS_OFFLINE;
 import static com.momo.common.FixtureComponents.NAME;
+import static com.momo.common.FixtureComponents.PAGE;
+import static com.momo.common.FixtureComponents.PAGE_SIZE;
 import static com.momo.common.FixtureComponents.RECRUITMENT_CNT;
+import static com.momo.common.LocationFixture.getLocation;
 
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.group.dto.GroupResponse;
+import com.momo.domain.group.dto.GroupSearchConditionRequest;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.user.entity.User;
@@ -85,6 +90,16 @@ public class GroupFixture {
             .recruitmentCnt(RECRUITMENT_CNT)
             .introduction(INTRODUCTION + INCREASE_ID)
             .image(IMAGE)
+            .build();
+    }
+
+    public static GroupSearchConditionRequest getGroupSearchConditionRequest(String groupName) {
+        return GroupSearchConditionRequest.builder()
+            .groupName(groupName)
+            .categories(CATEGORIES)
+            .cities(CITIES)
+            .page(PAGE)
+            .size(PAGE_SIZE)
             .build();
     }
 

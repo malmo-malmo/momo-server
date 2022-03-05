@@ -20,6 +20,7 @@ import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -61,8 +62,16 @@ public class GroupServiceImpl implements GroupService {
         return groupRepository.findAllBySearchConditionOrderByCreatedDateDesc(loginUser, request, page);
     }
 
+    @Transactional(readOnly = true)
     public List<GroupCardResponse> findPageBySearchConditionV2(User loginUser, GroupSearchConditionRequest request) {
         PageRequest page = of(request.getPage(), request.getSize());
+
+        if (Objects.isNull(request.getGroupName())) {
+            return groupRepository.findAllByCitiesAndCategoriesOrderByCreatedDateDesc(
+                loginUser, request.getCities(), request.getCategories(), page
+            );
+        }
+
         return groupSearchEngine.searchByNameLikeAndCitiesAndCategories(
             request.getGroupName(), request.getCities(), request.getCategories(), loginUser, page
         );

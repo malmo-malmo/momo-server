@@ -1,6 +1,7 @@
 package com.momo.domain.group.repository;
 
 import static com.momo.GroupFixture.getGroup;
+import static com.momo.GroupFixture.getGroupSearchConditionRequest;
 import static com.momo.UserFixture.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -77,33 +78,22 @@ public class GroupRepositoryTest extends RepositoryTest {
     }
 
     @Test
-    void 도시_목록과_카테고리_목록으로_모임_목록을_조회한다() {
-        GroupSearchConditionRequest request = GroupSearchConditionRequest.builder()
-            .cities(List.of(group1.getLocation().getCity(), group2.getLocation().getCity()))
-            .categories(List.of(group1.getCategory(), group2.getCategory()))
-            .build();
-
+    void 검색_조건으로_모임을_조회한다_엘라스틱서치X_키워드O() {
+        GroupSearchConditionRequest request = getGroupSearchConditionRequest("이름");
         List<GroupCardResponse> actual = groupRepository
             .findAllBySearchConditionOrderByCreatedDateDesc(user, request, PageRequest.of(0, 10));
 
-        Assertions.assertAll(
-            () -> assertThat(actual).isNotNull(),
-            () -> assertThat(actual.size()).isEqualTo(2),
-            () -> assertThat(actual.get(0).getId()).isEqualTo(group2.getId()),
-            () -> assertThat(actual.get(0).getName()).isEqualTo(group2.getName()),
-            () -> assertThat(actual.get(0).getImageUrl()).isEqualTo(group2.getImageUrl()),
-            () -> assertThat(actual.get(0).isOffline()).isEqualTo(group2.isOffline()),
-            () -> assertThat(actual.get(0).getStartDate()).isEqualTo(group2.getStartDate()),
-            () -> assertThat(actual.get(0).getParticipantCnt()).isEqualTo(0),
-            () -> assertThat(actual.get(0).isFavoriteGroup()).isEqualTo(false),
-            () -> assertThat(actual.get(1).getId()).isEqualTo(group1.getId()),
-            () -> assertThat(actual.get(1).getName()).isEqualTo(group1.getName()),
-            () -> assertThat(actual.get(1).getImageUrl()).isEqualTo(group1.getImageUrl()),
-            () -> assertThat(actual.get(1).isOffline()).isEqualTo(group1.isOffline()),
-            () -> assertThat(actual.get(1).getStartDate()).isEqualTo(group1.getStartDate()),
-            () -> assertThat(actual.get(1).getParticipantCnt()).isEqualTo(0),
-            () -> assertThat(actual.get(1).isFavoriteGroup()).isEqualTo(false)
+        verifyGroupSearchResponse(actual);
+    }
+
+    @Test
+    void 검색_조건으로_모임을_조회한다_엘라스틱서치X_키워드_X() {
+        GroupSearchConditionRequest request = getGroupSearchConditionRequest(null);
+        List<GroupCardResponse> actual = groupRepository.findAllByCitiesAndCategoriesOrderByCreatedDateDesc(
+            user, request.getCities(), request.getCategories(), PageRequest.of(0, 10)
         );
+
+        verifyGroupSearchResponse(actual);
     }
 
     @Test
@@ -162,6 +152,27 @@ public class GroupRepositoryTest extends RepositoryTest {
             () -> assertThat(actual.get(0).getAchievementRate().getRate()).isEqualTo(BigDecimal.ZERO),
             () -> assertThat(actual.get(1).getId()).isEqualTo(group2.getId()),
             () -> assertThat(actual.get(1).getAchievementRate().getRate()).isEqualTo(BigDecimal.ZERO)
+        );
+    }
+
+    private void verifyGroupSearchResponse(List<GroupCardResponse> actual) {
+        Assertions.assertAll(
+            () -> assertThat(actual).isNotNull(),
+            () -> assertThat(actual.size()).isEqualTo(2),
+            () -> assertThat(actual.get(0).getId()).isEqualTo(group2.getId()),
+            () -> assertThat(actual.get(0).getName()).isEqualTo(group2.getName()),
+            () -> assertThat(actual.get(0).getImageUrl()).isEqualTo(group2.getImageUrl()),
+            () -> assertThat(actual.get(0).isOffline()).isEqualTo(group2.isOffline()),
+            () -> assertThat(actual.get(0).getStartDate()).isEqualTo(group2.getStartDate()),
+            () -> assertThat(actual.get(0).getParticipantCnt()).isEqualTo(0),
+            () -> assertThat(actual.get(0).isFavoriteGroup()).isEqualTo(false),
+            () -> assertThat(actual.get(1).getId()).isEqualTo(group1.getId()),
+            () -> assertThat(actual.get(1).getName()).isEqualTo(group1.getName()),
+            () -> assertThat(actual.get(1).getImageUrl()).isEqualTo(group1.getImageUrl()),
+            () -> assertThat(actual.get(1).isOffline()).isEqualTo(group1.isOffline()),
+            () -> assertThat(actual.get(1).getStartDate()).isEqualTo(group1.getStartDate()),
+            () -> assertThat(actual.get(1).getParticipantCnt()).isEqualTo(0),
+            () -> assertThat(actual.get(1).isFavoriteGroup()).isEqualTo(false)
         );
     }
 }

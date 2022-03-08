@@ -23,16 +23,16 @@ public class GroupsController {
     private final GroupService groupService;
 
     @GetMapping("/search-v1/paging")
-    public ResponseEntity<List<GroupCardResponse>> findBySearchConditionV1(
+    public ResponseEntity<List<GroupCardResponse>> findBySearchConditionV1(@CurrentUser User user,
         @Valid @ModelAttribute GroupSearchConditionRequest request) {
-        List<GroupCardResponse> groupCardResponses = groupService.findPageBySearchConditionV1(null, request);
+        List<GroupCardResponse> groupCardResponses = groupService.findPageBySearchConditionV1(user, request);
         return ResponseEntity.ok(groupCardResponses);
     }
 
     @GetMapping("/search-v2/paging")
-    public ResponseEntity<List<GroupCardResponse>> findBySearchConditionV2(
+    public ResponseEntity<List<GroupCardResponse>> findBySearchConditionV2(@CurrentUser User user,
         @Valid @ModelAttribute GroupSearchConditionRequest request) {
-        List<GroupCardResponse> groupCardResponses = groupService.findPageBySearchConditionV2(null, request);
+        List<GroupCardResponse> groupCardResponses = groupService.findPageBySearchConditionV2(user, request);
         return ResponseEntity.ok(groupCardResponses);
     }
 

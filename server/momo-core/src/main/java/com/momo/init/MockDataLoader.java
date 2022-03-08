@@ -88,7 +88,7 @@ public class MockDataLoader implements CommandLineRunner {
 
     private void groupBatchInsert(Random random, int batchCount) {
         jdbcTemplate.batchUpdate(
-            "INSERT INTO momo.group_tb(`category`, `city`, `district`, `university`, `is_end`, `is_offline`, `name`, `recruitment_cnt`, `manager_id`, `start_date`, `created_date`, `last_modified_date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO momo.group_tb(`category`, `city`, `district`, `university`, `is_end`, `is_offline`, `name`, `introduction`, `recruitment_cnt`, `manager_id`, `start_date`, `created_date`, `last_modified_date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             new BatchPreparedStatementSetter() {
                 @Override
                 public void setValues(PreparedStatement ps, int i) throws SQLException {
@@ -99,11 +99,12 @@ public class MockDataLoader implements CommandLineRunner {
                     ps.setBoolean(5, false);
                     ps.setBoolean(6, i % 2 == 0);
                     ps.setString(7, "모임" + (BATCH_SIZE * batchCount + i + 1));
-                    ps.setInt(8, 10);
-                    ps.setLong(9, (long) BATCH_SIZE * batchCount + i + 1); //ID가 i인 유저는 ID가 i인 모임의 관리자
-                    ps.setDate(10, Date.valueOf(getRandomDate(random)));
-                    ps.setTimestamp(11, Timestamp.valueOf(LocalDateTime.now()));
+                    ps.setString(8, "모임 소개");
+                    ps.setInt(9, 10);
+                    ps.setLong(10, (long) BATCH_SIZE * batchCount + i + 1); //ID가 i인 유저는 ID가 i인 모임의 관리자
+                    ps.setDate(11, Date.valueOf(getRandomDate(random)));
                     ps.setTimestamp(12, Timestamp.valueOf(LocalDateTime.now()));
+                    ps.setTimestamp(13, Timestamp.valueOf(LocalDateTime.now()));
                 }
 
                 @Override

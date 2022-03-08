@@ -1,175 +1,218 @@
 package com.momo.init;
 
 import static com.momo.Profile.DEVELOP;
-import static com.momo.domain.district.entity.City.SEOUL;
 
-import com.momo.domain.district.entity.City;
-import com.momo.domain.group.entity.Category;
-import com.momo.domain.group.entity.Group;
-import com.momo.domain.group.repository.GroupRepository;
-import com.momo.domain.post.entity.Post;
-import com.momo.domain.post.entity.PostType;
-import com.momo.domain.post.repository.PostRepository;
-import com.momo.domain.schedule.entity.Schedule;
-import com.momo.domain.schedule.repository.ScheduleRepository;
-import com.momo.domain.user.entity.Location;
-import com.momo.domain.user.entity.LoginInfo;
-import com.momo.domain.user.entity.SocialProvider;
-import com.momo.domain.user.entity.User;
-import com.momo.domain.user.repository.UserRepository;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Profile(DEVELOP)
 @RequiredArgsConstructor
 public class MockDataLoader implements CommandLineRunner {
 
-    /**
-     * 유저 수 : 100, 모임 수 : 5만, 게시물 + 공지사항 수 : 10만, 일정 수 : 10만
-     */
-
-    private static final int NUMBER_OF_USERS = 100;
-    private static final int NUMBER_OF_GROUPS_PER_USER = 500;
-    private static final int NUMBER_OF_POSTS_PER_GROUP = 2;
-    private static final int NUMBER_OF_SCHEDULES_PER_GROUP = 2;
+    private static final int BATCH_SIZE = 100;
+    private static final int NUMBER_OF_USERS = 200_000;
+    private static final int NUMBER_OF_GROUPS = 200_000;
+    private static final int NUMBER_OF_POSTS = 200_000;
+    private static final int NUMBER_OF_SCHEDULES = 200_000;
+    private static final int NUMBER_OF_COMMENTS = 200_000;
 
     private static final List<String> UNIVERSITIES = Arrays.asList("서울대학교", "연세대학교", "고려대학교");
     private static final List<String> DISTRICTS = Arrays.asList("강남구", "서초구", "송파구");
-    private static final List<City> CITIES = List.of(SEOUL);
+    private static final List<String> CATEGORIES = Arrays.asList("HEALTH", "RICE", "SELF_DEVELOPMENT", "LIFE", "HOBBY");
+    private static final String CITY = "SEOUL";
 
-    private final UserRepository userRepository;
-    private final GroupRepository groupRepository;
-    private final PostRepository postRepository;
-    private final ScheduleRepository scheduleRepository;
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public void run(String... args) {
-        if (userRepository.count() > 0 || groupRepository.count() > 0 ||
-            postRepository.count() > 0 || scheduleRepository.count() > 0) {
-            return;
+        //insertMockData();
+    }
+
+    private void insertMockData() {
+        insertMockUsers();
+        insertMockGroups();
+        insertMockPosts();
+        insertMockSchedules();
+        insertMockComments();
+    }
+
+    private void insertMockUsers() {
+        for (int i = 0; i < NUMBER_OF_USERS / BATCH_SIZE; i++) {
+            userBatchInsert(i);
         }
-        insertTestData();
     }
 
-    @Transactional
-    public void insertTestData() {
-        List<User> users = saveUsers();
-        List<Group> groups = saveGroups(users);
-        savePosts(groups);
-        insertSchedule(groups);
-    }
+    private void userBatchInsert(int batchCount) {
+        jdbcTemplate.batchUpdate(
+            "INSERT INTO momo.user (`city`, `district`, `nickname`, `university`, `provider_id`, `created_date`, `last_modified_date`) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            new BatchPreparedStatementSetter() {
+                @Override
+                public void setValues(PreparedStatement ps, int i) throws SQLException {
+                    ps.setString(1, CITY);
+                    ps.setString(2, DISTRICTS.get(i % DISTRICTS.size()));
+                    ps.setString(3, "유저" + (BATCH_SIZE * batchCount + i + 1));
+                    ps.setString(4, UNIVERSITIES.get(i % UNIVERSITIES.size()));
+                    ps.setString(5, String.valueOf(BATCH_SIZE * batchCount + i + 1));
+                    ps.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
+                    ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+                }
 
-    public List<User> saveUsers() {
-        List<User> users = new ArrayList<>();
-        for (int count = 1; count <= NUMBER_OF_USERS; count++) {
-            Collections.shuffle(UNIVERSITIES);
-            Collections.shuffle(DISTRICTS);
-            User manager = User.builder()
-                .loginInfo(LoginInfo.createEmptyRefreshToken(SocialProvider.KAKAO, String.valueOf(count)))
-                .nickname("테스트 유저" + count)
-                .location(Location.builder()
-                    .university(UNIVERSITIES.get(0))
-                    .city(CITIES.get(0))
-                    .district(DISTRICTS.get(0))
-                    .build())
-                .build();
-            users.add(manager);
-        }
-        return userRepository.saveAll(users);
-    }
-
-    public List<Group> saveGroups(List<User> users) {
-        List<Group> groups = new ArrayList<>();
-        List<Category> categories = Stream.of(Category.values()).collect(Collectors.toList());
-
-        int groupIdx = 1;
-        for (int i = 1; i <= NUMBER_OF_USERS; i++) {
-            for (int j = 1; j <= NUMBER_OF_GROUPS_PER_USER; j++) {
-                Collections.shuffle(categories);
-                Collections.shuffle(UNIVERSITIES);
-                Collections.shuffle(DISTRICTS);
-                Group group = Group.builder()
-                    .manager(users.get(i - 1))
-                    .name("테스트 모임" + groupIdx++)
-                    .category(categories.get(0))
-                    .startDate(getRandomDate())
-                    .location(Location.builder()
-                        .university(UNIVERSITIES.get(0))
-                        .city(CITIES.get(0))
-                        .district(DISTRICTS.get(0))
-                        .build())
-                    .introduction("모임 설명")
-                    .recruitmentCnt(20)
-                    .isOffline(j % 2 == 0)
-                    .isEnd(false)
-                    .build();
-                groups.add(group);
+                @Override
+                public int getBatchSize() {
+                    return BATCH_SIZE;
+                }
             }
-        }
-        return groupRepository.saveAll(groups);
+        );
     }
 
-    public LocalDate getRandomDate() {
+    private void insertMockGroups() {
         Random random = new Random();
+        for (int i = 0; i < NUMBER_OF_GROUPS / BATCH_SIZE; i++) {
+            groupBatchInsert(random, i);
+        }
+    }
+
+    private void groupBatchInsert(Random random, int batchCount) {
+        jdbcTemplate.batchUpdate(
+            "INSERT INTO momo.group_tb(`category`, `city`, `district`, `university`, `is_end`, `is_offline`, `name`, `recruitment_cnt`, `manager_id`, `start_date`, `created_date`, `last_modified_date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            new BatchPreparedStatementSetter() {
+                @Override
+                public void setValues(PreparedStatement ps, int i) throws SQLException {
+                    ps.setString(1, CATEGORIES.get(i % CATEGORIES.size()));
+                    ps.setString(2, CITY);
+                    ps.setString(3, DISTRICTS.get(i % DISTRICTS.size()));
+                    ps.setString(4, UNIVERSITIES.get(i % UNIVERSITIES.size()));
+                    ps.setBoolean(5, false);
+                    ps.setBoolean(6, i % 2 == 0);
+                    ps.setString(7, "모임" + (BATCH_SIZE * batchCount + i + 1));
+                    ps.setInt(8, 10);
+                    ps.setLong(9, (long) BATCH_SIZE * batchCount + i + 1); //ID가 i인 유저는 ID가 i인 모임의 관리자
+                    ps.setDate(10, Date.valueOf(getRandomDate(random)));
+                    ps.setTimestamp(11, Timestamp.valueOf(LocalDateTime.now()));
+                    ps.setTimestamp(12, Timestamp.valueOf(LocalDateTime.now()));
+                }
+
+                @Override
+                public int getBatchSize() {
+                    return BATCH_SIZE;
+                }
+            }
+        );
+    }
+
+    private LocalDate getRandomDate(Random random) {
         int month = random.nextInt(11) + 1;
         int day = random.nextInt(27) + 1;
         return LocalDate.of(2021, month, day);
     }
 
-    public void savePosts(List<Group> groups) {
-        List<Post> posts = new ArrayList<>();
-        for (Group group : groups) {
-            for (int count = 1; count <= NUMBER_OF_POSTS_PER_GROUP; count++) {
-                Post post = Post.builder()
-                    .author(group.getManager())
-                    .group(group)
-                    .title(group.getName() + "의 게시물" + count)
-                    .contents("게시물 내용")
-                    .type(count % 2 == 0 ? PostType.NOTICE : PostType.NORMAL)
-                    .build();
-                posts.add(post);
-            }
+    private void insertMockPosts() {
+        for (int i = 0; i < NUMBER_OF_POSTS / BATCH_SIZE; i++) {
+            postBatchInsert(i);
         }
-        postRepository.saveAll(posts);
     }
 
-    public void insertSchedule(List<Group> groups) {
-        List<Schedule> schedules = new ArrayList<>();
-        for (Group group : groups) {
-            for (int count = 1; count <= NUMBER_OF_SCHEDULES_PER_GROUP; count++) {
-                Schedule schedule = Schedule.builder()
-                    .author(group.getManager())
-                    .group(group)
-                    .title(group.getName() + "의 일정" + count)
-                    .contents("일정 내용")
-                    .isOffline(count % 2 == 0)
-                    .startDateTime(getRandomDateTime())
-                    .build();
-                schedules.add(schedule);
+    private void postBatchInsert(int batchCount) {
+        jdbcTemplate.batchUpdate(
+            "INSERT INTO momo.post(`contents`, `title`, `type`, `author_id`, `group_id`, `created_date`, `last_modified_date`) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            new BatchPreparedStatementSetter() {
+                @Override
+                public void setValues(PreparedStatement ps, int i) throws SQLException {
+                    ps.setString(1, "게시글 내용");
+                    ps.setString(2, "게시글 제목");
+                    ps.setString(3, "NORMAL");
+                    ps.setLong(4, (long) BATCH_SIZE * batchCount + i + 1);
+                    ps.setLong(5, (long) BATCH_SIZE * batchCount + i + 1);
+                    ps.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
+                    ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+                }
+
+                @Override
+                public int getBatchSize() {
+                    return BATCH_SIZE;
+                }
             }
-        }
-        scheduleRepository.saveAll(schedules);
+        );
     }
 
-    public LocalDateTime getRandomDateTime() {
+    private void insertMockSchedules() {
         Random random = new Random();
+        for (int i = 0; i < NUMBER_OF_SCHEDULES / BATCH_SIZE; i++) {
+            scheduleBatchInsert(random, i);
+        }
+    }
+
+    private void scheduleBatchInsert(Random random, int batchCount) {
+        jdbcTemplate.batchUpdate(
+            "INSERT INTO momo.schedule(attendance_check, title, contents, is_offline, author_id, group_id, start_date_time, created_date, last_modified_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            new BatchPreparedStatementSetter() {
+                @Override
+                public void setValues(PreparedStatement ps, int i) throws SQLException {
+                    ps.setBoolean(1, false);
+                    ps.setString(2, "일정 제목");
+                    ps.setString(3, "일정 내용");
+                    ps.setBoolean(4, i % 2 == 0);
+                    ps.setLong(5, (long) BATCH_SIZE * batchCount + i + 1);
+                    ps.setLong(6, (long) BATCH_SIZE * batchCount + i + 1);
+                    ps.setTimestamp(7, Timestamp.valueOf(getRandomDateTime(random)));
+                    ps.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now()));
+                    ps.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now()));
+                }
+
+                @Override
+                public int getBatchSize() {
+                    return BATCH_SIZE;
+                }
+            }
+        );
+    }
+
+    private LocalDateTime getRandomDateTime(Random random) {
         int month = random.nextInt(11) + 1;
         int day = random.nextInt(27) + 1;
         int hour = random.nextInt(23);
         int minute = random.nextInt(60);
         return LocalDateTime.of(2021, month, day, hour, minute);
+    }
+
+    private void insertMockComments() {
+        for (int i = 0; i < NUMBER_OF_COMMENTS / BATCH_SIZE; i++) {
+            commentBatchInsert(i);
+        }
+    }
+
+    private void commentBatchInsert(int batchCount) {
+        jdbcTemplate.batchUpdate(
+            "INSERT INTO momo.comment(contents, post_id, user_id, created_date, last_modified_date) VALUES (?, ?, ?, ?, ?)",
+            new BatchPreparedStatementSetter() {
+                @Override
+                public void setValues(PreparedStatement ps, int i) throws SQLException {
+                    ps.setString(1, "댓글 내용");
+                    ps.setLong(2, (long) BATCH_SIZE * batchCount + i + 1);
+                    ps.setLong(3, (long) BATCH_SIZE * batchCount + i + 1);
+                    ps.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
+                    ps.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
+                }
+
+                @Override
+                public int getBatchSize() {
+                    return BATCH_SIZE;
+                }
+            }
+        );
     }
 }

@@ -14,18 +14,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/district")
 @RequiredArgsConstructor
 public class DistrictController {
 
     private final DistrictRepository districtRepository;
 
-    @GetMapping("/district/cities")
+    @GetMapping("/cities")
     public ResponseEntity<List<EnumResponse>> findCities() {
         return ResponseEntity.ok(EnumResponse.listOfCity());
     }
 
-    @GetMapping("/district/districts")
+    @GetMapping("/districts")
     public ResponseEntity<List<DistrictResponse>> findDistrictsByCity(@RequestParam String cityCode) {
         List<District> districts = districtRepository.findAllByCity(City.fromCode(cityCode));
         return ResponseEntity.ok(DistrictResponse.listOf(districts));

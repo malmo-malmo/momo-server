@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class MockDataLoader implements CommandLineRunner {
 
-    private static final int BATCH_SIZE = 100;
+    private static final int BATCH_SIZE = 500;
     private static final int NUMBER_OF_USERS = 200_000;
     private static final int NUMBER_OF_GROUPS = 200_000;
     private static final int NUMBER_OF_POSTS = 200_000;
@@ -48,6 +48,7 @@ public class MockDataLoader implements CommandLineRunner {
         insertMockPosts();
         insertMockSchedules();
         insertMockComments();
+        insertMockParticipants();
     }
 
     private void insertMockUsers() {
@@ -207,6 +208,32 @@ public class MockDataLoader implements CommandLineRunner {
                     ps.setLong(3, (long) BATCH_SIZE * batchCount + i + 1);
                     ps.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
                     ps.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
+                }
+
+                @Override
+                public int getBatchSize() {
+                    return BATCH_SIZE;
+                }
+            }
+        );
+    }
+
+    private void insertMockParticipants() {
+        for (int i = 0; i < NUMBER_OF_GROUPS / BATCH_SIZE; i++) {
+            participantBatchInsert(i);
+        }
+    }
+
+    private void participantBatchInsert(int batchCount) {
+        jdbcTemplate.batchUpdate(
+            "INSERT INTO momo.participant(group_id, user_id, created_date, last_modified_date) VALUES (?, ?, ?, ?)",
+            new BatchPreparedStatementSetter() {
+                @Override
+                public void setValues(PreparedStatement ps, int i) throws SQLException {
+                    ps.setLong(1, (long) BATCH_SIZE * batchCount + i + 1);
+                    ps.setLong(2, (long) BATCH_SIZE * batchCount + i + 1);
+                    ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+                    ps.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
                 }
 
                 @Override

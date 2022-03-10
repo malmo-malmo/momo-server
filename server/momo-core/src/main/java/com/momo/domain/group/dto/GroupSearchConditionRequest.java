@@ -3,7 +3,9 @@ package com.momo.domain.group.dto;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
 import java.util.List;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,8 +14,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GroupSearchConditionRequest {
 
+    private String groupName;
+
+    @Size(min = 1, message = "지역은 한 개 이상 선택해야 합니다.")
     private List<City> cities;
 
+    @Size(min = 1, message = "모임 카테고리는 한 개 이상 선택해야 합니다.")
     private List<Category> categories;
 
     @NotNull(message = "페이지 번호는 필수값입니다.")
@@ -23,7 +29,9 @@ public class GroupSearchConditionRequest {
     private Integer size;
 
     @Builder
-    public GroupSearchConditionRequest(List<City> cities, List<Category> categories, int page, int size) {
+    public GroupSearchConditionRequest(String groupName, List<City> cities, List<Category> categories, int page,
+        int size) {
+        this.groupName = groupName;
         this.cities = cities;
         this.categories = categories;
         this.page = page;

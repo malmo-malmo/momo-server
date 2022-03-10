@@ -1,5 +1,6 @@
 package com.momo.common;
 
+import com.momo.common.annotations.CustomDataJpaTest;
 import com.momo.domain.common.util.BeanUtil;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import javax.persistence.EntityManager;
@@ -7,18 +8,13 @@ import javax.persistence.PersistenceContext;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Disabled;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @Disabled
-@DataJpaTest
-@EnableJpaAuditing
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@CustomDataJpaTest
 @Import({TestConfig.class, DatabaseCleaner.class, BeanUtil.class})
 public class RepositoryTest {
 

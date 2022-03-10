@@ -4,26 +4,27 @@ import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.dto.GroupSearchConditionRequest;
-import com.momo.domain.group.entity.Group;
 import com.momo.domain.user.entity.User;
 import java.io.IOException;
 import java.util.List;
 
 public interface GroupService {
 
-    GroupResponse create(User user, GroupCreateRequest groupCreateRequest) throws IOException;
+    GroupResponse create(User loginUser, GroupCreateRequest groupCreateRequest) throws IOException;
 
-    GroupResponse findById(User user, Long groupId);
+    GroupResponse findById(User loginUser, Long groupId);
 
-    List<GroupCardResponse> findPageBySearchCondition(User user, GroupSearchConditionRequest request);
+    List<GroupCardResponse> findPageBySearchConditionV1(User loginUser, GroupSearchConditionRequest request);
 
-    List<GroupCardResponse> findPageByUserUniversity(User user, int page, int size);
+    List<GroupCardResponse> findPageBySearchConditionV2(User loginUser, GroupSearchConditionRequest request);
 
-    List<GroupCardResponse> findPageByUserDistrict(User user, int page, int size);
+    List<GroupCardResponse> findPageByUserUniversity(User loginUser, int page, int size);
 
-    List<GroupCardResponse> findPageByUserCategories(User user, int page, int size);
+    List<GroupCardResponse> findPageByUserDistrict(User loginUser, int page, int size);
 
-    void updateManagerByUserId(User user, Long groupId, Long userId);
+    List<GroupCardResponse> findPageByUserCategories(User loginUser, int page, int size);
 
-    void endGroupById(User user, Long groupId);
+    void updateManagerByUserId(User loginUser, Long groupId, Long userId);
+
+    void endGroupById(User loginUser, Long groupId);
 }

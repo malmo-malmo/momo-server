@@ -41,6 +41,7 @@ public class FixtureComponents {
     public static final Category CATEGORY = HEALTH;
     public static final SocialProvider PROVIDER = KAKAO;
     public static final List<Category> CATEGORIES = List.of(HEALTH, SELF_DEVELOPMENT);
+    public static final List<City> CITIES = List.of(SEOUL);
 
     public static final LocalDate DATE = LocalDate.of(2022, 1, 1);
     public static final LocalDateTime DATE_TIME = LocalDateTime.of(2022, 1, 1, 0, 0);

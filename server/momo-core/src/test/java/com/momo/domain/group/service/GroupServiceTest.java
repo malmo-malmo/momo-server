@@ -1,7 +1,9 @@
 package com.momo.domain.group.service;
 
+import static com.momo.GroupFixture.getGroupCardResponse;
 import static com.momo.GroupFixture.getGroupCreateRequest;
 import static com.momo.GroupFixture.getGroupResponse;
+import static com.momo.GroupFixture.getGroupSearchConditionRequest;
 import static com.momo.GroupFixture.getGroupWithId;
 import static com.momo.UserFixture.getUserWithId;
 import static com.momo.domain.group.entity.Category.EMPLOYMENT;
@@ -17,16 +19,20 @@ import com.momo.common.ServiceTest;
 import com.momo.domain.aws.service.S3UploadService;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
+import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.group.dto.GroupResponse;
+import com.momo.domain.group.dto.GroupSearchConditionRequest;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
 import com.momo.domain.group.repository.GroupRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
+import com.momo.domain.group.search.GroupSearchEngine;
 import com.momo.domain.group.service.impl.GroupServiceImpl;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
 import java.io.IOException;
+import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -38,6 +44,9 @@ public class GroupServiceTest extends ServiceTest {
 
     @Mock
     private GroupRepository groupRepository;
+
+    @Mock
+    private GroupSearchEngine groupSearchEngine;
 
     @Mock
     private ParticipantRepository participantRepository;
@@ -57,7 +66,9 @@ public class GroupServiceTest extends ServiceTest {
     void setUp() {
         manager = getUserWithId();
         participant = getUserWithId();
-        groupService = new GroupServiceImpl(groupRepository, participantRepository, userRepository, s3UploadService);
+        groupService = new GroupServiceImpl(
+            groupRepository, groupSearchEngine, participantRepository, userRepository, s3UploadService
+        );
     }
 
     @Test
@@ -141,5 +152,33 @@ public class GroupServiceTest extends ServiceTest {
         assertThatThrownBy(() -> groupService.endGroupById(participant, 1L))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_MANAGER_AUTHORIZED.getMessage());
+    }
+
+    @Test
+    void 모임_검색_테스트_성공_검색_키워드_O() {
+        GroupSearchConditionRequest request = getGroupSearchConditionRequest("키워드");
+        GroupCardResponse response = getGroupCardResponse();
+
+        given(groupSearchEngine.searchByNameLikeAndCitiesAndCategories(any(), any(), any(), any(), any()))
+            .willReturn(List.of(response));
+
+        List<GroupCardResponse> expected = groupService.findPageBySearchConditionV2(manager, request);
+
+        verify(groupSearchEngine).searchByNameLikeAndCitiesAndCategories(any(), any(), any(), any(), any());
+        assertThat(expected.size()).isEqualTo(1);
+    }
+
+    @Test
+    void 모임_검색_테스트_성공_검색_키워드_X() {
+        GroupSearchConditionRequest request = getGroupSearchConditionRequest(null);
+        GroupCardResponse response = getGroupCardResponse();
+
+        given(groupRepository.findAllByCitiesAndCategoriesOrderByCreatedDateDesc(any(), any(), any(), any()))
+            .willReturn(List.of(response));
+
+        List<GroupCardResponse> expected = groupService.findPageBySearchConditionV2(manager, request);
+
+        verify(groupRepository).findAllByCitiesAndCategoriesOrderByCreatedDateDesc(any(), any(), any(), any());
+        assertThat(expected.size()).isEqualTo(1);
     }
 }

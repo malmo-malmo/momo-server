@@ -82,10 +82,11 @@ public class GroupDocumentation {
         );
     }
 
-    public static RestDocumentationResultHandler findPageBySearchCondition() {
+    public static RestDocumentationResultHandler findPageBySearchConditionV1() {
         ParameterDescriptor[] requestSearch = new ParameterDescriptor[]{
-            parameterWithName("cities").description("도시 이름 목록").optional(),
-            parameterWithName("categories").description("카테고리 목록").optional(),
+            parameterWithName("groupName").description("모임 이름(키워드)").optional(),
+            parameterWithName("cities").description("도시 이름 목록"),
+            parameterWithName("categories").description("카테고리 목록"),
             parameterWithName("page").description("페이지 번호"),
             parameterWithName("size").description("페이지 사이즈")
         };
@@ -99,7 +100,31 @@ public class GroupDocumentation {
             fieldWithPath("[].favoriteGroup").type(JsonFieldType.BOOLEAN).description("관심 모임 여부")
         };
 
-        return document("group/findPageBySearchCondition",
+        return document("group/findPageBySearchConditionV1",
+            requestParameters(requestSearch),
+            responseFields(responseGroup)
+        );
+    }
+
+    public static RestDocumentationResultHandler findPageBySearchConditionV2() {
+        ParameterDescriptor[] requestSearch = new ParameterDescriptor[]{
+            parameterWithName("groupName").description("모임 이름(키워드)").optional(),
+            parameterWithName("cities").description("도시 이름 목록"),
+            parameterWithName("categories").description("카테고리 목록"),
+            parameterWithName("page").description("페이지 번호"),
+            parameterWithName("size").description("페이지 사이즈")
+        };
+        FieldDescriptor[] responseGroup = new FieldDescriptor[]{
+            fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("모임 ID"),
+            fieldWithPath("[].name").type(JsonFieldType.STRING).description("모임 이름"),
+            fieldWithPath("[].imageUrl").type(JsonFieldType.STRING).description("모임 이미지 URL"),
+            fieldWithPath("[].startDate").type(JsonFieldType.STRING).description("모임 시작일자"),
+            fieldWithPath("[].offline").type(JsonFieldType.BOOLEAN).description("모임 온/오프라인 여부"),
+            fieldWithPath("[].participantCnt").type(JsonFieldType.NUMBER).description("모임 참여자 수"),
+            fieldWithPath("[].favoriteGroup").type(JsonFieldType.BOOLEAN).description("관심 모임 여부")
+        };
+
+        return document("group/findPageBySearchConditionV2",
             requestParameters(requestSearch),
             responseFields(responseGroup)
         );

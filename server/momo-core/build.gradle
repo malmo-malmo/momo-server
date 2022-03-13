@@ -37,6 +37,7 @@ dependencies {
     implementation 'com.google.guava:guava:31.0.1-jre'
 
     //db
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.6.3'
     runtimeOnly 'mysql:mysql-connector-java'
     runtimeOnly 'com.h2database:h2'
 

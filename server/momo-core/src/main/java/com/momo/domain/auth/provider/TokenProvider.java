@@ -2,7 +2,6 @@ package com.momo.domain.auth.provider;
 
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.user.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -18,6 +17,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TokenProvider {
 
+    public static final int REFRESH_TOKEN_RENEWAL_HOUR = 24;
+
     @Value("${app.auth.access-token-secret-key}")
     private String accessTokenSecretKey;
 
@@ -30,37 +31,24 @@ public class TokenProvider {
     @Value("${app.auth.refresh-token-expiration-msec}")
     private long refreshTokenExpirationMsec;
 
-    public String createAccessToken(User user) {
+    public String createAccessToken(Long userId) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + accessTokenExpirationMsec);
 
         return Jwts.builder()
-            .setSubject(user.getId().toString())
+            .setSubject(userId.toString())
             .setIssuedAt(new Date())
             .setExpiration(expiryDate)
             .signWith(SignatureAlgorithm.HS512, accessTokenSecretKey)
             .compact();
     }
 
-    public String createRefreshToken(User user) {
+    public String createRefreshToken(Long userId) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + refreshTokenExpirationMsec);
 
         return Jwts.builder()
-            .setSubject(user.getId().toString())
-            .setIssuedAt(new Date())
-            .setExpiration(expiryDate)
-            .signWith(SignatureAlgorithm.HS512, refreshTokenSecretKey)
-            .compact();
-    }
-
-    //테스트용 리프레쉬 토큰 생성
-    public String createRefreshTokenForTest(User user, long expirationMsec) {
-        Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + expirationMsec);
-
-        return Jwts.builder()
-            .setSubject(user.getId().toString())
+            .setSubject(userId.toString())
             .setIssuedAt(new Date())
             .setExpiration(expiryDate)
             .signWith(SignatureAlgorithm.HS512, refreshTokenSecretKey)
@@ -92,10 +80,10 @@ public class TokenProvider {
         }
     }
 
-    public long getRefreshTokenExpHourInterval(String refreshToken) {
+    public boolean isOverRefreshTokenRenewalHour(String refreshToken) {
         Claims claims = Jwts.parser().setSigningKey(refreshTokenSecretKey).parseClaimsJws(refreshToken).getBody();
         long exp = claims.getExpiration().getTime();
         long now = new Date().getTime();
-        return (exp - now) / 3600000;
+        return (exp - now) / 3600000 >= REFRESH_TOKEN_RENEWAL_HOUR;
     }
 }

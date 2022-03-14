@@ -1,14 +1,21 @@
 spring:
   datasource:
-    url: ENC(wxBSgwhIQGOmPvGK0VTq1F8KoU8Z1PLaUTqqyWUINjBFuhiczLRTz4Gh04Cvd28WTCiJqmzTduF4t3XOP/2CUuqab8n3KGmPiB1PZv2tVag=)
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ENC(JHat/IHS14dV227paeRKOA==)
-    password: ENC(sZa3mxjW7sWotQxu+dw8T3m7oaqFufQ2)
+    url: ENC(YKbUmlpcg79I/gVDqyq7zIvXUk6x3Rv/gvfc4SNEUXWXtFh4WtO4tNHBkyppAfJSPi6vZg1v+fOiE/+kb4N/RE+mODm1Wkcl)
+    username: ENC(ubjfUKNtnllAJV/VZzzXz52Ds1NosP4y)
+    password: ENC(sGhQSsuBKB7Wty8/CRu2Oiv0VWNRVvt8)
+    slave:
+      slave1:
+        name: slave-1
+        url: ENC(5yIxAka7cDkoYwO2eYbOJrnOsA3di6/1ks3jC5OSkdW8hcZDvr743cX2rG7m/wmKIOknITNLZlEXSQSRQuInBrfuBGJpI89T)
   jpa:
     show-sql: false
     hibernate:
       ddl-auto: none
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate:
+        physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
 logging:
   slack:
     info-webhook-uri: ENC(IB1f1zikx4TT2VU7zN3NvxK9t4hCbvF8rdqpDsF5Ipbfbh2MHJ48b0Rr1/p6PhPnNU5drZgyOPmF3o/zV0lDxLYd4sDnGFigMg0zikgy2WVcP9xAPL/n6HpLIVCeUm47)
@@ -18,3 +25,4 @@ logging:
   bot-name: 모모 로그 알리미
   save-path: ./logs
   file-name: momo-dev
+

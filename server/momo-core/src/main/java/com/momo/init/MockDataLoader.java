@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import lombok.RequiredArgsConstructor;
+import javax.sql.DataSource;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -20,7 +20,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Profile(DEVELOP)
-@RequiredArgsConstructor
 public class MockDataLoader implements CommandLineRunner {
 
     private static final int BATCH_SIZE = 500;
@@ -32,14 +31,20 @@ public class MockDataLoader implements CommandLineRunner {
 
     private static final List<String> UNIVERSITIES = Arrays.asList("서울대학교", "연세대학교", "고려대학교");
     private static final List<String> DISTRICTS = Arrays.asList("강남구", "서초구", "송파구");
-    private static final List<String> CATEGORIES = Arrays.asList("HEALTH", "RICE", "SELF_DEVELOPMENT", "LIFE", "HOBBY");
+    private static final List<String> CATEGORIES = Arrays.asList("HEALTH", "RICE",
+        "SELF_DEVELOPMENT", "LIFE", "HOBBY");
     private static final String CITY = "SEOUL";
 
     private final JdbcTemplate jdbcTemplate;
 
+    public MockDataLoader(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
     @Override
     public void run(String... args) {
         //insertMockData();
+        new JdbcTemplate();
     }
 
     private void insertMockData() {
@@ -102,7 +107,8 @@ public class MockDataLoader implements CommandLineRunner {
                     ps.setString(7, "모임" + (BATCH_SIZE * batchCount + i + 1));
                     ps.setString(8, "모임 소개");
                     ps.setInt(9, 10);
-                    ps.setLong(10, (long) BATCH_SIZE * batchCount + i + 1); //ID가 i인 유저는 ID가 i인 모임의 관리자
+                    ps.setLong(10,
+                        (long) BATCH_SIZE * batchCount + i + 1); //ID가 i인 유저는 ID가 i인 모임의 관리자
                     ps.setDate(11, Date.valueOf(getRandomDate(random)));
                     ps.setTimestamp(12, Timestamp.valueOf(LocalDateTime.now()));
                     ps.setTimestamp(13, Timestamp.valueOf(LocalDateTime.now()));

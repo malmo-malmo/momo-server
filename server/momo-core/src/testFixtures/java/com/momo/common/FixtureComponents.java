@@ -33,6 +33,7 @@ public class FixtureComponents {
     public static final String IMAGE_URL = "이미지 URL";
     public static final String INTRODUCTION = "소개";
     public static final String REFRESH_TOKEN = "리프레시 토큰";
+    public static final String DEVICE_CODE = "기기 고유번호";
 
     public static final Boolean IS_OFFLINE = false;
     public static final boolean IS_END = false;

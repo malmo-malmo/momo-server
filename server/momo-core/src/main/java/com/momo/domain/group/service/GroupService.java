@@ -18,11 +18,11 @@ public interface GroupService {
 
     List<GroupCardResponse> findPageBySearchConditionV2(User loginUser, GroupSearchConditionRequest request);
 
-    List<GroupCardResponse> findPageByUserUniversity(User loginUser, int page, int size);
+    List<GroupCardResponse> findPageByUserUniversity(User loginUser, Long lastGroupId, int size);
 
-    List<GroupCardResponse> findPageByUserDistrict(User loginUser, int page, int size);
+    List<GroupCardResponse> findPageByUserDistrict(User loginUser, Long lastGroupId, int size);
 
-    List<GroupCardResponse> findPageByUserCategories(User loginUser, int page, int size);
+    List<GroupCardResponse> findPageByUserCategories(User loginUser, Long lastGroupId, int size);
 
     void updateManagerByUserId(User loginUser, Long groupId, Long userId);
 

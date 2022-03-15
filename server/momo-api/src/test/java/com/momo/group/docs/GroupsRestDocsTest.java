@@ -3,6 +3,7 @@ package com.momo.group.docs;
 import static com.momo.GroupFixture.getGroupCardResponse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -68,11 +69,11 @@ public class GroupsRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 모임_목록_조회_내학교더보기() throws Exception {
-        when(groupService.findPageByUserUniversity(any(), anyInt(), anyInt()))
+        when(groupService.findPageByUserUniversity(any(), anyLong(), anyInt()))
             .thenReturn(List.of(getGroupCardResponse()));
 
         super.mockMvc.perform(get("/api/groups/user-university/paging")
-                .param("page", String.valueOf(1))
+                .param("lastGroupId", String.valueOf(1))
                 .param("size", String.valueOf(10)))
             .andDo(print())
             .andExpect(status().isOk())
@@ -81,11 +82,11 @@ public class GroupsRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 모임_목록_조회_주변더보기() throws Exception {
-        when(groupService.findPageByUserDistrict(any(), anyInt(), anyInt()))
+        when(groupService.findPageByUserDistrict(any(), anyLong(), anyInt()))
             .thenReturn(List.of(getGroupCardResponse()));
 
         super.mockMvc.perform(get("/api/groups/user-district/paging")
-                .param("page", String.valueOf(1))
+                .param("lastGroupId", String.valueOf(1))
                 .param("size", String.valueOf(10)))
             .andDo(print())
             .andExpect(status().isOk())
@@ -94,11 +95,11 @@ public class GroupsRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 모임_목록_조회_추천더보기() throws Exception {
-        when(groupService.findPageByUserCategories(any(), anyInt(), anyInt()))
+        when(groupService.findPageByUserCategories(any(), anyLong(), anyInt()))
             .thenReturn(List.of(getGroupCardResponse()));
 
         super.mockMvc.perform(get("/api/groups/user-categories/paging")
-                .param("page", String.valueOf(1))
+                .param("lastGroupId", String.valueOf(1))
                 .param("size", String.valueOf(10)))
             .andDo(print())
             .andExpect(status().isOk())

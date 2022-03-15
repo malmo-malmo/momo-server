@@ -3,13 +3,15 @@ package com.momo.domain.group.repository;
 import static com.momo.GroupFixture.getGroup;
 import static com.momo.GroupFixture.getGroupSearchConditionRequest;
 import static com.momo.UserFixture.getUser;
+import static com.momo.domain.group.entity.Category.HEALTH;
+import static com.momo.domain.group.entity.Category.STOCK;
+import static java.util.List.of;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.dto.GroupSearchConditionRequest;
-import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.user.entity.User;
 import java.math.BigDecimal;
@@ -99,7 +101,19 @@ public class GroupRepositoryTest extends RepositoryTest {
     @Test
     void 학교로_모임_목록을_조회한다() {
         List<GroupCardResponse> actual = groupRepository
-            .findAllByUniversityOrderByCreatedDateDesc(user, user.getLocation().getUniversity(), PageRequest.of(0, 10));
+            .findByUniversityOrderByIdDesc(user, user.getLocation().getUniversity(), group2.getId(), 10);
+
+        Assertions.assertAll(
+            () -> assertThat(actual).isNotNull(),
+            () -> assertThat(actual.size()).isEqualTo(1),
+            () -> assertThat(actual.get(0).getId()).isEqualTo(group1.getId())
+        );
+    }
+
+    @Test
+    void 학교로_모임_목록을_조회한다_마지막_모임_ID가_없는_경우() {
+        List<GroupCardResponse> actual = groupRepository
+            .findByUniversityOrderByIdDesc(user, user.getLocation().getUniversity(), null, 10);
 
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
@@ -110,7 +124,19 @@ public class GroupRepositoryTest extends RepositoryTest {
     @Test
     void 구역으로_모임_목록을_조회한다() {
         List<GroupCardResponse> actual = groupRepository
-            .findAllByDistrictOrderByCreatedDateDesc(user, group1.getLocation().getDistrict(), PageRequest.of(0, 10));
+            .findByDistrictOrderByIdDesc(user, group1.getLocation().getDistrict(), group2.getId(), 10);
+
+        Assertions.assertAll(
+            () -> assertThat(actual).isNotNull(),
+            () -> assertThat(actual.size()).isEqualTo(1),
+            () -> assertThat(actual.get(0).getId()).isEqualTo(group1.getId())
+        );
+    }
+
+    @Test
+    void 구역으로_모임_목록을_조회한다_마지막_모임_ID가_없는_경우() {
+        List<GroupCardResponse> actual = groupRepository
+            .findByDistrictOrderByIdDesc(user, group1.getLocation().getDistrict(), null, 10);
 
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
@@ -121,7 +147,19 @@ public class GroupRepositoryTest extends RepositoryTest {
     @Test
     void 카테고리_목록으로_모임_목록을_조회한다() {
         List<GroupCardResponse> actual = groupRepository
-            .findAllByCategoriesOrderByCreatedDateDesc(user, List.of(Category.HEALTH), PageRequest.of(0, 10));
+            .findByCategoriesOrderByIdDesc(user, of(HEALTH, STOCK), group2.getId(), 10);
+
+        Assertions.assertAll(
+            () -> assertThat(actual).isNotNull(),
+            () -> assertThat(actual.size()).isEqualTo(1),
+            () -> assertThat(actual.get(0).getId()).isEqualTo(group1.getId())
+        );
+    }
+
+    @Test
+    void 카테고리_목록으로_모임_목록을_조회한다_마지막_모임_ID가_없는_경우() {
+        List<GroupCardResponse> actual = groupRepository
+            .findByCategoriesOrderByIdDesc(user, of(HEALTH, STOCK), null, 10);
 
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
@@ -135,9 +173,7 @@ public class GroupRepositoryTest extends RepositoryTest {
 
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
-            () -> assertThat(actual.size()).isEqualTo(2),
-            () -> assertThat(actual.get(0).getId()).isEqualTo(group1.getId()),
-            () -> assertThat(actual.get(1).getId()).isEqualTo(group2.getId())
+            () -> assertThat(actual.size()).isEqualTo(2)
         );
     }
 

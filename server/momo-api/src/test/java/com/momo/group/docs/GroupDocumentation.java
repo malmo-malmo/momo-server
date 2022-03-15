@@ -113,7 +113,7 @@ public class GroupDocumentation {
 
     public static RestDocumentationResultHandler findPageByUserUniversity() {
         ParameterDescriptor[] requestSearch = new ParameterDescriptor[]{
-            parameterWithName("page").description("페이지 번호"),
+            parameterWithName("lastGroupId").description("페이지의 마지막 모임 ID(첫 페이지 null)").optional(),
             parameterWithName("size").description("페이지 사이즈")
         };
         FieldDescriptor[] responseGroup = new FieldDescriptor[]{
@@ -133,7 +133,7 @@ public class GroupDocumentation {
 
     public static RestDocumentationResultHandler findPageByUserLocation() {
         ParameterDescriptor[] requestSearch = new ParameterDescriptor[]{
-            parameterWithName("page").description("페이지 번호"),
+            parameterWithName("lastGroupId").description("페이지의 마지막 모임 ID(첫 페이지 null)").optional(),
             parameterWithName("size").description("페이지 사이즈")
         };
         FieldDescriptor[] responseGroup = new FieldDescriptor[]{
@@ -153,7 +153,7 @@ public class GroupDocumentation {
 
     public static RestDocumentationResultHandler findPageByUserCategories() {
         ParameterDescriptor[] requestSearch = new ParameterDescriptor[]{
-            parameterWithName("page").description("페이지 번호"),
+            parameterWithName("lastGroupId").description("페이지의 마지막 모임 ID(첫 페이지 null)").optional(),
             parameterWithName("size").description("페이지 사이즈")
         };
         FieldDescriptor[] responseGroup = new FieldDescriptor[]{

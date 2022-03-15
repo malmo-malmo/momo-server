@@ -24,11 +24,15 @@ public interface GroupRepositoryCustom {
         User loginUser, List<City> cities, List<Category> categories, Pageable pageable
     );
 
-    List<GroupCardResponse> findAllByUniversityOrderByCreatedDateDesc(User loginUser, String university,
-        Pageable pageable);
+    List<GroupCardResponse> findByUniversityOrderByIdDesc(
+        User loginUser, String university, Long lastGroupId, int size
+    );
 
-    List<GroupCardResponse> findAllByDistrictOrderByCreatedDateDesc(User loginUser, String district, Pageable pageable);
+    List<GroupCardResponse> findByDistrictOrderByIdDesc(
+        User loginUser, String district, Long lastGroupId, int size
+    );
 
-    List<GroupCardResponse> findAllByCategoriesOrderByCreatedDateDesc(User loginUser, List<Category> categories,
-        Pageable pageable);
+    List<GroupCardResponse> findByCategoriesOrderByIdDesc(
+        User loginUser, List<Category> categories, Long lastGroupId, int size
+    );
 }

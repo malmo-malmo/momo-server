@@ -77,24 +77,23 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Transactional(readOnly = true)
-    public List<GroupCardResponse> findPageByUserUniversity(User loginUser, int page, int size) {
-        return groupRepository.findAllByUniversityOrderByCreatedDateDesc(
-            loginUser, loginUser.getLocation().getUniversity(), of(page, size)
+    public List<GroupCardResponse> findPageByUserUniversity(User loginUser, Long lastGroupId, int size) {
+        return groupRepository.findByUniversityOrderByIdDesc(
+            loginUser, loginUser.getLocation().getUniversity(), lastGroupId, size
         );
     }
 
     @Transactional(readOnly = true)
-    public List<GroupCardResponse> findPageByUserDistrict(User loginUser, int page, int size) {
-        return groupRepository
-            .findAllByDistrictOrderByCreatedDateDesc(loginUser, loginUser.getLocation().getDistrict(), of(page, size));
+    public List<GroupCardResponse> findPageByUserDistrict(User loginUser, Long lastGroupId, int size) {
+        return groupRepository.findByDistrictOrderByIdDesc(
+            loginUser, loginUser.getLocation().getDistrict(), lastGroupId, size
+        );
     }
 
     @Transactional(readOnly = true)
-    public List<GroupCardResponse> findPageByUserCategories(User loginUser, int page, int size) {
-        return groupRepository.findAllByCategoriesOrderByCreatedDateDesc(
-            loginUser,
-            loginUser.getFavoriteCategories().toCategories(),
-            of(page, size)
+    public List<GroupCardResponse> findPageByUserCategories(User loginUser, Long lastGroupId, int size) {
+        return groupRepository.findByCategoriesOrderByIdDesc(
+            loginUser, loginUser.getFavoriteCategories().toCategories(), lastGroupId, size
         );
     }
 

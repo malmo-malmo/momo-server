@@ -39,6 +39,10 @@ dependencies {
     //db
     runtimeOnly 'mysql:mysql-connector-java'
     runtimeOnly 'com.h2database:h2'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.6.3'
+    implementation ('it.ozimov:embedded-redis:0.7.3') {
+        exclude group: 'org.slf4j', module: 'slf4j-simple'
+    }
 
     //auth
     implementation 'io.jsonwebtoken:jjwt:0.5.1'

@@ -1,5 +1,7 @@
 package com.momo.common.annotations;
 
+import static com.momo.Profile.TEST;
+
 import com.momo.domain.achievementrate.repository.GroupAchievementRateRepository;
 import com.momo.domain.achievementrate.repository.ParticipantAchievementRateRepository;
 import com.momo.domain.district.repository.DistrictRepository;
@@ -20,11 +22,13 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.test.context.ActiveProfiles;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @DataJpaTest
 @EnableJpaAuditing
+@ActiveProfiles(TEST)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @EnableJpaRepositories(basePackageClasses = {
     UserRepository.class, AttendanceRepository.class, ScheduleRepository.class, PostRepository.class,

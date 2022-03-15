@@ -1,13 +1,13 @@
 package com.momo.domain.auth.service;
 
-import static com.momo.domain.user.entity.User.REFRESH_TOKEN_RENEWAL_TIME;
-
 import com.momo.domain.auth.dto.OAuthLoginRequest;
 import com.momo.domain.auth.dto.OAuthLoginResponse;
 import com.momo.domain.auth.dto.RefreshLoginRequest;
+import com.momo.domain.auth.entity.AccessTokenReissuance;
 import com.momo.domain.auth.provider.OAuthProvider;
 import com.momo.domain.auth.provider.OAuthProviderFactory;
 import com.momo.domain.auth.provider.TokenProvider;
+import com.momo.domain.auth.repository.AccessTokenReissuanceRepository;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.user.entity.User;
@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class OAuthService {
 
     private final UserRepository userRepository;
+    private final AccessTokenReissuanceRepository accessTokenReissuanceRepository;
     private final OAuthProviderFactory oAuthProviderFactory;
     private final TokenProvider tokenProvider;
 
@@ -30,16 +31,18 @@ public class OAuthService {
         User OAuthUser = oAuthProvider.requestOAuthLogin(oAuthLoginRequest.getAuthorizationCode());
         User loginUser = getUserByOAuthUser(OAuthUser);
 
-        String refreshToken = tokenProvider.createRefreshToken(loginUser);
-        loginUser.getLoginInfo().updateAuthInfo(refreshToken, oAuthLoginRequest.getDeviceCode());
+        String refreshToken = tokenProvider.createRefreshToken(loginUser.getId());
+        String accessToken = tokenProvider.createAccessToken(loginUser.getId());
 
-        return new OAuthLoginResponse(tokenProvider.createAccessToken(loginUser), refreshToken);
+        saveAccessTokenReissuance(refreshToken, loginUser.getId(), oAuthLoginRequest.getDeviceCode());
+
+        return new OAuthLoginResponse(accessToken, refreshToken);
     }
 
-    public User getUserByOAuthUser(User OAuthUser) {
-        return userRepository.findByLoginInfoProviderIdAndLoginInfoProvider(
-            OAuthUser.getLoginInfo().getProviderId(),
-            OAuthUser.getLoginInfo().getProvider()
+    private User getUserByOAuthUser(User OAuthUser) {
+        return userRepository.findBySocialLoginProviderIdAndSocialLoginProvider(
+            OAuthUser.getSocialLogin().getProviderId(),
+            OAuthUser.getSocialLogin().getProvider()
         ).orElseGet(() -> userRepository.save(OAuthUser));
     }
 
@@ -53,31 +56,38 @@ public class OAuthService {
 
     public OAuthLoginResponse refreshLogin(RefreshLoginRequest request) {
         tokenProvider.validateRefreshToken(request.getRefreshToken());
-        User loginUser = getUserByRefreshToken(request.getRefreshToken());
-        validateDeviceCode(loginUser, request.getDeviceCode());
-        validateRefreshTokenRenewalTime(loginUser, request.getRefreshToken());
 
-        return new OAuthLoginResponse(
-            tokenProvider.createAccessToken(loginUser), loginUser.getLoginInfo().getRefreshToken()
-        );
+        AccessTokenReissuance reissuance = getAccessTokenReissuanceByRefreshToken(request.getRefreshToken());
+        String accessToken = tokenProvider.createAccessToken(reissuance.getUserId());
+        String refreshToken = reissuance.getRefreshToken();
+
+        validateDeviceCode(reissuance, request.getDeviceCode());
+
+        if (tokenProvider.isOverRefreshTokenRenewalHour(refreshToken)) {
+            return new OAuthLoginResponse(accessToken, refreshToken);
+        }
+
+        refreshToken = tokenProvider.createRefreshToken(reissuance.getUserId());
+        accessTokenReissuanceRepository.delete(reissuance);
+        saveAccessTokenReissuance(refreshToken, reissuance.getUserId(), reissuance.getDeviceCode());
+
+        return new OAuthLoginResponse(accessToken, refreshToken);
     }
 
-    private User getUserByRefreshToken(String refreshToken) {
-        return userRepository.findByLoginInfoRefreshToken(refreshToken)
+    private AccessTokenReissuance getAccessTokenReissuanceByRefreshToken(String refreshToken) {
+        return accessTokenReissuanceRepository.findById(refreshToken)
             .orElseThrow(() -> new CustomException(ErrorCode.TOKEN_NOT_FOUND_USER));
     }
 
-    private void validateDeviceCode(User loginUser, String deviceCode) {
-        if (!loginUser.getLoginInfo().isSameDeviceCode(deviceCode)) {
+    private void validateDeviceCode(AccessTokenReissuance tokenReissuance, String deviceCode) {
+        if (!tokenReissuance.isSameDeviceCode(deviceCode)) {
             throw new CustomException(ErrorCode.INVALID_DEVICE_CODE);
         }
     }
 
-    private void validateRefreshTokenRenewalTime(User loginUser, String refreshToken) {
-        long interval = tokenProvider.getRefreshTokenExpHourInterval(refreshToken);
-        if (interval <= REFRESH_TOKEN_RENEWAL_TIME) {
-            String newRefreshToken = tokenProvider.createRefreshToken(loginUser);
-            loginUser.getLoginInfo().updateRefreshToken(newRefreshToken);
-        }
+    private void saveAccessTokenReissuance(String refreshToken, Long userId, String deviceCode) {
+        accessTokenReissuanceRepository.save(
+            AccessTokenReissuance.create(refreshToken, userId, deviceCode)
+        );
     }
 }

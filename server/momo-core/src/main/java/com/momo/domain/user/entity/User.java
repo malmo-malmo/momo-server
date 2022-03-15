@@ -21,8 +21,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseEntity {
 
-    public static int REFRESH_TOKEN_RENEWAL_TIME = 24;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,7 +30,7 @@ public class User extends BaseEntity {
     private String imageUrl;
 
     @Embedded
-    private LoginInfo loginInfo;
+    private SocialLogin socialLogin;
 
     @Embedded
     private Location location;
@@ -41,17 +39,17 @@ public class User extends BaseEntity {
     private final FavoriteCategories favoriteCategories = FavoriteCategories.empty();
 
     @Builder
-    public User(Long id, LoginInfo loginInfo, String nickname, String imageUrl, Location location) {
+    public User(Long id, SocialLogin socialLogin, String nickname, String imageUrl, Location location) {
         this.id = id;
-        this.loginInfo = loginInfo;
+        this.socialLogin = socialLogin;
         this.nickname = nickname;
         this.imageUrl = imageUrl;
         this.location = location;
     }
 
-    public static User createSocialLoginUser(LoginInfo loginInfo) {
+    public static User createSocialLoginUser(SocialLogin socialLogin) {
         return User.builder()
-            .loginInfo(loginInfo)
+            .socialLogin(socialLogin)
             .build();
     }
 

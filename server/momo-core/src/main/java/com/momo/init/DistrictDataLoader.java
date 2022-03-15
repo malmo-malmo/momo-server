@@ -19,6 +19,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Profile(DEVELOP)
@@ -31,6 +32,7 @@ public class DistrictDataLoader implements CommandLineRunner {
     private final DistrictRepository districtRepository;
 
     @Override
+    @Transactional
     public void run(String... args) {
         long savedDistrictCount = districtRepository.count();
         if (savedDistrictCount == MAX_DISTRICT_COUNT) {

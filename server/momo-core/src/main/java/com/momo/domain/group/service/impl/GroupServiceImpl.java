@@ -1,13 +1,14 @@
 package com.momo.domain.group.service.impl;
 
+import static com.momo.domain.aws.util.GenerateUploadPathUtil.getGroupImage;
 import static org.springframework.data.domain.PageRequest.of;
 
 import com.momo.domain.aws.service.S3UploadService;
-import com.momo.domain.aws.util.GenerateUploadPathUtil;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupCreateRequest;
+import com.momo.domain.group.dto.GroupCreateResponse;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.dto.GroupSearchConditionRequest;
 import com.momo.domain.group.entity.Group;
@@ -18,7 +19,6 @@ import com.momo.domain.group.search.GroupSearchEngine;
 import com.momo.domain.group.service.GroupService;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
@@ -37,23 +37,22 @@ public class GroupServiceImpl implements GroupService {
     private final UserRepository userRepository;
     private final S3UploadService s3UploadService;
 
-    public GroupResponse create(User user, GroupCreateRequest groupCreateRequest) throws IOException {
+    public GroupCreateResponse createGroup(User loginUser, GroupCreateRequest request) {
         Group group = groupRepository.save(
-            Group.create(user, groupCreateRequest.toEntity(), groupCreateRequest.getIsUniversity()));
-        Long groupId = group.getId();
+            Group.create(loginUser, request.toEntity(), request.getIsUniversity())
+        );
 
-        String imageUrl = s3UploadService
-            .upload(groupCreateRequest.getImage(), GenerateUploadPathUtil.getGroupImage(groupId));
+        String imageUrl = s3UploadService.upload(request.getImage(), getGroupImage(group.getId()));
         group.updateImage(imageUrl);
 
-        Participant participant = Participant.create(user, group);
-        participantRepository.save(participant);
-        return findById(user, groupId);
+        participantRepository.save(Participant.create(loginUser, group));
+
+        return GroupCreateResponse.of(group);
     }
 
     @Transactional(readOnly = true)
-    public GroupResponse findById(User user, Long groupId) {
-        return groupRepository.findGroupAndParticipantCntAndAuthorityById(user, groupId);
+    public GroupResponse findGroupById(User user, Long groupId) {
+        return groupRepository.findDetailByGroupId(user, groupId);
     }
 
     @Transactional(readOnly = true)

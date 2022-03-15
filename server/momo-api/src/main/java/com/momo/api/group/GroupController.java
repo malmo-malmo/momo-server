@@ -3,10 +3,10 @@ package com.momo.api.group;
 import com.momo.api.auth.CurrentUser;
 import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.group.dto.GroupCreateRequest;
+import com.momo.domain.group.dto.GroupCreateResponse;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.service.GroupService;
 import com.momo.domain.user.entity.User;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -29,15 +29,15 @@ public class GroupController {
     private final GroupService groupService;
 
     @PostMapping
-    public ResponseEntity<GroupResponse> create(@CurrentUser User user,
-        @Valid @ModelAttribute GroupCreateRequest groupCreateRequest) throws URISyntaxException, IOException {
-        GroupResponse response = groupService.create(user, groupCreateRequest);
+    public ResponseEntity<GroupCreateResponse> createGroup(@CurrentUser User user,
+        @Valid @ModelAttribute GroupCreateRequest groupCreateRequest) throws URISyntaxException {
+        GroupCreateResponse response = groupService.createGroup(user, groupCreateRequest);
         return ResponseEntity.created(new URI("/api/group/" + response.getId())).body(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GroupResponse> find(@CurrentUser User user, @PathVariable Long id) {
-        GroupResponse groupResponse = groupService.findById(user, id);
+    public ResponseEntity<GroupResponse> findGroup(@CurrentUser User user, @PathVariable Long id) {
+        GroupResponse groupResponse = groupService.findGroupById(user, id);
         return ResponseEntity.ok(groupResponse);
     }
 

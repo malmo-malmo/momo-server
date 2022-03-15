@@ -2,6 +2,7 @@ package com.momo.group.docs;
 
 
 import static com.momo.GroupFixture.getGroupCreateRequest;
+import static com.momo.GroupFixture.getGroupCreateResponse;
 import static com.momo.GroupFixture.getGroupResponse;
 import static com.momo.common.CommonFileUploadSupport.uploadMockSupport;
 import static com.momo.domain.group.entity.Category.LIFE;
@@ -37,7 +38,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
     @Test
     void 모임_생성_테스트() throws Exception {
         GroupCreateRequest request = getGroupCreateRequest(LIFE, true);
-        when(groupService.create(any(), any())).thenReturn(getGroupResponse());
+        when(groupService.createGroup(any(), any())).thenReturn(getGroupCreateResponse());
 
         super.mockMvc.perform(uploadMockSupport(fileUpload("/api/group"), request)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -48,7 +49,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 모임_상세_조회() throws Exception {
-        when(groupService.findById(any(), any())).thenReturn(getGroupResponse());
+        when(groupService.findGroupById(any(), any())).thenReturn(getGroupResponse());
 
         super.mockMvc.perform(get("/api/group/{id}", 1L))
             .andDo(print())

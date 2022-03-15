@@ -59,7 +59,7 @@ public class GroupRepositoryTest extends RepositoryTest {
 
     @Test
     void 사용자ID와_모임ID로_모임을_조회한다() {
-        GroupResponse response = groupRepository.findGroupAndParticipantCntAndAuthorityById(user, group1.getId());
+        GroupResponse response = groupRepository.findDetailByGroupId(user, group1.getId());
         Assertions.assertAll(
             () -> assertThat(response).isNotNull(),
             () -> assertThat(response.getId()).isEqualTo(group1.getId()),
@@ -143,7 +143,7 @@ public class GroupRepositoryTest extends RepositoryTest {
 
     @Test
     void 관리하는_모임과_달성률_목록을_조회한다() {
-        List<Group> actual = groupRepository.findAllWithAchievementRateByUser(user);
+        List<Group> actual = groupRepository.findGroupAndAchievementRateByUser(user);
 
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),

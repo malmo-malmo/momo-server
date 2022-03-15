@@ -31,7 +31,7 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<Group> findAllWithAchievementRateByUser(User loginUser) {
+    public List<Group> findGroupAndAchievementRateByUser(User loginUser) {
         return queryFactory
             .selectFrom(group)
             .leftJoin(group.achievementRate, groupAchievementRate).fetchJoin()
@@ -40,7 +40,7 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
     }
 
     @Override
-    public GroupResponse findGroupAndParticipantCntAndAuthorityById(User loginUser, Long groupId) {
+    public GroupResponse findDetailByGroupId(User loginUser, Long groupId) {
         return queryFactory
             .select(new QGroupResponse(
                 group.id,

@@ -12,9 +12,9 @@ import org.springframework.data.domain.Pageable;
 
 public interface GroupRepositoryCustom {
 
-    List<Group> findAllWithAchievementRateByUser(User loginUser);
+    List<Group> findGroupAndAchievementRateByUser(User loginUser);
 
-    GroupResponse findGroupAndParticipantCntAndAuthorityById(User loginUser, Long groupId);
+    GroupResponse findDetailByGroupId(User loginUser, Long groupId);
 
     List<GroupCardResponse> findAllBySearchConditionOrderByCreatedDateDesc(
         User loginUser, GroupSearchConditionRequest request, Pageable pageable

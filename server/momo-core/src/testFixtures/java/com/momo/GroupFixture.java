@@ -20,6 +20,7 @@ import static com.momo.common.LocationFixture.getLocation;
 
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupCreateRequest;
+import com.momo.domain.group.dto.GroupCreateResponse;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.dto.GroupSearchConditionRequest;
 import com.momo.domain.group.entity.Category;
@@ -117,6 +118,13 @@ public class GroupFixture {
             .isEnd(IS_END)
             .participantCnt(1L)
             .isParticipant(false)
+            .build();
+    }
+
+    public static GroupCreateResponse getGroupCreateResponse() {
+        return GroupCreateResponse.builder()
+            .id(1L)
+            .imageUrl(IMAGE_URL)
             .build();
     }
 

@@ -21,6 +21,7 @@ import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.GroupCreateRequest;
+import com.momo.domain.group.dto.GroupCreateResponse;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.dto.GroupSearchConditionRequest;
 import com.momo.domain.group.entity.Group;
@@ -31,7 +32,6 @@ import com.momo.domain.group.search.GroupSearchEngine;
 import com.momo.domain.group.service.impl.GroupServiceImpl;
 import com.momo.domain.user.entity.User;
 import com.momo.domain.user.repository.UserRepository;
-import java.io.IOException;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -72,16 +72,16 @@ public class GroupServiceTest extends ServiceTest {
     }
 
     @Test
-    void 모임_생성_테스트() throws IOException {
+    void 모임_생성_테스트() {
         GroupCreateRequest groupCreateRequest = getGroupCreateRequest(EMPLOYMENT, true);
         GroupResponse groupResponse = getGroupResponse();
 
         given(groupRepository.save(any())).willReturn(Group.builder().id(1L).build());
         given(participantRepository.save(any())).willReturn(Participant.builder().build());
         given(s3UploadService.upload(any(), any())).willReturn("업로드된 이미지 경로");
-        given(groupRepository.findGroupAndParticipantCntAndAuthorityById(any(), anyLong())).willReturn(groupResponse);
+        given(groupRepository.findDetailByGroupId(any(), anyLong())).willReturn(groupResponse);
 
-        GroupResponse response = groupService.create(manager, groupCreateRequest);
+        GroupCreateResponse response = groupService.createGroup(manager, groupCreateRequest);
 
         verify(groupRepository).save(any());
         verify(participantRepository).save(any());

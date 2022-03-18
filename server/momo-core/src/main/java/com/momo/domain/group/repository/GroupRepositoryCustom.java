@@ -12,9 +12,9 @@ import org.springframework.data.domain.Pageable;
 
 public interface GroupRepositoryCustom {
 
-    List<Group> findAllWithAchievementRateByUser(User loginUser);
+    List<Group> findGroupAndAchievementRateByUser(User loginUser);
 
-    GroupResponse findGroupAndParticipantCntAndAuthorityById(User loginUser, Long groupId);
+    GroupResponse findDetailByGroupId(User loginUser, Long groupId);
 
     List<GroupCardResponse> findAllBySearchConditionOrderByCreatedDateDesc(
         User loginUser, GroupSearchConditionRequest request, Pageable pageable
@@ -24,11 +24,15 @@ public interface GroupRepositoryCustom {
         User loginUser, List<City> cities, List<Category> categories, Pageable pageable
     );
 
-    List<GroupCardResponse> findAllByUniversityOrderByCreatedDateDesc(User loginUser, String university,
-        Pageable pageable);
+    List<GroupCardResponse> findByUniversityOrderByIdDesc(
+        User loginUser, String university, Long lastGroupId, int size
+    );
 
-    List<GroupCardResponse> findAllByDistrictOrderByCreatedDateDesc(User loginUser, String district, Pageable pageable);
+    List<GroupCardResponse> findByDistrictOrderByIdDesc(
+        User loginUser, String district, Long lastGroupId, int size
+    );
 
-    List<GroupCardResponse> findAllByCategoriesOrderByCreatedDateDesc(User loginUser, List<Category> categories,
-        Pageable pageable);
+    List<GroupCardResponse> findByCategoriesOrderByIdDesc(
+        User loginUser, List<Category> categories, Long lastGroupId, int size
+    );
 }

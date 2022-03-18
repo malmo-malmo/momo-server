@@ -4,16 +4,13 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
-import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
 
 import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.request.ParameterDescriptor;
-import org.springframework.restdocs.request.RequestPartDescriptor;
 
 public class GroupDocumentation {
 
@@ -29,29 +26,13 @@ public class GroupDocumentation {
             parameterWithName("introduction").description("모임 설명"),
             parameterWithName("isOffline").description("모임 온/오프라인 여부")
         };
-        RequestPartDescriptor[] requestFiles = new RequestPartDescriptor[]{
-            partWithName("image").description("모임 이미지")
-        };
         FieldDescriptor[] responseGroup = new FieldDescriptor[]{
             fieldWithPath("id").type(JsonFieldType.NUMBER).description("모임 ID"),
-            fieldWithPath("managerId").type(JsonFieldType.NUMBER).description("모임 담당자 ID"),
-            fieldWithPath("name").type(JsonFieldType.STRING).description("모임 이름"),
-            fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("모임 이미지"),
-            fieldWithPath("startDate").type(JsonFieldType.STRING).description("모임 시작일자"),
-            fieldWithPath("university").type(JsonFieldType.STRING).description("모임 학교"),
-            fieldWithPath("city").type(JsonFieldType.STRING).description("모임 도시"),
-            fieldWithPath("district").type(JsonFieldType.STRING).description("모임 구역"),
-            fieldWithPath("offline").type(JsonFieldType.BOOLEAN).description("모임 오프라인 여부"),
-            fieldWithPath("introduction").type(JsonFieldType.STRING).description("모임 설명"),
-            fieldWithPath("recruitmentCnt").type(JsonFieldType.NUMBER).description("모임 인원"),
-            fieldWithPath("end").type(JsonFieldType.BOOLEAN).description("모임 종료 여부"),
-            fieldWithPath("participantCnt").type(JsonFieldType.NUMBER).description("모임 참여자 수"),
-            fieldWithPath("participant").type(JsonFieldType.BOOLEAN).description("모임 참가 여부"),
+            fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("모임 이미지 URL")
         };
 
         return document("group/create",
             requestParameters(requestGroup),
-            requestParts(requestFiles),
             responseFields(responseGroup)
         );
     }
@@ -132,7 +113,7 @@ public class GroupDocumentation {
 
     public static RestDocumentationResultHandler findPageByUserUniversity() {
         ParameterDescriptor[] requestSearch = new ParameterDescriptor[]{
-            parameterWithName("page").description("페이지 번호"),
+            parameterWithName("lastGroupId").description("페이지의 마지막 모임 ID(첫 페이지 null)").optional(),
             parameterWithName("size").description("페이지 사이즈")
         };
         FieldDescriptor[] responseGroup = new FieldDescriptor[]{
@@ -152,7 +133,7 @@ public class GroupDocumentation {
 
     public static RestDocumentationResultHandler findPageByUserLocation() {
         ParameterDescriptor[] requestSearch = new ParameterDescriptor[]{
-            parameterWithName("page").description("페이지 번호"),
+            parameterWithName("lastGroupId").description("페이지의 마지막 모임 ID(첫 페이지 null)").optional(),
             parameterWithName("size").description("페이지 사이즈")
         };
         FieldDescriptor[] responseGroup = new FieldDescriptor[]{
@@ -172,7 +153,7 @@ public class GroupDocumentation {
 
     public static RestDocumentationResultHandler findPageByUserCategories() {
         ParameterDescriptor[] requestSearch = new ParameterDescriptor[]{
-            parameterWithName("page").description("페이지 번호"),
+            parameterWithName("lastGroupId").description("페이지의 마지막 모임 ID(첫 페이지 null)").optional(),
             parameterWithName("size").description("페이지 사이즈")
         };
         FieldDescriptor[] responseGroup = new FieldDescriptor[]{

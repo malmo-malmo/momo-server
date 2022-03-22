@@ -1,6 +1,8 @@
 package com.momo.domain.post.entity;
 
 import com.momo.domain.common.entity.BaseEntity;
+import com.momo.domain.common.exception.CustomException;
+import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.user.entity.User;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,7 +31,7 @@ public class Comment extends BaseEntity {
     @JoinColumn(foreignKey = @ForeignKey(name = "post_fk_comment"))
     private Post post;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "user_fk_comment"))
     private User user;
 
@@ -52,7 +54,9 @@ public class Comment extends BaseEntity {
             .build();
     }
 
-    public boolean isWriter(User loginUser) {
-        return this.user.isSameUser(loginUser);
+    public void validateWriter(User loginUser) {
+        if (!this.user.isSameUser(loginUser)) {
+            throw new CustomException(ErrorCode.USER_ACCESS_DENIED);
+        }
     }
 }

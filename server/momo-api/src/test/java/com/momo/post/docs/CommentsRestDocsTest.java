@@ -34,9 +34,9 @@ public class CommentsRestDocsTest extends RestDocsControllerTest {
             .thenReturn(getCommentsResponse(List.of(getCommentResponse())));
 
         super.mockMvc.perform(get("/api/comments/paging")
-                .param("postId", String.valueOf(1L))
-                .param("page", String.valueOf(1))
-                .param("size", String.valueOf(10))
+                .param("postId", "1")
+                .param("lastCommentId", "1")
+                .param("size", "10")
             )
             .andDo(print())
             .andExpect(status().isOk())

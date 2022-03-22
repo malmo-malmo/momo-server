@@ -8,9 +8,9 @@ import com.momo.domain.user.entity.User;
 
 public interface CommentService {
 
-    CommentResponse create(User user, CommentCreateRequest commentCreateRequest);
+    CommentResponse createComment(User user, CommentCreateRequest request);
 
     CommentsResponse findPageByPostId(User user, CommentsRequest request);
 
-    void deleteComment(Long commentId, User loginUser);
+    void deleteCommentById(Long commentId, User loginUser);
 }

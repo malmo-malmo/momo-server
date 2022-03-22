@@ -14,9 +14,8 @@ import com.momo.domain.post.repository.CommentRepository;
 import com.momo.domain.post.repository.PostRepository;
 import com.momo.domain.post.service.CommentService;
 import com.momo.domain.user.entity.User;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,15 +25,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommentServiceImpl implements CommentService {
 
     private final PostRepository postRepository;
-
     private final ParticipantRepository participantRepository;
-
     private final CommentRepository commentRepository;
 
-    public CommentResponse create(User user, CommentCreateRequest commentCreateRequest) {
-        Post post = getPostById(commentCreateRequest.getPostId());
+    public CommentResponse createComment(User user, CommentCreateRequest request) {
+        Post post = getPostById(request.getPostId());
         validateParticipant(post.getGroup(), user);
-        Comment comment = Comment.create(post, user, commentCreateRequest.getContents());
+        Comment comment = Comment.create(post, user, request.getContents());
         return CommentResponse.of(commentRepository.save(comment));
     }
 
@@ -42,29 +39,31 @@ public class CommentServiceImpl implements CommentService {
     public CommentsResponse findPageByPostId(User user, CommentsRequest request) {
         Post post = getPostById(request.getPostId());
         validateParticipant(post.getGroup(), user);
-        Page<Comment> pageComments = commentRepository
-            .findAllByPostOrderByCreatedDateAsc(post, PageRequest.of(request.getPage(), request.getSize()));
-        return CommentsResponse.of(pageComments.getContent(), pageComments.getTotalElements());
+
+        long commentCnt = commentRepository.countByPost(post);
+        List<Comment> comments = commentRepository
+            .findAllByPostOrderByIdDesc(post, request.getLastCommentId(), request.getSize());
+
+        return CommentsResponse.of(comments, commentCnt);
     }
 
-    public void deleteComment(Long commentId, User loginUser) {
+    public void deleteCommentById(Long commentId, User loginUser) {
         Comment comment = getCommentById(commentId);
-
-        if(!comment.isWriter(loginUser)) {
-            throw new CustomException(ErrorCode.USER_ACCESS_DENIED);
-        }
+        comment.validateWriter(loginUser);
         commentRepository.delete(comment);
     }
-    public Comment getCommentById(Long commentId) {
+
+    private Comment getCommentById(Long commentId) {
         return commentRepository.findById(commentId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
-    public Post getPostById(Long postId) {
+
+    private Post getPostById(Long postId) {
         return postRepository.findById(postId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
-    public void validateParticipant(Group group, User user) {
+    private void validateParticipant(Group group, User user) {
         if (!participantRepository.existsByGroupAndUser(group, user)) {
             throw new CustomException(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED);
         }

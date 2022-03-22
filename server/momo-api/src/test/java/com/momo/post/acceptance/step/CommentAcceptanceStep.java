@@ -29,15 +29,10 @@ public class CommentAcceptanceStep {
         Assertions.assertAll(
             () -> assertThat(response.getCommentResponses().size()).isEqualTo(2),
             () -> assertThat(response.getCommentCnt()).isEqualTo(2),
-            () -> assertThat(response.getCommentResponses())
-                .extracting("authorId")
-                .isNotNull(),
-            () -> assertThat(response.getCommentResponses())
-                .extracting("contents")
+            () -> assertThat(response.getCommentResponses()).extracting("authorId").isNotNull(),
+            () -> assertThat(response.getCommentResponses()).extracting("contents")
                 .containsExactly(requests.get(0).getContents(), requests.get(1).getContents()),
-            () -> assertThat(response.getCommentResponses())
-                .extracting("createdDate")
-                .isNotNull()
+            () -> assertThat(response.getCommentResponses()).extracting("createdDate").isNotNull()
         );
     }
 
@@ -55,14 +50,13 @@ public class CommentAcceptanceStep {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .param("postId", request.getPostId())
-            .param("page", request.getPage())
             .param("size", request.getSize())
             .get("/api/comments/paging")
             .then().log().all()
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToDeleteComment(String token, Long commentId) {
+    public static ExtractableResponse<Response> requestTodeleteCommentById(String token, Long commentId) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .pathParam("commentId", commentId)

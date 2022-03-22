@@ -33,7 +33,7 @@ public class CommentRestDocsTest extends RestDocsControllerTest {
     void 게시물_댓글_등록() throws Exception {
         CommentResponse response = getCommentResponse();
 
-        when(commentService.create(any(), any())).thenReturn(response);
+        when(commentService.createComment(any(), any())).thenReturn(response);
 
         String content = super.objectMapper.writeValueAsString(getCommentCreateRequest(1L));
         super.mockMvc.perform(post("/api/comment")

@@ -8,7 +8,6 @@ import static com.momo.common.FixtureComponents.IMAGE;
 import static com.momo.common.FixtureComponents.IMAGES;
 import static com.momo.common.FixtureComponents.IMAGE_URL;
 import static com.momo.common.FixtureComponents.INCREASE_ID;
-import static com.momo.common.FixtureComponents.PAGE;
 import static com.momo.common.FixtureComponents.PAGE_SIZE;
 import static com.momo.common.FixtureComponents.TITLE;
 
@@ -73,7 +72,6 @@ public class PostFixture {
         return PostCardsRequest.builder()
             .groupId(groupId)
             .postType(postType)
-            .page(PAGE)
             .size(PAGE_SIZE)
             .build();
     }

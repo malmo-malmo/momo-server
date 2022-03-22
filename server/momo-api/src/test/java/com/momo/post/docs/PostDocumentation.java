@@ -68,7 +68,7 @@ public class PostDocumentation {
         ParameterDescriptor[] requestParam = new ParameterDescriptor[]{
             parameterWithName("groupId").description("모임 ID"),
             parameterWithName("postType").description("게시글 타입"),
-            parameterWithName("page").description("페이지 번호"),
+            parameterWithName("lastPostId").description("마지막 게시물 ID"),
             parameterWithName("size").description("보여줄 게시글 수")
         };
         FieldDescriptor[] responsePost = new FieldDescriptor[]{

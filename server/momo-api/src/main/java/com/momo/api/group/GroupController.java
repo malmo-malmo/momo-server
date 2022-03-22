@@ -29,14 +29,19 @@ public class GroupController {
     private final GroupService groupService;
 
     @PostMapping
-    public ResponseEntity<GroupCreateResponse> createGroup(@CurrentUser User user,
-        @Valid @ModelAttribute GroupCreateRequest groupCreateRequest) throws URISyntaxException {
+    public ResponseEntity<GroupCreateResponse> createGroup(
+        @CurrentUser User user,
+        @Valid @ModelAttribute GroupCreateRequest groupCreateRequest
+    ) throws URISyntaxException {
         GroupCreateResponse response = groupService.createGroup(user, groupCreateRequest);
         return ResponseEntity.created(new URI("/api/group/" + response.getId())).body(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GroupResponse> findGroup(@CurrentUser User user, @PathVariable Long id) {
+    public ResponseEntity<GroupResponse> findGroup(
+        @CurrentUser User user,
+        @PathVariable Long id
+    ) {
         GroupResponse groupResponse = groupService.findGroupById(user, id);
         return ResponseEntity.ok(groupResponse);
     }
@@ -47,14 +52,19 @@ public class GroupController {
     }
 
     @PatchMapping("/{id}/manager/{userId}")
-    public ResponseEntity<Void> updateManagerByUserId(@CurrentUser User user, @PathVariable Long id,
-        @PathVariable Long userId) {
+    public ResponseEntity<Void> updateManagerByUserId(
+        @CurrentUser User user,
+        @PathVariable Long id, @PathVariable Long userId
+    ) {
         groupService.updateManagerByUserId(user, id, userId);
         return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{id}/end")
-    public ResponseEntity<Void> endGroupById(@CurrentUser User user, @PathVariable Long id) {
+    public ResponseEntity<Void> endGroupById(
+        @CurrentUser User user,
+        @PathVariable Long id
+    ) {
         groupService.endGroupById(user, id);
         return ResponseEntity.ok().build();
     }

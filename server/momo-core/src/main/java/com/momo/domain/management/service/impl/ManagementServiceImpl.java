@@ -56,7 +56,7 @@ public class ManagementServiceImpl implements ManagementService {
 
     @Transactional(readOnly = true)
     public List<MyGroupSummaryResponse> findMyGroupsSummaryByUser(User loginUser) {
-        List<Group> groups = groupRepository.findAllByManager(loginUser);
+        List<Group> groups = groupRepository.findAllByManagerAndIsEnd(loginUser, false);
         return MyGroupSummaryResponse.listOf(groups);
     }
 

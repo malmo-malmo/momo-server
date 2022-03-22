@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GroupRepository extends JpaRepository<Group, Long>, GroupRepositoryCustom {
 
-    List<Group> findAllByManager(User manager);
+    List<Group> findAllByManagerAndIsEnd(User manager, boolean isEnd);
 }

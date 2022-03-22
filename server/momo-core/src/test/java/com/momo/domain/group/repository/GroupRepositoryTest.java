@@ -38,6 +38,7 @@ public class GroupRepositoryTest extends RepositoryTest {
         user = save(getUser());
         group1 = save(getGroup(user));
         group2 = save(getGroup(user));
+        save(getGroup(user, true));
     }
 
     @Test
@@ -169,7 +170,7 @@ public class GroupRepositoryTest extends RepositoryTest {
 
     @Test
     void 관리하는_모임_목록을_조회한다() {
-        List<Group> actual = groupRepository.findAllByManager(user);
+        List<Group> actual = groupRepository.findAllByManagerAndIsEnd(user, false);
 
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),

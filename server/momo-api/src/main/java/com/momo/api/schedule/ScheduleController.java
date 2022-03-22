@@ -32,29 +32,37 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @PostMapping
-    public ResponseEntity<GroupScheduleResponse> createGroupSchedule(@CurrentUser User user,
-        @Valid @RequestBody ScheduleCreateRequest scheduleCreateRequest) throws URISyntaxException {
-        GroupScheduleResponse response = scheduleService.create(user, scheduleCreateRequest);
+    public ResponseEntity<GroupScheduleResponse> createGroupSchedule(
+        @CurrentUser User user,
+        @Valid @RequestBody ScheduleCreateRequest request
+    ) throws URISyntaxException {
+        GroupScheduleResponse response = scheduleService.createSchedule(user, request);
         return ResponseEntity.created(new URI("/api/schedule/" + response.getScheduleId())).body(response);
     }
 
     @GetMapping("/group-schedules")
-    public ResponseEntity<GroupScheduleResponses> findGroupSchedulePage(@CurrentUser User user,
-        @ModelAttribute @Valid GroupSchedulesRequest groupSchedulesRequest) {
-        GroupScheduleResponses response = scheduleService.findPageByUserAndGroupId(user, groupSchedulesRequest);
+    public ResponseEntity<GroupScheduleResponses> findGroupSchedulePage(
+        @CurrentUser User user,
+        @Valid @ModelAttribute GroupSchedulesRequest request
+    ) {
+        GroupScheduleResponses response = scheduleService.findPageByUserAndGroupId(user, request);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/user-schedules")
-    public ResponseEntity<List<UserScheduleResponse>> findUserSchedulePage(@CurrentUser User user,
-        @ModelAttribute @Valid UserSchedulesRequest userSchedulesRequest) {
-        List<UserScheduleResponse> response = scheduleService.findPageByUserAndSearchDate(user, userSchedulesRequest);
+    public ResponseEntity<List<UserScheduleResponse>> findUserSchedulePage(
+        @CurrentUser User user,
+        @Valid @ModelAttribute UserSchedulesRequest request
+    ) {
+        List<UserScheduleResponse> response = scheduleService.findPageByUserAndSearchDate(user, request);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/upcoming")
-    public ResponseEntity<UpcomingScheduleResponse> findUpcomingSchedule(@CurrentUser User user,
-        @RequestParam Long groupId) {
+    public ResponseEntity<UpcomingScheduleResponse> findUpcomingSchedule(
+        @CurrentUser User user,
+        @RequestParam Long groupId
+    ) {
         UpcomingScheduleResponse response = scheduleService.findUpcomingScheduleByGroupId(user, groupId);
         return ResponseEntity.ok(response);
     }

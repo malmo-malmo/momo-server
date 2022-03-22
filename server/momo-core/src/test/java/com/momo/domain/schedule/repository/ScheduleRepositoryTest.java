@@ -20,7 +20,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 
 @DisplayName("일정 레포지토리 테스트")
 public class ScheduleRepositoryTest extends RepositoryTest {
@@ -50,9 +49,21 @@ public class ScheduleRepositoryTest extends RepositoryTest {
 
     @Test
     void 모임과_유저를_조건으로_모임_일정을_조회한다() {
-        List<GroupScheduleResponse> expected = scheduleRepository
-            .findAllByGroupAndUserOrderByCreatedDateDesc(group, user.getId(), PageRequest.of(0, 10));
+        List<GroupScheduleResponse> expected = scheduleRepository.findAllByGroupOrderByStartDateTimeDesc(
+            group, user.getId(), schedule.getStartDateTime().plusMinutes(1), 10
+        );
+        verifyGroupScheduleResponse(expected);
+    }
 
+    @Test
+    void 모임과_유저를_조건으로_모임_일정을_조회한다_마지막_일정_시작시간_NULL() {
+        List<GroupScheduleResponse> expected = scheduleRepository.findAllByGroupOrderByStartDateTimeDesc(
+            group, user.getId(), null, 10
+        );
+        verifyGroupScheduleResponse(expected);
+    }
+
+    private void verifyGroupScheduleResponse(List<GroupScheduleResponse> expected) {
         Assertions.assertAll(
             () -> assertThat(expected.size()).isEqualTo(1),
             () -> assertThat(expected.get(0).getScheduleId()).isEqualTo(schedule.getId()),

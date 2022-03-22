@@ -69,7 +69,6 @@ public class ScheduleFixture {
     public static GroupSchedulesRequest getGroupSchedulesRequest(Long groupId) {
         return GroupSchedulesRequest.builder()
             .groupId(groupId)
-            .page(PAGE)
             .size(PAGE_SIZE)
             .build();
     }

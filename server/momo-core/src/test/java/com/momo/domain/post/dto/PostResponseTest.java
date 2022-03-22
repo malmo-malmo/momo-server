@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("댓글 응답 테스트")
+@DisplayName("게시물 응답 테스트")
 public class PostResponseTest {
 
     @Test

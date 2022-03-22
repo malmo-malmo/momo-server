@@ -23,17 +23,17 @@ public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
             .leftJoin(comment.user, user).fetchJoin()
             .where(
                 comment.post.eq(post),
-                gtLastCommentId(lastCommentId)
+                ltLastCommentId(lastCommentId)
             )
-            .orderBy(comment.id.asc())
+            .orderBy(comment.id.desc())
             .limit(size)
             .fetch();
     }
 
-    private BooleanExpression gtLastCommentId(Long commentId) {
+    private BooleanExpression ltLastCommentId(Long commentId) {
         if (Objects.isNull(commentId)) {
             return null;
         }
-        return comment.id.gt(commentId);
+        return comment.id.lt(commentId);
     }
 }

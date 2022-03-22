@@ -22,11 +22,11 @@ public class PostsController {
     private final PostService postService;
 
     @GetMapping("/paging")
-    public ResponseEntity<List<PostCardResponse>> findPageByCardsRequest(
+    public ResponseEntity<List<PostCardResponse>> findPageByGroup(
         @CurrentUser User user,
-        @ModelAttribute @Valid PostCardsRequest postCardsRequest
+        @Valid @ModelAttribute PostCardsRequest postCardsRequest
     ) {
-        List<PostCardResponse> postCardResponses = postService.findPageByGroupIdAndType(user, postCardsRequest);
+        List<PostCardResponse> postCardResponses = postService.findPageByGroupId(user, postCardsRequest);
         return ResponseEntity.ok(postCardResponses);
     }
 }

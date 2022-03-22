@@ -30,7 +30,7 @@ public class PostsRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 게시글_목록_조회() throws Exception {
-        when(postService.findPageByGroupIdAndType(any(), any())).thenReturn(List.of(getPostCardResponse()));
+        when(postService.findPageByGroupId(any(), any())).thenReturn(List.of(getPostCardResponse()));
 
         super.mockMvc.perform(get("/api/posts/paging", 1L)
                 .param("groupId", String.valueOf(1L))

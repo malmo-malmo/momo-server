@@ -49,7 +49,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostCardResponse> findPageByGroupIdAndType(User loginUser, PostCardsRequest request) {
+    public List<PostCardResponse> findPageByGroupId(User loginUser, PostCardsRequest request) {
         Group group = getGroupById(request.getGroupId());
         validateParticipant(group, loginUser);
 

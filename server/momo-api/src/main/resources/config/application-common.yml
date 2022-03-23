@@ -1,0 +1,18 @@
+jasypt:
+  encryptor:
+    password: ${JASYPT_PASSWORD}
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialects: org.hibernate.dialect.MySQL8Dialect
+        physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        jdbc:
+          batch_size: 100
+          batch_versioned_data: true
+        use_sql_comments: true
+        default_batch_fetch_size: 100
+        order_inserts: true
+        order_updates: true

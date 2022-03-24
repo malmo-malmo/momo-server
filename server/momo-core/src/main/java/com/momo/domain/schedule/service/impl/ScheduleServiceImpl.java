@@ -18,11 +18,7 @@ import com.momo.domain.schedule.service.ScheduleService;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import javax.swing.text.html.Option;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,9 +31,10 @@ public class ScheduleServiceImpl implements ScheduleService {
     private final GroupRepository groupRepository;
     private final ParticipantRepository participantRepository;
 
-    public GroupScheduleResponse create(User loginUser, ScheduleCreateRequest request) {
+    public GroupScheduleResponse createSchedule(User loginUser, ScheduleCreateRequest request) {
         Group group = getGroupById(request.getGroupId());
         validateGroupManager(group, loginUser);
+
         Schedule schedule = Schedule.create(request.toEntity(), group, loginUser);
         scheduleRepository.save(schedule);
 
@@ -48,9 +45,11 @@ public class ScheduleServiceImpl implements ScheduleService {
     public GroupScheduleResponses findPageByUserAndGroupId(User loginUser, GroupSchedulesRequest request) {
         Group group = getGroupById(request.getGroupId());
         validateParticipant(group, loginUser);
-        PageRequest pageRequest = PageRequest.of(request.getPage(), request.getSize());
-        List<GroupScheduleResponse> responses = scheduleRepository
-            .findAllByGroupAndUserOrderByCreatedDateDesc(group, loginUser.getId(), pageRequest);
+
+        List<GroupScheduleResponse> responses = scheduleRepository.findAllByGroupOrderByStartDateTimeDesc(
+            group, loginUser.getId(), request.getLastScheduleStartDateTime(), request.getSize()
+        );
+
         return GroupScheduleResponses.of(responses, group.getManager().getId());
     }
 

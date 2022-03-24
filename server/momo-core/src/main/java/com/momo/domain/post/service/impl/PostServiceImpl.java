@@ -19,7 +19,6 @@ import com.momo.domain.post.service.PostService;
 import com.momo.domain.user.entity.User;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,12 +49,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostCardResponse> findPageByGroupIdAndType(User loginUser, PostCardsRequest request) {
+    public List<PostCardResponse> findPageByGroupId(User loginUser, PostCardsRequest request) {
         Group group = getGroupById(request.getGroupId());
         validateParticipant(group, loginUser);
-        PageRequest page = PageRequest.of(request.getPage(), request.getSize());
-        return postRepository
-            .findAllWithAuthorByGroupAndTypeOrderByCreatedDateDesc(group, request.getPostType(), page);
+
+        return postRepository.findAllWithCommentCntByGroupOrderByIdDesc(
+            group, request.getPostType(), request.getLastPostId(), request.getSize()
+        );
     }
 
     public void updatePost(PostUpdateRequest request, User loginUser) {

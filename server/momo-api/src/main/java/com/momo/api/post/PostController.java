@@ -29,27 +29,37 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping
-    public ResponseEntity<PostResponse> create(@CurrentUser User user,
-        @Valid @ModelAttribute PostCreateRequest postCreateRequest) throws URISyntaxException, IOException {
+    public ResponseEntity<PostResponse> create(
+        @CurrentUser User user,
+        @Valid @ModelAttribute PostCreateRequest postCreateRequest
+    ) throws URISyntaxException, IOException {
         PostResponse response = postService.create(user, postCreateRequest);
         return ResponseEntity.created(new URI("/api/post/" + response.getId())).body(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PostResponse> find(@CurrentUser User user, @PathVariable Long id) {
+    public ResponseEntity<PostResponse> find(
+        @CurrentUser User user,
+        @PathVariable Long id
+    ) {
         PostResponse postResponse = postService.findById(user, id);
         return ResponseEntity.ok(postResponse);
     }
 
     @PutMapping
-    public ResponseEntity<Void> update(@CurrentUser User user, @Valid @ModelAttribute PostUpdateRequest request)
-        throws IOException {
+    public ResponseEntity<Void> update(
+        @CurrentUser User user,
+        @Valid @ModelAttribute PostUpdateRequest request
+    ) {
         postService.updatePost(request, user);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<Void> delete(@CurrentUser User user, @PathVariable Long postId) {
+    public ResponseEntity<Void> delete(
+        @CurrentUser User user,
+        @PathVariable Long postId
+    ) {
         postService.deletePost(postId, user);
         return ResponseEntity.noContent().build();
     }

@@ -16,17 +16,16 @@ public class PostCardsRequest {
     @NotNull(message = "게시물 타입은 필수 입력값입니다.")
     private PostType postType;
 
-    @NotNull(message = "페이지 번호는 필수값입니다.")
-    private Integer page;
+    private Long lastPostId;
 
     @NotNull(message = "페이지 사이즈는 필수값입니다.")
     private Integer size;
 
     @Builder
-    public PostCardsRequest(Long groupId, PostType postType, Integer page, Integer size) {
+    public PostCardsRequest(Long groupId, PostType postType, Long lastPostId, Integer size) {
         this.groupId = groupId;
         this.postType = postType;
-        this.page = page;
+        this.lastPostId = lastPostId;
         this.size = size;
     }
 }

@@ -21,8 +21,10 @@ public class CommentsController {
     private final CommentService commentService;
 
     @GetMapping("/paging")
-    public ResponseEntity<CommentsResponse> findPageByPost(@CurrentUser User user,
-        @Valid @ModelAttribute CommentsRequest commentsRequest) {
+    public ResponseEntity<CommentsResponse> findPageByPost(
+        @CurrentUser User user,
+        @Valid @ModelAttribute CommentsRequest commentsRequest
+    ) {
         CommentsResponse response = commentService.findPageByPostId(user, commentsRequest);
         return ResponseEntity.ok(response);
     }

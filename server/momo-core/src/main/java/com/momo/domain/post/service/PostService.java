@@ -14,7 +14,7 @@ public interface PostService {
 
     PostResponse findById(User user, Long postId);
 
-    List<PostCardResponse> findPageByGroupIdAndType(User user, PostCardsRequest request);
+    List<PostCardResponse> findPageByGroupId(User user, PostCardsRequest request);
 
     void updatePost(PostUpdateRequest request, User user);
 

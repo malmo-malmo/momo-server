@@ -1,7 +1,6 @@
 package com.momo.domain.management.service.impl;
 
 import static com.momo.domain.post.entity.PostType.NORMAL;
-import static org.springframework.data.domain.PageRequest.of;
 
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.group.entity.Participant;
@@ -56,14 +55,13 @@ public class ManagementServiceImpl implements ManagementService {
 
     @Transactional(readOnly = true)
     public List<MyGroupSummaryResponse> findMyGroupsSummaryByUser(User loginUser) {
-        List<Group> groups = groupRepository.findAllByManager(loginUser);
+        List<Group> groups = groupRepository.findAllByManagerAndIsEnd(loginUser, false);
         return MyGroupSummaryResponse.listOf(groups);
     }
 
     @Transactional(readOnly = true)
-    public List<MyPostCardResponse> findMyPostsByUser(User loginUser, int page, int size) {
-        List<Post> posts = postRepository
-            .findAllWithGroupAndAuthorByUserAndTypeOrderByCreatedDateDesc(loginUser, NORMAL, of(page, size));
+    public List<MyPostCardResponse> findMyPostsByUser(User loginUser, Long lastPostId, int size) {
+        List<Post> posts = postRepository.findAllByGroupAndUserOrderByIdDesc(loginUser, NORMAL, lastPostId, size);
         return MyPostCardResponse.listOf(posts);
     }
 }

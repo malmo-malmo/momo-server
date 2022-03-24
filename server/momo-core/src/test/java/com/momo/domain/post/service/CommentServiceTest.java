@@ -12,6 +12,7 @@ import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -38,8 +39,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 
 @DisplayName("댓글 서비스 테스트")
 public class CommentServiceTest extends ServiceTest {
@@ -75,7 +74,7 @@ public class CommentServiceTest extends ServiceTest {
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(true);
         given(commentRepository.save(any())).willReturn(comment);
 
-        CommentResponse actual = commentService.create(author, request);
+        CommentResponse actual = commentService.createComment(author, request);
 
         verify(postRepository).findById(any());
         verify(participantRepository).existsByGroupAndUser(any(), any());
@@ -96,7 +95,7 @@ public class CommentServiceTest extends ServiceTest {
         given(postRepository.findById(any())).willReturn(of(post));
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(false);
 
-        assertThatThrownBy(() -> commentService.create(author, request))
+        assertThatThrownBy(() -> commentService.createComment(author, request))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED.getMessage());
     }
@@ -105,21 +104,22 @@ public class CommentServiceTest extends ServiceTest {
     void 댓글_목록_조회_테스트() {
         CommentsRequest request = getCommentsRequest(post.getId());
         List<Comment> comments = List.of(getComment(post, author), getComment(post, author));
-        long total = 100L;
+        long commentCnt = 2L;
 
         given(postRepository.findById(any())).willReturn(of(post));
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(true);
-        given(commentRepository.findAllByPostOrderByCreatedDateAsc(any(), any()))
-            .willReturn(new PageImpl<>(comments, PageRequest.of(0, 10), total));
+        given(commentRepository.countByPost(any())).willReturn(commentCnt);
+        given(commentRepository.findAllByPostOrderByIdDesc(any(), any(), anyInt())).willReturn(comments);
 
         CommentsResponse actual = commentService.findPageByPostId(author, request);
 
         verify(postRepository).findById(any());
         verify(participantRepository).existsByGroupAndUser(any(), any());
-        verify(commentRepository).findAllByPostOrderByCreatedDateAsc(any(), any());
+        verify(commentRepository).countByPost(any());
+        verify(commentRepository).findAllByPostOrderByIdDesc(any(), any(), anyInt());
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
-            () -> assertThat(actual.getCommentCnt()).isEqualTo(total),
+            () -> assertThat(actual.getCommentCnt()).isEqualTo(commentCnt),
             () -> assertThat(actual.getCommentResponses().size()).isEqualTo(comments.size()),
             () -> assertThat(actual.getCommentResponses().get(0).getAuthorId())
                 .isEqualTo(comments.get(0).getUser().getId()),
@@ -156,7 +156,7 @@ public class CommentServiceTest extends ServiceTest {
     void 댓글_삭제_테스트에_성공한다() {
         Comment comment = getCommentWithId(post, author);
         given(commentRepository.findById(anyLong())).willReturn(Optional.of(comment));
-        commentService.deleteComment(comment.getId(), author);
+        commentService.deleteCommentById(comment.getId(), author);
         verify(commentRepository).delete(comment);
     }
 
@@ -164,7 +164,7 @@ public class CommentServiceTest extends ServiceTest {
     void 댓글_작성자가_아니면_댓글_삭제에_실패한다() {
         Comment comment = getComment(post, author);
 
-        assertThatThrownBy(() -> commentService.deleteComment(comment.getId(), getUserWithId()))
+        assertThatThrownBy(() -> commentService.deleteCommentById(comment.getId(), getUserWithId()))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.INVALID_INDEX_NUMBER.getMessage());
     }

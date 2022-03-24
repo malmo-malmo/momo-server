@@ -6,19 +6,18 @@ import static com.momo.PostFixture.getPost;
 import static com.momo.UserFixture.getUser;
 import static com.momo.domain.post.entity.PostType.NORMAL;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.data.domain.PageRequest.of;
 
 import com.momo.common.RepositoryTest;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.post.entity.Comment;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.user.entity.User;
+import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 
 @DisplayName("댓글 레포지토리 테스트")
 public class CommentRepositoryTest extends RepositoryTest {
@@ -51,8 +50,20 @@ public class CommentRepositoryTest extends RepositoryTest {
     }
 
     @Test
-    void 게시글에_해당하는_댓글_목록_조회한다() {
-        Page<Comment> comments = commentRepository.findAllByPostOrderByCreatedDateAsc(post, of(0, 10));
-        assertThat(comments.getTotalElements()).isEqualTo(1L);
+    void 게시글에_등록된_댓글_목록을_조회한다() {
+        List<Comment> actual = commentRepository.findAllByPostOrderByIdDesc(post, comment.getId(), 10);
+        assertThat(actual.size()).isEqualTo(0L);
+    }
+
+    @Test
+    void 게시글에_등록된_댓글_목록을_조회한다_마지막_댓글_ID_NULL() {
+        List<Comment> actual = commentRepository.findAllByPostOrderByIdDesc(post, null, 10);
+        assertThat(actual.size()).isEqualTo(1L);
+    }
+
+    @Test
+    void 게시글에_등록된_댓글_개수를_조회한다() {
+        long actual = commentRepository.countByPost(post);
+        assertThat(actual).isEqualTo(1L);
     }
 }

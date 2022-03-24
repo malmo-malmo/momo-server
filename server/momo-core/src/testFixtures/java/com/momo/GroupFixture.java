@@ -45,6 +45,22 @@ public class GroupFixture {
             .build();
     }
 
+    public static Group getGroup(User user, boolean isEnd) {
+        INCREASE_ID++;
+        return Group.builder()
+            .manager(user)
+            .name(NAME + INCREASE_ID)
+            .category(CATEGORY)
+            .location(getLocation())
+            .imageUrl(IMAGE_URL)
+            .introduction(INTRODUCTION + INCREASE_ID)
+            .recruitmentCnt(RECRUITMENT_CNT)
+            .isOffline(IS_OFFLINE)
+            .isEnd(isEnd)
+            .startDate(DATE)
+            .build();
+    }
+
     public static Group getGroupWithId(User user) {
         INCREASE_ID++;
         return Group.builder()

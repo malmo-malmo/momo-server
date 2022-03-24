@@ -25,39 +25,50 @@ public class ManagementController {
     private final ManagementService managementService;
 
     @GetMapping("/participation-group/count")
-    public ResponseEntity<ParticipationGroupCountResponse> findParticipationGroupCount(@CurrentUser User user) {
+    public ResponseEntity<ParticipationGroupCountResponse> findParticipationGroupCount(
+        @CurrentUser User user
+    ) {
         ParticipationGroupCountResponse response = managementService.findParticipationGroupCountByUser(user);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/participation-groups/details")
-    public ResponseEntity<List<ParticipationGroupCardResponse>> findParticipationGroups(@CurrentUser User user) {
+    public ResponseEntity<List<ParticipationGroupCardResponse>> findParticipationGroups(
+        @CurrentUser User user
+    ) {
         List<ParticipationGroupCardResponse> responses = managementService.findParticipationGroupsByUser(user);
         return ResponseEntity.ok(responses);
     }
 
     @GetMapping("/participation-groups/summary")
     public ResponseEntity<List<ParticipationGroupSummaryResponse>> findParticipationGroupsSummary(
-        @CurrentUser User user) {
+        @CurrentUser User user
+    ) {
         return ResponseEntity.ok(managementService.findParticipationGroupsSummaryByUser(user));
     }
 
     @GetMapping("/my-groups/details")
-    public ResponseEntity<List<MyGroupCardResponse>> findMyGroups(@CurrentUser User user) {
+    public ResponseEntity<List<MyGroupCardResponse>> findMyGroups(
+        @CurrentUser User user
+    ) {
         List<MyGroupCardResponse> responses = managementService.findMyGroupsByUser(user);
         return ResponseEntity.ok(responses);
     }
 
     @GetMapping("/my-groups/summary")
-    public ResponseEntity<List<MyGroupSummaryResponse>> findMyGroupsSummary(@CurrentUser User user) {
+    public ResponseEntity<List<MyGroupSummaryResponse>> findMyGroupsSummary(
+        @CurrentUser User user
+    ) {
         List<MyGroupSummaryResponse> responses = managementService.findMyGroupsSummaryByUser(user);
         return ResponseEntity.ok(responses);
     }
 
     @GetMapping("/my-posts")
-    public ResponseEntity<List<MyPostCardResponse>> findMyPosts(@CurrentUser User user,
-        @RequestParam int page, @RequestParam int size) {
-        List<MyPostCardResponse> responses = managementService.findMyPostsByUser(user, page, size);
+    public ResponseEntity<List<MyPostCardResponse>> findMyPosts(
+        @CurrentUser User user,
+        @RequestParam(required = false) Long lastPostId, @RequestParam int size
+    ) {
+        List<MyPostCardResponse> responses = managementService.findMyPostsByUser(user, lastPostId, size);
         return ResponseEntity.ok(responses);
     }
 }

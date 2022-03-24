@@ -21,5 +21,5 @@ public interface ManagementService {
 
     List<MyGroupSummaryResponse> findMyGroupsSummaryByUser(User loginUser);
 
-    List<MyPostCardResponse> findMyPostsByUser(User loginUser, int page, int size);
+    List<MyPostCardResponse> findMyPostsByUser(User loginUser, Long lastPostId, int size);
 }

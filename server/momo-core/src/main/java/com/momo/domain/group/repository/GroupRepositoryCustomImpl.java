@@ -36,7 +36,10 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
         return queryFactory
             .selectFrom(group)
             .leftJoin(group.achievementRate, groupAchievementRate).fetchJoin()
-            .where(group.manager.eq(loginUser))
+            .where(
+                group.isEnd.isFalse(),
+                group.manager.eq(loginUser)
+            )
             .fetch();
     }
 
@@ -85,6 +88,7 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
             .from(group)
             .where(
                 group.name.contains(request.getGroupName()),
+                group.isEnd.isFalse(),
                 cityIn(request.getCities()),
                 categoryIn(request.getCategories())
             )
@@ -111,6 +115,7 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
             ))
             .from(group)
             .where(
+                group.isEnd.isFalse(),
                 cityIn(cities),
                 categoryIn(categories)
             )
@@ -145,6 +150,7 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
             ))
             .from(group)
             .where(
+                group.isEnd.isFalse(),
                 group.location.university.eq(university),
                 ltLastGroupId(lastGroupId)
             )
@@ -169,6 +175,7 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
             ))
             .from(group)
             .where(
+                group.isEnd.isFalse(),
                 group.location.district.eq(district),
                 ltLastGroupId(lastGroupId)
             )
@@ -193,6 +200,7 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
             ))
             .from(group)
             .where(
+                group.isEnd.isFalse(),
                 group.category.in(categories),
                 ltLastGroupId(lastGroupId)
             )
@@ -222,7 +230,6 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
         if (Objects.isNull(groupId)) {
             return null;
         }
-
         return group.id.lt(groupId);
     }
 }

@@ -43,7 +43,7 @@ public class ScheduleDocumentation {
     public static RestDocumentationResultHandler findPageByGroup() {
         ParameterDescriptor[] requestSchedule = new ParameterDescriptor[]{
             parameterWithName("groupId").description("모임 ID"),
-            parameterWithName("page").description("페이지"),
+            parameterWithName("lastScheduleStartDateTime").description("마지막 일정 시작 시간").optional(),
             parameterWithName("size").description("사이즈")
         };
         FieldDescriptor[] responseSchedule = new FieldDescriptor[]{

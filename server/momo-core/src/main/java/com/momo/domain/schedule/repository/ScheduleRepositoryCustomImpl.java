@@ -1,6 +1,5 @@
 package com.momo.domain.schedule.repository;
 
-import static com.momo.domain.group.entity.QGroup.group;
 import static com.momo.domain.group.entity.QParticipant.participant;
 import static com.momo.domain.schedule.entity.QAttendance.attendance;
 import static com.momo.domain.schedule.entity.QSchedule.schedule;
@@ -11,14 +10,14 @@ import com.momo.domain.schedule.dto.GroupScheduleResponse;
 import com.momo.domain.schedule.dto.QGroupScheduleResponse;
 import com.momo.domain.schedule.entity.Schedule;
 import com.momo.domain.user.entity.User;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.support.PageableExecutionUtils;
 
 @RequiredArgsConstructor
 public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
@@ -26,22 +25,26 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<GroupScheduleResponse> findAllByGroupAndUserOrderByCreatedDateDesc(Group group, Long userId,
-        Pageable pageable) {
-        List<GroupScheduleResponse> content = selectGroupScheduleClause(userId)
+    public List<GroupScheduleResponse> findAllByGroupOrderByStartDateTimeDesc(
+        Group group, Long userId, LocalDateTime lastScheduleStartDateTime, int size
+    ) {
+        return selectGroupScheduleClause(userId)
             .from(schedule)
             .leftJoin(schedule.author, user)
-            .where(schedule.group.eq(group))
-            .offset(pageable.getOffset())
-            .limit(pageable.getPageSize())
+            .where(
+                schedule.group.eq(group),
+                ltLastScheduleStartDateTime(lastScheduleStartDateTime)
+            )
+            .orderBy(schedule.startDateTime.desc())
+            .limit(size)
             .fetch();
+    }
 
-        JPAQuery<Schedule> countQuery = queryFactory
-            .select(schedule)
-            .from(schedule)
-            .where(schedule.group.eq(group));
-
-        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchCount).getContent();
+    private BooleanExpression ltLastScheduleStartDateTime(LocalDateTime startDateTime) {
+        if (Objects.isNull(startDateTime)) {
+            return null;
+        }
+        return schedule.startDateTime.lt(startDateTime);
     }
 
     @Override
@@ -83,7 +86,10 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
                     .select(attendance.isAttend.nullif(false))
                     .from(attendance)
                     .leftJoin(attendance.participant, participant)
-                    .where(attendance.schedule.eq(schedule), attendance.participant.user.id.eq(userId))
+                    .where(
+                        attendance.schedule.eq(schedule),
+                        attendance.participant.user.id.eq(userId)
+                    )
             ));
     }
 }

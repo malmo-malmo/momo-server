@@ -49,7 +49,6 @@ public class CommentFixture {
     public static CommentsRequest getCommentsRequest(Long postId) {
         return CommentsRequest.builder()
             .postId(postId)
-            .page(PAGE)
             .size(PAGE_SIZE)
             .build();
     }

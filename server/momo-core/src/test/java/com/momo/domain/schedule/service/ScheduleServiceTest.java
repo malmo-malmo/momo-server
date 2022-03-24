@@ -9,6 +9,7 @@ import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -71,7 +72,7 @@ public class ScheduleServiceTest extends ServiceTest {
         given(scheduleRepository.findGroupResponseById(any(), any()))
             .willReturn(GroupScheduleResponse.builder().scheduleId(schedule.getId()).build());
 
-        GroupScheduleResponse actual = scheduleService.create(manager, request);
+        GroupScheduleResponse actual = scheduleService.createSchedule(manager, request);
 
         verify(groupRepository).findById(any());
         verify(scheduleRepository).save(any());
@@ -87,7 +88,7 @@ public class ScheduleServiceTest extends ServiceTest {
 
         given(groupRepository.findById(any())).willReturn(of(group));
 
-        assertThatThrownBy(() -> scheduleService.create(user, request))
+        assertThatThrownBy(() -> scheduleService.createSchedule(user, request))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_MANAGER_AUTHORIZED.getMessage());
     }
@@ -103,13 +104,14 @@ public class ScheduleServiceTest extends ServiceTest {
 
         given(groupRepository.findById(any())).willReturn(of(group));
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(true);
-        given(scheduleRepository.findAllByGroupAndUserOrderByCreatedDateDesc(any(), any(), any())).willReturn(response);
+        given(scheduleRepository.findAllByGroupOrderByStartDateTimeDesc(any(), any(), any(), anyInt())).willReturn(
+            response);
 
         GroupScheduleResponses expected = scheduleService.findPageByUserAndGroupId(manager, request);
 
         verify(groupRepository).findById(any());
         verify(participantRepository).existsByGroupAndUser(any(), any());
-        verify(scheduleRepository).findAllByGroupAndUserOrderByCreatedDateDesc(any(), any(), any());
+        verify(scheduleRepository).findAllByGroupOrderByStartDateTimeDesc(any(), any(), any(), anyInt());
         Assertions.assertAll(
             () -> assertThat(expected).isNotNull(),
             () -> assertThat(expected.getManagerId()).isEqualTo(manager.getId()),
@@ -165,7 +167,7 @@ public class ScheduleServiceTest extends ServiceTest {
     void 모임_참여자가_아니면_다가오는_일정을_조회를_실패한다() {
         given(groupRepository.findById(any())).willReturn(of(group));
         given(participantRepository.existsByGroupAndUser(any(), any())).willReturn(false);
-        
+
         assertThatThrownBy(() -> scheduleService.findUpcomingScheduleByGroupId(user, group.getId()))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED.getMessage());

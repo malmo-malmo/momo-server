@@ -5,7 +5,6 @@ import static com.momo.PostFixture.getPost;
 import static com.momo.UserFixture.getUser;
 import static com.momo.domain.post.entity.PostType.NORMAL;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.data.domain.PageRequest.of;
 
 import com.momo.common.RepositoryTest;
 import com.momo.domain.group.entity.Group;
@@ -60,7 +59,7 @@ public class PostRepositoryTest extends RepositoryTest {
     @Test
     void 게시글_목록을_조회한다() {
         List<PostCardResponse> actual = postRepository
-            .findAllWithAuthorByGroupAndTypeOrderByCreatedDateDesc(group, post.getType(), of(0, 10));
+            .findAllWithCommentCntByGroupOrderByIdDesc(group, post.getType(), null, 10);
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
             () -> assertThat(actual.size()).isEqualTo(1),
@@ -76,7 +75,7 @@ public class PostRepositoryTest extends RepositoryTest {
     @Test
     void 자신이_올린_게시글을_조회한다() {
         List<Post> actual = postRepository
-            .findAllWithGroupAndAuthorByUserAndTypeOrderByCreatedDateDesc(user, NORMAL, of(0, 10));
+            .findAllByGroupAndUserOrderByIdDesc(user, NORMAL, null, 10);
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
             () -> assertThat(actual.size()).isEqualTo(1),

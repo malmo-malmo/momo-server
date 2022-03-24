@@ -48,7 +48,7 @@ public class ScheduleRestDocsTest extends RestDocsControllerTest {
             .build();
         String content = super.objectMapper.writeValueAsString(request);
 
-        given(scheduleService.create(any(), any())).willReturn(GroupScheduleResponse.builder()
+        given(scheduleService.createSchedule(any(), any())).willReturn(GroupScheduleResponse.builder()
             .scheduleId(1L)
             .authorImage("작성자 이미지")
             .authorNickname("작성자 이름")
@@ -87,9 +87,9 @@ public class ScheduleRestDocsTest extends RestDocsControllerTest {
             1L
         ));
         super.mockMvc.perform(get("/api/schedule/group-schedules")
-                .param("groupId", String.valueOf(1L))
-                .param("page", String.valueOf(1))
-                .param("size", String.valueOf(1))
+                .param("groupId", "1")
+                .param("lastScheduleStartDateTime", "2021-10-18 10:10")
+                .param("size", "10")
             )
             .andDo(print())
             .andExpect(status().isOk())

@@ -2,6 +2,7 @@ package com.momo.management.docs;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -144,11 +145,11 @@ public class ManagementRestDocsTest extends RestDocsControllerTest {
                 .build()
         );
 
-        when(managementService.findMyPostsByUser(any(), anyInt(), anyInt())).thenReturn(responses);
+        when(managementService.findMyPostsByUser(any(), anyLong(), anyInt())).thenReturn(responses);
 
         super.mockMvc.perform(get("/api/management/my-posts")
-                .param("page", String.valueOf(0))
-                .param("size", String.valueOf(10))
+                .param("lastPostId", "0")
+                .param("size", "10")
             )
             .andDo(print())
             .andExpect(status().isOk())

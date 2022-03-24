@@ -14,15 +14,10 @@ import lombok.NoArgsConstructor;
 public class CommentResponse {
 
     private Long id;
-
     private Long authorId;
-
     private String authorImage;
-
     private String authorNickname;
-
     private String contents;
-
     private String createdDate;
 
     @Builder
@@ -48,6 +43,8 @@ public class CommentResponse {
     }
 
     public static List<CommentResponse> listOf(List<Comment> comments) {
-        return comments.stream().map(CommentResponse::of).collect(Collectors.toList());
+        return comments.stream()
+            .map(CommentResponse::of)
+            .collect(Collectors.toList());
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface ScheduleService {
 
-    GroupScheduleResponse create(User user, ScheduleCreateRequest request);
+    GroupScheduleResponse createSchedule(User user, ScheduleCreateRequest request);
 
     GroupScheduleResponses findPageByUserAndGroupId(User user, GroupSchedulesRequest request);
 

@@ -13,7 +13,7 @@ import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreate
 import static com.momo.post.acceptance.step.CommentAcceptanceStep.assertThatCreateComment;
 import static com.momo.post.acceptance.step.CommentAcceptanceStep.assertThatFindComments;
 import static com.momo.post.acceptance.step.CommentAcceptanceStep.requestToCreateComment;
-import static com.momo.post.acceptance.step.CommentAcceptanceStep.requestToDeleteComment;
+import static com.momo.post.acceptance.step.CommentAcceptanceStep.requestTodeleteCommentById;
 import static com.momo.post.acceptance.step.CommentAcceptanceStep.requestToFindComments;
 import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToCreatePost;
 
@@ -62,7 +62,7 @@ public class CommentAcceptanceTest extends AcceptanceTest {
         Long postId = extractId(requestToCreatePost(token, getPostCreateRequest(groupId, NORMAL)));
         Long commentId = extractId(requestToCreateComment(token, getCommentCreateRequest(postId)));
 
-        ExtractableResponse<Response> response = requestToDeleteComment(token, commentId);
+        ExtractableResponse<Response> response = requestTodeleteCommentById(token, commentId);
         assertThatStatusIsNoContent(response);
     }
 

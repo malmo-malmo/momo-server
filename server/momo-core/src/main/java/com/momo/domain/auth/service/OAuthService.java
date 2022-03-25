@@ -1,13 +1,13 @@
 package com.momo.domain.auth.service;
 
+import com.momo.domain.auth.domain.AccessTokenReissuance;
+import com.momo.domain.auth.domain.OAuthProvider;
+import com.momo.domain.auth.domain.OAuthProviderFactory;
 import com.momo.domain.auth.dto.OAuthLoginRequest;
 import com.momo.domain.auth.dto.OAuthLoginResponse;
 import com.momo.domain.auth.dto.RefreshLoginRequest;
-import com.momo.domain.auth.entity.AccessTokenReissuance;
-import com.momo.domain.auth.provider.OAuthProvider;
-import com.momo.domain.auth.provider.OAuthProviderFactory;
-import com.momo.domain.auth.provider.TokenProvider;
-import com.momo.domain.auth.repository.AccessTokenReissuanceRepository;
+import com.momo.domain.auth.infra.TokenProvider;
+import com.momo.domain.auth.infra.TokenReissuanceDao;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.user.entity.User;
@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class OAuthService {
 
     private final UserRepository userRepository;
-    private final AccessTokenReissuanceRepository accessTokenReissuanceRepository;
+    private final TokenReissuanceDao tokenReissuanceDao;
     private final OAuthProviderFactory oAuthProviderFactory;
     private final TokenProvider tokenProvider;
 
@@ -34,7 +34,7 @@ public class OAuthService {
         String refreshToken = tokenProvider.createRefreshToken(loginUser.getId());
         String accessToken = tokenProvider.createAccessToken(loginUser.getId());
 
-        saveAccessTokenReissuance(refreshToken, loginUser.getId(), oAuthLoginRequest.getDeviceCode());
+        tokenReissuanceDao.insert(refreshToken, loginUser.getId(), oAuthLoginRequest.getDeviceCode());
 
         return new OAuthLoginResponse(accessToken, refreshToken);
     }
@@ -59,23 +59,20 @@ public class OAuthService {
 
         AccessTokenReissuance reissuance = getAccessTokenReissuanceByRefreshToken(request.getRefreshToken());
         String accessToken = tokenProvider.createAccessToken(reissuance.getUserId());
-        String refreshToken = reissuance.getRefreshToken();
 
         validateDeviceCode(reissuance, request.getDeviceCode());
-
-        if (tokenProvider.isOverRefreshTokenRenewalHour(refreshToken)) {
-            return new OAuthLoginResponse(accessToken, refreshToken);
+        if (tokenProvider.isOverRefreshTokenRenewalHour(request.getRefreshToken())) {
+            return new OAuthLoginResponse(accessToken, request.getRefreshToken());
         }
 
-        refreshToken = tokenProvider.createRefreshToken(reissuance.getUserId());
-        accessTokenReissuanceRepository.delete(reissuance);
-        saveAccessTokenReissuance(refreshToken, reissuance.getUserId(), reissuance.getDeviceCode());
+        String refreshToken = tokenProvider.createRefreshToken(reissuance.getUserId());
+        tokenReissuanceDao.insert(refreshToken, reissuance.getUserId(), reissuance.getDeviceCode());
 
         return new OAuthLoginResponse(accessToken, refreshToken);
     }
 
     private AccessTokenReissuance getAccessTokenReissuanceByRefreshToken(String refreshToken) {
-        return accessTokenReissuanceRepository.findById(refreshToken)
+        return tokenReissuanceDao.findByRefreshToken(refreshToken)
             .orElseThrow(() -> new CustomException(ErrorCode.TOKEN_NOT_FOUND_USER));
     }
 
@@ -83,11 +80,5 @@ public class OAuthService {
         if (!tokenReissuance.isSameDeviceCode(deviceCode)) {
             throw new CustomException(ErrorCode.INVALID_DEVICE_CODE);
         }
-    }
-
-    private void saveAccessTokenReissuance(String refreshToken, Long userId, String deviceCode) {
-        accessTokenReissuanceRepository.save(
-            AccessTokenReissuance.create(refreshToken, userId, deviceCode)
-        );
     }
 }

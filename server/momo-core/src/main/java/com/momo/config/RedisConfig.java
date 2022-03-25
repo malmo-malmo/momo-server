@@ -1,6 +1,6 @@
 package com.momo.config;
 
-import static com.momo.Profile.DEVELOP;
+import static com.momo.Profile.PRODUCT;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -10,9 +10,10 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
-@Profile(DEVELOP)
+@Profile(PRODUCT)
 @EnableRedisRepositories
 public class RedisConfig {
 
@@ -20,8 +21,8 @@ public class RedisConfig {
     private final int port;
 
     public RedisConfig(
-        @Value("${redis.datasource.host}") String host,
-        @Value("${redis.datasource.port}") int port
+        @Value("${spring.redis.host}") String host,
+        @Value("${spring.redis.port}") int port
     ) {
         this.host = host;
         this.port = port;
@@ -33,8 +34,8 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<?, ?> redisTemplate() {
-        RedisTemplate<byte[], byte[]> redisTemplate = new RedisTemplate<>();
+    public RedisTemplate<String, Object> redisTemplate() {
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         return redisTemplate;
     }

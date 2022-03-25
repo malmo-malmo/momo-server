@@ -15,7 +15,7 @@ import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.domain.auth.dto.OAuthLoginRequest;
 import com.momo.domain.auth.dto.OAuthLoginResponse;
 import com.momo.domain.auth.dto.RefreshLoginRequest;
-import com.momo.domain.auth.repository.AccessTokenReissuanceRepository;
+import com.momo.domain.auth.infra.TokenReissuanceDao;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.user.entity.User;
@@ -30,7 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class AuthAcceptanceTest extends AcceptanceTest {
 
     @Autowired
-    private AccessTokenReissuanceRepository tokenReissuanceRepository;
+    private TokenReissuanceDao tokenReissuanceDao;
 
     private OAuthLoginRequest oAuthLoginRequest;
 
@@ -118,7 +118,6 @@ public class AuthAcceptanceTest extends AcceptanceTest {
         assertThatRenewalRefreshToken(
             refreshLoginResponse.getRefreshToken(),
             oAuthLoginResponse.getRefreshToken(),
-            existsAccessTokenReissuance(oAuthLoginResponse.getRefreshToken()),
             existsAccessTokenReissuance(refreshLoginResponse.getRefreshToken())
         );
     }
@@ -158,6 +157,6 @@ public class AuthAcceptanceTest extends AcceptanceTest {
     }
 
     private boolean existsAccessTokenReissuance(String refreshToken) {
-        return tokenReissuanceRepository.findById(refreshToken).isPresent();
+        return tokenReissuanceDao.findByRefreshToken(refreshToken).isPresent();
     }
 }

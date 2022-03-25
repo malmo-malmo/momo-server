@@ -1,4 +1,4 @@
-package com.momo.domain.auth.provider;
+package com.momo.domain.auth.domain;
 
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class OAuthProviderFactory {
+
     private final KakaoOAuthProvider kakaoOAuthProvider;
 
     public OAuthProvider getOAuthProvider(String provider) {

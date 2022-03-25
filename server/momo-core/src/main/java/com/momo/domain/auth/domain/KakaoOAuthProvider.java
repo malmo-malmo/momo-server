@@ -1,4 +1,4 @@
-package com.momo.domain.auth.provider;
+package com.momo.domain.auth.domain;
 
 import com.momo.domain.user.entity.SocialLogin;
 import com.momo.domain.user.entity.SocialProvider;

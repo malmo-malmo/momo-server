@@ -14,20 +14,25 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @EnableElasticsearchRepositories(basePackageClasses = GroupSearchEngine.class)
 public class ElasticSearchConfig extends AbstractElasticsearchConfiguration {
 
-    @Value("${cloud.aws.elasticsearch.endpoint}")
-    private String endpoint;
+    private final String uris;
+    private final String username;
+    private final String password;
 
-    @Value("${cloud.aws.elasticsearch.username}")
-    private String username;
+    public ElasticSearchConfig(
+        @Value("${spring.elasticsearch.rest.uris}") String uris,
+        @Value("${spring.elasticsearch.rest.username}") String username,
+        @Value("${spring.elasticsearch.rest.password}") String password
+    ) {
+        this.uris = uris;
+        this.username = username;
+        this.password = password;
+    }
 
-    @Value("${cloud.aws.elasticsearch.password}")
-    private String password;
-
-    @Override
     @Bean
+    @Override
     public RestHighLevelClient elasticsearchClient() {
         ClientConfiguration clientConfiguration = ClientConfiguration.builder()
-            .connectedTo(endpoint)
+            .connectedTo(uris)
             .usingSsl()
             .withBasicAuth(username, password)
             .build();

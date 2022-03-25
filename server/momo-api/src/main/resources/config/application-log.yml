@@ -1,0 +1,9 @@
+logging:
+  slack:
+    info-webhook-uri: ENC(IB1f1zikx4TT2VU7zN3NvxK9t4hCbvF8rdqpDsF5Ipbfbh2MHJ48b0Rr1/p6PhPnNU5drZgyOPmF3o/zV0lDxLYd4sDnGFigMg0zikgy2WVcP9xAPL/n6HpLIVCeUm47)
+    warn-webhook-uri: ENC(h9RCzwCY9k5fWyH2Kk/zE2Nhhe1eUI/7gW3aocyFWAcw3TwQvVLDngiFxVpni4beNDbbiXbQtOv74BCXkOeeuHAV4sfePj3XY98zVDywCr8MliB/yhtffUI4oN7UqPYR)
+    error-webhook-uri: ENC(2fsTNAh+xnNDCW5dQGIoAETS12W5yKa0gjt1gS2/JLY/T2RO60Yts5E0RJvaCFFWhMthI7oaD2pflW9z1B2CACay+xVGZhJEcqqf5wM+SnAFwU9GPfJx9LqtxoypmfJB)
+  config: classpath:logback/logback-dev.xml
+  bot-name: 모모 로그 알리미
+  save-path: ./logs
+  file-name: momo-dev

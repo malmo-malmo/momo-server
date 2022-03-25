@@ -32,12 +32,11 @@ public class AuthAcceptanceStep {
         );
     }
 
-    public static void assertThatRenewalRefreshToken(String newRefreshToken, String prevRefreshToken,
-        boolean isPresentPrevRefreshTokenInRedis, boolean isPresentRenewalRefreshTokenInRedis) {
-        ;
+    public static void assertThatRenewalRefreshToken(
+        String newRefreshToken, String prevRefreshToken, boolean isPresentRenewalRefreshTokenInRedis
+    ) {
         Assertions.assertAll(
             () -> assertThat(newRefreshToken).isNotEqualTo(prevRefreshToken),
-            () -> assertThat(isPresentPrevRefreshTokenInRedis).isFalse(),
             () -> assertThat(isPresentRenewalRefreshTokenInRedis).isTrue()
         );
     }

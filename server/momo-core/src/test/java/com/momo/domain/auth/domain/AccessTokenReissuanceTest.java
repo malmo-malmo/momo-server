@@ -1,4 +1,4 @@
-package com.momo.domain.auth.entity;
+package com.momo.domain.auth.domain;
 
 import static com.momo.AccessTokenReissuanceFixture.getAccessTokenReissuance;
 import static org.assertj.core.api.Assertions.assertThat;

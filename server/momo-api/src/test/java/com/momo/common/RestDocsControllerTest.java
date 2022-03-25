@@ -5,9 +5,8 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.momo.Profile;
 import com.momo.config.JasyptConfig;
-import com.momo.domain.auth.provider.TokenProvider;
+import com.momo.domain.auth.infra.TokenProvider;
 import com.momo.domain.auth.service.OAuthService;
 import com.momo.config.InterceptorConfig;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,4 +1,4 @@
-package com.momo.domain.auth.provider;
+package com.momo.domain.auth.domain;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.momo.domain.common.exception.CustomException;

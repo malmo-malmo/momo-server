@@ -1,4 +1,4 @@
-package com.momo.domain.auth.provider;
+package com.momo.domain.auth.infra;
 
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;

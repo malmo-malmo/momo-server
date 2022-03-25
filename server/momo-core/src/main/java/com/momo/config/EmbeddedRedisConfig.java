@@ -17,7 +17,7 @@ public class EmbeddedRedisConfig {
 
     @PostConstruct
     public void redisServer() {
-        redisServer = new RedisServer(6379);
+        redisServer = new RedisServer(6380);
         redisServer.start();
     }
 

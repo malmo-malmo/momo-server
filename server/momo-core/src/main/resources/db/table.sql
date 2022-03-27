@@ -149,6 +149,17 @@ create table if not exists participant_achievement_rate
     primary key (id)
 ) engine = InnoDB;
 
+create table chat
+(
+    id                 bigint not null auto_increment,
+    created_date       timestamp,
+    last_modified_date timestamp,
+    group_id           bigint,
+    manager_id         bigint,
+    user_id            bigint,
+    primary key (id)
+) engine = InnoDB;
+
 alter table attendance
     add constraint schedule_fk_attendance
         foreign key (schedule_id)
@@ -249,3 +260,18 @@ alter table favorite_group
         foreign key (user_id)
             references user (id)
             on delete cascade;
+
+alter table chat
+    add constraint group_fk_chat
+        foreign key (group_id)
+            references group_tb;
+
+alter table chat
+    add constraint manager_fk_chat
+        foreign key (manager_id)
+            references user;
+
+alter table chat
+    add constraint user_fk_chat
+        foreign key (user_id)
+            references user;

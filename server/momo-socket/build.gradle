@@ -1,12 +1,81 @@
-bootJar { enabled = false }
-jar { enabled = true }
+plugins {
+    id "org.asciidoctor.jvm.convert" version "3.3.2"
+}
+
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+bootJar {
+    dependsOn asciidoctor
+    copy {
+        from "${asciidoctor.outputDir}"
+        into 'src/main/resources/static/docs'
+    }
+}
+
+configurations {
+    asciidoctorExtensions
+}
 
 dependencies {
     implementation project(":momo-common")
     implementation project(":momo-core")
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket'
+    testImplementation(testFixtures(project(":momo-core")))
+
+    //web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    //mongo
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
-    runtimeOnly group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo'
+    implementation group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '3.4.3'
+    runtimeOnly group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '3.4.3'
+
+    //jpa
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    //messaging
+    implementation group: 'org.springframework', name: 'spring-messaging', version: '5.3.16'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+
+    //socket
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.6.4'
+
+    //spring rest docs
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    asciidoctorExtensions "org.springframework.restdocs:spring-restdocs-asciidoctor"
+
+    //acceptance test
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.3.3'
+
+    //jasypt
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3'
+
+    //util
+    implementation 'com.google.code.gson:gson:2.9.0'
+}
+
+test {
+    useJUnitPlatform()
+    outputs.dir snippetsDir
+}
+
+asciidoctor {
+    configurations "asciidoctorExtensions"
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+asciidoctor.doFirst {
+    delete file('src/main/resources/static/docs')
+}
+
+task copyDocument(type: Copy) {
+    dependsOn asciidoctor
+    from file("build/docs/asciidoc")
+    into file("src/main/resources/static/docs")
+}
+
+build {
+    dependsOn copyDocument
 }

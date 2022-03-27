@@ -2,11 +2,6 @@ spring:
   profiles:
     active: local
     include: auth, env, aws
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: test
   jpa:
     properties:
       hibernate:

@@ -9,6 +9,12 @@ spring:
     hibernate:
       ddl-auto: none
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  rabbitmq:
+    host: ENC(9bxrXtVxYbDgn8OwJ90uk+ECPF8qbtfsqEtp9IP+S7M=)
+    port: ENC(dbFhhycub3UnnN7VnsfsZg==)
+    username: ENC(4a77OXtc23IqLPqQ3CmWIA==)
+    password: ENC(Uva9XmyUBXtaDEfgVpplqw==)
+    routing-key: ENC(a2Z3Vx76YTw6eh6uD2KMu+SaGOTyYv49Trh5XKTBimM=)
 logging:
   slack:
     webhook-uri: ENC(2fsTNAh+xnNDCW5dQGIoAETS12W5yKa0gjt1gS2/JLY/T2RO60Yts5E0RJvaCFFWhMthI7oaD2pflW9z1B2CACay+xVGZhJEcqqf5wM+SnAFwU9GPfJx9LqtxoypmfJB)

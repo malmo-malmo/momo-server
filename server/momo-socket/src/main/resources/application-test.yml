@@ -1,4 +1,15 @@
 spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    routing-key: test-key
+  data:
+    mongodb:
+      host: localhost
+      port: 0
+      database: test
   datasource:
     url: jdbc:h2:mem:momodb
     driver-class-name: org.h2.Driver

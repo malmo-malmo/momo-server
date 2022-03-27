@@ -1,4 +1,4 @@
-package com.momo.config;
+package com.momo.config.listener;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

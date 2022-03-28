@@ -1,6 +1,5 @@
 package com.momo.interceptor;
 
-import static com.momo.config.listener.SendChatListener.LISTENER_ID;
 import static com.momo.domain.common.exception.ErrorCode.INVALID_INDEX_NUMBER;
 import static com.momo.domain.common.exception.ErrorCode.INVALID_OAUTH_ACCESS_TOKEN;
 import static org.springframework.messaging.simp.stomp.StompCommand.CONNECT;
@@ -8,22 +7,15 @@ import static org.springframework.messaging.simp.stomp.StompCommand.DISCONNECT;
 import static org.springframework.messaging.support.MessageHeaderAccessor.getAccessor;
 import static org.springframework.web.socket.WebSocketHttpHeaders.AUTHORIZATION;
 
+import com.momo.chat.domain.service.impl.CreateQueueService;
 import com.momo.config.model.SocketPrincipal;
 import com.momo.domain.auth.service.OAuthService;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.user.entity.User;
 import java.security.Principal;
-import java.util.Arrays;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.AmqpAdmin;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.Binding.DestinationType;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer;
-import org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistry;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.NonNull;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -34,27 +26,12 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class TokenAuthInterceptor implements ChannelInterceptor {
 
     private final OAuthService authService;
 
-    private final AmqpAdmin admin;
-
-    private final RabbitListenerEndpointRegistry rabbitListenerEndpointRegistry;
-
-    private final String routingKey;
-
-    public TokenAuthInterceptor(
-        OAuthService authService,
-        AmqpAdmin admin,
-        RabbitListenerEndpointRegistry rabbitListenerEndpointRegistry,
-        @Value("${spring.rabbitmq.routing-key}") String routingKey
-    ) {
-        this.authService = authService;
-        this.admin = admin;
-        this.rabbitListenerEndpointRegistry = rabbitListenerEndpointRegistry;
-        this.routingKey = routingKey;
-    }
+    private final CreateQueueService createQueueService;
 
     @Override
     public Message<?> preSend(@NonNull Message<?> message, @NonNull MessageChannel channel) {
@@ -70,30 +47,7 @@ public class TokenAuthInterceptor implements ChannelInterceptor {
             Long chatId = getChatId(accessor);
 
             String chatQueueName = String.format("chat-%s", chatId);
-            AbstractMessageListenerContainer container = (AbstractMessageListenerContainer)
-                rabbitListenerEndpointRegistry.getListenerContainer(LISTENER_ID);
-
-            boolean isExistsQueue = Arrays.asList(container.getQueueNames())
-                .contains(chatQueueName);
-            if (!isExistsQueue) {
-                Queue queue = new Queue(chatQueueName);
-                DirectExchange exchange = new DirectExchange(chatQueueName);
-                Binding binding = new Binding(
-                    chatQueueName,
-                    DestinationType.QUEUE,
-                    chatQueueName,
-                    routingKey,
-                    null
-                );
-                try {
-                    admin.declareQueue(queue);
-                    admin.declareExchange(exchange);
-                    admin.declareBinding(binding);
-                    container.addQueues(queue);
-                } catch (Exception e) {
-                    log.error("Error : ", e);
-                }
-            }
+            createQueueService.createQueue(chatQueueName);
         }
         return message;
     }

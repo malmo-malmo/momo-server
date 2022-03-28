@@ -1,12 +1,10 @@
 package com.momo.chat.api.docs;
 
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.chat.api.CreateChatApiSpec;
-import com.momo.chat.api.docs.document.ApplyParticipantDocumentation;
+import com.momo.chat.api.CreateChatController;
 import com.momo.chat.api.docs.document.CreateChatDocumentation;
 import com.momo.chat.domain.service.CreateChatUseCase;
 import com.momo.common.RestDocsControllerTest;
@@ -15,9 +13,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-@WebMvcTest(CreateChatApiSpec.class)
+@WebMvcTest(CreateChatController.class)
 @DisplayName("채팅방 생성 API 테스트")
-public class CreateChatApiSpecTests extends RestDocsControllerTest {
+public class CreateChatControllerTests extends RestDocsControllerTest {
+
     @MockBean
     private CreateChatUseCase useCase;
 

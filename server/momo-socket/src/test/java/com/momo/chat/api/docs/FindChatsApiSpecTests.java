@@ -6,7 +6,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.chat.api.FindChatsApiSpec;
+import com.momo.chat.api.FindChatsController;
 import com.momo.chat.api.docs.document.FindChatsDocumentation;
 import com.momo.chat.domain.response.ChatResponse;
 import com.momo.chat.domain.service.FindChatsUseCase;
@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-@WebMvcTest(FindChatsApiSpec.class)
+@WebMvcTest(FindChatsController.class)
 @DisplayName("채팅방 목록 조회 API 테스트")
 public class FindChatsApiSpecTests extends RestDocsControllerTest {
 

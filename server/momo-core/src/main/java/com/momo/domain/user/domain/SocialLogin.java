@@ -1,4 +1,4 @@
-package com.momo.domain.user.entity;
+package com.momo.domain.user.domain;
 
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;

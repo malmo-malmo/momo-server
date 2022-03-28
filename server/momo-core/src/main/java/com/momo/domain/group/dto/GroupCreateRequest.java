@@ -3,7 +3,7 @@ package com.momo.domain.group.dto;
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
 import com.momo.domain.group.entity.Group;
-import com.momo.domain.user.entity.Location;
+import com.momo.domain.user.domain.Location;
 import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

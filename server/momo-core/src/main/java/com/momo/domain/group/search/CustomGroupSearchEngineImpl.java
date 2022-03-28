@@ -8,7 +8,7 @@ import com.momo.domain.district.entity.City;
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.dto.QGroupCardResponse;
 import com.momo.domain.group.entity.Category;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;

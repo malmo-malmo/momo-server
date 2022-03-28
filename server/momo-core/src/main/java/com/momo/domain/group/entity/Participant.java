@@ -2,7 +2,7 @@ package com.momo.domain.group.entity;
 
 import com.momo.domain.achievementrate.entity.ParticipantAchievementRate;
 import com.momo.domain.common.entity.BaseEntity;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;

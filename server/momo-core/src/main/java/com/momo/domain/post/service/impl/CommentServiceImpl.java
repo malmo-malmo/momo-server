@@ -13,7 +13,7 @@ import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.repository.CommentRepository;
 import com.momo.domain.post.repository.PostRepository;
 import com.momo.domain.post.service.CommentService;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

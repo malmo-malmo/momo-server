@@ -1,7 +1,7 @@
 package com.momo.api.user;
 
-import com.momo.domain.user.dto.UniversityResponse;
-import com.momo.domain.user.service.UniversityService;
+import com.momo.api.user.dto.response.UniversityResponse;
+import com.momo.domain.user.application.UniversityService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

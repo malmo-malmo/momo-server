@@ -3,7 +3,7 @@ package com.momo.domain.auth.domain;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import org.apache.tomcat.util.json.ParseException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

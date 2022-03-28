@@ -12,7 +12,7 @@ import com.momo.domain.group.repository.ParticipantRepository;
 import com.momo.domain.management.dto.ParticipationGroupCountResponse;
 import com.momo.domain.management.service.impl.ManagementServiceImpl;
 import com.momo.domain.post.repository.PostRepository;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

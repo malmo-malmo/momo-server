@@ -10,7 +10,7 @@ import com.momo.domain.post.dto.PostCardResponse;
 import com.momo.domain.post.dto.QPostCardResponse;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.entity.PostType;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;

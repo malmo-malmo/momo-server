@@ -4,7 +4,7 @@ import com.momo.api.auth.CurrentUser;
 import com.momo.domain.group.dto.ParticipantRequest;
 import com.momo.domain.group.dto.ParticipantResponse;
 import com.momo.domain.group.service.ParticipantService;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;

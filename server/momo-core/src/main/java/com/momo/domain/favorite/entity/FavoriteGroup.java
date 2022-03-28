@@ -2,8 +2,7 @@ package com.momo.domain.favorite.entity;
 
 import com.momo.domain.common.entity.BaseEntity;
 import com.momo.domain.group.entity.Group;
-import com.momo.domain.user.entity.User;
-import java.time.LocalDateTime;
+import com.momo.domain.user.domain.User;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;

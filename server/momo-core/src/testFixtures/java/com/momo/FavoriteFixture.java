@@ -5,7 +5,7 @@ import com.momo.domain.favorite.dto.FavoriteGroupCreateRequest;
 import com.momo.domain.favorite.entity.FavoriteGroup;
 import com.momo.domain.group.dto.GroupCardResponse;
 import com.momo.domain.group.entity.Group;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 
 public class FavoriteFixture {
 

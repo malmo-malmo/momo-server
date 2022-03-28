@@ -15,7 +15,7 @@ import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.group.dto.ParticipantResponse;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;

@@ -10,7 +10,7 @@ import com.momo.domain.post.dto.PostCreateRequest;
 import com.momo.domain.post.dto.PostResponse;
 import com.momo.domain.post.dto.PostUpdateRequest;
 import com.momo.domain.post.entity.Post;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;

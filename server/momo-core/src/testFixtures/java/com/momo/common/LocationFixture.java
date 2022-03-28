@@ -4,7 +4,7 @@ import static com.momo.common.FixtureComponents.CITY;
 import static com.momo.common.FixtureComponents.DISTRICT;
 import static com.momo.common.FixtureComponents.UNIVERSITY;
 
-import com.momo.domain.user.entity.Location;
+import com.momo.domain.user.domain.Location;
 
 public class LocationFixture {
 

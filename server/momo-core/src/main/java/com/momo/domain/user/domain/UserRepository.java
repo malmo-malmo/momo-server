@@ -1,7 +1,7 @@
-package com.momo.domain.user.repository;
+package com.momo.domain.user.domain;
 
-import com.momo.domain.user.entity.SocialProvider;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.SocialProvider;
+import com.momo.domain.user.domain.User;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 

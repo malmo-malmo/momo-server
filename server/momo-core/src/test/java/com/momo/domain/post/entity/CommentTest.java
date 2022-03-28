@@ -6,7 +6,7 @@ import static com.momo.UserFixture.getUserWithId;
 import static com.momo.domain.post.entity.PostType.NORMAL;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

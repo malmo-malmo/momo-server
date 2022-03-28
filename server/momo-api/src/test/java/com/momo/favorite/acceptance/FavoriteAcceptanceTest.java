@@ -27,7 +27,7 @@ import com.momo.domain.favorite.dto.FavoriteGroupCardResponse;
 import com.momo.domain.favorite.dto.FavoriteGroupCountResponse;
 import com.momo.domain.favorite.dto.FavoriteGroupCreateRequest;
 import com.momo.domain.group.dto.GroupCreateRequest;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;

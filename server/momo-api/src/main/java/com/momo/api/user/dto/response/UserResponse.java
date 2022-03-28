@@ -1,7 +1,7 @@
-package com.momo.domain.user.dto;
+package com.momo.api.user.dto.response;
 
 import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import java.util.List;
 import lombok.Builder;
 import lombok.Data;

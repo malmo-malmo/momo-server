@@ -1,4 +1,4 @@
-package com.momo.domain.user.dto;
+package com.momo.api.user.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -13,10 +13,10 @@ import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdateMy
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdateMyInformationWithImage;
 
 import com.momo.common.acceptance.AcceptanceTest;
-import com.momo.domain.user.dto.UserResponse;
-import com.momo.domain.user.dto.UserUpdateRequest;
-import com.momo.domain.user.dto.UserUpdateResponse;
-import com.momo.domain.user.entity.User;
+import com.momo.api.user.dto.response.UserResponse;
+import com.momo.api.user.dto.request.UserUpdateRequest;
+import com.momo.api.user.dto.response.UserUpdateResponse;
+import com.momo.domain.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;

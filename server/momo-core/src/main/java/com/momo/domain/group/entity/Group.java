@@ -2,8 +2,8 @@ package com.momo.domain.group.entity;
 
 import com.momo.domain.achievementrate.entity.GroupAchievementRate;
 import com.momo.domain.common.entity.BaseEntity;
-import com.momo.domain.user.entity.Location;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.Location;
+import com.momo.domain.user.domain.User;
 import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Embedded;

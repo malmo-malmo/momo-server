@@ -7,7 +7,7 @@ import com.momo.domain.post.dto.CommentCreateRequest;
 import com.momo.domain.post.dto.CommentResponse;
 import com.momo.domain.post.dto.CommentsRequest;
 import com.momo.domain.post.dto.CommentsResponse;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;

@@ -4,7 +4,6 @@ import static com.momo.common.FixtureComponents.AUTHOR_IMAGE;
 import static com.momo.common.FixtureComponents.AUTHOR_NICKNAME;
 import static com.momo.common.FixtureComponents.CONTENTS;
 import static com.momo.common.FixtureComponents.INCREASE_ID;
-import static com.momo.common.FixtureComponents.PAGE;
 import static com.momo.common.FixtureComponents.PAGE_SIZE;
 
 import com.momo.domain.post.dto.CommentCreateRequest;
@@ -13,7 +12,7 @@ import com.momo.domain.post.dto.CommentsRequest;
 import com.momo.domain.post.dto.CommentsResponse;
 import com.momo.domain.post.entity.Comment;
 import com.momo.domain.post.entity.Post;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import java.time.LocalDateTime;
 import java.util.List;
 

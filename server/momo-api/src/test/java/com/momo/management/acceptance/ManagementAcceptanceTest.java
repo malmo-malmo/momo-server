@@ -31,7 +31,7 @@ import com.momo.domain.management.dto.ParticipationGroupCardResponse;
 import com.momo.domain.management.dto.ParticipationGroupCountResponse;
 import com.momo.domain.management.dto.ParticipationGroupSummaryResponse;
 import com.momo.domain.post.dto.PostCreateRequest;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;

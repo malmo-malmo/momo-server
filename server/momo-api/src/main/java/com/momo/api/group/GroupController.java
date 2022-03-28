@@ -6,7 +6,7 @@ import com.momo.domain.group.dto.GroupCreateRequest;
 import com.momo.domain.group.dto.GroupCreateResponse;
 import com.momo.domain.group.dto.GroupResponse;
 import com.momo.domain.group.service.GroupService;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;

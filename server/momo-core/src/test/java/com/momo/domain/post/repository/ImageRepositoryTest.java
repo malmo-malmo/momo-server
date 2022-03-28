@@ -11,7 +11,7 @@ import com.momo.common.RepositoryTest;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.post.entity.Image;
 import com.momo.domain.post.entity.Post;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

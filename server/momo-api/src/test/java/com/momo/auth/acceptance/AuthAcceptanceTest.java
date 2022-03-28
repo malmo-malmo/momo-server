@@ -18,7 +18,7 @@ import com.momo.domain.auth.dto.RefreshLoginRequest;
 import com.momo.domain.auth.infra.TokenReissuanceDao;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;

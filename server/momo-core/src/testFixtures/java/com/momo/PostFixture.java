@@ -19,7 +19,7 @@ import com.momo.domain.post.dto.PostResponse;
 import com.momo.domain.post.dto.PostUpdateRequest;
 import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.entity.PostType;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import java.util.List;
 
 public class PostFixture {

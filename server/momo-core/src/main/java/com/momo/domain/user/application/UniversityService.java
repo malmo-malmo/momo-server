@@ -1,4 +1,4 @@
-package com.momo.domain.user.service;
+package com.momo.domain.user.application;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,6 +1,6 @@
 package com.momo.domain.group.dto;
 
-import com.momo.domain.user.entity.Location;
+import com.momo.domain.user.domain.Location;
 import com.querydsl.core.annotations.QueryProjection;
 import java.time.LocalDate;
 import lombok.Builder;

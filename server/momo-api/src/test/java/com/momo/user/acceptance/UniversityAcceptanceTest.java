@@ -6,7 +6,7 @@ import static com.momo.user.acceptance.step.UniversityAcceptanceStep.requestToFi
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.acceptance.AcceptanceTest;
-import com.momo.domain.user.dto.UniversityResponse;
+import com.momo.api.user.dto.response.UniversityResponse;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;

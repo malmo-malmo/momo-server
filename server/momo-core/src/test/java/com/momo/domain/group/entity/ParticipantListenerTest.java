@@ -9,7 +9,7 @@ import com.momo.common.RepositoryTest;
 import com.momo.domain.achievementrate.entity.ParticipantAchievementRate;
 import com.momo.domain.achievementrate.repository.ParticipantAchievementRateRepository;
 import com.momo.domain.group.repository.ParticipantRepository;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import java.math.BigDecimal;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;

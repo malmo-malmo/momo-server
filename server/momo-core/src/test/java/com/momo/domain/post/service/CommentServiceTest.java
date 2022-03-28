@@ -31,7 +31,7 @@ import com.momo.domain.post.entity.Post;
 import com.momo.domain.post.repository.CommentRepository;
 import com.momo.domain.post.repository.PostRepository;
 import com.momo.domain.post.service.impl.CommentServiceImpl;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;

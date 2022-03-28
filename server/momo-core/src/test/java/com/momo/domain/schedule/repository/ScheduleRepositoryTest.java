@@ -12,7 +12,7 @@ import com.momo.common.RepositoryTest;
 import com.momo.domain.group.entity.Group;
 import com.momo.domain.schedule.dto.GroupScheduleResponse;
 import com.momo.domain.schedule.entity.Schedule;
-import com.momo.domain.user.entity.User;
+import com.momo.domain.user.domain.User;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;

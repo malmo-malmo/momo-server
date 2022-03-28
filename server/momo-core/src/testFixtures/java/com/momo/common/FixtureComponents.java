@@ -3,11 +3,11 @@ package com.momo.common;
 import static com.momo.domain.district.entity.City.SEOUL;
 import static com.momo.domain.group.entity.Category.HEALTH;
 import static com.momo.domain.group.entity.Category.SELF_DEVELOPMENT;
-import static com.momo.domain.user.entity.SocialProvider.KAKAO;
+import static com.momo.domain.user.domain.SocialProvider.KAKAO;
 
 import com.momo.domain.district.entity.City;
 import com.momo.domain.group.entity.Category;
-import com.momo.domain.user.entity.SocialProvider;
+import com.momo.domain.user.domain.SocialProvider;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;

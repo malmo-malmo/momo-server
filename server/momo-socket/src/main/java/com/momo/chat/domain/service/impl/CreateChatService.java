@@ -1,7 +1,7 @@
 package com.momo.chat.domain.service.impl;
 
-import com.momo.chat.domain.entity.Message;
-import com.momo.chat.domain.entity.MessageType;
+import com.momo.chat.domain.entity.ChatMessage;
+import com.momo.chat.domain.entity.ChatMessageType;
 import com.momo.chat.domain.repository.MessageRepository;
 import com.momo.chat.domain.service.CreateChatUseCase;
 import com.momo.domain.chat.entity.Chat;
@@ -34,7 +34,7 @@ public class CreateChatService implements CreateChatUseCase {
         }
 
         Long chatId = chatRepository.save(Chat.create(group, user)).getId();
-        messageRepository.save(Message.create(chatId, MessageType.START));
+        messageRepository.save(ChatMessage.create(chatId, ChatMessageType.START));
 
         return chatId;
     }

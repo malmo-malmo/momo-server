@@ -1,6 +1,5 @@
 package com.momo.chat.domain.request;
 
-import com.momo.chat.domain.entity.Message;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,15 +10,15 @@ import lombok.ToString;
 @NoArgsConstructor
 public class SendDto {
 
-    private Message message;
+    private MessageDto messageDto;
 
     private String nickname;
 
     private String imageUrl;
 
     @Builder
-    public SendDto(Message message, String nickname, String imageUrl) {
-        this.message = message;
+    public SendDto(MessageDto messageDto, String nickname, String imageUrl) {
+        this.messageDto = messageDto;
         this.nickname = nickname;
         this.imageUrl = imageUrl;
     }

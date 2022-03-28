@@ -2,7 +2,7 @@ package com.momo.chat.domain.service.impl;
 
 import static java.util.stream.Collectors.toList;
 
-import com.momo.chat.domain.entity.Message;
+import com.momo.chat.domain.entity.ChatMessage;
 import com.momo.chat.domain.repository.MessageRepository;
 import com.momo.chat.domain.response.ChatResponse;
 import com.momo.chat.domain.response.ChatResponseCompare;
@@ -47,7 +47,7 @@ public class FindChatsService implements FindChatsUseCase {
         return user;
     }
 
-    private Message getLatestMessage(Long chatId) {
+    private ChatMessage getLatestMessage(Long chatId) {
         return messageRepository
             .findTop1ByChatIdOrderByRegDatetimeDesc(chatId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));

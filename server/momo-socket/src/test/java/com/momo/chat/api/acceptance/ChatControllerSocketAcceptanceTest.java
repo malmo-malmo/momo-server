@@ -7,7 +7,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.momo.chat.domain.entity.MessageType;
+import com.momo.chat.domain.entity.ChatMessageType;
 import com.momo.chat.domain.request.SendMessageRequest;
 import com.momo.chat.domain.response.SendPublishMessageResponse;
 import com.momo.common.SocketTest;
@@ -16,7 +16,6 @@ import com.momo.domain.user.entity.User;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.concurrent.LinkedBlockingDeque;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +57,7 @@ public class ChatControllerSocketAcceptanceTest extends SocketTest {
             () -> assertThat(response.getUsername()).isEqualTo(user.getNickname()),
             () -> assertThat(response.getMessage()).isEqualTo(message.getMessage()),
             () -> assertThat(response.getCreDatetime()).isNotNull(),
-            () -> assertThat(response.getMessageType()).isEqualTo(MessageType.NORMAL),
+            () -> assertThat(response.getMessageType()).isEqualTo(ChatMessageType.NORMAL),
             () -> assertThat(response.getProfileImageUrl()).isEqualTo(user.getImageUrl())
         );
     }

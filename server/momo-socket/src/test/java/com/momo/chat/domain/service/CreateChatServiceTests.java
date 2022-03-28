@@ -8,7 +8,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-import com.momo.chat.domain.entity.Message;
+import com.momo.chat.domain.entity.ChatMessage;
 import com.momo.chat.domain.repository.MessageRepository;
 import com.momo.chat.domain.service.impl.CreateChatService;
 import com.momo.common.ServiceTest;
@@ -63,7 +63,7 @@ class CreateChatServiceTests extends ServiceTest {
 
         //...then
         assertThat(chatId).isEqualTo(chat.getId());
-        verify(messageRepository).save(any(Message.class));
+        verify(messageRepository).save(any(ChatMessage.class));
     }
 
     @Test

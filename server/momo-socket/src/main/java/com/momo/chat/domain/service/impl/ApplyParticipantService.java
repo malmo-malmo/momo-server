@@ -1,7 +1,7 @@
 package com.momo.chat.domain.service.impl;
 
-import com.momo.chat.domain.entity.Message;
-import com.momo.chat.domain.entity.MessageType;
+import com.momo.chat.domain.entity.ChatMessage;
+import com.momo.chat.domain.entity.ChatMessageType;
 import com.momo.chat.domain.repository.MessageRepository;
 import com.momo.chat.domain.service.ApplyParticipantUseCase;
 import com.momo.domain.chat.entity.Chat;
@@ -39,10 +39,10 @@ public class ApplyParticipantService implements ApplyParticipantUseCase {
             throw new CustomException(ErrorCode.GROUP_OVER_CAPACITY);
         }
         participantRepository.save(Participant.create(chat.getUser(), chat.getGroup()));
-        messageRepository.save(Message.builder()
+        messageRepository.save(ChatMessage.builder()
             .chatId(chatId)
             .regDatetime(LocalDateTime.now())
-            .type(MessageType.APPROVE)
+            .type(ChatMessageType.APPROVE)
             .build());
     }
 }

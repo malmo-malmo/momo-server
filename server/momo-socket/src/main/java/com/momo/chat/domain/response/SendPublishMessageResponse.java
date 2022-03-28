@@ -1,7 +1,7 @@
 package com.momo.chat.domain.response;
 
-import com.momo.chat.domain.entity.Message;
-import com.momo.chat.domain.entity.MessageType;
+import com.momo.chat.domain.entity.ChatMessage;
+import com.momo.chat.domain.entity.ChatMessageType;
 import com.momo.domain.user.entity.User;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -19,12 +19,13 @@ public class SendPublishMessageResponse {
     private LocalDateTime creDatetime;
     private String username;
     private String profileImageUrl;
-    private MessageType messageType;
+    private ChatMessageType messageType;
     private boolean isSystem;
 
     @Builder
     private SendPublishMessageResponse(String message, LocalDateTime creDatetime,
-        String username, String profileImageUrl, MessageType messageType, boolean isSystem) {
+        String username, String profileImageUrl, ChatMessageType messageType,
+        boolean isSystem) {
         this.message = message;
         this.creDatetime = creDatetime;
         this.username = username;
@@ -33,33 +34,34 @@ public class SendPublishMessageResponse {
         this.isSystem = isSystem;
     }
 
-    public static SendPublishMessageResponse from(Message message, String nickname,
+    public static SendPublishMessageResponse from(ChatMessage chatMessage, String nickname,
         String profileImageUrl) {
         return SendPublishMessageResponse.builder()
-            .message(message.getContent())
-            .creDatetime(message.getRegDatetime())
+            .message(chatMessage.getContent())
+            .creDatetime(chatMessage.getRegDatetime())
             .username(nickname)
             .profileImageUrl(profileImageUrl)
-            .messageType(message.getType())
+            .messageType(chatMessage.getType())
             .build();
     }
 
-    public static SendPublishMessageResponse from(Message message, Map<Long, User> userMap) {
+    public static SendPublishMessageResponse from(ChatMessage chatMessage,
+        Map<Long, User> userMap) {
         String nickname = null;
         String profileImage = null;
-        if (!message.isSystem()) {
-            User user = userMap.get(message.getUserId());
+        if (!chatMessage.isSystem()) {
+            User user = userMap.get(chatMessage.getUserId());
             nickname = user.getNickname();
             profileImage = user.getImageUrl();
         }
 
         return SendPublishMessageResponse.builder()
-            .message(message.getContent())
-            .creDatetime(message.getRegDatetime())
+            .message(chatMessage.getContent())
+            .creDatetime(chatMessage.getRegDatetime())
             .username(nickname)
             .profileImageUrl(profileImage)
-            .isSystem(message.isSystem())
-            .messageType(message.getType())
+            .isSystem(chatMessage.isSystem())
+            .messageType(chatMessage.getType())
             .build();
     }
 }

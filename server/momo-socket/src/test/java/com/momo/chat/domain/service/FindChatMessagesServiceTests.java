@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 
-import com.momo.chat.domain.entity.Message;
+import com.momo.chat.domain.entity.ChatMessage;
 import com.momo.chat.domain.repository.MessageRepository;
 import com.momo.chat.domain.response.SendPublishMessageResponse;
 import com.momo.chat.domain.service.impl.FindChatMessagesService;
@@ -53,23 +53,23 @@ class FindChatMessagesServiceTests extends ServiceTest {
             getChatWithId(group, manager, user))
         );
 
-        List<Message> messages = List.of(
+        List<ChatMessage> chatMessages = List.of(
             getNormalMessage(chatId, user.getId()),
             getNormalMessage(chatId, manager.getId())
         );
 
-        given(messageRepository.findByChatIdOrderByRegDatetimeAsc(chatId)).willReturn(messages);
+        given(messageRepository.findByChatIdOrderByRegDatetimeAsc(chatId)).willReturn(chatMessages);
 
         //...when
         List<SendPublishMessageResponse> responses = useCase.findChatMessages(chatId, user);
 
         //...then
         assertThat(responses.size()).isEqualTo(2);
-        assertThat(responses.get(0).getMessage()).isEqualTo(messages.get(0).getContent());
+        assertThat(responses.get(0).getMessage()).isEqualTo(chatMessages.get(0).getContent());
         assertThat(responses.get(0).getCreDatetime()).isNotNull();
         assertThat(responses.get(0).getUsername()).isEqualTo(user.getNickname());
         assertThat(responses.get(0).getProfileImageUrl()).isEqualTo(user.getImageUrl());
-        assertThat(responses.get(1).getMessage()).isEqualTo(messages.get(1).getContent());
+        assertThat(responses.get(1).getMessage()).isEqualTo(chatMessages.get(1).getContent());
         assertThat(responses.get(1).getCreDatetime()).isNotNull();
         assertThat(responses.get(1).getUsername()).isEqualTo(manager.getNickname());
         assertThat(responses.get(1).getProfileImageUrl()).isEqualTo(manager.getImageUrl());

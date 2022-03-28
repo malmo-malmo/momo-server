@@ -1,5 +1,6 @@
 package com.momo.config.listener;
 
+import com.momo.chat.domain.entity.ChatMessage;
 import com.momo.chat.domain.repository.MessageRepository;
 import com.momo.chat.domain.request.SendDto;
 import com.momo.chat.domain.response.SendPublishMessageResponse;
@@ -26,12 +27,18 @@ public class SendChatListener {
 
     @RabbitListener(id = LISTENER_ID)
     public void receiveMessage(final Message message) {
-        System.out.println(new String(message.getBody()));
         SendDto dto = (SendDto) messageConverter.fromMessage(message);
 
-        messageRepository.save(dto.getMessage());
-        messageTemplate.convertAndSend("/sub/chat/" + dto.getMessage().getChatId(),
-            SendPublishMessageResponse.from(dto.getMessage(), dto.getNickname(),
-                dto.getImageUrl()));
+        ChatMessage messageEntity = dto.getMessageDto().toEntity();
+        messageRepository.save(messageEntity);
+
+        String target = String.format("/sub/chat/%d", messageEntity.getChatId());
+        messageTemplate.convertAndSend(target,
+            SendPublishMessageResponse.from(
+                messageEntity,
+                dto.getNickname(),
+                dto.getImageUrl()
+            )
+        );
     }
 }

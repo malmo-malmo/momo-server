@@ -1,36 +1,38 @@
-package com.momo.chat.domain.entity;
+package com.momo.chat.domain.request;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.momo.chat.domain.entity.ChatMessage;
+import com.momo.chat.domain.entity.ChatMessageType;
 import java.time.LocalDateTime;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.ToString;
 
 @Getter
-@Document(collection = "messages")
+@ToString
 @NoArgsConstructor
-public class Message {
+public class MessageDto {
 
-    @Id
     private String id;
+
     private Long chatId;
-    @Enumerated(EnumType.STRING)
-    private MessageType type;
+
+    private ChatMessageType type;
+
     private Long userId;
+
     private String content;
+
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime regDatetime;
 
     @Builder
-    public Message(String id, Long chatId, MessageType type, Long userId, String content,
+    public MessageDto(String id, Long chatId, ChatMessageType type, Long userId, String content,
         LocalDateTime regDatetime) {
         this.id = id;
         this.chatId = chatId;
@@ -40,15 +42,14 @@ public class Message {
         this.regDatetime = regDatetime;
     }
 
-    public static Message create(Long chatId, MessageType type) {
-        return Message.builder()
-            .chatId(chatId)
-            .regDatetime(LocalDateTime.now())
+    public ChatMessage toEntity() {
+        return ChatMessage.builder()
+            .id(id)
             .type(type)
+            .chatId(chatId)
+            .userId(userId)
+            .content(content)
+            .regDatetime(regDatetime)
             .build();
-    }
-
-    public boolean isSystem() {
-        return !type.equals(MessageType.NORMAL);
     }
 }

@@ -2,36 +2,36 @@ package com.momo.fixture;
 
 import static com.momo.common.FixtureComponents.INCREASE_ID;
 
-import com.momo.chat.domain.entity.Message;
-import com.momo.chat.domain.entity.MessageType;
+import com.momo.chat.domain.entity.ChatMessage;
+import com.momo.chat.domain.entity.ChatMessageType;
 import java.time.LocalDateTime;
 
 public class MessageFixture {
 
-    public static Message getNormalMessage(Long chatId, Long userId) {
+    public static ChatMessage getNormalMessage(Long chatId, Long userId) {
         INCREASE_ID++;
-        return Message.builder()
+        return ChatMessage.builder()
             .chatId(chatId)
             .regDatetime(LocalDateTime.now())
-            .type(MessageType.NORMAL)
+            .type(ChatMessageType.NORMAL)
             .content("test Message" + INCREASE_ID)
             .userId(userId)
             .build();
     }
 
-    public static Message getStartMessage(Long chatId) {
-        return Message.builder()
+    public static ChatMessage getStartMessage(Long chatId) {
+        return ChatMessage.builder()
             .chatId(chatId)
             .regDatetime(LocalDateTime.now())
-            .type(MessageType.START)
+            .type(ChatMessageType.START)
             .build();
     }
 
-    public static Message getApproveMessage(Long chatId) {
-        return Message.builder()
+    public static ChatMessage getApproveMessage(Long chatId) {
+        return ChatMessage.builder()
             .chatId(chatId)
             .regDatetime(LocalDateTime.now())
-            .type(MessageType.APPROVE)
+            .type(ChatMessageType.APPROVE)
             .build();
     }
 }

@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 
-import com.momo.chat.domain.entity.Message;
+import com.momo.chat.domain.entity.ChatMessage;
 import com.momo.chat.domain.repository.MessageRepository;
 import com.momo.chat.domain.response.ChatResponse;
 import com.momo.chat.domain.service.impl.FindChatsService;
@@ -58,12 +58,12 @@ class FindChatsServiceTests extends ServiceTest {
         Group group = getGroupWithId(manager);
 
         Chat chat = getChatWithId(group, manager, user);
-        Message message = getNormalMessage(chat.getId(), manager.getId());
+        ChatMessage chatMessage = getNormalMessage(chat.getId(), manager.getId());
 
         given(chatRepository.findAllByUserOrManager(eq(manager), eq(manager)))
             .willReturn(List.of(chat));
         given(messageRepository.findTop1ByChatIdOrderByRegDatetimeDesc(chat.getId()))
-            .willReturn(Optional.of(message));
+            .willReturn(Optional.of(chatMessage));
 
         //...when
         List<ChatResponse> responses = useCase.findChats(manager);
@@ -74,8 +74,8 @@ class FindChatsServiceTests extends ServiceTest {
         assertThat(response.getChatId()).isEqualTo(chat.getId());
         assertThat(response.getUsername()).isEqualTo(manager.getNickname());
         assertThat(response.getProfileImageUrl()).isEqualTo(manager.getImageUrl());
-        assertThat(response.getLastMessage()).isEqualTo(message.getContent());
+        assertThat(response.getLastMessage()).isEqualTo(chatMessage.getContent());
         assertThat(response.getCreateDateMessage())
-            .isEqualTo(generateDateInfo(message.getRegDatetime()));
+            .isEqualTo(generateDateInfo(chatMessage.getRegDatetime()));
     }
 }

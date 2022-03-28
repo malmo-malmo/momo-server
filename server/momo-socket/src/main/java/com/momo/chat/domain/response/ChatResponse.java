@@ -1,6 +1,6 @@
 package com.momo.chat.domain.response;
 
-import com.momo.chat.domain.entity.Message;
+import com.momo.chat.domain.entity.ChatMessage;
 import com.momo.domain.common.util.TimeFormatUtil;
 import java.time.LocalDateTime;
 import lombok.Builder;
@@ -29,14 +29,14 @@ public class ChatResponse {
         this.createDateMessage = createDateMessage;
     }
 
-    public static ChatResponse from(Message message, String nickname, String imageUrl) {
+    public static ChatResponse from(ChatMessage chatMessage, String nickname, String imageUrl) {
         return ChatResponse.builder()
-            .chatId(message.getChatId())
+            .chatId(chatMessage.getChatId())
             .profileImageUrl(imageUrl)
             .username(nickname)
-            .lastMessage(message.getContent())
-            .createDate(message.getRegDatetime())
-            .createDateMessage(TimeFormatUtil.generateDateInfo(message.getRegDatetime()))
+            .lastMessage(chatMessage.getContent())
+            .createDate(chatMessage.getRegDatetime())
+            .createDateMessage(TimeFormatUtil.generateDateInfo(chatMessage.getRegDatetime()))
             .build();
     }
 }

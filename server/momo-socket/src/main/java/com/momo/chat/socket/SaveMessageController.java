@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-class SaveMessageController implements SaveMessageSocketSpec {
+class SaveMessageController {
 
     private final SaveMessageUseCase service;
 

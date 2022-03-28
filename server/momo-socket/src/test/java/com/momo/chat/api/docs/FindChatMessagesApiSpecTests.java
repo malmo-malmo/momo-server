@@ -8,7 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.chat.api.FindChatMessagesController;
 import com.momo.chat.api.docs.document.FindChatMessagesDocumentation;
-import com.momo.chat.domain.entity.MessageType;
+import com.momo.chat.domain.entity.ChatMessageType;
 import com.momo.chat.domain.response.SendPublishMessageResponse;
 import com.momo.chat.domain.service.FindChatMessagesUseCase;
 import com.momo.common.RestDocsControllerTest;
@@ -35,7 +35,7 @@ public class FindChatMessagesApiSpecTests extends RestDocsControllerTest {
                 .creDatetime(LocalDateTime.now())
                 .username("도라에몽")
                 .profileImageUrl("이미지 주소")
-                .messageType(MessageType.NORMAL)
+                .messageType(ChatMessageType.NORMAL)
                 .isSystem(false)
                 .build()
         ));

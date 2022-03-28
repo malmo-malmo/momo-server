@@ -1,7 +1,7 @@
 package com.momo.chat.domain.request;
 
-import com.momo.chat.domain.entity.Message;
-import com.momo.chat.domain.entity.MessageType;
+import com.momo.chat.domain.entity.ChatMessage;
+import com.momo.chat.domain.entity.ChatMessageType;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,13 +20,13 @@ public class SendMessageRequest {
         this.message = message;
     }
 
-    public Message toEntity(Long userId) {
-        return Message.builder()
+    public ChatMessage toEntity(Long userId) {
+        return ChatMessage.builder()
             .chatId(this.chatId)
             .userId(userId)
             .content(this.message)
             .regDatetime(LocalDateTime.now())
-            .type(MessageType.NORMAL)
+            .type(ChatMessageType.NORMAL)
             .build();
     }
 }

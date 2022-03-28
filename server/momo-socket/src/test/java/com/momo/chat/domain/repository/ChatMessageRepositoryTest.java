@@ -3,8 +3,8 @@ package com.momo.chat.domain.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.TestProfile;
-import com.momo.chat.domain.entity.Message;
-import com.momo.chat.domain.entity.MessageType;
+import com.momo.chat.domain.entity.ChatMessage;
+import com.momo.chat.domain.entity.ChatMessageType;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.AfterEach;
@@ -18,20 +18,20 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles(TestProfile.TEST)
 @DataMongoTest
 @DisplayName("메시지 레포지토리 테스트")
-public class MessageRepositoryTest {
+public class ChatMessageRepositoryTest {
 
     @Autowired
     private MessageRepository messageRepository;
 
-    private Message saveMessage;
-    private Message findMessage;
+    private ChatMessage saveChatMessage;
+    private ChatMessage findChatMessage;
 
     @BeforeEach
     void setup() {
         messageRepository.deleteAll();
-        saveMessage = messageRepository.save(Message.builder()
+        saveChatMessage = messageRepository.save(ChatMessage.builder()
             .chatId(1L)
-            .type(MessageType.NORMAL)
+            .type(ChatMessageType.NORMAL)
             .userId(1L)
             .content("가입해도 되나요?")
             .regDatetime(LocalDateTime.now())
@@ -41,25 +41,25 @@ public class MessageRepositoryTest {
     @Test
     @DisplayName("메시지를 등록한다")
     void save() {
-        findMessage = messageRepository.findById(saveMessage.getId()).get();
+        findChatMessage = messageRepository.findById(saveChatMessage.getId()).get();
     }
 
     @Test
     @DisplayName("채팅방 메시지 목록을 조회한다")
     void findByChatIdOrderByRegDatetimeAsc() {
-        findMessage = messageRepository.findByChatIdOrderByRegDatetimeAsc(1L).get(0);
+        findChatMessage = messageRepository.findByChatIdOrderByRegDatetimeAsc(1L).get(0);
     }
 
     @AfterEach
     void after() {
-        assertThat(findMessage).isNotNull();
-        assertThat(findMessage.getId()).isEqualTo(saveMessage.getId());
-        assertThat(findMessage.getType()).isEqualTo(saveMessage.getType());
-        assertThat(findMessage.getUserId()).isEqualTo(saveMessage.getUserId());
-        assertThat(findMessage.getContent()).isEqualTo(saveMessage.getContent());
+        assertThat(findChatMessage).isNotNull();
+        assertThat(findChatMessage.getId()).isEqualTo(saveChatMessage.getId());
+        assertThat(findChatMessage.getType()).isEqualTo(saveChatMessage.getType());
+        assertThat(findChatMessage.getUserId()).isEqualTo(saveChatMessage.getUserId());
+        assertThat(findChatMessage.getContent()).isEqualTo(saveChatMessage.getContent());
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        assertThat(findMessage.getRegDatetime().format(format))
-            .isEqualTo(saveMessage.getRegDatetime().format(format));
+        assertThat(findChatMessage.getRegDatetime().format(format))
+            .isEqualTo(saveChatMessage.getRegDatetime().format(format));
     }
 }

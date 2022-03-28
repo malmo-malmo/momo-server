@@ -1,8 +1,8 @@
 package com.momo.chat.domain.service.impl;
 
-import com.momo.chat.domain.entity.Message;
 import com.momo.chat.domain.mapper.SaveMessageMapper;
 import com.momo.chat.domain.repository.RabbitMqRepository;
+import com.momo.chat.domain.request.MessageDto;
 import com.momo.chat.domain.request.SendDto;
 import com.momo.chat.domain.service.SaveMessageUseCase;
 import com.momo.domain.user.entity.User;
@@ -19,7 +19,7 @@ public class SaveMessageService implements SaveMessageUseCase {
 
     @Override
     public void saveMessage(Long chatId, String message, User user) {
-        Message msg = saveMessageMapper.mapToEntity(chatId, user.getId(), message);
+        MessageDto msg = saveMessageMapper.mapToEntity(chatId, user.getId(), message);
         SendDto dto = saveMessageMapper.mapEntityToDto(msg, user);
 
         rabbitMqRepository.save(chatId, dto);

@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 @DisplayName("메시지 전송 유스케이스 테스트")
-class SaveMessageServiceTests extends ServiceTest {
+class SaveChatMessageServiceTests extends ServiceTest {
 
     private SaveMessageUseCase useCase;
 

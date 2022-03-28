@@ -1,11 +1,11 @@
-package com.momo.chat.socket.impl;
+package com.momo.chat.socket;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.momo.chat.socket.SaveMessageSocketSpec;
 import com.momo.chat.domain.request.SendMessageRequest;
 import com.momo.chat.domain.service.SaveMessageUseCase;
 import com.momo.config.model.SocketPrincipal;
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -14,6 +14,7 @@ class SaveMessageController implements SaveMessageSocketSpec {
 
     private final SaveMessageUseCase service;
 
+    @MessageMapping("/chat")
     public void sendMessage(SendMessageRequest request, SocketPrincipal principal)
         throws JsonProcessingException {
         service.saveMessage(request.getChatId(), request.getMessage(), principal.getUser());

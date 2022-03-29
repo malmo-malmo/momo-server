@@ -1,12 +1,12 @@
 package com.momo.group.search;
 
-import static com.momo.domain.favorite.entity.QFavoriteGroup.favoriteGroup;
-import static com.momo.domain.group.entity.QGroup.group;
-import static com.momo.domain.group.entity.QParticipant.participant;
+import static com.momo.favorite.entity.QFavoriteGroup.favoriteGroup;
+import static com.momo.group.entity.QGroup.group;
+import static com.momo.group.entity.QParticipant.participant;
 
 import com.momo.district.entity.City;
 import com.momo.group.dto.GroupCardResponse;
-import com.momo.domain.group.dto.QGroupCardResponse;
+import com.momo.group.dto.QGroupCardResponse;
 import com.momo.group.entity.Category;
 import com.momo.user.entity.User;
 import com.querydsl.jpa.JPAExpressions;
@@ -34,7 +34,8 @@ public class CustomGroupSearchEngineImpl implements CustomGroupSearchEngine {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<GroupCardResponse> searchByNameLikeAndCitiesAndCategories(String name, List<City> cities,
+    public List<GroupCardResponse> searchByNameLikeAndCitiesAndCategories(String name,
+        List<City> cities,
         List<Category> categories, User user, Pageable pageable) {
         NativeSearchQuery query = new NativeSearchQueryBuilder()
             .withQuery(QueryBuilders

@@ -1,13 +1,13 @@
 package com.momo.schedule.repository;
 
-import static com.momo.domain.group.entity.QParticipant.participant;
-import static com.momo.domain.schedule.entity.QAttendance.attendance;
-import static com.momo.domain.schedule.entity.QSchedule.schedule;
-import static com.momo.domain.user.entity.QUser.user;
+import static com.momo.group.entity.QParticipant.participant;
+import static com.momo.schedule.entity.QAttendance.attendance;
+import static com.momo.schedule.entity.QSchedule.schedule;
+import static com.momo.user.entity.QUser.user;
 
 import com.momo.group.entity.Group;
 import com.momo.schedule.dto.GroupScheduleResponse;
-import com.momo.domain.schedule.dto.QGroupScheduleResponse;
+import com.momo.schedule.dto.QGroupScheduleResponse;
 import com.momo.schedule.entity.Schedule;
 import com.momo.user.entity.User;
 import com.querydsl.core.types.dsl.BooleanExpression;

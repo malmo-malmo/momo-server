@@ -1,16 +1,16 @@
 package com.momo.group.repository;
 
-import static com.momo.domain.achievementrate.entity.QGroupAchievementRate.groupAchievementRate;
-import static com.momo.domain.favorite.entity.QFavoriteGroup.favoriteGroup;
-import static com.momo.domain.group.entity.QGroup.group;
-import static com.momo.domain.group.entity.QParticipant.participant;
+import static com.momo.achievementrate.entity.QGroupAchievementRate.groupAchievementRate;
+import static com.momo.favorite.entity.QFavoriteGroup.favoriteGroup;
+import static com.momo.group.entity.QGroup.group;
+import static com.momo.group.entity.QParticipant.participant;
 
 import com.momo.district.entity.City;
 import com.momo.group.dto.GroupCardResponse;
 import com.momo.group.dto.GroupResponse;
 import com.momo.group.dto.GroupSearchConditionRequest;
-import com.momo.domain.group.dto.QGroupCardResponse;
-import com.momo.domain.group.dto.QGroupResponse;
+import com.momo.group.dto.QGroupCardResponse;
+import com.momo.group.dto.QGroupResponse;
 import com.momo.group.entity.Category;
 import com.momo.group.entity.Group;
 import com.momo.user.entity.User;

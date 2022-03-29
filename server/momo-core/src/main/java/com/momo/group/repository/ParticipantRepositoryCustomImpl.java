@@ -1,12 +1,12 @@
 package com.momo.group.repository;
 
-import static com.momo.domain.group.entity.QGroup.group;
-import static com.momo.domain.group.entity.QParticipant.participant;
+import static com.momo.group.entity.QGroup.group;
+import static com.momo.group.entity.QParticipant.participant;
 
 import com.momo.group.entity.Group;
 import com.momo.group.entity.Participant;
 import com.momo.management.dto.ParticipationGroupCardResponse;
-import com.momo.domain.management.dto.QParticipationGroupCardResponse;
+import com.momo.management.dto.QParticipationGroupCardResponse;
 import com.momo.user.entity.User;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
@@ -71,7 +71,8 @@ public class ParticipantRepositoryCustomImpl implements ParticipantRepositoryCus
 
     private OrderSpecifier<Integer> provideIdOrder(List<Long> participantIds) {
         Long firstId = participantIds.remove(0);
-        Cases<Integer, NumberExpression<Integer>> expression = Expressions.cases().when(participant.id.eq(firstId))
+        Cases<Integer, NumberExpression<Integer>> expression = Expressions.cases()
+            .when(participant.id.eq(firstId))
             .then(1);
         int i = 2;
         for (Long participantId : participantIds) {

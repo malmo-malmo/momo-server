@@ -1,13 +1,13 @@
 package com.momo.post.repository;
 
-import static com.momo.domain.group.entity.QGroup.group;
-import static com.momo.domain.post.entity.QComment.comment;
-import static com.momo.domain.post.entity.QPost.post;
-import static com.momo.domain.user.entity.QUser.user;
+import static com.momo.group.entity.QGroup.group;
+import static com.momo.post.entity.QComment.comment;
+import static com.momo.post.entity.QPost.post;
+import static com.momo.user.entity.QUser.user;
 
 import com.momo.group.entity.Group;
 import com.momo.post.dto.PostCardResponse;
-import com.momo.domain.post.dto.QPostCardResponse;
+import com.momo.post.dto.QPostCardResponse;
 import com.momo.post.entity.Post;
 import com.momo.post.entity.PostType;
 import com.momo.user.entity.User;

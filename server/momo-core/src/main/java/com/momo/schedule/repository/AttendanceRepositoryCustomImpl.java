@@ -1,6 +1,6 @@
 package com.momo.schedule.repository;
 
-import static com.momo.domain.schedule.entity.QAttendance.attendance;
+import static com.momo.schedule.entity.QAttendance.attendance;
 
 import com.momo.schedule.entity.Attendance;
 import com.querydsl.core.types.Order;

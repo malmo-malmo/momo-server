@@ -1,7 +1,7 @@
 package com.momo.post.repository;
 
-import static com.momo.domain.post.entity.QComment.comment;
-import static com.momo.domain.user.entity.QUser.user;
+import static com.momo.post.entity.QComment.comment;
+import static com.momo.user.entity.QUser.user;
 
 import com.momo.post.entity.Comment;
 import com.momo.post.entity.Post;

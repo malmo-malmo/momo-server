@@ -1,6 +1,6 @@
 package com.momo.config;
 
-import com.momo.interceptor.AuthorizationInterceptor;
+import com.momo.common.interceptor.AuthorizationInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

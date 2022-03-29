@@ -7,7 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.momo.common.RestDocsControllerTest;
-import com.momo.api.user.UniversityController;
+import com.momo.user.UniversityController;
 import com.momo.domain.user.dto.UniversityResponse;
 import com.momo.domain.user.service.UniversityService;
 import java.util.List;

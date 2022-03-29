@@ -7,7 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.momo.common.RestDocsControllerTest;
-import com.momo.api.auth.OAuthController;
+import com.momo.auth.OAuthController;
 import com.momo.domain.auth.dto.OAuthLoginRequest;
 import com.momo.domain.auth.dto.OAuthLoginResponse;
 import com.momo.domain.auth.dto.RefreshLoginRequest;

@@ -6,7 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.momo.common.RestDocsControllerTest;
-import com.momo.api.schedule.AttendanceController;
+import com.momo.schedule.AttendanceController;
 import com.momo.domain.schedule.dto.AttendanceCreateRequest;
 import com.momo.domain.schedule.dto.AttendanceCreateRequests;
 import com.momo.domain.schedule.dto.AttendanceUpdateRequest;

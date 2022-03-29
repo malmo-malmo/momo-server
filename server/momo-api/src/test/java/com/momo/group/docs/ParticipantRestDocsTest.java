@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.api.group.ParticipantController;
+import com.momo.group.ParticipantController;
 import com.momo.common.RestDocsControllerTest;
 import com.momo.domain.group.service.impl.ParticipantServiceImpl;
 import java.util.List;

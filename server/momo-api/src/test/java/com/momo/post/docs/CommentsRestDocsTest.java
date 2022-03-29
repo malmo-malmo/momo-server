@@ -8,7 +8,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.api.post.CommentsController;
+import com.momo.post.CommentsController;
 import com.momo.common.RestDocsControllerTest;
 import com.momo.domain.post.service.CommentService;
 import java.util.List;

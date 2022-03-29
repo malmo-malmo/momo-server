@@ -50,15 +50,15 @@
   <!-- 슬랙 로그 -->
   <appender name="ASYNC_INFO_SLACK" class="ch.qos.logback.classic.AsyncAppender">
     <appender-ref ref="SLACK_INFO"/>
-    <filter class="com.momo.filter.SlackInfoLevelLogFilter"/>
+    <filter class="com.momo.common.filter.SlackInfoLevelLogFilter"/>
   </appender>
   <appender name="ASYNC_WARN_SLACK" class="ch.qos.logback.classic.AsyncAppender">
     <appender-ref ref="SLACK_WARN"/>
-    <filter class="com.momo.filter.SlackWarnLevelLogFilter"/>
+    <filter class="com.momo.common.filter.SlackWarnLevelLogFilter"/>
   </appender>
   <appender name="ASYNC_ERROR_SLACK" class="ch.qos.logback.classic.AsyncAppender">
     <appender-ref ref="SLACK_ERROR"/>
-    <filter class="com.momo.filter.SlackErrorLevelLogFilter"/>
+    <filter class="com.momo.common.filter.SlackErrorLevelLogFilter"/>
   </appender>
 
   <!-- 로그 파일 생성 -->

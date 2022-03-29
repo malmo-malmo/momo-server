@@ -1,11 +1,10 @@
 package com.momo.config;
 
 import com.momo.config.model.SocketPrincipal;
-import com.momo.domain.auth.service.OAuthService;
-import com.momo.domain.common.exception.CustomException;
-import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.user.entity.User;
-import java.security.Principal;
+import com.momo.auth.service.OAuthService;
+import com.momo.common.exception.CustomException;
+import com.momo.common.exception.ErrorCode;
+import com.momo.user.entity.User;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

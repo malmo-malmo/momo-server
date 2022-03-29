@@ -5,10 +5,11 @@ import static com.momo.UserFixture.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
-import com.momo.domain.achievementrate.entity.GroupAchievementRate;
-import com.momo.domain.achievementrate.repository.GroupAchievementRateRepository;
-import com.momo.domain.group.repository.GroupRepository;
-import com.momo.domain.user.entity.User;
+import com.momo.achievementrate.entity.GroupAchievementRate;
+import com.momo.achievementrate.repository.GroupAchievementRateRepository;
+import com.momo.group.entity.Group;
+import com.momo.group.repository.GroupRepository;
+import com.momo.user.entity.User;
 import java.math.BigDecimal;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;

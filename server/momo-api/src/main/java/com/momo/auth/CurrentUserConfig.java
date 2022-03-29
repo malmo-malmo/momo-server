@@ -2,7 +2,7 @@ package com.momo.auth;
 
 import java.util.List;
 
-import com.momo.domain.auth.service.OAuthService;
+import com.momo.auth.service.OAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

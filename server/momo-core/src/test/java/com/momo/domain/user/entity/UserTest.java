@@ -5,6 +5,10 @@ import static com.momo.UserFixture.getUserWithId;
 import static com.momo.common.LocationFixture.getLocation;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.momo.user.entity.Location;
+import com.momo.user.entity.SocialLogin;
+import com.momo.user.entity.SocialProvider;
+import com.momo.user.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

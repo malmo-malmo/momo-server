@@ -18,14 +18,14 @@ import static com.momo.common.FixtureComponents.PAGE_SIZE;
 import static com.momo.common.FixtureComponents.RECRUITMENT_CNT;
 import static com.momo.common.LocationFixture.getLocation;
 
-import com.momo.domain.group.dto.GroupCardResponse;
-import com.momo.domain.group.dto.GroupCreateRequest;
-import com.momo.domain.group.dto.GroupCreateResponse;
-import com.momo.domain.group.dto.GroupResponse;
-import com.momo.domain.group.dto.GroupSearchConditionRequest;
-import com.momo.domain.group.entity.Category;
-import com.momo.domain.group.entity.Group;
-import com.momo.domain.user.entity.User;
+import com.momo.group.dto.GroupCardResponse;
+import com.momo.group.dto.GroupCreateRequest;
+import com.momo.group.dto.GroupCreateResponse;
+import com.momo.group.dto.GroupResponse;
+import com.momo.group.dto.GroupSearchConditionRequest;
+import com.momo.group.entity.Category;
+import com.momo.group.entity.Group;
+import com.momo.user.entity.User;
 
 public class GroupFixture {
 

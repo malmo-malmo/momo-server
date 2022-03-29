@@ -11,13 +11,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.schedule.ScheduleController;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.group.entity.Category;
-import com.momo.domain.schedule.dto.GroupScheduleResponse;
-import com.momo.domain.schedule.dto.GroupScheduleResponses;
-import com.momo.domain.schedule.dto.ScheduleCreateRequest;
-import com.momo.domain.schedule.dto.UserScheduleResponse;
-import com.momo.domain.schedule.service.impl.ScheduleServiceImpl;
+import com.momo.common.dto.EnumResponse;
+import com.momo.group.entity.Category;
+import com.momo.schedule.dto.GroupScheduleResponse;
+import com.momo.schedule.dto.GroupScheduleResponses;
+import com.momo.schedule.dto.ScheduleCreateRequest;
+import com.momo.schedule.dto.UserScheduleResponse;
+import com.momo.schedule.service.impl.ScheduleServiceImpl;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;

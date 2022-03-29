@@ -1,9 +1,9 @@
 package com.momo.schedule;
 
 import com.momo.auth.CurrentUser;
-import com.momo.domain.schedule.dto.AttendanceResponse;
-import com.momo.domain.schedule.service.AttendanceService;
-import com.momo.domain.user.entity.User;
+import com.momo.schedule.dto.AttendanceResponse;
+import com.momo.schedule.service.AttendanceService;
+import com.momo.user.entity.User;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

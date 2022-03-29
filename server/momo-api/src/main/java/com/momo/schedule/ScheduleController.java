@@ -1,15 +1,15 @@
 package com.momo.schedule;
 
 import com.momo.auth.CurrentUser;
-import com.momo.domain.schedule.dto.GroupScheduleResponse;
-import com.momo.domain.schedule.dto.GroupScheduleResponses;
-import com.momo.domain.schedule.dto.GroupSchedulesRequest;
-import com.momo.domain.schedule.dto.ScheduleCreateRequest;
-import com.momo.domain.schedule.dto.UpcomingScheduleResponse;
-import com.momo.domain.schedule.dto.UserScheduleResponse;
-import com.momo.domain.schedule.dto.UserSchedulesRequest;
-import com.momo.domain.schedule.service.ScheduleService;
-import com.momo.domain.user.entity.User;
+import com.momo.schedule.dto.GroupScheduleResponse;
+import com.momo.schedule.dto.GroupScheduleResponses;
+import com.momo.schedule.dto.GroupSchedulesRequest;
+import com.momo.schedule.dto.ScheduleCreateRequest;
+import com.momo.schedule.dto.UpcomingScheduleResponse;
+import com.momo.schedule.dto.UserScheduleResponse;
+import com.momo.schedule.dto.UserSchedulesRequest;
+import com.momo.schedule.service.ScheduleService;
+import com.momo.user.entity.User;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;

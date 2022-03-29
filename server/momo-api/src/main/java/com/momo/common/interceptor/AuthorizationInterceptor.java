@@ -3,7 +3,7 @@ package com.momo.common.interceptor;
 import static com.momo.Profile.TEST;
 
 import com.momo.common.AuthorizationExtractor;
-import com.momo.domain.auth.infra.TokenProvider;
+import com.momo.auth.infra.TokenProvider;
 import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,12 +1,12 @@
 package com.momo.group;
 
 import com.momo.auth.CurrentUser;
-import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.group.dto.GroupCreateRequest;
-import com.momo.domain.group.dto.GroupCreateResponse;
-import com.momo.domain.group.dto.GroupResponse;
-import com.momo.domain.group.service.GroupService;
-import com.momo.domain.user.entity.User;
+import com.momo.common.dto.EnumResponse;
+import com.momo.group.dto.GroupCreateRequest;
+import com.momo.group.dto.GroupCreateResponse;
+import com.momo.group.dto.GroupResponse;
+import com.momo.group.service.GroupService;
+import com.momo.user.entity.User;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;

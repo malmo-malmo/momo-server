@@ -1,10 +1,10 @@
 package com.momo.post;
 
 import com.momo.auth.CurrentUser;
-import com.momo.domain.post.dto.PostCardResponse;
-import com.momo.domain.post.dto.PostCardsRequest;
-import com.momo.domain.post.service.PostService;
-import com.momo.domain.user.entity.User;
+import com.momo.post.dto.PostCardResponse;
+import com.momo.post.dto.PostCardsRequest;
+import com.momo.post.service.PostService;
+import com.momo.user.entity.User;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;

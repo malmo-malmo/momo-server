@@ -3,8 +3,8 @@ package com.momo;
 import static com.momo.common.FixtureComponents.IMAGE_URL;
 import static com.momo.common.FixtureComponents.INCREASE_ID;
 
-import com.momo.domain.post.entity.Image;
-import com.momo.domain.post.entity.Post;
+import com.momo.post.entity.Image;
+import com.momo.post.entity.Post;
 
 public class ImageFixture {
 

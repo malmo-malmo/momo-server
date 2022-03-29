@@ -1,10 +1,10 @@
 package com.momo.post;
 
 import com.momo.auth.CurrentUser;
-import com.momo.domain.post.dto.CommentCreateRequest;
-import com.momo.domain.post.dto.CommentResponse;
-import com.momo.domain.post.service.CommentService;
-import com.momo.domain.user.entity.User;
+import com.momo.post.dto.CommentCreateRequest;
+import com.momo.post.dto.CommentResponse;
+import com.momo.post.service.CommentService;
+import com.momo.user.entity.User;
 import java.net.URI;
 import java.net.URISyntaxException;
 import javax.validation.Valid;

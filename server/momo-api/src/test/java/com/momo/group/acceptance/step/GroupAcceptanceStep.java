@@ -5,10 +5,10 @@ import static com.momo.common.CommonFileUploadSupport.uploadAssuredSupport;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.group.dto.GroupCreateRequest;
-import com.momo.domain.group.dto.GroupResponse;
-import com.momo.domain.group.dto.GroupSearchConditionRequest;
+import com.momo.common.dto.EnumResponse;
+import com.momo.group.dto.GroupCreateRequest;
+import com.momo.group.dto.GroupResponse;
+import com.momo.group.dto.GroupSearchConditionRequest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.HashMap;

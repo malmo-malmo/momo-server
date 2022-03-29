@@ -1,6 +1,6 @@
 package com.momo.config;
 
-import com.momo.domain.group.search.GroupSearchEngine;
+import com.momo.group.search.GroupSearchEngine;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

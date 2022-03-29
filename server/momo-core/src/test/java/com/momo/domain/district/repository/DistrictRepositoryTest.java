@@ -3,8 +3,9 @@ package com.momo.domain.district.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
-import com.momo.domain.district.entity.City;
-import com.momo.domain.district.entity.District;
+import com.momo.district.entity.City;
+import com.momo.district.entity.District;
+import com.momo.district.repository.DistrictRepository;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

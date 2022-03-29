@@ -1,9 +1,9 @@
 package com.momo.auth;
 
-import com.momo.domain.auth.dto.OAuthLoginRequest;
-import com.momo.domain.auth.dto.OAuthLoginResponse;
-import com.momo.domain.auth.dto.RefreshLoginRequest;
-import com.momo.domain.auth.service.OAuthService;
+import com.momo.auth.dto.OAuthLoginRequest;
+import com.momo.auth.dto.OAuthLoginResponse;
+import com.momo.auth.dto.RefreshLoginRequest;
+import com.momo.auth.service.OAuthService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

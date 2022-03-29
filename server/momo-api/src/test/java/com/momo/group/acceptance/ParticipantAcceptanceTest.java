@@ -3,8 +3,8 @@ package com.momo.group.acceptance;
 import static com.momo.GroupFixture.getGroupCreateRequest;
 import static com.momo.UserFixture.getUser;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatCustomException;
-import static com.momo.domain.common.exception.ErrorCode.GROUP_MANAGER_WITHDRAW_NOT_ALLOW;
-import static com.momo.domain.group.entity.Category.LIFE;
+import static com.momo.common.exception.ErrorCode.GROUP_MANAGER_WITHDRAW_NOT_ALLOW;
+import static com.momo.group.entity.Category.LIFE;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.assertThatFindParticipantsAfterDelete;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToApplyParticipant;
@@ -13,9 +13,9 @@ import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestTo
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
-import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.group.dto.ParticipantResponse;
-import com.momo.domain.user.entity.User;
+import com.momo.common.exception.ErrorCode;
+import com.momo.group.dto.ParticipantResponse;
+import com.momo.user.entity.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;

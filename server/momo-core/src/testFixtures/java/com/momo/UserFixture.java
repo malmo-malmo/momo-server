@@ -7,8 +7,8 @@ import static com.momo.common.FixtureComponents.NICKNAME;
 import static com.momo.common.LocationFixture.getLocation;
 import static com.momo.common.SocialLoginFixture.getSocialLogin;
 
-import com.momo.domain.group.entity.Category;
-import com.momo.domain.user.entity.User;
+import com.momo.group.entity.Category;
+import com.momo.user.entity.User;
 import java.util.List;
 
 public class UserFixture {

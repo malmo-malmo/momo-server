@@ -6,8 +6,8 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.pr
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.momo.config.JasyptConfig;
-import com.momo.domain.auth.infra.TokenProvider;
-import com.momo.domain.auth.service.OAuthService;
+import com.momo.auth.infra.TokenProvider;
+import com.momo.auth.service.OAuthService;
 import com.momo.config.InterceptorConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;

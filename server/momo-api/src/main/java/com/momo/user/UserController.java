@@ -1,11 +1,11 @@
 package com.momo.user;
 
 import com.momo.auth.CurrentUser;
-import com.momo.domain.user.dto.UserResponse;
-import com.momo.domain.user.dto.UserUpdateRequest;
-import com.momo.domain.user.dto.UserUpdateResponse;
-import com.momo.domain.user.entity.User;
-import com.momo.domain.user.service.UserService;
+import com.momo.user.dto.UserResponse;
+import com.momo.user.dto.UserUpdateRequest;
+import com.momo.user.dto.UserUpdateResponse;
+import com.momo.user.entity.User;
+import com.momo.user.service.UserService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

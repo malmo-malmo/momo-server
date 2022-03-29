@@ -5,7 +5,7 @@ import static com.momo.GroupFixture.getGroupCreateRequest;
 import static com.momo.GroupFixture.getGroupCreateResponse;
 import static com.momo.GroupFixture.getGroupResponse;
 import static com.momo.common.CommonFileUploadSupport.uploadMockSupport;
-import static com.momo.domain.group.entity.Category.LIFE;
+import static com.momo.group.entity.Category.LIFE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.fileUpload;
@@ -16,8 +16,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.group.GroupController;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.domain.group.dto.GroupCreateRequest;
-import com.momo.domain.group.service.impl.GroupServiceImpl;
+import com.momo.group.dto.GroupCreateRequest;
+import com.momo.group.service.impl.GroupServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

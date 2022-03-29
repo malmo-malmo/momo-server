@@ -10,8 +10,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.post.CommentController;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.domain.post.dto.CommentResponse;
-import com.momo.domain.post.service.impl.CommentServiceImpl;
+import com.momo.post.dto.CommentResponse;
+import com.momo.post.service.impl.CommentServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

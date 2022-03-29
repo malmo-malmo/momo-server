@@ -10,15 +10,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.management.ManagementController;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.domain.group.entity.Category;
-import com.momo.domain.management.dto.MyGroupCardResponse;
-import com.momo.domain.management.dto.MyGroupSummaryResponse;
-import com.momo.domain.management.dto.MyPostCardResponse;
-import com.momo.domain.management.dto.ParticipationGroupCardResponse;
-import com.momo.domain.management.dto.ParticipationGroupCountResponse;
-import com.momo.domain.management.dto.ParticipationGroupSummaryResponse;
-import com.momo.domain.management.service.ManagementService;
-import com.momo.domain.post.dto.PostCardResponse;
+import com.momo.group.entity.Category;
+import com.momo.management.dto.MyGroupCardResponse;
+import com.momo.management.dto.MyGroupSummaryResponse;
+import com.momo.management.dto.MyPostCardResponse;
+import com.momo.management.dto.ParticipationGroupCardResponse;
+import com.momo.management.dto.ParticipationGroupCountResponse;
+import com.momo.management.dto.ParticipationGroupSummaryResponse;
+import com.momo.management.service.ManagementService;
+import com.momo.post.dto.PostCardResponse;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;

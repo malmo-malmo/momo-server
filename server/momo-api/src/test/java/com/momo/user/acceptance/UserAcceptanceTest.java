@@ -4,7 +4,7 @@ import static com.momo.UserFixture.getUser;
 import static com.momo.common.FixtureComponents.IMAGE;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsBadRequest;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
-import static com.momo.domain.district.entity.City.SEOUL;
+import static com.momo.district.entity.City.SEOUL;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatFindMyInformation;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatUpdateMyInformation;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatUpdateMyInformationWithImage;
@@ -13,10 +13,10 @@ import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdateMy
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdateMyInformationWithImage;
 
 import com.momo.common.acceptance.AcceptanceTest;
-import com.momo.domain.user.dto.UserResponse;
-import com.momo.domain.user.dto.UserUpdateRequest;
-import com.momo.domain.user.dto.UserUpdateResponse;
-import com.momo.domain.user.entity.User;
+import com.momo.user.dto.UserResponse;
+import com.momo.user.dto.UserUpdateRequest;
+import com.momo.user.dto.UserUpdateResponse;
+import com.momo.user.entity.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;

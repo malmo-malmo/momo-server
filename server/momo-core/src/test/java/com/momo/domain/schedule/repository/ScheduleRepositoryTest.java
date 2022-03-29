@@ -9,10 +9,11 @@ import static java.time.LocalDateTime.of;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
-import com.momo.domain.group.entity.Group;
-import com.momo.domain.schedule.dto.GroupScheduleResponse;
-import com.momo.domain.schedule.entity.Schedule;
-import com.momo.domain.user.entity.User;
+import com.momo.group.entity.Group;
+import com.momo.schedule.dto.GroupScheduleResponse;
+import com.momo.schedule.entity.Schedule;
+import com.momo.schedule.repository.ScheduleRepository;
+import com.momo.user.entity.User;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;

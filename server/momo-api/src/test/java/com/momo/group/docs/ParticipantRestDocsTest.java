@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.group.ParticipantController;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.domain.group.service.impl.ParticipantServiceImpl;
+import com.momo.group.service.impl.ParticipantServiceImpl;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;

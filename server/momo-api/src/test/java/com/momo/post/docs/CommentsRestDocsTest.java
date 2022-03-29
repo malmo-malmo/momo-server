@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.post.CommentsController;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.domain.post.service.CommentService;
+import com.momo.post.service.CommentService;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

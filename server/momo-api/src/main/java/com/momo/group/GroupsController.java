@@ -1,10 +1,10 @@
 package com.momo.group;
 
 import com.momo.auth.CurrentUser;
-import com.momo.domain.group.dto.GroupCardResponse;
-import com.momo.domain.group.dto.GroupSearchConditionRequest;
-import com.momo.domain.group.service.GroupService;
-import com.momo.domain.user.entity.User;
+import com.momo.group.dto.GroupCardResponse;
+import com.momo.group.dto.GroupSearchConditionRequest;
+import com.momo.group.service.GroupService;
+import com.momo.user.entity.User;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;

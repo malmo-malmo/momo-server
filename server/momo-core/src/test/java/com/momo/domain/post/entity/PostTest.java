@@ -3,12 +3,13 @@ package com.momo.domain.post.entity;
 import static com.momo.GroupFixture.getGroupWithId;
 import static com.momo.PostFixture.getPost;
 import static com.momo.UserFixture.getUserWithId;
-import static com.momo.domain.post.entity.PostType.NORMAL;
-import static com.momo.domain.post.entity.PostType.NOTICE;
+import static com.momo.post.entity.PostType.NORMAL;
+import static com.momo.post.entity.PostType.NOTICE;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.domain.group.entity.Group;
-import com.momo.domain.user.entity.User;
+import com.momo.group.entity.Group;
+import com.momo.post.entity.Post;
+import com.momo.user.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

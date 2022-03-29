@@ -8,8 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.common.RestDocsControllerTest;
 import com.momo.user.UniversityController;
-import com.momo.domain.user.dto.UniversityResponse;
-import com.momo.domain.user.service.UniversityService;
+import com.momo.user.dto.UniversityResponse;
+import com.momo.user.service.UniversityService;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

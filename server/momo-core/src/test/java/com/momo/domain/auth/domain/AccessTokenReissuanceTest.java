@@ -3,6 +3,7 @@ package com.momo.domain.auth.domain;
 import static com.momo.AccessTokenReissuanceFixture.getAccessTokenReissuance;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.momo.auth.domain.AccessTokenReissuance;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

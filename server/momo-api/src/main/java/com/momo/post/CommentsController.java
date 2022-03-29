@@ -1,10 +1,10 @@
 package com.momo.post;
 
 import com.momo.auth.CurrentUser;
-import com.momo.domain.post.dto.CommentsRequest;
-import com.momo.domain.post.dto.CommentsResponse;
-import com.momo.domain.post.service.CommentService;
-import com.momo.domain.user.entity.User;
+import com.momo.post.dto.CommentsRequest;
+import com.momo.post.dto.CommentsResponse;
+import com.momo.post.service.CommentService;
+import com.momo.user.entity.User;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

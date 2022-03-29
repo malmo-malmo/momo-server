@@ -4,11 +4,11 @@ import static com.momo.common.FixtureComponents.IMAGE_URL;
 import static com.momo.common.FixtureComponents.INCREASE_ID;
 import static com.momo.common.FixtureComponents.NICKNAME;
 
-import com.momo.domain.achievementrate.entity.ParticipantAchievementRate;
-import com.momo.domain.group.dto.ParticipantResponse;
-import com.momo.domain.group.entity.Group;
-import com.momo.domain.group.entity.Participant;
-import com.momo.domain.user.entity.User;
+import com.momo.achievementrate.entity.ParticipantAchievementRate;
+import com.momo.group.dto.ParticipantResponse;
+import com.momo.group.entity.Group;
+import com.momo.group.entity.Participant;
+import com.momo.user.entity.User;
 
 public class ParticipantFixture {
 

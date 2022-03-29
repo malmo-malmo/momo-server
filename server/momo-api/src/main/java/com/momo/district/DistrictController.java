@@ -1,10 +1,10 @@
 package com.momo.district;
 
-import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.district.dto.DistrictResponse;
-import com.momo.domain.district.entity.City;
-import com.momo.domain.district.entity.District;
-import com.momo.domain.district.repository.DistrictRepository;
+import com.momo.common.dto.EnumResponse;
+import com.momo.district.dto.DistrictResponse;
+import com.momo.district.entity.City;
+import com.momo.district.entity.District;
+import com.momo.district.repository.DistrictRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

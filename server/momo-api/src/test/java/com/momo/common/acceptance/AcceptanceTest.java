@@ -4,11 +4,11 @@ import static com.momo.Profile.TEST;
 import static org.springframework.http.HttpHeaders.LOCATION;
 
 import com.momo.common.DatabaseCleaner;
-import com.momo.domain.auth.domain.KakaoOAuthProvider;
-import com.momo.domain.auth.domain.OAuthProviderFactory;
-import com.momo.domain.auth.infra.TokenProvider;
-import com.momo.domain.user.entity.User;
-import com.momo.domain.user.repository.UserRepository;
+import com.momo.auth.domain.KakaoOAuthProvider;
+import com.momo.auth.domain.OAuthProviderFactory;
+import com.momo.auth.infra.TokenProvider;
+import com.momo.user.entity.User;
+import com.momo.user.repository.UserRepository;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;

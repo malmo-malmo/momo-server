@@ -1,13 +1,13 @@
 package com.momo.favorite;
 
 import com.momo.auth.CurrentUser;
-import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.favorite.dto.FavoriteCategoriesUpdateRequest;
-import com.momo.domain.favorite.dto.FavoriteGroupCardResponse;
-import com.momo.domain.favorite.dto.FavoriteGroupCountResponse;
-import com.momo.domain.favorite.dto.FavoriteGroupCreateRequest;
-import com.momo.domain.favorite.service.FavoriteService;
-import com.momo.domain.user.entity.User;
+import com.momo.common.dto.EnumResponse;
+import com.momo.favorite.dto.FavoriteCategoriesUpdateRequest;
+import com.momo.favorite.dto.FavoriteGroupCardResponse;
+import com.momo.favorite.dto.FavoriteGroupCountResponse;
+import com.momo.favorite.dto.FavoriteGroupCreateRequest;
+import com.momo.favorite.service.FavoriteService;
+import com.momo.user.entity.User;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;

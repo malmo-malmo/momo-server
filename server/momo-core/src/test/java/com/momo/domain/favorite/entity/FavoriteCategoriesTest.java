@@ -3,9 +3,10 @@ package com.momo.domain.favorite.entity;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.momo.domain.common.exception.CustomException;
-import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.group.entity.Category;
+import com.momo.common.exception.CustomException;
+import com.momo.common.exception.ErrorCode;
+import com.momo.favorite.entity.FavoriteCategories;
+import com.momo.group.entity.Category;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;

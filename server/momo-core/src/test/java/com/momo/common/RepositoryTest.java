@@ -1,7 +1,7 @@
 package com.momo.common;
 
 import com.momo.common.annotations.CustomDataJpaTest;
-import com.momo.domain.common.util.BeanUtil;
+import com.momo.common.util.BeanUtil;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

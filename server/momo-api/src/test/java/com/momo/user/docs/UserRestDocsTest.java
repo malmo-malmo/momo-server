@@ -4,7 +4,7 @@ import static com.momo.UserFixture.getUserWithId;
 import static com.momo.common.CommonFileUploadSupport.generateUploadMockPutBuilder;
 import static com.momo.common.CommonFileUploadSupport.uploadMockSupport;
 import static com.momo.common.FixtureComponents.IMAGE;
-import static com.momo.domain.district.entity.City.SEOUL;
+import static com.momo.district.entity.City.SEOUL;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.fileUpload;
@@ -15,11 +15,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.user.UserController;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.user.dto.UserUpdateRequest;
-import com.momo.domain.user.dto.UserUpdateResponse;
-import com.momo.domain.user.entity.User;
-import com.momo.domain.user.service.UserService;
+import com.momo.common.dto.EnumResponse;
+import com.momo.user.dto.UserUpdateRequest;
+import com.momo.user.dto.UserUpdateResponse;
+import com.momo.user.entity.User;
+import com.momo.user.service.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

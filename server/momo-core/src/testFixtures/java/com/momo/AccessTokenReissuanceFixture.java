@@ -2,7 +2,7 @@ package com.momo;
 
 import static com.momo.common.FixtureComponents.DEVICE_CODE;
 
-import com.momo.domain.auth.domain.AccessTokenReissuance;
+import com.momo.auth.domain.AccessTokenReissuance;
 
 public class AccessTokenReissuanceFixture {
 

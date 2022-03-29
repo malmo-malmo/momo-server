@@ -2,8 +2,8 @@ package com.momo.common.acceptance.step;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.common.exception.ErrorResponse;
+import com.momo.common.exception.ErrorCode;
+import com.momo.common.exception.ErrorResponse;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.springframework.http.HttpStatus;

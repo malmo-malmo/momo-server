@@ -3,9 +3,9 @@ package com.momo.auth.acceptance.step;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.domain.auth.dto.OAuthLoginRequest;
-import com.momo.domain.auth.dto.OAuthLoginResponse;
-import com.momo.domain.auth.dto.RefreshLoginRequest;
+import com.momo.auth.dto.OAuthLoginRequest;
+import com.momo.auth.dto.OAuthLoginResponse;
+import com.momo.auth.dto.RefreshLoginRequest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;

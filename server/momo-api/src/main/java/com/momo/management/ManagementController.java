@@ -1,14 +1,14 @@
 package com.momo.management;
 
 import com.momo.auth.CurrentUser;
-import com.momo.domain.management.dto.MyGroupCardResponse;
-import com.momo.domain.management.dto.MyGroupSummaryResponse;
-import com.momo.domain.management.dto.MyPostCardResponse;
-import com.momo.domain.management.dto.ParticipationGroupCardResponse;
-import com.momo.domain.management.dto.ParticipationGroupCountResponse;
-import com.momo.domain.management.dto.ParticipationGroupSummaryResponse;
-import com.momo.domain.management.service.ManagementService;
-import com.momo.domain.user.entity.User;
+import com.momo.management.dto.MyGroupCardResponse;
+import com.momo.management.dto.MyGroupSummaryResponse;
+import com.momo.management.dto.MyPostCardResponse;
+import com.momo.management.dto.ParticipationGroupCardResponse;
+import com.momo.management.dto.ParticipationGroupCountResponse;
+import com.momo.management.dto.ParticipationGroupSummaryResponse;
+import com.momo.management.service.ManagementService;
+import com.momo.user.entity.User;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

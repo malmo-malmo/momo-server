@@ -3,10 +3,10 @@ package com.momo.schedule;
 import static org.springframework.http.HttpStatus.CREATED;
 
 import com.momo.auth.CurrentUser;
-import com.momo.domain.schedule.dto.AttendanceCreateRequests;
-import com.momo.domain.schedule.dto.AttendanceUpdateRequests;
-import com.momo.domain.schedule.service.AttendanceService;
-import com.momo.domain.user.entity.User;
+import com.momo.schedule.dto.AttendanceCreateRequests;
+import com.momo.schedule.dto.AttendanceUpdateRequests;
+import com.momo.schedule.service.AttendanceService;
+import com.momo.user.entity.User;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

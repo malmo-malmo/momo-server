@@ -1,10 +1,10 @@
 package com.momo.group;
 
 import com.momo.auth.CurrentUser;
-import com.momo.domain.group.dto.ParticipantRequest;
-import com.momo.domain.group.dto.ParticipantResponse;
-import com.momo.domain.group.service.ParticipantService;
-import com.momo.domain.user.entity.User;
+import com.momo.group.dto.ParticipantRequest;
+import com.momo.group.dto.ParticipantResponse;
+import com.momo.group.service.ParticipantService;
+import com.momo.user.entity.User;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;

@@ -2,7 +2,7 @@ package com.momo.domain.common;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.domain.common.util.TimeFormatUtil;
+import com.momo.common.util.TimeFormatUtil;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

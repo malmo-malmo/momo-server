@@ -64,8 +64,8 @@ public class User extends BaseEntity {
         return id.equals(user.getId());
     }
 
-    public void update(User user, Location location) {
-        this.nickname = user.getNickname();
+    public void update(String nickname, Location location) {
+        this.nickname = nickname;
         updateLocation(location);
     }
 

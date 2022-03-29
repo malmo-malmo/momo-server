@@ -9,12 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDtoMapper {
 
-    public User mapToUser(UserUpdateRequestDto dto) {
-        return User.builder()
-            .nickname(dto.getNickname())
-            .build();
-    }
-
     public Location mapToLocation(UserUpdateRequestDto dto) {
         return Location.builder()
             .city(dto.getCity())

@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
             validateDuplicateNickname(dto.getNickname());
         }
 
-        user.update(userDtoMapper.mapToUser(dto), userDtoMapper.mapToLocation(dto));
+        user.update(dto.getNickname(), userDtoMapper.mapToLocation(dto));
 
         return userDtoMapper.mapToUserUpdateResponseDto(user);
     }

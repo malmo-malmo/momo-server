@@ -10,6 +10,6 @@ app:
       client-secret: ENC(OOfqSkIyZTtPrLMe7AgRdXw+XVFWx4gfQ7gyaZYZeJdmblhufCnnDaXTJY/NQZW9)
       token-uri: https://kauth.kakao.com/oauth/token
       user-info-uri: https://kapi.kakao.com/v2/user/me
-  openApi:
+  open-api:
     career-net:
       url: ENC(NSpGT4yKAQztUhct5Mfc2knA4MeXJ8EDu0whpZ7U3jZhafY652+DkmqAV+lVWd/yDA1xfKlqhSnmuXtIzlPasABYYqX7FwscEOh5Zh3HnXc4v2zXr0KHgC1r2CFw20Nnv1Ki0toVmp+VXSC7Y21p0QkC3NPcRsUhMH+iaf1Gk0RvDmEznxorrdK7IXyQur+40j9AB8xbJqYxAs23Ll+xxg==)

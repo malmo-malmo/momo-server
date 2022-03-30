@@ -36,9 +36,9 @@ public class UserController {
     public ResponseEntity<UserResponse> findMyInformation(
         @CurrentUser User user
     ) {
-        UserResponseDto userResponseDto = userService.findMyInformation(user);
+        UserResponseDto responseDto = userService.findMyInformation(user);
 
-        return ResponseEntity.ok(userMapper.mapToUserResponse(userResponseDto));
+        return ResponseEntity.ok(userMapper.mapToUserResponse(responseDto));
     }
 
     @GetMapping("/duplicate-nickname")
@@ -55,10 +55,10 @@ public class UserController {
         @CurrentUser User user,
         @Valid @ModelAttribute UserUpdateRequest request
     ) {
-        UserUpdateRequestDto userUpdateRequestDto = userMapper.mapToUserUpdateRequestDto(request);
-        UserUpdateResponseDto userUpdateResponseDto = userService.updateMyInformation(user, userUpdateRequestDto);
+        UserUpdateRequestDto updateRequestDto = userMapper.mapToUserUpdateRequestDto(request);
+        UserUpdateResponseDto updateResponseDto = userService.updateMyInformation(user, updateRequestDto);
 
-        return ResponseEntity.ok(userMapper.mapToUserUpdateResponse(userUpdateResponseDto));
+        return ResponseEntity.ok(userMapper.mapToUserUpdateResponse(updateResponseDto));
     }
 
     @PutMapping("/update-image")

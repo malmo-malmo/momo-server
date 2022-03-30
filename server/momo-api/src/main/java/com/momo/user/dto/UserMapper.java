@@ -2,11 +2,15 @@ package com.momo.user.dto;
 
 import com.momo.common.dto.EnumResponse;
 import com.momo.user.application.dto.request.UserUpdateRequestDto;
+import com.momo.user.application.dto.response.UniversityResponseDto;
 import com.momo.user.application.dto.response.UserResponseDto;
 import com.momo.user.application.dto.response.UserUpdateResponseDto;
 import com.momo.user.dto.request.UserUpdateRequest;
+import com.momo.user.dto.response.UniversityResponse;
 import com.momo.user.dto.response.UserResponse;
 import com.momo.user.dto.response.UserUpdateResponse;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -40,5 +44,11 @@ public class UserMapper {
             .university(dto.getUniversity())
             .categories(EnumResponse.listOfFavoriteCategories(dto.getFavoriteCategories()))
             .build();
+    }
+
+    public List<UniversityResponse> mapToUniversityResponses(List<UniversityResponseDto> dtos) {
+        return dtos.stream()
+            .map(dto -> new UniversityResponse(dto.getName()))
+            .collect(Collectors.toList());
     }
 }

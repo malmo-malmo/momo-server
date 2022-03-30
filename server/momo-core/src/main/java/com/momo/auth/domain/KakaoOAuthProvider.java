@@ -1,8 +1,8 @@
 package com.momo.auth.domain;
 
-import com.momo.user.domain.SocialLogin;
-import com.momo.user.domain.SocialProvider;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.SocialLogin;
+import com.momo.user.domain.model.SocialProvider;
+import com.momo.user.domain.model.User;
 import lombok.Getter;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;

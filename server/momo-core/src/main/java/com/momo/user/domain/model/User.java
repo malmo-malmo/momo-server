@@ -1,4 +1,4 @@
-package com.momo.user.domain;
+package com.momo.user.domain.model;
 
 import static java.util.Objects.isNull;
 

@@ -2,7 +2,7 @@ package com.momo.post.entity;
 
 import com.momo.common.entity.BaseEntity;
 import com.momo.group.entity.Group;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Embedded;

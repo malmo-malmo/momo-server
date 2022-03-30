@@ -6,7 +6,7 @@ import com.momo.group.dto.GroupResponse;
 import com.momo.group.dto.GroupSearchConditionRequest;
 import com.momo.group.entity.Category;
 import com.momo.group.entity.Group;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 

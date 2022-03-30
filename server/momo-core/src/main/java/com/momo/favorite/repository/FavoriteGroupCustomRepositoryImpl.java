@@ -7,7 +7,7 @@ import static com.momo.group.entity.QParticipant.participant;
 import com.momo.favorite.dto.FavoriteGroupCardResponse;
 import com.momo.favorite.dto.QFavoriteGroupCardResponse;
 import com.momo.group.dto.QGroupCardResponse;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;

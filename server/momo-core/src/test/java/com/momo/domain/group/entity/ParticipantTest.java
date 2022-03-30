@@ -6,7 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.group.entity.Group;
 import com.momo.group.entity.Participant;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

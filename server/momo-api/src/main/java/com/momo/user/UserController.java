@@ -6,7 +6,7 @@ import com.momo.user.application.dto.request.UserUpdateRequestDto;
 import com.momo.user.application.dto.response.UserImageUpdateResponseDto;
 import com.momo.user.application.dto.response.UserResponseDto;
 import com.momo.user.application.dto.response.UserUpdateResponseDto;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import com.momo.user.dto.UserMapper;
 import com.momo.user.dto.request.UserUpdateRequest;
 import com.momo.user.dto.response.UserImageUpdateResponse;

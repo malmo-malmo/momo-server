@@ -22,7 +22,7 @@ import com.momo.group.repository.GroupRepository;
 import com.momo.group.repository.ParticipantRepository;
 import com.momo.group.service.ParticipantService;
 import com.momo.group.service.impl.ParticipantServiceImpl;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

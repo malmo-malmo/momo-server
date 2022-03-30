@@ -22,7 +22,7 @@ import com.momo.common.acceptance.step.AcceptanceStep;
 import com.momo.post.dto.CommentCreateRequest;
 import com.momo.post.dto.CommentResponse;
 import com.momo.post.dto.CommentsResponse;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;

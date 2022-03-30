@@ -2,7 +2,7 @@ package com.momo.auth.domain;
 
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.user.domain.SocialProvider;
+import com.momo.user.domain.model.SocialProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

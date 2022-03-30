@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.momo.user.dto.response.UserResponse;
 import com.momo.user.dto.request.UserUpdateRequest;
 import com.momo.user.dto.response.UserUpdateResponse;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;

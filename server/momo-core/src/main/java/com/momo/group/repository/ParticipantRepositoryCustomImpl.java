@@ -7,7 +7,7 @@ import com.momo.group.entity.Group;
 import com.momo.group.entity.Participant;
 import com.momo.management.dto.ParticipationGroupCardResponse;
 import com.momo.management.dto.QParticipationGroupCardResponse;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.CaseBuilder.Cases;

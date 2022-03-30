@@ -8,7 +8,7 @@ import static com.momo.common.LocationFixture.getLocation;
 import static com.momo.common.SocialLoginFixture.getSocialLogin;
 
 import com.momo.group.entity.Category;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import java.util.List;
 
 public class UserFixture {

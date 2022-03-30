@@ -9,7 +9,7 @@ import com.momo.group.entity.Group;
 import com.momo.schedule.dto.GroupScheduleResponse;
 import com.momo.schedule.dto.QGroupScheduleResponse;
 import com.momo.schedule.entity.Schedule;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;

@@ -4,7 +4,7 @@ import com.momo.config.model.SocketPrincipal;
 import com.momo.auth.service.OAuthService;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

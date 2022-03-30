@@ -3,7 +3,7 @@ package com.momo.favorite.entity;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
 import com.momo.group.entity.Category;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

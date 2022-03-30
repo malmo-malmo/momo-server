@@ -11,7 +11,7 @@ import com.momo.favorite.dto.FavoriteGroupCardResponse;
 import com.momo.favorite.entity.FavoriteGroup;
 import com.momo.favorite.repository.FavoriteGroupRepository;
 import com.momo.group.entity.Group;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

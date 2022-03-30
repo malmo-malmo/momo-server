@@ -4,7 +4,7 @@ import com.momo.group.entity.Group;
 import com.momo.post.dto.PostCardResponse;
 import com.momo.post.entity.Post;
 import com.momo.post.entity.PostType;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import java.util.List;
 
 public interface PostRepositoryCustom {

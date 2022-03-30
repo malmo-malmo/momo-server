@@ -14,7 +14,7 @@ import com.momo.group.dto.GroupResponse;
 import com.momo.group.dto.GroupSearchConditionRequest;
 import com.momo.group.entity.Group;
 import com.momo.group.repository.GroupRepository;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import java.math.BigDecimal;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;

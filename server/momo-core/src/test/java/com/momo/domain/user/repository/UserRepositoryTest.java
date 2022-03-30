@@ -4,8 +4,8 @@ import static com.momo.UserFixture.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
-import com.momo.user.domain.User;
-import com.momo.user.domain.UserRepository;
+import com.momo.user.domain.model.User;
+import com.momo.user.domain.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

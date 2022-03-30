@@ -18,7 +18,7 @@ import com.momo.common.RestDocsControllerTest;
 import com.momo.common.dto.EnumResponse;
 import com.momo.user.dto.request.UserUpdateRequest;
 import com.momo.user.dto.response.UserUpdateResponse;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import com.momo.user.application.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

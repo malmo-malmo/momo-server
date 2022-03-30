@@ -8,7 +8,7 @@ import com.momo.group.entity.Participant;
 import com.momo.group.repository.GroupRepository;
 import com.momo.group.repository.ParticipantRepository;
 import com.momo.group.service.ParticipantService;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

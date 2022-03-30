@@ -7,7 +7,7 @@ import com.momo.schedule.dto.ScheduleCreateRequest;
 import com.momo.schedule.dto.UpcomingScheduleResponse;
 import com.momo.schedule.dto.UserScheduleResponse;
 import com.momo.schedule.dto.UserSchedulesRequest;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import java.util.List;
 
 public interface ScheduleService {

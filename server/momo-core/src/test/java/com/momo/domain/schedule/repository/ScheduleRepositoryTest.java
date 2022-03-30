@@ -13,7 +13,7 @@ import com.momo.group.entity.Group;
 import com.momo.schedule.dto.GroupScheduleResponse;
 import com.momo.schedule.entity.Schedule;
 import com.momo.schedule.repository.ScheduleRepository;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;

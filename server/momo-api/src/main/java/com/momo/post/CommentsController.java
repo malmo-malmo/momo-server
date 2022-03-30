@@ -4,7 +4,7 @@ import com.momo.auth.CurrentUser;
 import com.momo.post.dto.CommentsRequest;
 import com.momo.post.dto.CommentsResponse;
 import com.momo.post.service.CommentService;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

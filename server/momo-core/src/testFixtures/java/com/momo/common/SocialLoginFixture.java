@@ -2,7 +2,7 @@ package com.momo.common;
 
 import static com.momo.common.FixtureComponents.PROVIDER;
 
-import com.momo.user.domain.SocialLogin;
+import com.momo.user.domain.model.SocialLogin;
 
 public class SocialLoginFixture {
 

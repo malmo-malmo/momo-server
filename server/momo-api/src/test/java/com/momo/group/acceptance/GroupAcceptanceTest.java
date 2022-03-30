@@ -30,7 +30,7 @@ import com.momo.group.dto.GroupCardResponse;
 import com.momo.group.dto.GroupCreateRequest;
 import com.momo.group.dto.GroupResponse;
 import com.momo.user.dto.response.UserResponse;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;

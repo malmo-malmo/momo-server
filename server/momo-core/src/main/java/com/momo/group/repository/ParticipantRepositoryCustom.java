@@ -3,7 +3,7 @@ package com.momo.group.repository;
 import com.momo.group.entity.Group;
 import com.momo.group.entity.Participant;
 import com.momo.management.dto.ParticipationGroupCardResponse;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import java.util.List;
 
 public interface ParticipantRepositoryCustom {

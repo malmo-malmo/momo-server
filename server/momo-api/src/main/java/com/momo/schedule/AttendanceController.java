@@ -6,7 +6,7 @@ import com.momo.auth.CurrentUser;
 import com.momo.schedule.dto.AttendanceCreateRequests;
 import com.momo.schedule.dto.AttendanceUpdateRequests;
 import com.momo.schedule.service.AttendanceService;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

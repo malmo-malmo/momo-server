@@ -12,7 +12,7 @@ import com.momo.group.entity.Group;
 import com.momo.post.entity.Comment;
 import com.momo.post.entity.Post;
 import com.momo.post.repository.CommentRepository;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

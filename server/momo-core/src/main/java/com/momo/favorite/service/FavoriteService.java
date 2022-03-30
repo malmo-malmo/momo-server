@@ -5,7 +5,7 @@ import com.momo.favorite.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.favorite.dto.FavoriteGroupCardResponse;
 import com.momo.favorite.dto.FavoriteGroupCountResponse;
 import com.momo.favorite.dto.FavoriteGroupCreateRequest;
-import com.momo.user.domain.User;
+import com.momo.user.domain.model.User;
 import java.util.List;
 
 public interface FavoriteService {

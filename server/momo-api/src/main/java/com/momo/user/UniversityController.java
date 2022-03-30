@@ -2,7 +2,7 @@ package com.momo.user;
 
 import com.momo.user.application.UniversityService;
 import com.momo.user.application.dto.response.UniversityResponseDto;
-import com.momo.user.dto.UniversityMapper;
+import com.momo.user.dto.UniversityAssembler;
 import com.momo.user.dto.response.UniversityResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UniversityController {
 
     private final UniversityService universityService;
-    private final UniversityMapper universityMapper;
 
     @GetMapping("/universities")
     public ResponseEntity<List<UniversityResponse>> findUniversity(
@@ -26,6 +25,6 @@ public class UniversityController {
     ) {
         List<UniversityResponseDto> responseDtos = universityService.findUniversity(universityName);
 
-        return ResponseEntity.ok(universityMapper.mapToUniversityResponses(responseDtos));
+        return ResponseEntity.ok(UniversityAssembler.mapToUniversityResponses(responseDtos));
     }
 }

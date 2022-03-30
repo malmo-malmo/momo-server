@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UniversityResponse {
 
-    private String name;
+    private String universityName;
 
-    public UniversityResponse(String name) {
-        this.name = name;
+    public UniversityResponse(String universityName) {
+        this.universityName = universityName;
     }
 }

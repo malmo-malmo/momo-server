@@ -4,7 +4,7 @@ import com.momo.aws.service.S3UploadService;
 import com.momo.aws.util.GenerateUploadPathUtil;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.user.application.dto.UserDtoMapper;
+import com.momo.user.application.dto.UserDtoAssembler;
 import com.momo.user.application.dto.request.UserUpdateRequestDto;
 import com.momo.user.application.dto.response.UserImageUpdateResponseDto;
 import com.momo.user.application.dto.response.UserResponseDto;
@@ -22,13 +22,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final S3UploadService s3UploadService;
-    private final UserDtoMapper userDtoMapper;
 
     @Transactional(readOnly = true)
     public UserResponseDto findMyInformation(User loginUser) {
         User user = findByUser(loginUser);
 
-        return userDtoMapper.mapToUserResponseDto(user);
+        return UserDtoAssembler.mapToUserResponseDto(user);
     }
 
     @Transactional
@@ -39,9 +38,9 @@ public class UserServiceImpl implements UserService {
             validateDuplicateNickname(dto.getNickname());
         }
 
-        user.update(dto.getNickname(), userDtoMapper.mapToLocation(dto));
+        user.update(dto.getNickname(), UserDtoAssembler.mapToLocation(dto));
 
-        return userDtoMapper.mapToUserUpdateResponseDto(user);
+        return UserDtoAssembler.mapToUserUpdateResponseDto(user);
     }
 
     @Transactional

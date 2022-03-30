@@ -5,12 +5,10 @@ import com.momo.user.application.dto.response.UserResponseDto;
 import com.momo.user.application.dto.response.UserUpdateResponseDto;
 import com.momo.user.domain.model.Location;
 import com.momo.user.domain.model.User;
-import org.springframework.stereotype.Component;
 
-@Component
-public class UserDtoMapper {
+public class UserDtoAssembler {
 
-    public Location mapToLocation(UserUpdateRequestDto dto) {
+    public static Location mapToLocation(UserUpdateRequestDto dto) {
         return Location.builder()
             .city(dto.getCity())
             .district(dto.getDistrict())
@@ -18,7 +16,7 @@ public class UserDtoMapper {
             .build();
     }
 
-    public UserUpdateResponseDto mapToUserUpdateResponseDto(User user) {
+    public static UserUpdateResponseDto mapToUserUpdateResponseDto(User user) {
         return UserUpdateResponseDto.builder()
             .nickname(user.getNickname())
             .city(user.getLocation().getCity())
@@ -27,7 +25,7 @@ public class UserDtoMapper {
             .build();
     }
 
-    public UserResponseDto mapToUserResponseDto(User user) {
+    public static UserResponseDto mapToUserResponseDto(User user) {
         return UserResponseDto.builder()
             .id(user.getId())
             .nickname(user.getNickname())

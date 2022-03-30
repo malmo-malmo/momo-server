@@ -7,7 +7,7 @@ import com.momo.user.application.dto.response.UserImageUpdateResponseDto;
 import com.momo.user.application.dto.response.UserResponseDto;
 import com.momo.user.application.dto.response.UserUpdateResponseDto;
 import com.momo.user.domain.model.User;
-import com.momo.user.dto.UserMapper;
+import com.momo.user.dto.UserAssembler;
 import com.momo.user.dto.request.UserUpdateRequest;
 import com.momo.user.dto.response.UserImageUpdateResponse;
 import com.momo.user.dto.response.UserResponse;
@@ -30,7 +30,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserController {
 
     private final UserService userService;
-    private final UserMapper userMapper;
 
     @GetMapping
     public ResponseEntity<UserResponse> findMyInformation(
@@ -38,7 +37,7 @@ public class UserController {
     ) {
         UserResponseDto responseDto = userService.findMyInformation(user);
 
-        return ResponseEntity.ok(userMapper.mapToUserResponse(responseDto));
+        return ResponseEntity.ok(UserAssembler.mapToUserResponse(responseDto));
     }
 
     @GetMapping("/duplicate-nickname")
@@ -55,10 +54,10 @@ public class UserController {
         @CurrentUser User user,
         @Valid @ModelAttribute UserUpdateRequest request
     ) {
-        UserUpdateRequestDto updateRequestDto = userMapper.mapToUserUpdateRequestDto(request);
+        UserUpdateRequestDto updateRequestDto = UserAssembler.mapToUserUpdateRequestDto(request);
         UserUpdateResponseDto updateResponseDto = userService.updateMyInformation(user, updateRequestDto);
 
-        return ResponseEntity.ok(userMapper.mapToUserUpdateResponse(updateResponseDto));
+        return ResponseEntity.ok(UserAssembler.mapToUserUpdateResponse(updateResponseDto));
     }
 
     @PutMapping("/update-image")

@@ -4,14 +4,12 @@ import com.momo.user.application.dto.response.UniversityResponseDto;
 import com.momo.user.dto.response.UniversityResponse;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.stereotype.Component;
 
-@Component
-public class UniversityMapper {
+public class UniversityAssembler {
 
-    public List<UniversityResponse> mapToUniversityResponses(List<UniversityResponseDto> dtos) {
+    public static List<UniversityResponse> mapToUniversityResponses(List<UniversityResponseDto> dtos) {
         return dtos.stream()
-            .map(dto -> new UniversityResponse(dto.getName()))
+            .map(dto -> new UniversityResponse(dto.getUniversityName()))
             .collect(Collectors.toList());
     }
 }

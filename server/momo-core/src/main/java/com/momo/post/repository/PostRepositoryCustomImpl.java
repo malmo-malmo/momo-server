@@ -3,7 +3,7 @@ package com.momo.post.repository;
 import static com.momo.group.entity.QGroup.group;
 import static com.momo.post.entity.QComment.comment;
 import static com.momo.post.entity.QPost.post;
-import static com.momo.user.entity.QUser.user;
+import static com.momo.user.domain.model.QUser.user;
 
 import com.momo.group.entity.Group;
 import com.momo.post.dto.PostCardResponse;

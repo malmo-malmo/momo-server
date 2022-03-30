@@ -1,14 +1,10 @@
 package com.momo.user.application.dto;
 
 import com.momo.user.application.dto.request.UserUpdateRequestDto;
-import com.momo.user.application.dto.response.UniversityResponseDto;
 import com.momo.user.application.dto.response.UserResponseDto;
 import com.momo.user.application.dto.response.UserUpdateResponseDto;
-import com.momo.user.domain.Location;
-import com.momo.user.domain.User;
-import com.momo.user.domain.dto.UniversityDto;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.momo.user.domain.model.Location;
+import com.momo.user.domain.model.User;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -41,11 +37,5 @@ public class UserDtoMapper {
             .university(user.getLocation().getUniversity())
             .favoriteCategories(user.getFavoriteCategories())
             .build();
-    }
-
-    public List<UniversityResponseDto> mapToUniversityResponseDtos(List<UniversityDto> dtos) {
-        return dtos.stream()
-            .map(dto -> new UniversityResponseDto(dto.getUniversityName()))
-            .collect(Collectors.toList());
     }
 }

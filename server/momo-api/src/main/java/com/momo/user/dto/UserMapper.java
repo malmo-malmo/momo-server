@@ -45,10 +45,4 @@ public class UserMapper {
             .categories(EnumResponse.listOfFavoriteCategories(dto.getFavoriteCategories()))
             .build();
     }
-
-    public List<UniversityResponse> mapToUniversityResponses(List<UniversityResponseDto> dtos) {
-        return dtos.stream()
-            .map(dto -> new UniversityResponse(dto.getName()))
-            .collect(Collectors.toList());
-    }
 }

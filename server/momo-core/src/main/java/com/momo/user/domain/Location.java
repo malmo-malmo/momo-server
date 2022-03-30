@@ -1,4 +1,4 @@
-package com.momo.user.entity;
+package com.momo.user.domain;
 
 import com.momo.district.entity.City;
 import javax.persistence.Embeddable;

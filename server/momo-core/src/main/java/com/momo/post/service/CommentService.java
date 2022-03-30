@@ -4,7 +4,7 @@ import com.momo.post.dto.CommentCreateRequest;
 import com.momo.post.dto.CommentResponse;
 import com.momo.post.dto.CommentsRequest;
 import com.momo.post.dto.CommentsResponse;
-import com.momo.user.entity.User;
+import com.momo.user.domain.User;
 
 public interface CommentService {
 

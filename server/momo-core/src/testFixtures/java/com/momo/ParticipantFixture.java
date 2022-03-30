@@ -8,7 +8,7 @@ import com.momo.achievementrate.entity.ParticipantAchievementRate;
 import com.momo.group.dto.ParticipantResponse;
 import com.momo.group.entity.Group;
 import com.momo.group.entity.Participant;
-import com.momo.user.entity.User;
+import com.momo.user.domain.User;
 
 public class ParticipantFixture {
 

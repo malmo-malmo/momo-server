@@ -1,10 +1,10 @@
-package com.momo.user.service;
+package com.momo.user.application;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.user.dto.UniversityResponse;
+import com.momo.domain.user.dto.UniversityResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

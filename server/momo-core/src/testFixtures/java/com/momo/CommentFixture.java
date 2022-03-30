@@ -12,7 +12,7 @@ import com.momo.post.dto.CommentsRequest;
 import com.momo.post.dto.CommentsResponse;
 import com.momo.post.entity.Comment;
 import com.momo.post.entity.Post;
-import com.momo.user.entity.User;
+import com.momo.user.domain.User;
 import java.time.LocalDateTime;
 import java.util.List;
 

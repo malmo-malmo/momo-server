@@ -1,6 +1,6 @@
 package com.momo.config.model;
 
-import com.momo.user.entity.User;
+import com.momo.user.domain.User;
 import java.security.Principal;
 
 public class SocketPrincipal implements Principal {

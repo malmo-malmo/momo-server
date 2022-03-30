@@ -7,7 +7,7 @@ import com.momo.favorite.dto.FavoriteGroupCardResponse;
 import com.momo.favorite.dto.FavoriteGroupCountResponse;
 import com.momo.favorite.dto.FavoriteGroupCreateRequest;
 import com.momo.favorite.service.FavoriteService;
-import com.momo.user.entity.User;
+import com.momo.user.domain.User;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;

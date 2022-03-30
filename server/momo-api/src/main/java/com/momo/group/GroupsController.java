@@ -4,7 +4,7 @@ import com.momo.auth.CurrentUser;
 import com.momo.group.dto.GroupCardResponse;
 import com.momo.group.dto.GroupSearchConditionRequest;
 import com.momo.group.service.GroupService;
-import com.momo.user.entity.User;
+import com.momo.user.domain.User;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;

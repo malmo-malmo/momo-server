@@ -34,7 +34,7 @@ import com.momo.schedule.repository.AttendanceRepository;
 import com.momo.schedule.repository.ScheduleRepository;
 import com.momo.schedule.service.AttendanceService;
 import com.momo.schedule.service.impl.AttendanceServiceImpl;
-import com.momo.user.entity.User;
+import com.momo.user.domain.User;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;

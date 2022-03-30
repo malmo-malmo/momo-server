@@ -10,7 +10,7 @@ import com.momo.group.entity.Group;
 import com.momo.group.entity.Participant;
 import com.momo.group.repository.ParticipantRepository;
 import com.momo.management.dto.ParticipationGroupCardResponse;
-import com.momo.user.entity.User;
+import com.momo.user.domain.User;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

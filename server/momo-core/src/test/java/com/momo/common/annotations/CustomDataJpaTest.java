@@ -13,7 +13,7 @@ import com.momo.post.repository.ImageRepository;
 import com.momo.post.repository.PostRepository;
 import com.momo.schedule.repository.AttendanceRepository;
 import com.momo.schedule.repository.ScheduleRepository;
-import com.momo.user.repository.UserRepository;
+import com.momo.user.domain.UserRepository;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

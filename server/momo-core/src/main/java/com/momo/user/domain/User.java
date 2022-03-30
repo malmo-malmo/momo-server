@@ -1,4 +1,4 @@
-package com.momo.user.entity;
+package com.momo.user.domain;
 
 import static java.util.Objects.isNull;
 
@@ -64,9 +64,8 @@ public class User extends BaseEntity {
         return id.equals(user.getId());
     }
 
-    public void update(User user, Location location, String imageUrl) {
-        this.nickname = user.getNickname();
-        this.imageUrl = imageUrl;
+    public void update(String nickname, Location location) {
+        this.nickname = nickname;
         updateLocation(location);
     }
 
@@ -76,6 +75,10 @@ public class User extends BaseEntity {
             return;
         }
         this.location.update(location);
+    }
+
+    public void updateImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public void updateFavoriteCategories(List<Category> categories) {

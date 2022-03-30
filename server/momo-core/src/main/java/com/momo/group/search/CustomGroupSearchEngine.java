@@ -3,7 +3,7 @@ package com.momo.group.search;
 import com.momo.district.entity.City;
 import com.momo.group.dto.GroupCardResponse;
 import com.momo.group.entity.Category;
-import com.momo.user.entity.User;
+import com.momo.user.domain.User;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 

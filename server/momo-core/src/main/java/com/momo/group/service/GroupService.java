@@ -5,7 +5,7 @@ import com.momo.group.dto.GroupCreateRequest;
 import com.momo.group.dto.GroupCreateResponse;
 import com.momo.group.dto.GroupResponse;
 import com.momo.group.dto.GroupSearchConditionRequest;
-import com.momo.user.entity.User;
+import com.momo.user.domain.User;
 import java.util.List;
 
 public interface GroupService {

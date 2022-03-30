@@ -9,7 +9,7 @@ import com.momo.schedule.dto.UpcomingScheduleResponse;
 import com.momo.schedule.dto.UserScheduleResponse;
 import com.momo.schedule.dto.UserSchedulesRequest;
 import com.momo.schedule.service.ScheduleService;
-import com.momo.user.entity.User;
+import com.momo.user.domain.User;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;

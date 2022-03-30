@@ -16,7 +16,7 @@ import com.momo.post.entity.Post;
 import com.momo.post.entity.PostType;
 import com.momo.post.repository.PostRepository;
 import com.momo.post.service.PostService;
-import com.momo.user.entity.User;
+import com.momo.user.domain.User;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

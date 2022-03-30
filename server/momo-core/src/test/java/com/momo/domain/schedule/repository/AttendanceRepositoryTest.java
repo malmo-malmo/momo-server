@@ -13,7 +13,7 @@ import com.momo.group.entity.Participant;
 import com.momo.schedule.entity.Attendance;
 import com.momo.schedule.entity.Schedule;
 import com.momo.schedule.repository.AttendanceRepository;
-import com.momo.user.entity.User;
+import com.momo.user.domain.User;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

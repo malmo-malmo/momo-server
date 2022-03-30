@@ -15,7 +15,7 @@ import com.momo.schedule.dto.UserSchedulesRequest;
 import com.momo.schedule.entity.Schedule;
 import com.momo.schedule.repository.ScheduleRepository;
 import com.momo.schedule.service.ScheduleService;
-import com.momo.user.entity.User;
+import com.momo.user.domain.User;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

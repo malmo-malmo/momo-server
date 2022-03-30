@@ -1,7 +1,7 @@
 package com.momo.group.service;
 
 import com.momo.group.dto.ParticipantResponse;
-import com.momo.user.entity.User;
+import com.momo.user.domain.User;
 import java.util.List;
 
 public interface ParticipantService {

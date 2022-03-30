@@ -13,7 +13,7 @@ import com.momo.group.dto.QGroupCardResponse;
 import com.momo.group.dto.QGroupResponse;
 import com.momo.group.entity.Category;
 import com.momo.group.entity.Group;
-import com.momo.user.entity.User;
+import com.momo.user.domain.User;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;

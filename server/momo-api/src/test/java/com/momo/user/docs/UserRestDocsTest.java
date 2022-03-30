@@ -16,10 +16,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.momo.user.UserController;
 import com.momo.common.RestDocsControllerTest;
 import com.momo.common.dto.EnumResponse;
-import com.momo.user.dto.UserUpdateRequest;
-import com.momo.user.dto.UserUpdateResponse;
-import com.momo.user.entity.User;
-import com.momo.user.service.UserService;
+import com.momo.user.dto.request.UserUpdateRequest;
+import com.momo.user.dto.response.UserUpdateResponse;
+import com.momo.user.domain.User;
+import com.momo.user.application.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

@@ -4,10 +4,10 @@ import static com.momo.common.CommonFileUploadSupport.uploadAssuredSupport;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.user.dto.UserResponse;
-import com.momo.user.dto.UserUpdateRequest;
-import com.momo.user.dto.UserUpdateResponse;
-import com.momo.user.entity.User;
+import com.momo.user.dto.response.UserResponse;
+import com.momo.user.dto.request.UserUpdateRequest;
+import com.momo.user.dto.response.UserUpdateResponse;
+import com.momo.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;

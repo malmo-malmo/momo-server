@@ -11,7 +11,7 @@ import com.momo.group.entity.Group;
 import com.momo.post.dto.PostCardResponse;
 import com.momo.post.entity.Post;
 import com.momo.post.repository.PostRepository;
-import com.momo.user.entity.User;
+import com.momo.user.domain.User;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

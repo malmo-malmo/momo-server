@@ -13,7 +13,7 @@ import com.momo.schedule.entity.Schedule;
 import com.momo.schedule.repository.AttendanceRepository;
 import com.momo.schedule.repository.ScheduleRepository;
 import com.momo.schedule.service.AttendanceService;
-import com.momo.user.entity.User;
+import com.momo.user.domain.User;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

@@ -3,10 +3,13 @@ package com.momo.api.user;
 import com.momo.api.auth.CurrentUser;
 import com.momo.api.user.dto.UserMapper;
 import com.momo.api.user.dto.request.UserUpdateRequest;
+import com.momo.api.user.dto.response.UserImageUpdateResponse;
 import com.momo.api.user.dto.response.UserResponse;
 import com.momo.api.user.dto.response.UserUpdateResponse;
 import com.momo.domain.user.application.UserService;
 import com.momo.domain.user.application.dto.request.UserUpdateRequestDto;
+import com.momo.domain.user.application.dto.response.UserImageUpdateResponseDto;
+import com.momo.domain.user.application.dto.response.UserResponseDto;
 import com.momo.domain.user.application.dto.response.UserUpdateResponseDto;
 import com.momo.domain.user.domain.User;
 import javax.validation.Valid;
@@ -17,7 +20,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/user")
@@ -31,7 +36,9 @@ public class UserController {
     public ResponseEntity<UserResponse> findMyInformation(
         @CurrentUser User user
     ) {
-        return ResponseEntity.ok(UserResponse.of(user));
+        UserResponseDto userResponseDto = userService.findMyInformation(user);
+
+        return ResponseEntity.ok(userMapper.mapToUserResponse(userResponseDto));
     }
 
     @GetMapping("/duplicate-nickname")
@@ -39,6 +46,7 @@ public class UserController {
         @RequestParam String nickname
     ) {
         userService.validateDuplicateNickname(nickname);
+
         return ResponseEntity.ok().build();
     }
 
@@ -48,10 +56,18 @@ public class UserController {
         @Valid @ModelAttribute UserUpdateRequest request
     ) {
         UserUpdateRequestDto userUpdateRequestDto = userMapper.mapToUserUpdateRequestDto(request);
-        UserUpdateResponseDto userUpdateResponseDto = userService.update(user, userUpdateRequestDto);
+        UserUpdateResponseDto userUpdateResponseDto = userService.updateMyInformation(user, userUpdateRequestDto);
 
-        UserUpdateResponse response = userMapper.mapToUserUpdateResponse(userUpdateResponseDto);
+        return ResponseEntity.ok(userMapper.mapToUserUpdateResponse(userUpdateResponseDto));
+    }
 
-        return ResponseEntity.ok(response);
+    @PutMapping("/update-image")
+    public ResponseEntity<UserImageUpdateResponse> updateImage(
+        @CurrentUser User user,
+        @RequestPart(required = false) MultipartFile imageFile
+    ) {
+        UserImageUpdateResponseDto responseDto = userService.updateImage(user, imageFile);
+
+        return ResponseEntity.ok(new UserImageUpdateResponse(responseDto.getImageUrl()));
     }
 }

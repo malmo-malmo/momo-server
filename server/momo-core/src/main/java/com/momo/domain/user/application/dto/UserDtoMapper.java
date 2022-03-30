@@ -1,6 +1,7 @@
 package com.momo.domain.user.application.dto;
 
 import com.momo.domain.user.application.dto.request.UserUpdateRequestDto;
+import com.momo.domain.user.application.dto.response.UserResponseDto;
 import com.momo.domain.user.application.dto.response.UserUpdateResponseDto;
 import com.momo.domain.user.domain.Location;
 import com.momo.domain.user.domain.User;
@@ -23,6 +24,18 @@ public class UserDtoMapper {
             .city(user.getLocation().getCity())
             .district(user.getLocation().getDistrict())
             .university(user.getLocation().getUniversity())
+            .build();
+    }
+
+    public UserResponseDto mapToUserResponseDto(User user) {
+        return UserResponseDto.builder()
+            .id(user.getId())
+            .nickname(user.getNickname())
+            .imageUrl(user.getImageUrl())
+            .city(user.getLocation().getCity())
+            .district(user.getLocation().getDistrict())
+            .university(user.getLocation().getUniversity())
+            .favoriteCategories(user.getFavoriteCategories())
             .build();
     }
 }

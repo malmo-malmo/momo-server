@@ -77,6 +77,10 @@ public class User extends BaseEntity {
         this.location.update(location);
     }
 
+    public void updateImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public void updateFavoriteCategories(List<Category> categories) {
         favoriteCategories.updateAll(this, categories);
     }

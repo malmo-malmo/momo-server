@@ -1,7 +1,6 @@
 package com.momo.api.user.dto.response;
 
 import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.user.domain.User;
 import java.util.List;
 import lombok.Builder;
 import lombok.Data;
@@ -13,33 +12,23 @@ public class UserResponse {
 
     private Long id;
     private String nickname;
-    private String image;
+    private String imageUrl;
     private EnumResponse city;
     private String district;
     private String university;
     private List<EnumResponse> categories;
 
     @Builder
-    public UserResponse(Long id, String nickname, String image, EnumResponse city, String district, String university,
-        List<EnumResponse> categories) {
+    public UserResponse(
+        Long id, String nickname, String imageUrl, EnumResponse city,
+        String district, String university, List<EnumResponse> categories
+    ) {
         this.id = id;
         this.nickname = nickname;
-        this.image = image;
+        this.imageUrl = imageUrl;
         this.city = city;
         this.district = district;
         this.university = university;
         this.categories = categories;
-    }
-
-    public static UserResponse of(User user) {
-        return UserResponse.builder()
-            .id(user.getId())
-            .nickname(user.getNickname())
-            .image(user.getImageUrl())
-            .city(EnumResponse.ofCity(user.getLocation().getCity()))
-            .district(user.getLocation().getDistrict())
-            .university(user.getLocation().getUniversity())
-            .categories(EnumResponse.listOfFavoriteCategories(user.getFavoriteCategories()))
-            .build();
     }
 }

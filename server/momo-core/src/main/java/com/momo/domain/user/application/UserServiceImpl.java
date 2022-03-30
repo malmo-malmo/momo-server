@@ -1,11 +1,14 @@
 package com.momo.domain.user.application;
 
+import static com.momo.domain.aws.util.GenerateUploadPathUtil.getUserImage;
+
 import com.momo.domain.aws.service.S3UploadService;
-import com.momo.domain.aws.util.GenerateUploadPathUtil;
 import com.momo.domain.common.exception.CustomException;
 import com.momo.domain.common.exception.ErrorCode;
 import com.momo.domain.user.application.dto.UserDtoMapper;
 import com.momo.domain.user.application.dto.request.UserUpdateRequestDto;
+import com.momo.domain.user.application.dto.response.UserImageUpdateResponseDto;
+import com.momo.domain.user.application.dto.response.UserResponseDto;
 import com.momo.domain.user.application.dto.response.UserUpdateResponseDto;
 import com.momo.domain.user.domain.User;
 import com.momo.domain.user.domain.UserRepository;
@@ -22,8 +25,15 @@ public class UserServiceImpl implements UserService {
     private final S3UploadService s3UploadService;
     private final UserDtoMapper userDtoMapper;
 
+    @Transactional(readOnly = true)
+    public UserResponseDto findMyInformation(User loginUser) {
+        User user = findByUser(loginUser);
+
+        return userDtoMapper.mapToUserResponseDto(user);
+    }
+
     @Transactional
-    public UserUpdateResponseDto update(User loginUser, UserUpdateRequestDto dto) {
+    public UserUpdateResponseDto updateMyInformation(User loginUser, UserUpdateRequestDto dto) {
         User user = findByUser(loginUser);
 
         if (!user.isSameNickname(dto.getNickname())) {
@@ -35,19 +45,25 @@ public class UserServiceImpl implements UserService {
         return userDtoMapper.mapToUserUpdateResponseDto(user);
     }
 
+    @Transactional
+    public UserImageUpdateResponseDto updateImage(User loginUser, MultipartFile imageFile) {
+        User user = findByUser(loginUser);
+        String imageUrl = s3UploadService.upload(imageFile, getUserImage(user.getId()));
+
+        user.updateImageUrl(imageUrl);
+
+        return new UserImageUpdateResponseDto(imageUrl);
+    }
+
     private User findByUser(User user) {
         return userRepository.findById(user.getId())
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public void validateDuplicateNickname(String nickname) {
         if (userRepository.existsByNickname(nickname)) {
             throw new CustomException(ErrorCode.DUPLICATED_NICKNAME);
         }
-    }
-
-    private String toImageUrl(MultipartFile multipartFile, Long userId) {
-        return s3UploadService.upload(multipartFile, GenerateUploadPathUtil.getUserImage(userId));
     }
 }

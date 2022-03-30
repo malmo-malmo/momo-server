@@ -1,9 +1,11 @@
 package com.momo.api.user.dto;
 
 import com.momo.api.user.dto.request.UserUpdateRequest;
+import com.momo.api.user.dto.response.UserResponse;
 import com.momo.api.user.dto.response.UserUpdateResponse;
 import com.momo.domain.common.dto.EnumResponse;
 import com.momo.domain.user.application.dto.request.UserUpdateRequestDto;
+import com.momo.domain.user.application.dto.response.UserResponseDto;
 import com.momo.domain.user.application.dto.response.UserUpdateResponseDto;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +27,18 @@ public class UserMapper {
             .university(dto.getUniversity())
             .city(EnumResponse.ofCity(dto.getCity()))
             .district(dto.getDistrict())
+            .build();
+    }
+
+    public UserResponse mapToUserResponse(UserResponseDto dto) {
+        return UserResponse.builder()
+            .id(dto.getId())
+            .nickname(dto.getNickname())
+            .imageUrl(dto.getImageUrl())
+            .city(EnumResponse.ofCity(dto.getCity()))
+            .district(dto.getDistrict())
+            .university(dto.getUniversity())
+            .categories(EnumResponse.listOfFavoriteCategories(dto.getFavoriteCategories()))
             .build();
     }
 }

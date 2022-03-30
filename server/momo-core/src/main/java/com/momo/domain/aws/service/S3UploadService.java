@@ -22,7 +22,7 @@ public class S3UploadService implements ImageUploadService {
     private final S3Uploader s3Uploader;
 
     public String upload(MultipartFile multipartFile, String dirName) {
-        if (Objects.isNull(multipartFile)) {
+        if (Objects.isNull(multipartFile) || multipartFile.isEmpty()) {
             return null;
         }
 

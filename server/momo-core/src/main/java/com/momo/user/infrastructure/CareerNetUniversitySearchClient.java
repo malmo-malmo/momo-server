@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.user.domain.UniversitySearchOpenApi;
+import com.momo.user.domain.UniversitySearchClient;
 import com.momo.user.domain.dto.UniversityDto;
 import java.io.InputStream;
 import java.net.URL;
@@ -18,11 +18,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CareerNetUniversitySearchOpenApi implements UniversitySearchOpenApi {
+public class CareerNetUniversitySearchClient implements UniversitySearchClient {
 
     private final String apiBaseUrl;
 
-    public CareerNetUniversitySearchOpenApi(
+    public CareerNetUniversitySearchClient(
         @Value("${app.open-api.career-net.url}") String apiBaseUrl
     ) {
         this.apiBaseUrl = apiBaseUrl;

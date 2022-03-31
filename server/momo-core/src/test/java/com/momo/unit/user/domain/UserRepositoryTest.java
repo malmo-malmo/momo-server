@@ -1,4 +1,4 @@
-package com.momo.unit.user.repository;
+package com.momo.unit.user.domain;
 
 import static com.momo.UserFixture.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,7 +26,8 @@ public class UserRepositoryTest extends RepositoryTest {
     }
 
     @Test
-    void 유저를_저장한다() {
+    @DisplayName("유저를 저장한다")
+    void saveUserTest() {
         User user = userRepository.findAll().get(0);
         Assertions.assertAll(
             () -> assertThat(user.getId()).isNotNull(),
@@ -41,11 +42,12 @@ public class UserRepositoryTest extends RepositoryTest {
     }
 
     @Test
-    void 공급자ID_공급자이름으로_유저를_조회한다() {
-        User actual = userRepository
-            .findBySocialLoginProviderIdAndSocialLoginProvider(
-                user.getSocialLogin().getProviderId(), user.getSocialLogin().getProvider()
-            ).get();
+    @DisplayName("공급자 ID와 공급자 이름으로 유저를 조회한다")
+    void findUserByProviderIdAndProviderTest() {
+        User actual = userRepository.findBySocialLoginProviderIdAndSocialLoginProvider(
+            user.getSocialLogin().getProviderId(),
+            user.getSocialLogin().getProvider()
+        ).get();
 
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
@@ -61,7 +63,8 @@ public class UserRepositoryTest extends RepositoryTest {
     }
 
     @Test
-    void 해당_닉네임을_가진_유저가_있는지_확인한다() {
+    @DisplayName("해당 닉네임을 가진 유저가 존재하는지 확인한다")
+    void existsByNicknameTest() {
         boolean actual = userRepository.existsByNickname(user.getNickname());
         assertThat(actual).isTrue();
     }

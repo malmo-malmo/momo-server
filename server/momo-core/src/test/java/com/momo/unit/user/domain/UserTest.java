@@ -1,6 +1,5 @@
-package com.momo.unit.user.entity;
+package com.momo.unit.user.domain;
 
-import static com.momo.UserFixture.getUser;
 import static com.momo.UserFixture.getUserWithId;
 import static com.momo.common.LocationFixture.getLocation;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,7 +24,8 @@ public class UserTest {
     }
 
     @Test
-    void 소셜_로그인_유저_생성_테스트() {
+    @DisplayName("소셜 로그인 유저를 생성한다")
+    void createUserTest() {
         User actual = User.createSocialLoginUser(SocialLogin.create(SocialProvider.KAKAO, "1"));
         Assertions.assertAll(
             () -> assertThat(actual.getSocialLogin().getProviderId()).isEqualTo("1"),
@@ -34,20 +34,23 @@ public class UserTest {
     }
 
     @Test
-    void 유저_닉네임이_널인_경우_같은_닉네임_확인_테스트() {
+    @DisplayName("동일한 닉네임인지 확인한다 - 닉네임이 NULL인 경우")
+    void isSameNicknameTest1() {
         User user = User.builder().build();
         boolean expected = user.isSameNickname("nickname");
         assertThat(expected).isTrue();
     }
 
     @Test
-    void 유저_닉네임이_널이_아닌_경우_같은_닉네임_확인_테스트() {
+    @DisplayName("동일한 닉네임인지 확인한다 - 닉네임이 NULL이 아닌 경우")
+    void isSameNicknameTest2() {
         boolean expected = user.isSameNickname(user.getNickname());
         assertThat(expected).isTrue();
     }
 
     @Test
-    void 같은_유저_확인_테스트() {
+    @DisplayName("같은 유저인지 확인한다")
+    void isSameUserTest1() {
         User user1 = User.builder().id(1L).build();
         User user2 = User.builder().id(1L).build();
         boolean expected = user1.isSameUser(user2);
@@ -55,7 +58,8 @@ public class UserTest {
     }
 
     @Test
-    void 다른_유저_확인_테스트() {
+    @DisplayName("다른 유저인지 확인한다")
+    void isSameUserTest2() {
         User user1 = User.builder().id(1L).build();
         User user2 = User.builder().id(2L).build();
         boolean expected = user1.isSameUser(user2);
@@ -63,17 +67,17 @@ public class UserTest {
     }
 
     @Test
-    void 유저_업데이트_테스트() {
-        User expectedUser = getUser();
-        Location expectedLocation = getLocation();
-        user.update(expectedUser, expectedLocation, expectedUser.getImageUrl());
+    @DisplayName("유저 정보를 수정한다")
+    void updateUserTest() {
+        String nickname = "변경할 닉네임";
+        Location location = getLocation();
+        user.update(nickname, location);
 
         Assertions.assertAll(
-            () -> assertThat(user.getNickname()).isEqualTo(expectedUser.getNickname()),
-            () -> assertThat(user.getImageUrl()).isEqualTo(expectedUser.getImageUrl()),
-            () -> assertThat(user.getLocation().getCity()).isEqualTo(expectedUser.getLocation().getCity()),
-            () -> assertThat(user.getLocation().getDistrict()).isEqualTo(expectedLocation.getDistrict()),
-            () -> assertThat(user.getLocation().getUniversity()).isEqualTo(expectedLocation.getUniversity())
+            () -> assertThat(user.getNickname()).isEqualTo(nickname),
+            () -> assertThat(user.getLocation().getCity()).isEqualTo(location.getCity()),
+            () -> assertThat(user.getLocation().getDistrict()).isEqualTo(location.getDistrict()),
+            () -> assertThat(user.getLocation().getUniversity()).isEqualTo(location.getUniversity())
         );
     }
 }

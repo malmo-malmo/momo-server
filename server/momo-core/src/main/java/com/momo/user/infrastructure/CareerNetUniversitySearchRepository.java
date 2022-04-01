@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.user.domain.UniversitySearchClient;
+import com.momo.user.domain.repository.UniversitySearchRepository;
 import com.momo.user.domain.dto.UniversityDto;
 import java.io.InputStream;
 import java.net.URL;
@@ -18,11 +18,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CareerNetUniversitySearchClient implements UniversitySearchClient {
+public class CareerNetUniversitySearchRepository implements UniversitySearchRepository {
 
     private final String apiBaseUrl;
 
-    public CareerNetUniversitySearchClient(
+    public CareerNetUniversitySearchRepository(
         @Value("${app.open-api.career-net.url}") String apiBaseUrl
     ) {
         this.apiBaseUrl = apiBaseUrl;
@@ -32,7 +32,7 @@ public class CareerNetUniversitySearchClient implements UniversitySearchClient {
      * TODO: 코드 리팩토링 필요
      */
     @Override
-    public List<UniversityDto> search(String universityName) {
+    public List<UniversityDto> searchUniversitiesByName(String universityName) {
         String format = apiBaseUrl + "&searchSchulNm=%s";
         String apiUrl = String.format(format, URLEncoder.encode(universityName, StandardCharsets.UTF_8));
 

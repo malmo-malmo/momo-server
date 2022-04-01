@@ -5,7 +5,7 @@ import com.momo.post.dto.PostCreateRequest;
 import com.momo.post.dto.PostResponse;
 import com.momo.post.dto.PostUpdateRequest;
 import com.momo.post.service.PostService;
-import com.momo.user.entity.User;
+import com.momo.user.domain.model.User;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;

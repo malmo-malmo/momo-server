@@ -1,7 +1,7 @@
 package com.momo.favorite.entity;
 
 import com.momo.group.entity.Category;
-import com.momo.user.entity.User;
+import com.momo.user.domain.model.User;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

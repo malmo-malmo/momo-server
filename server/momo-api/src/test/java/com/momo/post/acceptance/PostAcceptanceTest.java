@@ -27,7 +27,7 @@ import com.momo.post.dto.PostCardResponse;
 import com.momo.post.dto.PostCardsRequest;
 import com.momo.post.dto.PostCreateRequest;
 import com.momo.post.dto.PostResponse;
-import com.momo.user.entity.User;
+import com.momo.user.domain.model.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;

@@ -3,7 +3,7 @@ package com.momo.post.entity;
 import com.momo.common.entity.BaseEntity;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.user.entity.User;
+import com.momo.user.domain.model.User;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;

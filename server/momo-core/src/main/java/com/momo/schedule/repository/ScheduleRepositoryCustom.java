@@ -3,7 +3,7 @@ package com.momo.schedule.repository;
 import com.momo.group.entity.Group;
 import com.momo.schedule.dto.GroupScheduleResponse;
 import com.momo.schedule.entity.Schedule;
-import com.momo.user.entity.User;
+import com.momo.user.domain.model.User;
 import java.time.LocalDateTime;
 import java.util.List;
 

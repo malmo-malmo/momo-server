@@ -18,7 +18,7 @@ public class UniversityDocumentation {
             parameterWithName("universityName").description("학교 이름")
         };
         FieldDescriptor[] responseUniversity = new FieldDescriptor[]{
-            fieldWithPath("[].name").type(JsonFieldType.STRING).description("학교 이름")
+            fieldWithPath("[].universityName").type(JsonFieldType.STRING).description("학교 이름")
         };
         return document("user/findByUniversityName",
             requestParameters(requestParam),

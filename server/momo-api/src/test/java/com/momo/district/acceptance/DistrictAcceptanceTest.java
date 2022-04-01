@@ -11,7 +11,7 @@ import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.dto.EnumResponse;
 import com.momo.district.dto.DistrictResponse;
 import com.momo.district.entity.City;
-import com.momo.user.entity.User;
+import com.momo.user.domain.model.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;

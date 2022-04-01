@@ -1,7 +1,7 @@
 package com.momo.user;
 
-import com.momo.user.dto.UniversityResponse;
-import com.momo.user.service.UniversityService;
+import com.momo.user.application.UniversityService;
+import com.momo.user.application.dto.response.UniversityResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,14 +11,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/university")
 @RequiredArgsConstructor
 public class UniversityController {
 
     private final UniversityService universityService;
 
-    @GetMapping("/universities")
-    public ResponseEntity<List<UniversityResponse>> findByUniversityName(@RequestParam String universityName) {
-        return ResponseEntity.ok(universityService.findByUniversityName(universityName));
+    @GetMapping("/names")
+    public ResponseEntity<List<UniversityResponse>> findUniversityNames(@RequestParam String universityName) {
+        List<UniversityResponse> responses = universityService.findUniversityNames(universityName);
+
+        return ResponseEntity.ok(responses);
     }
 }

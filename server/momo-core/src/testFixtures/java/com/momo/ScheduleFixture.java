@@ -12,7 +12,7 @@ import com.momo.schedule.dto.GroupSchedulesRequest;
 import com.momo.schedule.dto.ScheduleCreateRequest;
 import com.momo.schedule.dto.UpcomingScheduleResponse;
 import com.momo.schedule.entity.Schedule;
-import com.momo.user.entity.User;
+import com.momo.user.domain.model.User;
 import java.time.LocalDateTime;
 
 public class ScheduleFixture {

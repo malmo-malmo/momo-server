@@ -2,7 +2,7 @@ package com.momo.schedule.entity;
 
 import com.momo.common.entity.BaseEntity;
 import com.momo.group.entity.Group;
-import com.momo.user.entity.User;
+import com.momo.user.domain.model.User;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

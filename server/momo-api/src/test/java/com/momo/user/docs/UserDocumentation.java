@@ -67,8 +67,21 @@ public class UserDocumentation {
         RequestPartDescriptor[] requestPart = new RequestPartDescriptor[]{
             partWithName("imageFile").description("유저 프로필 이미지")
         };
+        FieldDescriptor[] response = new FieldDescriptor[]{
+            fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("이미지 URL")
+        };
+        return document("user/updateImageWithImage",
+            requestParts(requestPart),
+            responseFields(response)
+        );
+    }
+
+    public static RestDocumentationResultHandler updateImage() {
+        FieldDescriptor[] response = new FieldDescriptor[]{
+            fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("이미지 URL")
+        };
         return document("user/updateImage",
-            requestParts(requestPart)
+            responseFields(response)
         );
     }
 }

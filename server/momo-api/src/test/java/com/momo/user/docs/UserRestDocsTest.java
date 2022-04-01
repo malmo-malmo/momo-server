@@ -5,7 +5,6 @@ import static com.momo.common.docs.MockMvcHttpServletRequestSupport.mockMultipar
 import static com.momo.district.entity.City.SEOUL;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -122,6 +121,6 @@ public class UserRestDocsTest extends RestDocsControllerTest {
         super.mockMvc.perform(put("/api/user/update-image"))
             .andDo(print())
             .andExpect(status().isOk())
-            .andDo(document("user/updateImage"));
+            .andDo(UserDocumentation.updateImage());
     }
 }

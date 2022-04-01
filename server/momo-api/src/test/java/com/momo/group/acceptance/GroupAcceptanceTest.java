@@ -29,7 +29,7 @@ import com.momo.common.dto.EnumResponse;
 import com.momo.group.dto.GroupCardResponse;
 import com.momo.group.dto.GroupCreateRequest;
 import com.momo.group.dto.GroupResponse;
-import com.momo.user.dto.response.UserResponse;
+import com.momo.user.application.dto.response.UserResponse;
 import com.momo.user.domain.model.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;

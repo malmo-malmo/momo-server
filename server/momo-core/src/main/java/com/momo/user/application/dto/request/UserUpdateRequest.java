@@ -1,4 +1,4 @@
-package com.momo.user.dto.request;
+package com.momo.user.application.dto.request;
 
 import com.momo.district.entity.City;
 import javax.validation.constraints.NotBlank;

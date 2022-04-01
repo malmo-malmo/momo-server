@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.momo.common.RestDocsControllerTest;
 import com.momo.user.UniversityController;
 import com.momo.user.application.UniversityService;
-import com.momo.user.application.dto.response.UniversityResponseDto;
+import com.momo.user.application.dto.response.UniversityResponse;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,12 +30,12 @@ public class UniversityRestDocsTest extends RestDocsControllerTest {
     @Test
     @DisplayName("이름으로 대학교를 검색한다")
     void findUniversity_UniversityName_Success() throws Exception {
-        when(universityService.findUniversities(anyString()))
+        when(universityService.findUniversityNames(anyString()))
             .thenReturn(
-                List.of(new UniversityResponseDto("무슨대"))
+                List.of(new UniversityResponse("무슨대"))
             );
 
-        super.mockMvc.perform(get("/api/universities")
+        super.mockMvc.perform(get("/api/university/names")
                 .param("universityName", "무슨대")
             )
             .andDo(print())

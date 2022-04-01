@@ -15,10 +15,10 @@ import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
 import com.momo.district.entity.City;
 import com.momo.user.application.UserService;
-import com.momo.user.application.dto.request.UserUpdateRequestDto;
-import com.momo.user.application.dto.response.UserImageUpdateResponseDto;
-import com.momo.user.application.dto.response.UserResponseDto;
-import com.momo.user.application.dto.response.UserUpdateResponseDto;
+import com.momo.user.application.dto.request.UserUpdateRequest;
+import com.momo.user.application.dto.response.UserImageUpdateResponse;
+import com.momo.user.application.dto.response.UserResponse;
+import com.momo.user.application.dto.response.UserUpdateResponse;
 import com.momo.user.domain.model.User;
 import com.momo.user.domain.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
@@ -51,24 +51,25 @@ public class UserServiceTest extends ServiceTest {
     void findMyInformation_LoginUser_Success() {
         given(userRepository.findById(any())).willReturn(of(user));
 
-        UserResponseDto expected = userService.findMyInformation(user);
+        UserResponse expected = userService.findMyInformation(user);
 
         verify(userRepository).findById(any());
         Assertions.assertAll(
             () -> assertThat(expected.getId()).isEqualTo(user.getId()),
             () -> assertThat(expected.getNickname()).isEqualTo(user.getNickname()),
             () -> assertThat(expected.getImageUrl()).isEqualTo(user.getImageUrl()),
-            () -> assertThat(expected.getCity()).isEqualTo(user.getLocation().getCity()),
+            () -> assertThat(expected.getCity().getName()).isEqualTo(user.getLocation().getCity().getName()),
+            () -> assertThat(expected.getCity().getCode()).isEqualTo(user.getLocation().getCity().getCode()),
             () -> assertThat(expected.getDistrict()).isEqualTo(user.getLocation().getDistrict()),
             () -> assertThat(expected.getUniversity()).isEqualTo(user.getLocation().getUniversity()),
-            () -> assertThat(expected.getFavoriteCategories()).isNotNull()
+            () -> assertThat(expected.getCategories()).isNotNull()
         );
     }
 
     @Test
     @DisplayName("유저 정보를 수정한다 - 변경할 닉네임이 다른 경우")
     void updateMyInformation_DifferentNickname_Success() {
-        UserUpdateRequestDto expected = UserUpdateRequestDto.builder()
+        UserUpdateRequest expected = UserUpdateRequest.builder()
             .nickname("변경할 닉네임")
             .university("변경할 대학교")
             .city(City.SEOUL)
@@ -78,7 +79,7 @@ public class UserServiceTest extends ServiceTest {
         given(userRepository.findById(any())).willReturn(of(user));
         given(userRepository.existsByNickname(any())).willReturn(false);
 
-        UserUpdateResponseDto actual = userService.updateMyInformation(user, expected);
+        UserUpdateResponse actual = userService.updateMyInformation(user, expected);
 
         verify(userRepository).findById(any());
         verify(userRepository).existsByNickname(any());
@@ -88,7 +89,7 @@ public class UserServiceTest extends ServiceTest {
     @Test
     @DisplayName("유저 정보를 수정한다 - 변경할 닉네임이 같은 경우")
     void updateMyInformation_SameNickname_Success() {
-        UserUpdateRequestDto expected = UserUpdateRequestDto.builder()
+        UserUpdateRequest expected = UserUpdateRequest.builder()
             .nickname(user.getNickname())
             .university("변경할 대학교")
             .city(City.SEOUL)
@@ -97,14 +98,14 @@ public class UserServiceTest extends ServiceTest {
 
         given(userRepository.findById(any())).willReturn(of(user));
 
-        UserUpdateResponseDto actual = userService.updateMyInformation(user, expected);
+        UserUpdateResponse actual = userService.updateMyInformation(user, expected);
 
         verify(userRepository).findById(any());
         verify(userRepository, never()).existsByNickname(any());
         verifyUserUpdateResponseDto(actual, expected);
     }
 
-    private void verifyUserUpdateResponseDto(UserUpdateResponseDto actual, UserUpdateRequestDto expected) {
+    private void verifyUserUpdateResponseDto(UserUpdateResponse actual, UserUpdateRequest expected) {
         Assertions.assertAll(
             () -> assertThat(actual.getNickname()).isEqualTo(expected.getNickname()),
             () -> assertThat(actual.getUniversity()).isEqualTo(expected.getUniversity()),
@@ -116,7 +117,7 @@ public class UserServiceTest extends ServiceTest {
     @Test
     @DisplayName("유저 정보 수정을 실패한다 - 중복된 닉네임")
     void updateMyInformation_DuplicatedNickname_Failure() {
-        UserUpdateRequestDto requestDto = UserUpdateRequestDto.builder()
+        UserUpdateRequest requestDto = UserUpdateRequest.builder()
             .nickname("중복된 닉네임")
             .build();
 
@@ -136,7 +137,7 @@ public class UserServiceTest extends ServiceTest {
         given(userRepository.findById(any())).willReturn(of(user));
         given(s3UploadService.upload(any(), any())).willReturn(imageUrl);
 
-        UserImageUpdateResponseDto actual = userService
+        UserImageUpdateResponse actual = userService
             .updateImage(user, new MockMultipartFile("image", "image".getBytes()));
 
         assertThat(actual.getImageUrl()).isEqualTo(imageUrl);

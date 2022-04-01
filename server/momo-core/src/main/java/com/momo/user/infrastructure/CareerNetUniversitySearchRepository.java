@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
 import com.momo.user.domain.repository.UniversitySearchRepository;
-import com.momo.user.domain.dto.UniversityDto;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
@@ -32,11 +31,11 @@ public class CareerNetUniversitySearchRepository implements UniversitySearchRepo
      * TODO: 코드 리팩토링 필요
      */
     @Override
-    public List<UniversityDto> searchUniversitiesByName(String universityName) {
+    public List<String> searchUniversityNamesByName(String universityName) {
         String format = apiBaseUrl + "&searchSchulNm=%s";
         String apiUrl = String.format(format, URLEncoder.encode(universityName, StandardCharsets.UTF_8));
 
-        List<UniversityDto> universityDtos = new ArrayList<>();
+        List<String> universityNames = new ArrayList<>();
 
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -50,12 +49,12 @@ public class CareerNetUniversitySearchRepository implements UniversitySearchRepo
             Iterator<JsonNode> iter = jn2.elements();
             while (iter.hasNext()) {
                 JsonNode jn3 = iter.next();
-                universityDtos.add(new UniversityDto(jn3.get("schoolName").textValue()));
+                universityNames.add(jn3.get("schoolName").textValue());
             }
         } catch (Exception e) {
             throw new CustomException(ErrorCode.CAREER_NET_SERVER_ERROR);
         }
 
-        return universityDtos;
+        return universityNames;
     }
 }

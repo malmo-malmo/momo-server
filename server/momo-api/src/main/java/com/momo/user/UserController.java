@@ -2,16 +2,11 @@ package com.momo.user;
 
 import com.momo.auth.CurrentUser;
 import com.momo.user.application.UserService;
-import com.momo.user.application.dto.request.UserUpdateRequestDto;
-import com.momo.user.application.dto.response.UserImageUpdateResponseDto;
-import com.momo.user.application.dto.response.UserResponseDto;
-import com.momo.user.application.dto.response.UserUpdateResponseDto;
+import com.momo.user.application.dto.request.UserUpdateRequest;
+import com.momo.user.application.dto.response.UserImageUpdateResponse;
+import com.momo.user.application.dto.response.UserResponse;
+import com.momo.user.application.dto.response.UserUpdateResponse;
 import com.momo.user.domain.model.User;
-import com.momo.user.dto.UserAssembler;
-import com.momo.user.dto.request.UserUpdateRequest;
-import com.momo.user.dto.response.UserImageUpdateResponse;
-import com.momo.user.dto.response.UserResponse;
-import com.momo.user.dto.response.UserUpdateResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +27,9 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<UserResponse> findMyInformation(@CurrentUser User user) {
-        UserResponseDto responseDto = userService.findMyInformation(user);
+        UserResponse response = userService.findMyInformation(user);
 
-        return ResponseEntity.ok(UserAssembler.mapToUserResponse(responseDto));
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/duplicate-nickname")
@@ -49,10 +44,9 @@ public class UserController {
         @CurrentUser User user,
         @Valid @RequestBody UserUpdateRequest request
     ) {
-        UserUpdateRequestDto updateRequestDto = UserAssembler.mapToUserUpdateRequestDto(request);
-        UserUpdateResponseDto updateResponseDto = userService.updateMyInformation(user, updateRequestDto);
+        UserUpdateResponse response = userService.updateMyInformation(user, request);
 
-        return ResponseEntity.ok(UserAssembler.mapToUserUpdateResponse(updateResponseDto));
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/update-image")
@@ -60,8 +54,8 @@ public class UserController {
         @CurrentUser User user,
         @RequestParam(required = false) MultipartFile imageFile
     ) {
-        UserImageUpdateResponseDto responseDto = userService.updateImage(user, imageFile);
+        UserImageUpdateResponse response = userService.updateImage(user, imageFile);
 
-        return ResponseEntity.ok(new UserImageUpdateResponse(responseDto.getImageUrl()));
+        return ResponseEntity.ok(response);
     }
 }

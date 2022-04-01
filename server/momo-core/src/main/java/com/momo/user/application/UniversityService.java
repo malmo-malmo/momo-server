@@ -1,8 +1,7 @@
 package com.momo.user.application;
 
-import com.momo.user.application.dto.UniversityDtoAssembler;
-import com.momo.user.application.dto.response.UniversityResponseDto;
-import com.momo.user.domain.dto.UniversityDto;
+import com.momo.user.application.dto.UniversityAssembler;
+import com.momo.user.application.dto.response.UniversityResponse;
 import com.momo.user.domain.repository.UniversitySearchRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +13,9 @@ public class UniversityService {
 
     private final UniversitySearchRepository universitySearchRepository;
 
-    public List<UniversityResponseDto> findUniversities(String universityName) {
-        List<UniversityDto> universityDtos = universitySearchRepository.searchUniversitiesByName(universityName);
+    public List<UniversityResponse> findUniversityNames(String universityName) {
+        List<String> universityNames = universitySearchRepository.searchUniversityNamesByName(universityName);
 
-        return UniversityDtoAssembler.mapToUniversityResponseDtos(universityDtos);
+        return UniversityAssembler.mapToUniversityResponses(universityNames);
     }
 }

@@ -4,10 +4,10 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.user.domain.model.User;
-import com.momo.user.dto.request.UserUpdateRequest;
-import com.momo.user.dto.response.UserImageUpdateResponse;
-import com.momo.user.dto.response.UserResponse;
-import com.momo.user.dto.response.UserUpdateResponse;
+import com.momo.user.application.dto.request.UserUpdateRequest;
+import com.momo.user.application.dto.response.UserImageUpdateResponse;
+import com.momo.user.application.dto.response.UserResponse;
+import com.momo.user.application.dto.response.UserUpdateResponse;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.io.IOException;

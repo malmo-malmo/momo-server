@@ -14,10 +14,10 @@ import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdateMy
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.user.domain.model.User;
-import com.momo.user.dto.request.UserUpdateRequest;
-import com.momo.user.dto.response.UserImageUpdateResponse;
-import com.momo.user.dto.response.UserResponse;
-import com.momo.user.dto.response.UserUpdateResponse;
+import com.momo.user.application.dto.request.UserUpdateRequest;
+import com.momo.user.application.dto.response.UserImageUpdateResponse;
+import com.momo.user.application.dto.response.UserResponse;
+import com.momo.user.application.dto.response.UserUpdateResponse;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.io.IOException;

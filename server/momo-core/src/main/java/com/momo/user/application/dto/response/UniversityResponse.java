@@ -1,15 +1,15 @@
-package com.momo.user.domain.dto;
+package com.momo.user.application.dto.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class UniversityDto {
+public class UniversityResponse {
 
     private String universityName;
 
-    public UniversityDto(String universityName) {
+    public UniversityResponse(String universityName) {
         this.universityName = universityName;
     }
 }

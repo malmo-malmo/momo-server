@@ -4,11 +4,11 @@ import com.momo.aws.service.S3UploadService;
 import com.momo.aws.util.GenerateUploadPathUtil;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.user.application.dto.UserDtoAssembler;
-import com.momo.user.application.dto.request.UserUpdateRequestDto;
-import com.momo.user.application.dto.response.UserImageUpdateResponseDto;
-import com.momo.user.application.dto.response.UserResponseDto;
-import com.momo.user.application.dto.response.UserUpdateResponseDto;
+import com.momo.user.application.dto.UserAssembler;
+import com.momo.user.application.dto.request.UserUpdateRequest;
+import com.momo.user.application.dto.response.UserImageUpdateResponse;
+import com.momo.user.application.dto.response.UserResponse;
+import com.momo.user.application.dto.response.UserUpdateResponse;
 import com.momo.user.domain.model.User;
 import com.momo.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,33 +24,33 @@ public class UserService {
     private final S3UploadService s3UploadService;
 
     @Transactional(readOnly = true)
-    public UserResponseDto findMyInformation(User loginUser) {
+    public UserResponse findMyInformation(User loginUser) {
         User user = findByUser(loginUser);
 
-        return UserDtoAssembler.mapToUserResponseDto(user);
+        return UserAssembler.mapToUserResponse(user);
     }
 
     @Transactional
-    public UserUpdateResponseDto updateMyInformation(User loginUser, UserUpdateRequestDto dto) {
+    public UserUpdateResponse updateMyInformation(User loginUser, UserUpdateRequest request) {
         User user = findByUser(loginUser);
 
-        if (!user.isSameNickname(dto.getNickname())) {
-            validateDuplicateNickname(dto.getNickname());
+        if (!user.isSameNickname(request.getNickname())) {
+            validateDuplicateNickname(request.getNickname());
         }
 
-        user.update(dto.getNickname(), UserDtoAssembler.mapToLocation(dto));
+        user.update(request.getNickname(), UserAssembler.mapToLocation(request));
 
-        return UserDtoAssembler.mapToUserUpdateResponseDto(user);
+        return UserAssembler.mapToUserUpdateResponse(user);
     }
 
     @Transactional
-    public UserImageUpdateResponseDto updateImage(User loginUser, MultipartFile imageFile) {
+    public UserImageUpdateResponse updateImage(User loginUser, MultipartFile imageFile) {
         User user = findByUser(loginUser);
         String imageUrl = s3UploadService.upload(imageFile, GenerateUploadPathUtil.getUserImage(user.getId()));
 
         user.updateImageUrl(imageUrl);
 
-        return new UserImageUpdateResponseDto(imageUrl);
+        return new UserImageUpdateResponse(imageUrl);
     }
 
     private User findByUser(User user) {

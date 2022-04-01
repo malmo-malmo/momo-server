@@ -28,7 +28,8 @@ public class UniversityRestDocsTest extends RestDocsControllerTest {
     private UniversityServiceImpl universityService;
 
     @Test
-    void 대학교_목록_조회() throws Exception {
+    @DisplayName("이름으로 대학교를 검색한다")
+    void findUniversity_UniversityName_Success() throws Exception {
         when(universityService.findUniversity(anyString()))
             .thenReturn(
                 List.of(new UniversityResponseDto("무슨대"))

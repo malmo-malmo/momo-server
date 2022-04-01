@@ -27,7 +27,7 @@ public class UserRepositoryTest extends RepositoryTest {
 
     @Test
     @DisplayName("유저를 저장한다")
-    void saveUserTest() {
+    void saveUser_Success() {
         User user = userRepository.findAll().get(0);
         Assertions.assertAll(
             () -> assertThat(user.getId()).isNotNull(),
@@ -43,7 +43,7 @@ public class UserRepositoryTest extends RepositoryTest {
 
     @Test
     @DisplayName("공급자 ID와 공급자 이름으로 유저를 조회한다")
-    void findUserByProviderIdAndProviderTest() {
+    void findUserByProviderIdAndProvider_Success() {
         User actual = userRepository.findBySocialLoginProviderIdAndSocialLoginProvider(
             user.getSocialLogin().getProviderId(),
             user.getSocialLogin().getProvider()
@@ -64,7 +64,7 @@ public class UserRepositoryTest extends RepositoryTest {
 
     @Test
     @DisplayName("해당 닉네임을 가진 유저가 존재하는지 확인한다")
-    void existsByNicknameTest() {
+    void existsByNickname_True() {
         boolean actual = userRepository.existsByNickname(user.getNickname());
         assertThat(actual).isTrue();
     }

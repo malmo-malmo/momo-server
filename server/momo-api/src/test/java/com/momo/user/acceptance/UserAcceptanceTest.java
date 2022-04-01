@@ -41,7 +41,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
 
     @Test
     @DisplayName("내 정보를 조회한다")
-    void findMyInformation_success() {
+    void findMyInformation_LoginUser_Success() {
         String token = getAccessToken(user);
 
         ExtractableResponse<Response> response = requestToFindMyInformation(token);
@@ -53,7 +53,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
 
     @Test
     @DisplayName("내 정보를 수정한다")
-    void updateMyInformation_success() {
+    void updateMyInformation_LoginUser_Success() {
         String token = getAccessToken(user);
         UserUpdateRequest userUpdateRequest = UserUpdateRequest.builder()
             .nickname("모모")
@@ -71,7 +71,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
 
     @Test
     @DisplayName("내 프로필 이미지를 수정한다 - 이미지 포함")
-    void updateImage_success1() throws IOException {
+    void updateImage_ExistsImage_Success() throws IOException {
         String token = getAccessToken(user);
         MultipartFile imageFile = new MockMultipartFile("imageFile", "imageFile".getBytes());
 
@@ -84,7 +84,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
 
     @Test
     @DisplayName("내 프로필 이미지를 수정한다 - 이미지 미포함")
-    void updateImage_success2() {
+    void updateImage_NotExistsImage_Success() {
         String token = getAccessToken(user);
 
         ExtractableResponse<Response> response = requestToUpdateImage(token);

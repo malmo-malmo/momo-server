@@ -49,7 +49,7 @@ public class UserServiceTest extends ServiceTest {
 
     @Test
     @DisplayName("유저 정보를 조회한다")
-    void findMyInformationTest_success() {
+    void findMyInformation_LoginUser_Success() {
         given(userRepository.findById(any())).willReturn(of(user));
 
         UserResponseDto expected = userService.findMyInformation(user);
@@ -68,7 +68,7 @@ public class UserServiceTest extends ServiceTest {
 
     @Test
     @DisplayName("유저 정보를 수정한다 - 변경할 닉네임이 다른 경우")
-    void updateMyInformationTest_success1() {
+    void updateMyInformation_DifferentNickname_Success() {
         UserUpdateRequestDto expected = UserUpdateRequestDto.builder()
             .nickname("변경할 닉네임")
             .university("변경할 대학교")
@@ -88,7 +88,7 @@ public class UserServiceTest extends ServiceTest {
 
     @Test
     @DisplayName("유저 정보를 수정한다 - 변경할 닉네임이 같은 경우")
-    void updateMyInformationTest_success2() {
+    void updateMyInformation_SameNickname_Success() {
         UserUpdateRequestDto expected = UserUpdateRequestDto.builder()
             .nickname(user.getNickname())
             .university("변경할 대학교")
@@ -116,7 +116,7 @@ public class UserServiceTest extends ServiceTest {
 
     @Test
     @DisplayName("유저 정보 수정을 실패한다 - 중복된 닉네임")
-    void updateMyInformationTest_failure1() {
+    void updateMyInformation_DuplicatedNickname_Failure() {
         UserUpdateRequestDto requestDto = UserUpdateRequestDto.builder()
             .nickname("중복된 닉네임")
             .build();
@@ -131,7 +131,7 @@ public class UserServiceTest extends ServiceTest {
 
     @Test
     @DisplayName("유저 프로필 이미지를 수정한다")
-    void updateImageTest_success() {
+    void updateImage_LoginUser_Success() {
         String imageUrl = "imageUrl";
 
         given(userRepository.findById(any())).willReturn(of(user));
@@ -145,7 +145,7 @@ public class UserServiceTest extends ServiceTest {
 
     @Test
     @DisplayName("닉네임 중복 여부를 확인한다 - 성공")
-    void validateDuplicatedNicknameTest_success() {
+    void validateDuplicateNickname_Success() {
         given(userRepository.existsByNickname(any())).willReturn(false);
 
         userService.validateDuplicateNickname("닉네임");
@@ -155,7 +155,7 @@ public class UserServiceTest extends ServiceTest {
 
     @Test
     @DisplayName("닉네임 중복 여부를 확인한다 - 실패")
-    void validateDuplicatedNicknameTest_failure() {
+    void validateDuplicateNickname_Failure() {
         given(userRepository.existsByNickname(any())).willReturn(true);
 
         assertThatThrownBy(() -> userService.validateDuplicateNickname("닉네임"))

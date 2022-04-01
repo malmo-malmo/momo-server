@@ -38,7 +38,7 @@ public class UserRestDocsTest extends RestDocsControllerTest {
 
     @Test
     @DisplayName("내 정보를 조회한다")
-    void findMyInformation() throws Exception {
+    void findMyInformation_LoginUser_Success() throws Exception {
         UserResponseDto responseDto = UserResponseDto.builder()
             .id(1L)
             .nickname("닉네임")
@@ -59,7 +59,7 @@ public class UserRestDocsTest extends RestDocsControllerTest {
 
     @Test
     @DisplayName("닉네임 중복 여부를 확인한다")
-    void validateDuplicateNickname() throws Exception {
+    void validateDuplicateNickname_Success() throws Exception {
         super.mockMvc.perform(get("/api/user/duplicate-nickname")
                 .param("nickname", "테스트 이름")
             )
@@ -70,7 +70,7 @@ public class UserRestDocsTest extends RestDocsControllerTest {
 
     @Test
     @DisplayName("내 정보를 수정한다")
-    void updateMyInformation() throws Exception {
+    void updateMyInformation_LoginUser_Success() throws Exception {
         UserUpdateRequest request = UserUpdateRequest.builder()
             .nickname("테스트 이름")
             .university("한국대")

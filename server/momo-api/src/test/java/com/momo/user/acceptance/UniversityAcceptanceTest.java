@@ -17,7 +17,7 @@ public class UniversityAcceptanceTest extends AcceptanceTest {
 
     @Test
     @DisplayName("이름으로 대학교를 검색한다")
-    void searchUniversityName_success() {
+    void findUniversity_UniversityName_Success() {
         ExtractableResponse<Response> response = requestToFindUniversities(getAccessToken(getUser()), "한국");
 
         assertThatStatusIsOk(response);

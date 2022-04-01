@@ -15,7 +15,6 @@ import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
 import com.momo.district.entity.City;
 import com.momo.user.application.UserService;
-import com.momo.user.application.UserServiceImpl;
 import com.momo.user.application.dto.request.UserUpdateRequestDto;
 import com.momo.user.application.dto.response.UserImageUpdateResponseDto;
 import com.momo.user.application.dto.response.UserResponseDto;
@@ -43,7 +42,7 @@ public class UserServiceTest extends ServiceTest {
 
     @BeforeEach
     void setUp() {
-        userService = new UserServiceImpl(userRepository, s3UploadService);
+        userService = new UserService(userRepository, s3UploadService);
         user = getUserWithId();
     }
 

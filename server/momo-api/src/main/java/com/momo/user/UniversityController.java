@@ -21,7 +21,7 @@ public class UniversityController {
 
     @GetMapping
     public ResponseEntity<List<UniversityResponse>> findUniversity(@RequestParam String universityName) {
-        List<UniversityResponseDto> responseDtos = universityService.findUniversity(universityName);
+        List<UniversityResponseDto> responseDtos = universityService.findUniversities(universityName);
 
         return ResponseEntity.ok(UniversityAssembler.mapToUniversityResponses(responseDtos));
     }

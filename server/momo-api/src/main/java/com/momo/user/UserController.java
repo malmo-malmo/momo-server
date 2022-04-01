@@ -16,11 +16,10 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,18 +31,14 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<UserResponse> findMyInformation(
-        @CurrentUser User user
-    ) {
+    public ResponseEntity<UserResponse> findMyInformation(@CurrentUser User user) {
         UserResponseDto responseDto = userService.findMyInformation(user);
 
         return ResponseEntity.ok(UserAssembler.mapToUserResponse(responseDto));
     }
 
     @GetMapping("/duplicate-nickname")
-    public ResponseEntity<Void> validateDuplicateNickname(
-        @RequestParam String nickname
-    ) {
+    public ResponseEntity<Void> validateDuplicateNickname(@RequestParam String nickname) {
         userService.validateDuplicateNickname(nickname);
 
         return ResponseEntity.ok().build();
@@ -52,7 +47,7 @@ public class UserController {
     @PutMapping
     public ResponseEntity<UserUpdateResponse> updateMyInformation(
         @CurrentUser User user,
-        @Valid @ModelAttribute UserUpdateRequest request
+        @Valid @RequestBody UserUpdateRequest request
     ) {
         UserUpdateRequestDto updateRequestDto = UserAssembler.mapToUserUpdateRequestDto(request);
         UserUpdateResponseDto updateResponseDto = userService.updateMyInformation(user, updateRequestDto);
@@ -63,7 +58,7 @@ public class UserController {
     @PutMapping("/update-image")
     public ResponseEntity<UserImageUpdateResponse> updateImage(
         @CurrentUser User user,
-        @RequestPart(required = false) MultipartFile imageFile
+        @RequestParam(required = false) MultipartFile imageFile
     ) {
         UserImageUpdateResponseDto responseDto = userService.updateImage(user, imageFile);
 

@@ -1,18 +1,20 @@
 package com.momo.user.acceptance.step;
 
-import static com.momo.common.CommonFileUploadSupport.uploadAssuredSupport;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.user.dto.response.UserResponse;
-import com.momo.user.dto.request.UserUpdateRequest;
-import com.momo.user.dto.response.UserUpdateResponse;
 import com.momo.user.domain.model.User;
+import com.momo.user.dto.request.UserUpdateRequest;
+import com.momo.user.dto.response.UserImageUpdateResponse;
+import com.momo.user.dto.response.UserResponse;
+import com.momo.user.dto.response.UserUpdateResponse;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import java.io.IOException;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.web.multipart.MultipartFile;
 
 public class UserAcceptanceStep {
 
@@ -20,7 +22,7 @@ public class UserAcceptanceStep {
         Assertions.assertAll(
             () -> assertThat(response.getId()).isNotNull(),
             () -> assertThat(response.getNickname()).isEqualTo(user.getNickname()),
-            () -> assertThat(response.getImage()).isEqualTo(user.getImageUrl()),
+            () -> assertThat(response.getImageUrl()).isEqualTo(user.getImageUrl()),
             () -> assertThat(response.getCity().getCode()).isEqualTo(user.getLocation().getCity().getCode()),
             () -> assertThat(response.getCity().getName()).isEqualTo(user.getLocation().getCity().getName()),
             () -> assertThat(response.getDistrict()).isEqualTo(user.getLocation().getDistrict()),
@@ -31,22 +33,20 @@ public class UserAcceptanceStep {
 
     public static void assertThatUpdateMyInformation(UserUpdateResponse response, UserUpdateRequest request) {
         Assertions.assertAll(
-            () -> assertThat(response.getImageUrl()).isNull(),
-            () -> assertThat(response.getCity()).isNotNull(),
             () -> assertThat(response.getNickname()).isEqualTo(request.getNickname()),
             () -> assertThat(response.getUniversity()).isEqualTo(request.getUniversity()),
-            () -> assertThat(response.getDistrict()).isEqualTo(request.getDistrict())
+            () -> assertThat(response.getDistrict()).isEqualTo(request.getDistrict()),
+            () -> assertThat(response.getCity().getCode()).isEqualTo(request.getCity().getCode()),
+            () -> assertThat(response.getCity().getName()).isEqualTo(request.getCity().getName())
         );
     }
 
-    public static void assertThatUpdateMyInformationWithImage(UserUpdateResponse response, UserUpdateRequest request) {
-        Assertions.assertAll(
-            () -> assertThat(response.getImageUrl()).isNotNull(),
-            () -> assertThat(response.getCity()).isNotNull(),
-            () -> assertThat(response.getNickname()).isEqualTo(request.getNickname()),
-            () -> assertThat(response.getUniversity()).isEqualTo(request.getUniversity()),
-            () -> assertThat(response.getDistrict()).isEqualTo(request.getDistrict())
-        );
+    public static void assertThatUpdateImageWithImage(UserImageUpdateResponse response) {
+        assertThat(response.getImageUrl()).isNotNull();
+    }
+
+    public static void assertThatUpdateImage(UserImageUpdateResponse response) {
+        assertThat(response.getImageUrl()).isNull();
     }
 
     public static ExtractableResponse<Response> requestToFindMyInformation(String token) {
@@ -58,21 +58,34 @@ public class UserAcceptanceStep {
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToUpdateMyInformation(String token,
-        UserUpdateRequest userUpdateRequest) {
-        return uploadAssuredSupport(given().log().all()
-            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token), userUpdateRequest)
+    public static ExtractableResponse<Response> requestToUpdateMyInformation(
+        String token, UserUpdateRequest userUpdateRequest
+    ) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .body(userUpdateRequest)
             .put("/api/user")
             .then().log().all()
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToUpdateMyInformationWithImage(String token,
-        UserUpdateRequest userUpdateRequest) {
-        return uploadAssuredSupport(given().log().all()
+    public static ExtractableResponse<Response> requestToUpdateImageWithImage(
+        String token, MultipartFile imageFile
+    ) throws IOException {
+        return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-            .contentType(MediaType.MULTIPART_FORM_DATA_VALUE), userUpdateRequest)
-            .put("/api/user")
+            .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
+            .multiPart("imageFile", imageFile.getName(), imageFile.getBytes())
+            .put("/api/user/update-image")
+            .then().log().all()
+            .extract();
+    }
+
+    public static ExtractableResponse<Response> requestToUpdateImage(String token) {
+        return given().log().all()
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .put("/api/user/update-image")
             .then().log().all()
             .extract();
     }

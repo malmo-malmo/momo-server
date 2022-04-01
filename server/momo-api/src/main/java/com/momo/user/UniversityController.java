@@ -13,16 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/universities")
 @RequiredArgsConstructor
 public class UniversityController {
 
     private final UniversityService universityService;
 
-    @GetMapping("/universities")
-    public ResponseEntity<List<UniversityResponse>> findUniversity(
-        @RequestParam String universityName
-    ) {
+    @GetMapping
+    public ResponseEntity<List<UniversityResponse>> findUniversity(@RequestParam String universityName) {
         List<UniversityResponseDto> responseDtos = universityService.findUniversity(universityName);
 
         return ResponseEntity.ok(UniversityAssembler.mapToUniversityResponses(responseDtos));

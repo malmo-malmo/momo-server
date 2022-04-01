@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 
 public class UniversityAcceptanceStep {
 
-    public static ExtractableResponse<Response> requestToFind(String token, String universityName) {
+    public static ExtractableResponse<Response> requestToFindUniversities(String token, String universityName) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.APPLICATION_JSON_VALUE)

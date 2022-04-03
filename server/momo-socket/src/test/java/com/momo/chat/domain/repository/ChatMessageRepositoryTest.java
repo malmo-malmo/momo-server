@@ -1,7 +1,8 @@
 package com.momo.chat.domain.repository;
 
-import static com.momo.Profile.*;
+import static com.momo.Profile.TEST;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import com.momo.chat.domain.entity.ChatMessage;
 import com.momo.chat.domain.entity.ChatMessageType;
@@ -52,14 +53,15 @@ public class ChatMessageRepositoryTest {
 
     @AfterEach
     void after() {
-        assertThat(findChatMessage).isNotNull();
-        assertThat(findChatMessage.getId()).isEqualTo(saveChatMessage.getId());
-        assertThat(findChatMessage.getType()).isEqualTo(saveChatMessage.getType());
-        assertThat(findChatMessage.getUserId()).isEqualTo(saveChatMessage.getUserId());
-        assertThat(findChatMessage.getContent()).isEqualTo(saveChatMessage.getContent());
-
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        assertThat(findChatMessage.getRegDatetime().format(format))
-            .isEqualTo(saveChatMessage.getRegDatetime().format(format));
+        assertAll(
+            () -> assertThat(findChatMessage).isNotNull(),
+            () -> assertThat(findChatMessage.getId()).isEqualTo(saveChatMessage.getId()),
+            () -> assertThat(findChatMessage.getType()).isEqualTo(saveChatMessage.getType()),
+            () -> assertThat(findChatMessage.getUserId()).isEqualTo(saveChatMessage.getUserId()),
+            () -> assertThat(findChatMessage.getContent()).isEqualTo(saveChatMessage.getContent()),
+            () -> assertThat(findChatMessage.getRegDatetime().format(format))
+                .isEqualTo(saveChatMessage.getRegDatetime().format(format))
+        );
     }
 }

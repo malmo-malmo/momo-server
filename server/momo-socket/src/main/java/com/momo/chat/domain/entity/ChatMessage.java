@@ -48,6 +48,6 @@ public class ChatMessage {
     }
 
     public boolean isSystem() {
-        return !type.equals(ChatMessageType.NORMAL);
+        return type.isSystem();
     }
 }

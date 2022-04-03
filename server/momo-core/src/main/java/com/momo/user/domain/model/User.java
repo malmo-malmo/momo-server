@@ -61,7 +61,7 @@ public class User extends BaseEntity {
     }
 
     public boolean isSameUser(User user) {
-        return id.equals(user.getId());
+        return this.isSameId(user.getId());
     }
 
     public void update(String nickname, Location location) {
@@ -83,5 +83,9 @@ public class User extends BaseEntity {
 
     public void updateFavoriteCategories(List<Category> categories) {
         favoriteCategories.updateAll(this, categories);
+    }
+
+    public boolean isSameId(Long userId) {
+        return this.id.equals(userId);
     }
 }

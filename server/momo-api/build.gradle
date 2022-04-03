@@ -53,6 +53,9 @@ dependencies {
 
     //docs
     asciidoctorExtensions "org.springframework.restdocs:spring-restdocs-asciidoctor"
+
+    //socket
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket'
 }
 
 test {

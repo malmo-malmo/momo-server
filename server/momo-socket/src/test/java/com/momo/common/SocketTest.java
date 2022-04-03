@@ -1,13 +1,20 @@
 package com.momo.common;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.momo.chat.domain.response.SendPublishMessageResponse;
+import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.config.SocketConfig;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 import org.junit.jupiter.api.BeforeEach;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompHeaders;
@@ -20,8 +27,7 @@ import org.springframework.web.socket.sockjs.client.SockJsClient;
 import org.springframework.web.socket.sockjs.client.Transport;
 import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SocketTest {
+public class SocketTest extends AcceptanceTest {
 
     private Logger log = LoggerFactory.getLogger(SocketTest.class);
     @LocalServerPort
@@ -29,9 +35,13 @@ public class SocketTest {
 
     private static final String BASE_URL = "ws://localhost:%d" + SocketConfig.END_POINT;
 
+    protected BlockingQueue<SendPublishMessageResponse> blockingQueue;
+
     private String testUrl;
 
     private WebSocketStompClient webSocketStompClient;
+    @Autowired
+    protected ObjectMapper objectMapper;
 
     @BeforeEach
     void setup() {
@@ -40,8 +50,7 @@ public class SocketTest {
         testUrl = String.format(BASE_URL, port);
     }
 
-    protected StompSession connectDefaultSession() {
-        StompHeaders headers = createHeaders();
+    protected StompSession connectDefaultSession(StompHeaders headers) {
         StompSession stompSession;
 
         try {
@@ -54,15 +63,16 @@ public class SocketTest {
     }
 
     protected StompSession connectSession(StompHeaders headers)
-        throws ExecutionException, InterruptedException {
+        throws ExecutionException, InterruptedException, TimeoutException {
         return webSocketStompClient.connect(testUrl, new WebSocketHttpHeaders(), headers,
             new StompSessionHandlerAdapter() {
-            }).get();
+            }).get(1, SECONDS);
     }
 
-    protected StompHeaders createHeaders() {
+    protected StompHeaders createHeaders(String userToken, Long chatId) {
         StompHeaders headers = new StompHeaders();
-        headers.add("Authorization", "test token");
+        headers.add("Authorization", userToken);
+        headers.add("chat-id", String.valueOf(chatId));
         return headers;
     }
 

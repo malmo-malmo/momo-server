@@ -11,7 +11,7 @@ import com.momo.chat.api.docs.document.FindChatsDocumentation;
 import com.momo.chat.domain.response.ChatResponse;
 import com.momo.chat.domain.service.FindChatsUseCase;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.domain.common.util.TimeFormatUtil;
+import com.momo.common.util.TimeFormatUtil;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;

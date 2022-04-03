@@ -3,11 +3,11 @@ package com.momo.favorite.acceptance.step;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.favorite.dto.FavoriteCategoriesUpdateRequest;
-import com.momo.domain.favorite.dto.FavoriteGroupCardResponse;
-import com.momo.domain.favorite.dto.FavoriteGroupCreateRequest;
-import com.momo.domain.group.dto.GroupCreateRequest;
+import com.momo.common.dto.EnumResponse;
+import com.momo.favorite.dto.FavoriteCategoriesUpdateRequest;
+import com.momo.favorite.dto.FavoriteGroupCardResponse;
+import com.momo.favorite.dto.FavoriteGroupCreateRequest;
+import com.momo.group.dto.GroupCreateRequest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;

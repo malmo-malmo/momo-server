@@ -1,22 +1,20 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:momodb
+    url: jdbc:h2:mem:momo;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
     username: sa
     password:
+  elasticsearch:
+    rest:
+      uris: ENC(+7VrSol4of46pDJtdtqu/ypr6OTHJwyMeHKH+GURehSo51A8R7YUU9MeBJ5ZIhhpf5fionGGg+xkiC+Q0/xyH4ziSmLH4f8Jw70cJJ9cnGlfUpfdtU69VZw6vFsC/pZYDsCajc11ZpU=)
+      username: ENC(uKH9eLWahVpD1pyJCfRKlDLkwt5I2ntI)
+      password: ENC(6gYFGu5lFh6fDF3P1+JT2dja+wtpvYf4)
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: create
     properties:
       hibernate:
+        dialects: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
-    database-platform: org.hibernate.dialect.H2Dialect
-logging:
-  config: classpath:logback/logback-local.xml
-  level:
-    org:
-      hibernate:
-        type:
-          descriptor:
-            sql: trace
+        default_batch_fetch_size: 100

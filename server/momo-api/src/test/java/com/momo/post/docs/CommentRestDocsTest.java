@@ -8,10 +8,10 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.api.post.CommentController;
+import com.momo.post.CommentController;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.domain.post.dto.CommentResponse;
-import com.momo.domain.post.service.impl.CommentServiceImpl;
+import com.momo.post.dto.CommentResponse;
+import com.momo.post.service.impl.CommentServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -33,7 +33,7 @@ public class CommentRestDocsTest extends RestDocsControllerTest {
     void 게시물_댓글_등록() throws Exception {
         CommentResponse response = getCommentResponse();
 
-        when(commentService.create(any(), any())).thenReturn(response);
+        when(commentService.createComment(any(), any())).thenReturn(response);
 
         String content = super.objectMapper.writeValueAsString(getCommentCreateRequest(1L));
         super.mockMvc.perform(post("/api/comment")

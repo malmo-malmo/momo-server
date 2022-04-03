@@ -6,12 +6,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.momo.common.RestDocsControllerTest;
-import com.momo.api.schedule.AttendanceController;
-import com.momo.domain.schedule.dto.AttendanceCreateRequest;
-import com.momo.domain.schedule.dto.AttendanceCreateRequests;
-import com.momo.domain.schedule.dto.AttendanceUpdateRequest;
-import com.momo.domain.schedule.dto.AttendanceUpdateRequests;
-import com.momo.domain.schedule.service.impl.AttendanceServiceImpl;
+import com.momo.schedule.AttendanceController;
+import com.momo.schedule.dto.AttendanceCreateRequest;
+import com.momo.schedule.dto.AttendanceCreateRequests;
+import com.momo.schedule.dto.AttendanceUpdateRequest;
+import com.momo.schedule.dto.AttendanceUpdateRequests;
+import com.momo.schedule.service.impl.AttendanceServiceImpl;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

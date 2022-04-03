@@ -1,13 +1,13 @@
 package com.momo.common;
 
+import static com.momo.Profile.TEST;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.momo.TestProfile;
 import com.momo.config.JasyptConfig;
-import com.momo.domain.auth.provider.TokenProvider;
-import com.momo.domain.auth.service.OAuthService;
+import com.momo.auth.infra.TokenProvider;
+import com.momo.auth.service.OAuthService;
 import com.momo.config.InterceptorConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-@ActiveProfiles(TestProfile.TEST)
+@ActiveProfiles(TEST)
 @ExtendWith({SpringExtension.class, RestDocumentationExtension.class})
 @Import({InterceptorConfig.class, TokenProvider.class, JasyptConfig.class})
 public class RestDocsControllerTest {

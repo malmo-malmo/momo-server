@@ -8,19 +8,18 @@ import static com.momo.common.FixtureComponents.IMAGE;
 import static com.momo.common.FixtureComponents.IMAGES;
 import static com.momo.common.FixtureComponents.IMAGE_URL;
 import static com.momo.common.FixtureComponents.INCREASE_ID;
-import static com.momo.common.FixtureComponents.PAGE;
 import static com.momo.common.FixtureComponents.PAGE_SIZE;
 import static com.momo.common.FixtureComponents.TITLE;
 
-import com.momo.domain.group.entity.Group;
-import com.momo.domain.post.dto.PostCardResponse;
-import com.momo.domain.post.dto.PostCardsRequest;
-import com.momo.domain.post.dto.PostCreateRequest;
-import com.momo.domain.post.dto.PostResponse;
-import com.momo.domain.post.dto.PostUpdateRequest;
-import com.momo.domain.post.entity.Post;
-import com.momo.domain.post.entity.PostType;
-import com.momo.domain.user.entity.User;
+import com.momo.group.entity.Group;
+import com.momo.post.dto.PostCardResponse;
+import com.momo.post.dto.PostCardsRequest;
+import com.momo.post.dto.PostCreateRequest;
+import com.momo.post.dto.PostResponse;
+import com.momo.post.dto.PostUpdateRequest;
+import com.momo.post.entity.Post;
+import com.momo.post.entity.PostType;
+import com.momo.user.domain.model.User;
 import java.util.List;
 
 public class PostFixture {
@@ -73,7 +72,6 @@ public class PostFixture {
         return PostCardsRequest.builder()
             .groupId(groupId)
             .postType(postType)
-            .page(PAGE)
             .size(PAGE_SIZE)
             .build();
     }

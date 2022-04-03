@@ -1,8 +1,8 @@
 package com.momo.chat.domain.repository;
 
+import static com.momo.Profile.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.TestProfile;
 import com.momo.chat.domain.entity.ChatMessage;
 import com.momo.chat.domain.entity.ChatMessageType;
 import java.time.LocalDateTime;
@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.ActiveProfiles;
 
-@ActiveProfiles(TestProfile.TEST)
+@ActiveProfiles(TEST)
 @DataMongoTest
 @DisplayName("메시지 레포지토리 테스트")
 public class ChatMessageRepositoryTest {

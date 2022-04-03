@@ -1,18 +1,17 @@
 spring:
   datasource:
-    url: ENC(wxBSgwhIQGOmPvGK0VTq1F8KoU8Z1PLaUTqqyWUINjBFuhiczLRTz4Gh04Cvd28WTCiJqmzTduF4t3XOP/2CUuqab8n3KGmPiB1PZv2tVag=)
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ENC(JHat/IHS14dV227paeRKOA==)
-    password: ENC(sZa3mxjW7sWotQxu+dw8T3m7oaqFufQ2)
-  jpa:
-    show-sql: false
-    hibernate:
-      ddl-auto: none
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-logging:
-  slack:
-    webhook-uri: ENC(2fsTNAh+xnNDCW5dQGIoAETS12W5yKa0gjt1gS2/JLY/T2RO60Yts5E0RJvaCFFWhMthI7oaD2pflW9z1B2CACay+xVGZhJEcqqf5wM+SnAFwU9GPfJx9LqtxoypmfJB)
-  config: classpath:logback/logback-dev.xml
-  bot-name: 모모 에러 알리미
-  save-path: ./logs
-  file-name: momo-dev
+    hikari:
+      maximum-pool-size: 50
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: ENC(XUehUL5PPGL53umlTfwyYmvShVSdOGmCW1BpBxQm3hHdsitpU+b5CSc7m7s3/G02YhgEcj6qGKp5H/g0iyJa5doXTlxCG7SRFg/3fgk9gr8=)
+      username: ENC(W/ReihaOVIn5l2mfJESNKA==)
+      password: ENC(VaSZZ3vfWz/joImrJv73Wb+7d6Hssy/+)
+  elasticsearch:
+    rest:
+      uris: ENC(+7VrSol4of46pDJtdtqu/ypr6OTHJwyMeHKH+GURehSo51A8R7YUU9MeBJ5ZIhhpf5fionGGg+xkiC+Q0/xyH4ziSmLH4f8Jw70cJJ9cnGlfUpfdtU69VZw6vFsC/pZYDsCajc11ZpU=)
+      username: ENC(uKH9eLWahVpD1pyJCfRKlDLkwt5I2ntI)
+      password: ENC(6gYFGu5lFh6fDF3P1+JT2dja+wtpvYf4)
+#logging:
+#  level:
+#    com.zaxxer.hikari.HikariConfig: DEBUG
+#    com.zaxxer.hikari: TRACE

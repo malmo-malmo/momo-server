@@ -27,12 +27,14 @@ dependencies {
     //spring
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
     //jpa
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     //util
+    implementation group: 'org.json', name: 'json', version: '20211205'
     implementation 'com.google.guava:guava:31.0.1-jre'
 
     //auth

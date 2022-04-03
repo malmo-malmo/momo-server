@@ -36,8 +36,8 @@ public class CommentDocumentation {
     public static RestDocumentationResultHandler findPageByPost() {
         ParameterDescriptor[] requestComment = new ParameterDescriptor[]{
             parameterWithName("postId").description("게시글 ID"),
-            parameterWithName("page").description("페이지 번호"),
-            parameterWithName("size").description("보여줄 게시글 수")
+            parameterWithName("lastCommentId").description("마지막 댓글 ID").optional(),
+            parameterWithName("size").description("보여줄 댓글 수")
         };
 
         FieldDescriptor[] responseComment = new FieldDescriptor[]{

@@ -1,17 +1,17 @@
 package com.momo.interceptor;
 
-import static com.momo.domain.common.exception.ErrorCode.INVALID_INDEX_NUMBER;
-import static com.momo.domain.common.exception.ErrorCode.INVALID_OAUTH_ACCESS_TOKEN;
+import static com.momo.common.exception.ErrorCode.INVALID_INDEX_NUMBER;
+import static com.momo.common.exception.ErrorCode.INVALID_OAUTH_ACCESS_TOKEN;
 import static org.springframework.messaging.simp.stomp.StompCommand.CONNECT;
 import static org.springframework.messaging.simp.stomp.StompCommand.DISCONNECT;
 import static org.springframework.messaging.support.MessageHeaderAccessor.getAccessor;
 import static org.springframework.web.socket.WebSocketHttpHeaders.AUTHORIZATION;
 
+import com.momo.auth.service.OAuthService;
 import com.momo.chat.domain.service.impl.CreateQueueService;
+import com.momo.common.exception.CustomException;
 import com.momo.config.model.SocketPrincipal;
-import com.momo.domain.auth.service.OAuthService;
-import com.momo.domain.common.exception.CustomException;
-import com.momo.domain.user.entity.User;
+import com.momo.user.domain.model.User;
 import java.security.Principal;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;

@@ -1,20 +1,24 @@
 package com.momo.auth.acceptance;
 
 import static com.momo.UserFixture.getUser;
+import static com.momo.auth.acceptance.step.AuthAcceptanceStep.assertThatOAuthLogin;
 import static com.momo.auth.acceptance.step.AuthAcceptanceStep.assertThatRefreshLogin;
+import static com.momo.auth.acceptance.step.AuthAcceptanceStep.assertThatRenewalRefreshToken;
+import static com.momo.auth.acceptance.step.AuthAcceptanceStep.requestToOAuthLogin;
 import static com.momo.auth.acceptance.step.AuthAcceptanceStep.requestToRefreshLogin;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatCustomException;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
-import static com.momo.domain.common.exception.ErrorCode.INVALID_DEVICE_CODE;
-import static com.momo.domain.common.exception.ErrorCode.INVALID_REFRESH_TOKEN;
-import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindMyInformation;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 
 import com.momo.common.acceptance.AcceptanceTest;
-import com.momo.domain.auth.dto.OAuthLoginResponse;
-import com.momo.domain.auth.dto.RefreshLoginRequest;
-import com.momo.domain.auth.provider.TokenProvider;
-import com.momo.domain.user.entity.User;
+import com.momo.auth.dto.OAuthLoginRequest;
+import com.momo.auth.dto.OAuthLoginResponse;
+import com.momo.auth.dto.RefreshLoginRequest;
+import com.momo.auth.infra.TokenReissuanceDao;
+import com.momo.common.exception.CustomException;
+import com.momo.common.exception.ErrorCode;
+import com.momo.user.domain.model.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,61 +30,133 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class AuthAcceptanceTest extends AcceptanceTest {
 
     @Autowired
-    private TokenProvider tokenProvider;
+    private TokenReissuanceDao tokenReissuanceDao;
 
-    private String refreshToken;
-    private String deviceCode;
+    private OAuthLoginRequest oAuthLoginRequest;
+
+    private User socialLoginUser;
 
     @Override
     @BeforeEach
     public void setUp() {
         super.setUp();
-        User user = userRepository.save(getUser());
-        refreshToken = tokenProvider.createRefreshToken(user);
-        deviceCode = "deviceCode";
-        updateRefreshToken(user, refreshToken);
+        oAuthLoginRequest = OAuthLoginRequest.builder()
+            .authorizationCode("authorization_code")
+            .provider("KAKAO")
+            .deviceCode("device_code")
+            .build();
+        socialLoginUser = getUser();
     }
 
     @Test
-    void 리프레쉬_토큰으로_로그인한다() {
-        RefreshLoginRequest refreshLoginRequest = new RefreshLoginRequest(refreshToken, deviceCode);
-        ExtractableResponse<Response> response = requestToRefreshLogin(refreshLoginRequest);
+    void 소셜_인가_코드로_로그인한다() {
+        given(oAuthProviderFactory.getOAuthProvider(any())).willReturn(kaKaoOAuthProvider);
+        given(kaKaoOAuthProvider.requestOAuthLogin(any())).willReturn(socialLoginUser);
+
+        ExtractableResponse<Response> response = requestToOAuthLogin(oAuthLoginRequest);
         OAuthLoginResponse oAuthLoginResponse = getObject(response, OAuthLoginResponse.class);
-        assertThatStatusIsOk(response);
-        assertThatRefreshLogin(oAuthLoginResponse, refreshToken);
-        //발급받은 엑세스 토큰 확인
-        assertThatStatusIsOk(requestToFindMyInformation(oAuthLoginResponse.getAccessToken()));
-    }
-
-    @Test
-    void 잘못된_리프레쉬_토큰으로_로그인하면_실패한다() {
-        RefreshLoginRequest refreshLoginRequest = new RefreshLoginRequest("rt", deviceCode);
-        ExtractableResponse<Response> response = requestToRefreshLogin(refreshLoginRequest);
-        assertThatCustomException(response, INVALID_REFRESH_TOKEN);
-    }
-
-    @Test
-    void 잘못된_기기_고유번호로_로그인하면_실패한다() {
-        RefreshLoginRequest refreshLoginRequest = new RefreshLoginRequest(refreshToken, "dc");
-        ExtractableResponse<Response> response = requestToRefreshLogin(refreshLoginRequest);
-        assertThatCustomException(response, INVALID_DEVICE_CODE);
-    }
-
-    @Test
-    void 리프레쉬_토큰_남은_만료시간이_24시간_이내면_리프레쉬_토큰을_발급한다() {
-        User customUser = userRepository.save(getUser());
-        String customRefreshToken = tokenProvider.createRefreshTokenForTest(customUser, 86400000);
-        updateRefreshToken(customUser, customRefreshToken);
-
-        RefreshLoginRequest refreshLoginRequest = new RefreshLoginRequest(customRefreshToken, deviceCode);
-        ExtractableResponse<Response> response = requestToRefreshLogin(refreshLoginRequest);
 
         assertThatStatusIsOk(response);
-        assertThat(getObject(response, OAuthLoginResponse.class).getRefreshToken()).isNotEqualTo(customRefreshToken);
+        assertThatOAuthLogin(oAuthLoginResponse, existsAccessTokenReissuance(oAuthLoginResponse.getRefreshToken()));
     }
 
-    private void updateRefreshToken(User user, String refreshToken) {
-        user.getLoginInfo().updateAuthInfo(refreshToken, deviceCode);
-        userRepository.save(user);
+    @Test
+    void 유효하지_않은_소셜_인가_코드로_로그인을_시도하면_실패한다() {
+        given(oAuthProviderFactory.getOAuthProvider(any())).willReturn(kaKaoOAuthProvider);
+        given(kaKaoOAuthProvider.requestOAuthLogin(any()))
+            .willThrow(new CustomException(ErrorCode.INVALID_OAUTH_AUTHORIZATION_CODE));
+
+        ExtractableResponse<Response> response = requestToOAuthLogin(oAuthLoginRequest);
+
+        assertThatCustomException(response, ErrorCode.INVALID_OAUTH_AUTHORIZATION_CODE);
+    }
+
+    @Test
+    void 리프레쉬_토큰과_기기번호로_엑세스_토큰을_재발급_받는다() {
+        given(oAuthProviderFactory.getOAuthProvider(any())).willReturn(kaKaoOAuthProvider);
+        given(kaKaoOAuthProvider.requestOAuthLogin(any())).willReturn(socialLoginUser);
+        OAuthLoginResponse oAuthLoginResponse = getObject(
+            requestToOAuthLogin(oAuthLoginRequest), OAuthLoginResponse.class
+        );
+
+        RefreshLoginRequest refreshLoginRequest = RefreshLoginRequest.builder()
+            .refreshToken(oAuthLoginResponse.getRefreshToken())
+            .deviceCode(oAuthLoginRequest.getDeviceCode())
+            .build();
+
+        ExtractableResponse<Response> response = requestToRefreshLogin(refreshLoginRequest);
+        OAuthLoginResponse refreshLoginResponse = getObject(response, OAuthLoginResponse.class);
+
+        assertThatStatusIsOk(response);
+        assertThatRefreshLogin(
+            refreshLoginResponse,
+            oAuthLoginResponse.getRefreshToken(),
+            existsAccessTokenReissuance(refreshLoginResponse.getRefreshToken())
+        );
+    }
+
+    @Test
+    void 리프레쉬_토큰_만료기간이_24시간_이내면_새로운_리프레쉬_토큰을_발급한다() throws InterruptedException {
+        given(oAuthProviderFactory.getOAuthProvider(any())).willReturn(kaKaoOAuthProvider);
+        given(kaKaoOAuthProvider.requestOAuthLogin(any())).willReturn(socialLoginUser);
+        OAuthLoginResponse oAuthLoginResponse = getObject(
+            requestToOAuthLogin(oAuthLoginRequest), OAuthLoginResponse.class
+        );
+
+        Thread.sleep(1000);
+
+        RefreshLoginRequest refreshLoginRequest = RefreshLoginRequest.builder()
+            .refreshToken(oAuthLoginResponse.getRefreshToken())
+            .deviceCode(oAuthLoginRequest.getDeviceCode())
+            .build();
+        given(tokenProvider.isOverRefreshTokenRenewalHour(refreshLoginRequest.getRefreshToken())).willReturn(false);
+
+        ExtractableResponse<Response> response = requestToRefreshLogin(refreshLoginRequest);
+        OAuthLoginResponse refreshLoginResponse = getObject(response, OAuthLoginResponse.class);
+
+        assertThatStatusIsOk(response);
+        assertThatRenewalRefreshToken(
+            refreshLoginResponse.getRefreshToken(),
+            oAuthLoginResponse.getRefreshToken(),
+            existsAccessTokenReissuance(refreshLoginResponse.getRefreshToken())
+        );
+    }
+
+    @Test
+    void 유효하지_않은_리프레쉬_토큰이면_엑세스_토큰_재발급을_실패한다() {
+        given(oAuthProviderFactory.getOAuthProvider(any())).willReturn(kaKaoOAuthProvider);
+        given(kaKaoOAuthProvider.requestOAuthLogin(any())).willReturn(socialLoginUser);
+        requestToOAuthLogin(oAuthLoginRequest);
+
+        RefreshLoginRequest refreshLoginRequest = RefreshLoginRequest.builder()
+            .refreshToken("유효하지 않은 리프레쉬 토큰")
+            .deviceCode(oAuthLoginRequest.getDeviceCode())
+            .build();
+
+        ExtractableResponse<Response> response = requestToRefreshLogin(refreshLoginRequest);
+
+        assertThatCustomException(response, ErrorCode.INVALID_REFRESH_TOKEN);
+    }
+
+    @Test
+    void 유효하지_않은_기기번호면_엑세스_토큰_재발급을_실패한다() {
+        given(oAuthProviderFactory.getOAuthProvider(any())).willReturn(kaKaoOAuthProvider);
+        given(kaKaoOAuthProvider.requestOAuthLogin(any())).willReturn(socialLoginUser);
+        OAuthLoginResponse oAuthLoginResponse = getObject(
+            requestToOAuthLogin(oAuthLoginRequest), OAuthLoginResponse.class
+        );
+
+        RefreshLoginRequest refreshLoginRequest = RefreshLoginRequest.builder()
+            .refreshToken(oAuthLoginResponse.getRefreshToken())
+            .deviceCode("일치하지 않는 기기번호")
+            .build();
+
+        ExtractableResponse<Response> response = requestToRefreshLogin(refreshLoginRequest);
+
+        assertThatCustomException(response, ErrorCode.INVALID_DEVICE_CODE);
+    }
+
+    private boolean existsAccessTokenReissuance(String refreshToken) {
+        return tokenReissuanceDao.findByRefreshToken(refreshToken).isPresent();
     }
 }

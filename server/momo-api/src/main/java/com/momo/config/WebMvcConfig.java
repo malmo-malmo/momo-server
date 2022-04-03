@@ -1,6 +1,6 @@
 package com.momo.config;
 
-import com.momo.interceptor.AuthorizationInterceptor;
+import com.momo.common.interceptor.AuthorizationInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -29,6 +29,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authorizationInterceptor)
             .addPathPatterns("/api/**")
-            .excludePathPatterns("/api/oauth/**");
+            .excludePathPatterns("/api/oauth/**", "/api/group/categories", "/api/district/**");
     }
 }

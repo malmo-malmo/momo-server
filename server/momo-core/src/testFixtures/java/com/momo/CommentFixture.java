@@ -4,16 +4,15 @@ import static com.momo.common.FixtureComponents.AUTHOR_IMAGE;
 import static com.momo.common.FixtureComponents.AUTHOR_NICKNAME;
 import static com.momo.common.FixtureComponents.CONTENTS;
 import static com.momo.common.FixtureComponents.INCREASE_ID;
-import static com.momo.common.FixtureComponents.PAGE;
 import static com.momo.common.FixtureComponents.PAGE_SIZE;
 
-import com.momo.domain.post.dto.CommentCreateRequest;
-import com.momo.domain.post.dto.CommentResponse;
-import com.momo.domain.post.dto.CommentsRequest;
-import com.momo.domain.post.dto.CommentsResponse;
-import com.momo.domain.post.entity.Comment;
-import com.momo.domain.post.entity.Post;
-import com.momo.domain.user.entity.User;
+import com.momo.post.dto.CommentCreateRequest;
+import com.momo.post.dto.CommentResponse;
+import com.momo.post.dto.CommentsRequest;
+import com.momo.post.dto.CommentsResponse;
+import com.momo.post.entity.Comment;
+import com.momo.post.entity.Post;
+import com.momo.user.domain.model.User;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -49,7 +48,6 @@ public class CommentFixture {
     public static CommentsRequest getCommentsRequest(Long postId) {
         return CommentsRequest.builder()
             .postId(postId)
-            .page(PAGE)
             .size(PAGE_SIZE)
             .build();
     }

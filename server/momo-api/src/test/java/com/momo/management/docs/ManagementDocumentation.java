@@ -77,7 +77,7 @@ public class ManagementDocumentation {
 
     public static RestDocumentationResultHandler findMyPosts() {
         ParameterDescriptor[] requestParam = new ParameterDescriptor[]{
-            parameterWithName("page").description("페이지 번호"),
+            parameterWithName("lastPostId").description("마지막 게시물 ID").optional(),
             parameterWithName("size").description("보여줄 게시글 수")
         };
         FieldDescriptor[] responsePost = new FieldDescriptor[]{

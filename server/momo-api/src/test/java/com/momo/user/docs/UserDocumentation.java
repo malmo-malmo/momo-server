@@ -2,6 +2,7 @@ package com.momo.user.docs;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
@@ -20,13 +21,13 @@ public class UserDocumentation {
         FieldDescriptor[] responseUser = new FieldDescriptor[]{
             fieldWithPath("id").type(JsonFieldType.NUMBER).description("유저 ID"),
             fieldWithPath("nickname").type(JsonFieldType.STRING).description("유저 닉네임"),
-            fieldWithPath("image").type(JsonFieldType.STRING).description("유저 이미지 URL"),
+            fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("유저 이미지 URL"),
             fieldWithPath("city.code").type(JsonFieldType.STRING).description("유저 거주 도시 코드"),
             fieldWithPath("city.name").type(JsonFieldType.STRING).description("유저 거주 도시 이름"),
             fieldWithPath("district").type(JsonFieldType.STRING).description("유저 거주 지역"),
             fieldWithPath("university").type(JsonFieldType.STRING).description("유저 학교"),
-            fieldWithPath("categories[].code").type(JsonFieldType.STRING).description("유저 인기 카테고리 코드"),
-            fieldWithPath("categories[].name").type(JsonFieldType.STRING).description("유저 인기 카테고리 이름")
+            fieldWithPath("categories[].code").type(JsonFieldType.STRING).description("유저 인기 카테고리 코드").optional(),
+            fieldWithPath("categories[].name").type(JsonFieldType.STRING).description("유저 인기 카테고리 이름").optional()
         };
         return document("user/findMyInformation",
             responseFields(responseUser)
@@ -43,11 +44,11 @@ public class UserDocumentation {
     }
 
     public static RestDocumentationResultHandler updateMyInformation() {
-        ParameterDescriptor[] request = new ParameterDescriptor[]{
-            parameterWithName("nickname").description("유저 닉네임"),
-            parameterWithName("university").description("유저 학교"),
-            parameterWithName("city").description("유저 거주 도시"),
-            parameterWithName("district").description("유저 거주 지역")
+        FieldDescriptor[] request = new FieldDescriptor[]{
+            fieldWithPath("nickname").description("유저 닉네임"),
+            fieldWithPath("university").description("유저 학교"),
+            fieldWithPath("city").description("유저 거주 도시"),
+            fieldWithPath("district").description("유저 거주 지역")
         };
         FieldDescriptor[] response = new FieldDescriptor[]{
             fieldWithPath("nickname").type(JsonFieldType.STRING).description("유저 닉네임"),
@@ -55,35 +56,31 @@ public class UserDocumentation {
             fieldWithPath("city.code").type(JsonFieldType.STRING).description("유저 거주 도시 코드"),
             fieldWithPath("city.name").type(JsonFieldType.STRING).description("유저 거주 도시 이름"),
             fieldWithPath("district").type(JsonFieldType.STRING).description("유저 거주 지역"),
-            fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("유저 이미지 URL"),
         };
         return document("user/updateMyInformation",
-            requestParameters(request),
+            requestFields(request),
             responseFields(response)
         );
     }
 
-    public static RestDocumentationResultHandler updateMyInformationWithImage() {
-        ParameterDescriptor[] requestUser = new ParameterDescriptor[]{
-            parameterWithName("nickname").description("유저 닉네임"),
-            parameterWithName("university").description("유저 학교"),
-            parameterWithName("city").description("유저 거주 도시"),
-            parameterWithName("district").description("유저 거주 지역")
-        };
+    public static RestDocumentationResultHandler updateImageWithImage() {
         RequestPartDescriptor[] requestPart = new RequestPartDescriptor[]{
-            partWithName("image").description("유저 프로필 이미지")
+            partWithName("imageFile").description("유저 프로필 이미지")
         };
         FieldDescriptor[] response = new FieldDescriptor[]{
-            fieldWithPath("nickname").type(JsonFieldType.STRING).description("유저 닉네임"),
-            fieldWithPath("university").type(JsonFieldType.STRING).description("유저 학교"),
-            fieldWithPath("city.code").type(JsonFieldType.STRING).description("유저 거주 도시 코드"),
-            fieldWithPath("city.name").type(JsonFieldType.STRING).description("유저 거주 도시 이름"),
-            fieldWithPath("district").type(JsonFieldType.STRING).description("유저 거주 지역"),
-            fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("유저 이미지 URL"),
+            fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("이미지 URL")
         };
-        return document("user/updateMyInformationWithImage",
-            requestParameters(requestUser),
+        return document("user/updateImageWithImage",
             requestParts(requestPart),
+            responseFields(response)
+        );
+    }
+
+    public static RestDocumentationResultHandler updateImage() {
+        FieldDescriptor[] response = new FieldDescriptor[]{
+            fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("이미지 URL")
+        };
+        return document("user/updateImage",
             responseFields(response)
         );
     }

@@ -1,11 +1,11 @@
 package com.momo;
 
-import com.momo.domain.favorite.dto.FavoriteGroupCardResponse;
-import com.momo.domain.favorite.dto.FavoriteGroupCreateRequest;
-import com.momo.domain.favorite.entity.FavoriteGroup;
-import com.momo.domain.group.dto.GroupCardResponse;
-import com.momo.domain.group.entity.Group;
-import com.momo.domain.user.entity.User;
+import com.momo.favorite.dto.FavoriteGroupCardResponse;
+import com.momo.favorite.dto.FavoriteGroupCreateRequest;
+import com.momo.favorite.entity.FavoriteGroup;
+import com.momo.group.dto.GroupCardResponse;
+import com.momo.group.entity.Group;
+import com.momo.user.domain.model.User;
 
 public class FavoriteFixture {
 

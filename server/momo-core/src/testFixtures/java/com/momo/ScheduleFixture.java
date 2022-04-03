@@ -4,16 +4,15 @@ import static com.momo.common.FixtureComponents.CONTENTS;
 import static com.momo.common.FixtureComponents.DATE_TIME;
 import static com.momo.common.FixtureComponents.INCREASE_ID;
 import static com.momo.common.FixtureComponents.IS_OFFLINE;
-import static com.momo.common.FixtureComponents.PAGE;
 import static com.momo.common.FixtureComponents.PAGE_SIZE;
 import static com.momo.common.FixtureComponents.TITLE;
 
-import com.momo.domain.group.entity.Group;
-import com.momo.domain.schedule.dto.GroupSchedulesRequest;
-import com.momo.domain.schedule.dto.ScheduleCreateRequest;
-import com.momo.domain.schedule.dto.UpcomingScheduleResponse;
-import com.momo.domain.schedule.entity.Schedule;
-import com.momo.domain.user.entity.User;
+import com.momo.group.entity.Group;
+import com.momo.schedule.dto.GroupSchedulesRequest;
+import com.momo.schedule.dto.ScheduleCreateRequest;
+import com.momo.schedule.dto.UpcomingScheduleResponse;
+import com.momo.schedule.entity.Schedule;
+import com.momo.user.domain.model.User;
 import java.time.LocalDateTime;
 
 public class ScheduleFixture {
@@ -69,7 +68,6 @@ public class ScheduleFixture {
     public static GroupSchedulesRequest getGroupSchedulesRequest(Long groupId) {
         return GroupSchedulesRequest.builder()
             .groupId(groupId)
-            .page(PAGE)
             .size(PAGE_SIZE)
             .build();
     }

@@ -1,11 +1,14 @@
 package com.momo.common.acceptance;
 
+import static com.momo.Profile.TEST;
 import static org.springframework.http.HttpHeaders.LOCATION;
 
 import com.momo.common.DatabaseCleaner;
-import com.momo.domain.auth.provider.TokenProvider;
-import com.momo.domain.user.entity.User;
-import com.momo.domain.user.repository.UserRepository;
+import com.momo.auth.domain.KakaoOAuthProvider;
+import com.momo.auth.domain.OAuthProviderFactory;
+import com.momo.auth.infra.TokenProvider;
+import com.momo.user.domain.model.User;
+import com.momo.user.domain.repository.UserRepository;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -16,10 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 
-@ActiveProfiles("test")
+@ActiveProfiles(TEST)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class AcceptanceTest {
@@ -33,8 +38,14 @@ public class AcceptanceTest {
     @Autowired
     private DatabaseCleaner databaseCleaner;
 
-    @Autowired
-    private TokenProvider tokenProvider;
+    @SpyBean
+    protected TokenProvider tokenProvider;
+
+    @MockBean
+    protected OAuthProviderFactory oAuthProviderFactory;
+
+    @MockBean
+    protected KakaoOAuthProvider kaKaoOAuthProvider;
 
     @BeforeEach
     protected void setUp() {
@@ -49,7 +60,7 @@ public class AcceptanceTest {
     }
 
     protected String getAccessToken(User user) {
-        return tokenProvider.createAccessToken(userRepository.save(user));
+        return tokenProvider.createAccessToken(userRepository.save(user).getId());
     }
 
     protected Long extractId(ExtractableResponse<Response> response) {

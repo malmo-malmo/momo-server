@@ -7,22 +7,22 @@ import static com.momo.PostFixture.getPostCreateRequest;
 import static com.momo.UserFixture.getUser;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsNoContent;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
-import static com.momo.domain.group.entity.Category.LIFE;
-import static com.momo.domain.post.entity.PostType.NORMAL;
+import static com.momo.group.entity.Category.LIFE;
+import static com.momo.post.entity.PostType.NORMAL;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
 import static com.momo.post.acceptance.step.CommentAcceptanceStep.assertThatCreateComment;
 import static com.momo.post.acceptance.step.CommentAcceptanceStep.assertThatFindComments;
 import static com.momo.post.acceptance.step.CommentAcceptanceStep.requestToCreateComment;
-import static com.momo.post.acceptance.step.CommentAcceptanceStep.requestToDeleteComment;
+import static com.momo.post.acceptance.step.CommentAcceptanceStep.requestTodeleteCommentById;
 import static com.momo.post.acceptance.step.CommentAcceptanceStep.requestToFindComments;
 import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToCreatePost;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
-import com.momo.domain.post.dto.CommentCreateRequest;
-import com.momo.domain.post.dto.CommentResponse;
-import com.momo.domain.post.dto.CommentsResponse;
-import com.momo.domain.user.entity.User;
+import com.momo.post.dto.CommentCreateRequest;
+import com.momo.post.dto.CommentResponse;
+import com.momo.post.dto.CommentsResponse;
+import com.momo.user.domain.model.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;
@@ -62,7 +62,7 @@ public class CommentAcceptanceTest extends AcceptanceTest {
         Long postId = extractId(requestToCreatePost(token, getPostCreateRequest(groupId, NORMAL)));
         Long commentId = extractId(requestToCreateComment(token, getCommentCreateRequest(postId)));
 
-        ExtractableResponse<Response> response = requestToDeleteComment(token, commentId);
+        ExtractableResponse<Response> response = requestTodeleteCommentById(token, commentId);
         assertThatStatusIsNoContent(response);
     }
 

@@ -9,15 +9,15 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.api.schedule.ScheduleController;
+import com.momo.schedule.ScheduleController;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.group.entity.Category;
-import com.momo.domain.schedule.dto.GroupScheduleResponse;
-import com.momo.domain.schedule.dto.GroupScheduleResponses;
-import com.momo.domain.schedule.dto.ScheduleCreateRequest;
-import com.momo.domain.schedule.dto.UserScheduleResponse;
-import com.momo.domain.schedule.service.impl.ScheduleServiceImpl;
+import com.momo.common.dto.EnumResponse;
+import com.momo.group.entity.Category;
+import com.momo.schedule.dto.GroupScheduleResponse;
+import com.momo.schedule.dto.GroupScheduleResponses;
+import com.momo.schedule.dto.ScheduleCreateRequest;
+import com.momo.schedule.dto.UserScheduleResponse;
+import com.momo.schedule.service.impl.ScheduleServiceImpl;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -48,7 +48,7 @@ public class ScheduleRestDocsTest extends RestDocsControllerTest {
             .build();
         String content = super.objectMapper.writeValueAsString(request);
 
-        given(scheduleService.create(any(), any())).willReturn(GroupScheduleResponse.builder()
+        given(scheduleService.createSchedule(any(), any())).willReturn(GroupScheduleResponse.builder()
             .scheduleId(1L)
             .authorImage("작성자 이미지")
             .authorNickname("작성자 이름")
@@ -87,9 +87,9 @@ public class ScheduleRestDocsTest extends RestDocsControllerTest {
             1L
         ));
         super.mockMvc.perform(get("/api/schedule/group-schedules")
-                .param("groupId", String.valueOf(1L))
-                .param("page", String.valueOf(1))
-                .param("size", String.valueOf(1))
+                .param("groupId", "1")
+                .param("lastScheduleStartDateTime", "2021-10-18 10:10")
+                .param("size", "10")
             )
             .andDo(print())
             .andExpect(status().isOk())

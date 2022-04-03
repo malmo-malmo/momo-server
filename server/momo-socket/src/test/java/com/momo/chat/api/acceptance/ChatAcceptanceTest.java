@@ -2,19 +2,19 @@ package com.momo.chat.api.acceptance;
 
 import static com.momo.GroupFixture.getGroup;
 import static com.momo.UserFixture.getUser;
-import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsCreated;
-import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
-import static com.momo.fixture.MessageFixture.getNormalMessage;
 import static com.momo.chat.api.acceptance.step.ChatAcceptanceStep.requestChatMessageHistory;
 import static com.momo.chat.api.acceptance.step.ChatAcceptanceStep.requestChats;
 import static com.momo.chat.api.acceptance.step.ChatAcceptanceStep.requestCreateChat;
+import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsCreated;
+import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
+import static com.momo.fixture.MessageFixture.getNormalMessage;
 
-import com.momo.common.acceptance.AcceptanceTest;
-import com.momo.domain.group.entity.Group;
-import com.momo.domain.group.repository.GroupRepository;
-import com.momo.domain.user.entity.User;
-import com.momo.domain.user.repository.UserRepository;
 import com.momo.chat.domain.repository.MessageRepository;
+import com.momo.common.acceptance.AcceptanceTest;
+import com.momo.group.entity.Group;
+import com.momo.group.repository.GroupRepository;
+import com.momo.user.domain.model.User;
+import com.momo.user.domain.repository.UserRepository;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;

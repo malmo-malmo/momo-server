@@ -3,11 +3,11 @@ package com.momo.post.acceptance.step;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.domain.post.dto.CommentCreateRequest;
-import com.momo.domain.post.dto.CommentResponse;
-import com.momo.domain.post.dto.CommentsRequest;
-import com.momo.domain.post.dto.CommentsResponse;
-import com.momo.domain.user.entity.User;
+import com.momo.post.dto.CommentCreateRequest;
+import com.momo.post.dto.CommentResponse;
+import com.momo.post.dto.CommentsRequest;
+import com.momo.post.dto.CommentsResponse;
+import com.momo.user.domain.model.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;
@@ -29,15 +29,10 @@ public class CommentAcceptanceStep {
         Assertions.assertAll(
             () -> assertThat(response.getCommentResponses().size()).isEqualTo(2),
             () -> assertThat(response.getCommentCnt()).isEqualTo(2),
-            () -> assertThat(response.getCommentResponses())
-                .extracting("authorId")
-                .isNotNull(),
-            () -> assertThat(response.getCommentResponses())
-                .extracting("contents")
-                .containsExactly(requests.get(0).getContents(), requests.get(1).getContents()),
-            () -> assertThat(response.getCommentResponses())
-                .extracting("createdDate")
-                .isNotNull()
+            () -> assertThat(response.getCommentResponses()).extracting("authorId").isNotNull(),
+            () -> assertThat(response.getCommentResponses()).extracting("contents")
+                .containsExactly(requests.get(1).getContents(), requests.get(0).getContents()),
+            () -> assertThat(response.getCommentResponses()).extracting("createdDate").isNotNull()
         );
     }
 
@@ -55,14 +50,13 @@ public class CommentAcceptanceStep {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .param("postId", request.getPostId())
-            .param("page", request.getPage())
             .param("size", request.getSize())
             .get("/api/comments/paging")
             .then().log().all()
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToDeleteComment(String token, Long commentId) {
+    public static ExtractableResponse<Response> requestTodeleteCommentById(String token, Long commentId) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .pathParam("commentId", commentId)

@@ -8,10 +8,10 @@ import static com.momo.district.acceptance.step.DistrictAcceptanceStep.requestTo
 import static com.momo.district.acceptance.step.DistrictAcceptanceStep.requestToFindDistricts;
 
 import com.momo.common.acceptance.AcceptanceTest;
-import com.momo.domain.common.dto.EnumResponse;
-import com.momo.domain.district.dto.DistrictResponse;
-import com.momo.domain.district.entity.City;
-import com.momo.domain.user.entity.User;
+import com.momo.common.dto.EnumResponse;
+import com.momo.district.dto.DistrictResponse;
+import com.momo.district.entity.City;
+import com.momo.user.domain.model.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;

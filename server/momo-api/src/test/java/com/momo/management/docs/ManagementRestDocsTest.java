@@ -2,22 +2,23 @@ package com.momo.management.docs;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.api.management.ManagementController;
+import com.momo.management.ManagementController;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.domain.group.entity.Category;
-import com.momo.domain.management.dto.MyGroupCardResponse;
-import com.momo.domain.management.dto.MyGroupSummaryResponse;
-import com.momo.domain.management.dto.MyPostCardResponse;
-import com.momo.domain.management.dto.ParticipationGroupCardResponse;
-import com.momo.domain.management.dto.ParticipationGroupCountResponse;
-import com.momo.domain.management.dto.ParticipationGroupSummaryResponse;
-import com.momo.domain.management.service.ManagementService;
-import com.momo.domain.post.dto.PostCardResponse;
+import com.momo.group.entity.Category;
+import com.momo.management.dto.MyGroupCardResponse;
+import com.momo.management.dto.MyGroupSummaryResponse;
+import com.momo.management.dto.MyPostCardResponse;
+import com.momo.management.dto.ParticipationGroupCardResponse;
+import com.momo.management.dto.ParticipationGroupCountResponse;
+import com.momo.management.dto.ParticipationGroupSummaryResponse;
+import com.momo.management.service.ManagementService;
+import com.momo.post.dto.PostCardResponse;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -144,11 +145,11 @@ public class ManagementRestDocsTest extends RestDocsControllerTest {
                 .build()
         );
 
-        when(managementService.findMyPostsByUser(any(), anyInt(), anyInt())).thenReturn(responses);
+        when(managementService.findMyPostsByUser(any(), anyLong(), anyInt())).thenReturn(responses);
 
         super.mockMvc.perform(get("/api/management/my-posts")
-                .param("page", String.valueOf(0))
-                .param("size", String.valueOf(10))
+                .param("lastPostId", "0")
+                .param("size", "10")
             )
             .andDo(print())
             .andExpect(status().isOk())

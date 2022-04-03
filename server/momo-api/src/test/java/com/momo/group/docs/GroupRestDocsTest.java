@@ -2,9 +2,10 @@ package com.momo.group.docs;
 
 
 import static com.momo.GroupFixture.getGroupCreateRequest;
+import static com.momo.GroupFixture.getGroupCreateResponse;
 import static com.momo.GroupFixture.getGroupResponse;
 import static com.momo.common.CommonFileUploadSupport.uploadMockSupport;
-import static com.momo.domain.group.entity.Category.LIFE;
+import static com.momo.group.entity.Category.LIFE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.fileUpload;
@@ -13,10 +14,10 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.api.group.GroupController;
+import com.momo.group.GroupController;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.domain.group.dto.GroupCreateRequest;
-import com.momo.domain.group.service.impl.GroupServiceImpl;
+import com.momo.group.dto.GroupCreateRequest;
+import com.momo.group.service.impl.GroupServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -37,7 +38,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
     @Test
     void 모임_생성_테스트() throws Exception {
         GroupCreateRequest request = getGroupCreateRequest(LIFE, true);
-        when(groupService.create(any(), any())).thenReturn(getGroupResponse());
+        when(groupService.createGroup(any(), any())).thenReturn(getGroupCreateResponse());
 
         super.mockMvc.perform(uploadMockSupport(fileUpload("/api/group"), request)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -48,7 +49,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 모임_상세_조회() throws Exception {
-        when(groupService.findById(any(), any())).thenReturn(getGroupResponse());
+        when(groupService.findGroupById(any(), any())).thenReturn(getGroupResponse());
 
         super.mockMvc.perform(get("/api/group/{id}", 1L))
             .andDo(print())

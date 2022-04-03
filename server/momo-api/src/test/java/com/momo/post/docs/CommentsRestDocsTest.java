@@ -8,9 +8,9 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.api.post.CommentsController;
+import com.momo.post.CommentsController;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.domain.post.service.CommentService;
+import com.momo.post.service.CommentService;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,9 +34,9 @@ public class CommentsRestDocsTest extends RestDocsControllerTest {
             .thenReturn(getCommentsResponse(List.of(getCommentResponse())));
 
         super.mockMvc.perform(get("/api/comments/paging")
-                .param("postId", String.valueOf(1L))
-                .param("page", String.valueOf(1))
-                .param("size", String.valueOf(10))
+                .param("postId", "1")
+                .param("lastCommentId", "1")
+                .param("size", "10")
             )
             .andDo(print())
             .andExpect(status().isOk())

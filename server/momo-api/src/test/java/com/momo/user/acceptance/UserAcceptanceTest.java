@@ -1,27 +1,31 @@
 package com.momo.user.acceptance;
 
 import static com.momo.UserFixture.getUser;
-import static com.momo.common.FixtureComponents.IMAGE;
-import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsBadRequest;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
-import static com.momo.domain.district.entity.City.SEOUL;
+import static com.momo.district.entity.City.SEOUL;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatFindMyInformation;
+import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatUpdateImage;
+import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatUpdateImageWithImage;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatUpdateMyInformation;
-import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatUpdateMyInformationWithImage;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindMyInformation;
+import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdateImage;
+import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdateImageWithImage;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdateMyInformation;
-import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdateMyInformationWithImage;
 
 import com.momo.common.acceptance.AcceptanceTest;
-import com.momo.domain.user.dto.UserResponse;
-import com.momo.domain.user.dto.UserUpdateRequest;
-import com.momo.domain.user.dto.UserUpdateResponse;
-import com.momo.domain.user.entity.User;
+import com.momo.user.domain.model.User;
+import com.momo.user.application.dto.request.UserUpdateRequest;
+import com.momo.user.application.dto.response.UserImageUpdateResponse;
+import com.momo.user.application.dto.response.UserResponse;
+import com.momo.user.application.dto.response.UserUpdateResponse;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 @DisplayName("유저 통합/인수 테스트")
 public class UserAcceptanceTest extends AcceptanceTest {
@@ -36,7 +40,8 @@ public class UserAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    void 내_정보를_조회한다() {
+    @DisplayName("내 정보를 조회한다")
+    void findMyInformation_LoginUser_Success() {
         String token = getAccessToken(user);
 
         ExtractableResponse<Response> response = requestToFindMyInformation(token);
@@ -47,25 +52,8 @@ public class UserAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    void 내_정보를_수정한다_이미지_포함() {
-        String token = getAccessToken(user);
-        UserUpdateRequest actual = UserUpdateRequest.builder()
-            .nickname("모모")
-            .university("한국대학교")
-            .city(SEOUL)
-            .district("강동구")
-            .image(IMAGE)
-            .build();
-
-        ExtractableResponse<Response> response = requestToUpdateMyInformationWithImage(token, actual);
-        UserUpdateResponse expected = getObject(response, UserUpdateResponse.class);
-
-        assertThatStatusIsOk(response);
-        assertThatUpdateMyInformationWithImage(expected, actual);
-    }
-
-    @Test
-    void 내_정보를_수정한다_이미지_미포함() {
+    @DisplayName("내 정보를 수정한다")
+    void updateMyInformation_LoginUser_Success() {
         String token = getAccessToken(user);
         UserUpdateRequest userUpdateRequest = UserUpdateRequest.builder()
             .nickname("모모")
@@ -82,14 +70,27 @@ public class UserAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    void 내_정보를_수정할_때_입력값이_공백_또는_널이면_실패한다_이미지_미포함() {
+    @DisplayName("내 프로필 이미지를 수정한다 - 이미지 포함")
+    void updateImage_ExistsImage_Success() throws IOException {
         String token = getAccessToken(user);
-        UserUpdateRequest userUpdateRequest = UserUpdateRequest.builder()
-            .nickname(" ")
-            .build();
+        MultipartFile imageFile = new MockMultipartFile("imageFile", "imageFile".getBytes());
 
-        ExtractableResponse<Response> response = requestToUpdateMyInformation(token, userUpdateRequest);
+        ExtractableResponse<Response> response = requestToUpdateImageWithImage(token, imageFile);
+        UserImageUpdateResponse userImageUpdateResponse = getObject(response, UserImageUpdateResponse.class);
 
-        assertThatStatusIsBadRequest(response);
+        assertThatStatusIsOk(response);
+        assertThatUpdateImageWithImage(userImageUpdateResponse);
+    }
+
+    @Test
+    @DisplayName("내 프로필 이미지를 수정한다 - 이미지 미포함")
+    void updateImage_NotExistsImage_Success() {
+        String token = getAccessToken(user);
+
+        ExtractableResponse<Response> response = requestToUpdateImage(token);
+        UserImageUpdateResponse userImageUpdateResponse = getObject(response, UserImageUpdateResponse.class);
+
+        assertThatStatusIsOk(response);
+        assertThatUpdateImage(userImageUpdateResponse);
     }
 }

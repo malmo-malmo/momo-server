@@ -1,8 +1,8 @@
 package com.momo.common;
 
-import com.momo.domain.common.exception.CustomException;
-import com.momo.domain.common.exception.ErrorCode;
-import com.momo.domain.common.exception.ErrorResponse;
+import com.momo.common.exception.CustomException;
+import com.momo.common.exception.ErrorCode;
+import com.momo.common.exception.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;

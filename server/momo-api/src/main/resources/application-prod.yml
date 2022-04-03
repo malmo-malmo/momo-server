@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 50
+    master:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: ENC(YKbUmlpcg79I/gVDqyq7zIvXUk6x3Rv/gvfc4SNEUXWXtFh4WtO4tNHBkyppAfJSPi6vZg1v+fOiE/+kb4N/RE+mODm1Wkcl)
+      username: ENC(ubjfUKNtnllAJV/VZzzXz52Ds1NosP4y)
+      password: ENC(sGhQSsuBKB7Wty8/CRu2Oiv0VWNRVvt8)
+    slave:
+      slave1:
+        name: slave-1
+        jdbc-url: ENC(5yIxAka7cDkoYwO2eYbOJrnOsA3di6/1ks3jC5OSkdW8hcZDvr743cX2rG7m/wmKIOknITNLZlEXSQSRQuInBrfuBGJpI89T)
+  redis:
+    host: ENC(ZlGG6tYaBtMNvHY6fBgZgCvJphRUJ8WJ)
+    port: 6379
+  elasticsearch:
+    rest:
+      uris: ENC(+7VrSol4of46pDJtdtqu/ypr6OTHJwyMeHKH+GURehSo51A8R7YUU9MeBJ5ZIhhpf5fionGGg+xkiC+Q0/xyH4ziSmLH4f8Jw70cJJ9cnGlfUpfdtU69VZw6vFsC/pZYDsCajc11ZpU=)
+      username: ENC(uKH9eLWahVpD1pyJCfRKlDLkwt5I2ntI)
+      password: ENC(6gYFGu5lFh6fDF3P1+JT2dja+wtpvYf4)
+#logging:
+#  level:
+#    com.zaxxer.hikari.HikariConfig: DEBUG
+#    com.zaxxer.hikari: TRACE

@@ -2,9 +2,9 @@ package com.momo;
 
 import static com.momo.common.FixtureComponents.INCREASE_ID;
 
-import com.momo.domain.chat.entity.Chat;
-import com.momo.domain.group.entity.Group;
-import com.momo.domain.user.entity.User;
+import com.momo.chat.entity.Chat;
+import com.momo.group.entity.Group;
+import com.momo.user.domain.model.User;
 
 public class ChatFixture {
 

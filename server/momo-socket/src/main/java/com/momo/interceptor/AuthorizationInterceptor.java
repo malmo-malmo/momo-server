@@ -1,9 +1,9 @@
 package com.momo.interceptor;
 
-import static com.momo.TestProfile.TEST;
+import static com.momo.Profile.TEST;
 
+import com.momo.auth.infra.TokenProvider;
 import com.momo.common.auth.AuthorizationExtractor;
-import com.momo.domain.auth.provider.TokenProvider;
 import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,6 +1,6 @@
 package com.momo.common.auth;
 
-import com.momo.domain.auth.service.OAuthService;
+import com.momo.auth.service.OAuthService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

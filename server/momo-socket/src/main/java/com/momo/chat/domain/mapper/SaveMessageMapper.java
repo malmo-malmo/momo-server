@@ -3,7 +3,7 @@ package com.momo.chat.domain.mapper;
 import com.momo.chat.domain.request.MessageDto;
 import com.momo.chat.domain.request.SendDto;
 import com.momo.chat.domain.entity.ChatMessageType;
-import com.momo.domain.user.entity.User;
+import com.momo.user.domain.model.User;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Component;
 

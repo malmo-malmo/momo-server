@@ -5,7 +5,7 @@ import com.momo.chat.domain.repository.RabbitMqRepository;
 import com.momo.chat.domain.request.MessageDto;
 import com.momo.chat.domain.request.SendDto;
 import com.momo.chat.domain.service.SaveMessageUseCase;
-import com.momo.domain.user.entity.User;
+import com.momo.user.domain.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

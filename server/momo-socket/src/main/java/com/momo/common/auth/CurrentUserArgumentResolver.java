@@ -1,6 +1,6 @@
 package com.momo.common.auth;
 
-import com.momo.domain.auth.service.OAuthService;
+import com.momo.auth.service.OAuthService;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

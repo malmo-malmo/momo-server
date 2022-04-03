@@ -1,7 +1,7 @@
 package com.momo.chat.domain.response;
 
 import com.momo.chat.domain.entity.ChatMessage;
-import com.momo.domain.common.util.TimeFormatUtil;
+import com.momo.common.util.TimeFormatUtil;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;

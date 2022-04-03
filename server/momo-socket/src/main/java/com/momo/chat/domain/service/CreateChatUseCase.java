@@ -1,6 +1,7 @@
 package com.momo.chat.domain.service;
 
-import com.momo.domain.user.entity.User;
+
+import com.momo.user.domain.model.User;
 
 public interface CreateChatUseCase {
 

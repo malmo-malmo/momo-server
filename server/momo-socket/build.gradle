@@ -28,11 +28,12 @@ dependencies {
 
     //mongo
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb'
-    implementation group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '3.4.3'
-    runtimeOnly group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '3.4.3'
+    testImplementation group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '3.4.3'
+    testRuntimeOnly group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '3.4.3'
 
     //jpa
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.querydsl:querydsl-jpa'
 
     //messaging
     implementation group: 'org.springframework', name: 'spring-messaging', version: '5.3.16'
@@ -53,6 +54,7 @@ dependencies {
 
     //util
     implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'com.google.guava:guava:31.0.1-jre'
 }
 
 test {

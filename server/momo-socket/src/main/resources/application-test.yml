@@ -5,11 +5,11 @@ spring:
       username: ENC(uKH9eLWahVpD1pyJCfRKlDLkwt5I2ntI)
       password: ENC(6gYFGu5lFh6fDF3P1+JT2dja+wtpvYf4)
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
-    routing-key: test-key
+    host: ENC(4DD/ESXuJCNsHsrCDxFz4EdEg+zz63gb3bMQxXmFkc0=)
+    port: ENC(h9eI7Rr6xafcNN3m+2LyaQ==)
+    username: ENC(IZ/cubyov6uyFp8D4FwCrg==)
+    password: ENC(WKyxHyx1sxeQb3NDvuMEYg==)
+    routing-key: ENC(hfq2hNF6Mx/y0rFojPGXYlvpm+LUJw6f)
   data:
     mongodb:
       host: localhost

@@ -1,4 +1,9 @@
 spring:
+  elasticsearch:
+    rest:
+      uris: ENC(+7VrSol4of46pDJtdtqu/ypr6OTHJwyMeHKH+GURehSo51A8R7YUU9MeBJ5ZIhhpf5fionGGg+xkiC+Q0/xyH4ziSmLH4f8Jw70cJJ9cnGlfUpfdtU69VZw6vFsC/pZYDsCajc11ZpU=)
+      username: ENC(uKH9eLWahVpD1pyJCfRKlDLkwt5I2ntI)
+      password: ENC(6gYFGu5lFh6fDF3P1+JT2dja+wtpvYf4)
   datasource:
     url: ENC(wxBSgwhIQGOmPvGK0VTq1F8KoU8Z1PLaUTqqyWUINjBFuhiczLRTz4Gh04Cvd28WTCiJqmzTduF4t3XOP/2CUuqab8n3KGmPiB1PZv2tVag=)
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -10,11 +15,19 @@ spring:
       ddl-auto: none
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   rabbitmq:
-    host: ENC(9bxrXtVxYbDgn8OwJ90uk+ECPF8qbtfsqEtp9IP+S7M=)
-    port: ENC(dbFhhycub3UnnN7VnsfsZg==)
-    username: ENC(4a77OXtc23IqLPqQ3CmWIA==)
-    password: ENC(Uva9XmyUBXtaDEfgVpplqw==)
-    routing-key: ENC(a2Z3Vx76YTw6eh6uD2KMu+SaGOTyYv49Trh5XKTBimM=)
+    host: ENC(AHXJaoDzNDUvty81fyrZXpkwyzcirjRaaZ+/7vBYgVc=)
+    port: ENC(wdWdx+Ab4nm91thgWturvg==)
+    username: ENC(SUbwA3BuZQO3n2zk+H5Ysw==)
+    password: ENC(aK2b96wFRHSR7IruUbUh/Q==)
+    routing-key: ENC(KBCU7+a50ntHPSFvd9KPLkWlRsPaKtBp)
+  data:
+    mongodb:
+      host: ENC(iFUUiIkcG3WR6lT6+nUsrO06+cKV6s2k0SWYSO7rF00=)
+      port: ENC(XMVxZLvFahiMqDurh4VM5A==)
+      authentication-database: ENC(ljFKDFssEcOhssf7dhs02Q==)
+      username: ENC(HSjQM2XhBVpapXNBY+rCwM5bhoE6nUPo)
+      password: ENC(yDmDDhlUl4OVorpKSLqovLdMmNlbuxN6)
+      database: ENC(WAevJzrE4yAlaB52GlGEIw==)
 logging:
   slack:
     webhook-uri: ENC(2fsTNAh+xnNDCW5dQGIoAETS12W5yKa0gjt1gS2/JLY/T2RO60Yts5E0RJvaCFFWhMthI7oaD2pflW9z1B2CACay+xVGZhJEcqqf5wM+SnAFwU9GPfJx9LqtxoypmfJB)

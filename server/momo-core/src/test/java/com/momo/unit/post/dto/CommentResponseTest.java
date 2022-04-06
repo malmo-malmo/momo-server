@@ -2,7 +2,7 @@ package com.momo.unit.post.dto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.post.dto.CommentResponse;
+import com.momo.group.application.dto.response.CommentResponse;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -2,13 +2,13 @@ package com.momo;
 
 import static com.momo.common.FixtureComponents.INCREASE_ID;
 
-import com.momo.group.entity.Participant;
-import com.momo.schedule.dto.AttendanceCreateRequest;
-import com.momo.schedule.dto.AttendanceCreateRequests;
-import com.momo.schedule.dto.AttendanceUpdateRequest;
-import com.momo.schedule.dto.AttendanceUpdateRequests;
-import com.momo.schedule.entity.Attendance;
-import com.momo.schedule.entity.Schedule;
+import com.momo.group.domain.participant.Participant;
+import com.momo.group.application.dto.request.AttendanceCreateRequest;
+import com.momo.group.application.dto.request.AttendanceCreateRequests;
+import com.momo.group.application.dto.request.AttendanceUpdateRequest;
+import com.momo.group.application.dto.request.AttendanceUpdateRequests;
+import com.momo.group.domain.schedule.attendance.Attendance;
+import com.momo.group.domain.schedule.Schedule;
 import java.util.List;
 
 public class AttendanceFixture {

@@ -5,7 +5,7 @@ import static com.momo.PostFixture.getPostResponse;
 import static com.momo.PostFixture.getPostUpdateRequest;
 import static com.momo.common.CommonFileUploadSupport.generateUploadMockPutBuilder;
 import static com.momo.common.CommonFileUploadSupport.uploadMockSupport;
-import static com.momo.post.entity.PostType.NORMAL;
+import static com.momo.group.domain.post.PostType.NORMAL;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
@@ -16,11 +16,11 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.post.PostController;
+import com.momo.group.PostController;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.post.dto.PostCreateRequest;
-import com.momo.post.dto.PostUpdateRequest;
-import com.momo.post.service.impl.PostServiceImpl;
+import com.momo.group.application.dto.request.PostCreateRequest;
+import com.momo.group.application.dto.request.PostUpdateRequest;
+import com.momo.group.application.PostService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -35,7 +35,7 @@ public class PostRestDocsTest extends RestDocsControllerTest {
     private PostController postController;
 
     @MockBean
-    private PostServiceImpl postService;
+    private PostService postService;
 
     @Test
     void 게시글_작성() throws Exception {

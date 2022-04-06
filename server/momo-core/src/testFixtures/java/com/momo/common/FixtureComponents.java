@@ -1,13 +1,13 @@
 package com.momo.common;
 
 import static com.momo.district.entity.City.SEOUL;
-import static com.momo.group.entity.Category.HEALTH;
-import static com.momo.group.entity.Category.SELF_DEVELOPMENT;
-import static com.momo.user.domain.model.SocialProvider.KAKAO;
+import static com.momo.group.domain.category.Category.HEALTH;
+import static com.momo.group.domain.category.Category.SELF_DEVELOPMENT;
+import static com.momo.user.domain.social.SocialProvider.KAKAO;
 
 import com.momo.district.entity.City;
-import com.momo.group.entity.Category;
-import com.momo.user.domain.model.SocialProvider;
+import com.momo.group.domain.category.Category;
+import com.momo.user.domain.social.SocialProvider;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;

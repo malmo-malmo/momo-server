@@ -3,8 +3,8 @@ package com.momo.favorite.docs;
 import static com.momo.FavoriteFixture.getFavoriteGroupCardResponse;
 import static com.momo.FavoriteFixture.getFavoriteGroupCreateRequest;
 import static com.momo.GroupFixture.getGroupCardResponse;
-import static com.momo.group.entity.Category.HOBBY;
-import static com.momo.group.entity.Category.LIFE;
+import static com.momo.group.domain.category.Category.HOBBY;
+import static com.momo.group.domain.category.Category.LIFE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
@@ -14,13 +14,13 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.favorite.FavoriteController;
+import com.momo.group.FavoriteGroupController;
 import com.momo.common.RestDocsControllerTest;
 import com.momo.common.dto.EnumResponse;
-import com.momo.favorite.dto.FavoriteCategoriesUpdateRequest;
-import com.momo.favorite.dto.FavoriteGroupCardResponse;
-import com.momo.favorite.dto.FavoriteGroupCountResponse;
-import com.momo.favorite.dto.FavoriteGroupCreateRequest;
+import com.momo.user.application.dto.request.FavoriteCategoriesUpdateRequest;
+import com.momo.group.application.dto.response.FavoriteGroupCardResponse;
+import com.momo.group.application.dto.response.FavoriteGroupCountResponse;
+import com.momo.group.application.dto.request.FavoriteGroupCreateRequest;
 import com.momo.favorite.service.FavoriteService;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -30,12 +30,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 
-@WebMvcTest(FavoriteController.class)
+@WebMvcTest(FavoriteGroupController.class)
 @DisplayName("관심 문서화 테스트")
 public class FavoriteRestDocsTest extends RestDocsControllerTest {
 
     @InjectMocks
-    private FavoriteController favoriteController;
+    private FavoriteGroupController favoriteController;
 
     @MockBean
     private FavoriteService favoriteService;

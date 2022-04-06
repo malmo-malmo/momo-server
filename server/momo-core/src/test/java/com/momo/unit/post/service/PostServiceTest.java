@@ -5,8 +5,8 @@ import static com.momo.PostFixture.getPostCreateRequest;
 import static com.momo.PostFixture.getPostUpdateRequest;
 import static com.momo.PostFixture.getPostWithId;
 import static com.momo.UserFixture.getUserWithId;
-import static com.momo.post.entity.PostType.NORMAL;
-import static com.momo.post.entity.PostType.NOTICE;
+import static com.momo.group.domain.post.PostType.NORMAL;
+import static com.momo.group.domain.post.PostType.NOTICE;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -19,17 +19,17 @@ import com.momo.common.ServiceTest;
 import com.momo.aws.service.S3UploadService;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.group.entity.Group;
-import com.momo.group.repository.GroupRepository;
-import com.momo.group.repository.ParticipantRepository;
-import com.momo.post.dto.PostCreateRequest;
-import com.momo.post.dto.PostResponse;
-import com.momo.post.dto.PostUpdateRequest;
-import com.momo.post.entity.Post;
-import com.momo.post.repository.PostRepository;
+import com.momo.group.domain.Group;
+import com.momo.group.domain.repository.GroupRepository;
+import com.momo.group.domain.repository.ParticipantRepository;
+import com.momo.group.application.dto.request.PostCreateRequest;
+import com.momo.group.application.dto.response.PostResponse;
+import com.momo.group.application.dto.request.PostUpdateRequest;
+import com.momo.group.domain.post.Post;
+import com.momo.group.domain.repository.PostRepository;
 import com.momo.post.service.PostService;
-import com.momo.post.service.impl.PostServiceImpl;
-import com.momo.user.domain.model.User;
+import com.momo.group.application.PostService;
+import com.momo.user.domain.User;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,7 +61,7 @@ public class PostServiceTest extends ServiceTest {
 
     @BeforeEach
     void setUp() {
-        postService = new PostServiceImpl(postRepository, groupRepository, participantRepository, s3UploadService);
+        postService = new PostService(postRepository, groupRepository, participantRepository, s3UploadService);
         manager = getUserWithId();
         participant = getUserWithId();
         user = getUserWithId();

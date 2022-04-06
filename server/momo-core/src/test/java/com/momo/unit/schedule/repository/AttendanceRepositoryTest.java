@@ -8,12 +8,12 @@ import static com.momo.UserFixture.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
-import com.momo.group.entity.Group;
-import com.momo.group.entity.Participant;
-import com.momo.schedule.entity.Attendance;
-import com.momo.schedule.entity.Schedule;
-import com.momo.schedule.repository.AttendanceRepository;
-import com.momo.user.domain.model.User;
+import com.momo.group.domain.Group;
+import com.momo.group.domain.participant.Participant;
+import com.momo.group.domain.schedule.attendance.Attendance;
+import com.momo.group.domain.schedule.Schedule;
+import com.momo.group.domain.repository.AttendanceRepository;
+import com.momo.user.domain.User;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

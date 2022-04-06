@@ -8,10 +8,10 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.post.CommentController;
+import com.momo.group.CommentController;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.post.dto.CommentResponse;
-import com.momo.post.service.impl.CommentServiceImpl;
+import com.momo.group.application.dto.response.CommentResponse;
+import com.momo.group.application.CommentService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -27,7 +27,7 @@ public class CommentRestDocsTest extends RestDocsControllerTest {
     private CommentController commentController;
 
     @MockBean
-    private CommentServiceImpl commentService;
+    private CommentService commentService;
 
     @Test
     void 게시물_댓글_등록() throws Exception {

@@ -1,14 +1,14 @@
 package com.momo.post.docs;
 
 import static com.momo.PostFixture.getPostCardResponse;
-import static com.momo.post.entity.PostType.NORMAL;
+import static com.momo.group.domain.post.PostType.NORMAL;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.post.PostsController;
+import com.momo.group.PostsController;
 import com.momo.common.RestDocsControllerTest;
 import com.momo.post.service.PostService;
 import java.util.List;

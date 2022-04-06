@@ -10,7 +10,7 @@ import com.momo.auth.dto.OAuthLoginResponse;
 import com.momo.auth.dto.RefreshLoginRequest;
 import com.momo.auth.infra.TokenProvider;
 import com.momo.auth.infra.TokenReissuanceDao;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import com.momo.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

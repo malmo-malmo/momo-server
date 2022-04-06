@@ -16,19 +16,19 @@ import static org.mockito.Mockito.verify;
 import com.momo.common.ServiceTest;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.group.entity.Group;
-import com.momo.group.repository.GroupRepository;
-import com.momo.group.repository.ParticipantRepository;
-import com.momo.schedule.dto.GroupScheduleResponse;
-import com.momo.schedule.dto.GroupScheduleResponses;
-import com.momo.schedule.dto.GroupSchedulesRequest;
-import com.momo.schedule.dto.ScheduleCreateRequest;
-import com.momo.schedule.dto.UpcomingScheduleResponse;
-import com.momo.schedule.entity.Schedule;
-import com.momo.schedule.repository.ScheduleRepository;
+import com.momo.group.domain.Group;
+import com.momo.group.domain.repository.GroupRepository;
+import com.momo.group.domain.repository.ParticipantRepository;
+import com.momo.group.application.dto.response.GroupScheduleResponse;
+import com.momo.group.application.dto.response.GroupScheduleResponses;
+import com.momo.group.application.dto.request.GroupSchedulesRequest;
+import com.momo.group.application.dto.request.ScheduleCreateRequest;
+import com.momo.group.application.dto.response.UpcomingScheduleResponse;
+import com.momo.group.domain.schedule.Schedule;
+import com.momo.group.domain.repository.ScheduleRepository;
 import com.momo.schedule.service.ScheduleService;
-import com.momo.schedule.service.impl.ScheduleServiceImpl;
-import com.momo.user.domain.model.User;
+import com.momo.group.application.ScheduleService;
+import com.momo.user.domain.User;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
@@ -60,7 +60,7 @@ public class ScheduleServiceTest extends ServiceTest {
         manager = getUserWithId();
         user = getUserWithId();
         group = getGroupWithId(manager);
-        scheduleService = new ScheduleServiceImpl(scheduleRepository, groupRepository, participantRepository);
+        scheduleService = new ScheduleService(scheduleRepository, groupRepository, participantRepository);
     }
 
     @Test

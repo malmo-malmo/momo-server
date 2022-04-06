@@ -6,12 +6,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.momo.common.RestDocsControllerTest;
-import com.momo.schedule.AttendanceController;
-import com.momo.schedule.dto.AttendanceCreateRequest;
-import com.momo.schedule.dto.AttendanceCreateRequests;
-import com.momo.schedule.dto.AttendanceUpdateRequest;
-import com.momo.schedule.dto.AttendanceUpdateRequests;
-import com.momo.schedule.service.impl.AttendanceServiceImpl;
+import com.momo.group.AttendanceController;
+import com.momo.group.application.dto.request.AttendanceCreateRequest;
+import com.momo.group.application.dto.request.AttendanceCreateRequests;
+import com.momo.group.application.dto.request.AttendanceUpdateRequest;
+import com.momo.group.application.dto.request.AttendanceUpdateRequests;
+import com.momo.group.application.AttendanceService;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ public class AttendanceRestDocsTest extends RestDocsControllerTest {
     private AttendanceController attendanceController;
 
     @MockBean
-    private AttendanceServiceImpl attendanceService;
+    private AttendanceService attendanceService;
 
     @Test
     void 출석체크() throws Exception {

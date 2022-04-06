@@ -4,10 +4,10 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.dto.EnumResponse;
-import com.momo.favorite.dto.FavoriteCategoriesUpdateRequest;
-import com.momo.favorite.dto.FavoriteGroupCardResponse;
-import com.momo.favorite.dto.FavoriteGroupCreateRequest;
-import com.momo.group.dto.GroupCreateRequest;
+import com.momo.user.application.dto.request.FavoriteCategoriesUpdateRequest;
+import com.momo.group.application.dto.response.FavoriteGroupCardResponse;
+import com.momo.group.application.dto.request.FavoriteGroupCreateRequest;
+import com.momo.group.application.dto.request.GroupCreateRequest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;

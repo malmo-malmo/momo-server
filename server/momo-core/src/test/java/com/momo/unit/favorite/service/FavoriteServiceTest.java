@@ -4,8 +4,8 @@ import static com.momo.FavoriteFixture.getFavoriteGroup;
 import static com.momo.FavoriteFixture.getFavoriteGroupCreateRequest;
 import static com.momo.GroupFixture.getGroupWithId;
 import static com.momo.UserFixture.getUserWithId;
-import static com.momo.group.entity.Category.HOBBY;
-import static com.momo.group.entity.Category.LIFE;
+import static com.momo.group.domain.category.Category.HOBBY;
+import static com.momo.group.domain.category.Category.LIFE;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -14,16 +14,16 @@ import static org.mockito.Mockito.verify;
 
 import com.momo.common.ServiceTest;
 import com.momo.common.dto.EnumResponse;
-import com.momo.favorite.dto.FavoriteCategoriesUpdateRequest;
-import com.momo.favorite.dto.FavoriteGroupCreateRequest;
-import com.momo.favorite.entity.FavoriteGroup;
-import com.momo.favorite.repository.FavoriteGroupRepository;
+import com.momo.user.application.dto.request.FavoriteCategoriesUpdateRequest;
+import com.momo.group.application.dto.request.FavoriteGroupCreateRequest;
+import com.momo.group.domain.favorite.FavoriteGroup;
+import com.momo.group.domain.repository.FavoriteGroupRepository;
 import com.momo.favorite.service.FavoriteService;
-import com.momo.favorite.service.impl.FavoriteServiceImpl;
-import com.momo.group.entity.Category;
-import com.momo.group.entity.Group;
-import com.momo.group.repository.GroupRepository;
-import com.momo.user.domain.model.User;
+import com.momo.group.application.FavoriteGroupService;
+import com.momo.group.domain.category.Category;
+import com.momo.group.domain.Group;
+import com.momo.group.domain.repository.GroupRepository;
+import com.momo.user.domain.User;
 import com.momo.user.domain.repository.UserRepository;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
@@ -50,7 +50,7 @@ public class FavoriteServiceTest extends ServiceTest {
 
     @BeforeEach
     void setUp() {
-        favoriteService = new FavoriteServiceImpl(groupRepository, favoriteGroupRepository, userRepository);
+        favoriteService = new FavoriteGroupService(groupRepository, favoriteGroupRepository, userRepository);
         user = getUserWithId();
     }
 

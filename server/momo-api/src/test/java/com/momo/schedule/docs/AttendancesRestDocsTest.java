@@ -5,11 +5,11 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.schedule.AttendanceController;
-import com.momo.schedule.AttendancesController;
+import com.momo.group.AttendanceController;
+import com.momo.group.AttendancesController;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.schedule.dto.AttendanceResponse;
-import com.momo.schedule.service.impl.AttendanceServiceImpl;
+import com.momo.group.application.dto.response.AttendanceResponse;
+import com.momo.group.application.AttendanceService;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ public class AttendancesRestDocsTest extends RestDocsControllerTest {
     private AttendanceController attendanceController;
 
     @MockBean
-    private AttendanceServiceImpl attendanceService;
+    private AttendanceService attendanceService;
 
     @Test
     void 출석체크_목록_조회() throws Exception {

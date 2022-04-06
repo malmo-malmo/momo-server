@@ -3,11 +3,11 @@ package com.momo.post.acceptance.step;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.post.dto.CommentCreateRequest;
-import com.momo.post.dto.CommentResponse;
-import com.momo.post.dto.CommentsRequest;
-import com.momo.post.dto.CommentsResponse;
-import com.momo.user.domain.model.User;
+import com.momo.group.application.dto.request.CommentCreateRequest;
+import com.momo.group.application.dto.response.CommentResponse;
+import com.momo.group.application.dto.request.CommentsRequest;
+import com.momo.group.application.dto.response.CommentsResponse;
+import com.momo.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;

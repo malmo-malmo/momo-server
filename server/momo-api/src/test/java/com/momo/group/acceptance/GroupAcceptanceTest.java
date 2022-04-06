@@ -6,9 +6,9 @@ import static com.momo.common.acceptance.step.AcceptanceStep.assertThatCustomExc
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsCreated;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
 import static com.momo.common.exception.ErrorCode.GROUP_MANAGER_AUTHORIZED;
-import static com.momo.group.entity.Category.HOBBY;
-import static com.momo.group.entity.Category.LIFE;
-import static com.momo.group.entity.Category.STOCK;
+import static com.momo.group.domain.category.Category.HOBBY;
+import static com.momo.group.domain.category.Category.LIFE;
+import static com.momo.group.domain.category.Category.STOCK;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.assertThatEndGroup;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.assertThatFindCategory;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.assertThatFindGroup;
@@ -26,11 +26,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.dto.EnumResponse;
-import com.momo.group.dto.GroupCardResponse;
-import com.momo.group.dto.GroupCreateRequest;
-import com.momo.group.dto.GroupResponse;
+import com.momo.group.application.dto.response.GroupCardResponse;
+import com.momo.group.application.dto.request.GroupCreateRequest;
+import com.momo.group.application.dto.response.GroupResponse;
 import com.momo.user.application.dto.response.UserResponse;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;

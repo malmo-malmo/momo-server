@@ -8,17 +8,17 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.management.ManagementController;
+import com.momo.user.ManagementController;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.group.entity.Category;
-import com.momo.management.dto.MyGroupCardResponse;
-import com.momo.management.dto.MyGroupSummaryResponse;
-import com.momo.management.dto.MyPostCardResponse;
-import com.momo.management.dto.ParticipationGroupCardResponse;
-import com.momo.management.dto.ParticipationGroupCountResponse;
-import com.momo.management.dto.ParticipationGroupSummaryResponse;
+import com.momo.group.domain.category.Category;
+import com.momo.user.application.dto.response.MyGroupCardResponse;
+import com.momo.user.application.dto.response.MyGroupSummaryResponse;
+import com.momo.user.application.dto.response.MyPostCardResponse;
+import com.momo.user.application.dto.response.ParticipationGroupCardResponse;
+import com.momo.user.application.dto.response.ParticipationGroupCountResponse;
+import com.momo.user.application.dto.response.ParticipationGroupSummaryResponse;
 import com.momo.management.service.ManagementService;
-import com.momo.post.dto.PostCardResponse;
+import com.momo.group.application.dto.response.PostCardResponse;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;

@@ -6,11 +6,11 @@ import static com.momo.UserFixture.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
-import com.momo.group.entity.Group;
-import com.momo.group.entity.Participant;
-import com.momo.group.repository.ParticipantRepository;
-import com.momo.management.dto.ParticipationGroupCardResponse;
-import com.momo.user.domain.model.User;
+import com.momo.group.domain.Group;
+import com.momo.group.domain.participant.Participant;
+import com.momo.group.domain.repository.ParticipantRepository;
+import com.momo.user.application.dto.response.ParticipationGroupCardResponse;
+import com.momo.user.domain.User;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

@@ -9,15 +9,15 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.schedule.ScheduleController;
+import com.momo.group.ScheduleController;
 import com.momo.common.RestDocsControllerTest;
 import com.momo.common.dto.EnumResponse;
-import com.momo.group.entity.Category;
-import com.momo.schedule.dto.GroupScheduleResponse;
-import com.momo.schedule.dto.GroupScheduleResponses;
-import com.momo.schedule.dto.ScheduleCreateRequest;
-import com.momo.schedule.dto.UserScheduleResponse;
-import com.momo.schedule.service.impl.ScheduleServiceImpl;
+import com.momo.group.domain.category.Category;
+import com.momo.group.application.dto.response.GroupScheduleResponse;
+import com.momo.group.application.dto.response.GroupScheduleResponses;
+import com.momo.group.application.dto.request.ScheduleCreateRequest;
+import com.momo.group.application.dto.response.UserScheduleResponse;
+import com.momo.group.application.ScheduleService;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -35,7 +35,7 @@ public class ScheduleRestDocsTest extends RestDocsControllerTest {
     private ScheduleController scheduleController;
 
     @MockBean
-    private ScheduleServiceImpl scheduleService;
+    private ScheduleService scheduleService;
 
     @Test
     void 일정_등록() throws Exception {

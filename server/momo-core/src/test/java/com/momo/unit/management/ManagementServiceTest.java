@@ -7,13 +7,12 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import com.momo.common.ServiceTest;
-import com.momo.group.repository.GroupRepository;
-import com.momo.group.repository.ParticipantRepository;
-import com.momo.management.dto.ParticipationGroupCountResponse;
-import com.momo.management.service.ManagementService;
-import com.momo.management.service.impl.ManagementServiceImpl;
-import com.momo.post.repository.PostRepository;
-import com.momo.user.domain.model.User;
+import com.momo.group.domain.repository.GroupRepository;
+import com.momo.group.domain.repository.ParticipantRepository;
+import com.momo.user.application.dto.response.ParticipationGroupCountResponse;
+import com.momo.user.application.ManagementService;
+import com.momo.group.domain.repository.PostRepository;
+import com.momo.user.domain.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -32,11 +31,11 @@ public class ManagementServiceTest extends ServiceTest {
     @Mock
     private PostRepository postRepository;
 
-    private ManagementService managementService;
+    private com.momo.management.service.ManagementService managementService;
 
     @BeforeEach
     void setUp() {
-        managementService = new ManagementServiceImpl(participantRepository, groupRepository, postRepository);
+        managementService = new ManagementService(participantRepository, groupRepository, postRepository);
     }
 
     @Test

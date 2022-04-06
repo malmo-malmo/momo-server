@@ -2,7 +2,7 @@ package com.momo.unit.post.entity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.post.entity.Images;
+import com.momo.group.domain.post.image.Images;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

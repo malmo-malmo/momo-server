@@ -3,7 +3,7 @@ package com.momo.chat.api;
 import com.momo.chat.domain.response.ChatResponse;
 import com.momo.chat.domain.service.FindChatsUseCase;
 import com.momo.common.auth.CurrentUser;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

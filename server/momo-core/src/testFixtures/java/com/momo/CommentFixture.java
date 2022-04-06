@@ -6,13 +6,13 @@ import static com.momo.common.FixtureComponents.CONTENTS;
 import static com.momo.common.FixtureComponents.INCREASE_ID;
 import static com.momo.common.FixtureComponents.PAGE_SIZE;
 
-import com.momo.post.dto.CommentCreateRequest;
-import com.momo.post.dto.CommentResponse;
-import com.momo.post.dto.CommentsRequest;
-import com.momo.post.dto.CommentsResponse;
-import com.momo.post.entity.Comment;
-import com.momo.post.entity.Post;
-import com.momo.user.domain.model.User;
+import com.momo.group.application.dto.request.CommentCreateRequest;
+import com.momo.group.application.dto.response.CommentResponse;
+import com.momo.group.application.dto.request.CommentsRequest;
+import com.momo.group.application.dto.response.CommentsResponse;
+import com.momo.group.domain.post.comment.Comment;
+import com.momo.group.domain.post.Post;
+import com.momo.user.domain.User;
 import java.time.LocalDateTime;
 import java.util.List;
 

@@ -21,20 +21,20 @@ import static org.mockito.Mockito.verify;
 import com.momo.common.ServiceTest;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.group.entity.Group;
-import com.momo.group.entity.Participant;
-import com.momo.group.repository.GroupRepository;
-import com.momo.group.repository.ParticipantRepository;
-import com.momo.schedule.dto.AttendanceCreateRequests;
-import com.momo.schedule.dto.AttendanceResponse;
-import com.momo.schedule.dto.AttendanceUpdateRequests;
-import com.momo.schedule.entity.Attendance;
-import com.momo.schedule.entity.Schedule;
-import com.momo.schedule.repository.AttendanceRepository;
-import com.momo.schedule.repository.ScheduleRepository;
+import com.momo.group.domain.Group;
+import com.momo.group.domain.participant.Participant;
+import com.momo.group.domain.repository.GroupRepository;
+import com.momo.group.domain.repository.ParticipantRepository;
+import com.momo.group.application.dto.request.AttendanceCreateRequests;
+import com.momo.group.application.dto.response.AttendanceResponse;
+import com.momo.group.application.dto.request.AttendanceUpdateRequests;
+import com.momo.group.domain.schedule.attendance.Attendance;
+import com.momo.group.domain.schedule.Schedule;
+import com.momo.group.domain.repository.AttendanceRepository;
+import com.momo.group.domain.repository.ScheduleRepository;
 import com.momo.schedule.service.AttendanceService;
-import com.momo.schedule.service.impl.AttendanceServiceImpl;
-import com.momo.user.domain.model.User;
+import com.momo.group.application.AttendanceService;
+import com.momo.user.domain.User;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
@@ -73,7 +73,7 @@ public class AttendanceServiceTest extends ServiceTest {
         group = getGroupWithId(manager);
         participant = getParticipantWithId(group, user);
         schedule = getScheduleWithId(manager, group);
-        attendanceService = new AttendanceServiceImpl(scheduleRepository, attendanceRepository, participantRepository);
+        attendanceService = new AttendanceService(scheduleRepository, attendanceRepository, participantRepository);
     }
 
     @Test

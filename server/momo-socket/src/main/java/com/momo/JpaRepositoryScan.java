@@ -1,6 +1,6 @@
 package com.momo;
 
-import com.momo.group.search.GroupSearchEngine;
+import com.momo.group.domain.repository.GroupSearchEngine;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;

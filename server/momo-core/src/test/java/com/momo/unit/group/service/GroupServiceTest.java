@@ -6,7 +6,7 @@ import static com.momo.GroupFixture.getGroupResponse;
 import static com.momo.GroupFixture.getGroupSearchConditionRequest;
 import static com.momo.GroupFixture.getGroupWithId;
 import static com.momo.UserFixture.getUserWithId;
-import static com.momo.group.entity.Category.EMPLOYMENT;
+import static com.momo.group.domain.category.Category.EMPLOYMENT;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -19,19 +19,18 @@ import com.momo.common.ServiceTest;
 import com.momo.aws.service.S3UploadService;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.group.dto.GroupCardResponse;
-import com.momo.group.dto.GroupCreateRequest;
-import com.momo.group.dto.GroupCreateResponse;
-import com.momo.group.dto.GroupResponse;
-import com.momo.group.dto.GroupSearchConditionRequest;
-import com.momo.group.entity.Group;
-import com.momo.group.entity.Participant;
-import com.momo.group.repository.GroupRepository;
-import com.momo.group.repository.ParticipantRepository;
-import com.momo.group.search.GroupSearchEngine;
-import com.momo.group.service.GroupService;
-import com.momo.group.service.impl.GroupServiceImpl;
-import com.momo.user.domain.model.User;
+import com.momo.group.application.dto.response.GroupCardResponse;
+import com.momo.group.application.dto.request.GroupCreateRequest;
+import com.momo.group.application.dto.response.GroupCreateResponse;
+import com.momo.group.application.dto.response.GroupResponse;
+import com.momo.group.application.dto.request.GroupSearchConditionRequest;
+import com.momo.group.domain.Group;
+import com.momo.group.domain.participant.Participant;
+import com.momo.group.domain.repository.GroupRepository;
+import com.momo.group.domain.repository.ParticipantRepository;
+import com.momo.group.domain.repository.GroupSearchEngine;
+import com.momo.group.application.GroupService;
+import com.momo.user.domain.User;
 import com.momo.user.domain.repository.UserRepository;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
@@ -67,7 +66,7 @@ public class GroupServiceTest extends ServiceTest {
     void setUp() {
         manager = getUserWithId();
         participant = getUserWithId();
-        groupService = new GroupServiceImpl(
+        groupService = new GroupService(
             groupRepository, groupSearchEngine, participantRepository, userRepository, s3UploadService
         );
     }

@@ -3,7 +3,7 @@ package com.momo.user.acceptance.step;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import com.momo.user.application.dto.request.UserUpdateRequest;
 import com.momo.user.application.dto.response.UserImageUpdateResponse;
 import com.momo.user.application.dto.response.UserResponse;

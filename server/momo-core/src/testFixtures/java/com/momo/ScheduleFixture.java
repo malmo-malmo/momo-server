@@ -7,12 +7,12 @@ import static com.momo.common.FixtureComponents.IS_OFFLINE;
 import static com.momo.common.FixtureComponents.PAGE_SIZE;
 import static com.momo.common.FixtureComponents.TITLE;
 
-import com.momo.group.entity.Group;
-import com.momo.schedule.dto.GroupSchedulesRequest;
-import com.momo.schedule.dto.ScheduleCreateRequest;
-import com.momo.schedule.dto.UpcomingScheduleResponse;
-import com.momo.schedule.entity.Schedule;
-import com.momo.user.domain.model.User;
+import com.momo.group.domain.Group;
+import com.momo.group.application.dto.request.GroupSchedulesRequest;
+import com.momo.group.application.dto.request.ScheduleCreateRequest;
+import com.momo.group.application.dto.response.UpcomingScheduleResponse;
+import com.momo.group.domain.schedule.Schedule;
+import com.momo.user.domain.User;
 import java.time.LocalDateTime;
 
 public class ScheduleFixture {

@@ -19,7 +19,7 @@ import com.momo.user.application.dto.request.UserUpdateRequest;
 import com.momo.user.application.dto.response.UserImageUpdateResponse;
 import com.momo.user.application.dto.response.UserResponse;
 import com.momo.user.application.dto.response.UserUpdateResponse;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import com.momo.user.domain.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

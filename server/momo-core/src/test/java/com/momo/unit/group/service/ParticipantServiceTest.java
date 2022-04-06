@@ -15,14 +15,13 @@ import static org.mockito.Mockito.verify;
 import com.momo.common.ServiceTest;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.group.dto.ParticipantResponse;
-import com.momo.group.entity.Group;
-import com.momo.group.entity.Participant;
-import com.momo.group.repository.GroupRepository;
-import com.momo.group.repository.ParticipantRepository;
-import com.momo.group.service.ParticipantService;
-import com.momo.group.service.impl.ParticipantServiceImpl;
-import com.momo.user.domain.model.User;
+import com.momo.group.application.dto.response.ParticipantResponse;
+import com.momo.group.domain.Group;
+import com.momo.group.domain.participant.Participant;
+import com.momo.group.domain.repository.GroupRepository;
+import com.momo.group.domain.repository.ParticipantRepository;
+import com.momo.group.application.ParticipantService;
+import com.momo.user.domain.User;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,7 +49,7 @@ public class ParticipantServiceTest extends ServiceTest {
         manager = getUserWithId();
         user1 = getUserWithId();
         user2 = getUserWithId();
-        participantService = new ParticipantServiceImpl(participantRepository, groupRepository);
+        participantService = new ParticipantService(participantRepository, groupRepository);
     }
 
     @Test

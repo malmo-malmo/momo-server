@@ -3,11 +3,11 @@ package com.momo.schedule.acceptance.step;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.schedule.dto.GroupScheduleResponses;
-import com.momo.schedule.dto.ScheduleCreateRequest;
-import com.momo.schedule.dto.UpcomingScheduleResponse;
-import com.momo.schedule.dto.UserScheduleResponse;
-import com.momo.user.domain.model.User;
+import com.momo.group.application.dto.response.GroupScheduleResponses;
+import com.momo.group.application.dto.request.ScheduleCreateRequest;
+import com.momo.group.application.dto.response.UpcomingScheduleResponse;
+import com.momo.group.application.dto.response.UserScheduleResponse;
+import com.momo.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;

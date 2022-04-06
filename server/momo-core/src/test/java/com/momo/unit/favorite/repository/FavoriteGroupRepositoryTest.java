@@ -7,11 +7,11 @@ import static com.momo.UserFixture.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
-import com.momo.favorite.dto.FavoriteGroupCardResponse;
-import com.momo.favorite.entity.FavoriteGroup;
-import com.momo.favorite.repository.FavoriteGroupRepository;
-import com.momo.group.entity.Group;
-import com.momo.user.domain.model.User;
+import com.momo.group.application.dto.response.FavoriteGroupCardResponse;
+import com.momo.group.domain.favorite.FavoriteGroup;
+import com.momo.group.domain.repository.FavoriteGroupRepository;
+import com.momo.group.domain.Group;
+import com.momo.user.domain.User;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

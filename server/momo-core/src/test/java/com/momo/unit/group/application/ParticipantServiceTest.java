@@ -1,4 +1,4 @@
-package com.momo.unit.group.service;
+package com.momo.unit.group.application;
 
 import static com.momo.AchievementRateFixture.getParticipantAchievementRateWithId;
 import static com.momo.GroupFixture.getGroup;

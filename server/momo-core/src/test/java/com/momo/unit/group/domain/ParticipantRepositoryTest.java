@@ -1,4 +1,4 @@
-package com.momo.unit.group.repository;
+package com.momo.unit.group.domain;
 
 import static com.momo.GroupFixture.getGroup;
 import static com.momo.ParticipantFixture.getParticipant;

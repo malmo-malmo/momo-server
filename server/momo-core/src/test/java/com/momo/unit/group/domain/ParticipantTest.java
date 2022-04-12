@@ -1,4 +1,4 @@
-package com.momo.unit.group.entity;
+package com.momo.unit.group.domain;
 
 import static com.momo.GroupFixture.getGroupWithId;
 import static com.momo.UserFixture.getUserWithId;

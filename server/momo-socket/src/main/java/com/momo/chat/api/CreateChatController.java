@@ -2,7 +2,7 @@ package com.momo.chat.api;
 
 import com.momo.chat.domain.service.CreateChatUseCase;
 import com.momo.common.auth.CurrentUser;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import java.net.URI;
 import java.net.URISyntaxException;
 import lombok.RequiredArgsConstructor;

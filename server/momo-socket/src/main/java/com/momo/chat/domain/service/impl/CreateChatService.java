@@ -8,9 +8,9 @@ import com.momo.chat.entity.Chat;
 import com.momo.chat.repository.ChatRepository;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.group.entity.Group;
-import com.momo.group.repository.GroupRepository;
-import com.momo.user.domain.model.User;
+import com.momo.group.domain.Group;
+import com.momo.group.domain.repository.GroupRepository;
+import com.momo.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

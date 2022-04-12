@@ -3,7 +3,7 @@ package com.momo.schedule.service;
 import com.momo.schedule.dto.AttendanceCreateRequests;
 import com.momo.schedule.dto.AttendanceResponse;
 import com.momo.schedule.dto.AttendanceUpdateRequests;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import java.util.List;
 
 public interface AttendanceService {

@@ -1,8 +1,8 @@
 package com.momo.favorite.entity;
 
 import com.momo.common.entity.BaseEntity;
-import com.momo.group.entity.Group;
-import com.momo.user.domain.model.User;
+import com.momo.group.domain.Group;
+import com.momo.user.domain.User;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;

@@ -12,8 +12,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.momo.group.GroupsController;
 import com.momo.common.RestDocsControllerTest;
 import com.momo.district.entity.City;
-import com.momo.group.entity.Category;
-import com.momo.group.service.impl.GroupServiceImpl;
+import com.momo.group.domain.category.Category;
+import com.momo.group.application.GroupService;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ public class GroupsRestDocsTest extends RestDocsControllerTest {
     public GroupsController groupsController;
 
     @MockBean
-    public GroupServiceImpl groupService;
+    public GroupService groupService;
 
     @Test
     void 모임_목록_조회_검색_V1() throws Exception {

@@ -7,7 +7,7 @@ import com.momo.common.DatabaseCleaner;
 import com.momo.auth.domain.KakaoOAuthProvider;
 import com.momo.auth.domain.OAuthProviderFactory;
 import com.momo.auth.infra.TokenProvider;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import com.momo.user.domain.repository.UserRepository;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;

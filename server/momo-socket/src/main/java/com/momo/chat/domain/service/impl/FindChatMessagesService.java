@@ -10,7 +10,7 @@ import com.momo.chat.entity.Chat;
 import com.momo.chat.repository.ChatRepository;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;

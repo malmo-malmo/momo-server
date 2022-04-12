@@ -4,7 +4,7 @@ import com.momo.auth.CurrentUser;
 import com.momo.post.dto.CommentCreateRequest;
 import com.momo.post.dto.CommentResponse;
 import com.momo.post.service.CommentService;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import java.net.URI;
 import java.net.URISyntaxException;
 import javax.validation.Valid;

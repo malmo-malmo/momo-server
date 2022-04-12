@@ -4,8 +4,8 @@ import com.momo.common.dto.EnumResponse;
 import com.momo.user.application.dto.request.UserUpdateRequest;
 import com.momo.user.application.dto.response.UserResponse;
 import com.momo.user.application.dto.response.UserUpdateResponse;
-import com.momo.user.domain.model.Location;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.location.Location;
+import com.momo.user.domain.User;
 
 public class UserAssembler {
 

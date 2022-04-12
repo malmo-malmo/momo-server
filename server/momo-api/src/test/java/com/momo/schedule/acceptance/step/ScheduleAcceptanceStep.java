@@ -7,7 +7,7 @@ import com.momo.schedule.dto.GroupScheduleResponses;
 import com.momo.schedule.dto.ScheduleCreateRequest;
 import com.momo.schedule.dto.UpcomingScheduleResponse;
 import com.momo.schedule.dto.UserScheduleResponse;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;

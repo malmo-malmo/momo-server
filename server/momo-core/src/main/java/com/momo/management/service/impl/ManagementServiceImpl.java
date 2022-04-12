@@ -1,9 +1,9 @@
 package com.momo.management.service.impl;
 
-import com.momo.group.entity.Group;
-import com.momo.group.entity.Participant;
-import com.momo.group.repository.GroupRepository;
-import com.momo.group.repository.ParticipantRepository;
+import com.momo.group.domain.Group;
+import com.momo.group.domain.participant.Participant;
+import com.momo.group.domain.repository.GroupRepository;
+import com.momo.group.domain.repository.ParticipantRepository;
 import com.momo.management.dto.MyGroupCardResponse;
 import com.momo.management.dto.MyGroupSummaryResponse;
 import com.momo.management.dto.MyPostCardResponse;
@@ -13,7 +13,7 @@ import com.momo.management.dto.ParticipationGroupSummaryResponse;
 import com.momo.management.service.ManagementService;
 import com.momo.post.entity.Post;
 import com.momo.post.repository.PostRepository;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import com.momo.post.entity.PostType;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

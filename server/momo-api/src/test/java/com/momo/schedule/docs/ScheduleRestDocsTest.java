@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.momo.schedule.ScheduleController;
 import com.momo.common.RestDocsControllerTest;
 import com.momo.common.dto.EnumResponse;
-import com.momo.group.entity.Category;
+import com.momo.group.domain.category.Category;
 import com.momo.schedule.dto.GroupScheduleResponse;
 import com.momo.schedule.dto.GroupScheduleResponses;
 import com.momo.schedule.dto.ScheduleCreateRequest;

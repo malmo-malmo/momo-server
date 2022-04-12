@@ -11,7 +11,7 @@ import com.momo.chat.entity.Chat;
 import com.momo.chat.repository.ChatRepository;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import com.momo.user.domain.repository.UserRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

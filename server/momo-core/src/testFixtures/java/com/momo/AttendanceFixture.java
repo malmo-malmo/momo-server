@@ -2,7 +2,7 @@ package com.momo;
 
 import static com.momo.common.FixtureComponents.INCREASE_ID;
 
-import com.momo.group.entity.Participant;
+import com.momo.group.domain.participant.Participant;
 import com.momo.schedule.dto.AttendanceCreateRequest;
 import com.momo.schedule.dto.AttendanceCreateRequests;
 import com.momo.schedule.dto.AttendanceUpdateRequest;

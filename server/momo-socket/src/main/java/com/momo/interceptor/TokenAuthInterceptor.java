@@ -11,7 +11,7 @@ import com.momo.auth.service.OAuthService;
 import com.momo.chat.domain.service.impl.CreateQueueService;
 import com.momo.common.exception.CustomException;
 import com.momo.config.model.SocketPrincipal;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import java.security.Principal;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;

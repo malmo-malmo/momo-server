@@ -4,7 +4,7 @@ import static com.momo.GroupFixture.getGroupCreateRequest;
 import static com.momo.PostFixture.getPostCreateRequest;
 import static com.momo.UserFixture.getUser;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
-import static com.momo.group.entity.Category.LIFE;
+import static com.momo.group.domain.category.Category.LIFE;
 import static com.momo.post.entity.PostType.NORMAL;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToApplyParticipant;
@@ -23,7 +23,7 @@ import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToCreatePo
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.acceptance.AcceptanceTest;
-import com.momo.group.dto.GroupCreateRequest;
+import com.momo.group.application.dto.GroupCreateRequest;
 import com.momo.management.dto.MyGroupCardResponse;
 import com.momo.management.dto.MyGroupSummaryResponse;
 import com.momo.management.dto.MyPostCardResponse;
@@ -31,7 +31,7 @@ import com.momo.management.dto.ParticipationGroupCardResponse;
 import com.momo.management.dto.ParticipationGroupCountResponse;
 import com.momo.management.dto.ParticipationGroupSummaryResponse;
 import com.momo.post.dto.PostCreateRequest;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;

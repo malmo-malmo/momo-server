@@ -1,7 +1,7 @@
 package com.momo.chat.domain.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 
 public interface SaveMessageUseCase {
 

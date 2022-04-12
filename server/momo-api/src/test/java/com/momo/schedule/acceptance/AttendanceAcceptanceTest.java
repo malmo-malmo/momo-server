@@ -9,7 +9,7 @@ import static com.momo.ScheduleFixture.getScheduleCreateRequest;
 import static com.momo.UserFixture.getUser;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsCreated;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
-import static com.momo.group.entity.Category.LIFE;
+import static com.momo.group.domain.category.Category.LIFE;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToApplyParticipant;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToFindParticipants;
@@ -22,7 +22,7 @@ import static com.momo.schedule.acceptance.step.ScheduleAcceptanceStep.requestTo
 import static java.time.LocalDateTime.of;
 
 import com.momo.common.acceptance.AcceptanceTest;
-import com.momo.group.dto.ParticipantResponse;
+import com.momo.group.application.dto.ParticipantResponse;
 import com.momo.schedule.dto.AttendanceCreateRequests;
 import com.momo.schedule.dto.AttendanceResponse;
 import com.momo.schedule.dto.AttendanceUpdateRequests;

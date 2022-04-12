@@ -11,9 +11,9 @@ import static com.momo.fixture.MessageFixture.getNormalMessage;
 
 import com.momo.chat.domain.repository.MessageRepository;
 import com.momo.common.acceptance.AcceptanceTest;
-import com.momo.group.entity.Group;
-import com.momo.group.repository.GroupRepository;
-import com.momo.user.domain.model.User;
+import com.momo.group.domain.Group;
+import com.momo.group.domain.repository.GroupRepository;
+import com.momo.user.domain.User;
 import com.momo.user.domain.repository.UserRepository;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;

@@ -3,7 +3,7 @@ package com.momo.group.acceptance.step;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.group.dto.ParticipantResponse;
+import com.momo.group.application.dto.ParticipantResponse;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;

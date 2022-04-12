@@ -4,8 +4,8 @@ import static com.momo.GroupFixture.getGroupWithId;
 import static com.momo.UserFixture.getUserWithId;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.group.entity.Group;
-import com.momo.user.domain.model.User;
+import com.momo.group.domain.Group;
+import com.momo.user.domain.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

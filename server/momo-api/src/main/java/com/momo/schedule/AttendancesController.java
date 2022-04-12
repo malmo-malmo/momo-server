@@ -3,7 +3,7 @@ package com.momo.schedule;
 import com.momo.auth.CurrentUser;
 import com.momo.schedule.dto.AttendanceResponse;
 import com.momo.schedule.service.AttendanceService;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

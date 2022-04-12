@@ -8,6 +8,7 @@ import com.momo.group.domain.category.Category;
 import com.momo.user.domain.location.Location;
 import com.momo.user.domain.social.SocialLogin;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -59,11 +60,8 @@ public class User extends BaseEntity {
         if (isNull(this.nickname)) {
             return true;
         }
-        return this.nickname.equals(nickname);
-    }
 
-    public boolean isSameUser(User user) {
-        return this.isSameId(user.getId());
+        return this.nickname.equals(nickname);
     }
 
     public void update(String nickname, Location location) {
@@ -76,6 +74,7 @@ public class User extends BaseEntity {
             this.location = Location.create(location);
             return;
         }
+
         this.location.update(location);
     }
 
@@ -89,5 +88,24 @@ public class User extends BaseEntity {
 
     public boolean isSameId(Long userId) {
         return this.id.equals(userId);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof User)) {
+            return false;
+        }
+
+        User user = (User) o;
+
+        return this.id != null ? this.id.equals(user.getId()) : user.getId() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }

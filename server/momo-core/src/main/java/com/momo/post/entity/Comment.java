@@ -55,7 +55,7 @@ public class Comment extends BaseEntity {
     }
 
     public void validateWriter(User loginUser) {
-        if (!this.user.isSameUser(loginUser)) {
+        if (!this.user.equals(loginUser)) {
             throw new CustomException(ErrorCode.USER_ACCESS_DENIED);
         }
     }

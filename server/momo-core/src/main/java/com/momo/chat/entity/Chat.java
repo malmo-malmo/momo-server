@@ -52,7 +52,6 @@ public class Chat extends BaseEntity {
     }
 
     public boolean isManager(User user) {
-        return this.manager.isSameUser(user);
+        return this.manager.equals(user);
     }
-
 }

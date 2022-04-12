@@ -68,7 +68,7 @@ public class PostServiceImpl implements PostService {
 
     private void uploadImages(List<MultipartFile> images, Post post) {
         List<String> imageUrls = imageUploadService
-            .uploadAll(images, GenerateUploadPathUtil.getPostImage(post.getGroup().getId(), post.getId()));
+            .uploadAll(images, GenerateUploadPathUtil.getPostImagePath(post.getGroup().getId(), post.getId()));
         post.updateImages(imageUrls);
     }
 

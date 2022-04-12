@@ -1,10 +1,12 @@
 package com.momo.group.domain;
 
-import com.momo.common.entity.BaseEntity;
 import com.momo.achievementrate.entity.GroupAchievementRate;
+import com.momo.common.entity.BaseEntity;
+import com.momo.common.exception.CustomException;
+import com.momo.common.exception.ErrorCode;
 import com.momo.group.domain.category.Category;
-import com.momo.user.domain.location.Location;
 import com.momo.user.domain.User;
+import com.momo.user.domain.location.Location;
 import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Embedded;
@@ -112,20 +114,29 @@ public class Group extends BaseEntity {
         if (Objects.isNull(achievementRate)) {
             return;
         }
+
         this.achievementRate = achievementRate;
+    }
+
+    public void validateManager(User user) {
+        if (!this.isManager(user)) {
+            throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
+        }
     }
 
     public boolean isManager(User user) {
         if (Objects.isNull(user)) {
             return false;
         }
-        return user.isSameUser(manager);
+
+        return user.equals(manager);
     }
 
     public void updateManager(User user) {
         if (Objects.isNull(user)) {
             return;
         }
+
         this.manager = user;
     }
 
@@ -134,10 +145,30 @@ public class Group extends BaseEntity {
             this.imageUrl = null;
             return;
         }
+
         this.imageUrl = imageUrl;
     }
 
     public void endGroup() {
         this.isEnd = true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Group)) {
+            return false;
+        }
+
+        Group group = (Group) o;
+
+        return this.id != null ? this.id.equals(group.getId()) : group.getId() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }

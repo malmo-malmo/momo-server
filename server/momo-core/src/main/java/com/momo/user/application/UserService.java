@@ -46,7 +46,7 @@ public class UserService {
     @Transactional
     public UserImageUpdateResponse updateImage(User loginUser, MultipartFile imageFile) {
         User user = findByUser(loginUser);
-        String imageUrl = s3UploadService.upload(imageFile, GenerateUploadPathUtil.getUserImage(user.getId()));
+        String imageUrl = s3UploadService.upload(imageFile, GenerateUploadPathUtil.getUserImagePath(user.getId()));
 
         user.updateImageUrl(imageUrl);
 

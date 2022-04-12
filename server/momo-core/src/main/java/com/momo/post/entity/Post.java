@@ -83,6 +83,7 @@ public class Post extends BaseEntity {
         if (Objects.isNull(loginUser)) {
             return false;
         }
-        return this.author.isSameUser(loginUser);
+
+        return this.author.equals(loginUser);
     }
 }

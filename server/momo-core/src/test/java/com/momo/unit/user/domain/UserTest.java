@@ -53,7 +53,7 @@ public class UserTest {
     void isSameUser_True() {
         User user1 = User.builder().id(1L).build();
         User user2 = User.builder().id(1L).build();
-        boolean expected = user1.isSameUser(user2);
+        boolean expected = user1.equals(user2);
         assertThat(expected).isTrue();
     }
 
@@ -62,7 +62,7 @@ public class UserTest {
     void isSameUser_False() {
         User user1 = User.builder().id(1L).build();
         User user2 = User.builder().id(2L).build();
-        boolean expected = user1.isSameUser(user2);
+        boolean expected = user1.equals(user2);
         assertThat(expected).isFalse();
     }
 

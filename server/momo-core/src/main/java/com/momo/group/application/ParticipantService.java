@@ -22,34 +22,27 @@ public class ParticipantService {
     private final GroupRepository groupRepository;
 
     @Transactional(readOnly = true)
-    public List<ParticipantResponse> findByGroupId(User user, Long groupId) {
+    public List<ParticipantResponse> findByGroupId(User loginUser, Long groupId) {
         Group group = getGroupById(groupId);
-        validateGroupManager(group, user);
+        group.validateManager(loginUser);
+
         List<Participant> participants = participantRepository.findAllByGroup(group);
+
         return ParticipantResponse.listOf(participants);
     }
 
-    private void validateGroupManager(Group group, User user) {
-        if (!group.isManager(user)) {
-            throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
-        }
-    }
-
-    public void withdrawByGroupId(User user, Long groupId) {
+    public void withdrawByGroupId(User loginUser, Long groupId) {
         Group group = getGroupById(groupId);
-        validateNotGroupManager(group, user);
-        participantRepository.deleteByGroupAndUser(group, user);
+        if (group.isManager(loginUser)) {
+            throw new CustomException(ErrorCode.GROUP_MANAGER_WITHDRAW_NOT_ALLOW);
+        }
+
+        participantRepository.deleteByGroupAndUser(group, loginUser);
     }
 
     private Group getGroupById(Long groupId) {
         return groupRepository.findById(groupId)
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
-    }
-
-    private void validateNotGroupManager(Group group, User user) {
-        if (group.isManager(user)) {
-            throw new CustomException(ErrorCode.GROUP_MANAGER_WITHDRAW_NOT_ALLOW);
-        }
     }
 
     /*

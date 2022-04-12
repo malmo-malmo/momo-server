@@ -3,9 +3,9 @@ package com.momo.group;
 import com.momo.auth.CurrentUser;
 import com.momo.common.dto.EnumResponse;
 import com.momo.group.application.GroupService;
-import com.momo.group.application.dto.GroupCreateRequest;
-import com.momo.group.application.dto.GroupCreateResponse;
-import com.momo.group.application.dto.GroupResponse;
+import com.momo.group.application.dto.request.GroupCreateRequest;
+import com.momo.group.application.dto.response.GroupCreateResponse;
+import com.momo.group.application.dto.response.GroupResponse;
 import com.momo.user.domain.User;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -37,35 +38,37 @@ public class GroupController {
         return ResponseEntity.created(new URI("/api/group/" + response.getId())).body(response);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{groupId}")
     public ResponseEntity<GroupResponse> findGroup(
         @CurrentUser User user,
-        @PathVariable Long id
+        @PathVariable Long groupId
     ) {
-        GroupResponse groupResponse = groupService.findGroupById(user, id);
+        GroupResponse groupResponse = groupService.findGroup(user, groupId);
         return ResponseEntity.ok(groupResponse);
     }
 
     @GetMapping("/categories")
     public ResponseEntity<List<EnumResponse>> findGroupCategories() {
-        return ResponseEntity.ok(EnumResponse.listOfCategory());
+        List<EnumResponse> responses = EnumResponse.listOfCategory();
+        return ResponseEntity.ok(responses);
     }
 
-    @PatchMapping("/{id}/manager/{userId}")
-    public ResponseEntity<Void> updateManagerByUserId(
+    @PatchMapping("/{groupId}/update-manger")
+    public ResponseEntity<Void> updateManager(
         @CurrentUser User user,
-        @PathVariable Long id, @PathVariable Long userId
+        @PathVariable Long groupId,
+        @RequestParam Long userId
     ) {
-        groupService.updateManagerByUserId(user, id, userId);
+        groupService.updateManager(user, groupId, userId);
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/{id}/end")
-    public ResponseEntity<Void> endGroupById(
+    @PatchMapping("/{groupId}/end")
+    public ResponseEntity<Void> endGroup(
         @CurrentUser User user,
-        @PathVariable Long id
+        @PathVariable Long groupId
     ) {
-        groupService.endGroupById(user, id);
+        groupService.endGroup(user, groupId);
         return ResponseEntity.ok().build();
     }
 }

@@ -26,9 +26,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.dto.EnumResponse;
-import com.momo.group.application.dto.GroupCardResponse;
-import com.momo.group.application.dto.GroupCreateRequest;
-import com.momo.group.application.dto.GroupResponse;
+import com.momo.group.application.dto.response.GroupCardResponse;
+import com.momo.group.application.dto.request.GroupCreateRequest;
+import com.momo.group.application.dto.response.GroupResponse;
 import com.momo.user.application.dto.response.UserResponse;
 import com.momo.user.domain.User;
 import io.restassured.response.ExtractableResponse;

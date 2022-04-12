@@ -1,4 +1,4 @@
-package com.momo.group.application.dto;
+package com.momo.group.application.dto.response;
 
 import com.momo.group.domain.participant.Participant;
 import java.util.List;

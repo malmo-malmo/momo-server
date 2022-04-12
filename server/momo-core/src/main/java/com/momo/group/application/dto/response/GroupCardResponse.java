@@ -1,4 +1,4 @@
-package com.momo.group.application.dto;
+package com.momo.group.application.dto.response;
 
 import com.querydsl.core.annotations.QueryProjection;
 import java.time.LocalDate;

@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.group.GroupController;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.group.application.dto.GroupCreateRequest;
+import com.momo.group.application.dto.request.GroupCreateRequest;
 import com.momo.group.application.GroupService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

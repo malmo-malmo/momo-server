@@ -15,7 +15,7 @@ import static org.mockito.Mockito.verify;
 import com.momo.common.ServiceTest;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.group.application.dto.ParticipantResponse;
+import com.momo.group.application.dto.response.ParticipantResponse;
 import com.momo.group.domain.Group;
 import com.momo.group.domain.participant.Participant;
 import com.momo.group.domain.repository.GroupRepository;

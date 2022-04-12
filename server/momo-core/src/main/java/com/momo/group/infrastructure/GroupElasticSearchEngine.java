@@ -5,7 +5,7 @@ import static com.momo.group.domain.QGroup.group;
 import static com.momo.group.domain.participant.QParticipant.participant;
 
 import com.momo.district.entity.City;
-import com.momo.group.application.dto.GroupCardResponse;
+import com.momo.group.application.dto.response.GroupCardResponse;
 import com.momo.group.application.dto.QGroupCardResponse;
 import com.momo.group.domain.category.Category;
 import com.momo.group.domain.search.GroupSearchEngine;

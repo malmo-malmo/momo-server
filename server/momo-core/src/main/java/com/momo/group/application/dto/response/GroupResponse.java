@@ -1,4 +1,4 @@
-package com.momo.group.application.dto;
+package com.momo.group.application.dto.response;
 
 import com.momo.user.domain.location.Location;
 import com.querydsl.core.annotations.QueryProjection;

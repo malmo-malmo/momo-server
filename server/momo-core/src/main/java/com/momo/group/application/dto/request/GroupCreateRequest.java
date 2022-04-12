@@ -1,9 +1,7 @@
-package com.momo.group.application.dto;
+package com.momo.group.application.dto.request;
 
 import com.momo.district.entity.City;
 import com.momo.group.domain.category.Category;
-import com.momo.group.domain.Group;
-import com.momo.user.domain.location.Location;
 import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -61,17 +59,5 @@ public class GroupCreateRequest {
         this.introduction = introduction;
         this.image = image;
         this.isOffline = isOffline;
-    }
-
-    public Group toEntity() {
-        return Group.builder()
-            .name(name)
-            .category(category)
-            .location(Location.fromEmptyUniversity(city, district))
-            .startDate(startDate)
-            .recruitmentCnt(recruitmentCnt)
-            .introduction(introduction)
-            .isOffline(isOffline)
-            .build();
     }
 }

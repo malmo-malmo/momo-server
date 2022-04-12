@@ -14,7 +14,7 @@ import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestTo
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
 import com.momo.common.exception.ErrorCode;
-import com.momo.group.application.dto.ParticipantResponse;
+import com.momo.group.application.dto.response.ParticipantResponse;
 import com.momo.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;

@@ -9,9 +9,9 @@ import static java.util.List.of;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
-import com.momo.group.application.dto.GroupCardResponse;
-import com.momo.group.application.dto.GroupResponse;
-import com.momo.group.application.dto.GroupSearchConditionRequest;
+import com.momo.group.application.dto.response.GroupCardResponse;
+import com.momo.group.application.dto.response.GroupResponse;
+import com.momo.group.application.dto.request.GroupSearchConditionRequest;
 import com.momo.group.domain.Group;
 import com.momo.group.domain.repository.GroupRepository;
 import com.momo.user.domain.User;

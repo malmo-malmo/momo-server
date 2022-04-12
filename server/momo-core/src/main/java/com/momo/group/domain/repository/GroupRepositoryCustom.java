@@ -1,9 +1,9 @@
 package com.momo.group.domain.repository;
 
 import com.momo.district.entity.City;
-import com.momo.group.application.dto.GroupCardResponse;
-import com.momo.group.application.dto.GroupResponse;
-import com.momo.group.application.dto.GroupSearchConditionRequest;
+import com.momo.group.application.dto.response.GroupCardResponse;
+import com.momo.group.application.dto.response.GroupResponse;
+import com.momo.group.application.dto.request.GroupSearchConditionRequest;
 import com.momo.group.domain.category.Category;
 import com.momo.group.domain.Group;
 import com.momo.user.domain.User;

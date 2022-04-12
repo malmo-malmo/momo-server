@@ -22,7 +22,7 @@ import static com.momo.schedule.acceptance.step.ScheduleAcceptanceStep.requestTo
 import static java.time.LocalDateTime.of;
 
 import com.momo.common.acceptance.AcceptanceTest;
-import com.momo.group.application.dto.ParticipantResponse;
+import com.momo.group.application.dto.response.ParticipantResponse;
 import com.momo.schedule.dto.AttendanceCreateRequests;
 import com.momo.schedule.dto.AttendanceResponse;
 import com.momo.schedule.dto.AttendanceUpdateRequests;

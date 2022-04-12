@@ -1,6 +1,5 @@
-package com.momo.group.application.dto;
+package com.momo.group.application.dto.response;
 
-import com.momo.group.domain.Group;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,12 +15,5 @@ public class GroupCreateResponse {
     public GroupCreateResponse(Long id, String imageUrl) {
         this.id = id;
         this.imageUrl = imageUrl;
-    }
-
-    public static GroupCreateResponse of(Group group) {
-        return GroupCreateResponse.builder()
-            .id(group.getId())
-            .imageUrl(group.getImageUrl())
-            .build();
     }
 }

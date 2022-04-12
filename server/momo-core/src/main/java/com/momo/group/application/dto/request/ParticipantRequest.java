@@ -1,4 +1,4 @@
-package com.momo.group.application.dto;
+package com.momo.group.application.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

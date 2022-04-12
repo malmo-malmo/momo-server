@@ -1,4 +1,4 @@
-package com.momo.group.application.dto;
+package com.momo.group.application.dto.request;
 
 import com.momo.district.entity.City;
 import com.momo.group.domain.category.Category;

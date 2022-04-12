@@ -18,11 +18,11 @@ import static com.momo.common.FixtureComponents.PAGE_SIZE;
 import static com.momo.common.FixtureComponents.RECRUITMENT_CNT;
 import static com.momo.common.LocationFixture.getLocation;
 
-import com.momo.group.application.dto.GroupCardResponse;
-import com.momo.group.application.dto.GroupCreateRequest;
-import com.momo.group.application.dto.GroupCreateResponse;
-import com.momo.group.application.dto.GroupResponse;
-import com.momo.group.application.dto.GroupSearchConditionRequest;
+import com.momo.group.application.dto.response.GroupCardResponse;
+import com.momo.group.application.dto.request.GroupCreateRequest;
+import com.momo.group.application.dto.response.GroupCreateResponse;
+import com.momo.group.application.dto.response.GroupResponse;
+import com.momo.group.application.dto.request.GroupSearchConditionRequest;
 import com.momo.group.domain.category.Category;
 import com.momo.group.domain.Group;
 import com.momo.user.domain.User;

@@ -23,7 +23,7 @@ import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToCreatePo
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.acceptance.AcceptanceTest;
-import com.momo.group.application.dto.GroupCreateRequest;
+import com.momo.group.application.dto.request.GroupCreateRequest;
 import com.momo.management.dto.MyGroupCardResponse;
 import com.momo.management.dto.MyGroupSummaryResponse;
 import com.momo.management.dto.MyPostCardResponse;

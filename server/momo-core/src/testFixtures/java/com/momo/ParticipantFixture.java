@@ -5,7 +5,7 @@ import static com.momo.common.FixtureComponents.INCREASE_ID;
 import static com.momo.common.FixtureComponents.NICKNAME;
 
 import com.momo.achievementrate.entity.ParticipantAchievementRate;
-import com.momo.group.application.dto.ParticipantResponse;
+import com.momo.group.application.dto.response.ParticipantResponse;
 import com.momo.group.domain.Group;
 import com.momo.group.domain.participant.Participant;
 import com.momo.user.domain.User;

@@ -6,14 +6,13 @@ import static com.momo.group.domain.QGroup.group;
 import static com.momo.group.domain.participant.QParticipant.participant;
 
 import com.momo.district.entity.City;
-import com.momo.group.application.dto.GroupCardResponse;
-import com.momo.group.application.dto.GroupResponse;
-import com.momo.group.application.dto.GroupSearchConditionRequest;
+import com.momo.group.application.dto.response.GroupCardResponse;
+import com.momo.group.application.dto.response.GroupResponse;
+import com.momo.group.application.dto.request.GroupSearchConditionRequest;
 import com.momo.group.application.dto.QGroupCardResponse;
 import com.momo.group.application.dto.QGroupResponse;
 import com.momo.group.domain.Group;
 import com.momo.group.domain.category.Category;
-import com.momo.group.domain.repository.GroupRepositoryCustom;
 import com.momo.user.domain.User;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;

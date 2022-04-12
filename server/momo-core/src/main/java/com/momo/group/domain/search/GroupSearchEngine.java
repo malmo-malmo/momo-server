@@ -1,7 +1,7 @@
 package com.momo.group.domain.search;
 
 import com.momo.district.entity.City;
-import com.momo.group.application.dto.GroupCardResponse;
+import com.momo.group.application.dto.response.GroupCardResponse;
 import com.momo.group.domain.category.Category;
 import com.momo.user.domain.User;
 import java.util.List;

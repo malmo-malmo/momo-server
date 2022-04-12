@@ -2,6 +2,7 @@ package com.momo.group;
 
 import com.momo.auth.CurrentUser;
 import com.momo.common.dto.EnumResponse;
+import com.momo.group.application.GroupService;
 import com.momo.group.application.dto.GroupCreateRequest;
 import com.momo.group.application.dto.GroupCreateResponse;
 import com.momo.group.application.dto.GroupResponse;

@@ -8,7 +8,7 @@ import com.momo.district.entity.City;
 import com.momo.group.application.dto.GroupCardResponse;
 import com.momo.group.application.dto.QGroupCardResponse;
 import com.momo.group.domain.category.Category;
-import com.momo.group.domain.repository.GroupSearchEngine;
+import com.momo.group.domain.search.GroupSearchEngine;
 import com.momo.group.domain.search.GroupSearch;
 import com.momo.user.domain.User;
 import com.querydsl.jpa.JPAExpressions;
@@ -26,9 +26,11 @@ import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.stereotype.Component;
 
+@Component
 @RequiredArgsConstructor
-public class GroupSearchEngineImpl implements GroupSearchEngine {
+public class GroupElasticSearchEngine implements GroupSearchEngine {
 
     private static final String PARAM_SEPARATOR = " ";
 

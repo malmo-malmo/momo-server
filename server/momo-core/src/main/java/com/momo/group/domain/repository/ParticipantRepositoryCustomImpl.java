@@ -1,4 +1,4 @@
-package com.momo.group.infrastructure;
+package com.momo.group.domain.repository;
 
 import static com.momo.group.domain.QGroup.group;
 import static com.momo.group.domain.participant.QParticipant.participant;

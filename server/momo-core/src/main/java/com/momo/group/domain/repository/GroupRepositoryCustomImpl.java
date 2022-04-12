@@ -1,4 +1,4 @@
-package com.momo.group.infrastructure;
+package com.momo.group.domain.repository;
 
 import static com.momo.achievementrate.entity.QGroupAchievementRate.groupAchievementRate;
 import static com.momo.favorite.entity.QFavoriteGroup.favoriteGroup;

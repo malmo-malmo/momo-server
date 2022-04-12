@@ -1,6 +1,7 @@
 package com.momo.group;
 
 import com.momo.auth.CurrentUser;
+import com.momo.group.application.GroupService;
 import com.momo.group.application.dto.GroupCardResponse;
 import com.momo.group.application.dto.GroupSearchConditionRequest;
 import com.momo.user.domain.User;

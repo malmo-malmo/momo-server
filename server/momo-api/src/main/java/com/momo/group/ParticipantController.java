@@ -1,6 +1,7 @@
 package com.momo.group;
 
 import com.momo.auth.CurrentUser;
+import com.momo.group.application.ParticipantService;
 import com.momo.group.application.dto.ParticipantRequest;
 import com.momo.group.application.dto.ParticipantResponse;
 import com.momo.user.domain.User;

@@ -1,4 +1,4 @@
-package com.momo.group.domain.repository;
+package com.momo.group.domain.search;
 
 import com.momo.district.entity.City;
 import com.momo.group.application.dto.GroupCardResponse;

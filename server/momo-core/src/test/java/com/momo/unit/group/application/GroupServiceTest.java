@@ -4,7 +4,9 @@ import static com.momo.GroupFixture.getGroupCreateRequest;
 import static com.momo.GroupFixture.getGroupResponse;
 import static com.momo.GroupFixture.getGroupWithId;
 import static com.momo.UserFixture.getUserWithId;
+import static com.momo.district.entity.City.SEOUL;
 import static com.momo.group.domain.category.Category.EMPLOYMENT;
+import static com.momo.group.domain.category.Category.STOCK;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -19,13 +21,13 @@ import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
 import com.momo.group.application.GroupService;
 import com.momo.group.application.dto.request.GroupCreateRequest;
+import com.momo.group.application.dto.request.GroupUpdateRequest;
 import com.momo.group.application.dto.response.GroupCreateResponse;
 import com.momo.group.application.dto.response.GroupResponse;
 import com.momo.group.domain.Group;
 import com.momo.group.domain.participant.Participant;
 import com.momo.group.domain.repository.GroupRepository;
 import com.momo.group.domain.repository.ParticipantRepository;
-import com.momo.group.domain.search.GroupSearchEngine;
 import com.momo.user.domain.User;
 import com.momo.user.domain.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
@@ -64,7 +66,8 @@ public class GroupServiceTest extends ServiceTest {
     }
 
     @Test
-    void 모임_생성_테스트() {
+    @DisplayName("모임을 생성한다")
+    void createGroup_Success() {
         GroupCreateRequest groupCreateRequest = getGroupCreateRequest(EMPLOYMENT, true);
         GroupResponse groupResponse = getGroupResponse();
 
@@ -84,7 +87,69 @@ public class GroupServiceTest extends ServiceTest {
     }
 
     @Test
-    void 모임_권한_양도_테스트_성공() {
+    @DisplayName("모임 관리자가 모임 정보를 수정한다")
+    void updateGroupInformation_Manager_Success() {
+        Group group = getGroupWithId(manager);
+        GroupUpdateRequest request = GroupUpdateRequest.builder()
+            .id(1L)
+            .name("운동 모임")
+            .category(STOCK)
+            .isUniversity(true)
+            .city(SEOUL)
+            .district("강동구")
+            .recruitmentCnt(10)
+            .introduction("모임 설명")
+            .isOffline(true)
+            .build();
+
+        given(groupRepository.findById(any())).willReturn(of(group));
+
+        groupService.updateGroupInformation(manager, request);
+
+        verify(groupRepository).findById(any());
+        Assertions.assertAll(
+            () -> assertThat(group.getName()).isEqualTo(request.getName()),
+            () -> assertThat(group.getCategory()).isEqualTo(request.getCategory()),
+            () -> assertThat(group.isUniversity()).isEqualTo(request.getIsUniversity()),
+            () -> assertThat(group.getLocation().getCity()).isEqualTo(request.getCity()),
+            () -> assertThat(group.getLocation().getDistrict()).isEqualTo(request.getDistrict()),
+            () -> assertThat(group.getRecruitmentCnt()).isEqualTo(request.getRecruitmentCnt()),
+            () -> assertThat(group.getIntroduction()).isEqualTo(request.getIntroduction()),
+            () -> assertThat(group.isOffline()).isEqualTo(request.getIsOffline())
+        );
+    }
+
+    @Test
+    @DisplayName("모임 관리자가 아니면 모임 정보를 수정을 실패한다")
+    void updateGroupInformation_NotManager_Failure() {
+        Group group = getGroupWithId(manager);
+        GroupUpdateRequest request = GroupUpdateRequest.builder().build();
+
+        given(groupRepository.findById(any())).willReturn(of(group));
+
+        assertThatThrownBy(() -> groupService.updateGroupInformation(participant, request))
+            .isInstanceOf(CustomException.class)
+            .hasMessage(ErrorCode.GROUP_MANAGER_AUTHORIZED.getMessage());
+    }
+
+    @Test
+    @DisplayName("모임 정원이 이전에 설정한 값보다 작으면 모임 정보 수정을 실패한다")
+    void updateGroupInformation_LessThanPrevRecruitmentCnt_Success() {
+        Group group = getGroupWithId(manager);
+        GroupUpdateRequest request = GroupUpdateRequest.builder()
+            .recruitmentCnt(9)
+            .build();
+
+        given(groupRepository.findById(any())).willReturn(of(group));
+
+        assertThatThrownBy(() -> groupService.updateGroupInformation(manager, request))
+            .isInstanceOf(CustomException.class)
+            .hasMessage(ErrorCode.INVALID_GROUP_RECRUITMENT_COUNT.getMessage());
+    }
+
+    @Test
+    @DisplayName("모임 관리자가 관리자를 변경한다")
+    void updateManager_Manager_Success() {
         Group group = getGroupWithId(manager);
 
         given(groupRepository.findById(any())).willReturn(of(group));
@@ -100,7 +165,8 @@ public class GroupServiceTest extends ServiceTest {
     }
 
     @Test
-    void 모임_관리자가_아니면_권한_양도_테스트를_실패한다() {
+    @DisplayName("모임 관리자가 아니면 관리자 변경을 실패한다")
+    void updateManager_NotManager_Failure() {
         Group group = getGroupWithId(manager);
 
         given(groupRepository.findById(any())).willReturn(of(group));
@@ -111,7 +177,8 @@ public class GroupServiceTest extends ServiceTest {
     }
 
     @Test
-    void 모임_참여자가_아니면_권한_양도_테스트를_실패한다() {
+    @DisplayName("모임 관리자가 해당 모임의 참여자가 아닌 유저에게 권한을 주면 실패한다")
+    void updateManager_NotParticipant_Failure() {
         Group group = getGroupWithId(manager);
 
         given(groupRepository.findById(any())).willReturn(of(group));
@@ -124,7 +191,8 @@ public class GroupServiceTest extends ServiceTest {
     }
 
     @Test
-    void 모임_종료_테스트_성공() {
+    @DisplayName("모임 관리자가 모임을 종료한다")
+    void endGroup_Manager_Success() {
         Group group = getGroupWithId(manager);
 
         given(groupRepository.findById(any())).willReturn(of(group));
@@ -136,7 +204,8 @@ public class GroupServiceTest extends ServiceTest {
     }
 
     @Test
-    void 모임_관리자가_아니면_종료_테스트를_실패한다() {
+    @DisplayName("모임 관리자가 아니면 모임 종료를 실패한다")
+    void endGroup_NotManager_Failure() {
         Group group = getGroupWithId(manager);
 
         given(groupRepository.findById(any())).willReturn(of(group));

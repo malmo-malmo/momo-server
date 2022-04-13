@@ -4,6 +4,7 @@ import com.momo.auth.CurrentUser;
 import com.momo.common.dto.EnumResponse;
 import com.momo.group.application.GroupService;
 import com.momo.group.application.dto.request.GroupCreateRequest;
+import com.momo.group.application.dto.request.GroupUpdateRequest;
 import com.momo.group.application.dto.response.GroupCreateResponse;
 import com.momo.group.application.dto.response.GroupResponse;
 import com.momo.user.domain.User;
@@ -18,8 +19,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -53,11 +55,19 @@ public class GroupController {
         return ResponseEntity.ok(responses);
     }
 
-    @PatchMapping("/{groupId}/update-manger")
+    @PutMapping
+    public ResponseEntity<Void> updateGroupInformation(
+        @CurrentUser User user,
+        @Valid @RequestBody GroupUpdateRequest request
+    ) {
+        groupService.updateGroupInformation(user, request);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/{groupId}/manager/{userId}")
     public ResponseEntity<Void> updateManager(
         @CurrentUser User user,
-        @PathVariable Long groupId,
-        @RequestParam Long userId
+        @PathVariable Long groupId, @PathVariable Long userId
     ) {
         groupService.updateManager(user, groupId, userId);
         return ResponseEntity.ok().build();

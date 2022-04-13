@@ -52,27 +52,31 @@ public class Group extends BaseEntity {
 
     private String imageUrl;
 
-    @Enumerated(EnumType.STRING)
-    private Category category;
-
     private LocalDate startDate;
 
-    @Embedded
-    private Location location;
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
     @Lob
     private String introduction;
 
+    @Embedded
+    private Location location;
+
     private int recruitmentCnt;
+
+    private boolean isUniversity;
 
     private boolean isOffline;
 
     private boolean isEnd;
 
     @Builder
-    public Group(Long id, User manager, GroupAchievementRate achievementRate, String name, String imageUrl,
-        Category category, LocalDate startDate, Location location, String introduction,
-        int recruitmentCnt, boolean isOffline, boolean isEnd) {
+    public Group(
+        Long id, User manager, GroupAchievementRate achievementRate, String name,
+        String imageUrl, Category category, LocalDate startDate, Location location,
+        String introduction, int recruitmentCnt, boolean isUniversity, boolean isOffline, boolean isEnd
+    ) {
         this.id = id;
         this.manager = manager;
         this.achievementRate = achievementRate;
@@ -83,19 +87,19 @@ public class Group extends BaseEntity {
         this.location = location;
         this.introduction = introduction;
         this.recruitmentCnt = recruitmentCnt;
+        this.isUniversity = isUniversity;
         this.isOffline = isOffline;
         this.isEnd = isEnd;
     }
 
-    public static Group create(User user, Group group, boolean isUniversity) {
-        Location location = getGroupLocation(isUniversity, user.getLocation().getUniversity(), group.getLocation());
+    public static Group create(User user, Group group) {
         return Group.builder()
             .manager(user)
             .name(group.getName())
             .imageUrl(group.getImageUrl())
             .category(group.getCategory())
             .startDate(group.getStartDate())
-            .location(location)
+            .location(Location.create(group.getLocation()))
             .introduction(group.getIntroduction())
             .recruitmentCnt(group.getRecruitmentCnt())
             .isOffline(group.isOffline())
@@ -103,18 +107,17 @@ public class Group extends BaseEntity {
             .build();
     }
 
-    private static Location getGroupLocation(boolean isUniversity, String university, Location location) {
-        if (isUniversity) {
-            return Location.fromUniversity(university, location);
-        }
-        return Location.fromEmptyUniversity(location);
+    public void update(Group group) {
+        this.name = group.getName();
+        this.category = group.getCategory();
+        this.recruitmentCnt = group.getRecruitmentCnt();
+        this.introduction = group.getIntroduction();
+        this.isUniversity = group.isUniversity();
+        this.isOffline = group.isOffline();
+        this.location.update(group.getLocation());
     }
 
     public void updateAchievementRate(GroupAchievementRate achievementRate) {
-        if (Objects.isNull(achievementRate)) {
-            return;
-        }
-
         this.achievementRate = achievementRate;
     }
 
@@ -132,11 +135,13 @@ public class Group extends BaseEntity {
         return user.equals(manager);
     }
 
-    public void updateManager(User user) {
-        if (Objects.isNull(user)) {
-            return;
+    public void validateRecruitmentCnt(int recruitmentCnt) {
+        if (this.recruitmentCnt > recruitmentCnt) {
+            throw new CustomException(ErrorCode.INVALID_GROUP_RECRUITMENT_COUNT);
         }
+    }
 
+    public void updateManager(User user) {
         this.manager = user;
     }
 
@@ -149,7 +154,7 @@ public class Group extends BaseEntity {
         this.imageUrl = imageUrl;
     }
 
-    public void endGroup() {
+    public void end() {
         this.isEnd = true;
     }
 

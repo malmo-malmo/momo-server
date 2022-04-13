@@ -38,7 +38,9 @@ public enum ErrorCode {
     GROUP_PARTICIPANT_AUTHORIZED(401, "모임 참여자에게만 허용된 기능입니다."),
     GROUP_PARTICIPANT_UNAUTHORIZED(401, "해당 모임의 참여자가 아닙니다."),
     POST_CONTROL_UNAUTHORIZED(401, "해당 게시글에 접근 권한이 없습니다."),
-    GROUP_OVER_CAPACITY(400, "해당 모임 정원이 초과되었습니다.");
+    GROUP_OVER_CAPACITY(400, "해당 모임 정원이 초과되었습니다."),
+    INVALID_GROUP_RECRUITMENT_COUNT(400, "모임 정원은 이전에 설정한 값보다 작은 값으로 변경할 수 없습니다.");
+
 
     private final int status;
     private final String message;

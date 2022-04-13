@@ -14,20 +14,52 @@ import org.junit.jupiter.api.Test;
 public class GroupTest {
 
     @Test
-    void 모임_생성_테스트() {
+    @DisplayName("모임을 생성한다")
+    void createGroup_Success() {
         User user = getUserWithId();
         Group group = getGroupWithId(user);
 
-        Group expected = Group.create(user, group, true);
+        Group expected = Group.create(user, group);
 
         Assertions.assertAll(
             () -> assertThat(expected).isNotNull(),
-            () -> assertThat(expected.getLocation().getUniversity()).isEqualTo(user.getLocation().getUniversity())
+            () -> assertThat(expected.getName()).isEqualTo(group.getName()),
+            () -> assertThat(expected.getImageUrl()).isEqualTo(group.getImageUrl()),
+            () -> assertThat(expected.getIntroduction()).isEqualTo(group.getIntroduction()),
+            () -> assertThat(expected.getRecruitmentCnt()).isEqualTo(group.getRecruitmentCnt()),
+            () -> assertThat(expected.getStartDate()).isEqualTo(group.getStartDate()),
+            () -> assertThat(expected.isOffline()).isEqualTo(group.isOffline()),
+            () -> assertThat(expected.isUniversity()).isEqualTo(group.isUniversity()),
+            () -> assertThat(expected.getLocation().getCity()).isEqualTo(group.getLocation().getCity()),
+            () -> assertThat(expected.getLocation().getDistrict()).isEqualTo(group.getLocation().getDistrict())
         );
     }
 
     @Test
-    void 모임_담당자_여부_확인_테스트() {
+    @DisplayName("모임 정보를 수정한다")
+    void updateGroup_Success() {
+        Group expected = getGroupWithId(getUserWithId());
+        Group actual = getGroupWithId(getUserWithId());
+
+        expected.update(actual);
+
+        Assertions.assertAll(
+            () -> assertThat(expected).isNotNull(),
+            () -> assertThat(expected.getName()).isEqualTo(actual.getName()),
+            () -> assertThat(expected.getImageUrl()).isEqualTo(actual.getImageUrl()),
+            () -> assertThat(expected.getIntroduction()).isEqualTo(actual.getIntroduction()),
+            () -> assertThat(expected.getRecruitmentCnt()).isEqualTo(actual.getRecruitmentCnt()),
+            () -> assertThat(expected.getStartDate()).isEqualTo(actual.getStartDate()),
+            () -> assertThat(expected.isOffline()).isEqualTo(actual.isOffline()),
+            () -> assertThat(expected.isUniversity()).isEqualTo(actual.isUniversity()),
+            () -> assertThat(expected.getLocation().getCity()).isEqualTo(actual.getLocation().getCity()),
+            () -> assertThat(expected.getLocation().getDistrict()).isEqualTo(actual.getLocation().getDistrict())
+        );
+    }
+
+    @Test
+    @DisplayName("해당 모임의 관리자인지 확인한다")
+    void validateManager_Success() {
         User user = getUserWithId();
         Group group = getGroupWithId(user);
 
@@ -37,7 +69,8 @@ public class GroupTest {
     }
 
     @Test
-    void 모임_담당자_변경_테스트() {
+    @DisplayName("해당 모임의 관리자를 변경한다")
+    void updateManager_Success() {
         User user1 = getUserWithId();
         User user2 = getUserWithId();
         Group group = getGroupWithId(user1);
@@ -48,10 +81,11 @@ public class GroupTest {
     }
 
     @Test
-    void 모임_종료_테스트() {
+    @DisplayName("모임을 종료한다")
+    void endGroup_Success() {
         Group expected = getGroupWithId(getUserWithId());
 
-        expected.endGroup();
+        expected.end();
 
         assertThat(expected.isEnd()).isTrue();
     }

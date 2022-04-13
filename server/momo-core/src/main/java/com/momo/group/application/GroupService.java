@@ -7,6 +7,7 @@ import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
 import com.momo.group.application.dto.GroupAssembler;
 import com.momo.group.application.dto.request.GroupCreateRequest;
+import com.momo.group.application.dto.request.GroupUpdateRequest;
 import com.momo.group.application.dto.response.GroupCreateResponse;
 import com.momo.group.application.dto.response.GroupResponse;
 import com.momo.group.domain.Group;
@@ -31,7 +32,7 @@ public class GroupService {
 
     public GroupCreateResponse createGroup(User loginUser, GroupCreateRequest request) {
         Group group = groupRepository.save(
-            Group.create(loginUser, GroupAssembler.mapToGroup(request), request.getIsUniversity())
+            Group.create(loginUser, GroupAssembler.mapToGroupForCreate(request))
         );
 
         String imageUrl = s3UploadService.upload(request.getImage(), getGroupImagePath(group.getId()));
@@ -45,6 +46,14 @@ public class GroupService {
     @Transactional(readOnly = true)
     public GroupResponse findGroup(User user, Long groupId) {
         return groupRepository.findDetailByGroupId(user, groupId);
+    }
+
+    public void updateGroupInformation(User loginUser, GroupUpdateRequest request) {
+        Group group = getGroupById(request.getId());
+        group.validateManager(loginUser);
+        group.validateRecruitmentCnt(request.getRecruitmentCnt());
+
+        group.update(GroupAssembler.mapToGroupForUpdate(request));
     }
 
     public void updateManager(User loginUser, Long groupId, Long userId) {
@@ -71,7 +80,7 @@ public class GroupService {
     public void endGroup(User loginUser, Long groupId) {
         Group group = getGroupById(groupId);
         group.validateManager(loginUser);
-        group.endGroup();
+        group.end();
     }
 
     private Group getGroupById(Long groupId) {

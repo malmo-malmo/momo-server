@@ -41,7 +41,7 @@ public class ParticipantAcceptanceTest extends AcceptanceTest {
     void 모임_관리자가_참여자_목록을_조회한다() {
         String managerToken = getAccessToken(user);
         String participantToken = getAccessToken(getUser());
-        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, user.getUniversity())));
         requestToApplyParticipant(participantToken, groupId);
 
         ExtractableResponse<Response> response = requestToFindParticipants(managerToken, groupId);
@@ -53,7 +53,7 @@ public class ParticipantAcceptanceTest extends AcceptanceTest {
     void 모임_관리자가_아닌_유저가_참여자_목록을_조회하면_실패한다() {
         String managerToken = getAccessToken(user);
         String participantToken = getAccessToken(getUser());
-        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, user.getUniversity())));
         requestToApplyParticipant(participantToken, groupId);
 
         ExtractableResponse<Response> response = requestToFindParticipants(participantToken, groupId);
@@ -65,7 +65,7 @@ public class ParticipantAcceptanceTest extends AcceptanceTest {
     void 모임_참여자가_모임에서_탈퇴한다() {
         String managerToken = getAccessToken(user);
         String participantToken = getAccessToken(getUser());
-        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, user.getUniversity())));
         requestToApplyParticipant(participantToken, groupId);
 
         ExtractableResponse<Response> response = requestToDeleteParticipant(participantToken, groupId);
@@ -79,7 +79,7 @@ public class ParticipantAcceptanceTest extends AcceptanceTest {
     @Test
     void 모임_관리자가_모임에서_탈퇴하면_실패한다() {
         String token = getAccessToken(user);
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, user.getUniversity())));
 
         ExtractableResponse<Response> response = requestToDeleteParticipant(token, groupId);
 

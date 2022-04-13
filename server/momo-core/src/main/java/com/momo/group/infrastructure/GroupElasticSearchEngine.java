@@ -6,10 +6,10 @@ import static com.momo.group.domain.participant.QParticipant.participant;
 
 import com.momo.district.entity.City;
 import com.momo.group.application.dto.response.GroupCardResponse;
-import com.momo.group.application.dto.QGroupCardResponse;
+import com.momo.group.application.dto.response.QGroupCardResponse;
 import com.momo.group.domain.category.Category;
-import com.momo.group.domain.search.GroupSearchEngine;
 import com.momo.group.domain.search.GroupSearch;
+import com.momo.group.domain.search.GroupSearchEngine;
 import com.momo.user.domain.User;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;

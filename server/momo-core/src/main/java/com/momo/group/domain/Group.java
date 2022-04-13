@@ -52,6 +52,8 @@ public class Group extends BaseEntity {
 
     private String imageUrl;
 
+    private String university;
+
     private LocalDate startDate;
 
     @Enumerated(EnumType.STRING)
@@ -65,8 +67,6 @@ public class Group extends BaseEntity {
 
     private int recruitmentCnt;
 
-    private boolean isUniversity;
-
     private boolean isOffline;
 
     private boolean isEnd;
@@ -74,8 +74,8 @@ public class Group extends BaseEntity {
     @Builder
     public Group(
         Long id, User manager, GroupAchievementRate achievementRate, String name,
-        String imageUrl, Category category, LocalDate startDate, Location location,
-        String introduction, int recruitmentCnt, boolean isUniversity, boolean isOffline, boolean isEnd
+        String imageUrl, Category category, LocalDate startDate, String university,
+        Location location, String introduction, int recruitmentCnt, boolean isOffline, boolean isEnd
     ) {
         this.id = id;
         this.manager = manager;
@@ -87,7 +87,7 @@ public class Group extends BaseEntity {
         this.location = location;
         this.introduction = introduction;
         this.recruitmentCnt = recruitmentCnt;
-        this.isUniversity = isUniversity;
+        this.university = university;
         this.isOffline = isOffline;
         this.isEnd = isEnd;
     }
@@ -97,6 +97,7 @@ public class Group extends BaseEntity {
             .manager(user)
             .name(group.getName())
             .imageUrl(group.getImageUrl())
+            .university(group.getUniversity())
             .category(group.getCategory())
             .startDate(group.getStartDate())
             .location(Location.create(group.getLocation()))
@@ -112,7 +113,7 @@ public class Group extends BaseEntity {
         this.category = group.getCategory();
         this.recruitmentCnt = group.getRecruitmentCnt();
         this.introduction = group.getIntroduction();
-        this.isUniversity = group.isUniversity();
+        this.university = group.getUniversity();
         this.isOffline = group.isOffline();
         this.location.update(group.getLocation());
     }

@@ -4,10 +4,10 @@ import static com.momo.UserFixture.getUserWithId;
 import static com.momo.common.LocationFixture.getLocation;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.momo.user.domain.User;
 import com.momo.user.domain.location.Location;
 import com.momo.user.domain.social.SocialLogin;
 import com.momo.user.domain.social.SocialProvider;
-import com.momo.user.domain.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -70,14 +70,16 @@ public class UserTest {
     @DisplayName("유저 정보를 수정한다")
     void updateUser_LoginUser_Success() {
         String nickname = "변경할 닉네임";
+        String university = "변경할 대학교";
         Location location = getLocation();
-        user.update(nickname, location);
+
+        user.update(nickname, university, location);
 
         Assertions.assertAll(
             () -> assertThat(user.getNickname()).isEqualTo(nickname),
+            () -> assertThat(user.getUniversity()).isEqualTo(university),
             () -> assertThat(user.getLocation().getCity()).isEqualTo(location.getCity()),
-            () -> assertThat(user.getLocation().getDistrict()).isEqualTo(location.getDistrict()),
-            () -> assertThat(user.getLocation().getUniversity()).isEqualTo(location.getUniversity())
+            () -> assertThat(user.getLocation().getDistrict()).isEqualTo(location.getDistrict())
         );
     }
 }

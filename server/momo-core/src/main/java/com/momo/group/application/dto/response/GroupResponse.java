@@ -28,15 +28,17 @@ public class GroupResponse {
 
     @Builder
     @QueryProjection
-    public GroupResponse(Long id, Long managerId, String name, String imageUrl, LocalDate startDate,
-        Location location, boolean isOffline, String introduction,
-        int recruitmentCnt, boolean isEnd, Long participantCnt, boolean isParticipant) {
+    public GroupResponse(
+        Long id, Long managerId, String name, String imageUrl, LocalDate startDate,
+        String university, Location location, boolean isOffline, String introduction,
+        int recruitmentCnt, boolean isEnd, Long participantCnt, boolean isParticipant
+    ) {
         this.id = id;
         this.managerId = managerId;
         this.name = name;
         this.imageUrl = imageUrl;
         this.startDate = startDate;
-        this.university = location.getUniversity();
+        this.university = university;
         this.city = location.getCity().getName();
         this.district = location.getDistrict();
         this.isOffline = isOffline;

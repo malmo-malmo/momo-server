@@ -37,7 +37,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 모임_생성_테스트() throws Exception {
-        GroupCreateRequest request = getGroupCreateRequest(LIFE, true);
+        GroupCreateRequest request = getGroupCreateRequest(LIFE, "대학교");
         when(groupService.createGroup(any(), any())).thenReturn(getGroupCreateResponse());
 
         super.mockMvc.perform(uploadMockSupport(fileUpload("/api/group"), request)
@@ -49,7 +49,7 @@ public class GroupRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 모임_상세_조회() throws Exception {
-        when(groupService.findGroupById(any(), any())).thenReturn(getGroupResponse());
+        when(groupService.findGroup(any(), any())).thenReturn(getGroupResponse());
 
         super.mockMvc.perform(get("/api/group/{id}", 1L))
             .andDo(print())

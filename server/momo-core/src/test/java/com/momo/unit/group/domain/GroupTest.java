@@ -29,7 +29,7 @@ public class GroupTest {
             () -> assertThat(expected.getRecruitmentCnt()).isEqualTo(group.getRecruitmentCnt()),
             () -> assertThat(expected.getStartDate()).isEqualTo(group.getStartDate()),
             () -> assertThat(expected.isOffline()).isEqualTo(group.isOffline()),
-            () -> assertThat(expected.isUniversity()).isEqualTo(group.isUniversity()),
+            () -> assertThat(expected.getUniversity()).isEqualTo(group.getUniversity()),
             () -> assertThat(expected.getLocation().getCity()).isEqualTo(group.getLocation().getCity()),
             () -> assertThat(expected.getLocation().getDistrict()).isEqualTo(group.getLocation().getDistrict())
         );
@@ -51,7 +51,7 @@ public class GroupTest {
             () -> assertThat(expected.getRecruitmentCnt()).isEqualTo(actual.getRecruitmentCnt()),
             () -> assertThat(expected.getStartDate()).isEqualTo(actual.getStartDate()),
             () -> assertThat(expected.isOffline()).isEqualTo(actual.isOffline()),
-            () -> assertThat(expected.isUniversity()).isEqualTo(actual.isUniversity()),
+            () -> assertThat(expected.getUniversity()).isEqualTo(actual.getUniversity()),
             () -> assertThat(expected.getLocation().getCity()).isEqualTo(actual.getLocation().getCity()),
             () -> assertThat(expected.getLocation().getDistrict()).isEqualTo(actual.getLocation().getDistrict())
         );

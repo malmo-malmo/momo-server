@@ -61,7 +61,7 @@ public class UserServiceTest extends ServiceTest {
             () -> assertThat(expected.getCity().getName()).isEqualTo(user.getLocation().getCity().getName()),
             () -> assertThat(expected.getCity().getCode()).isEqualTo(user.getLocation().getCity().getCode()),
             () -> assertThat(expected.getDistrict()).isEqualTo(user.getLocation().getDistrict()),
-            () -> assertThat(expected.getUniversity()).isEqualTo(user.getLocation().getUniversity()),
+            () -> assertThat(expected.getUniversity()).isEqualTo(user.getUniversity()),
             () -> assertThat(expected.getCategories()).isNotNull()
         );
     }

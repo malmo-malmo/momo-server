@@ -68,7 +68,7 @@ public class GroupServiceTest extends ServiceTest {
     @Test
     @DisplayName("모임을 생성한다")
     void createGroup_Success() {
-        GroupCreateRequest groupCreateRequest = getGroupCreateRequest(EMPLOYMENT, true);
+        GroupCreateRequest groupCreateRequest = getGroupCreateRequest(EMPLOYMENT, manager.getUniversity());
         GroupResponse groupResponse = getGroupResponse();
 
         given(groupRepository.save(any())).willReturn(Group.builder().id(1L).build());
@@ -94,7 +94,7 @@ public class GroupServiceTest extends ServiceTest {
             .id(1L)
             .name("운동 모임")
             .category(STOCK)
-            .isUniversity(true)
+            .university(manager.getUniversity())
             .city(SEOUL)
             .district("강동구")
             .recruitmentCnt(10)
@@ -110,7 +110,7 @@ public class GroupServiceTest extends ServiceTest {
         Assertions.assertAll(
             () -> assertThat(group.getName()).isEqualTo(request.getName()),
             () -> assertThat(group.getCategory()).isEqualTo(request.getCategory()),
-            () -> assertThat(group.isUniversity()).isEqualTo(request.getIsUniversity()),
+            () -> assertThat(group.getUniversity()).isEqualTo(request.getUniversity()),
             () -> assertThat(group.getLocation().getCity()).isEqualTo(request.getCity()),
             () -> assertThat(group.getLocation().getDistrict()).isEqualTo(request.getDistrict()),
             () -> assertThat(group.getRecruitmentCnt()).isEqualTo(request.getRecruitmentCnt()),

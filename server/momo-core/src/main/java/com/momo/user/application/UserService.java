@@ -38,7 +38,7 @@ public class UserService {
             validateDuplicateNickname(request.getNickname());
         }
 
-        user.update(request.getNickname(), UserAssembler.mapToLocation(request));
+        user.update(request.getNickname(), request.getUniversity(), UserAssembler.mapToLocation(request));
 
         return UserAssembler.mapToUserUpdateResponse(user);
     }

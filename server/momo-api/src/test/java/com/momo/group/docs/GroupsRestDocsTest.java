@@ -9,11 +9,11 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.momo.group.GroupsController;
 import com.momo.common.RestDocsControllerTest;
 import com.momo.district.entity.City;
+import com.momo.group.GroupsController;
+import com.momo.group.application.GroupsService;
 import com.momo.group.domain.category.Category;
-import com.momo.group.application.GroupService;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,11 +29,11 @@ public class GroupsRestDocsTest extends RestDocsControllerTest {
     public GroupsController groupsController;
 
     @MockBean
-    public GroupService groupService;
+    public GroupsService groupsService;
 
     @Test
     void 모임_목록_조회_검색_V1() throws Exception {
-        when(groupService.findPageBySearchConditionV1(any(), any()))
+        when(groupsService.findPageBySearchConditionV1(any(), any()))
             .thenReturn(List.of(getGroupCardResponse()));
 
         super.mockMvc.perform(get("/api/groups/search-v1/paging")
@@ -51,7 +51,7 @@ public class GroupsRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 모임_목록_조회_검색_V2() throws Exception {
-        when(groupService.findPageBySearchConditionV2(any(), any()))
+        when(groupsService.findPageBySearchConditionV2(any(), any()))
             .thenReturn(List.of(getGroupCardResponse()));
 
         super.mockMvc.perform(get("/api/groups/search-v2/paging")
@@ -69,7 +69,7 @@ public class GroupsRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 모임_목록_조회_내학교더보기() throws Exception {
-        when(groupService.findPageByUserUniversity(any(), anyLong(), anyInt()))
+        when(groupsService.findPageByUserUniversity(any(), anyLong(), anyInt()))
             .thenReturn(List.of(getGroupCardResponse()));
 
         super.mockMvc.perform(get("/api/groups/user-university/paging")
@@ -82,7 +82,7 @@ public class GroupsRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 모임_목록_조회_주변더보기() throws Exception {
-        when(groupService.findPageByUserDistrict(any(), anyLong(), anyInt()))
+        when(groupsService.findPageByUserDistrict(any(), anyLong(), anyInt()))
             .thenReturn(List.of(getGroupCardResponse()));
 
         super.mockMvc.perform(get("/api/groups/user-district/paging")
@@ -95,7 +95,7 @@ public class GroupsRestDocsTest extends RestDocsControllerTest {
 
     @Test
     void 모임_목록_조회_추천더보기() throws Exception {
-        when(groupService.findPageByUserCategories(any(), anyLong(), anyInt()))
+        when(groupsService.findPageByUserCategories(any(), anyLong(), anyInt()))
             .thenReturn(List.of(getGroupCardResponse()));
 
         super.mockMvc.perform(get("/api/groups/user-categories/paging")

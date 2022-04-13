@@ -21,8 +21,7 @@ public class GroupUpdateRequest {
     @NotNull(message = "카테고리는 필수 입력값입니다.")
     private Category category;
 
-    @NotNull(message = "학교 여부는 필수 입력값입니다.")
-    private Boolean isUniversity;
+    private String university;
 
     @NotNull(message = "지역은 필수 입력값입니다.")
     private City city;
@@ -41,13 +40,13 @@ public class GroupUpdateRequest {
 
     @Builder
     public GroupUpdateRequest(
-        Long id, String name, Category category, Boolean isUniversity,
+        Long id, String name, Category category, String university,
         City city, String district, int recruitmentCnt, String introduction, Boolean isOffline
     ) {
         this.id = id;
         this.name = name;
         this.category = category;
-        this.isUniversity = isUniversity;
+        this.university = university;
         this.city = city;
         this.district = district;
         this.recruitmentCnt = recruitmentCnt;

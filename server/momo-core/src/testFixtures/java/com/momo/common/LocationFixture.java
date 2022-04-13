@@ -12,15 +12,13 @@ public class LocationFixture {
         return Location.builder()
             .city(CITY)
             .district(DISTRICT)
-            .university(UNIVERSITY)
             .build();
     }
 
-    public static Location getLocation(String district, String university) {
+    public static Location getLocation(String district) {
         return Location.builder()
             .city(CITY)
             .district(district)
-            .university(university)
             .build();
     }
 }

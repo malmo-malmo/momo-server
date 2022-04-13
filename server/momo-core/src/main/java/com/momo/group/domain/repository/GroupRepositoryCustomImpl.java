@@ -6,11 +6,11 @@ import static com.momo.group.domain.QGroup.group;
 import static com.momo.group.domain.participant.QParticipant.participant;
 
 import com.momo.district.entity.City;
+import com.momo.group.application.dto.request.GroupSearchConditionRequest;
 import com.momo.group.application.dto.response.GroupCardResponse;
 import com.momo.group.application.dto.response.GroupResponse;
-import com.momo.group.application.dto.request.GroupSearchConditionRequest;
-import com.momo.group.application.dto.QGroupCardResponse;
-import com.momo.group.application.dto.QGroupResponse;
+import com.momo.group.application.dto.response.QGroupCardResponse;
+import com.momo.group.application.dto.response.QGroupResponse;
 import com.momo.group.domain.Group;
 import com.momo.group.domain.category.Category;
 import com.momo.user.domain.User;
@@ -52,6 +52,7 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
                 group.name,
                 group.imageUrl,
                 group.startDate,
+                group.university,
                 group.location,
                 group.isOffline,
                 group.introduction,
@@ -151,7 +152,7 @@ public class GroupRepositoryCustomImpl implements GroupRepositoryCustom {
             .from(group)
             .where(
                 group.isEnd.isFalse(),
-                group.location.university.eq(university),
+                group.university.eq(university),
                 ltLastGroupId(lastGroupId)
             )
             .orderBy(group.id.desc())

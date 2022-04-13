@@ -39,7 +39,7 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
     void 모임_관리자가_일정_출석_체크를_한다() {
         String managerToken = getAccessToken(getUser());
         String userToken = getAccessToken(getUser());
-        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, null)));
         Long scheduleId = extractId(
             requestToCreateSchedule(managerToken, getScheduleCreateRequest(groupId, of(2022, 1, 1, 1, 0)))
         );
@@ -64,7 +64,7 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
     void 모임_관리자가_일정_출석체크_목록을_조회한다() {
         String managerToken = getAccessToken(getUser());
         String userToken = getAccessToken(getUser());
-        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, null)));
         Long scheduleId = extractId(
             requestToCreateSchedule(managerToken, getScheduleCreateRequest(groupId, of(2022, 1, 1, 1, 0)))
         );
@@ -92,7 +92,7 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
     void 모임_관리자가_출석_체크를_수정한다() {
         String managerToken = getAccessToken(getUser());
         String userToken = getAccessToken(getUser());
-        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, null)));
         Long scheduleId = extractId(
             requestToCreateSchedule(managerToken, getScheduleCreateRequest(groupId, of(2022, 1, 1, 1, 0)))
         );

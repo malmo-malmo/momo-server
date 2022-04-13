@@ -6,12 +6,13 @@ import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
-@Getter
+@Data
 @NoArgsConstructor
 public class GroupCreateRequest {
 
@@ -21,8 +22,7 @@ public class GroupCreateRequest {
     @NotNull(message = "카테고리는 필수 입력값입니다.")
     private Category category;
 
-    @NotNull(message = "학교 여부는 필수 입력값입니다.")
-    private Boolean isUniversity;
+    private String university;
 
     @NotNull(message = "지역은 필수 입력값입니다.")
     private City city;
@@ -47,11 +47,11 @@ public class GroupCreateRequest {
     private Boolean isOffline;
 
     @Builder
-    public GroupCreateRequest(String name, Category category, Boolean isUniversity, City city, String district,
+    public GroupCreateRequest(String name, Category category, String university, City city, String district,
         LocalDate startDate, int recruitmentCnt, String introduction, MultipartFile image, Boolean isOffline) {
         this.name = name;
         this.category = category;
-        this.isUniversity = isUniversity;
+        this.university = university;
         this.city = city;
         this.district = district;
         this.startDate = startDate;

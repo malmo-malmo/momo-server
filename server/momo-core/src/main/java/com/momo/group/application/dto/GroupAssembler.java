@@ -13,6 +13,7 @@ public class GroupAssembler {
             .name(request.getName())
             .category(request.getCategory())
             .startDate(request.getStartDate())
+            .university(request.getUniversity())
             .recruitmentCnt(request.getRecruitmentCnt())
             .introduction(request.getIntroduction())
             .isOffline(request.getIsOffline())
@@ -24,10 +25,10 @@ public class GroupAssembler {
         return Group.builder()
             .name(request.getName())
             .category(request.getCategory())
+            .university(request.getUniversity())
             .recruitmentCnt(request.getRecruitmentCnt())
             .introduction(request.getIntroduction())
             .isOffline(request.getIsOffline())
-            .isUniversity(request.getIsUniversity())
             .location(new Location(request.getCity(), request.getDistrict()))
             .build();
     }

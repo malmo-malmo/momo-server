@@ -46,7 +46,7 @@ public class GroupsService {
     @Transactional(readOnly = true)
     public List<GroupCardResponse> findPageByUserUniversity(User loginUser, Long lastGroupId, int size) {
         return groupRepository.findByUniversityOrderByIdDesc(
-            loginUser, loginUser.getLocation().getUniversity(), lastGroupId, size
+            loginUser, loginUser.getUniversity(), lastGroupId, size
         );
     }
 

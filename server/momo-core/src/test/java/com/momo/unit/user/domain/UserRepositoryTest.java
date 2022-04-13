@@ -37,7 +37,7 @@ public class UserRepositoryTest extends RepositoryTest {
             () -> assertThat(user.getImageUrl()).isEqualTo(user.getImageUrl()),
             () -> assertThat(user.getLocation().getCity()).isEqualTo(user.getLocation().getCity()),
             () -> assertThat(user.getLocation().getDistrict()).isEqualTo(user.getLocation().getDistrict()),
-            () -> assertThat(user.getLocation().getUniversity()).isEqualTo(user.getLocation().getUniversity())
+            () -> assertThat(user.getUniversity()).isEqualTo(user.getUniversity())
         );
     }
 
@@ -58,7 +58,7 @@ public class UserRepositoryTest extends RepositoryTest {
             () -> assertThat(actual.getImageUrl()).isEqualTo(user.getImageUrl()),
             () -> assertThat(actual.getLocation().getCity()).isEqualTo(user.getLocation().getCity()),
             () -> assertThat(actual.getLocation().getDistrict()).isEqualTo(user.getLocation().getDistrict()),
-            () -> assertThat(actual.getLocation().getUniversity()).isEqualTo(user.getLocation().getUniversity())
+            () -> assertThat(actual.getUniversity()).isEqualTo(user.getUniversity())
         );
     }
 

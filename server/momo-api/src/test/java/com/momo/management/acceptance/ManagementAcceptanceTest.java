@@ -4,10 +4,9 @@ import static com.momo.GroupFixture.getGroupCreateRequest;
 import static com.momo.PostFixture.getPostCreateRequest;
 import static com.momo.UserFixture.getUser;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
-import static com.momo.group.domain.category.Category.LIFE;
-import static com.momo.post.entity.PostType.NORMAL;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToApplyParticipant;
+import static com.momo.group.domain.category.Category.LIFE;
 import static com.momo.management.acceptance.step.ManagementAcceptanceStep.assertThatFindMyGroups;
 import static com.momo.management.acceptance.step.ManagementAcceptanceStep.assertThatFindMyGroupsSummary;
 import static com.momo.management.acceptance.step.ManagementAcceptanceStep.assertThatFindMyPosts;
@@ -20,6 +19,7 @@ import static com.momo.management.acceptance.step.ManagementAcceptanceStep.reque
 import static com.momo.management.acceptance.step.ManagementAcceptanceStep.requestToFindParticipationGroups;
 import static com.momo.management.acceptance.step.ManagementAcceptanceStep.requestToFindParticipationGroupsSummary;
 import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToCreatePost;
+import static com.momo.post.entity.PostType.NORMAL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.acceptance.AcceptanceTest;
@@ -55,8 +55,8 @@ public class ManagementAcceptanceTest extends AcceptanceTest {
     @Test
     void 참여한_모임_수를_조회한다() {
         String token = getAccessToken(user);
-        requestToCreateGroup(token, getGroupCreateRequest(LIFE, true));
-        requestToCreateGroup(token, getGroupCreateRequest(LIFE, true));
+        requestToCreateGroup(token, getGroupCreateRequest(LIFE, user.getUniversity()));
+        requestToCreateGroup(token, getGroupCreateRequest(LIFE, user.getUniversity()));
 
         ExtractableResponse<Response> response = requestToFindParticipationGroupCount(token);
         Long expected = getObject(response, ParticipationGroupCountResponse.class).getCount();
@@ -68,7 +68,7 @@ public class ManagementAcceptanceTest extends AcceptanceTest {
     @Test
     void 참여한_모임_목록을_조회한다() {
         String token = getAccessToken(user);
-        GroupCreateRequest groupCreateRequest = getGroupCreateRequest(LIFE, true);
+        GroupCreateRequest groupCreateRequest = getGroupCreateRequest(LIFE, user.getUniversity());
         requestToCreateGroup(token, groupCreateRequest);
 
         ExtractableResponse<Response> response = requestToFindParticipationGroups(token);
@@ -82,7 +82,7 @@ public class ManagementAcceptanceTest extends AcceptanceTest {
     void 그_외_참여한_모임_목록을_조회한다() {
         String token1 = getAccessToken(user);
         String token2 = getAccessToken(getUser());
-        GroupCreateRequest groupCreateRequest = getGroupCreateRequest(LIFE, true);
+        GroupCreateRequest groupCreateRequest = getGroupCreateRequest(LIFE, user.getUniversity());
         Long groupId = extractId(requestToCreateGroup(token2, groupCreateRequest));
         requestToApplyParticipant(token1, groupId);
 
@@ -97,7 +97,7 @@ public class ManagementAcceptanceTest extends AcceptanceTest {
     @Test
     void 내_모임_목록을_조회한다() {
         String token = getAccessToken(user);
-        GroupCreateRequest groupCreateRequest = getGroupCreateRequest(LIFE, true);
+        GroupCreateRequest groupCreateRequest = getGroupCreateRequest(LIFE, user.getUniversity());
         requestToCreateGroup(token, groupCreateRequest);
 
         ExtractableResponse<Response> response = requestToFindMyGroups(token);
@@ -109,7 +109,7 @@ public class ManagementAcceptanceTest extends AcceptanceTest {
     @Test
     void 내_모임_요약_정보_목록을_조회한다() {
         String token = getAccessToken(user);
-        GroupCreateRequest groupCreateRequest = getGroupCreateRequest(LIFE, true);
+        GroupCreateRequest groupCreateRequest = getGroupCreateRequest(LIFE, user.getUniversity());
         requestToCreateGroup(token, groupCreateRequest);
 
         ExtractableResponse<Response> response = requestToFindMyGroupsSummary(token);
@@ -121,7 +121,7 @@ public class ManagementAcceptanceTest extends AcceptanceTest {
     @Test
     void 내_게시글_목록을_조회한다() {
         String token = getAccessToken(user);
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, user.getUniversity())));
         PostCreateRequest postCreateRequest = getPostCreateRequest(groupId, NORMAL);
         requestToCreatePost(token, postCreateRequest);
 

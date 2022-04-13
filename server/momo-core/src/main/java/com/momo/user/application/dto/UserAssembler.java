@@ -12,7 +12,7 @@ public class UserAssembler {
     public static UserUpdateResponse mapToUserUpdateResponse(User user) {
         return UserUpdateResponse.builder()
             .nickname(user.getNickname())
-            .university(user.getLocation().getUniversity())
+            .university(user.getUniversity())
             .city(EnumResponse.ofCity(user.getLocation().getCity()))
             .district(user.getLocation().getDistrict())
             .build();
@@ -25,7 +25,7 @@ public class UserAssembler {
             .imageUrl(user.getImageUrl())
             .city(EnumResponse.ofCity(user.getLocation().getCity()))
             .district(user.getLocation().getDistrict())
-            .university(user.getLocation().getUniversity())
+            .university(user.getUniversity())
             .categories(EnumResponse.listOfFavoriteCategories(user.getFavoriteCategories()))
             .build();
     }
@@ -34,7 +34,6 @@ public class UserAssembler {
         return Location.builder()
             .city(request.getCity())
             .district(request.getDistrict())
-            .university(request.getUniversity())
             .build();
     }
 }

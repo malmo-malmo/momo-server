@@ -52,7 +52,7 @@ public class GroupRepositoryTest extends RepositoryTest {
             () -> assertThat(actual.getLocation().getDistrict()).isEqualTo(group1.getLocation().getDistrict()),
             () -> assertThat(actual.getImageUrl()).isEqualTo(group1.getImageUrl()),
             () -> assertThat(actual.getIntroduction()).isEqualTo(group1.getIntroduction()),
-            () -> assertThat(actual.getLocation().getUniversity()).isEqualTo(group1.getLocation().getUniversity()),
+            () -> assertThat(actual.getUniversity()).isEqualTo(group1.getUniversity()),
             () -> assertThat(actual.isOffline()).isEqualTo(group1.isOffline()),
             () -> assertThat(actual.isEnd()).isEqualTo(group1.isEnd()),
             () -> assertThat(actual.getStartDate()).isEqualTo(group1.getStartDate()),
@@ -71,7 +71,7 @@ public class GroupRepositoryTest extends RepositoryTest {
             () -> assertThat(response.getName()).isEqualTo(group1.getName()),
             () -> assertThat(response.getImageUrl()).isEqualTo(group1.getImageUrl()),
             () -> assertThat(response.getStartDate()).isEqualTo(group1.getStartDate()),
-            () -> assertThat(response.getUniversity()).isEqualTo(group1.getLocation().getUniversity()),
+            () -> assertThat(response.getUniversity()).isEqualTo(group1.getUniversity()),
             () -> assertThat(response.getCity()).isEqualTo(group1.getLocation().getCity().getName()),
             () -> assertThat(response.getDistrict()).isEqualTo(group1.getLocation().getDistrict()),
             () -> assertThat(response.isOffline()).isEqualTo(group1.isOffline()),
@@ -103,7 +103,7 @@ public class GroupRepositoryTest extends RepositoryTest {
     @Test
     void 학교로_모임_목록을_조회한다() {
         List<GroupCardResponse> actual = groupRepository
-            .findByUniversityOrderByIdDesc(user, user.getLocation().getUniversity(), group2.getId(), 10);
+            .findByUniversityOrderByIdDesc(user, user.getUniversity(), group2.getId(), 10);
 
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),
@@ -115,7 +115,7 @@ public class GroupRepositoryTest extends RepositoryTest {
     @Test
     void 학교로_모임_목록을_조회한다_마지막_모임_ID가_없는_경우() {
         List<GroupCardResponse> actual = groupRepository
-            .findByUniversityOrderByIdDesc(user, user.getLocation().getUniversity(), null, 10);
+            .findByUniversityOrderByIdDesc(user, user.getUniversity(), null, 10);
 
         Assertions.assertAll(
             () -> assertThat(actual).isNotNull(),

@@ -19,42 +19,14 @@ public class Location {
 
     private String district;
 
-    private String university;
-
     @Builder
-    public Location(City city, String district, String university) {
+    public Location(City city, String district) {
         this.city = city;
         this.district = district;
-        this.university = university;
     }
 
     public static Location create(Location location) {
         return Location.builder()
-            .university(location.getUniversity())
-            .district(location.getDistrict())
-            .city(location.getCity())
-            .build();
-    }
-
-    public static Location fromEmptyUniversity(Location location) {
-        return Location.builder()
-            .university(null)
-            .district(location.getDistrict())
-            .city(location.getCity())
-            .build();
-    }
-
-    public static Location fromEmptyUniversity(City city, String district) {
-        return Location.builder()
-            .university(null)
-            .district(district)
-            .city(city)
-            .build();
-    }
-
-    public static Location fromUniversity(String university, Location location) {
-        return Location.builder()
-            .university(university)
             .district(location.getDistrict())
             .city(location.getCity())
             .build();
@@ -63,6 +35,5 @@ public class Location {
     public void update(Location location) {
         this.city = location.getCity();
         this.district = location.getDistrict();
-        this.university = location.getUniversity();
     }
 }

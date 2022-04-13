@@ -32,6 +32,8 @@ public class User extends BaseEntity {
 
     private String imageUrl;
 
+    private String university;
+
     @Embedded
     private SocialLogin socialLogin;
 
@@ -42,11 +44,15 @@ public class User extends BaseEntity {
     private final FavoriteCategories favoriteCategories = FavoriteCategories.empty();
 
     @Builder
-    public User(Long id, SocialLogin socialLogin, String nickname, String imageUrl, Location location) {
+    public User(
+        Long id, SocialLogin socialLogin, String nickname,
+        String imageUrl, String university, Location location
+    ) {
         this.id = id;
         this.socialLogin = socialLogin;
         this.nickname = nickname;
         this.imageUrl = imageUrl;
+        this.university = university;
         this.location = location;
     }
 
@@ -64,13 +70,14 @@ public class User extends BaseEntity {
         return this.nickname.equals(nickname);
     }
 
-    public void update(String nickname, Location location) {
+    public void update(String nickname, String university, Location location) {
         this.nickname = nickname;
+        this.university = university;
         updateLocation(location);
     }
 
     private void updateLocation(Location location) {
-        if (isNull(this.location)) {
+        if (Objects.isNull(this.location)) {
             this.location = Location.create(location);
             return;
         }

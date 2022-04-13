@@ -8,10 +8,8 @@ import static com.momo.UserFixture.getUser;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatCustomException;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
 import static com.momo.common.exception.ErrorCode.GROUP_PARTICIPANT_UNAUTHORIZED;
-import static com.momo.group.domain.category.Category.LIFE;
-import static com.momo.post.entity.PostType.NORMAL;
-import static com.momo.post.entity.PostType.NOTICE;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
+import static com.momo.group.domain.category.Category.LIFE;
 import static com.momo.post.acceptance.step.PostAcceptanceStep.assertThatFindPost;
 import static com.momo.post.acceptance.step.PostAcceptanceStep.assertThatFindPosts;
 import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToCreatePost;
@@ -19,6 +17,8 @@ import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToDeletePo
 import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToFindPost;
 import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToFindPosts;
 import static com.momo.post.acceptance.step.PostAcceptanceStep.requestToUpdatePost;
+import static com.momo.post.entity.PostType.NORMAL;
+import static com.momo.post.entity.PostType.NOTICE;
 
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
@@ -49,7 +49,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     @Test
     void 모임에_게시물을_등록한다() {
         String token = getAccessToken(user);
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, user.getUniversity())));
 
         ExtractableResponse<Response> response = requestToCreatePost(token, getPostCreateRequest(groupId, NORMAL));
 
@@ -59,7 +59,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     @Test
     void 모임에_게시물을_등록할_때_모임의_참여자가_아니면_실패한다() {
         String token1 = getAccessToken(user);
-        Long groupId = extractId(requestToCreateGroup(token1, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token1, getGroupCreateRequest(LIFE, user.getUniversity())));
         String token2 = getAccessToken(getUser());
 
         ExtractableResponse<Response> response = requestToCreatePost(token2, getPostCreateRequest(groupId, NORMAL));
@@ -70,7 +70,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     @Test
     void 모임에_공지사항을_등록한다() {
         String token = getAccessToken(user);
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, user.getUniversity())));
 
         ExtractableResponse<Response> response = requestToCreatePost(token, getPostCreateRequest(groupId, NOTICE));
 
@@ -80,7 +80,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     @Test
     void 모임에_게시물을_수정한다() {
         String token = getAccessToken(user);
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, user.getUniversity())));
         Long postId = extractId(requestToCreatePost(token, getPostCreateRequest(groupId, NORMAL)));
 
         ExtractableResponse<Response> response = requestToUpdatePost(token, getPostUpdateRequest(postId));
@@ -91,7 +91,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     @Test
     void 모임에_게시물을_삭제한다() {
         String token = getAccessToken(user);
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, user.getUniversity())));
         Long postId = extractId(requestToCreatePost(token, getPostCreateRequest(groupId, NORMAL)));
 
         ExtractableResponse<Response> response = requestToDeletePost(token, postId);
@@ -102,7 +102,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     @Test
     void 모임에_공지사항을_등록할_때_모임의_관리자가_아니면_실패한다() {
         String token1 = getAccessToken(user);
-        Long groupId = extractId(requestToCreateGroup(token1, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token1, getGroupCreateRequest(LIFE, user.getUniversity())));
         String token2 = getAccessToken(getUser());
 
         ExtractableResponse<Response> response = requestToCreatePost(token2, getPostCreateRequest(groupId, NOTICE));
@@ -113,7 +113,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     @Test
     void 모임_게시물_또는_공지사항을_상세_조회한다() {
         String token = getAccessToken(user);
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, user.getUniversity())));
         PostCreateRequest postCreateRequest = getPostCreateRequest(groupId, NORMAL);
         Long postId = extractId(requestToCreatePost(token, postCreateRequest));
 
@@ -126,7 +126,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     @Test
     void 모임_게시물_또는_공지사항을_상세_조회할_때_참여자가_아니면_실패한다() {
         String token1 = getAccessToken(user);
-        Long groupId = extractId(requestToCreateGroup(token1, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token1, getGroupCreateRequest(LIFE, user.getUniversity())));
         Long postId = extractId(requestToCreatePost(token1, getPostCreateRequest(groupId, NORMAL)));
         String token2 = getAccessToken(getUser());
 
@@ -137,7 +137,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     @Test
     void 게시물_목록을_조회한다() {
         String token = getAccessToken(user);
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, user.getUniversity())));
         requestToCreatePost(token, getPostCreateRequest(groupId, NORMAL));
         requestToCreatePost(token, getPostCreateRequest(groupId, NORMAL));
         PostCardsRequest postCardsRequest = getPostCardsRequest(groupId, NORMAL);
@@ -152,7 +152,7 @@ public class PostAcceptanceTest extends AcceptanceTest {
     void 모임_참여자가_아니면_게시물_또는_공지사항_목록_조회를_실패한다() {
         String token1 = getAccessToken(user);
         String token2 = getAccessToken(getUser());
-        Long groupId = extractId(requestToCreateGroup(token1, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token1, getGroupCreateRequest(LIFE, user.getUniversity())));
         requestToCreatePost(token1, getPostCreateRequest(groupId, NORMAL));
         PostCardsRequest postCardsRequest = getPostCardsRequest(groupId, NORMAL);
 

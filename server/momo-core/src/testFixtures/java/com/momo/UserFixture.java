@@ -4,6 +4,7 @@ import static com.momo.common.FixtureComponents.CATEGORIES;
 import static com.momo.common.FixtureComponents.IMAGE_URL;
 import static com.momo.common.FixtureComponents.INCREASE_ID;
 import static com.momo.common.FixtureComponents.NICKNAME;
+import static com.momo.common.FixtureComponents.UNIVERSITY;
 import static com.momo.common.LocationFixture.getLocation;
 import static com.momo.common.SocialLoginFixture.getSocialLogin;
 
@@ -17,6 +18,7 @@ public class UserFixture {
         INCREASE_ID++;
         User user = User.builder()
             .nickname(NICKNAME + INCREASE_ID)
+            .university(UNIVERSITY)
             .location(getLocation())
             .socialLogin(getSocialLogin())
             .build();
@@ -28,7 +30,8 @@ public class UserFixture {
         INCREASE_ID++;
         User user = User.builder()
             .nickname(NICKNAME + INCREASE_ID)
-            .location(getLocation(district, university))
+            .university(university)
+            .location(getLocation(district))
             .socialLogin(getSocialLogin())
             .build();
         user.updateFavoriteCategories(categories);
@@ -41,6 +44,7 @@ public class UserFixture {
             .id(INCREASE_ID)
             .nickname(NICKNAME + INCREASE_ID)
             .imageUrl(IMAGE_URL)
+            .university(UNIVERSITY)
             .location(getLocation())
             .socialLogin(getSocialLogin())
             .build();

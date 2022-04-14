@@ -15,6 +15,7 @@ import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -92,6 +93,15 @@ public class GroupController {
         @PathVariable Long groupId
     ) {
         groupService.endGroup(user, groupId);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{groupId}/delete-image")
+    public ResponseEntity<Void> deleteGroupImage(
+        @CurrentUser User user,
+        @PathVariable Long groupId
+    ) {
+        groupService.deleteGroupImage(user, groupId);
         return ResponseEntity.ok().build();
     }
 }

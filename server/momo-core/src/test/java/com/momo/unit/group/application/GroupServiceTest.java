@@ -161,6 +161,8 @@ public class GroupServiceTest extends ServiceTest {
         GroupImageUpdateResponse actual = groupService
             .updateGroupImage(manager, 1L, new MockMultipartFile("image", "image".getBytes()));
 
+        verify(groupRepository).findById(any());
+        verify(s3UploadService).upload(any(), any());
         assertThat(actual.getImageUrl()).isEqualTo(imageUrl);
     }
 
@@ -241,6 +243,29 @@ public class GroupServiceTest extends ServiceTest {
         given(groupRepository.findById(any())).willReturn(of(group));
 
         assertThatThrownBy(() -> groupService.endGroup(participant, 1L))
+            .isInstanceOf(CustomException.class)
+            .hasMessage(ErrorCode.GROUP_MANAGER_AUTHORIZED.getMessage());
+    }
+
+    @Test
+    @DisplayName("모임 관리자가 모임 대표 이미지를 삭제한다")
+    void deleteGroupImage_Manager_Success() {
+        Group group = getGroupWithId(manager);
+        given(groupRepository.findById(any())).willReturn(of(group));
+
+        groupService.deleteGroupImage(manager, 1L);
+
+        verify(groupRepository).findById(any());
+        assertThat(group.getImageUrl()).isNull();
+    }
+
+    @Test
+    @DisplayName("모임 관리자가 모임 대표 이미지를 삭제한다")
+    void deleteGroupImage_NotManager_Failure() {
+        Group group = getGroupWithId(manager);
+        given(groupRepository.findById(any())).willReturn(of(group));
+
+        assertThatThrownBy(() -> groupService.deleteGroupImage(participant, 1L))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.GROUP_MANAGER_AUTHORIZED.getMessage());
     }

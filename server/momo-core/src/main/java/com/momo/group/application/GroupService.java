@@ -61,7 +61,7 @@ public class GroupService {
     public GroupImageUpdateResponse updateGroupImage(User loginUser, Long groupId, MultipartFile imageFile) {
         Group group = getGroupById(groupId);
         group.validateManager(loginUser);
-        
+
         String imageUrl = s3UploadService.upload(imageFile, getGroupImagePath(group.getId()));
         group.updateImage(imageUrl);
 
@@ -93,6 +93,13 @@ public class GroupService {
         Group group = getGroupById(groupId);
         group.validateManager(loginUser);
         group.end();
+    }
+
+    public void deleteGroupImage(User loginUser, Long groupId) {
+        Group group = getGroupById(groupId);
+        group.validateManager(loginUser);
+
+        group.updateImage(null);
     }
 
     private Group getGroupById(Long groupId) {

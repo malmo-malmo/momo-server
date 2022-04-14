@@ -38,7 +38,7 @@ public class GroupService {
         );
 
         String imageUrl = s3UploadService.upload(request.getImage(), getGroupImagePath(group.getId()));
-        group.updateImage(imageUrl);
+        group.updateImageUrl(imageUrl);
 
         participantRepository.save(Participant.create(loginUser, group));
 
@@ -63,9 +63,9 @@ public class GroupService {
         group.validateManager(loginUser);
 
         String imageUrl = s3UploadService.upload(imageFile, getGroupImagePath(group.getId()));
-        group.updateImage(imageUrl);
+        group.updateImageUrl(imageUrl);
 
-        return GroupAssembler.mapToGroupImageUpdateResponse(imageUrl);
+        return new GroupImageUpdateResponse(imageUrl);
     }
 
     public void updateManager(User loginUser, Long groupId, Long userId) {
@@ -99,7 +99,7 @@ public class GroupService {
         Group group = getGroupById(groupId);
         group.validateManager(loginUser);
 
-        group.updateImage(null);
+        group.updateImageUrl(null);
     }
 
     private Group getGroupById(Long groupId) {

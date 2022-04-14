@@ -142,7 +142,7 @@ public class Group extends BaseEntity {
         this.manager = user;
     }
 
-    public void updateImage(String imageUrl) {
+    public void updateImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 

@@ -118,10 +118,6 @@ public class Group extends BaseEntity {
         this.location.update(group.getLocation());
     }
 
-    public void updateAchievementRate(GroupAchievementRate achievementRate) {
-        this.achievementRate = achievementRate;
-    }
-
     public void validateManager(User user) {
         if (!this.isManager(user)) {
             throw new CustomException(ErrorCode.GROUP_MANAGER_AUTHORIZED);
@@ -147,16 +143,15 @@ public class Group extends BaseEntity {
     }
 
     public void updateImage(String imageUrl) {
-        if (Objects.isNull(imageUrl)) {
-            this.imageUrl = null;
-            return;
-        }
-
         this.imageUrl = imageUrl;
     }
 
     public void end() {
         this.isEnd = true;
+    }
+
+    public void updateAchievementRate(GroupAchievementRate achievementRate) {
+        this.achievementRate = achievementRate;
     }
 
     @Override

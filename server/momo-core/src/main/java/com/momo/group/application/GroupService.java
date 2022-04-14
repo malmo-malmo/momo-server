@@ -9,6 +9,7 @@ import com.momo.group.application.dto.GroupAssembler;
 import com.momo.group.application.dto.request.GroupCreateRequest;
 import com.momo.group.application.dto.request.GroupUpdateRequest;
 import com.momo.group.application.dto.response.GroupCreateResponse;
+import com.momo.group.application.dto.response.GroupImageUpdateResponse;
 import com.momo.group.application.dto.response.GroupResponse;
 import com.momo.group.domain.Group;
 import com.momo.group.domain.participant.Participant;
@@ -19,6 +20,7 @@ import com.momo.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @Transactional
@@ -54,6 +56,16 @@ public class GroupService {
         group.validateRecruitmentCnt(request.getRecruitmentCnt());
 
         group.update(GroupAssembler.mapToGroupForUpdate(request));
+    }
+
+    public GroupImageUpdateResponse updateGroupImage(User loginUser, Long groupId, MultipartFile imageFile) {
+        Group group = getGroupById(groupId);
+        group.validateManager(loginUser);
+        
+        String imageUrl = s3UploadService.upload(imageFile, getGroupImagePath(group.getId()));
+        group.updateImage(imageUrl);
+
+        return GroupAssembler.mapToGroupImageUpdateResponse(imageUrl);
     }
 
     public void updateManager(User loginUser, Long groupId, Long userId) {

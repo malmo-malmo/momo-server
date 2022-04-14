@@ -3,6 +3,7 @@ package com.momo.group.application.dto;
 import com.momo.group.application.dto.request.GroupCreateRequest;
 import com.momo.group.application.dto.request.GroupUpdateRequest;
 import com.momo.group.application.dto.response.GroupCreateResponse;
+import com.momo.group.application.dto.response.GroupImageUpdateResponse;
 import com.momo.group.domain.Group;
 import com.momo.user.domain.location.Location;
 
@@ -31,6 +32,10 @@ public class GroupAssembler {
             .isOffline(request.getIsOffline())
             .location(new Location(request.getCity(), request.getDistrict()))
             .build();
+    }
+
+    public static GroupImageUpdateResponse mapToGroupImageUpdateResponse(String imageUrl) {
+        return new GroupImageUpdateResponse(imageUrl);
     }
 
     public static GroupCreateResponse mapToGroupCreateResponse(Group group) {

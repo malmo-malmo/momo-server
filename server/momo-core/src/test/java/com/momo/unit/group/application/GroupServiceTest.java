@@ -23,6 +23,7 @@ import com.momo.group.application.GroupService;
 import com.momo.group.application.dto.request.GroupCreateRequest;
 import com.momo.group.application.dto.request.GroupUpdateRequest;
 import com.momo.group.application.dto.response.GroupCreateResponse;
+import com.momo.group.application.dto.response.GroupImageUpdateResponse;
 import com.momo.group.application.dto.response.GroupResponse;
 import com.momo.group.domain.Group;
 import com.momo.group.domain.participant.Participant;
@@ -35,6 +36,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.springframework.mock.web.MockMultipartFile;
 
 @DisplayName("모임 서비스 테스트")
 public class GroupServiceTest extends ServiceTest {
@@ -145,6 +147,34 @@ public class GroupServiceTest extends ServiceTest {
         assertThatThrownBy(() -> groupService.updateGroupInformation(manager, request))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.INVALID_GROUP_RECRUITMENT_COUNT.getMessage());
+    }
+
+    @Test
+    @DisplayName("모임 관리자가 모임 대표 이미지를 변경한다")
+    void updateGroupImage_Manager_Success() {
+        String imageUrl = "imageUrl";
+        Group group = getGroupWithId(manager);
+
+        given(groupRepository.findById(any())).willReturn(of(group));
+        given(s3UploadService.upload(any(), any())).willReturn(imageUrl);
+
+        GroupImageUpdateResponse actual = groupService
+            .updateGroupImage(manager, 1L, new MockMultipartFile("image", "image".getBytes()));
+
+        assertThat(actual.getImageUrl()).isEqualTo(imageUrl);
+    }
+
+    @Test
+    @DisplayName("모임 관리자가 아닌 유저가 모임 대표 이미지를 변경하면 실패한다")
+    void updateGroupImage_NotManager_Failure() {
+        Group group = getGroupWithId(manager);
+        MockMultipartFile imageFile = new MockMultipartFile("image", "image".getBytes());
+
+        given(groupRepository.findById(any())).willReturn(of(group));
+
+        assertThatThrownBy(() -> groupService.updateGroupImage(participant, 1L, imageFile))
+            .isInstanceOf(CustomException.class)
+            .hasMessage(ErrorCode.GROUP_MANAGER_AUTHORIZED.getMessage());
     }
 
     @Test

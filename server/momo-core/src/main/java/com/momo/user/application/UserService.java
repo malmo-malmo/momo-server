@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserService {
 
@@ -30,7 +31,6 @@ public class UserService {
         return UserAssembler.mapToUserResponse(user);
     }
 
-    @Transactional
     public UserUpdateResponse updateMyInformation(User loginUser, UserUpdateRequest request) {
         User user = findByUser(loginUser);
 
@@ -43,7 +43,6 @@ public class UserService {
         return UserAssembler.mapToUserUpdateResponse(user);
     }
 
-    @Transactional
     public UserImageUpdateResponse updateImage(User loginUser, MultipartFile imageFile) {
         User user = findByUser(loginUser);
         String imageUrl = s3UploadService.upload(imageFile, GenerateUploadPathUtil.getUserImagePath(user.getId()));

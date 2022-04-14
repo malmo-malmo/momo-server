@@ -43,6 +43,13 @@ public class UserService {
         return UserAssembler.mapToUserUpdateResponse(user);
     }
 
+    @Transactional(readOnly = true)
+    public void validateDuplicateNickname(String nickname) {
+        if (userRepository.existsByNickname(nickname)) {
+            throw new CustomException(ErrorCode.DUPLICATED_NICKNAME);
+        }
+    }
+
     public UserImageUpdateResponse updateImage(User loginUser, MultipartFile imageFile) {
         User user = findByUser(loginUser);
         String imageUrl = s3UploadService.upload(imageFile, GenerateUploadPathUtil.getUserImagePath(user.getId()));
@@ -52,15 +59,13 @@ public class UserService {
         return new UserImageUpdateResponse(imageUrl);
     }
 
+    public void deleteImage(User loginUser) {
+        User user = findByUser(loginUser);
+        user.updateImageUrl(null);
+    }
+
     private User findByUser(User user) {
         return userRepository.findById(user.getId())
             .orElseThrow(() -> new CustomException(ErrorCode.INVALID_INDEX_NUMBER));
-    }
-
-    @Transactional(readOnly = true)
-    public void validateDuplicateNickname(String nickname) {
-        if (userRepository.existsByNickname(nickname)) {
-            throw new CustomException(ErrorCode.DUPLICATED_NICKNAME);
-        }
     }
 }

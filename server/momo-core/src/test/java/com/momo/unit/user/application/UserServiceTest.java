@@ -162,4 +162,14 @@ public class UserServiceTest extends ServiceTest {
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.DUPLICATED_NICKNAME.getMessage());
     }
+
+    @Test
+    @DisplayName("유저 프로필 이미지를 삭제한다")
+    void deleteImage_LoginUser_Success() {
+        given(userRepository.findById(any())).willReturn(of(user));
+
+        userService.deleteImage(user);
+
+        assertThat(user.getImageUrl()).isNull();
+    }
 }

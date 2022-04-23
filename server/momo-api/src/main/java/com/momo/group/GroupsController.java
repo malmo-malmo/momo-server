@@ -1,10 +1,10 @@
 package com.momo.group;
 
 import com.momo.auth.CurrentUser;
-import com.momo.group.dto.GroupCardResponse;
-import com.momo.group.dto.GroupSearchConditionRequest;
-import com.momo.group.service.GroupService;
-import com.momo.user.domain.model.User;
+import com.momo.group.application.GroupsService;
+import com.momo.group.application.dto.request.GroupSearchConditionRequest;
+import com.momo.group.application.dto.response.GroupCardResponse;
+import com.momo.user.domain.User;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class GroupsController {
 
-    private final GroupService groupService;
+    private final GroupsService groupsService;
 
     @GetMapping("/search-v1/paging")
     public ResponseEntity<List<GroupCardResponse>> findBySearchConditionV1(
         @CurrentUser User user,
         @Valid @ModelAttribute GroupSearchConditionRequest request
     ) {
-        List<GroupCardResponse> groupCardResponses = groupService.findPageBySearchConditionV1(user, request);
+        List<GroupCardResponse> groupCardResponses = groupsService.findPageBySearchConditionV1(user, request);
         return ResponseEntity.ok(groupCardResponses);
     }
 
@@ -36,7 +36,7 @@ public class GroupsController {
         @CurrentUser User user,
         @Valid @ModelAttribute GroupSearchConditionRequest request
     ) {
-        List<GroupCardResponse> groupCardResponses = groupService.findPageBySearchConditionV2(user, request);
+        List<GroupCardResponse> groupCardResponses = groupsService.findPageBySearchConditionV2(user, request);
         return ResponseEntity.ok(groupCardResponses);
     }
 
@@ -45,7 +45,7 @@ public class GroupsController {
         @CurrentUser User user,
         @RequestParam(required = false) Long lastGroupId, @RequestParam int size
     ) {
-        List<GroupCardResponse> groupCardResponses = groupService.findPageByUserUniversity(user, lastGroupId, size);
+        List<GroupCardResponse> groupCardResponses = groupsService.findPageByUserUniversity(user, lastGroupId, size);
         return ResponseEntity.ok(groupCardResponses);
     }
 
@@ -54,7 +54,7 @@ public class GroupsController {
         @CurrentUser User user,
         @RequestParam(required = false) Long lastGroupId, @RequestParam int size
     ) {
-        List<GroupCardResponse> groupCardResponses = groupService.findPageByUserDistrict(user, lastGroupId, size);
+        List<GroupCardResponse> groupCardResponses = groupsService.findPageByUserDistrict(user, lastGroupId, size);
         return ResponseEntity.ok(groupCardResponses);
     }
 
@@ -63,7 +63,7 @@ public class GroupsController {
         @CurrentUser User user,
         @RequestParam(required = false) Long lastGroupId, @RequestParam int size
     ) {
-        List<GroupCardResponse> groupCardResponses = groupService.findPageByUserCategories(user, lastGroupId, size);
+        List<GroupCardResponse> groupCardResponses = groupsService.findPageByUserCategories(user, lastGroupId, size);
         return ResponseEntity.ok(groupCardResponses);
     }
 }

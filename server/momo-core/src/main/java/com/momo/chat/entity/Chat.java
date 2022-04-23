@@ -1,8 +1,8 @@
 package com.momo.chat.entity;
 
 import com.momo.common.entity.BaseEntity;
-import com.momo.group.entity.Group;
-import com.momo.user.domain.model.User;
+import com.momo.group.domain.Group;
+import com.momo.user.domain.User;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,7 +52,6 @@ public class Chat extends BaseEntity {
     }
 
     public boolean isManager(User user) {
-        return this.manager.isSameUser(user);
+        return this.manager.equals(user);
     }
-
 }

@@ -6,7 +6,7 @@ import com.momo.management.dto.MyPostCardResponse;
 import com.momo.management.dto.ParticipationGroupCardResponse;
 import com.momo.management.dto.ParticipationGroupCountResponse;
 import com.momo.management.dto.ParticipationGroupSummaryResponse;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import java.util.List;
 
 public interface ManagementService {

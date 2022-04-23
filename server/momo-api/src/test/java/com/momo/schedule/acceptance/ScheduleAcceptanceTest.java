@@ -6,7 +6,7 @@ import static com.momo.UserFixture.getUser;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatCustomException;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
 import static com.momo.common.exception.ErrorCode.GROUP_MANAGER_AUTHORIZED;
-import static com.momo.group.entity.Category.LIFE;
+import static com.momo.group.domain.category.Category.LIFE;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
 import static com.momo.schedule.acceptance.step.ScheduleAcceptanceStep.assertThatFindGroupSchedule;
 import static com.momo.schedule.acceptance.step.ScheduleAcceptanceStep.assertThatFindUpcomingSchedule;
@@ -23,7 +23,7 @@ import com.momo.schedule.dto.GroupScheduleResponses;
 import com.momo.schedule.dto.ScheduleCreateRequest;
 import com.momo.schedule.dto.UpcomingScheduleResponse;
 import com.momo.schedule.dto.UserScheduleResponse;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.time.LocalDateTime;
@@ -37,7 +37,7 @@ public class ScheduleAcceptanceTest extends AcceptanceTest {
     @Test
     void 모임_관리자가_모임에_일정을_등록한다() {
         String token = getAccessToken(getUser());
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, null)));
 
         ExtractableResponse<Response> response =
             requestToCreateSchedule(token, getScheduleCreateRequest(groupId, of(2022, 1, 1, 1, 0)));
@@ -49,7 +49,7 @@ public class ScheduleAcceptanceTest extends AcceptanceTest {
     void 모임_관리자가_아니면_일정_등록을_실패한다() {
         String token = getAccessToken(getUser());
         String invalidToken = getAccessToken(getUser());
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, null)));
 
         ExtractableResponse<Response> response =
             requestToCreateSchedule(invalidToken, getScheduleCreateRequest(groupId, of(2022, 1, 1, 1, 0)));
@@ -61,7 +61,7 @@ public class ScheduleAcceptanceTest extends AcceptanceTest {
     void 모임_참여자가_모임의_일정_목록을_조회한다() {
         User author = getUser();
         String token = getAccessToken(author);
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, null)));
         ScheduleCreateRequest actual = getScheduleCreateRequest(groupId, of(2022, 1, 1, 1, 0));
         requestToCreateSchedule(token, actual);
 
@@ -75,7 +75,7 @@ public class ScheduleAcceptanceTest extends AcceptanceTest {
     @Test
     void 로그인한_유저가_캘린더에서_선택한_월의_모든_일정을_조회한다() {
         String token = getAccessToken(getUser());
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, null)));
         requestToCreateSchedule(token, getScheduleCreateRequest(groupId, of(2022, 1, 1, 1, 0)));
         requestToCreateSchedule(token, getScheduleCreateRequest(groupId, of(2022, 2, 1, 1, 0)));
 
@@ -89,7 +89,7 @@ public class ScheduleAcceptanceTest extends AcceptanceTest {
     @Test
     void 다가오는_일정을_조회한다() {
         String token = getAccessToken(getUser());
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, null)));
         ScheduleCreateRequest request = getScheduleCreateRequest(groupId, LocalDateTime.now().plusHours(1));
 
         requestToCreateSchedule(token, request);

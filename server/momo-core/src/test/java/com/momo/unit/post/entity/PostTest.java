@@ -7,9 +7,9 @@ import static com.momo.post.entity.PostType.NORMAL;
 import static com.momo.post.entity.PostType.NOTICE;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.group.entity.Group;
+import com.momo.group.domain.Group;
 import com.momo.post.entity.Post;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

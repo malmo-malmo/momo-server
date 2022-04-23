@@ -1,6 +1,6 @@
 package com.momo.favorite.dto;
 
-import com.momo.group.dto.GroupCardResponse;
+import com.momo.group.application.dto.response.GroupCardResponse;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Data;

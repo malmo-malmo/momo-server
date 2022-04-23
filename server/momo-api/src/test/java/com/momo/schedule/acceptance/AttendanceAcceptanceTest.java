@@ -9,7 +9,7 @@ import static com.momo.ScheduleFixture.getScheduleCreateRequest;
 import static com.momo.UserFixture.getUser;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsCreated;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
-import static com.momo.group.entity.Category.LIFE;
+import static com.momo.group.domain.category.Category.LIFE;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToApplyParticipant;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToFindParticipants;
@@ -22,7 +22,7 @@ import static com.momo.schedule.acceptance.step.ScheduleAcceptanceStep.requestTo
 import static java.time.LocalDateTime.of;
 
 import com.momo.common.acceptance.AcceptanceTest;
-import com.momo.group.dto.ParticipantResponse;
+import com.momo.group.application.dto.response.ParticipantResponse;
 import com.momo.schedule.dto.AttendanceCreateRequests;
 import com.momo.schedule.dto.AttendanceResponse;
 import com.momo.schedule.dto.AttendanceUpdateRequests;
@@ -39,7 +39,7 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
     void 모임_관리자가_일정_출석_체크를_한다() {
         String managerToken = getAccessToken(getUser());
         String userToken = getAccessToken(getUser());
-        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, null)));
         Long scheduleId = extractId(
             requestToCreateSchedule(managerToken, getScheduleCreateRequest(groupId, of(2022, 1, 1, 1, 0)))
         );
@@ -64,7 +64,7 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
     void 모임_관리자가_일정_출석체크_목록을_조회한다() {
         String managerToken = getAccessToken(getUser());
         String userToken = getAccessToken(getUser());
-        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, null)));
         Long scheduleId = extractId(
             requestToCreateSchedule(managerToken, getScheduleCreateRequest(groupId, of(2022, 1, 1, 1, 0)))
         );
@@ -92,7 +92,7 @@ public class AttendanceAcceptanceTest extends AcceptanceTest {
     void 모임_관리자가_출석_체크를_수정한다() {
         String managerToken = getAccessToken(getUser());
         String userToken = getAccessToken(getUser());
-        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, null)));
         Long scheduleId = extractId(
             requestToCreateSchedule(managerToken, getScheduleCreateRequest(groupId, of(2022, 1, 1, 1, 0)))
         );

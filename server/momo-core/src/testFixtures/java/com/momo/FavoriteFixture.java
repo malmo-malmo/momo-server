@@ -3,9 +3,9 @@ package com.momo;
 import com.momo.favorite.dto.FavoriteGroupCardResponse;
 import com.momo.favorite.dto.FavoriteGroupCreateRequest;
 import com.momo.favorite.entity.FavoriteGroup;
-import com.momo.group.dto.GroupCardResponse;
-import com.momo.group.entity.Group;
-import com.momo.user.domain.model.User;
+import com.momo.group.application.dto.response.GroupCardResponse;
+import com.momo.group.domain.Group;
+import com.momo.user.domain.User;
 
 public class FavoriteFixture {
 

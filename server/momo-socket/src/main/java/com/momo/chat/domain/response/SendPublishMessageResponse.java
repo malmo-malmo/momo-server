@@ -2,7 +2,7 @@ package com.momo.chat.domain.response;
 
 import com.momo.chat.domain.entity.ChatMessage;
 import com.momo.chat.domain.entity.ChatMessageType;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import java.time.LocalDateTime;
 import java.util.Map;
 import lombok.Builder;

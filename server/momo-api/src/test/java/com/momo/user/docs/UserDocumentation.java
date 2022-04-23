@@ -63,25 +63,20 @@ public class UserDocumentation {
         );
     }
 
-    public static RestDocumentationResultHandler updateImageWithImage() {
+    public static RestDocumentationResultHandler updateImage() {
         RequestPartDescriptor[] requestPart = new RequestPartDescriptor[]{
             partWithName("imageFile").description("유저 프로필 이미지")
         };
         FieldDescriptor[] response = new FieldDescriptor[]{
             fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("이미지 URL")
         };
-        return document("user/updateImageWithImage",
+        return document("user/updateImage",
             requestParts(requestPart),
             responseFields(response)
         );
     }
 
-    public static RestDocumentationResultHandler updateImage() {
-        FieldDescriptor[] response = new FieldDescriptor[]{
-            fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("이미지 URL")
-        };
-        return document("user/updateImage",
-            responseFields(response)
-        );
+    public static RestDocumentationResultHandler deleteImage() {
+        return document("user/deleteImage");
     }
 }

@@ -1,6 +1,6 @@
 package com.momo.schedule.dto;
 
-import com.momo.group.entity.Participant;
+import com.momo.group.domain.participant.Participant;
 import com.momo.schedule.entity.Attendance;
 import com.momo.schedule.entity.Schedule;
 import javax.validation.constraints.NotNull;

@@ -1,8 +1,8 @@
 package com.momo.post.entity;
 
 import com.momo.common.entity.BaseEntity;
-import com.momo.group.entity.Group;
-import com.momo.user.domain.model.User;
+import com.momo.group.domain.Group;
+import com.momo.user.domain.User;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Embedded;
@@ -83,6 +83,7 @@ public class Post extends BaseEntity {
         if (Objects.isNull(loginUser)) {
             return false;
         }
-        return this.author.isSameUser(loginUser);
+
+        return this.author.equals(loginUser);
     }
 }

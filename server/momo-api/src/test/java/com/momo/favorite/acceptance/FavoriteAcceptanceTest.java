@@ -6,9 +6,6 @@ import static com.momo.UserFixture.getUser;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsCreated;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsNoContent;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
-import static com.momo.group.entity.Category.EMPLOYMENT;
-import static com.momo.group.entity.Category.HEALTH;
-import static com.momo.group.entity.Category.LIFE;
 import static com.momo.favorite.acceptance.step.FavoriteAcceptanceStep.assertThatFindFavoriteCategories;
 import static com.momo.favorite.acceptance.step.FavoriteAcceptanceStep.assertThatFindFavoriteGroups;
 import static com.momo.favorite.acceptance.step.FavoriteAcceptanceStep.requestToCreateFavoriteGroup;
@@ -18,6 +15,9 @@ import static com.momo.favorite.acceptance.step.FavoriteAcceptanceStep.requestTo
 import static com.momo.favorite.acceptance.step.FavoriteAcceptanceStep.requestToFindFavoriteGroups;
 import static com.momo.favorite.acceptance.step.FavoriteAcceptanceStep.requestToUpdateFavoriteCategories;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
+import static com.momo.group.domain.category.Category.EMPLOYMENT;
+import static com.momo.group.domain.category.Category.HEALTH;
+import static com.momo.group.domain.category.Category.LIFE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.acceptance.AcceptanceTest;
@@ -26,8 +26,8 @@ import com.momo.favorite.dto.FavoriteCategoriesUpdateRequest;
 import com.momo.favorite.dto.FavoriteGroupCardResponse;
 import com.momo.favorite.dto.FavoriteGroupCountResponse;
 import com.momo.favorite.dto.FavoriteGroupCreateRequest;
-import com.momo.group.dto.GroupCreateRequest;
-import com.momo.user.domain.model.User;
+import com.momo.group.application.dto.request.GroupCreateRequest;
+import com.momo.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;
@@ -50,7 +50,7 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
     @Test
     void 관심_모임을_등록한다() {
         String token = getAccessToken(user);
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, user.getUniversity())));
         FavoriteGroupCreateRequest request = getFavoriteGroupCreateRequest(groupId);
 
         ExtractableResponse<Response> response = requestToCreateFavoriteGroup(token, request);
@@ -61,7 +61,7 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
     @Test
     void 관심_모임으로_등록한_모임_수를_조회한다() {
         String token = getAccessToken(user);
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, user.getUniversity())));
         requestToCreateFavoriteGroup(token, FavoriteGroupCreateRequest.builder().groupId(groupId).build());
 
         ExtractableResponse<Response> response = requestToFindFavoriteGroupCount(token);
@@ -73,7 +73,7 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
     @Test
     void 관심_모임_목록을_조회한다() {
         String token = getAccessToken(user);
-        GroupCreateRequest groupCreateRequest = getGroupCreateRequest(LIFE, true);
+        GroupCreateRequest groupCreateRequest = getGroupCreateRequest(LIFE, user.getUniversity());
         Long groupId = extractId(requestToCreateGroup(token, groupCreateRequest));
         requestToCreateFavoriteGroup(token, FavoriteGroupCreateRequest.builder().groupId(groupId).build());
 
@@ -108,7 +108,7 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
     @Test
     void 관심_모임을_삭제한다() {
         String token = getAccessToken(user);
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, user.getUniversity())));
         requestToCreateFavoriteGroup(token, getFavoriteGroupCreateRequest(groupId));
 
         ExtractableResponse<Response> response = requestToDeleteFavoriteGroup(token, groupId);

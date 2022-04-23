@@ -16,16 +16,17 @@ import static com.momo.common.FixtureComponents.NAME;
 import static com.momo.common.FixtureComponents.PAGE;
 import static com.momo.common.FixtureComponents.PAGE_SIZE;
 import static com.momo.common.FixtureComponents.RECRUITMENT_CNT;
+import static com.momo.common.FixtureComponents.UNIVERSITY;
 import static com.momo.common.LocationFixture.getLocation;
 
-import com.momo.group.dto.GroupCardResponse;
-import com.momo.group.dto.GroupCreateRequest;
-import com.momo.group.dto.GroupCreateResponse;
-import com.momo.group.dto.GroupResponse;
-import com.momo.group.dto.GroupSearchConditionRequest;
-import com.momo.group.entity.Category;
-import com.momo.group.entity.Group;
-import com.momo.user.domain.model.User;
+import com.momo.group.application.dto.request.GroupCreateRequest;
+import com.momo.group.application.dto.request.GroupSearchConditionRequest;
+import com.momo.group.application.dto.response.GroupCardResponse;
+import com.momo.group.application.dto.response.GroupCreateResponse;
+import com.momo.group.application.dto.response.GroupResponse;
+import com.momo.group.domain.Group;
+import com.momo.group.domain.category.Category;
+import com.momo.user.domain.User;
 
 public class GroupFixture {
 
@@ -35,6 +36,7 @@ public class GroupFixture {
             .manager(user)
             .name(NAME + INCREASE_ID)
             .category(CATEGORY)
+            .university(user.getUniversity())
             .location(getLocation())
             .imageUrl(IMAGE_URL)
             .introduction(INTRODUCTION + INCREASE_ID)
@@ -51,6 +53,7 @@ public class GroupFixture {
             .manager(user)
             .name(NAME + INCREASE_ID)
             .category(CATEGORY)
+            .university(user.getUniversity())
             .location(getLocation())
             .imageUrl(IMAGE_URL)
             .introduction(INTRODUCTION + INCREASE_ID)
@@ -69,6 +72,7 @@ public class GroupFixture {
             .name(NAME + INCREASE_ID)
             .category(CATEGORY)
             .imageUrl(IMAGE_URL)
+            .university(user.getUniversity())
             .location(getLocation())
             .introduction(INTRODUCTION + INCREASE_ID)
             .recruitmentCnt(RECRUITMENT_CNT)
@@ -78,14 +82,14 @@ public class GroupFixture {
             .build();
     }
 
-    public static GroupCreateRequest getGroupCreateRequest(Category category, boolean isUniversity) {
+    public static GroupCreateRequest getGroupCreateRequest(Category category, String university) {
         INCREASE_ID++;
         return GroupCreateRequest.builder()
             .name(NAME + INCREASE_ID)
             .category(category)
             .city(CITY)
             .district(DISTRICT)
-            .isUniversity(isUniversity)
+            .university(university)
             .isOffline(IS_OFFLINE)
             .startDate(DATE)
             .recruitmentCnt(RECRUITMENT_CNT)
@@ -94,14 +98,14 @@ public class GroupFixture {
             .build();
     }
 
-    public static GroupCreateRequest getGroupCreateRequest(Category category, boolean isUniversity, String district) {
+    public static GroupCreateRequest getGroupCreateRequest(Category category, String university, String district) {
         INCREASE_ID++;
         return GroupCreateRequest.builder()
             .name(NAME + INCREASE_ID)
             .category(category)
             .city(CITY)
             .district(district)
-            .isUniversity(isUniversity)
+            .university(university)
             .isOffline(IS_OFFLINE)
             .startDate(DATE)
             .recruitmentCnt(RECRUITMENT_CNT)
@@ -126,6 +130,7 @@ public class GroupFixture {
             .managerId(1L)
             .name(NAME)
             .imageUrl(IMAGE_URL)
+            .university(UNIVERSITY)
             .startDate(DATE)
             .location(getLocation())
             .isOffline(IS_OFFLINE)

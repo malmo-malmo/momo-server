@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.momo.management.ManagementController;
 import com.momo.common.RestDocsControllerTest;
-import com.momo.group.entity.Category;
+import com.momo.group.domain.category.Category;
 import com.momo.management.dto.MyGroupCardResponse;
 import com.momo.management.dto.MyGroupSummaryResponse;
 import com.momo.management.dto.MyPostCardResponse;

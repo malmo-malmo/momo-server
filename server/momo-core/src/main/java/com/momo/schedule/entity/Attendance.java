@@ -1,7 +1,7 @@
 package com.momo.schedule.entity;
 
 import com.momo.common.entity.BaseEntity;
-import com.momo.group.entity.Participant;
+import com.momo.group.domain.participant.Participant;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.Entity;

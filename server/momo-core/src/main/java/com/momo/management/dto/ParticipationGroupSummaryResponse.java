@@ -1,7 +1,7 @@
 package com.momo.management.dto;
 
-import com.momo.group.entity.Category;
-import com.momo.group.entity.Participant;
+import com.momo.group.domain.category.Category;
+import com.momo.group.domain.participant.Participant;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Builder;

@@ -4,7 +4,7 @@ import static com.momo.UserFixture.getUser;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.momo.common.RepositoryTest;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import com.momo.user.domain.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,7 +37,7 @@ public class UserRepositoryTest extends RepositoryTest {
             () -> assertThat(user.getImageUrl()).isEqualTo(user.getImageUrl()),
             () -> assertThat(user.getLocation().getCity()).isEqualTo(user.getLocation().getCity()),
             () -> assertThat(user.getLocation().getDistrict()).isEqualTo(user.getLocation().getDistrict()),
-            () -> assertThat(user.getLocation().getUniversity()).isEqualTo(user.getLocation().getUniversity())
+            () -> assertThat(user.getUniversity()).isEqualTo(user.getUniversity())
         );
     }
 
@@ -58,7 +58,7 @@ public class UserRepositoryTest extends RepositoryTest {
             () -> assertThat(actual.getImageUrl()).isEqualTo(user.getImageUrl()),
             () -> assertThat(actual.getLocation().getCity()).isEqualTo(user.getLocation().getCity()),
             () -> assertThat(actual.getLocation().getDistrict()).isEqualTo(user.getLocation().getDistrict()),
-            () -> assertThat(actual.getLocation().getUniversity()).isEqualTo(user.getLocation().getUniversity())
+            () -> assertThat(actual.getUniversity()).isEqualTo(user.getUniversity())
         );
     }
 

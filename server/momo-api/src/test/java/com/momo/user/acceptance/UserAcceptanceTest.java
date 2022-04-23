@@ -1,23 +1,24 @@
 package com.momo.user.acceptance;
 
 import static com.momo.UserFixture.getUser;
+import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsNoContent;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
 import static com.momo.district.entity.City.SEOUL;
+import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatDeleteImage;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatFindMyInformation;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatUpdateImage;
-import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatUpdateImageWithImage;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.assertThatUpdateMyInformation;
+import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToDeleteImage;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToFindMyInformation;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdateImage;
-import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdateImageWithImage;
 import static com.momo.user.acceptance.step.UserAcceptanceStep.requestToUpdateMyInformation;
 
 import com.momo.common.acceptance.AcceptanceTest;
-import com.momo.user.domain.model.User;
 import com.momo.user.application.dto.request.UserUpdateRequest;
 import com.momo.user.application.dto.response.UserImageUpdateResponse;
 import com.momo.user.application.dto.response.UserResponse;
 import com.momo.user.application.dto.response.UserUpdateResponse;
+import com.momo.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.io.IOException;
@@ -70,27 +71,27 @@ public class UserAcceptanceTest extends AcceptanceTest {
     }
 
     @Test
-    @DisplayName("내 프로필 이미지를 수정한다 - 이미지 포함")
-    void updateImage_ExistsImage_Success() throws IOException {
+    @DisplayName("내 프로필 이미지를 수정한다")
+    void updateImage_Success() throws IOException {
         String token = getAccessToken(user);
         MultipartFile imageFile = new MockMultipartFile("imageFile", "imageFile".getBytes());
 
-        ExtractableResponse<Response> response = requestToUpdateImageWithImage(token, imageFile);
-        UserImageUpdateResponse userImageUpdateResponse = getObject(response, UserImageUpdateResponse.class);
-
-        assertThatStatusIsOk(response);
-        assertThatUpdateImageWithImage(userImageUpdateResponse);
-    }
-
-    @Test
-    @DisplayName("내 프로필 이미지를 수정한다 - 이미지 미포함")
-    void updateImage_NotExistsImage_Success() {
-        String token = getAccessToken(user);
-
-        ExtractableResponse<Response> response = requestToUpdateImage(token);
+        ExtractableResponse<Response> response = requestToUpdateImage(token, imageFile);
         UserImageUpdateResponse userImageUpdateResponse = getObject(response, UserImageUpdateResponse.class);
 
         assertThatStatusIsOk(response);
         assertThatUpdateImage(userImageUpdateResponse);
+    }
+
+    @Test
+    @DisplayName("내 프로필 이미지를 삭제한다")
+    void deleteImage_Success() {
+        String token = getAccessToken(user);
+
+        ExtractableResponse<Response> response = requestToDeleteImage(token);
+        UserResponse userResponse = getObject(requestToFindMyInformation(token), UserResponse.class);
+
+        assertThatStatusIsNoContent(response);
+        assertThatDeleteImage(userResponse);
     }
 }

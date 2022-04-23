@@ -3,11 +3,11 @@ package com.momo.user.acceptance.step;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.user.domain.model.User;
 import com.momo.user.application.dto.request.UserUpdateRequest;
 import com.momo.user.application.dto.response.UserImageUpdateResponse;
 import com.momo.user.application.dto.response.UserResponse;
 import com.momo.user.application.dto.response.UserUpdateResponse;
+import com.momo.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class UserAcceptanceStep {
             () -> assertThat(response.getCity().getCode()).isEqualTo(user.getLocation().getCity().getCode()),
             () -> assertThat(response.getCity().getName()).isEqualTo(user.getLocation().getCity().getName()),
             () -> assertThat(response.getDistrict()).isEqualTo(user.getLocation().getDistrict()),
-            () -> assertThat(response.getUniversity()).isEqualTo(user.getLocation().getUniversity()),
+            () -> assertThat(response.getUniversity()).isEqualTo(user.getUniversity()),
             () -> assertThat(response.getCategories().size()).isEqualTo(2)
         );
     }
@@ -41,11 +41,11 @@ public class UserAcceptanceStep {
         );
     }
 
-    public static void assertThatUpdateImageWithImage(UserImageUpdateResponse response) {
+    public static void assertThatUpdateImage(UserImageUpdateResponse response) {
         assertThat(response.getImageUrl()).isNotNull();
     }
 
-    public static void assertThatUpdateImage(UserImageUpdateResponse response) {
+    public static void assertThatDeleteImage(UserResponse response) {
         assertThat(response.getImageUrl()).isNull();
     }
 
@@ -70,22 +70,22 @@ public class UserAcceptanceStep {
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToUpdateImageWithImage(
+    public static ExtractableResponse<Response> requestToUpdateImage(
         String token, MultipartFile imageFile
     ) throws IOException {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
             .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
             .multiPart("imageFile", imageFile.getName(), imageFile.getBytes())
-            .put("/api/user/update-image")
+            .patch("/api/user/update-image")
             .then().log().all()
             .extract();
     }
 
-    public static ExtractableResponse<Response> requestToUpdateImage(String token) {
+    public static ExtractableResponse<Response> requestToDeleteImage(String token) {
         return given().log().all()
             .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-            .put("/api/user/update-image")
+            .delete("/api/user/delete-image")
             .then().log().all()
             .extract();
     }

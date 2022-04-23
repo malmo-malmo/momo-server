@@ -5,9 +5,9 @@ import static com.momo.ScheduleFixture.getSchedule;
 import static com.momo.UserFixture.getUserWithId;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.momo.group.entity.Group;
+import com.momo.group.domain.Group;
 import com.momo.schedule.entity.Schedule;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

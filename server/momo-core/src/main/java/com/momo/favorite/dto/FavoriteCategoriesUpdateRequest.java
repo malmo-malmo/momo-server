@@ -1,6 +1,6 @@
 package com.momo.favorite.dto;
 
-import com.momo.group.entity.Category;
+import com.momo.group.domain.category.Category;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

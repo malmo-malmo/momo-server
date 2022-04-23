@@ -4,7 +4,7 @@ import com.momo.auth.CurrentUser;
 import com.momo.post.dto.PostCardResponse;
 import com.momo.post.dto.PostCardsRequest;
 import com.momo.post.service.PostService;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;

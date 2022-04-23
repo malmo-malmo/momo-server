@@ -5,7 +5,7 @@ import com.momo.post.dto.PostCardsRequest;
 import com.momo.post.dto.PostCreateRequest;
 import com.momo.post.dto.PostResponse;
 import com.momo.post.dto.PostUpdateRequest;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import java.util.List;
 
 public interface PostService {

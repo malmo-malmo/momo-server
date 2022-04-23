@@ -11,7 +11,7 @@ import com.momo.chat.domain.repository.RabbitMqRepository;
 import com.momo.chat.domain.request.SendDto;
 import com.momo.chat.domain.service.impl.SaveMessageService;
 import com.momo.common.ServiceTest;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

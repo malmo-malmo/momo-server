@@ -19,7 +19,7 @@ import com.momo.user.application.dto.request.UserUpdateRequest;
 import com.momo.user.application.dto.response.UserImageUpdateResponse;
 import com.momo.user.application.dto.response.UserResponse;
 import com.momo.user.application.dto.response.UserUpdateResponse;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import com.momo.user.domain.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,7 +61,7 @@ public class UserServiceTest extends ServiceTest {
             () -> assertThat(expected.getCity().getName()).isEqualTo(user.getLocation().getCity().getName()),
             () -> assertThat(expected.getCity().getCode()).isEqualTo(user.getLocation().getCity().getCode()),
             () -> assertThat(expected.getDistrict()).isEqualTo(user.getLocation().getDistrict()),
-            () -> assertThat(expected.getUniversity()).isEqualTo(user.getLocation().getUniversity()),
+            () -> assertThat(expected.getUniversity()).isEqualTo(user.getUniversity()),
             () -> assertThat(expected.getCategories()).isNotNull()
         );
     }
@@ -161,5 +161,15 @@ public class UserServiceTest extends ServiceTest {
         assertThatThrownBy(() -> userService.validateDuplicateNickname("닉네임"))
             .isInstanceOf(CustomException.class)
             .hasMessage(ErrorCode.DUPLICATED_NICKNAME.getMessage());
+    }
+
+    @Test
+    @DisplayName("유저 프로필 이미지를 삭제한다")
+    void deleteImage_LoginUser_Success() {
+        given(userRepository.findById(any())).willReturn(of(user));
+
+        userService.deleteImage(user);
+
+        assertThat(user.getImageUrl()).isNull();
     }
 }

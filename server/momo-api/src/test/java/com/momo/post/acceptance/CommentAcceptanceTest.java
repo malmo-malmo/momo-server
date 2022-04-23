@@ -7,7 +7,7 @@ import static com.momo.PostFixture.getPostCreateRequest;
 import static com.momo.UserFixture.getUser;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsNoContent;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatStatusIsOk;
-import static com.momo.group.entity.Category.LIFE;
+import static com.momo.group.domain.category.Category.LIFE;
 import static com.momo.post.entity.PostType.NORMAL;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
 import static com.momo.post.acceptance.step.CommentAcceptanceStep.assertThatCreateComment;
@@ -22,7 +22,7 @@ import com.momo.common.acceptance.step.AcceptanceStep;
 import com.momo.post.dto.CommentCreateRequest;
 import com.momo.post.dto.CommentResponse;
 import com.momo.post.dto.CommentsResponse;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import java.util.List;
@@ -45,7 +45,7 @@ public class CommentAcceptanceTest extends AcceptanceTest {
     @Test
     void 모임_참여자가_게시물에_댓글을_등록한다() {
         String token = getAccessToken(user);
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, user.getUniversity())));
         Long postId = extractId(requestToCreatePost(token, getPostCreateRequest(groupId, NORMAL)));
         CommentCreateRequest commentCreateRequest = getCommentCreateRequest(postId);
 
@@ -58,7 +58,7 @@ public class CommentAcceptanceTest extends AcceptanceTest {
     @Test
     void 댓글_작성자가_본인의_댓글을_삭제한다() {
         String token = getAccessToken(user);
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, user.getUniversity())));
         Long postId = extractId(requestToCreatePost(token, getPostCreateRequest(groupId, NORMAL)));
         Long commentId = extractId(requestToCreateComment(token, getCommentCreateRequest(postId)));
 
@@ -69,7 +69,7 @@ public class CommentAcceptanceTest extends AcceptanceTest {
     @Test
     void 모임_참여자가_게시물_댓글_목록을_조회한다() {
         String token = getAccessToken(user);
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, user.getUniversity())));
         Long postId = extractId(requestToCreatePost(token, getPostCreateRequest(groupId, NORMAL)));
         List<CommentCreateRequest> request = List.of(getCommentCreateRequest(postId), getCommentCreateRequest(postId));
         requestToCreateComment(token, request.get(0));

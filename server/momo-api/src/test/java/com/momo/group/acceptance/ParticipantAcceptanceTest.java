@@ -4,7 +4,7 @@ import static com.momo.GroupFixture.getGroupCreateRequest;
 import static com.momo.UserFixture.getUser;
 import static com.momo.common.acceptance.step.AcceptanceStep.assertThatCustomException;
 import static com.momo.common.exception.ErrorCode.GROUP_MANAGER_WITHDRAW_NOT_ALLOW;
-import static com.momo.group.entity.Category.LIFE;
+import static com.momo.group.domain.category.Category.LIFE;
 import static com.momo.group.acceptance.step.GroupAcceptanceStep.requestToCreateGroup;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.assertThatFindParticipantsAfterDelete;
 import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestToApplyParticipant;
@@ -14,8 +14,8 @@ import static com.momo.group.acceptance.step.ParticipantAcceptanceStep.requestTo
 import com.momo.common.acceptance.AcceptanceTest;
 import com.momo.common.acceptance.step.AcceptanceStep;
 import com.momo.common.exception.ErrorCode;
-import com.momo.group.dto.ParticipantResponse;
-import com.momo.user.domain.model.User;
+import com.momo.group.application.dto.response.ParticipantResponse;
+import com.momo.user.domain.User;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,7 +41,7 @@ public class ParticipantAcceptanceTest extends AcceptanceTest {
     void 모임_관리자가_참여자_목록을_조회한다() {
         String managerToken = getAccessToken(user);
         String participantToken = getAccessToken(getUser());
-        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, user.getUniversity())));
         requestToApplyParticipant(participantToken, groupId);
 
         ExtractableResponse<Response> response = requestToFindParticipants(managerToken, groupId);
@@ -53,7 +53,7 @@ public class ParticipantAcceptanceTest extends AcceptanceTest {
     void 모임_관리자가_아닌_유저가_참여자_목록을_조회하면_실패한다() {
         String managerToken = getAccessToken(user);
         String participantToken = getAccessToken(getUser());
-        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, user.getUniversity())));
         requestToApplyParticipant(participantToken, groupId);
 
         ExtractableResponse<Response> response = requestToFindParticipants(participantToken, groupId);
@@ -65,7 +65,7 @@ public class ParticipantAcceptanceTest extends AcceptanceTest {
     void 모임_참여자가_모임에서_탈퇴한다() {
         String managerToken = getAccessToken(user);
         String participantToken = getAccessToken(getUser());
-        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(managerToken, getGroupCreateRequest(LIFE, user.getUniversity())));
         requestToApplyParticipant(participantToken, groupId);
 
         ExtractableResponse<Response> response = requestToDeleteParticipant(participantToken, groupId);
@@ -79,7 +79,7 @@ public class ParticipantAcceptanceTest extends AcceptanceTest {
     @Test
     void 모임_관리자가_모임에서_탈퇴하면_실패한다() {
         String token = getAccessToken(user);
-        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, true)));
+        Long groupId = extractId(requestToCreateGroup(token, getGroupCreateRequest(LIFE, user.getUniversity())));
 
         ExtractableResponse<Response> response = requestToDeleteParticipant(token, groupId);
 

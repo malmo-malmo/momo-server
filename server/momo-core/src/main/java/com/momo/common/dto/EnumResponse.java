@@ -1,7 +1,7 @@
 package com.momo.common.dto;
 
 import com.momo.district.entity.City;
-import com.momo.group.entity.Category;
+import com.momo.group.domain.category.Category;
 import com.momo.favorite.entity.FavoriteCategories;
 import java.util.Arrays;
 import java.util.List;

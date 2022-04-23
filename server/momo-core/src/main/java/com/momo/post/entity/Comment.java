@@ -3,7 +3,7 @@ package com.momo.post.entity;
 import com.momo.common.entity.BaseEntity;
 import com.momo.common.exception.CustomException;
 import com.momo.common.exception.ErrorCode;
-import com.momo.user.domain.model.User;
+import com.momo.user.domain.User;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -55,7 +55,7 @@ public class Comment extends BaseEntity {
     }
 
     public void validateWriter(User loginUser) {
-        if (!this.user.isSameUser(loginUser)) {
+        if (!this.user.equals(loginUser)) {
             throw new CustomException(ErrorCode.USER_ACCESS_DENIED);
         }
     }

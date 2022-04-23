@@ -13,4 +13,13 @@ public class MockMvcHttpServletRequestSupport {
         });
         return builder;
     }
+
+    public static MockMultipartHttpServletRequestBuilder mockMultipartPatchBuilder(String urlTemplate) {
+        MockMultipartHttpServletRequestBuilder builder = MockMvcRequestBuilders.multipart(urlTemplate);
+        builder.with(request -> {
+            request.setMethod("PATCH");
+            return request;
+        });
+        return builder;
+    }
 }

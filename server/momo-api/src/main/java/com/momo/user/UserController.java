@@ -60,6 +60,6 @@ public class UserController {
     @DeleteMapping("/delete-image")
     public ResponseEntity<Void> deleteImage(@CurrentUser User user) {
         userService.deleteImage(user);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

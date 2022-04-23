@@ -1,10 +1,11 @@
 package com.momo.user.docs;
 
 import static com.momo.UserFixture.getUserWithId;
-import static com.momo.common.docs.MockMvcHttpServletRequestSupport.mockMultipartPutBuilder;
+import static com.momo.common.docs.MockMvcHttpServletRequestSupport.mockMultipartPatchBuilder;
 import static com.momo.district.entity.City.SEOUL;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -97,31 +98,29 @@ public class UserRestDocsTest extends RestDocsControllerTest {
     }
 
     @Test
-    @DisplayName("내 프로필 이미지를 수정한다 - 이미지 포함")
-    void updateImage_ExistsImage_Success() throws Exception {
+    @DisplayName("내 프로필 이미지를 수정한다")
+    void updateImage_Success() throws Exception {
         MockMultipartFile imageFile = new MockMultipartFile("imageFile", "imageFile".getBytes());
         UserImageUpdateResponse response = new UserImageUpdateResponse("imageUrl");
 
         when(userService.updateImage(any(), any())).thenReturn(response);
 
-        super.mockMvc.perform(mockMultipartPutBuilder("/api/user/update-image")
+        super.mockMvc.perform(mockMultipartPatchBuilder("/api/user/update-image")
                 .file(imageFile)
             )
             .andDo(print())
             .andExpect(status().isOk())
-            .andDo(UserDocumentation.updateImageWithImage());
+            .andDo(UserDocumentation.updateImage());
     }
 
     @Test
-    @DisplayName("내 프로필 이미지를 수정한다 - 이미지 미포함")
-    void updateImage_NotExistsImage_Success() throws Exception {
-        UserImageUpdateResponse response = new UserImageUpdateResponse("null");
+    @DisplayName("내 프로필 이미지를 삭제한다")
+    void deleteImage_Success() throws Exception {
+        userService.deleteImage(any());
 
-        when(userService.updateImage(any(), any())).thenReturn(response);
-
-        super.mockMvc.perform(put("/api/user/update-image"))
+        super.mockMvc.perform(delete("/api/user/delete-image"))
             .andDo(print())
-            .andExpect(status().isOk())
-            .andDo(UserDocumentation.updateImage());
+            .andExpect(status().isNoContent())
+            .andDo(UserDocumentation.deleteImage());
     }
 }

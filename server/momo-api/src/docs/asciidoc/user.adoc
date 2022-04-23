@@ -16,10 +16,10 @@ operation::user/validateDuplicateNickname[snippets='http-request,http-response,r
 
 operation::user/updateMyInformation[snippets='http-request,http-response,request-fields,response-fields']
 
-=== 내 프로필 이미지 수정 (이미지가 있는 경우)
+=== 내 프로필 이미지 수정
 
-operation::user/updateImageWithImage[snippets='http-request,http-response,request-parts,response-fields']
+operation::user/updateImage[snippets='http-request,http-response,request-parts,response-fields']
 
-=== 내 프로필 이미지 수정 (이미지가 없는 경우)
+=== 내 프로필 이미지 삭제
 
-operation::user/updateImage[snippets='http-request,http-response,response-fields']
+operation::user/deleteImage[snippets='http-request,http-response']

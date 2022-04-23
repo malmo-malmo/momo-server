@@ -59,7 +59,7 @@ public class GroupController {
         return ResponseEntity.ok(responses);
     }
 
-    @PutMapping
+    @PutMapping("/update-information")
     public ResponseEntity<Void> updateGroupInformation(
         @CurrentUser User user,
         @Valid @RequestBody GroupUpdateRequest request
@@ -68,7 +68,10 @@ public class GroupController {
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/{groupId}/update-image")
+    /*
+    TODO : 테스트를 위해 임시로 HTTP 메서드를 POST로 설정
+    */
+    @PostMapping("/{groupId}/update-image")
     public ResponseEntity<GroupImageUpdateResponse> updateGroupImage(
         @CurrentUser User user,
         @PathVariable Long groupId,
@@ -102,6 +105,6 @@ public class GroupController {
         @PathVariable Long groupId
     ) {
         groupService.deleteGroupImage(user, groupId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

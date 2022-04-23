@@ -16,6 +16,7 @@ import static com.momo.common.FixtureComponents.NAME;
 import static com.momo.common.FixtureComponents.PAGE;
 import static com.momo.common.FixtureComponents.PAGE_SIZE;
 import static com.momo.common.FixtureComponents.RECRUITMENT_CNT;
+import static com.momo.common.FixtureComponents.UNIVERSITY;
 import static com.momo.common.LocationFixture.getLocation;
 
 import com.momo.group.application.dto.request.GroupCreateRequest;
@@ -129,6 +130,7 @@ public class GroupFixture {
             .managerId(1L)
             .name(NAME)
             .imageUrl(IMAGE_URL)
+            .university(UNIVERSITY)
             .startDate(DATE)
             .location(getLocation())
             .isOffline(IS_OFFLINE)

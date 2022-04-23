@@ -14,8 +14,11 @@ public class MockMvcHttpServletRequestSupport {
         return builder;
     }
 
-    public static MockMultipartHttpServletRequestBuilder mockMultipartPatchBuilder(String urlTemplate) {
-        MockMultipartHttpServletRequestBuilder builder = MockMvcRequestBuilders.multipart(urlTemplate);
+    public static MockMultipartHttpServletRequestBuilder mockMultipartPatchBuilder(
+        String urlTemplate,
+        Object... uriVars
+    ) {
+        MockMultipartHttpServletRequestBuilder builder = MockMvcRequestBuilders.multipart(urlTemplate, uriVars);
         builder.with(request -> {
             request.setMethod("PATCH");
             return request;

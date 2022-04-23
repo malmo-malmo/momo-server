@@ -2,15 +2,19 @@ package com.momo.group.docs;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
 
 import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.request.ParameterDescriptor;
+import org.springframework.restdocs.request.RequestPartDescriptor;
 
 public class GroupDocumentation {
 
@@ -18,7 +22,7 @@ public class GroupDocumentation {
         ParameterDescriptor[] requestGroup = new ParameterDescriptor[]{
             parameterWithName("name").description("모임 이름"),
             parameterWithName("category").description("모임 카테고리"),
-            parameterWithName("isUniversity").description("모임 학교 여부"),
+            parameterWithName("university").description("모임 대학교").optional(),
             parameterWithName("city").description("모임 지역"),
             parameterWithName("district").description("모임 구역"),
             parameterWithName("startDate").description("모임 시작일자"),
@@ -57,7 +61,7 @@ public class GroupDocumentation {
 
         return document("group/find",
             pathParameters(
-                parameterWithName("id").description("모임 ID")
+                parameterWithName("groupId").description("모임 ID")
             ),
             responseFields(responseGroup)
         );
@@ -183,7 +187,7 @@ public class GroupDocumentation {
 
     public static RestDocumentationResultHandler updateManagerByUserId() {
         ParameterDescriptor[] requestPathParams = new ParameterDescriptor[]{
-            parameterWithName("id").description("모임 ID"),
+            parameterWithName("groupId").description("모임 ID"),
             parameterWithName("userId").description("위임할 사용자 ID")
         };
         return document("group/updateManagerByUserId",
@@ -191,11 +195,55 @@ public class GroupDocumentation {
         );
     }
 
-    public static RestDocumentationResultHandler endGroupById() {
+    public static RestDocumentationResultHandler endGroup() {
         ParameterDescriptor[] requestPathParams = new ParameterDescriptor[]{
-            parameterWithName("id").description("모임 ID")
+            parameterWithName("groupId").description("모임 ID")
         };
-        return document("group/endGroupById",
+        return document("group/endGroup",
+            pathParameters(requestPathParams)
+        );
+    }
+
+    public static RestDocumentationResultHandler updateGroupInformation() {
+        FieldDescriptor[] request = new FieldDescriptor[]{
+            fieldWithPath("id").description("모임 ID"),
+            fieldWithPath("name").description("모임 이름"),
+            fieldWithPath("category").description("모임 카테고리"),
+            fieldWithPath("university").description("모임 대학교").optional(),
+            fieldWithPath("city").description("모임 도시"),
+            fieldWithPath("district").description("모임 도시 상세"),
+            fieldWithPath("recruitmentCnt").description("모임 모집 인원"),
+            fieldWithPath("introduction").description("모임 소개"),
+            fieldWithPath("isOffline").description("모임 온/오프라인 여부")
+        };
+        return document("group/updateGroupInformation",
+            requestFields(request)
+        );
+    }
+
+    public static RestDocumentationResultHandler updateImage() {
+        RequestPartDescriptor[] requestPart = new RequestPartDescriptor[]{
+            partWithName("imageFile").description("모임 대표 이미지")
+        };
+        ParameterDescriptor[] requestPathParams = new ParameterDescriptor[]{
+            parameterWithName("groupId").description("모임 ID")
+        };
+        FieldDescriptor[] response = new FieldDescriptor[]{
+            fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("이미지 URL")
+        };
+        return document("group/updateImage",
+            requestParts(requestPart),
+            pathParameters(requestPathParams),
+            responseFields(response)
+        );
+    }
+
+    public static RestDocumentationResultHandler deleteImage() {
+        ParameterDescriptor[] requestPathParams = new ParameterDescriptor[]{
+            parameterWithName("groupId").description("모임 ID")
+        };
+
+        return document("group/deleteImage",
             pathParameters(requestPathParams)
         );
     }

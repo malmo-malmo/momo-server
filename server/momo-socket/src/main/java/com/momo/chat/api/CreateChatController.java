@@ -1,5 +1,6 @@
 package com.momo.chat.api;
 
+import com.momo.chat.domain.response.CreateChatResponse;
 import com.momo.chat.domain.service.CreateChatUseCase;
 import com.momo.common.auth.CurrentUser;
 import com.momo.user.domain.User;
@@ -18,9 +19,10 @@ public class CreateChatController {
     private final CreateChatUseCase service;
 
     @PostMapping("/api/chat/group/{groupId}")
-    public ResponseEntity<Void> create(@CurrentUser User user, @PathVariable Long groupId)
+    public ResponseEntity<CreateChatResponse> create(@CurrentUser User user, @PathVariable Long groupId)
         throws URISyntaxException {
         Long chatId = service.createChats(groupId, user);
-        return ResponseEntity.created(new URI("/api/chat/group/" + chatId)).build();
+        return ResponseEntity.created(new URI("/api/chat/group/" + chatId))
+            .body(CreateChatResponse.from(chatId));
     }
 }

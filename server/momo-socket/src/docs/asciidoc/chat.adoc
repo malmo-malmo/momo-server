@@ -4,7 +4,7 @@
 
 채팅방을 생성합니다.
 
-operation::chat/create[snippets='http-request,http-response,path-parameters']
+operation::chat/createChat[snippets='http-request,http-response,path-parameters']
 
 === 채팅방 목록 조회
 
